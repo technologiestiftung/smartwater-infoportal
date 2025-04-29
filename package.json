@@ -6,9 +6,11 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prepare": "husky"
 	},
 	"dependencies": {
+		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"next": "15.3.1",
 		"next-intl": "^4.1.0",
 		"react": "^19.0.0",
@@ -24,6 +26,7 @@
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "15.3.1",
+		"husky": "^9.1.7",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"tailwindcss": "^4",
