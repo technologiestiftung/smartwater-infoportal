@@ -1,0 +1,16 @@
+{
+	"common": {
+		"ok": "OK",
+		"cancel": "Abbrechen",
+		"yes": "Ja",
+		"no": "Nein",
+		"close": "Schließen",
+		"save": "Speichern",
+		"delete": "Löschen",
+		"edit": "Bearbeiten",
+		"add": "Hinzufügen",
+		"search": "Suchen",
+		"clear": "Löschen",
+		"select": "Auswählen"
+	}
+}
