@@ -3,6 +3,7 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import "berlin-ui-library/dist/style.css";
+import React from "react";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
