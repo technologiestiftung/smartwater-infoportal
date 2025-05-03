@@ -34,7 +34,8 @@
 			"how": {
 				"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
 				"description": "Die bei Hochwasser unter Wasser stehenden Flächen einschließlich der Wassertiefen werden durch Simulationen berechnet und in Form von Karten dargestellt. Dabei werden Regenereignisse verschiedener Intensitäten, Dauern und Verläufe berücksichtigt. Diese Szenarien können je nach zugrundeliegendem Ereignis einer bestimmten Eintrittswahrscheinlichkeit zugeordnet werden, z.B. alle 50 Jahre oder alle 100 Jahre.",
-				"note": "Wichtig ist, dass es sich um statistische Wahrscheinlichkeiten handelt, d.h. ein solches Ereignis kann auch häufiger oder seltener auftreten. Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden."
+				"note": "Wichtig ist, dass es sich um statistische Wahrscheinlichkeiten handelt, d.h. ein solches Ereignis kann auch häufiger oder seltener auftreten. ",
+				"note2": "Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden."
 			},
 			"distribution": {
 				"description": "Die Szenarien unterscheiden sich auch in der Niederschlagsverteilung, d.h. wie sich der Regen über einen bestimmten Zeitraum verteilt. Detaillierte Beschreibungen der Szenarien sowie die Karten finden Sie im Umweltatlas:",

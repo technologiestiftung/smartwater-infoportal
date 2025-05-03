@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import "berlin-ui-library/dist/assets/style.css";
 import React from "react";
+import LayoutClient from "./LayoutClient";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -19,8 +20,10 @@ export default async function RootLayout({
 
 	return (
 		<html lang={locale}>
-			<body className={`antialiased`}>
-				<NextIntlClientProvider>{children}</NextIntlClientProvider>
+			<body className={`min-h-screen antialiased`}>
+				<NextIntlClientProvider>
+					<LayoutClient>{children}</LayoutClient>
+				</NextIntlClientProvider>
 			</body>
 		</html>
 	);

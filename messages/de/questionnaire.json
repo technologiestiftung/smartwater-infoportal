@@ -1,6 +1,6 @@
 {
 	"questionnaire": {
-		"title": "WasserCheck",
+		"pageTitle": "WasserCheck",
 		"start": {
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
 			"description": "Der WasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
