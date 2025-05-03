@@ -1,93 +1,95 @@
 {
-	"pageTitle": "Handlungsempfehlungen",
-	"intro": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs 2). Schon mit einfachen Mitteln können Sie sich vor größeren Schäden schützen. Diese Sammlung an Handlungsempfehlungen soll Sie bei Ihrem persönlichen Hochwasserschutz unterstützen und ist Ihnen dabei behilflich.",
-	"timeline": {
-		"before": "Vorher",
-		"during": "Während",
-		"after": "Nachher"
-	},
-	"beforeEvent": {
-		"title": "Bevor Sie jemand anderes informiert",
-		"personalPreparedness": {
-			"title": "Persönliche Vorsorge",
-			"item1": "Informieren Sie sich über die aktuelle Hochwassergefahr und das Risiko an Ihrem Standort.",
-			"item2": "Prüfen Sie Ihren Versicherungsschutz und passen Sie diesen ggf. an.",
-			"item3": "Legen Sie sich einen Notvorrat an (Essen, Trinken, Medikamente, etc.).",
-			"item4": "Bereiten Sie wichtige Dokumente vor und bewahren Sie diese an einem sicheren Ort auf.",
-			"item5": "Planen Sie Fluchtwege und Treffpunkte für den Notfall.",
-			"item6": "Besorgen Sie sich ein batteriebetriebenes Radio und eine Taschenlampe."
+	"recommendations": {
+		"pageTitle": "Handlungsempfehlungen",
+		"intro": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs 2). Schon mit einfachen Mitteln können Sie sich vor größeren Schäden schützen. Diese Sammlung an Handlungsempfehlungen soll Sie bei Ihrem persönlichen Hochwasserschutz unterstützen und ist Ihnen dabei behilflich.",
+		"timeline": {
+			"before": "Vorher",
+			"during": "Während",
+			"after": "Nachher"
 		},
-		"inBuilding": {
-			"title": "Im Gebäude",
-			"item1": "Prüfen Sie, ob bauliche Maßnahmen zum Schutz Ihres Gebäudes sinnvoll sind (z.B. Rückstauklappen, wasserdichte Fenster/Türen).",
-			"item2": "Sichern Sie Heizöltanks gegen Aufschwimmen.",
-			"item3": "Lagern Sie gefährliche Stoffe und Chemikalien hochwassergeschützt.",
-			"item4": "Halten Sie Abflusswege frei (Dachrinnen, Gullys)."
+		"beforeEvent": {
+			"title": "Bevor Sie jemand anderes informiert",
+			"personalPreparedness": {
+				"title": "Persönliche Vorsorge",
+				"item1": "Informieren Sie sich über die aktuelle Hochwassergefahr und das Risiko an Ihrem Standort.",
+				"item2": "Prüfen Sie Ihren Versicherungsschutz und passen Sie diesen ggf. an.",
+				"item3": "Legen Sie sich einen Notvorrat an (Essen, Trinken, Medikamente, etc.).",
+				"item4": "Bereiten Sie wichtige Dokumente vor und bewahren Sie diese an einem sicheren Ort auf.",
+				"item5": "Planen Sie Fluchtwege und Treffpunkte für den Notfall.",
+				"item6": "Besorgen Sie sich ein batteriebetriebenes Radio und eine Taschenlampe."
+			},
+			"inBuilding": {
+				"title": "Im Gebäude",
+				"item1": "Prüfen Sie, ob bauliche Maßnahmen zum Schutz Ihres Gebäudes sinnvoll sind (z.B. Rückstauklappen, wasserdichte Fenster/Türen).",
+				"item2": "Sichern Sie Heizöltanks gegen Aufschwimmen.",
+				"item3": "Lagern Sie gefährliche Stoffe und Chemikalien hochwassergeschützt.",
+				"item4": "Halten Sie Abflusswege frei (Dachrinnen, Gullys)."
+			},
+			"heavyRain": {
+				"title": "Starkregen",
+				"item1": "Prüfen Sie, ob Ihr Grundstück anfällig für Wasseransammlungen ist.",
+				"item2": "Sorgen Sie für Versickerungsmöglichkeiten auf Ihrem Grundstück (Entsiegelung)."
+			},
+			"fluvialFlood": {
+				"title": "Flusshochwasser",
+				"item1": "Informieren Sie sich über die Hochwasserwarnungen der zuständigen Behörden.",
+				"item2": "Bringen Sie mobile Hochwasserschutzsysteme an (falls vorhanden)."
+			}
 		},
-		"heavyRain": {
-			"title": "Starkregen",
-			"item1": "Prüfen Sie, ob Ihr Grundstück anfällig für Wasseransammlungen ist.",
-			"item2": "Sorgen Sie für Versickerungsmöglichkeiten auf Ihrem Grundstück (Entsiegelung)."
+		"duringEvent": {
+			"title": "Wenn das Ereignis eintritt",
+			"personalPreparedness": {
+				"title": "Persönliche Vorsorge",
+				"item1": "Verfolgen Sie die aktuellen Wettermeldungen und Warnungen.",
+				"item2": "Informieren Sie Ihre Nachbarn und helfen Sie hilfsbedürftigen Personen.",
+				"item3": "Bringen Sie sich und andere Personen nicht unnötig in Gefahr.",
+				"item4": "Folgen Sie den Anweisungen der Einsatzkräfte.",
+				"item5": "Bereiten Sie Ihren Notfallplan um.",
+				"item6": "Nutzen Sie Ihr batteriebetriebenes Radio für Informationen."
+			},
+			"inBuilding": {
+				"title": "Im Gebäude",
+				"item1": "Schalten Sie rechtzeitig Strom, Gas und wenn möglich Heizung ab.",
+				"item2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen.",
+				"item3": "Betreten Sie keine überfluteten Räume.",
+				"item4": "Versuchen Sie nicht, Gegenstände oder Fahrzeuge in letzter Minute zu retten.",
+				"item5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser."
+			},
+			"traffic": {
+				"title": "Verkehr",
+				"item1": "Betreten Sie keine überschwemmten Gebiete.",
+				"item2": "Suchen Sie höher gelegene Orte auf.",
+				"item3": "Sprechen Sie mit Familienmitgliedern über den Nachhauseweg.",
+				"item4": "Vermeiden Sie direkten Kontakt mit Hochwasser.",
+				"item5": "Halten Sie Rettungs- und Fluchtwege frei."
+			}
 		},
-		"fluvialFlood": {
-			"title": "Flusshochwasser",
-			"item1": "Informieren Sie sich über die Hochwasserwarnungen der zuständigen Behörden.",
-			"item2": "Bringen Sie mobile Hochwasserschutzsysteme an (falls vorhanden)."
-		}
-	},
-	"duringEvent": {
-		"title": "Wenn das Ereignis eintritt",
-		"personalPreparedness": {
-			"title": "Persönliche Vorsorge",
-			"item1": "Verfolgen Sie die aktuellen Wettermeldungen und Warnungen.",
-			"item2": "Informieren Sie Ihre Nachbarn und helfen Sie hilfsbedürftigen Personen.",
-			"item3": "Bringen Sie sich und andere Personen nicht unnötig in Gefahr.",
-			"item4": "Folgen Sie den Anweisungen der Einsatzkräfte.",
-			"item5": "Bereiten Sie Ihren Notfallplan um.",
-			"item6": "Nutzen Sie Ihr batteriebetriebenes Radio für Informationen."
-		},
-		"inBuilding": {
-			"title": "Im Gebäude",
-			"item1": "Schalten Sie rechtzeitig Strom, Gas und wenn möglich Heizung ab.",
-			"item2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen.",
-			"item3": "Betreten Sie keine überfluteten Räume.",
-			"item4": "Versuchen Sie nicht, Gegenstände oder Fahrzeuge in letzter Minute zu retten.",
-			"item5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser."
-		},
-		"traffic": {
-			"title": "Verkehr",
-			"item1": "Betreten Sie keine überschwemmten Gebiete.",
-			"item2": "Suchen Sie höher gelegene Orte auf.",
-			"item3": "Sprechen Sie mit Familienmitgliedern über den Nachhauseweg.",
-			"item4": "Vermeiden Sie direkten Kontakt mit Hochwasser.",
-			"item5": "Halten Sie Rettungs- und Fluchtwege frei."
-		}
-	},
-	"afterEvent": {
-		"title": "Wenn das Ereignis vorbei ist",
-		"personalPreparedness": {
-			"title": "Persönliche Vorsorge",
-			"item1": "Betreten Sie das Gebäude erst nach Freigabe durch Fachleute.",
-			"item2": "Achten Sie auf mögliche Einsturzgefahren.",
-			"item3": "Dokumentieren Sie die Schäden für die Versicherung.",
-			"item4": "Lassen Sie die Funktionsfähigkeit von elektrischen Anlagen prüfen.",
-			"item5": "Trinken Sie kein Leitungswasser, bis es offiziell freigegeben ist."
-		},
-		"inBuilding": {
-			"title": "Im Gebäude",
-			"item1": "Lüften und trocknen Sie das Gebäude gründlich.",
-			"item2": "Entfernen Sie Schlamm und Unrat.",
-			"item3": "Überprüfen Sie Heizöltanks auf Dichtheit.",
-			"item4": "Lassen Sie Schäden an der Bausubstanz von Fachleuten prüfen.",
-			"item5": "Entsorgen Sie kontaminierte Lebensmittel und Gegenstände."
-		},
-		"heavyRain": {
-			"title": "Starkregen",
-			"item1": "Überprüfen Sie Abflusssysteme auf Verstopfungen."
-		},
-		"fluvialFlood": {
-			"title": "Flusshochwasser",
-			"item1": "Achten Sie auf mögliche Uferabbrüche und Unterspülungen."
+		"afterEvent": {
+			"title": "Wenn das Ereignis vorbei ist",
+			"personalPreparedness": {
+				"title": "Persönliche Vorsorge",
+				"item1": "Betreten Sie das Gebäude erst nach Freigabe durch Fachleute.",
+				"item2": "Achten Sie auf mögliche Einsturzgefahren.",
+				"item3": "Dokumentieren Sie die Schäden für die Versicherung.",
+				"item4": "Lassen Sie die Funktionsfähigkeit von elektrischen Anlagen prüfen.",
+				"item5": "Trinken Sie kein Leitungswasser, bis es offiziell freigegeben ist."
+			},
+			"inBuilding": {
+				"title": "Im Gebäude",
+				"item1": "Lüften und trocknen Sie das Gebäude gründlich.",
+				"item2": "Entfernen Sie Schlamm und Unrat.",
+				"item3": "Überprüfen Sie Heizöltanks auf Dichtheit.",
+				"item4": "Lassen Sie Schäden an der Bausubstanz von Fachleuten prüfen.",
+				"item5": "Entsorgen Sie kontaminierte Lebensmittel und Gegenstände."
+			},
+			"heavyRain": {
+				"title": "Starkregen",
+				"item1": "Überprüfen Sie Abflusssysteme auf Verstopfungen."
+			},
+			"fluvialFlood": {
+				"title": "Flusshochwasser",
+				"item1": "Achten Sie auf mögliche Uferabbrüche und Unterspülungen."
+			}
 		}
 	}
 }
