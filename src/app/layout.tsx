@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import "berlin-ui-library/dist/style.css";
+import "berlin-ui-library/dist/assets/style.css";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -20,7 +20,6 @@ export default async function RootLayout({
 	return (
 		<html lang={locale}>
 			<body className={`antialiased`}>
-				{" "}
 				<NextIntlClientProvider>{children}</NextIntlClientProvider>
 			</body>
 		</html>
