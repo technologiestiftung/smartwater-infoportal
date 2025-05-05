@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 export default function Questionnaire() {
-	const t = useTranslations("questionnaire");
+	const t = useTranslations();
 	const [currentStep, setCurrentStep] = useState(0);
 	const methods = useForm({
 		defaultValues: {
@@ -18,11 +18,11 @@ export default function Questionnaire() {
 	});
 	const properties: FormProperty[] = [
 		{
-			id: "addresse",
-			name: "Addresse",
+			id: "address",
+			name: t("home.addressCheck.label"),
 			type: "text",
-			description: "Enter your full addresse",
-			placeholder: "John Doe",
+			description: t("home.addressCheck.description"),
+			placeholder: "Landstraße 1, 12345 Berlin",
 			isRequired: true,
 		},
 		{
@@ -75,13 +75,16 @@ export default function Questionnaire() {
 		<div className="flex w-full flex-col justify-start gap-6">
 			<Link href="/">
 				<Button variant="back-link" className="self-start">
-					Zurück zur Startseite
+					{t("common.backToStart")}
 				</Button>
 			</Link>
 			<div className="flex w-full flex-col gap-6">
-				<h1 className="">{t("pageTitle")}</h1>
+				<h1 className=""></h1>
 				<h2>
-					Frage {currentStep + 1} von {properties.length}
+					{t("questionnaire.questionLabel", {
+						current: currentStep + 1,
+						total: properties.length,
+					})}{" "}
 				</h2>
 				<FormWrapper>
 					<Form {...methods}>
@@ -94,7 +97,7 @@ export default function Questionnaire() {
 								/>
 							)}
 
-							<div className="mt-4 flex items-center justify-between">
+							<div className="mt-4 flex w-full flex-col space-y-4">
 								{currentStep > 0 && (
 									<Button
 										variant="back-link"
@@ -102,15 +105,15 @@ export default function Questionnaire() {
 										onClick={handleBack}
 										type="button"
 									>
-										Zurück
+										{t("questionnaire.navigation.backToIntermediate")}
 									</Button>
 								)}
 								{currentStep === 0 && <div />}
 
 								<Button onClick={handleNext} type="button">
 									{currentStep === properties.length - 1
-										? "HochwasserCheck jetzt starten!"
-										: "Weiter"}
+										? t("questionnaire.navigation.submit")
+										: t("questionnaire.navigation.next")}
 								</Button>
 							</div>
 						</div>

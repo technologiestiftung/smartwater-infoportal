@@ -29,9 +29,9 @@
 				},
 				"hazardScale": {
 					"low": "Gering",
-					"medium": "Mittel",
+					"moderate": "Mittel",
 					"high": "Hoch",
-					"veryHigh": "Sehr Hoch"
+					"severe": "Sehr Hoch"
 				}
 			}
 		},
@@ -57,7 +57,7 @@
 			"description": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet.",
 			"buildingRisk": {
 				"title": "Individuelles Gebäuderisiko",
-				"levelMedium": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich.",
+				"levelModerate": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich.",
 				"factors": {
 					"basement": "Untergeschoss",
 					"basementWindow": "Kellerfenster",

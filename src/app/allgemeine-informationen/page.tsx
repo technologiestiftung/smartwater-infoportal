@@ -10,12 +10,13 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 export default function GeneralInformation() {
 	const t = useTranslations("generalInfo");
+	const ct = useTranslations("common");
 
 	return (
 		<div className="flex flex-col justify-start gap-6">
 			<Link href="/">
 				<Button variant="back-link" className="self-start">
-					Zurück zur Startseite
+					{ct("backToStart")}
 				</Button>
 			</Link>
 			<div className="Intro flex flex-col gap-6">

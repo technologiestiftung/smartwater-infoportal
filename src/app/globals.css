@@ -18,6 +18,10 @@
 	--color-panel-light: var(--panel-light);
 	--color-panel-dark: var(--panel-dark);
 	--color-panel-colored: var(--panel-colored);
+	--color-hazard-low: var(--hazard-low);
+	--color-hazard-moderate: var(--hazard-moderate);
+	--color-hazard-high: var(--hazard-high);
+	--color-hazard-severe: var(--hazard-severe);
 	--color-message-default: var(--message-default);
 	--color-message-success: var(--message-success);
 	--color-message-info: var(--message-info);
@@ -40,6 +44,10 @@
 	--text-link: #0047d3;
 	--text-error: #9b0000;
 	--text-lightest: #454545;
+	--hazard-low: #f8dcd9;
+	--hazard-moderate: #e198b5;
+	--hazard-high: #aa5fa5;
+	--hazard-severe: #5b3794;
 	--panel-heavy: #f5f5f5;
 	--panel-light: #ffffff;
 	--panel-dark: #000000;

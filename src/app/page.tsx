@@ -89,7 +89,7 @@ export default function Home() {
 				<h2 className="">{t("backgroundInfo.title")}</h2>
 				<p className="">{t("backgroundInfo.questions")}</p>
 				<div className="Image h-[385px] w-full bg-gray-200"></div>
-				<Link href="/general-information">
+				<Link href="/allgemeine-informationen">
 					<Button className="w-1/3">{t("backgroundInfo.button")}</Button>
 				</Link>
 			</div>

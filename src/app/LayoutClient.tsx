@@ -19,7 +19,7 @@ export default function LayoutClient({
 }) {
 	return (
 		<>
-			<Header />
+			<Header showLanguageSelect={false} />
 			<div className="flex flex-grow justify-center">
 				<main className="container flex flex-grow flex-col items-start gap-6 p-4 text-left">
 					{children}

@@ -14,7 +14,7 @@
 		},
 		"addressCheck": {
 			"label": "Adresse",
-			"placeholder": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten.",
+			"description": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten.",
 			"button": "HochwasserCheck jetzt starten!"
 		},
 		"howToProtect": {

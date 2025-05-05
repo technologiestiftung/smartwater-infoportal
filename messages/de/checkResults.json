@@ -10,29 +10,33 @@
 		},
 		"fluvialFlood": {
 			"title": "Flusshochwasser",
-			"descriptionLow": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
-			"descriptionHigh": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
+			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
+			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
+			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
+			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"floodAreaLabel": "Überschwemmungsgebiet",
+			"subLabel": "Überschwemmungsgebiet",
 			"yes": "ja",
 			"no": "nein"
 		},
 		"heavyRain": {
 			"title": "Starkregen",
-			"descriptionLow": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
-			"descriptionHigh": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
+			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
+			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
+			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
+			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"flowVelocityLabel": "Fließgeschwindigkeit"
+			"subLabel": "Fließgeschwindigkeit"
 		},
 		"hazardScale": {
 			"low": "Gering",
-			"medium": "Mittel",
+			"moderate": "Mittel",
 			"high": "Hoch",
-			"veryHigh": "Sehr Hoch"
+			"severe": "Sehr Hoch"
 		},
 		"hint": {
 			"title": "Hinweis",
-			"text": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen."
+			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen."
 		},
 		"checkBuildingRiskButton": "Nun Gebäuderisiko prüfen",
 		"dataSourceInfo": "Die Ermittlung der Hochwassergefährdung basiert auf den vorhandenen Ressourcen, u.a.: Starkregenhinweiskarte (SRHK), Starkregengefahrenkarte (SRGK), Hochwassergefahrenkarte (HWGK), Hochwasserrisikokarte (HWRK), Überschwemmungsgebiet (ÜSG) und der Gewässerkarte.",
