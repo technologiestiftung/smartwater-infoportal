@@ -20,7 +20,7 @@ export default async function RootLayout({
 
 	return (
 		<html lang={locale}>
-			<body className={`min-h-screen antialiased`}>
+			<body className={`antialiased`}>
 				<NextIntlClientProvider>
 					<LayoutClient>{children}</LayoutClient>
 				</NextIntlClientProvider>

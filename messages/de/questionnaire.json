@@ -10,7 +10,7 @@
 		"navigation": {
 			"next": "Nächste Frage",
 			"submit": "Zur Auswertung",
-			"backToIntermediate": "Zurück zum Zwischenergebnis"
+			"back": "Zurück zum Zwischenergebnis"
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
@@ -19,7 +19,8 @@
 				"options": {
 					"yesWithWindow": "Ja, es gibt auch Fenster",
 					"yesWithoutWindow": "Ja, es gibt aber kein Fenster",
-					"no": "Nein"
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
 				}
 			},
 			"q2": {
@@ -29,7 +30,8 @@
 					"utility": "Als Technikraum für Elektrik, Wärmepumpe, etc.",
 					"storageLowValue": "Als Lagerraum für Sachen, die nicht viel wert sind",
 					"storageHighValue": "Als Lagerraum mit wertvollen Sachen",
-					"none": "Es gibt kein Untergeschoss."
+					"none": "Es gibt kein Untergeschoss.",
+					"noInformation": "Keine Angabe"
 				}
 			},
 			"q3": {
@@ -38,7 +40,8 @@
 					"one": "Ja, bei einem Ereignis",
 					"two": "Ja, bei zwei Ereignissen",
 					"threeOrMore": "Ja, bei drei oder mehr Ereignissen",
-					"no": "Nein"
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
 				}
 			},
 			"q4": {
@@ -46,7 +49,8 @@
 				"options": {
 					"yesGood": "Ja, in gutem Zustand (gewartet entsprechend der Herstellerangaben)",
 					"yesUnknown": "Ja, in unbekanntem Zustand",
-					"no": "Nein"
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
 				},
 				"infoTitle": "Rückstauklappen",
 				"infoText": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
@@ -56,7 +60,8 @@
 				"options": {
 					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
 					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
-					"unknown": "In unbekanntem Zustand"
+					"unknown": "In unbekanntem Zustand",
+					"noInformation": "Keine Angabe"
 				},
 				"infoText": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
 			},
@@ -65,7 +70,8 @@
 				"options": {
 					"one": "Ja, eine Maßnahme",
 					"twoOrMore": "Ja, zwei oder mehr Maßnahmen",
-					"no": "Nein"
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
 				}
 			}
 		},

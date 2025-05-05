@@ -18,7 +18,7 @@ export default function LayoutClient({
 	children: React.ReactNode;
 }) {
 	return (
-		<>
+		<div className="flex min-h-screen flex-col">
 			<Header showLanguageSelect={false} />
 			<div className="flex flex-grow justify-center">
 				<main className="container flex flex-grow flex-col items-start gap-6 p-4 text-left">
@@ -118,6 +118,6 @@ export default function LayoutClient({
 					},
 				}}
 			/>
-		</>
+		</div>
 	);
 }

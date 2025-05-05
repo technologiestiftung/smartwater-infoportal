@@ -7,32 +7,48 @@ import Link from "next/link";
 export type HazardLevel = "low" | "moderate" | "high" | "severe";
 
 interface InterimResultsProps {
-	harzardLevel: HazardLevel;
-	showHint?: boolean;
+	entities: { name: string; hazardLevel: HazardLevel }[];
 }
 
 const InterimResults: React.FC<InterimResultsProps> = ({
-	showHint = true,
+	entities,
 }: InterimResultsProps) => {
 	const t = useTranslations("checkResults");
+
+	// Check if all hazard levels are "low"
+	const showHint =
+		entities.length > 0 &&
+		entities.every((entity) => entity.hazardLevel === "low");
+
 	return (
-		<div className="flex flex-col gap-6">
-			<h2>{t("hazardSummary.low")}</h2>
-			<div className="flex flex-col gap-4">
-				{/* Content goes here */}
-				<ResultBlock entity="fluvialFlood" harzardLevel="low" />
-				<ResultBlock entity="heavyRain" harzardLevel="moderate" />
+		<>
+			<div className="flex flex-col gap-6">
+				<h2>{t("hazardSummary.low")}</h2>
+				<div className="flex flex-col gap-4">
+					{/* Content goes here */}
+					{entities.map((entity) => (
+						<ResultBlock
+							key={entity.name}
+							entity={entity.name}
+							harzardLevel={entity.hazardLevel}
+						/>
+					))}
+				</div>
+				{showHint && (
+					<>
+						<h4 className="">{t("hint.title")}</h4>
+						<p className="">{t("hint.description")}</p>
+					</>
+				)}
+				<Link href="/wasser-check#analysis">
+					<Button>{t("checkBuildingRiskButton")}</Button>
+				</Link>
 			</div>
-			{showHint && (
-				<>
-					<h4 className="">{t("hint.title")}</h4>
-					<p className="">{t("hint.description")}</p>
-				</>
-			)}
-			<Link href="/wasser-check">
-				<Button>{t("checkBuildingRiskButton")}</Button>
-			</Link>
-		</div>
+			<div className="flex w-full flex-col gap-6">
+				<p className="">{t("dataSourceInfo")}</p>
+				<p className="">{t("eventRarityInfo")}</p>
+			</div>
+		</>
 	);
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default async function CheckResultsLayout({
+export default async function RecommendationsLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
