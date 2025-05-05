@@ -25,6 +25,11 @@
 			"recommendations": {
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
 				"button": "Übersicht Handlungsempfehlungen"
+			},
+			"image": {
+				"alt": "HochwasserCheck",
+				"caption": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+				"copyright": "© Lorem ipsum dolor sit amet."
 			}
 		},
 		"floodRadar": {

@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { HazardLevel } from "./InterimResults";
+import Image from "next/image";
 
 interface ResultBlockProps {
 	entity: string;
@@ -43,8 +44,15 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 				<div className="my-4 grid grid-cols-4 gap-0">
 					{Object.keys(hazardColorMap).map((level) => (
 						<div key={level} className="flex w-full flex-col items-center">
-							<div className="h-6 w-full text-center">
-								{harzardLevel === level && <div>Ar</div>}
+							<div className="flex h-10 w-full items-center justify-center text-center">
+								{harzardLevel === level && (
+									<Image
+										src="/arrow_down.svg"
+										alt="Arrow Down"
+										width={24}
+										height={24}
+									/>
+								)}
 							</div>
 							<div
 								className={`h-3 w-full ${hazardColorMap[level as HazardLevel].bg}`}

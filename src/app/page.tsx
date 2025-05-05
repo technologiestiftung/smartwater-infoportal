@@ -1,5 +1,11 @@
 "use client";
-import { Button, Form, FormFieldWrapper, FormWrapper } from "berlin-ui-library";
+import {
+	Button,
+	Form,
+	FormFieldWrapper,
+	FormWrapper,
+	ImageComponent,
+} from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -55,43 +61,72 @@ export default function Home() {
 				</FormWrapper>
 			</div>
 			<div className="Handlungsempfehlungen flex w-full flex-col gap-6 md:flex-row">
-				<div className="flex w-full flex-col gap-6 md:order-1">
+				<div className="flex w-full flex-col gap-8 md:order-1 md:gap-10">
 					<h2 className="">{t("howToProtect.title")}</h2>
 					<p className="">{t("howToProtect.ownerInfo")}</p>
 					<p className="">{t("howToProtect.tenantInfo")}</p>
 					<p className="">{t("howToProtect.generalRule")}</p>
 					<div className="hidden w-full flex-col gap-6 md:flex">
 						<p className="">{t("howToProtect.recommendations.info")}</p>
+						<Link href="/handlungsempfehlungen">
+							{" "}
+							<Button className="w-full">
+								{t("howToProtect.recommendations.button")}
+							</Button>
+						</Link>
+					</div>
+				</div>
+				<ImageComponent
+					src="/imagery.png"
+					alt={t("howToProtect.image.alt")}
+					className="w-full"
+					caption={t("howToProtect.image.caption")}
+					copyright={t("howToProtect.image.copyright")}
+				/>
+				<div className="flex w-full flex-col gap-6 md:hidden">
+					<p className="">{t("howToProtect.recommendations.info")}</p>
+					<Link href="/handlungsempfehlungen">
 						<Button className="w-full">
 							{t("howToProtect.recommendations.button")}
 						</Button>
-					</div>
-				</div>
-				<div className="Image md:order-0 md:order-0 h-[385px] w-full bg-gray-200"></div>
-				<div className="flex w-full flex-col gap-6 md:hidden">
-					<p className="">{t("howToProtect.recommendations.info")}</p>
-					<Button className="w-full">
-						{t("howToProtect.recommendations.button")}
-					</Button>
+					</Link>
 				</div>
 			</div>
 			<div className="divider" />
-			<div className="Warnungen flex flex-col gap-6">
-				<h2 className="">{t("floodRadar.title")}</h2>
-				<h3 className="">{t("floodRadar.subtitle")}</h3>
-				<div className="Widget bg-message-success flex h-[116px] w-full flex-wrap items-center justify-center">
+			<div className="Warnungen flex flex-col gap-6 md:flex-row">
+				<div className="order-2 flex flex-col gap-6 md:order-1">
+					<h2 className="">{t("floodRadar.title")}</h2>
+					<h3 className="">{t("floodRadar.subtitle")}</h3>
+					<p className="hidden md:block">{t("floodRadar.description")}</p>
+				</div>
+				<div className="Widget bg-message-success order-4 m-2 flex h-96 w-full flex-wrap items-center justify-center md:order-2 md:h-full">
 					<span> {t("floodRadar.currentStatus.noWarnings")}</span>
 				</div>
-				<p className="">{t("floodRadar.description")}</p>
+				<p className="block md:hidden">{t("floodRadar.description")}</p>
 			</div>
 			<div className="divider" />
-			<div className="Handlungsempfehlungen flex w-full flex-col gap-6">
-				<h2 className="">{t("backgroundInfo.title")}</h2>
-				<p className="">{t("backgroundInfo.questions")}</p>
-				<div className="Image h-[385px] w-full bg-gray-200"></div>
-				<Link href="/allgemeine-informationen">
-					<Button className="w-1/3">{t("backgroundInfo.button")}</Button>
-				</Link>
+			<div className="Handlungsempfehlungen flex w-full flex-col gap-6 md:flex-row">
+				<div className="order-1 flex flex-col gap-8 md:order-2">
+					<h2 className="">{t("backgroundInfo.title")}</h2>
+					<p className="">{t("backgroundInfo.questions")}</p>
+					<div className="hidden w-full flex-col gap-6 md:flex">
+						<Link href="/allgemeine-informationen">
+							<Button className="">{t("backgroundInfo.button")}</Button>
+						</Link>
+					</div>
+				</div>
+				<ImageComponent
+					src="/imagery.png"
+					alt={t("howToProtect.image.alt")}
+					className="w-full md:order-1"
+					caption={t("howToProtect.image.caption")}
+					copyright={t("howToProtect.image.copyright")}
+				/>
+				<div className="flex w-full flex-col gap-6 md:hidden">
+					<Link href="/allgemeine-informationen">
+						<Button className="">{t("backgroundInfo.button")}</Button>
+					</Link>
+				</div>
 			</div>
 		</>
 	);

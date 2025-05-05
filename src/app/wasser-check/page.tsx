@@ -82,7 +82,11 @@ export default function Questionnaire() {
 									/>
 
 									<div className="mt-4 flex w-full flex-col space-y-4">
-										<Button onClick={quickCheck} type="button">
+										<Button
+											onClick={quickCheck}
+											type="button"
+											className="item text-left"
+										>
 											{t("common.confirm")}
 										</Button>
 									</div>

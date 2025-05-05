@@ -227,7 +227,11 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 								)}
 								{currentStep === 0 && <div />}
 
-								<Button onClick={handleNext} type="button">
+								<Button
+									onClick={handleNext}
+									type="button"
+									className="text-left"
+								>
 									{currentStep === properties.length - 1
 										? t("questionnaire.navigation.submit")
 										: t("questionnaire.navigation.next")}

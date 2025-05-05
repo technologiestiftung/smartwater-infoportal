@@ -21,7 +21,7 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 		entities.every((entity) => entity.hazardLevel === "low");
 
 	return (
-		<>
+		<div className="flex w-full flex-col gap-12">
 			<div className="flex flex-col gap-6">
 				<h2>{t("hazardSummary.low")}</h2>
 				<div className="flex flex-col gap-4">
@@ -48,7 +48,7 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 				<p className="">{t("dataSourceInfo")}</p>
 				<p className="">{t("eventRarityInfo")}</p>
 			</div>
-		</>
+		</div>
 	);
 };
 
