@@ -8,10 +8,8 @@ import { useState } from "react";
 export default function CheckResults() {
 	const t = useTranslations();
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [harzardLevel, setHazardLevel] = useState("low");
-	const handleNext = async () => {};
-
-	const handleBack = () => {};
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6">

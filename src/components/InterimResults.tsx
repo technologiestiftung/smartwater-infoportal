@@ -8,13 +8,10 @@ export type HazardLevel = "low" | "moderate" | "high" | "severe";
 
 interface InterimResultsProps {
 	harzardLevel: HazardLevel;
-	subtitle: string;
 	showHint?: boolean;
 }
 
 const InterimResults: React.FC<InterimResultsProps> = ({
-	harzardLevel,
-	subtitle,
 	showHint = true,
 }: InterimResultsProps) => {
 	const t = useTranslations("checkResults");
