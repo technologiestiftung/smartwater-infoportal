@@ -10,14 +10,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-export default function Questionnaire() {
+export default function FloodCheck() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
 
 	const entities = [
 		{ name: "fluvialFlood", hazardLevel: "low" as HazardLevel },
-		{ name: "heavyRain", hazardLevel: "moderate" as HazardLevel },
+		{ name: "heavyRain", hazardLevel: "high" as HazardLevel },
 	];
 	const methods = useForm({
 		defaultValues: {
@@ -37,7 +37,7 @@ export default function Questionnaire() {
 		router.push("/wasser-check#interimResult");
 	};
 	const submit = async () => {
-		router.push("/wasser-check#evaluation");
+		router.push("/wasser-check#floodCheck");
 	};
 
 	return (
@@ -50,7 +50,10 @@ export default function Questionnaire() {
 						</Button>
 					</Link>
 					<div className="flex w-full flex-col gap-2">
-						<h1 className="">{t("checkResults.pageTitle")}</h1>
+						<div className="flex items-center space-x-2">
+							<h1 className="">{t("floodCheck.pageTitle")}</h1>
+							<h1 className="">{t("floodCheck.interimResults.title")}</h1>
+						</div>
 						<InterimResults entities={entities} />
 					</div>
 				</>
@@ -58,20 +61,23 @@ export default function Questionnaire() {
 				<>
 					<Link href="/wasser-check#interimResult">
 						<Button variant="back-link" className="self-start">
-							{t("questionnaire.navigation.back")}
+							{t("floodCheck.navigation.back")}
 						</Button>
 					</Link>
 					<div className="flex w-full flex-col gap-4">
-						<h1 className="">{t("questionnaire.pageTitle")}</h1>
+						<div className="flex items-center space-x-2">
+							<h1 className="">{t("floodCheck.pageTitle")}</h1>
+							<h1 className="">{t("floodCheck.results.title")}</h1>
+						</div>
 						<RiskAnalysis onSubmit={submit} />
 					</div>
 				</>
 			) : (
 				<>
 					<div className="flex w-full flex-col gap-4">
-						<h1 className="">{t("questionnaire.pageTitle")}</h1>
-						<h2 className="">{t("questionnaire.start.title")}</h2>
-						<p className="">{t("questionnaire.start.description")}</p>
+						<h1 className="">{t("floodCheck.pageTitle")}</h1>
+						<h2 className="">{t("floodCheck.start.title")}</h2>
+						<p className="">{t("floodCheck.start.description")}</p>
 						<FormWrapper>
 							<Form {...methods}>
 								<div className="flex w-full flex-col gap-8">

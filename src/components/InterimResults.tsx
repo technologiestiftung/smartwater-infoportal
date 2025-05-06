@@ -13,7 +13,7 @@ interface InterimResultsProps {
 const InterimResults: React.FC<InterimResultsProps> = ({
 	entities,
 }: InterimResultsProps) => {
-	const t = useTranslations("checkResults");
+	const t = useTranslations("floodCheck");
 
 	// Check if all hazard levels are "low"
 	const showHint =
@@ -24,7 +24,7 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 		<div className="flex w-full flex-col gap-12">
 			<div className="flex flex-col gap-6">
 				<h2>{t("hazardSummary.low")}</h2>
-				<div className="flex flex-col gap-4">
+				<div className="grid gap-4 md:grid-cols-2">
 					{/* Content goes here */}
 					{entities.map((entity) => (
 						<ResultBlock

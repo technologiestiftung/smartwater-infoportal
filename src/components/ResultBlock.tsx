@@ -31,7 +31,7 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 	entity,
 	harzardLevel,
 }: ResultBlockProps) => {
-	const t = useTranslations("checkResults");
+	const t = useTranslations("floodCheck");
 	return (
 		<div
 			className={`Result-block ${hazardColorMap[harzardLevel].border} border-12`}

@@ -2,13 +2,13 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
 	currentUserAddress: null,
-	currentEvaluationState: null,
+	currentfloodCheckState: null,
 	setCurrentUserAddress: (address: string) =>
 		set({ currentUserAddress: address }),
 	resetCurrentUserAddress: () => set({ currentUserAddress: null }),
-	setCurrentEvaluationState: (state: string) =>
-		set({ currentEvaluationState: state }),
-	resetCurrentEvaluationState: () => set({ currentEvaluationState: null }),
+	setCurrentfloodCheckState: (state: string) =>
+		set({ currentfloodCheckState: state }),
+	resetCurrentfloodCheckState: () => set({ currentfloodCheckState: null }),
 }));
 
 export default useStore;

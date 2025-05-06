@@ -8,11 +8,12 @@ import {
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function Home() {
 	const t = useTranslations("home");
+	const router = useRouter();
 	const methods = useForm({
 		defaultValues: {
 			addresse: "",
@@ -34,18 +35,19 @@ export default function Home() {
 	};
 
 	return (
-		<>
-			<h1 className="">{t("pageTitle")}</h1>
-			<div className="Intro flex flex-col gap-6">
+		<div className="flex w-full flex-col gap-12">
+			<section className="Intro flex flex-col gap-6">
+				<h1 className="">{t("pageTitle")}</h1>
+
 				<h2 className="">{t("whatIsIt.title")}</h2>
 				<p className="">
 					{t("whatIsIt.quote")} <br />
 					{t("whatIsIt.description1")}
 				</p>
 				<p className="">{t("whatIsIt.description2")}</p>
-			</div>
+			</section>
 			<div className="divider" />
-			<div className="HochwasserCheck flex flex-col gap-6">
+			<section className="HochwasserCheck-root flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
@@ -53,14 +55,19 @@ export default function Home() {
 					<Form {...methods}>
 						<form className="flex flex-col gap-8" onSubmit={handleSubmit()}>
 							<FormFieldWrapper formProperty={property} form={methods} />
-							<Link href="/wasser-check">
-								<Button type="submit">HochwasserCheck jetzt starten!</Button>
-							</Link>
+							<Button
+								onClick={() => {
+									router.push("/wasser-check");
+								}}
+								type="submit"
+							>
+								{t("addressCheck.button")}
+							</Button>
 						</form>
 					</Form>
 				</FormWrapper>
-			</div>
-			<div className="Handlungsempfehlungen flex w-full flex-col gap-6 md:flex-row">
+			</section>
+			<section className="Handlungsempfehlungen grid w-full gap-6 md:grid-cols-2">
 				<div className="flex w-full flex-col gap-8 md:order-1 md:gap-10">
 					<h2 className="">{t("howToProtect.title")}</h2>
 					<p className="">{t("howToProtect.ownerInfo")}</p>
@@ -68,12 +75,14 @@ export default function Home() {
 					<p className="">{t("howToProtect.generalRule")}</p>
 					<div className="hidden w-full flex-col gap-6 md:flex">
 						<p className="">{t("howToProtect.recommendations.info")}</p>
-						<Link href="/handlungsempfehlungen">
-							{" "}
-							<Button className="w-full">
-								{t("howToProtect.recommendations.button")}
-							</Button>
-						</Link>
+						<Button
+							className="w-full"
+							onClick={() => {
+								router.push("/handlungsempfehlungen");
+							}}
+						>
+							{t("howToProtect.recommendations.button")}
+						</Button>
 					</div>
 				</div>
 				<ImageComponent
@@ -85,49 +94,62 @@ export default function Home() {
 				/>
 				<div className="flex w-full flex-col gap-6 md:hidden">
 					<p className="">{t("howToProtect.recommendations.info")}</p>
-					<Link href="/handlungsempfehlungen">
-						<Button className="w-full">
-							{t("howToProtect.recommendations.button")}
-						</Button>
-					</Link>
+					<Button
+						onClick={() => {
+							router.push("/handlungsempfehlungen");
+						}}
+					>
+						{t("howToProtect.recommendations.button")}
+					</Button>
 				</div>
-			</div>
+			</section>
 			<div className="divider" />
-			<div className="Warnungen flex flex-col gap-6 md:flex-row">
-				<div className="order-2 flex flex-col gap-6 md:order-1">
+			<section className="grid gap-6 md:grid-cols-3">
+				<div className="order-1 flex flex-col gap-6 md:order-1 md:col-span-2">
 					<h2 className="">{t("floodRadar.title")}</h2>
 					<h3 className="">{t("floodRadar.subtitle")}</h3>
 					<p className="hidden md:block">{t("floodRadar.description")}</p>
 				</div>
-				<div className="Widget bg-message-success order-4 m-2 flex h-96 w-full flex-wrap items-center justify-center md:order-2 md:h-full">
+				<div className="Widget bg-message-success order-2 m-2 flex h-96 w-full flex-wrap items-center justify-center md:order-2 md:h-full">
 					<span> {t("floodRadar.currentStatus.noWarnings")}</span>
 				</div>
-				<p className="block md:hidden">{t("floodRadar.description")}</p>
-			</div>
+				<p className="order-3 block md:hidden">{t("floodRadar.description")}</p>
+			</section>
 			<div className="divider" />
-			<div className="Handlungsempfehlungen flex w-full flex-col gap-6 md:flex-row">
+			<section className="grid w-full gap-6 md:grid-cols-2">
 				<div className="order-1 flex flex-col gap-8 md:order-2">
 					<h2 className="">{t("backgroundInfo.title")}</h2>
 					<p className="">{t("backgroundInfo.questions")}</p>
+					<p className="">{t("backgroundInfo.answer")}</p>
 					<div className="hidden w-full flex-col gap-6 md:flex">
-						<Link href="/allgemeine-informationen">
-							<Button className="">{t("backgroundInfo.button")}</Button>
-						</Link>
+						<Button
+							onClick={() => {
+								router.push("/allgemeine-informationen");
+							}}
+							className=""
+						>
+							{t("backgroundInfo.button")}
+						</Button>
 					</div>
 				</div>
 				<ImageComponent
 					src="/imagery.png"
 					alt={t("howToProtect.image.alt")}
-					className="w-full md:order-1"
+					className="order-2 w-full md:order-1"
 					caption={t("howToProtect.image.caption")}
 					copyright={t("howToProtect.image.copyright")}
 				/>
-				<div className="flex w-full flex-col gap-6 md:hidden">
-					<Link href="/allgemeine-informationen">
-						<Button className="">{t("backgroundInfo.button")}</Button>
-					</Link>
+				<div className="order-3 flex w-full flex-col gap-6 md:hidden">
+					<Button
+						onClick={() => {
+							router.push("/allgemeine-informationen");
+						}}
+						className=""
+					>
+						{t("backgroundInfo.button")}
+					</Button>
 				</div>
-			</div>
-		</>
+			</section>
+		</div>
 	);
 }

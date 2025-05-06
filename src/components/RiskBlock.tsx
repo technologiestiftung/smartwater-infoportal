@@ -30,7 +30,7 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 	entity,
 	harzardLevel,
 }: RiskBlockProps) => {
-	const t = useTranslations("checkResults");
+	const t = useTranslations("floodCheck");
 	return (
 		<div
 			className={`Result-block ${hazardColorMap[harzardLevel].border} border-12`}

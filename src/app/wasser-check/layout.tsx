@@ -1,6 +1,6 @@
 import React from "react";
 
-export default async function QuestionnaireLayout({
+export default async function floodCheckLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;

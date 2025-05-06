@@ -1,6 +1,142 @@
 {
-	"evaluation": {
-		"pageTitle": "WasserCheck - Gesamtergebnis",
+	"floodCheck": {
+		"pageTitle": "WasserCheck",
+		"navigation": {
+			"next": "Nächste Frage",
+			"submit": "Zur Auswertung",
+			"back": "Zurück zum Zwischenergebnis"
+		},
+		"interimResults": {
+			"title": "- Zwischenergebnis",
+			"navigation": {
+				"back": "Zurück zum Zwischenergebnis"
+			}
+		},
+		"results": {
+			"title": "- Gesamtergebnis"
+		},
+		"start": {
+			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
+			"description": "Der WasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"addressLabel": "Adresse*",
+			"addressPlaceholder": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten."
+		},
+		"questionLabel": "Frage {current} von {total}",
+		"questions": {
+			"q1": {
+				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?",
+				"options": {
+					"yesWithWindow": "Ja, es gibt auch Fenster",
+					"yesWithoutWindow": "Ja, es gibt aber kein Fenster",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				}
+			},
+			"q2": {
+				"text": "Sofern Ihr Gebäude über ein Untergeschoss verfügt, welche Nutzung erfolgt dort vorwiegend?",
+				"options": {
+					"living": "Als Wohnraum",
+					"utility": "Als Technikraum für Elektrik, Wärmepumpe, etc.",
+					"storageLowValue": "Als Lagerraum für Sachen, die nicht viel wert sind",
+					"storageHighValue": "Als Lagerraum mit wertvollen Sachen",
+					"none": "Es gibt kein Untergeschoss.",
+					"noInformation": "Keine Angabe"
+				}
+			},
+			"q3": {
+				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?",
+				"options": {
+					"one": "Ja, bei einem Ereignis",
+					"two": "Ja, bei zwei Ereignissen",
+					"threeOrMore": "Ja, bei drei oder mehr Ereignissen",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				}
+			},
+			"q4": {
+				"text": "Gibt es eine Rückstausicherung für sanitäre Anlagen und Abläufe?",
+				"options": {
+					"yesGood": "Ja, in gutem Zustand (gewartet entsprechend der Herstellerangaben)",
+					"yesUnknown": "Ja, in unbekanntem Zustand",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				},
+				"infoTitle": "Rückstauklappen",
+				"infoText": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+			},
+			"q5": {
+				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
+				"options": {
+					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
+					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
+					"unknown": "In unbekanntem Zustand",
+					"noInformation": "Keine Angabe"
+				},
+				"infoText": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+			},
+			"q6": {
+				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?",
+				"options": {
+					"one": "Ja, eine Maßnahme",
+					"twoOrMore": "Ja, zwei oder mehr Maßnahmen",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				}
+			}
+		},
+		"intermediateResult": {
+			"title": "Hier käme das Zwischenergebnis",
+			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift"
+		},
+		"footer": {
+			"senateAdministration": "Senatsverwaltung",
+			"socialMedia": "Social Media",
+			"central": "Zentrales",
+			"subordinateFacilities": "Nachgeordnete Einrichtungen",
+			"service": "Service",
+			"authorities": "Behörden"
+		},
+		"hazardSummary": {
+			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
+			"highFluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Flusshochwasser vor.",
+			"highPluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Starkregen vor.",
+			"multiple": "An Ihrem Standort liegen mehrere Gefährdungen vor."
+		},
+		"fluvialFlood": {
+			"title": "Flusshochwasser",
+			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
+			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
+			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
+			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
+			"waterLevelLabel": "möglicher Wasserstand",
+			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"subLabel": "Überschwemmungsgebiet",
+			"yes": "ja",
+			"no": "nein"
+		},
+		"heavyRain": {
+			"title": "Starkregen",
+			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
+			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
+			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
+			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
+			"waterLevelLabel": "möglicher Wasserstand",
+			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"subLabel": "Fließgeschwindigkeit"
+		},
+		"hazardScale": {
+			"low": "Gering",
+			"moderate": "Mittel",
+			"high": "Hoch",
+			"severe": "Sehr Hoch"
+		},
+		"hint": {
+			"title": "Hinweis",
+			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen."
+		},
+		"checkBuildingRiskButton": "Nun Gebäuderisiko prüfen",
+		"dataSourceInfo": "Die Ermittlung der Hochwassergefährdung basiert auf den vorhandenen Ressourcen, u.a.: Starkregenhinweiskarte (SRHK), Starkregengefahrenkarte (SRGK), Hochwassergefahrenkarte (HWGK), Hochwasserrisikokarte (HWRK), Überschwemmungsgebiet (ÜSG) und der Gewässerkarte.",
+		"eventRarityInfo": "Das Zwischenergebnis geht von einem seltenem Ereignis aus.",
 		"hazardAtLocation": "Gefährdung an ihrem Standort:",
 		"hazardDisplay": {
 			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:",
@@ -52,7 +188,7 @@
 			"linkWaterGeologyInfo": "Informationen zum Thema Wasser und Geologie",
 			"linkWaterGeologyBerlin": "Wasser und Geologie - Berlin.de"
 		},
-		"questionnaireEvaluation": {
+		"floodCheckfloodCheck": {
 			"title": "Auswertung Fragebogen",
 			"description": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet.",
 			"buildingRisk": {

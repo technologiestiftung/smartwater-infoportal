@@ -13,7 +13,12 @@
 			},
 			"fluvial": {
 				"title": "Was sind Überschwemmungen?",
-				"description": "Überschwemmungen (fluviale Ereignisse) entstehen, wenn Flüsse aufgrund anhaltender Niederschläge, Starkregenereignisse oder Schneeschmelze überlastet sind und über die Ufer treten. Dabei sind tief gelegene Stadtteile, Uferbereiche und schlecht entwässerte Straßen besonders gefährdet. Die großen Fließgewässer in Berlin sind Spree, Havel und Dahme. Kleinere Zuflüsse sind Panke, Erpe, Wuhle und Tegeler Fließ. In Berlin spricht man bereits von einer Überschwemmung, wenn der Wasserstand um 20 cm steigt."
+				"description": "Überschwemmungen (fluviale Ereignisse) entstehen, wenn Flüsse aufgrund anhaltender Niederschläge, Starkregenereignisse oder Schneeschmelze überlastet sind und über die Ufer treten. Dabei sind tief gelegene Stadtteile, Uferbereiche und schlecht entwässerte Straßen besonders gefährdet. Die großen Fließgewässer in Berlin sind Spree, Havel und Dahme. Kleinere Zuflüsse sind Panke, Erpe, Wuhle und Tegeler Fließ. In Berlin spricht man bereits von einer Überschwemmung, wenn der Wasserstand um 20 cm steigt.",
+				"image": {
+					"alt": "Hochwasser",
+					"caption": "Hochwasser: Überflutungen (pluviales Hochwasser, links) und Überschwemmungen (fluviales Hochwasser, rechts)",
+					"copyright": "© SenMVKU"
+				}
 			}
 		},
 		"hazardVsRisk": {
@@ -24,7 +29,12 @@
 			},
 			"risk": {
 				"title": "Risiko: Wie schlimm wären die Folgen?",
-				"description": "Hochwasserrisiko betrachtet, wie wahrscheinlich ein Hochwasser ist und welche Folgen es für Mensch, Umwelt, Kulturgüter, Wirtschaft und Sachwerte haben kann, d.h. welche Schäden das Hochwasser verursachen könnte."
+				"description": "Hochwasserrisiko betrachtet, wie wahrscheinlich ein Hochwasser ist und welche Folgen es für Mensch, Umwelt, Kulturgüter, Wirtschaft und Sachwerte haben kann, d.h. welche Schäden das Hochwasser verursachen könnte.",
+				"image": {
+					"alt": "Hochwasser Risiko",
+					"caption": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+					"copyright": "© SenMVKU"
+				}
 			},
 			"mitigation": "Wir können die Hochwassergefahr zwar nicht gänzlich verhindern, jedoch lässt sich das Hochwasserrisiko mit geeigneten Maßnahmen reduzieren. Beispielsweise können Sie das Risiko einer Überflutung Ihres Kellers (Hochwasserrisiko) wahrscheinlich verringern, indem Sie Stufen an Kellerfenstern und Lichtschächten anbringen oder wertvolle Gegenstände an anderen Orten lagern.",
 			"cta": "Bewusst, aufmerksam und aktiv sein lohnt sich! Mögliche Maßnahmen und Handlungsempfehlungen finden Sie am Ende des HochwasserChecks, oder direkt {link}"
@@ -35,12 +45,23 @@
 				"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
 				"description": "Die bei Hochwasser unter Wasser stehenden Flächen einschließlich der Wassertiefen werden durch Simulationen berechnet und in Form von Karten dargestellt. Dabei werden Regenereignisse verschiedener Intensitäten, Dauern und Verläufe berücksichtigt. Diese Szenarien können je nach zugrundeliegendem Ereignis einer bestimmten Eintrittswahrscheinlichkeit zugeordnet werden, z.B. alle 50 Jahre oder alle 100 Jahre.",
 				"note": "Wichtig ist, dass es sich um statistische Wahrscheinlichkeiten handelt, d.h. ein solches Ereignis kann auch häufiger oder seltener auftreten. ",
-				"note2": "Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden."
+				"note2": "Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden.",
+				"image": {
+					"alt": "Lorem Ipsum",
+					"caption": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+					"copyright": "© SenMVKU"
+				}
 			},
 			"distribution": {
 				"description": "Die Szenarien unterscheiden sich auch in der Niederschlagsverteilung, d.h. wie sich der Regen über einen bestimmten Zeitraum verteilt. Detaillierte Beschreibungen der Szenarien sowie die Karten finden Sie im Umweltatlas:",
-				"linkPluvial": "Starkregen im Umweltatlas",
-				"linkFluvial": "Hochwasser im Umweltatlas"
+				"pluvial": {
+					"title": "Starkregen im Umweltatlas",
+					"url": "https://umweltatlas.berlin.de/umweltatlas/umweltatlas.html#/starkregen"
+				},
+				"fluvial": {
+					"title": "Hochwasser im Umweltatlas",
+					"url": "https://umweltatlas.berlin.de/umweltatlas/umweltatlas.html#/hochwasser"
+				}
 			}
 		},
 		"furtherInformation": {

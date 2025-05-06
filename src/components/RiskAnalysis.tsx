@@ -25,148 +25,148 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 	const properties: FormProperty[] = [
 		{
 			id: "q1",
-			name: t("questionnaire.questions.q1.text"),
+			name: t("floodCheck.questions.q1.text"),
 			type: "checkbox",
 			options: [
 				{
-					label: t("questionnaire.questions.q1.options.yesWithWindow"),
+					label: t("floodCheck.questions.q1.options.yesWithWindow"),
 					value: "yesWithWindow",
 				},
 				{
-					label: t("questionnaire.questions.q1.options.yesWithoutWindow"),
+					label: t("floodCheck.questions.q1.options.yesWithoutWindow"),
 					value: "yesWithoutWindow",
 				},
-				{ label: t("questionnaire.questions.q1.options.no"), value: "no" },
+				{ label: t("floodCheck.questions.q1.options.no"), value: "no" },
 				{
-					label: t("questionnaire.questions.q1.options.noInformation"),
+					label: t("floodCheck.questions.q1.options.noInformation"),
 					value: "noInformation",
 				},
 			],
 		},
 		{
 			id: "q2",
-			name: t("questionnaire.questions.q2.text"),
+			name: t("floodCheck.questions.q2.text"),
 			type: "checkbox",
 			options: [
 				{
-					label: t("questionnaire.questions.q2.options.living"),
+					label: t("floodCheck.questions.q2.options.living"),
 					value: "living",
 				},
 				{
-					label: t("questionnaire.questions.q2.options.utility"),
+					label: t("floodCheck.questions.q2.options.utility"),
 					value: "utility",
 				},
 				{
-					label: t("questionnaire.questions.q2.options.storageLowValue"),
+					label: t("floodCheck.questions.q2.options.storageLowValue"),
 					value: "storageLowValue",
 				},
 				{
-					label: t("questionnaire.questions.q2.options.storageHighValue"),
+					label: t("floodCheck.questions.q2.options.storageHighValue"),
 					value: "storageHighValue",
 				},
 				{
-					label: t("questionnaire.questions.q2.options.none"),
+					label: t("floodCheck.questions.q2.options.none"),
 					value: "none",
 				},
 				{
-					label: t("questionnaire.questions.q2.options.noInformation"),
+					label: t("floodCheck.questions.q2.options.noInformation"),
 					value: "noInformation",
 				},
 			],
 		},
 		{
 			id: "q3",
-			name: t("questionnaire.questions.q3.text"),
+			name: t("floodCheck.questions.q3.text"),
 			type: "radio",
 			options: [
 				{
-					label: t("questionnaire.questions.q3.options.one"),
+					label: t("floodCheck.questions.q3.options.one"),
 					value: "one",
 				},
 				{
-					label: t("questionnaire.questions.q3.options.two"),
+					label: t("floodCheck.questions.q3.options.two"),
 					value: "two",
 				},
-				{ label: t("questionnaire.questions.q3.options.no"), value: "no" },
+				{ label: t("floodCheck.questions.q3.options.no"), value: "no" },
 				{
-					label: t("questionnaire.questions.q3.options.threeOrMore"),
+					label: t("floodCheck.questions.q3.options.threeOrMore"),
 					value: "threeOrMore",
 				},
 				{
-					label: t("questionnaire.questions.q3.options.no"),
+					label: t("floodCheck.questions.q3.options.no"),
 					value: "no",
 				},
 				{
-					label: t("questionnaire.questions.q3.options.noInformation"),
+					label: t("floodCheck.questions.q3.options.noInformation"),
 					value: "noInformation",
 				},
 			],
 		},
 		{
 			id: "q4",
-			name: t("questionnaire.questions.q4.text"),
+			name: t("floodCheck.questions.q4.text"),
 			type: "radio",
 			options: [
 				{
-					label: t("questionnaire.questions.q4.options.yesGood"),
+					label: t("floodCheck.questions.q4.options.yesGood"),
 					value: "yesGood",
 				},
 				{
-					label: t("questionnaire.questions.q4.options.yesUnknown"),
+					label: t("floodCheck.questions.q4.options.yesUnknown"),
 					value: "yesUnknown",
 				},
 				{
-					label: t("questionnaire.questions.q4.options.no"),
+					label: t("floodCheck.questions.q4.options.no"),
 					value: "no",
 				},
 				{
-					label: t("questionnaire.questions.q4.options.noInformation"),
+					label: t("floodCheck.questions.q4.options.noInformation"),
 					value: "noInformation",
 				},
 			],
 		},
 		{
 			id: "q5",
-			name: t("questionnaire.questions.q5.text"),
+			name: t("floodCheck.questions.q5.text"),
 			type: "checkbox",
 			options: [
 				{
-					label: t("questionnaire.questions.q5.options.good"),
+					label: t("floodCheck.questions.q5.options.good"),
 					value: "good",
 				},
 				{
-					label: t("questionnaire.questions.q5.options.bad"),
+					label: t("floodCheck.questions.q5.options.bad"),
 					value: "bad",
 				},
 				{
-					label: t("questionnaire.questions.q5.options.unknown"),
+					label: t("floodCheck.questions.q5.options.unknown"),
 					value: "unknown",
 				},
 				{
-					label: t("questionnaire.questions.q5.options.noInformation"),
+					label: t("floodCheck.questions.q5.options.noInformation"),
 					value: "noInformation",
 				},
 			],
 		},
 		{
 			id: "q6",
-			name: t("questionnaire.questions.q6.text"),
+			name: t("floodCheck.questions.q6.text"),
 			type: "radio",
 			options: [
 				{
-					label: t("questionnaire.questions.q6.options.one"),
+					label: t("floodCheck.questions.q6.options.one"),
 					value: "one",
 				},
 				{
-					label: t("questionnaire.questions.q6.options.twoOrMore"),
+					label: t("floodCheck.questions.q6.options.twoOrMore"),
 					value: "twoOrMore",
 				},
 				{
-					label: t("questionnaire.questions.q6.options.no"),
+					label: t("floodCheck.questions.q6.options.no"),
 					value: "no",
 				},
 				{
-					label: t("questionnaire.questions.q6.options.noInformation"),
+					label: t("floodCheck.questions.q6.options.noInformation"),
 					value: "noInformation",
 				},
 			],
@@ -198,7 +198,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 			<div className="flex w-full flex-col gap-6">
 				<h1 className=""></h1>
 				<h2>
-					{t("questionnaire.questionLabel", {
+					{t("floodCheck.questionLabel", {
 						current: currentStep + 1,
 						total: properties.length,
 					})}{" "}
@@ -233,8 +233,8 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 									className="text-left"
 								>
 									{currentStep === properties.length - 1
-										? t("questionnaire.navigation.submit")
-										: t("questionnaire.navigation.next")}
+										? t("floodCheck.navigation.submit")
+										: t("floodCheck.navigation.next")}
 								</Button>
 							</div>
 						</div>

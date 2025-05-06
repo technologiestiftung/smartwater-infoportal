@@ -5,91 +5,157 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 	AccordionContent,
+	ImageComponent,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 export default function GeneralInformation() {
-	const t = useTranslations("generalInfo");
-	const ct = useTranslations("common");
+	const t = useTranslations();
 
 	return (
-		<div className="flex flex-col justify-start gap-6">
+		<div className="flex flex-col justify-start gap-12">
 			<Link href="/">
 				<Button variant="back-link" className="self-start">
-					{ct("backToStart")}
+					{t("common.backToStart")}
 				</Button>
 			</Link>
-			<div className="Intro flex flex-col gap-6">
-				<h1 className="">{t("pageTitle")}</h1>
-				<h2 className="">{t("definition.title")}</h2>
-				<p className="">{t("definition.description")}</p>
-			</div>
+			<section className="flex flex-col gap-6">
+				<h1 className="">{t("generalInfo.pageTitle")}</h1>
+				<h2 className="">{t("generalInfo.definition.title")}</h2>
+				<p className="">{t("generalInfo.definition.description")}</p>
+			</section>
 			<div className="divider" />
 
-			<div className="InfoContent flex flex-col gap-6">
-				<div className="flex flex-col gap-6">
-					<h2 className="">{t("types.title")}</h2>
-					<h3 className="">{t("types.pluvial.title")}</h3>
-					<p className="">{t("types.pluvial.description")}</p>
-					<h3 className="">{t("types.fluvial.title")}</h3>
-					<p className="">{t("types.fluvial.description")}</p>
-					<div className="Image h-[385px] w-full bg-gray-200"></div>
-				</div>
+			<div className="flex flex-col gap-6">
+				<section className="grid gap-6 md:grid-cols-5">
+					<div className="flex flex-col gap-4 md:order-2 md:col-span-3">
+						<h2 className="">{t("generalInfo.types.title")}</h2>
+						<h3 className="">{t("generalInfo.types.pluvial.title")}</h3>
+						<p className="">{t("generalInfo.types.pluvial.description")}</p>
+						<h3 className="">{t("generalInfo.types.fluvial.title")}</h3>
+						<p className="">{t("generalInfo.types.fluvial.description")}</p>
+					</div>
+					<ImageComponent
+						className="md:order-1 md:col-span-2"
+						src="/fluvial_flooding.png"
+						alt={t("generalInfo.types.fluvial.image.alt")}
+						caption={t("generalInfo.types.fluvial.image.caption")}
+						copyright={t("generalInfo.types.fluvial.image.copyright")}
+					/>
+				</section>
 				<div className="divider" />
-				<div className="flex flex-col gap-6">
-					<h2 className="">{t("hazardVsRisk.title")}</h2>
-					<h3 className="">{t("hazardVsRisk.hazard.title")}</h3>
-					<p className="">{t("hazardVsRisk.hazard.description")}</p>
-					<h3 className="">{t("hazardVsRisk.risk.title")}</h3>
-					<p className="">{t("hazardVsRisk.risk.description")}</p>
-					<p className="">{t("hazardVsRisk.mitigation")}</p>
-					<p className="">{t("hazardVsRisk.cta", { link: "LINK EINFÜGEN" })}</p>
-					<div className="Image h-[385px] w-full bg-gray-200"></div>
-				</div>
+				<section className="grid gap-6 md:grid-cols-5">
+					<div className="gap-6 md:col-span-3">
+						<h2 className="">{t("generalInfo.hazardVsRisk.title")}</h2>
+						<h3 className="">{t("generalInfo.hazardVsRisk.hazard.title")}</h3>
+						<p className="">
+							{t("generalInfo.hazardVsRisk.hazard.description")}
+						</p>
+						<h3 className="">{t("generalInfo.hazardVsRisk.risk.title")}</h3>
+						<p className="">{t("generalInfo.hazardVsRisk.risk.description")}</p>
+						<p className="">{t("generalInfo.hazardVsRisk.mitigation")}</p>
+						<p className="">
+							{t("generalInfo.hazardVsRisk.cta", { link: "LINK EINFÜGEN" })}
+						</p>
+					</div>
+					<ImageComponent
+						className="md:col-span-2"
+						src="/fluvial_risk.png"
+						alt={t("generalInfo.hazardVsRisk.risk.image.alt")}
+						caption={t("generalInfo.hazardVsRisk.risk.image.caption")}
+						copyright={t("generalInfo.hazardVsRisk.risk.image.copyright")}
+					/>
+				</section>
 				<div className="divider" />
-				<div className="flex flex-col gap-6">
-					<h2 className="">{t("assessment.title")}</h2>
-					<h3 className="">{t("assessment.how.title")}</h3>
-					<p className="">{t("assessment.how.description")}</p>
-					<p className="">{t("assessment.how.note")}</p>
-					<p className="">{t("assessment.how.note2")}</p>
-					<div className="Image h-[385px] w-full bg-gray-200"></div>
-					<p className="">{t("assessment.distribution.description")}</p>
-					<ul className="list-disc pl-6">
-						<li>{t("assessment.distribution.linkPluvial")}</li>
-						<li>{t("assessment.distribution.linkFluvial")}</li>
-					</ul>
-				</div>
+				<section className="grid gap-6 md:grid-cols-5">
+					<div className="flex flex-col gap-6 md:order-2 md:col-span-3">
+						<h2 className="">{t("generalInfo.assessment.title")}</h2>
+						<h3 className="text-accent">
+							{t("generalInfo.assessment.how.title")}
+						</h3>
+						<p className="">{t("generalInfo.assessment.how.description")}</p>
+						<p className="">{t("generalInfo.assessment.how.note")}</p>
+						<p className="">{t("generalInfo.assessment.how.note2")}</p>
+					</div>
+					<ImageComponent
+						className="md:order-1 md:col-span-2"
+						src="/imagery.png"
+						alt={t("generalInfo.assessment.how.image.alt")}
+						caption={t("generalInfo.assessment.how.image.caption")}
+						copyright={t("generalInfo.assessment.how.image.copyright")}
+					/>
+					<div className="flex flex-col gap-6 md:order-2 md:col-span-3 md:col-start-3">
+						<p className="">
+							{t("generalInfo.assessment.distribution.description")}
+						</p>
+						<ul className="list-disc pl-6">
+							<li>
+								<Button
+									variant="link"
+									className=""
+									onClick={() => {
+										window.open(
+											t("generalInfo.assessment.distribution.pluvial.url"),
+											"_blank",
+										);
+									}}
+								>
+									{t("generalInfo.assessment.distribution.pluvial.title")}
+								</Button>
+							</li>
+							<li>
+								<Button
+									variant="link"
+									onClick={() => {
+										window.open(
+											t("generalInfo.assessment.distribution.fluvial.url"),
+											"_blank",
+										);
+									}}
+								>
+									{t("generalInfo.assessment.distribution.fluvial.title")}
+								</Button>
+							</li>
+						</ul>
+					</div>
+				</section>
 				<div className="divider" />
-				<div className="flex flex-col gap-6">
-					<h2 className="">{t("furtherInformation.sectionTitle")}</h2>
-					<Accordion type="single" collapsible variant="default">
+				<section className="flex flex-col gap-6">
+					<h2 className="">
+						{t("generalInfo.furtherInformation.sectionTitle")}
+					</h2>
+					<Accordion
+						type="single"
+						collapsible
+						variant="default"
+						className="justify-start px-0 text-left"
+					>
 						<AccordionItem value="item1" variant="default">
 							<AccordionTrigger variant="default">
-								<h4> {t("furtherInformation.item1.title")}</h4>
+								<h4> {t("generalInfo.furtherInformation.item1.title")}</h4>
 							</AccordionTrigger>
 							<AccordionContent variant="default">
-								<p>{t("furtherInformation.item1.content")}</p>
+								<p>{t("generalInfo.furtherInformation.item1.content")}</p>
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value="item2" variant="default">
 							<AccordionTrigger variant="default">
-								<h4> {t("furtherInformation.item2.title")}</h4>
+								<h4> {t("generalInfo.furtherInformation.item2.title")}</h4>
 							</AccordionTrigger>
 							<AccordionContent variant="default">
-								<p>{t("furtherInformation.item1.content")}</p>
+								<p>{t("generalInfo.furtherInformation.item1.content")}</p>
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value="item3" variant="default">
 							<AccordionTrigger variant="default">
-								<h4> {t("furtherInformation.item3.title")}</h4>
+								<h4> {t("generalInfo.furtherInformation.item3.title")}</h4>
 							</AccordionTrigger>
 							<AccordionContent variant="default">
-								<p>{t("furtherInformation.item1.content")}</p>
+								<p>{t("generalInfo.furtherInformation.item1.content")}</p>
 							</AccordionContent>
 						</AccordionItem>
 					</Accordion>
-				</div>
+				</section>
 			</div>
 		</div>
 	);

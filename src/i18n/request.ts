@@ -8,10 +8,8 @@ export default getRequestConfig(async () => {
 	const messages = {
 		...(await import(`../../messages/${locale}/home.json`)).default,
 		...(await import(`../../messages/${locale}/common.json`)).default,
-		...(await import(`../../messages/${locale}/checkResults.json`)).default,
-		...(await import(`../../messages/${locale}/evaluation.json`)).default,
+		...(await import(`../../messages/${locale}/floodCheck.json`)).default,
 		...(await import(`../../messages/${locale}/generalInfo.json`)).default,
-		...(await import(`../../messages/${locale}/questionnaire.json`)).default,
 		...(await import(`../../messages/${locale}/recommendations.json`)).default,
 	};
 

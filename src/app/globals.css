@@ -1,4 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss" important;
+@import "berlin-ui-library/dist/assets/style.css";
 
 @theme {
 	--color-background: var(--background);
@@ -64,7 +65,7 @@
 
 @layer components {
 	.divider {
-		@apply w-full border border-2 border-b border-solid;
+		@apply border-1 border-border w-full border border-b;
 	}
 	h1 {
 		font-size: 1.688rem;
