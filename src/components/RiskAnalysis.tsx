@@ -230,8 +230,6 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 										{t("common.back")}
 									</Button>
 								)}
-								{currentStep === 0 && <div />}
-
 								<Button
 									onClick={handleNext}
 									type="button"
