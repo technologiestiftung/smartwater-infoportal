@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-import { HazardLevel } from "./InterimResults";
 import Image from "next/image";
+import { HazardLevel } from "@/lib/types";
 
 interface ResultBlockProps {
 	entity: string;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-import { HazardLevel } from "./InterimResults";
+import { HazardLevel } from "@/lib/types";
 
 interface RiskBlockProps {
 	entity: string;

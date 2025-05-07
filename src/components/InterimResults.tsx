@@ -3,8 +3,7 @@ import ResultBlock from "./ResultBlock";
 import { useTranslations } from "next-intl";
 import { Button } from "berlin-ui-library";
 import Link from "next/link";
-
-export type HazardLevel = "low" | "moderate" | "high" | "severe";
+import { HazardLevel } from "@/lib/types";
 
 interface InterimResultsProps {
 	entities: { name: string; hazardLevel: HazardLevel }[];

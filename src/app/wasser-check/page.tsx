@@ -1,8 +1,9 @@
 /* eslint-disable no-nested-ternary */
 "use client";
-import InterimResults, { HazardLevel } from "@/components/InterimResults";
+import InterimResults from "@/components/InterimResults";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
+import { HazardLevel } from "@/lib/types";
 import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
