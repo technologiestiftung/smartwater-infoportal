@@ -70,7 +70,7 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 	}
 
 	return (
-		<div className={cn("grid grid-cols-1 gap-6", gridColsClass, className)}>
+		<div className={cn("grid gap-6", gridColsClass, className)}>
 			{/* Slot A */}
 			{slotA && (
 				<div

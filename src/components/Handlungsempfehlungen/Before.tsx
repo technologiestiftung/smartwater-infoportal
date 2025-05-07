@@ -155,13 +155,13 @@ const Before: React.FC = () => {
 								</li>
 								<li>
 									{t("recommendations.beforeEvent.furtherInformation.item8")}
+								</li>
 
-									<li>
-										{t("recommendations.beforeEvent.furtherInformation.item9")}
-									</li>
-									<li>
-										{t("recommendations.beforeEvent.furtherInformation.item10")}
-									</li>
+								<li>
+									{t("recommendations.beforeEvent.furtherInformation.item9")}
+								</li>
+								<li>
+									{t("recommendations.beforeEvent.furtherInformation.item10")}
 								</li>
 							</ul>
 						</div>
