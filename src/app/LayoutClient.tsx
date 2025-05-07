@@ -21,7 +21,7 @@ export default function LayoutClient({
 		<div className="flex min-h-screen flex-col">
 			<Header showLanguageSelect={false} />
 			<div className="flex flex-grow justify-center">
-				<main className="container flex flex-grow flex-col items-start p-5">
+				<main className="container flex flex-grow flex-col p-5">
 					{children}
 				</main>
 			</div>
