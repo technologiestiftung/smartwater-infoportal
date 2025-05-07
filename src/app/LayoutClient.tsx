@@ -3,7 +3,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 
-// Dynamically import client components
 const Header = dynamic(
 	() => import("berlin-ui-library").then((mod) => mod.Header),
 	{ ssr: false },
