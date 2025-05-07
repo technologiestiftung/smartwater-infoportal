@@ -8,7 +8,9 @@
 
 # Smartwater Infoportal
 
-This repository contains the source code for the Smartwater Infoportal, a Next.js application designed to provide information and resources related to smart water management.
+This repository contains the source code for the Smartwater flood information portal, an interactive website on which Berlin citizens can find out about heavy rainfall and flooding and have their individual risks and dangers checked.
+
+This Next.js application is being developed as part of the [Smart Water project](https://gemeinsamdigital.berlin.de/de/smart-water/) and thus is part of the state of Berlin's digital strategy
 
 ## Prerequisites
 
@@ -112,4 +114,9 @@ Texts and content available as [CC BY](https://creativecommons.org/licenses/by/3
       </a>
     </td>
   </tr>
+  <tr>
+  <td colspan="2">
+  <img src="./public/logo.svg" alt="Logo">
+</td>
+</tr>
 </table>

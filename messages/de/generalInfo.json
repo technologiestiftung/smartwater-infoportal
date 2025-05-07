@@ -1,57 +1,81 @@
 {
-	"pageTitle": "Allgemeine Informationen",
-	"definition": {
-		"title": "Was ist Hochwasser? Wie entsteht Hochwasser?",
-		"description": "Nach Gesetz ist Hochwasser (...) eine zeitlich beschränkte Überschwemmung von normalerweise nicht mit Wasser bedecktem Land, insbesondere durch oberirdische Gewässer (...). Fachlich wird zwischen Überflutungen (pluviale Hochwasser) und Überschwemmungen (fluviale Hochwasser) unterschieden."
-	},
-	"types": {
-		"title": "Überflutungen und Überschwemmungen",
-		"pluvial": {
-			"title": "Wie entstehen Überflutungen?",
-			"description": "Überflutungen (pluviale Ereignisse) entstehen, wenn Starkregen, d.h. große Niederschlagsmengen in kurzer Zeit, zu einer schnellen Wasseransammlung führt. Diese können das Kanalnetz überlasten, so dass Wasser austreten bzw. nicht mehr abgeführt werden kann. Die Folge sind Überflutungen von z.B. Straßen und Gebäuden. Urbane Gebiete sind aufgrund ihrer starken Versiegelung besonders gefährdet durch starkregenbedingte Überflutungen, die auch abseits von Flüssen und Bächen auftreten."
+	"generalInfo": {
+		"pageTitle": "Allgemeine Informationen",
+		"definition": {
+			"title": "Was ist Hochwasser? Wie entsteht Hochwasser?",
+			"description": "Nach Gesetz ist Hochwasser (...) eine zeitlich beschränkte Überschwemmung von normalerweise nicht mit Wasser bedecktem Land, insbesondere durch oberirdische Gewässer (...). Fachlich wird zwischen Überflutungen (pluviale Hochwasser) und Überschwemmungen (fluviale Hochwasser) unterschieden."
 		},
-		"fluvial": {
-			"title": "Was sind Überschwemmungen?",
-			"description": "Überschwemmungen (fluviale Ereignisse) entstehen, wenn Flüsse aufgrund anhaltender Niederschläge, Starkregenereignisse oder Schneeschmelze überlastet sind und über die Ufer treten. Dabei sind tief gelegene Stadtteile, Uferbereiche und schlecht entwässerte Straßen besonders gefährdet. Die großen Fließgewässer in Berlin sind Spree, Havel und Dahme. Kleinere Zuflüsse sind Panke, Erpe, Wuhle und Tegeler Fließ. In Berlin spricht man bereits von einer Überschwemmung, wenn der Wasserstand um 20 cm steigt."
-		}
-	},
-	"hazardVsRisk": {
-		"title": "Warum unterscheidet man zwischen Gefahr und Risiko bei Hochwasser?",
-		"hazard": {
-			"title": "Gefahr: Wo und wie viel Wasser?",
-			"description": "Die Gefahr ist eine Situation, die einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo und wie stark es zum Hochwasser kommen kann, z.B. wie hoch steht das Wasser an einem Ort. Die Gefahr wird in den Karten anhand der Wasserstände und Fließgeschwindigkeiten dargestellt."
+		"types": {
+			"title": "Überflutungen und Überschwemmungen",
+			"pluvial": {
+				"title": "Wie entstehen Überflutungen?",
+				"description": "Überflutungen (pluviale Ereignisse) entstehen, wenn Starkregen, d.h. große Niederschlagsmengen in kurzer Zeit, zu einer schnellen Wasseransammlung führt. Diese können das Kanalnetz überlasten, so dass Wasser austreten bzw. nicht mehr abgeführt werden kann. Die Folge sind Überflutungen von z.B. Straßen und Gebäuden. Urbane Gebiete sind aufgrund ihrer starken Versiegelung besonders gefährdet durch starkregenbedingte Überflutungen, die auch abseits von Flüssen und Bächen auftreten."
+			},
+			"fluvial": {
+				"title": "Was sind Überschwemmungen?",
+				"description": "Überschwemmungen (fluviale Ereignisse) entstehen, wenn Flüsse aufgrund anhaltender Niederschläge, Starkregenereignisse oder Schneeschmelze überlastet sind und über die Ufer treten. Dabei sind tief gelegene Stadtteile, Uferbereiche und schlecht entwässerte Straßen besonders gefährdet. Die großen Fließgewässer in Berlin sind Spree, Havel und Dahme. Kleinere Zuflüsse sind Panke, Erpe, Wuhle und Tegeler Fließ. In Berlin spricht man bereits von einer Überschwemmung, wenn der Wasserstand um 20 cm steigt.",
+				"image": {
+					"alt": "Hochwasser",
+					"caption": "Hochwasser: Überflutungen (pluviales Hochwasser, links) und Überschwemmungen (fluviales Hochwasser, rechts)",
+					"copyright": "© SenMVKU"
+				}
+			}
 		},
-		"risk": {
-			"title": "Risiko: Wie schlimm wären die Folgen?",
-			"description": "Hochwasserrisiko betrachtet, wie wahrscheinlich ein Hochwasser ist und welche Folgen es für Mensch, Umwelt, Kulturgüter, Wirtschaft und Sachwerte haben kann, d.h. welche Schäden das Hochwasser verursachen könnte."
+		"hazardVsRisk": {
+			"title": "Warum unterscheidet man zwischen Gefahr und Risiko bei Hochwasser?",
+			"hazard": {
+				"title": "Gefahr: Wo und wie viel Wasser?",
+				"description": "Die Gefahr ist eine Situation, die einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo und wie stark es zum Hochwasser kommen kann, z.B. wie hoch steht das Wasser an einem Ort. Die Gefahr wird in den Karten anhand der Wasserstände und Fließgeschwindigkeiten dargestellt."
+			},
+			"risk": {
+				"title": "Risiko: Wie schlimm wären die Folgen?",
+				"description": "Hochwasserrisiko betrachtet, wie wahrscheinlich ein Hochwasser ist und welche Folgen es für Mensch, Umwelt, Kulturgüter, Wirtschaft und Sachwerte haben kann, d.h. welche Schäden das Hochwasser verursachen könnte.",
+				"image": {
+					"alt": "Hochwasser Risiko",
+					"caption": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+					"copyright": "© SenMVKU"
+				}
+			},
+			"mitigation": "Wir können die Hochwassergefahr zwar nicht gänzlich verhindern, jedoch lässt sich das Hochwasserrisiko mit geeigneten Maßnahmen reduzieren. Beispielsweise können Sie das Risiko einer Überflutung Ihres Kellers (Hochwasserrisiko) wahrscheinlich verringern, indem Sie Stufen an Kellerfenstern und Lichtschächten anbringen oder wertvolle Gegenstände an anderen Orten lagern.",
+			"cta": "Bewusst, aufmerksam und aktiv sein lohnt sich! Mögliche Maßnahmen und Handlungsempfehlungen finden Sie am Ende des HochwasserChecks, oder direkt {link}"
 		},
-		"mitigation": "Wir können die Hochwassergefahr zwar nicht gänzlich verhindern, jedoch lässt sich das Hochwasserrisiko mit geeigneten Maßnahmen reduzieren. Beispielsweise können Sie das Risiko einer Überflutung Ihres Kellers (Hochwasserrisiko) wahrscheinlich verringern, indem Sie Stufen an Kellerfenstern und Lichtschächten anbringen oder wertvolle Gegenstände an anderen Orten lagern.",
-		"cta": "Bewusst, aufmerksam und aktiv sein lohnt sich! Mögliche Maßnahmen und Handlungsempfehlungen finden Sie am Ende des HochwasserChecks, oder direkt {link}"
-	},
-	"assessment": {
-		"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
-		"how": {
+		"assessment": {
 			"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
-			"description": "Die bei Hochwasser unter Wasser stehenden Flächen einschließlich der Wassertiefen werden durch Simulationen berechnet und in Form von Karten dargestellt. Dabei werden Regenereignisse verschiedener Intensitäten, Dauern und Verläufe berücksichtigt. Diese Szenarien können je nach zugrundeliegendem Ereignis einer bestimmten Eintrittswahrscheinlichkeit zugeordnet werden, z.B. alle 50 Jahre oder alle 100 Jahre.",
-			"note": "Wichtig ist, dass es sich um statistische Wahrscheinlichkeiten handelt, d.h. ein solches Ereignis kann auch häufiger oder seltener auftreten. Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden."
+			"how": {
+				"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
+				"description": "Die bei Hochwasser unter Wasser stehenden Flächen einschließlich der Wassertiefen werden durch Simulationen berechnet und in Form von Karten dargestellt. Dabei werden Regenereignisse verschiedener Intensitäten, Dauern und Verläufe berücksichtigt. Diese Szenarien können je nach zugrundeliegendem Ereignis einer bestimmten Eintrittswahrscheinlichkeit zugeordnet werden, z.B. alle 50 Jahre oder alle 100 Jahre.",
+				"note": "Wichtig ist, dass es sich um statistische Wahrscheinlichkeiten handelt, d.h. ein solches Ereignis kann auch häufiger oder seltener auftreten. ",
+				"note2": "Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden.",
+				"image": {
+					"alt": "Lorem Ipsum",
+					"caption": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+					"copyright": "© SenMVKU"
+				}
+			},
+			"distribution": {
+				"description": "Die Szenarien unterscheiden sich auch in der Niederschlagsverteilung, d.h. wie sich der Regen über einen bestimmten Zeitraum verteilt. Detaillierte Beschreibungen der Szenarien sowie die Karten finden Sie im Umweltatlas:",
+				"pluvial": {
+					"title": "Starkregen im Umweltatlas",
+					"url": "https://umweltatlas.berlin.de/umweltatlas/umweltatlas.html#/starkregen"
+				},
+				"fluvial": {
+					"title": "Hochwasser im Umweltatlas",
+					"url": "https://umweltatlas.berlin.de/umweltatlas/umweltatlas.html#/hochwasser"
+				}
+			}
 		},
-		"distribution": {
-			"description": "Die Szenarien unterscheiden sich auch in der Niederschlagsverteilung, d.h. wie sich der Regen über einen bestimmten Zeitraum verteilt. Detaillierte Beschreibungen der Szenarien sowie die Karten finden Sie im Umweltatlas:",
-			"linkPluvial": "Starkregen im Umweltatlas",
-			"linkFluvial": "Hochwasser im Umweltatlas"
-		}
-	},
-	"furtherInformation": {
-		"sectionTitle": "Weitere Informationen",
-		"item1": {
-			"title": "Hochwasser und Überschwemmung in Berlin",
-			"content": "Hochwasser ist ein vom Wetter abhängiges natürliches Ereignis. Für rund 26 km der Gesamtlänge der Fließgewässer in Berlin besteht ein potenziell signifikantes Hochwasserrisiko. Hier erhalten Sie Informationen zur Hochwassersituation in Berlin, zur Hochwasservorsorge sowie Informationen zu Maßnahmen zur Verbesserung des Hochwasserschutzes, die Hochwasserrisikomanagementrichtlinie und die Überschwemmungsgebiete."
-		},
-		"item2": {
-			"title": "Informationen zu Starkregen und Überflutung in Berlin"
-		},
-		"item3": {
-			"title": "Naturgefahrenportal (DWD)"
+		"furtherInformation": {
+			"sectionTitle": "Weitere Informationen",
+			"item1": {
+				"title": "Hochwasser und Überschwemmung in Berlin",
+				"content": "Hochwasser ist ein vom Wetter abhängiges natürliches Ereignis. Für rund 26 km der Gesamtlänge der Fließgewässer in Berlin besteht ein potenziell signifikantes Hochwasserrisiko. Hier erhalten Sie Informationen zur Hochwassersituation in Berlin, zur Hochwasservorsorge sowie Informationen zu Maßnahmen zur Verbesserung des Hochwasserschutzes, die Hochwasserrisikomanagementrichtlinie und die Überschwemmungsgebiete."
+			},
+			"item2": {
+				"title": "Informationen zu Starkregen und Überflutung in Berlin"
+			},
+			"item3": {
+				"title": "Naturgefahrenportal (DWD)"
+			}
 		}
 	}
 }

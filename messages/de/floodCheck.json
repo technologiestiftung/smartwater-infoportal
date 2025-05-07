@@ -1,0 +1,247 @@
+{
+	"floodCheck": {
+		"pageTitle": "WasserCheck",
+		"navigation": {
+			"next": "Nächste Frage",
+			"submit": "Zur Auswertung",
+			"back": "Zurück zum Zwischenergebnis"
+		},
+		"interimResults": {
+			"title": "- Zwischenergebnis",
+			"navigation": {
+				"back": "Zurück zum Zwischenergebnis"
+			}
+		},
+		"results": {
+			"title": "- Gesamtergebnis"
+		},
+		"start": {
+			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
+			"description": "Der WasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"addressLabel": "Adresse*",
+			"addressPlaceholder": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten."
+		},
+		"questionLabel": "Frage {current} von {total}",
+		"questions": {
+			"q1": {
+				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?",
+				"options": {
+					"yesWithWindow": "Ja, es gibt auch Fenster",
+					"yesWithoutWindow": "Ja, es gibt aber kein Fenster",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				}
+			},
+			"q2": {
+				"text": "Sofern Ihr Gebäude über ein Untergeschoss verfügt, welche Nutzung erfolgt dort vorwiegend?",
+				"options": {
+					"living": "Als Wohnraum",
+					"utility": "Als Technikraum für Elektrik, Wärmepumpe, etc.",
+					"storageLowValue": "Als Lagerraum für Sachen, die nicht viel wert sind",
+					"storageHighValue": "Als Lagerraum mit wertvollen Sachen",
+					"none": "Es gibt kein Untergeschoss.",
+					"noInformation": "Keine Angabe"
+				}
+			},
+			"q3": {
+				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?",
+				"options": {
+					"one": "Ja, bei einem Ereignis",
+					"two": "Ja, bei zwei Ereignissen",
+					"threeOrMore": "Ja, bei drei oder mehr Ereignissen",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				}
+			},
+			"q4": {
+				"text": "Gibt es eine Rückstausicherung für sanitäre Anlagen und Abläufe?",
+				"options": {
+					"yesGood": "Ja, in gutem Zustand (gewartet entsprechend der Herstellerangaben)",
+					"yesUnknown": "Ja, in unbekanntem Zustand",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				},
+				"image": {
+					"alt": "Rückstauklappen",
+					"caption": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"copyright": "© SenMVKU"
+				}
+			},
+			"q5": {
+				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
+				"options": {
+					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
+					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
+					"unknown": "In unbekanntem Zustand",
+					"noInformation": "Keine Angabe"
+				},
+
+				"image": {
+					"alt": "Abläufe",
+					"caption": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"copyright": "© SenMVKU"
+				}
+			},
+			"q6": {
+				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?",
+				"options": {
+					"one": "Ja, eine Maßnahme",
+					"twoOrMore": "Ja, zwei oder mehr Maßnahmen",
+					"no": "Nein",
+					"noInformation": "Keine Angabe"
+				}
+			}
+		},
+		"intermediateResult": {
+			"title": "Hier käme das Zwischenergebnis",
+			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift"
+		},
+		"footer": {
+			"senateAdministration": "Senatsverwaltung",
+			"socialMedia": "Social Media",
+			"central": "Zentrales",
+			"subordinateFacilities": "Nachgeordnete Einrichtungen",
+			"service": "Service",
+			"authorities": "Behörden"
+		},
+		"hazardSummary": {
+			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
+			"highFluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Flusshochwasser vor.",
+			"highPluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Starkregen vor.",
+			"multiple": "An Ihrem Standort liegen mehrere Gefährdungen vor."
+		},
+		"fluvialFlood": {
+			"title": "Flusshochwasser",
+			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
+			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
+			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
+			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
+			"waterLevelLabel": "möglicher Wasserstand",
+			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"subLabel": "Überschwemmungsgebiet",
+			"yes": "ja",
+			"no": "nein"
+		},
+		"heavyRain": {
+			"title": "Starkregen",
+			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
+			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
+			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
+			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
+			"waterLevelLabel": "möglicher Wasserstand",
+			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"subLabel": "Fließgeschwindigkeit"
+		},
+		"hazardScale": {
+			"low": "Gering",
+			"moderate": "Mittel",
+			"high": "Hoch",
+			"severe": "Sehr Hoch"
+		},
+		"hint": {
+			"title": "Hinweis",
+			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen."
+		},
+		"checkBuildingRiskButton": "Nun Gebäuderisiko prüfen",
+		"dataSourceInfo": "Die Ermittlung der Hochwassergefährdung basiert auf den vorhandenen Ressourcen, u.a.: Starkregenhinweiskarte (SRHK), Starkregengefahrenkarte (SRGK), Hochwassergefahrenkarte (HWGK), Hochwasserrisikokarte (HWRK), Überschwemmungsgebiet (ÜSG) und der Gewässerkarte.",
+		"eventRarityInfo": "Das Zwischenergebnis geht von einem seltenem Ereignis aus.",
+		"hazardAtLocation": "Gefährdung an ihrem Standort:",
+		"hazardDisplay": {
+			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:",
+			"descriptionPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+			"heavyRainTab": "Starkregen",
+			"fluvialFloodTab": "Flusshochwasser",
+			"frequency": {
+				"rare": "Selten",
+				"uncommon": "Außergewöhnlich",
+				"extreme": "Extrem"
+			},
+			"frequencyDescription": {
+				"rare": "Ein seltenes Ereignis tritt in der Regel alle 30 bis 50 Jahre auf und kennzeichnet sich dadurch aus, dass zu Beginn die größte Menge Wasser direkt niedergeht. Von einem solchen Ereignis geht keine größere Gefahr aus, eine absolute Sicherheit gibt es allerdings nicht.",
+				"uncommon": "Ein außergewöhnliches Ereignis...",
+				"extreme": "Ein extremes Ereignis..."
+			},
+			"hazardDetails": {
+				"heavyRain": {
+					"title": "Starkregen",
+					"descriptionLow": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
+					"waterLevelLabel": "möglicher Wasserstand",
+					"flowVelocityLabel": "Fließgeschwindigkeit"
+				},
+				"fluvialFlood": {
+					"title": "Flusshochwasser"
+				},
+				"hazardScale": {
+					"low": "Gering",
+					"moderate": "Mittel",
+					"high": "Hoch",
+					"severe": "Sehr Hoch"
+				}
+			}
+		},
+		"map": {
+			"title": "Karte an Ihrem Standort",
+			"description": "Für die Berechnung der Gefahrenkarte nutzen wir bestimmte Karten bei SenUVKÖ.",
+			"openLegend": "Legende öffnen"
+		},
+		"hazardInfo": {
+			"title": "Infos zur Gefährdung",
+			"calculation": "Wie wurde die Gefährdung berechnet?",
+			"learnMore": "Sie wollen mehr über Ihre Gefahr erfahren?",
+			"mapInfo": "Weitere Informationen zu den Karten",
+			"mapDisclaimer": "Alle Informationen erfolgen ohne Gewähr für ihre Richtigkeit. In keinem Fall wird für Schäden, die sich aus der Verwendung abgerufener Informationen ergeben, Haftung übernommen. Bitte beachten Sie, dass die Ergebnisse der Karte sowie die Einschätzung der Hochwassergefährdung eine gewisse Unsicherheit bergen. Die Datengrundlage entbindet nicht von der Pflicht für einzelne Projekte, die hydraulischen Standortvoraussetzungen vor Ort zu erkunden und nachzuweisen. Ein Abgleich des Modells ist mit der Situation vor Ort erforderlich.",
+			"otherCauses": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie folgenden Links benutzen:",
+			"linkGroundwaterPortal": "Das Grundwasser-Auskunftsportal",
+			"linkGeologicalPortal": "Geologisches Auskunftsportal - Berlin.de",
+			"linkWaterGeologyInfo": "Informationen zum Thema Wasser und Geologie",
+			"linkWaterGeologyBerlin": "Wasser und Geologie - Berlin.de"
+		},
+		"floodCheckfloodCheck": {
+			"title": "Auswertung Fragebogen",
+			"description": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet.",
+			"buildingRisk": {
+				"title": "Individuelles Gebäuderisiko",
+				"levelModerate": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich.",
+				"factors": {
+					"basement": "Untergeschoss",
+					"basementWindow": "Kellerfenster",
+					"backflowProtection": "Rückstausicherung",
+					"socketInstallation": "Anbringung Steckdosen",
+					"geographicalLocation": "Geographische Lage"
+				}
+			}
+		},
+		"protectionTips": {
+			"title": "Wie kann ich mich schützen?",
+			"intro1": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs 2).",
+			"intro2": "Schon mit einfachen Mittel können Sie sich vor größeren Schäden schützen. Diese untenstehende Sammlung an Handlungsempfehlungen soll Ihnen bei Ihrem persönlichen Hochwasserschutz unterstützen",
+			"inBuilding": {
+				"title": "Im Gebäude",
+				"tip1": "Schalten Sie rechtzeitig Strom, Gas und wenn möglich Heizung ab. Ist dies nicht mehr möglich, gefährdete Räume mit Steckdosen und elektrischen Geräten verlassen und nicht mehr betreten.",
+				"tip2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen, z.B. in ein höher gelegenes Stockwerk.",
+				"tip3": "Betreten Sie keine überfluteten oder durchnässten Räume. Die Türen können bereits bei einem niedrigen Wasserstand nicht mehr geöffnet werden und Ihren Fluchtweg blockieren. Wenn das Betreten eines überschwemmten Raumes unvermeidlich ist, müssen die Türen unbedingt offengehalten und fest verkeilt werden.",
+				"tip4": "Versuchen Sie in keinem Fall Gegenstände oder Fahrzeuge in letzter Minute aus Kellern, Garagen oder Tiefgaragen zu retten. Es besteht Lebensgefahr!",
+				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser."
+			},
+			"traffic": {
+				"title": "Verkehr",
+				"tip1": "Bereits überschwemmte Gebiete sind keinesfalls zu betreten, auch nicht mit Fahrzeugen.",
+				"tip2": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgaragen, unter der Erde gelegene Bahnstationen und die Nähe von Fließgewässern, auch wenn Sie mit dem Auto unterwegs sind.",
+				"tip3": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern über den Nachhauseweg. Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
+				"tip4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser",
+				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei."
+			},
+			"recommendationsOverview": {
+				"textPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. @copyright ungeklärt",
+				"linkText": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
+				"button": "Übersicht Handlungsempfehlungen"
+			}
+		},
+		"reportDownload": {
+			"title": "Download Bericht",
+			"description": "Hier können Sie sich die errechneten Ergebnisse an Ihrer Adresse und auf Basis des Fragebogens als PDF-Datei herunterladen.",
+			"fileInfo": "Doctype: PDF-Dokument ({size}) – Stand: {date}",
+			"button": "Bericht herunterladen"
+		}
+	}
+}

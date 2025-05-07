@@ -1,0 +1,19 @@
+{
+	"about": {
+		"pageTitle": "Über das Projekt",
+		"subTitle": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin",
+		"content": {
+			"paragraph1": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin, das vom  in Zusammenarbeit mit dem entwickelt wurde. Es wird vom betrieben.",
+			"paragraph2": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin, das vom in Zusammenarbeit mit dem  entwickelt wurde. Es wird vombetrieben.",
+			"paragraph3": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin, das vom in Zusammenarbeit mit dem  entwickelt wurde. Es wird vom betrieben."
+		},
+		"credits": {
+			"title1": "Eine Maßnahme von:",
+			"logo1": {
+				"alt": "SenMVKU",
+				"link": "https://www.berlin.de/sen/uvk/"
+			},
+			"title2": "Durchgeführt von:"
+		}
+	}
+}
