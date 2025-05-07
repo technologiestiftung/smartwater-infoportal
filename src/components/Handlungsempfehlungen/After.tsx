@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import TextBlock from "../TextBlock";
-import { ImageComponent } from "berlin-ui-library";
+import { Image } from "berlin-ui-library";
 
 const After: React.FC = () => {
 	const t = useTranslations();
@@ -34,7 +34,7 @@ const After: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t(
 								"recommendations.afterEvent.personalPreparedness.image.alt",
@@ -73,7 +73,7 @@ const After: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.inBuilding.image.alt")}
 							caption={t("recommendations.afterEvent.inBuilding.image.caption")}
@@ -102,7 +102,7 @@ const After: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
@@ -128,7 +128,7 @@ const After: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
@@ -152,7 +152,7 @@ const After: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							className="w-full md:order-1"

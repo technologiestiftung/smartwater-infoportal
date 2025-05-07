@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import TextBlock from "../TextBlock";
-import { Button, ImageComponent } from "berlin-ui-library";
+import { Button, Image } from "berlin-ui-library";
 
 const Before: React.FC = () => {
 	const t = useTranslations();
@@ -66,7 +66,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<div className="flex h-full items-center">
-							<ImageComponent
+							<Image
 								src="/imagery.png"
 								alt={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.alt",
@@ -105,7 +105,7 @@ const Before: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
 							caption={t(
@@ -167,7 +167,7 @@ const Before: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.traffic.image.alt")}
 							caption={t("recommendations.beforeEvent.traffic.image.caption")}
@@ -197,7 +197,7 @@ const Before: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.traffic.image.alt")}
 							className="w-full"
@@ -224,7 +224,7 @@ const Before: React.FC = () => {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.fluvialFlood.image.alt")}
 							className="w-full"

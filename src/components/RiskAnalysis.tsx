@@ -2,7 +2,13 @@
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
-import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
+import {
+	Button,
+	Form,
+	FormWrapper,
+	FormFieldWrapper,
+	Image,
+} from "berlin-ui-library";
 import { useForm } from "react-hook-form";
 
 interface RiskAnalysisProps {
@@ -87,7 +93,6 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 					label: t("floodCheck.questions.q3.options.two"),
 					value: "two",
 				},
-				{ label: t("floodCheck.questions.q3.options.no"), value: "no" },
 				{
 					label: t("floodCheck.questions.q3.options.threeOrMore"),
 					value: "threeOrMore",
@@ -128,7 +133,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 		{
 			id: "q5",
 			name: t("floodCheck.questions.q5.text"),
-			type: "checkbox",
+			type: "radio",
 			options: [
 				{
 					label: t("floodCheck.questions.q5.options.good"),
@@ -240,6 +245,25 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 						</div>
 					</Form>
 				</FormWrapper>
+				{currentStep === 3 && (
+					<div className="">
+						<Image
+							src="/rueckstausicherung.png"
+							alt={t("floodCheck.questions.q4.image.alt")}
+							caption={t("floodCheck.questions.q4.image.caption")}
+							copyright={t("floodCheck.questions.q4.image.copyright")}
+						/>
+					</div>
+				)}
+				{currentStep === 4 && (
+					<div className="">
+						<Image
+							src="/ablaeufe.png"
+							alt={t("floodCheck.questions.q5.image.alt")}
+							caption={t("floodCheck.questions.q5.image.caption")}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);

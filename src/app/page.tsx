@@ -5,7 +5,7 @@ import {
 	Form,
 	FormFieldWrapper,
 	FormWrapper,
-	ImageComponent,
+	Image,
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
@@ -84,7 +84,7 @@ export default function Home() {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("howToProtect.image.alt")}
 							className="w-full"
@@ -153,7 +153,7 @@ export default function Home() {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("howToProtect.image.alt")}
 							className="w-full"

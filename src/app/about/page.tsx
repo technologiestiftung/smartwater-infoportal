@@ -1,7 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Button, ImageComponent } from "berlin-ui-library";
+import { Button, Image } from "berlin-ui-library";
 export default function About() {
 	const t = useTranslations();
 
@@ -23,7 +23,7 @@ export default function About() {
 			<div className="flex flex-col gap-6">
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title2")}</h3>
-					<ImageComponent src="/logo.svg" alt={t("about.credits.logo1.alt")} />
+					<Image src="/logo.svg" alt={t("about.credits.logo1.alt")} />
 				</div>
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title2")}</h3>

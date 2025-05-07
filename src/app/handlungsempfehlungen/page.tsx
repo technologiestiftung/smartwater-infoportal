@@ -37,13 +37,19 @@ export default function Recommendations() {
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="before">
-					<Before />
+					<div className="mt-6">
+						<Before />
+					</div>
 				</TabsContent>
 				<TabsContent value="during">
-					<During />
+					<div className="mt-6">
+						<During />{" "}
+					</div>
 				</TabsContent>
 				<TabsContent value="after">
-					<After />
+					<div className="mt-6">
+						<After />{" "}
+					</div>
 				</TabsContent>
 			</Tabs>
 		</div>

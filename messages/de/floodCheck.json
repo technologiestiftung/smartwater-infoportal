@@ -61,8 +61,11 @@
 					"no": "Nein",
 					"noInformation": "Keine Angabe"
 				},
-				"infoTitle": "Rückstauklappen",
-				"infoText": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+				"image": {
+					"alt": "Rückstauklappen",
+					"caption": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"copyright": "© SenMVKU"
+				}
 			},
 			"q5": {
 				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
@@ -72,7 +75,12 @@
 					"unknown": "In unbekanntem Zustand",
 					"noInformation": "Keine Angabe"
 				},
-				"infoText": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+
+				"image": {
+					"alt": "Abläufe",
+					"caption": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"copyright": "© SenMVKU"
+				}
 			},
 			"q6": {
 				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?",

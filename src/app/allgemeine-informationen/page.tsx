@@ -6,7 +6,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 	AccordionContent,
-	ImageComponent,
+	Image,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -41,7 +41,7 @@ export default function GeneralInformation() {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/fluvial_flooding.png"
 							alt={t("generalInfo.types.fluvial.image.alt")}
 							caption={t("generalInfo.types.fluvial.image.caption")}
@@ -73,7 +73,7 @@ export default function GeneralInformation() {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/fluvial_risk.png"
 							alt={t("generalInfo.hazardVsRisk.risk.image.alt")}
 							caption={t("generalInfo.hazardVsRisk.risk.image.caption")}
@@ -100,7 +100,7 @@ export default function GeneralInformation() {
 						</div>
 					}
 					slotB={
-						<ImageComponent
+						<Image
 							src="/imagery.png"
 							alt={t("generalInfo.assessment.how.image.alt")}
 							caption={t("generalInfo.assessment.how.image.caption")}
