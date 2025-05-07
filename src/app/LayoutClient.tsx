@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 
 // Dynamically import client components
 const Header = dynamic(
@@ -17,6 +18,7 @@ export default function LayoutClient({
 }: {
 	children: React.ReactNode;
 }) {
+	const t = useTranslations();
 	return (
 		<div className="flex min-h-screen flex-col">
 			<Header showLanguageSelect={false} />
@@ -28,93 +30,32 @@ export default function LayoutClient({
 			<Footer
 				footerColumns={[
 					{
+						title: "Senatsverwaltung",
 						links: [
 							{
-								href: "/about-project/",
-								label: "About the Project",
+								href: "/about/",
+								label: t("common.footer.about"),
 							},
 							{
 								href: "/imprint/",
-								label: "Imprint",
+								label: t("common.footer.imprint"),
 							},
 							{
 								href: "/privacy-note/",
-								label: "Privacy Policy",
+								label: t("common.footer.privacy"),
 							},
 							{
 								href: "/accessibility-statement/",
-								label: "Accessibility Statement",
+								label: t("common.footer.accessibility"),
 							},
 						],
-						title: "About",
-					},
-					{
-						links: [
-							{
-								href: "/all-offers/",
-								label: "All Offers",
-							},
-							{
-								href: "/all-offers/?category=kultur",
-								label: "Culture",
-							},
-							{
-								href: "/all-offers/?category=sport",
-								label: "Sports",
-							},
-							{
-								href: "/all-offers/?category=bildung_beratung",
-								label: "Education",
-							},
-							{
-								href: "/all-offers/?category=freizeit",
-								label: "Leisure",
-							},
-							{
-								href: "/map/",
-								label: "Map",
-							},
-						],
-						title: "Content Categories",
-					},
-					{
-						isDefaultOpen: true,
-						links: [
-							{
-								href: "https://www.facebook.com/BerlinDE/",
-								label: "Facebook",
-							},
-							{
-								href: "https://www.instagram.com/berlinde/",
-								label: "Instagram",
-							},
-						],
-						title: "Social Media",
 					},
 				]}
 				language="de"
 				showScrollToTop
 				translations={{
 					de: {
-						About: "Über uns",
-						"About the Project": "Über das Projekt",
-						"Accessibility Statement": "Barrierefreiheit",
-						"All Offers": "Alle Angebote",
-						"Content Categories": "Inhaltskategorien",
-						Culture: "Kultur",
-						Education: "Bildung & Beratung",
-						Facebook: "Facebook",
-						Imprint: "Impressum",
-						Instagram: "Instagram",
-						Leisure: "Freizeit",
-						Map: "Karte",
-						"Privacy Policy": "Datenschutz",
-						"Social Media": "Soziale Medien",
-						Sports: "Sport",
-						toTheTop: "Zum Seitenanfang",
-					},
-					en: {
-						toTheTop: "Back to top",
+						toTheTop: t("common.toPageTop"),
 					},
 				}}
 			/>

@@ -1,4 +1,5 @@
 "use client";
+import TextBlock from "@/components/TextBlock";
 import {
 	Button,
 	Form,
@@ -8,6 +9,7 @@ import {
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -36,9 +38,8 @@ export default function Home() {
 
 	return (
 		<div className="flex w-full flex-col gap-12">
-			<section className="Intro flex flex-col gap-6">
+			<section className="flex flex-col gap-6">
 				<h1 className="">{t("pageTitle")}</h1>
-
 				<h2 className="">{t("whatIsIt.title")}</h2>
 				<p className="">
 					{t("whatIsIt.quote")} <br />
@@ -47,7 +48,7 @@ export default function Home() {
 				<p className="">{t("whatIsIt.description2")}</p>
 			</section>
 			<div className="divider" />
-			<section className="HochwasserCheck-root flex flex-col gap-6">
+			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
@@ -67,88 +68,112 @@ export default function Home() {
 					</Form>
 				</FormWrapper>
 			</section>
-			<section className="Handlungsempfehlungen grid w-full gap-6 md:grid-cols-2">
-				<div className="flex w-full flex-col gap-8 md:order-1 md:gap-10">
-					<h2 className="">{t("howToProtect.title")}</h2>
-					<p className="">{t("howToProtect.ownerInfo")}</p>
-					<p className="">{t("howToProtect.tenantInfo")}</p>
-					<p className="">{t("howToProtect.generalRule")}</p>
-					<div className="hidden w-full flex-col gap-6 md:flex">
-						<p className="">{t("howToProtect.recommendations.info")}</p>
-						<Button
+			<section className="w-full">
+				<TextBlock
+					desktopColSpans={{ col1: 2, col2: 3 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="flex w-full flex-col gap-6">
+							<div className="flex flex-col gap-2">
+								<h2 className="">{t("howToProtect.title")}</h2>
+								<p className="">{t("howToProtect.ownerInfo")}</p>
+							</div>
+							<p className="">{t("howToProtect.tenantInfo")}</p>
+							<p className="">{t("howToProtect.generalRule")}</p>
+						</div>
+					}
+					slotB={
+						<ImageComponent
+							src="/imagery.png"
+							alt={t("howToProtect.image.alt")}
 							className="w-full"
-							onClick={() => {
-								router.push("/handlungsempfehlungen");
-							}}
-						>
-							{t("howToProtect.recommendations.button")}
-						</Button>
-					</div>
-				</div>
-				<ImageComponent
-					src="/imagery.png"
-					alt={t("howToProtect.image.alt")}
-					className="w-full"
-					caption={t("howToProtect.image.caption")}
-					copyright={t("howToProtect.image.copyright")}
+							caption={t("howToProtect.image.caption")}
+							copyright={t("howToProtect.image.copyright")}
+						/>
+					}
+					slotC={
+						<div className="flex w-full flex-col gap-6">
+							<p className="">{t("howToProtect.recommendations.info")}</p>
+							<Button
+								className="w-full"
+								onClick={() => {
+									router.push("/handlungsempfehlungen");
+								}}
+							>
+								{t("howToProtect.recommendations.button")}
+							</Button>
+						</div>
+					}
 				/>
-				<div className="flex w-full flex-col gap-6 md:hidden">
-					<p className="">{t("howToProtect.recommendations.info")}</p>
-					<Button
-						onClick={() => {
-							router.push("/handlungsempfehlungen");
-						}}
-					>
-						{t("howToProtect.recommendations.button")}
-					</Button>
-				</div>
 			</section>
 			<div className="divider" />
-			<section className="grid gap-6 md:grid-cols-3">
-				<div className="order-1 flex flex-col gap-6 md:order-1 md:col-span-2">
-					<h2 className="">{t("floodRadar.title")}</h2>
-					<h3 className="">{t("floodRadar.subtitle")}</h3>
-					<p className="hidden md:block">{t("floodRadar.description")}</p>
-				</div>
-				<div className="Widget bg-message-success order-2 m-2 flex h-96 w-full flex-wrap items-center justify-center md:order-2 md:h-full">
-					<span> {t("floodRadar.currentStatus.noWarnings")}</span>
-				</div>
-				<p className="order-3 block md:hidden">{t("floodRadar.description")}</p>
+			<section className="">
+				<TextBlock
+					desktopColSpans={{ col1: 3, col2: 2 }}
+					className="w-full gap-6"
+					slotA={
+						<div className="flex w-full flex-col gap-6">
+							<h2 className="">{t("floodRadar.title")}</h2>
+							<h3 className="">{t("floodRadar.subtitle")}</h3>
+						</div>
+					}
+					slotB={
+						/** Insert Widget Component here */
+						<div className="flex h-full items-center">
+							<div className="Widget bg-message-success order-2 flex h-36 max-h-48 w-full flex-wrap items-center justify-center">
+								<span> {t("floodRadar.currentStatus.noWarnings")}</span>
+							</div>
+						</div>
+					}
+					slotC={
+						<p className="">
+							{t.rich("floodRadar.description", {
+								link: (chunks) => (
+									<Link href="/link" className="text-text-link">
+										{chunks}
+									</Link>
+								),
+							})}
+						</p>
+					}
+				/>
 			</section>
 			<div className="divider" />
-			<section className="grid w-full gap-6 md:grid-cols-2">
-				<div className="order-1 flex flex-col gap-8 md:order-2">
-					<h2 className="">{t("backgroundInfo.title")}</h2>
-					<p className="">{t("backgroundInfo.questions")}</p>
-					<p className="">{t("backgroundInfo.answer")}</p>
-					<div className="hidden w-full flex-col gap-6 md:flex">
-						<Button
-							onClick={() => {
-								router.push("/allgemeine-informationen");
-							}}
-							className=""
-						>
-							{t("backgroundInfo.button")}
-						</Button>
-					</div>
-				</div>
-				<ImageComponent
-					src="/imagery.png"
-					alt={t("howToProtect.image.alt")}
-					className="order-2 w-full md:order-1"
-					caption={t("howToProtect.image.caption")}
-					copyright={t("howToProtect.image.copyright")}
+			<section className="">
+				<TextBlock
+					desktopColSpans={{ col1: 2, col2: 3 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="flex w-full flex-col gap-6">
+							<h2 className="">{t("backgroundInfo.title")}</h2>
+							<p className="">{t("backgroundInfo.questions")}</p>
+							<p className="">{t("backgroundInfo.answer")}</p>
+						</div>
+					}
+					slotB={
+						<ImageComponent
+							src="/imagery.png"
+							alt={t("howToProtect.image.alt")}
+							className="w-full"
+							caption={t("howToProtect.image.caption")}
+							copyright={t("howToProtect.image.copyright")}
+						/>
+					}
+					slotC={
+						<div className="flex w-full flex-col gap-6">
+							<Button
+								onClick={() => {
+									router.push("/allgemeine-informationen");
+								}}
+								className=""
+							>
+								{t("backgroundInfo.button")}
+							</Button>
+						</div>
+					}
 				/>
-				<div className="order-3 flex w-full flex-col gap-6 md:hidden">
-					<Button
-						onClick={() => {
-							router.push("/allgemeine-informationen");
-						}}
-						className=""
-					>
-						{t("backgroundInfo.button")}
-					</Button>
-				</div>
 			</section>
 		</div>
 	);
