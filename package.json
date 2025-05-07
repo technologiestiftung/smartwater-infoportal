@@ -10,7 +10,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"berlin-ui-library": "git+ssh://git@github.com/technologiestiftung/berlin-ui-library",
+		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"next": "15.3.1",
 		"next-intl": "^4.1.0",
 		"react": "^19.0.0",

@@ -9,6 +9,7 @@ import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/Form
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 
 export default function FloodCheck() {
@@ -42,67 +43,73 @@ export default function FloodCheck() {
 	};
 
 	return (
-		<div className="flex w-full flex-col justify-start gap-6">
-			{hash === "interimResult" ? (
-				<>
-					<Link href="/wasser-check">
-						<Button variant="back-link" className="self-start">
-							{t("common.backToStart")}
-						</Button>
-					</Link>
-					<div className="flex w-full flex-col gap-2">
-						<div className="flex items-center space-x-2">
-							<h1 className="">{t("floodCheck.pageTitle")}</h1>
-							<h1 className="">{t("floodCheck.interimResults.title")}</h1>
+		<Suspense
+			fallback={
+				<div className="flex w-full flex-col gap-6">Loading hash...</div>
+			}
+		>
+			<div className="flex w-full flex-col justify-start gap-6">
+				{hash === "interimResult" ? (
+					<>
+						<Link href="/wasser-check">
+							<Button variant="back-link" className="self-start">
+								{t("common.backToStart")}
+							</Button>
+						</Link>
+						<div className="flex w-full flex-col gap-2">
+							<div className="flex items-center space-x-2">
+								<h1 className="">{t("floodCheck.pageTitle")}</h1>
+								<h1 className="">{t("floodCheck.interimResults.title")}</h1>
+							</div>
+							<InterimResults entities={entities} />
 						</div>
-						<InterimResults entities={entities} />
-					</div>
-				</>
-			) : hash === "analysis" ? (
-				<>
-					<Link href="/wasser-check#interimResult">
-						<Button variant="back-link" className="self-start">
-							{t("floodCheck.navigation.back")}
-						</Button>
-					</Link>
-					<div className="flex w-full flex-col gap-4">
-						<div className="flex items-center space-x-2">
-							<h1 className="">{t("floodCheck.pageTitle")}</h1>
-							<h1 className="">{t("floodCheck.results.title")}</h1>
+					</>
+				) : hash === "analysis" ? (
+					<>
+						<Link href="/wasser-check#interimResult">
+							<Button variant="back-link" className="self-start">
+								{t("floodCheck.navigation.back")}
+							</Button>
+						</Link>
+						<div className="flex w-full flex-col gap-4">
+							<div className="flex items-center space-x-2">
+								<h1 className="">{t("floodCheck.pageTitle")}</h1>
+								<h1 className="">{t("floodCheck.results.title")}</h1>
+							</div>
+							<RiskAnalysis onSubmit={submit} />
 						</div>
-						<RiskAnalysis onSubmit={submit} />
-					</div>
-				</>
-			) : (
-				<>
-					<div className="flex w-full flex-col gap-4">
-						<h1 className="">{t("floodCheck.pageTitle")}</h1>
-						<h2 className="">{t("floodCheck.start.title")}</h2>
-						<p className="">{t("floodCheck.start.description")}</p>
-						<FormWrapper>
-							<Form {...methods}>
-								<div className="flex w-full flex-col gap-8">
-									<FormFieldWrapper
-										key={property.id}
-										formProperty={property}
-										form={methods}
-									/>
+					</>
+				) : (
+					<>
+						<div className="flex w-full flex-col gap-4">
+							<h1 className="">{t("floodCheck.pageTitle")}</h1>
+							<h2 className="">{t("floodCheck.start.title")}</h2>
+							<p className="">{t("floodCheck.start.description")}</p>
+							<FormWrapper>
+								<Form {...methods}>
+									<div className="flex w-full flex-col gap-8">
+										<FormFieldWrapper
+											key={property.id}
+											formProperty={property}
+											form={methods}
+										/>
 
-									<div className="mt-4 flex w-full flex-col space-y-4">
-										<Button
-											onClick={quickCheck}
-											type="button"
-											className="item text-left"
-										>
-											{t("common.confirm")}
-										</Button>
+										<div className="mt-4 flex w-full flex-col space-y-4">
+											<Button
+												onClick={quickCheck}
+												type="button"
+												className="item text-left"
+											>
+												{t("common.confirm")}
+											</Button>
+										</div>
 									</div>
-								</div>
-							</Form>
-						</FormWrapper>
-					</div>
-				</>
-			)}
-		</div>
+								</Form>
+							</FormWrapper>
+						</div>
+					</>
+				)}
+			</div>
+		</Suspense>
 	);
 }
