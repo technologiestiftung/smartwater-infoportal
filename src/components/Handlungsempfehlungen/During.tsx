@@ -35,6 +35,7 @@ const During: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t(
 								"recommendations.duringEvent.personalPreparedness.image.alt",
@@ -69,6 +70,7 @@ const During: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.duringEvent.inBuilding.image.alt")}
 							caption={t(
@@ -102,6 +104,7 @@ const During: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.duringEvent.traffic.image.alt")}
 							caption={t("recommendations.duringEvent.traffic.image.caption")}
@@ -128,6 +131,7 @@ const During: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.duringEvent.traffic.image.alt")}
 							caption={t("recommendations.duringEvent.traffic.image.caption")}
@@ -155,9 +159,9 @@ const During: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.duringEvent.traffic.image.alt")}
-							className="w-full md:order-1"
 							caption={t("recommendations.duringEvent.traffic.image.caption")}
 							copyright={t(
 								"recommendations.duringEvent.traffic.image.copyright",

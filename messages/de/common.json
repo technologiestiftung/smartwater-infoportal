@@ -23,12 +23,30 @@
 		"openLegend": "Legende öffnen",
 		"downloadReport": "Download Bericht",
 		"downloadButton": "Bericht herunterladen",
+		"menu": {
+			"home": "Startseite",
+			"about": "Über das Projekt",
+			"generalInfo": "Allgemeine Informationen",
+			"floodCheck": "Hochwassergefahr-Check",
+			"recommendations": "Handlungsempfehlungen"
+		},
 		"footer": {
-			"about": "Über uns",
-			"changeLog": "ChangeLog",
+			"title": "Hochwasserinfoportal",
+			"about": "Über das Projekt",
 			"imprint": "Impressum",
 			"privacy": "Datenschutzerklärung",
 			"accessibility": "Erklärung zur Barrierefreiheit"
+		},
+		"breadcrumb": {
+			"root": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"environment": "Umwelt",
+			"about": "Über das Projekt",
+			"waterGeology": "Wasser und Geologie",
+			"rainFlood": "Starkregen und Überflutungen",
+			"infoportal": "Hochwasser-Infoportal",
+			"wasser-check": "Hochwasser Check",
+			"allgemeine-informationen": "Allgemeine Informationen",
+			"handlungsempfehlungen": "Handlungsempfehlungen"
 		}
 	}
 }

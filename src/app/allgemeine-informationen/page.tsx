@@ -42,6 +42,7 @@ export default function GeneralInformation() {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/fluvial_flooding.png"
 							alt={t("generalInfo.types.fluvial.image.alt")}
 							caption={t("generalInfo.types.fluvial.image.caption")}
@@ -74,6 +75,7 @@ export default function GeneralInformation() {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/fluvial_risk.png"
 							alt={t("generalInfo.hazardVsRisk.risk.image.alt")}
 							caption={t("generalInfo.hazardVsRisk.risk.image.caption")}
@@ -101,6 +103,7 @@ export default function GeneralInformation() {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("generalInfo.assessment.how.image.alt")}
 							caption={t("generalInfo.assessment.how.image.caption")}

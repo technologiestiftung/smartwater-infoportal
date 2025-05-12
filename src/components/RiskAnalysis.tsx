@@ -246,6 +246,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 				{currentStep === 3 && (
 					<div className="">
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/rueckstausicherung.png"
 							alt={t("floodCheck.questions.q4.image.alt")}
 							caption={t("floodCheck.questions.q4.image.caption")}

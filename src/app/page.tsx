@@ -37,17 +37,19 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex w-full flex-col gap-12">
-			<section className="flex flex-col gap-6">
-				<h1 className="">{t("pageTitle")}</h1>
-				<h2 className="">{t("whatIsIt.title")}</h2>
-				<p className="">
-					{t("whatIsIt.quote")} <br />
-					{t("whatIsIt.description1")}
-				</p>
-				<p className="">{t("whatIsIt.description2")}</p>
+		<div className="flex w-full flex-col gap-12 px-5 md:px-0">
+			<section>
+				<div className="flex flex-col gap-6">
+					<h1 className="">{t("pageTitle")}</h1>
+					<h2 className="">{t("whatIsIt.title")}</h2>
+					<p className="">
+						{t("whatIsIt.quote")} <br />
+						{t("whatIsIt.description1")}
+					</p>
+					<p className="">{t("whatIsIt.description2")}</p>
+				</div>
 			</section>
-			<div className="divider" />
+			<div className="divider px-5" />
 			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
@@ -85,9 +87,9 @@ export default function Home() {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("howToProtect.image.alt")}
-							className="w-full"
 							caption={t("howToProtect.image.caption")}
 							copyright={t("howToProtect.image.copyright")}
 						/>
@@ -154,9 +156,9 @@ export default function Home() {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("howToProtect.image.alt")}
-							className="w-full"
 							caption={t("howToProtect.image.caption")}
 							copyright={t("howToProtect.image.copyright")}
 						/>

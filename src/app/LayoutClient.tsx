@@ -2,6 +2,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 const Header = dynamic(
 	() => import("berlin-ui-library").then((mod) => mod.Header),
@@ -18,33 +19,94 @@ export default function LayoutClient({
 	children: React.ReactNode;
 }) {
 	const t = useTranslations();
+	const paths = usePathname();
+	const pathNames = paths
+		.split("/")
+		.filter((segment) => segment)
+		.map((segment, index, arr) => ({
+			href: "/" + arr.slice(0, index + 1).join("/"), // Construct the breadcrumb path
+			label: t(`common.breadcrumb.${segment}`, { defaultValue: segment }), // Use translation key with fallback
+		}))
+		.filter(Boolean); // Filter out any empty segments
+	const rootBreadcrumb = [
+		{
+			href: "/",
+			label: t("common.breadcrumb.root"),
+		},
+		{
+			href: "/about",
+			label: t("common.breadcrumb.environment"),
+		},
+		{
+			href: "/imprint",
+			label: t("common.breadcrumb.waterGeology"),
+		},
+		{
+			href: "/privacy-note",
+			label: t("common.breadcrumb.rainFlood"),
+		},
+		{
+			href: "/accessibility-statement",
+			label: t("common.breadcrumb.infoportal"),
+		},
+	];
+	const breadcrumbs = [...rootBreadcrumb, ...pathNames];
 	return (
 		<div className="flex min-h-screen flex-col">
-			<Header showLanguageSelect={false} />
+			<Header
+				breadcrumbs={breadcrumbs}
+				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
+				showLanguageSelect={true}
+				header={"Senatsverwaltung für"}
+				menuItems={[
+					{
+						href: "/",
+						label: t("common.menu.home"),
+					},
+					{
+						href: "/about",
+						label: t("common.menu.about"),
+					},
+					{
+						href: "/allgemeine-informationen",
+						label: t("common.menu.generalInfo"),
+					},
+					{
+						href: "/wasser-check",
+						label: t("common.menu.floodCheck"),
+					},
+					{
+						href: "/handlungsempfehlungen",
+						label: t("common.menu.recommendations"),
+					},
+				]}
+				onOpenMenu={() => {}}
+				onSearch={() => {}}
+			/>
 			<div className="flex flex-grow justify-center">
-				<main className="container flex flex-grow flex-col p-5">
+				<main className="mx-auto flex flex-grow flex-col py-5 md:max-w-[61.25rem]">
 					{children}
 				</main>
 			</div>
 			<Footer
 				footerColumns={[
 					{
-						title: "Senatsverwaltung",
+						title: t("common.footer.title"),
 						links: [
 							{
 								href: "/about/",
 								label: t("common.footer.about"),
 							},
 							{
-								href: "/imprint/",
+								href: "https://www.berlin.de/sen/uvk/ueber-uns/impressum/",
 								label: t("common.footer.imprint"),
 							},
 							{
-								href: "/privacy-note/",
+								href: "https://www.berlin.de/sen/uvk/datenschutzerklaerung.844084.php",
 								label: t("common.footer.privacy"),
 							},
 							{
-								href: "/accessibility-statement/",
+								href: "https://www.berlin.de/sen/uvk/barrierefreiheitserklaerung.904478.php",
 								label: t("common.footer.accessibility"),
 							},
 						],

@@ -74,6 +74,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.inBuilding.image.alt")}
 							caption={t("recommendations.afterEvent.inBuilding.image.caption")}
@@ -103,6 +104,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
@@ -129,6 +131,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
@@ -153,9 +156,9 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
-							className="w-full md:order-1"
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
 							copyright={t(
 								"recommendations.afterEvent.traffic.image.copyright",

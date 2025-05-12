@@ -67,11 +67,11 @@ const Before: React.FC = () => {
 					slotB={
 						<div className="flex h-full items-center">
 							<Image
+								className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 								src="/imagery.png"
 								alt={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.alt",
 								)}
-								className="w-full"
 								caption={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.caption",
 								)}
@@ -106,6 +106,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
 							caption={t(
@@ -168,6 +169,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.traffic.image.alt")}
 							caption={t("recommendations.beforeEvent.traffic.image.caption")}
@@ -225,9 +227,9 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
+							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.fluvialFlood.image.alt")}
-							className="w-full"
 							caption={t(
 								"recommendations.beforeEvent.fluvialFlood.image.caption",
 							)}
