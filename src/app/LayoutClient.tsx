@@ -30,23 +30,23 @@ export default function LayoutClient({
 		.filter(Boolean); // Filter out any empty segments
 	const rootBreadcrumb = [
 		{
-			href: "/",
+			href: "https://www.berlin.de/sen/uvk/",
 			label: t("common.breadcrumb.root"),
 		},
 		{
-			href: "/about",
+			href: "https://www.berlin.de/sen/uvk/umwelt/",
 			label: t("common.breadcrumb.environment"),
 		},
 		{
-			href: "/imprint",
+			href: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/",
 			label: t("common.breadcrumb.waterGeology"),
 		},
 		{
-			href: "/privacy-note",
+			href: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/starkregen-und-ueberflutungen/",
 			label: t("common.breadcrumb.rainFlood"),
 		},
 		{
-			href: "/accessibility-statement",
+			href: "/",
 			label: t("common.breadcrumb.infoportal"),
 		},
 	];
