@@ -13,7 +13,10 @@
 			}
 		},
 		"results": {
-			"title": "- Gesamtergebnis"
+			"title": "- Gesamtergebnis",
+			"navigation": {
+				"back": "Zurück zum WasserCheck"
+			}
 		},
 		"start": {
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
@@ -95,14 +98,6 @@
 		"intermediateResult": {
 			"title": "Hier käme das Zwischenergebnis",
 			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift"
-		},
-		"footer": {
-			"senateAdministration": "Senatsverwaltung",
-			"socialMedia": "Social Media",
-			"central": "Zentrales",
-			"subordinateFacilities": "Nachgeordnete Einrichtungen",
-			"service": "Service",
-			"authorities": "Behörden"
 		},
 		"hazardSummary": {
 			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
