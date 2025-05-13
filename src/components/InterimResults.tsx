@@ -39,7 +39,7 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 						<p className="">{t("hint.description")}</p>
 					</>
 				)}
-				<Link href="/wasser-check#analysis">
+				<Link href="/wasser-check#questionnaire">
 					<Button>{t("checkBuildingRiskButton")}</Button>
 				</Link>
 			</div>
