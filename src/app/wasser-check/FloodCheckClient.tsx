@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 "use client";
 import InterimResults from "@/components/InterimResults";
+import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
 import { HazardLevel } from "@/lib/types";
@@ -38,7 +39,7 @@ export default function FloodCheckClient() {
 		router.push("/wasser-check#interimResult");
 	};
 	const submit = async () => {
-		router.push("/wasser-check#floodCheck");
+		router.push("/wasser-check#results");
 	};
 
 	return (
@@ -58,7 +59,7 @@ export default function FloodCheckClient() {
 						<InterimResults entities={entities} />
 					</div>
 				</>
-			) : hash === "analysis" ? (
+			) : hash === "questionnaire" ? (
 				<>
 					<Link href="/wasser-check#interimResult">
 						<Button variant="back-link" className="self-start">
@@ -68,9 +69,23 @@ export default function FloodCheckClient() {
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
-							<h1 className="">{t("floodCheck.results.title")}</h1>
 						</div>
 						<RiskAnalysis onSubmit={submit} />
+					</div>
+				</>
+			) : hash === "results" ? (
+				<>
+					<Link href="/wasser-check#questionnaire">
+						<Button variant="back-link" className="self-start">
+							{t("floodCheck.results.navigation.back")}
+						</Button>
+					</Link>
+					<div className="flex w-full flex-col gap-4">
+						<div className="flex flex-wrap items-center space-x-2">
+							<h1 className="">{t("floodCheck.pageTitle")}</h1>
+							<h1 className="">{t("floodCheck.results.title")}</h1>
+							<Results />
+						</div>
 					</div>
 				</>
 			) : (
