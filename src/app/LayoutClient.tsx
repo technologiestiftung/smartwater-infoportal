@@ -58,6 +58,33 @@ export default function LayoutClient({
 				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
 				showLanguageSelect={true}
 				header={"Senatsverwaltung für"}
+				language="de"
+				translations={{
+					de: {
+						accessibility: t("common.accessibility"),
+						search: t("common.search"),
+						menu: t("common.menu.button"),
+						"menu.title": t("common.menu.title"),
+						"accessibilityMenu.barrierefreiheit.question": t(
+							"common.accessibilityMenu.barrierefreiheit.question",
+						),
+						"accessibilityMenu.barrierefreiheit": t(
+							"common.accessibilityMenu.barrierefreiheit.title",
+						),
+						"accessibilityMenu.contact.question": t(
+							"common.accessibilityMenu.contact.question",
+						),
+						"accessibilityMenu.contact": t(
+							"common.accessibilityMenu.contact.title",
+						),
+						"accessibilityMenu.additionalInfo.question": t(
+							"common.accessibilityMenu.additionalInfo.question",
+						),
+						"accessibilityMenu.additionalInfo": t(
+							"common.accessibilityMenu.additionalInfo.title",
+						),
+					},
+				}}
 				menuItems={[
 					{
 						href: "/",
