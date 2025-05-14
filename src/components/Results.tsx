@@ -55,12 +55,12 @@ const Results: React.FC = () => {
 	return (
 		<div className="w-full max-w-[100vw] px-4">
 			<h2 className="mt-6">{t("hazardAtLocation")}</h2>
-			<div className="mt-[7px] flex w-full flex-col">
+			<div className="mt-2 flex w-full flex-col">
 				<p className="">Placeholder Adresse</p>
 				<p className="">Placeholder PLZ - Stadt</p>
 			</div>
 			<h3 className="mt-8">{t("hazardDisplay.title")}</h3>
-			<p className="mt-[7px]">{t("hazardDisplay.descriptionPlaceholder")}</p>
+			<p className="mt-2">{t("hazardDisplay.descriptionPlaceholder")}</p>
 			<div className="mt-6 flex w-full max-w-full flex-nowrap gap-2 overflow-y-scroll">
 				{filters.map((filter) => (
 					<div className="flex border-2 border-black" key={filter}>
@@ -90,7 +90,7 @@ const Results: React.FC = () => {
 			</div>
 			<p className="mt-6">{t("hazardDisplay.frequencyDescription.rare")}</p>
 			<Image
-				className="mt-10 w-full max-w-[500px]"
+				className="mt-10 w-full max-w-[31.25rem]"
 				src="/placeholder-images/Widget Starkregen.jpg"
 				alt="Widget Starkregen"
 				width={900}
@@ -123,7 +123,7 @@ const Results: React.FC = () => {
 			<h2 className="mt-12">{t("floodCheckfloodCheck.title")}</h2>
 			<p className="mt-4">{t("floodCheckfloodCheck.description")}</p>
 			<Image
-				className="mt-6 w-full max-w-[500px]"
+				className="mt-6 w-full max-w-[31.25rem]"
 				src="/placeholder-images/Widget Risiko.jpg"
 				alt="Widget Risiko"
 				width={900}
@@ -141,7 +141,7 @@ const Results: React.FC = () => {
 				))}
 			</ul>
 			<BerlinImage
-				className="mt-12 w-full max-w-[500px]"
+				className="mt-12 w-full max-w-[31.25rem]"
 				src="/imagery.png"
 				alt="Placeholder Image"
 				caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
@@ -156,7 +156,7 @@ const Results: React.FC = () => {
 				))}
 			</ul>
 			<BerlinImage
-				className="mt-12 w-full max-w-[500px]"
+				className="mt-12 w-full max-w-[31.25rem]"
 				src="/imagery.png"
 				alt="Placeholder Image"
 				caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
@@ -167,11 +167,11 @@ const Results: React.FC = () => {
 			</Link>
 			<div className="divider my-12" />
 			<h3 className="mt-12">{t("reportDownload.title")}</h3>
-			<p className="mt-[7px]">{t("reportDownload.description")}</p>
-			<p className="mt-2 block break-words text-[11px] leading-tight text-gray-600">
+			<p className="mt-2">{t("reportDownload.description")}</p>
+			<p className="mt-2 block break-words text-sm leading-tight text-gray-600">
 				PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025
 			</p>
-			<Button variant="download" className="mb-[52px] mt-[14px]">
+			<Button variant="download" className="mb-14 mt-4">
 				Bericht herunterladen
 			</Button>
 		</div>
