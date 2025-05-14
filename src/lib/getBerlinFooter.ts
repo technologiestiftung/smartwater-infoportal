@@ -38,18 +38,15 @@ export async function getBerlinFooter(): Promise<string> {
 	const html = `<div><h2>TESTING FOOTER ${formatCurrentGermanTimestampWithSeconds()}</h2></div>`;
 
 	// ✅ Save to file cache
-	fs.writeFileSync(
-		CACHE_FILE,
-		JSON.stringify({ timestamp: now, html }),
-		"utf-8",
-	);
-
-	// Save to file cache
-	fs.writeFileSync(
-		CACHE_FILE,
-		JSON.stringify({ timestamp: now, html }),
-		"utf-8",
-	);
+	try {
+		fs.writeFileSync(
+			CACHE_FILE,
+			JSON.stringify({ timestamp: now, html }),
+			"utf-8",
+		);
+	} catch (err) {
+		throw new Error(`Failed to write cache: ${String(err)}`);
+	}
 
 	return html;
 }
