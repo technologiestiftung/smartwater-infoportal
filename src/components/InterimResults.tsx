@@ -3,7 +3,7 @@ import ResultBlock from "./ResultBlock";
 import { useTranslations } from "next-intl";
 import { Button } from "berlin-ui-library";
 import { HazardLevel } from "@/lib/types";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface InterimResultsProps {
 	entities: { name: string; hazardLevel: HazardLevel }[];

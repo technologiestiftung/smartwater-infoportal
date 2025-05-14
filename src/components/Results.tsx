@@ -8,14 +8,15 @@ import {
 	AccordionTrigger,
 	AccordionContent,
 	Button,
-	Image as BerlinImage,
+	Image,
 } from "berlin-ui-library";
-import Image from "next/image";
-import Link from "next/link";
 import IframeComponent from "./IFrameComponent";
+import { useRouter } from "next/navigation";
+import TextBlock from "./TextBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
+	const router = useRouter();
 
 	const filters = ["Starkregen", "Flusshochwasser"];
 	const subFilters = ["Selten", "Außergewöhnlich", "Extrem"];
@@ -53,127 +54,214 @@ const Results: React.FC = () => {
 	};
 
 	return (
-		<div className="w-full max-w-[100vw] px-4">
-			<h2 className="mt-6">{t("hazardAtLocation")}</h2>
-			<div className="mt-2 flex w-full flex-col">
-				<p className="">Placeholder Adresse</p>
-				<p className="">Placeholder PLZ - Stadt</p>
-			</div>
-			<h3 className="mt-8">{t("hazardDisplay.title")}</h3>
-			<p className="mt-2">{t("hazardDisplay.descriptionPlaceholder")}</p>
-			<div className="mt-6 flex w-full max-w-full flex-nowrap gap-2 overflow-y-scroll">
-				{filters.map((filter) => (
-					<div className="flex border-2 border-black" key={filter}>
-						<div className="flex h-12 w-12 items-center justify-center border-r-2 border-black bg-white">
-							<Checkbox
-								id={convertStringToID(filter)}
-								variant="styled"
-								className="h-5 w-5"
-							/>
-						</div>
-						<div className="bg-red flex h-12 flex-1 items-center px-4 font-bold text-white">
-							{filter}
-						</div>
+		<div className="flex w-full flex-col gap-12">
+			<section className="flex flex-col gap-2">
+				<h2 className="">{t("hazardAtLocation")}</h2>
+				<div className="flex w-full flex-col">
+					<p className="">Placeholder Adresse</p>
+					<p className="">Placeholder PLZ - Stadt</p>
+				</div>
+			</section>
+			<section className="flex flex-col gap-4">
+				<div className="flex flex-col gap-2">
+					<h3 className="">{t("hazardDisplay.title")}</h3>
+					<p className="">{t("hazardDisplay.descriptionPlaceholder")}</p>
+				</div>
+				<div className="flex flex-col gap-2">
+					<div className="flex w-full gap-2 overflow-y-scroll">
+						{filters.map((filter) => (
+							<div className="flex w-1/2 border-2 border-black" key={filter}>
+								<div className="flex h-12 min-w-12 items-center justify-center border-r-2 border-black bg-white">
+									<Checkbox
+										id={convertStringToID(filter)}
+										variant="styled"
+										className="h-5 min-w-5"
+									/>
+								</div>
+								<div className="bg-red flex h-12 flex-1 items-center px-4 font-bold text-white">
+									{filter}
+								</div>
+							</div>
+						))}
 					</div>
-				))}
-			</div>
-			<div className="mt-2 flex w-full max-w-full flex-nowrap gap-2 overflow-y-scroll">
-				{subFilters.map((subFilter) => (
-					<Toggle
-						key={convertStringToID(subFilter)}
-						aria-label="Toggle italic"
-						variant="outline"
+					<div className="flex w-full gap-2 overflow-y-scroll">
+						{subFilters.map((subFilter) => (
+							<Toggle
+								key={convertStringToID(subFilter)}
+								aria-label="Toggle italic"
+								className="w-1/3"
+								variant="outline"
+							>
+								<span>{subFilter}</span>
+							</Toggle>
+						))}
+					</div>
+				</div>
+				<TextBlock
+					desktopColSpans={{ col1: 1, col2: 1 }}
+					className="w-full gap-6"
+					slotA={
+						<p className="bg-panel-heavy h-full p-6">
+							{t("hazardDisplay.frequencyDescription.rare")}
+						</p>
+					}
+					slotB={
+						<Image
+							className="w-full"
+							src="/placeholder-images/Widget Starkregen.jpg"
+							alt="Widget Starkregen"
+						/>
+					}
+				/>
+
+				<h3 className="mt-2">{t("map.title")}</h3>
+				<p className="">{t("map.description")}</p>
+				<div className="">
+					<IframeComponent url="https://smartwater-masterportal.netlify.app/smartwater-map/" />
+				</div>
+			</section>
+			<section className="flex flex-col gap-4">
+				<h2 className="">{t("hazardInfo.title")}</h2>
+				<Accordion
+					type="single"
+					collapsible
+					variant="default"
+					className="text-start"
+				>
+					{accordion.map((item, index) => (
+						<AccordionItem
+							key={`item-${index}`}
+							value={`item-${index}`}
+							variant="default"
+						>
+							<AccordionTrigger variant="default">
+								{item.title}
+							</AccordionTrigger>
+							<AccordionContent variant="default">
+								{item.content}
+							</AccordionContent>
+						</AccordionItem>
+					))}
+				</Accordion>
+				<div className="flex flex-col">
+					<span className="">{t("hazardInfo.linkGroundwaterPortal")}</span>
+					<Button variant="link">{t("hazardInfo.linkGeologicalPortal")}</Button>
+				</div>
+				<div className="flex flex-col">
+					<span className="">{t("hazardInfo.linkWaterGeologyInfo")}</span>
+					<Button variant="link">
+						{t("hazardInfo.linkWaterGeologyBerlin")}
+					</Button>
+				</div>
+			</section>
+			<div className="divider" />
+			<section className="flex flex-col gap-4">
+				<div className="flex w-full flex-col gap-6">
+					<h2 className="">{t("floodCheckfloodCheck.title")}</h2>
+					<p className="">{t("floodCheckfloodCheck.description")}</p>
+				</div>
+				<TextBlock
+					desktopColSpans={{ col1: 1, col2: 1 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="bg-panel-heavy flex h-full w-full flex-col gap-6 p-6">
+							<h3 className="">{t("floodCheckfloodCheck.title")}</h3>
+							<p className="">{t("floodCheckfloodCheck.description")}</p>
+						</div>
+					}
+					slotB={
+						<Image
+							className="w-full"
+							src="/placeholder-images/Widget Risiko.jpg"
+							alt="Widget Risiko"
+						/>
+					}
+				/>
+			</section>
+			<section className="flex w-full flex-col gap-12">
+				<div className="flex flex-col gap-2">
+					<h2 className="">{t("protectionTips.title")}</h2>
+					<p className="">{t("protectionTips.intro1")}</p>
+					<p className="mt-4">{t("protectionTips.intro2")}</p>
+				</div>
+
+				<div className="flex flex-col gap-2">
+					<TextBlock
+						desktopColSpans={{ col1: 1, col2: 1 }}
+						className="w-full gap-6"
+						slotA={
+							<div className="flex h-full w-full flex-col p-6">
+								<h2 className="">{t("protectionTips.inBuilding.title")}</h2>
+								<ul className="list-inside list-disc">
+									{inBuildingTipKeys.map((tipKey) => (
+										<li key={tipKey} className="mt-2">
+											{t(tipKey)}
+										</li>
+									))}
+								</ul>{" "}
+							</div>
+						}
+						slotB={
+							<Image
+								className="-mx-5 mt-6 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/imagery.png"
+								alt="Placeholder Image"
+								caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
+								copyright="@copyright ungeklärt"
+							/>
+						}
+					/>
+				</div>
+
+				<div className="flex flex-col gap-2">
+					<TextBlock
+						desktopColSpans={{ col1: 1, col2: 1 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={true}
+						slotA={
+							<div className="flex h-full w-full flex-col p-6">
+								<h2 className="">{t("protectionTips.traffic.title")}</h2>
+								<ul className="list-inside list-disc">
+									{trafficTipKeys.map((tipKey) => (
+										<li key={tipKey} className="mt-2">
+											{t(tipKey)}
+										</li>
+									))}
+								</ul>
+							</div>
+						}
+						slotB={
+							<Image
+								className="-mx-5 mt-6 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/imagery.png"
+								alt="Placeholder Image"
+								caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
+								copyright="@copyright ungeklärt"
+							/>
+						}
+					/>
+					<Button
+						className="mt-6 w-full self-start lg:w-fit"
+						onClick={() => {
+							router.push("/handlungsempfehlungen");
+						}}
 					>
-						<span>{subFilter}</span>
-					</Toggle>
-				))}
-			</div>
-			<p className="mt-6">{t("hazardDisplay.frequencyDescription.rare")}</p>
-			<Image
-				className="mt-10 w-full max-w-[31.25rem]"
-				src="/placeholder-images/Widget Starkregen.jpg"
-				alt="Widget Starkregen"
-				width={900}
-				height={900}
-			/>
-			<h3 className="mt-10">{t("map.title")}</h3>
-			<p className="mt-2">{t("map.description")}</p>
-			<div className="mt-6">
-				<IframeComponent url="https://smartwater-masterportal.netlify.app/smartwater-map/" />
-			</div>
-			<h2 className="mt-12">{t("hazardInfo.title")}</h2>
-			<Accordion type="single" collapsible variant="default" className="mt-4">
-				{accordion.map((item, index) => (
-					<AccordionItem
-						key={`item-${index}`}
-						value={`item-${index}`}
-						variant="default"
-					>
-						<AccordionTrigger variant="default">{item.title}</AccordionTrigger>
-						<AccordionContent variant="default">
-							{item.content}
-						</AccordionContent>
-					</AccordionItem>
-				))}
-			</Accordion>
-			<p className="mt-6">{t("hazardInfo.linkGroundwaterPortal")}</p>
-			<Button variant="link">{t("hazardInfo.linkGeologicalPortal")}</Button>
-			<p className="mt-6">{t("hazardInfo.linkWaterGeologyInfo")}</p>
-			<Button variant="link">{t("hazardInfo.linkWaterGeologyBerlin")}</Button>
-			<h2 className="mt-12">{t("floodCheckfloodCheck.title")}</h2>
-			<p className="mt-4">{t("floodCheckfloodCheck.description")}</p>
-			<Image
-				className="mt-6 w-full max-w-[31.25rem]"
-				src="/placeholder-images/Widget Risiko.jpg"
-				alt="Widget Risiko"
-				width={900}
-				height={900}
-			/>
-			<h2 className="mt-12">{t("protectionTips.title")}</h2>
-			<p className="mt-2">{t("protectionTips.intro1")}</p>
-			<p className="mt-2">{t("protectionTips.intro2")}</p>
-			<h2 className="mt-12">{t("protectionTips.inBuilding.title")}</h2>
-			<ul className="list-inside list-disc">
-				{inBuildingTipKeys.map((tipKey) => (
-					<li key={tipKey} className="mt-2">
-						{t(tipKey)}
-					</li>
-				))}
-			</ul>
-			<BerlinImage
-				className="mt-12 w-full max-w-[31.25rem]"
-				src="/imagery.png"
-				alt="Placeholder Image"
-				caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-				copyright="@copyright ungeklärt"
-			/>
-			<h2 className="mt-12">{t("protectionTips.traffic.title")}</h2>
-			<ul className="list-inside list-disc">
-				{trafficTipKeys.map((tipKey) => (
-					<li key={tipKey} className="mt-2">
-						{t(tipKey)}
-					</li>
-				))}
-			</ul>
-			<BerlinImage
-				className="mt-12 w-full max-w-[31.25rem]"
-				src="/imagery.png"
-				alt="Placeholder Image"
-				caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-				copyright="@copyright ungeklärt"
-			/>
-			<Link href="/">
-				<Button className="mt-6">Übersicht Handlungsempfehlungen</Button>
-			</Link>
-			<div className="divider my-12" />
-			<h3 className="mt-12">{t("reportDownload.title")}</h3>
-			<p className="mt-2">{t("reportDownload.description")}</p>
-			<p className="mt-2 block break-words text-sm leading-tight text-gray-600">
-				PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025
-			</p>
-			<Button variant="download" className="mb-14 mt-4">
-				Bericht herunterladen
-			</Button>
+						Übersicht Handlungsempfehlungen
+					</Button>
+				</div>
+			</section>
+			<div className="divider" />
+			<section className="flex flex-col gap-4">
+				<h3 className="">{t("reportDownload.title")}</h3>
+				<p className="">{t("reportDownload.description")}</p>
+				<p className="block break-words text-sm leading-tight text-gray-600">
+					PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025
+				</p>
+				<Button variant="download" className="w-full self-start lg:w-fit">
+					Bericht herunterladen
+				</Button>
+			</section>
 		</div>
 	);
 };
