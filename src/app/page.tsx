@@ -1,5 +1,6 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
+import Warning from "@/components/Warning";
 import {
 	Button,
 	Form,
@@ -120,14 +121,7 @@ export default function Home() {
 							<h3 className="">{t("floodRadar.subtitle")}</h3>
 						</div>
 					}
-					slotB={
-						/** Insert Widget Component here */
-						<div className="flex h-full items-center">
-							<div className="Widget bg-message-success order-2 flex h-36 max-h-48 w-full flex-wrap items-center justify-center">
-								<span> {t("floodRadar.currentStatus.noWarnings")}</span>
-							</div>
-						</div>
-					}
+					slotB={<Warning type="widget" />}
 					slotC={
 						<p className="">
 							{t.rich("floodRadar.description", {
