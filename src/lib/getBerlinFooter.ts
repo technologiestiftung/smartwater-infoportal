@@ -1,9 +1,11 @@
 import fs from "fs";
 import path from "path";
 
-const CACHE_FILE = path.join("/tmp", "berlin-footer-cache.json"); // ✅ Writable in serverless
-const isDev = false; // or use: process.env.NODE_ENV === 'development'
-const TTL = isDev ? 60 * 1000 : 24 * 60 * 60 * 1000; // 60s for testing, 24h in prod
+const isDev = process.env.NODE_ENV === "development";
+const CACHE_FILE = isDev
+	? path.resolve(".berlin-footer-cache.json")
+	: path.join("/tmp", "berlin-footer-cache.json");
+const TTL = isDev ? 60 * 1000 : 24 * 60 * 60 * 1000;
 
 export async function getBerlinFooter(): Promise<{
 	html: string;
@@ -19,14 +21,18 @@ export async function getBerlinFooter(): Promise<{
 		}
 	}
 
-	// 🛫 Fetch fresh footer HTML
-	const response = await fetch(
-		"https://www.berlin.de/rbmskzl/aktuelles/__i9/std/landesfooter.inc",
-	);
-	const html = await response.text();
+	let html;
 
-	// 🔧 Mock or real footer HTML (test version shown here)
-	// const html = `<div><h1>TESTING FOOTER</h1></div>`;
+	if (!isDev) {
+		// 🛫 Fetch fresh footer HTML
+		const response = await fetch(
+			"https://www.berlin.de/rbmskzl/aktuelles/__i9/std/landesfooter.inc",
+		);
+		html = await response.text();
+	} else {
+		// 🔧 Mock or real footer HTML (test version shown here)
+		html = `<div><h1>TESTING FOOTER</h1></div>`;
+	}
 
 	// ✅ Save to file cache
 	try {
