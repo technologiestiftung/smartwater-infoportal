@@ -44,13 +44,13 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 	const slotAShouldSpanRows = !slotC;
 	const slotBShouldSpanRows = !slotD;
 
-	const gridColsClass = `md:grid-cols-${totalDesktopCols}`;
+	const gridColsClass = `lg:grid-cols-${totalDesktopCols}`;
 
-	const firstVisualColumn_SpanClass = `md:col-span-${firstVisualColSpan}`;
-	const firstVisualColumn_StartClass = "md:col-start-1";
+	const firstVisualColumn_SpanClass = `lg:col-span-${firstVisualColSpan}`;
+	const firstVisualColumn_StartClass = "lg:col-start-1";
 
-	const secondVisualColumn_SpanClass = `md:col-span-${secondVisualColSpan}`;
-	const secondVisualColumn_StartClass = `md:col-start-${firstVisualColSpan + 1}`;
+	const secondVisualColumn_SpanClass = `lg:col-span-${secondVisualColSpan}`;
+	const secondVisualColumn_StartClass = `lg:col-start-${firstVisualColSpan + 1}`;
 
 	let slotAC_finalColSpanClass: string;
 	let slotAC_finalColStartClass: string;
@@ -77,9 +77,9 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 					className={cn(
 						"min-w-0",
 						slotAC_finalColSpanClass,
-						"md:row-start-1",
+						"lg:row-start-1",
 						slotAC_finalColStartClass,
-						slotAShouldSpanRows && "md:row-span-2",
+						slotAShouldSpanRows && "lg:row-span-2",
 					)}
 				>
 					{slotA}
@@ -91,9 +91,9 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 					className={cn(
 						"min-w-0",
 						slotBD_finalColSpanClass,
-						"md:row-start-1",
+						"lg:row-start-1",
 						slotBD_finalColStartClass,
-						slotBShouldSpanRows && "md:row-span-2",
+						slotBShouldSpanRows && "lg:row-span-2",
 					)}
 				>
 					{slotB}
@@ -105,7 +105,7 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 					className={cn(
 						"min-w-0",
 						slotAC_finalColSpanClass,
-						"md:row-start-2",
+						"lg:row-start-2",
 						slotAC_finalColStartClass,
 					)}
 				>
@@ -118,7 +118,7 @@ export const TextBlock: React.FC<TextBlockProps> = ({
 					className={cn(
 						"min-w-0",
 						slotBD_finalColSpanClass,
-						"md:row-start-2",
+						"lg:row-start-2",
 						slotBD_finalColStartClass,
 					)}
 				>

@@ -37,7 +37,7 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex w-full flex-col gap-12 px-5 md:px-0">
+		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
 			<section>
 				<div className="flex flex-col gap-6">
 					<h1 className="">{t("pageTitle")}</h1>
@@ -59,6 +59,7 @@ export default function Home() {
 						<form className="flex flex-col gap-8" onSubmit={handleSubmit()}>
 							<FormFieldWrapper formProperty={property} form={methods} />
 							<Button
+								className="w-full justify-end self-start lg:w-fit"
 								onClick={() => {
 									router.push("/wasser-check");
 								}}
@@ -87,7 +88,7 @@ export default function Home() {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("howToProtect.image.alt")}
 							caption={t("howToProtect.image.caption")}
@@ -98,7 +99,7 @@ export default function Home() {
 						<div className="flex w-full flex-col gap-6">
 							<p className="">{t("howToProtect.recommendations.info")}</p>
 							<Button
-								className="w-full"
+								className="w-full self-start lg:w-fit"
 								onClick={() => {
 									router.push("/handlungsempfehlungen");
 								}}
@@ -156,7 +157,7 @@ export default function Home() {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("howToProtect.image.alt")}
 							caption={t("howToProtect.image.caption")}
@@ -166,10 +167,10 @@ export default function Home() {
 					slotC={
 						<div className="flex w-full flex-col gap-6">
 							<Button
+								className="w-full self-start lg:w-fit"
 								onClick={() => {
 									router.push("/allgemeine-informationen");
 								}}
-								className=""
 							>
 								{t("backgroundInfo.button")}
 							</Button>

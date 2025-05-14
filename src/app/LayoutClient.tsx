@@ -56,7 +56,7 @@ export default function LayoutClient({
 			<Header
 				breadcrumbs={breadcrumbs}
 				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
-				showLanguageSelect={true}
+				showLanguageSelect={false}
 				header={"Senatsverwaltung für"}
 				language="de"
 				translations={{
@@ -65,6 +65,9 @@ export default function LayoutClient({
 						search: t("common.search"),
 						menu: t("common.menu.button"),
 						"menu.title": t("common.menu.title"),
+						"accessibilityMenu.title": t(
+							"common.accessibilityMenu.barrierefreiheit.title",
+						),
 						"accessibilityMenu.barrierefreiheit.question": t(
 							"common.accessibilityMenu.barrierefreiheit.question",
 						),
@@ -111,7 +114,7 @@ export default function LayoutClient({
 				onSearch={() => {}}
 			/>
 			<div className="flex flex-grow justify-center">
-				<main className="mx-auto flex flex-grow flex-col py-5 md:max-w-[61.25rem]">
+				<main className="mx-auto flex flex-grow flex-col py-5 lg:max-w-[61.25rem]">
 					{children}
 				</main>
 			</div>

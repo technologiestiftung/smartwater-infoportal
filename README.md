@@ -14,7 +14,7 @@ This Next.js application is being developed as part of the [Smart Water project]
 
 ## Prerequisites
 
-- Node.js (v18 or later recommended)
+- Node.js (v20 or later recommended)
 - npm or yarn
 
 ## Installation

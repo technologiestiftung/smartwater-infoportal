@@ -34,6 +34,7 @@
 			"recommendations": "Handlungsempfehlungen"
 		},
 		"accessibilityMenu": {
+			"title": "Barrierefreiheit",
 			"barrierefreiheit": {
 				"question": "Wie barrierefrei ist diese Webseite?",
 				"title": "Erklärung zur Barrierefreiheit"

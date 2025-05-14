@@ -9,17 +9,22 @@ import {
 	TabsTrigger,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Recommendations() {
 	const t = useTranslations();
+	const router = useRouter();
 	return (
-		<div className="flex w-full flex-col justify-start gap-6">
-			<Link href="/">
-				<Button variant="back-link" className="self-start">
-					{t("common.backToStart")}
-				</Button>
-			</Link>
+		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
+			<Button
+				className="w-full justify-end self-start lg:w-fit"
+				onClick={() => {
+					router.push("/");
+				}}
+				variant="back-link"
+			>
+				{t("common.backToStart")}
+			</Button>
 			<h1 className="">{t("recommendations.pageTitle")}</h1>
 			<p className="">{t("recommendations.intro")}</p>
 			<h2 className="text-accent">{t("recommendations.timeline.title")}</h2>

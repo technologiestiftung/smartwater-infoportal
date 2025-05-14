@@ -23,7 +23,7 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 		<div className="flex w-full flex-col gap-12">
 			<div className="flex flex-col gap-6">
 				<h2>{t("hazardSummary.low")}</h2>
-				<div className="grid gap-4 md:grid-cols-2">
+				<div className="grid gap-4 lg:grid-cols-2">
 					{/* Content goes here */}
 					{entities.map((entity) => (
 						<ResultBlock
@@ -40,7 +40,9 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 					</>
 				)}
 				<Link href="/wasser-check#analysis">
-					<Button>{t("checkBuildingRiskButton")}</Button>
+					<Button className="w-full lg:w-fit">
+						{t("checkBuildingRiskButton")}
+					</Button>
 				</Link>
 			</div>
 			<div className="flex w-full flex-col gap-6">

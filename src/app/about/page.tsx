@@ -1,17 +1,21 @@
 "use client";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { Button, Image } from "berlin-ui-library";
+import { useRouter } from "next/navigation";
 export default function About() {
 	const t = useTranslations();
-
+	const router = useRouter();
 	return (
-		<div className="flex flex-col gap-6 justify-self-center">
-			<Link href="/">
-				<Button variant="back-link" className="self-start">
-					{t("common.backToStart")}
-				</Button>
-			</Link>
+		<div className="flex flex-col gap-6 justify-self-center px-5 py-8 lg:px-0">
+			<Button
+				className="w-full justify-end self-start lg:w-fit"
+				onClick={() => {
+					router.push("/");
+				}}
+				variant="back-link"
+			>
+				{t("common.backToStart")}
+			</Button>
 			<div className="flex flex-col gap-6">
 				<h1 className="">{t("about.pageTitle")}</h1>
 				<h2 className="">{t("about.subTitle")}</h2>
@@ -27,7 +31,7 @@ export default function About() {
 				</div>
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title2")}</h3>
-					<div className="grid md:grid-cols-3"></div>
+					<div className="grid lg:grid-cols-3"></div>
 				</div>
 			</div>
 		</div>
