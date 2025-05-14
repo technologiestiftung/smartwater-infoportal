@@ -2,8 +2,8 @@ import React from "react";
 import ResultBlock from "./ResultBlock";
 import { useTranslations } from "next-intl";
 import { Button } from "berlin-ui-library";
-import Link from "next/link";
 import { HazardLevel } from "@/lib/types";
+import { useRouter } from "next/router";
 
 interface InterimResultsProps {
 	entities: { name: string; hazardLevel: HazardLevel }[];
@@ -13,7 +13,7 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 	entities,
 }: InterimResultsProps) => {
 	const t = useTranslations("floodCheck");
-
+	const router = useRouter();
 	// Check if all hazard levels are "low"
 	const showHint =
 		entities.length > 0 &&
@@ -39,11 +39,14 @@ const InterimResults: React.FC<InterimResultsProps> = ({
 						<p className="">{t("hint.description")}</p>
 					</>
 				)}
-				<Link href="/wasser-check#analysis">
-					<Button className="w-full lg:w-fit">
-						{t("checkBuildingRiskButton")}
-					</Button>
-				</Link>
+				<Button
+					onClick={() => {
+						router.push("/wasser-check#questionnaire");
+					}}
+					className="w-full lg:w-fit"
+				>
+					{t("checkBuildingRiskButton")}
+				</Button>
 			</div>
 			<div className="flex w-full flex-col gap-6">
 				<p className="">{t("dataSourceInfo")}</p>
