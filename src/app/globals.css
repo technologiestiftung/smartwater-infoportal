@@ -128,6 +128,29 @@
 	} */
 }
 
+@layer utilities {
+	@keyframes scroll-left {
+		0% {
+			transform: translateX(100vw);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+
+	.animate-scroll-left {
+		animation: scroll-left 25s linear infinite;
+	}
+
+	.hover-pause {
+		animation-play-state: running;
+	}
+
+	.hover-pause:hover {
+		animation-play-state: paused;
+	}
+}
+
 body {
 	background: var(--background);
 	color: var(--foreground);
