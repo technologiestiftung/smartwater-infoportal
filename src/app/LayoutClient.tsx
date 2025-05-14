@@ -3,13 +3,10 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import BerlinFooter from "@/components/BerlinFooter";
 
 const Header = dynamic(
 	() => import("berlin-ui-library").then((mod) => mod.Header),
-	{ ssr: false },
-);
-const Footer = dynamic(
-	() => import("berlin-ui-library").then((mod) => mod.Footer),
 	{ ssr: false },
 );
 
@@ -88,38 +85,7 @@ export default function LayoutClient({
 					{children}
 				</main>
 			</div>
-			<Footer
-				footerColumns={[
-					{
-						title: t("common.footer.title"),
-						links: [
-							{
-								href: "/about/",
-								label: t("common.footer.about"),
-							},
-							{
-								href: "https://www.berlin.de/sen/uvk/ueber-uns/impressum/",
-								label: t("common.footer.imprint"),
-							},
-							{
-								href: "https://www.berlin.de/sen/uvk/datenschutzerklaerung.844084.php",
-								label: t("common.footer.privacy"),
-							},
-							{
-								href: "https://www.berlin.de/sen/uvk/barrierefreiheitserklaerung.904478.php",
-								label: t("common.footer.accessibility"),
-							},
-						],
-					},
-				]}
-				language="de"
-				showScrollToTop
-				translations={{
-					de: {
-						toTheTop: t("common.toPageTop"),
-					},
-				}}
-			/>
+			<BerlinFooter />
 		</div>
 	);
 }
