@@ -3,17 +3,46 @@
 		"pageTitle": "Über das Projekt",
 		"subTitle": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin",
 		"content": {
-			"paragraph1": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin, das vom  in Zusammenarbeit mit dem entwickelt wurde. Es wird vom betrieben.",
-			"paragraph2": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin, das vom in Zusammenarbeit mit dem  entwickelt wurde. Es wird vombetrieben.",
-			"paragraph3": "Das Hochwasser-Infoportal ist ein Projekt des Senats von Berlin, das vom in Zusammenarbeit mit dem  entwickelt wurde. Es wird vom betrieben."
+			"paragraph1": "<header> SmartWater – Digitale Lösungen für eine klimaresiliente Stadt </header>Die internationalen Klimaziele, allen voran die 1,5-Grad-Grenze, geraten zunehmend ins Wanken – trotz globaler Bemühungen. Gleichzeitig nehmen die Auswirkungen des Klimawandels spürbar zu, besonders in Städten, wo Urbanisierung die Folgen zusätzlich verschärft. Immer mehr Kommunen reagieren mit Klimaanpassungsstrategien, um ihre Widerstandsfähigkeit zu stärken und die Lebensqualität zu sichern.",
+			"paragraph2": "Mit Unterstützung des Bundesministeriums für Wohnen, Stadtentwicklung und Bauwesen (BMWSB) nutzt Berlin Fördermittel, um innovative, digitale Lösungen im Bereich Wasser zu entwickeln. Das Ergebnis: <strong> SmartWater </strong> – ein Projekt zur Förderung klimaresilienter Stadtplanung durch smarte Technologien. SmartWater verfolgt drei zentrale Ziele:<ol> <li>Planung und Akzeptanz grüner und blauer Infrastrukturen verbessern</li><li>Vorsorgemaßnahmen für den Klimaschutz stärken </li><li>Hochwasserrisiken schneller und gezielter kommunizieren</li></ol>",
+			"paragraph3": "Um die Ziele zu erreichen und den Projektergebnissen ein Gesicht zu geben, werden innerhalb der Projektlaufzeit drei digitale Prototypen entwickelt: <ul> <li><strong>Der Blau-Grüne Infrastrukturplaner</strong><br></br> Unterstützt bei der klimaangepassten Stadtgestaltung durch die intelligente Integration von Natur und Wasser.</li><li><strong> Game: Berlin BlauGrün </strong><br></br> Vermittelt spielerisch, wie grün-blaue Maßnahmen das Stadtklima verbessern und Gewässer schützen können.</li><li> <strong> Das Hochwasser-Infoportal</strong><br></br> Bietet Bürger:innen frühzeitige, verständliche Informationen zum Hochwasserschutz – für mehr Sicherheit und Eigenvorsorge im Alltag.</li></ul>",
+			"paragraph4": "Als Projekt von <link>Gemeinsam Digital: Berlin</link> bringt SmartWater Expert:innen aus Forschung, Verwaltung und Technologie zusammen – für eine klimaresiliente und lebenswerte Stadt."
 		},
 		"credits": {
-			"title1": "Eine Maßnahme von:",
+			"title1": "Durchgeführt von:",
 			"logo1": {
 				"alt": "SenMVKU",
 				"link": "https://www.berlin.de/sen/uvk/"
 			},
-			"title2": "Durchgeführt von:"
+			"logo2": {
+				"alt": "SenStadt",
+				"link": "https://www.stadtentwicklung.berlin.de/"
+			},
+			"logo3": {
+				"alt": "Berliner Wasserbetriebe (BWB)",
+				"link": "https://www.bwb.de/"
+			},
+			"logo4": {
+				"alt": "Kompetenzzentrum Wasser Berlin (KWB)",
+				"link": "https://www.kompetenz-wasser.de/"
+			},
+			"logo5": {
+				"alt": "Technologiestiftung Berlin",
+				"link": "https://www.technologiestiftung-berlin.de/"
+			},
+			"logo6": {
+				"alt": "Regenwasseragentur",
+				"link": "https://www.regenwasseragentur.de/"
+			},
+			"logo7": {
+				"alt": "Bezirk Pankow",
+				"link": "https://www.berlin.de/pankow/"
+			},
+			"logo8": {
+				"alt": "Bezirk Friedrichshain-Kreuzberg",
+				"link": "https://www.berlin.de/ba-friedrichshain-kreuzberg/"
+			},
+			"title2": "Gefördert im Rahmen von:"
 		}
 	}
 }
