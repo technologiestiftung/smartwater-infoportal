@@ -133,9 +133,14 @@ export default function Home() {
 						<p className="">
 							{t.rich("floodRadar.description", {
 								link: (chunks) => (
-									<Link href="/link" className="text-text-link">
+									<div
+										onClick={() => {
+											router.push("/link");
+										}}
+										className="text-text-link"
+									>
 										{chunks}
-									</Link>
+									</div>
 								),
 							})}
 						</p>
