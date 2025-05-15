@@ -30,6 +30,17 @@
 	--color-message-error: var(--message-error);
 	--color-border: var(--border);
 	--color-hr: var(--hr);
+
+	--animate-scroll-left: scroll-left 25s linear infinite;
+
+	@keyframes scroll-left {
+		0% {
+			transform: translateX(100vw);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
 }
 
 :root {
@@ -126,29 +137,6 @@
 		--background: #0a0a0a;
 		--foreground: #ededed;
 	} */
-}
-
-@layer utilities {
-	@keyframes scroll-left {
-		0% {
-			transform: translateX(100vw);
-		}
-		100% {
-			transform: translateX(-100%);
-		}
-	}
-
-	.animate-scroll-left {
-		animation: scroll-left 25s linear infinite;
-	}
-
-	.hover-pause {
-		animation-play-state: running;
-	}
-
-	.hover-pause:hover {
-		animation-play-state: paused;
-	}
 }
 
 body {

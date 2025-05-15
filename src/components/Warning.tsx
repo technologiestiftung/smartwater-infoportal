@@ -1,94 +1,53 @@
+import { Button, Image } from "berlin-ui-library";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-interface WarningData {
-	message: string;
-	linkText?: string;
-	linkUrl?: string;
-	color: string;
-}
 interface WarningProps {
 	type: "banner" | "widget";
 }
 
 const Warning: React.FC<WarningProps> = ({ type }) => {
-	const [warning, setWarning] = useState<WarningData | null>(null);
-	const colors = {
-		red: "bg-[#FDECEE]",
-		green: "bg-[#ECF8F5]",
-	};
-	const noWarning = {
-		message: "Derzeit liegen keine Warnungen im Raum Berlin vor.",
-		linkText: "Weitere Informationen finden Sie im Wasserportal Berlin",
-		linkUrl: "https://wasserportal.berlin.de",
-		color: colors.green,
-	};
-	const currentWarnings = {
-		message: "Es liegen mindestens 1 Warnung im Raum Berlin vor.",
-		linkText: "Weitere Informationen finden Sie im Wasserportal Berlin",
-		linkUrl: "https://wasserportal.berlin.de",
-		color: colors.red,
-	};
+	const [warning, setWarning] = useState<boolean>(false);
+	const message = warning
+		? "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor."
+		: "Derzeit liegen keine Warnungen im Raum Berlin vor.";
+	const background = warning ? "bg-[#FDECEE]" : "bg-[#ECF8F5]";
 
 	useEffect(() => {
 		const fetchWarning = async () => {
 			try {
-				// const responseAllGermanState = await fetch("/api/all-german-states");
-				// const dataAllGermanState = await responseAllGermanState.json();
-				// console.log("Warning data from /api/all-german-states:", dataAllGermanState);
-
 				const response = await fetch("/api/warning");
 				const data = await response.json();
-				// console.log("Warning data from /api/warning:", data);
-
-				if (data.dwdWarnings?.length > 0 || data.lhpWarnings?.length > 0) {
-					setWarning(currentWarnings);
-				} else {
-					setWarning(noWarning);
-				}
+				setWarning(
+					data.dwdWarnings?.length > 0 || data.lhpWarnings?.length > 0,
+				);
 			} catch (error) {
 				throw new Error(`Failed to fetch warning data: ${error}`);
 			}
 		};
-
 		fetchWarning();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (!warning) {
-		return null;
-	}
-
-	const RenderMSG = () => {
-		if (warning.linkText && warning.linkUrl) {
-			return (
-				<>
-					+++ {warning.message}
-					{warning.linkText && warning.linkUrl && (
-						<>
-							{" "}
-							–{" "}
-							<a
-								href={warning.linkUrl}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-blue-600 underline hover:text-blue-800"
-							>
-								{warning.linkText}
-							</a>{" "}
-						</>
-					)}
-					+++
-				</>
-			);
-		}
-		return <>+++ {warning.message} +++</>;
+	const RenderButton = () => {
+		return (
+			<Link
+				href="https://wasserportal.berlin.de/warnungen.php"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Button variant="linkWithIcon">
+					Weitere Informationen finden Sie im Wasserportal Berlin
+				</Button>
+			</Link>
+		);
 	};
 
 	if (type === "banner") {
 		return (
-			<div className={`overflow-hidden whitespace-nowrap ${warning.color}`}>
-				<div className="animate-scroll-left hover-pause inline-block select-none py-2">
-					<RenderMSG />
+			<div className={`overflow-hidden whitespace-nowrap ${background}`}>
+				<div className="animate-scroll-left inline-block select-none py-2 hover:[animation-play-state:paused]">
+					+++ {message} {"\u002d"} <RenderButton /> +++
 				</div>
 			</div>
 		);
@@ -96,11 +55,17 @@ const Warning: React.FC<WarningProps> = ({ type }) => {
 	// widget
 	return (
 		<div
-			className={`overflow-hidden ${warning.color} flex h-full w-full items-center justify-center p-4`}
+			className={`overflow-hidden ${background} flex h-full w-full items-center justify-center gap-4 p-4`}
 		>
-			<h2>
-				<RenderMSG />
-			</h2>
+			<Image
+				className="w-16"
+				src={warning ? "/red-warning.svg" : "/green-icon-3.svg"}
+				alt="Warning Icon"
+			/>
+			<div>
+				<h3>{message}</h3>
+				<RenderButton />
+			</div>
 		</div>
 	);
 };
