@@ -74,7 +74,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.inBuilding.image.alt")}
 							caption={t("recommendations.afterEvent.inBuilding.image.caption")}
@@ -104,7 +104,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
@@ -131,7 +131,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
@@ -156,7 +156,7 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}

@@ -9,17 +9,21 @@ import {
 	Image,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function GeneralInformation() {
 	const t = useTranslations();
-
+	const router = useRouter();
 	return (
-		<div className="flex flex-col justify-start gap-12">
-			<Link href="/">
-				<Button variant="back-link" className="self-start">
-					{t("common.backToStart")}
-				</Button>
-			</Link>
+		<div className="flex flex-col justify-start gap-12 px-5 py-8 lg:px-0">
+			<Button
+				className="w-full justify-end self-start lg:w-fit"
+				onClick={() => {
+					router.push("/");
+				}}
+				variant="back-link"
+			>
+				{t("common.backToStart")}
+			</Button>
 			<section className="flex flex-col gap-6">
 				<h1 className="">{t("generalInfo.pageTitle")}</h1>
 				<h2 className="">{t("generalInfo.definition.title")}</h2>
@@ -42,7 +46,7 @@ export default function GeneralInformation() {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/fluvial_flooding.png"
 							alt={t("generalInfo.types.fluvial.image.alt")}
 							caption={t("generalInfo.types.fluvial.image.caption")}
@@ -75,7 +79,7 @@ export default function GeneralInformation() {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/fluvial_risk.png"
 							alt={t("generalInfo.hazardVsRisk.risk.image.alt")}
 							caption={t("generalInfo.hazardVsRisk.risk.image.caption")}
@@ -103,7 +107,7 @@ export default function GeneralInformation() {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("generalInfo.assessment.how.image.alt")}
 							caption={t("generalInfo.assessment.how.image.caption")}
@@ -118,8 +122,8 @@ export default function GeneralInformation() {
 							<ul className="list-disc pl-6">
 								<li>
 									<Button
+										className="w-full self-start lg:w-fit"
 										variant="link"
-										className=""
 										onClick={() => {
 											window.open(
 												t("generalInfo.assessment.distribution.pluvial.url"),
@@ -132,6 +136,7 @@ export default function GeneralInformation() {
 								</li>
 								<li>
 									<Button
+										className="w-full lg:w-fit"
 										variant="link"
 										onClick={() => {
 											window.open(

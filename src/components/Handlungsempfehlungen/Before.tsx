@@ -40,8 +40,8 @@ const Before: React.FC = () => {
 								{t("recommendations.beforeEvent.personalPreparedness.item4")}
 							</p>
 							<Button
+								className="w-full self-start lg:w-fit"
 								variant="link"
-								className="self-start"
 								onClick={() => {
 									window.open(
 										t(
@@ -67,7 +67,7 @@ const Before: React.FC = () => {
 					slotB={
 						<div className="flex h-full items-center">
 							<Image
-								className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 								src="/imagery.png"
 								alt={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.alt",
@@ -106,7 +106,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
 							caption={t(
@@ -169,7 +169,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.traffic.image.alt")}
 							caption={t("recommendations.beforeEvent.traffic.image.caption")}
@@ -227,7 +227,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/imagery.png"
 							alt={t("recommendations.beforeEvent.fluvialFlood.image.alt")}
 							caption={t(

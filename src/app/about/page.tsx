@@ -6,13 +6,14 @@ import Link from "next/link";
 export default function About() {
 	const t = useTranslations();
 	const router = useRouter();
-
 	return (
-		<div className="flex flex-col gap-12 justify-self-center px-5 py-8 lg:px-0">
+		<div className="flex flex-col gap-6 justify-self-center px-5 py-8 lg:px-0">
 			<Button
-				onClick={() => router.push("/")}
+				className="w-full justify-end self-start lg:w-fit"
+				onClick={() => {
+					router.push("/");
+				}}
 				variant="back-link"
-				className="self-start"
 			>
 				{t("common.backToStart")}
 			</Button>
@@ -129,11 +130,7 @@ export default function About() {
 				</div>
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title2")}</h3>
-					<Image
-						className="h-full w-full min-w-full object-cover"
-						src="/logo.svg"
-						alt={t("about.credits.logo1.alt")}
-					/>
+					<div className="grid lg:grid-cols-3"></div>
 				</div>
 			</div>
 		</div>

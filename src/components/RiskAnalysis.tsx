@@ -219,11 +219,11 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 								/>
 							)}
 
-							<div className="mt-4 flex w-full flex-col space-y-4">
+							<div className="mt-4 flex w-full flex-col items-center space-y-4 lg:flex-row lg:justify-between lg:space-y-0">
 								{currentStep > 0 && (
 									<Button
+										className="w-full justify-end self-start lg:w-fit lg:self-center"
 										variant="back-link"
-										className="self-start"
 										onClick={handleBack}
 										type="button"
 									>
@@ -231,9 +231,9 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 									</Button>
 								)}
 								<Button
+									className="w-full self-start lg:w-fit"
 									onClick={handleNext}
 									type="button"
-									className="text-left"
 								>
 									{currentStep === properties.length - 1
 										? t("floodCheck.navigation.submit")
@@ -246,7 +246,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 				{currentStep === 3 && (
 					<div className="">
 						<Image
-							className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/rueckstausicherung.png"
 							alt={t("floodCheck.questions.q4.image.alt")}
 							caption={t("floodCheck.questions.q4.image.caption")}

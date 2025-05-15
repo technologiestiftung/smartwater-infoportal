@@ -47,7 +47,6 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 							<div className="flex h-10 w-full items-center justify-center text-center">
 								{harzardLevel === level && (
 									<Image
-										className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 										src="/arrow_down.svg"
 										alt="Arrow Down"
 										width={24}

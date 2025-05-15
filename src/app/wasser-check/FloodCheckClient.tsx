@@ -8,7 +8,6 @@ import { HazardLevel } from "@/lib/types";
 import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -43,14 +42,18 @@ export default function FloodCheckClient() {
 	};
 
 	return (
-		<div className="flex w-full flex-col justify-start gap-6">
+		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 			{hash === "interimResult" ? (
 				<>
-					<Link href="/wasser-check">
-						<Button variant="back-link" className="self-start">
-							{t("common.backToStart")}
-						</Button>
-					</Link>
+					<Button
+						className="w-full justify-end self-start lg:w-fit"
+						onClick={() => {
+							router.push("/wasser-check");
+						}}
+						variant="back-link"
+					>
+						{t("common.backToStart")}
+					</Button>
 					<div className="flex w-full flex-col gap-2">
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
@@ -61,11 +64,15 @@ export default function FloodCheckClient() {
 				</>
 			) : hash === "questionnaire" ? (
 				<>
-					<Link href="/wasser-check#interimResult">
-						<Button variant="back-link" className="self-start">
-							{t("floodCheck.navigation.back")}
-						</Button>
-					</Link>
+					<Button
+						className="w-full justify-end self-start lg:w-fit"
+						onClick={() => {
+							router.push("/wasser-check#interimResult");
+						}}
+						variant="back-link"
+					>
+						{t("floodCheck.navigation.back")}
+					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
@@ -75,11 +82,15 @@ export default function FloodCheckClient() {
 				</>
 			) : hash === "results" ? (
 				<>
-					<Link href="/wasser-check#questionnaire">
-						<Button variant="back-link" className="self-start">
-							{t("floodCheck.results.navigation.back")}
-						</Button>
-					</Link>
+					<Button
+						className="w-full justify-end self-start lg:w-fit"
+						onClick={() => {
+							router.push("/wasser-check#questionnaire");
+						}}
+						variant="back-link"
+					>
+						{t("floodCheck.results.navigation.back")}
+					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex flex-wrap items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
@@ -90,6 +101,15 @@ export default function FloodCheckClient() {
 				</>
 			) : (
 				<>
+					<Button
+						className="w-full justify-end self-start lg:w-fit"
+						onClick={() => {
+							router.push("/");
+						}}
+						variant="back-link"
+					>
+						{t("common.backToStart")}
+					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<h2 className="">{t("floodCheck.start.title")}</h2>
@@ -105,9 +125,9 @@ export default function FloodCheckClient() {
 
 									<div className="mt-4 flex w-full flex-col space-y-4">
 										<Button
+											className="w-full self-start lg:w-fit"
 											onClick={quickCheck}
 											type="button"
-											className="item text-left"
 										>
 											{t("common.confirm")}
 										</Button>

@@ -20,15 +20,33 @@
 		"confirm": "Bestätigen",
 		"toPageTop": "zum Seitenanfang",
 		"hint": "Hinweis",
+		"accessibility": "Barrierefrei",
 		"openLegend": "Legende öffnen",
 		"downloadReport": "Download Bericht",
 		"downloadButton": "Bericht herunterladen",
 		"menu": {
+			"button": "Menü",
+			"title": "Hauptnavigation",
 			"home": "Startseite",
 			"about": "Über das Projekt",
 			"generalInfo": "Allgemeine Informationen",
 			"floodCheck": "Hochwassergefahr-Check",
 			"recommendations": "Handlungsempfehlungen"
+		},
+		"accessibilityMenu": {
+			"title": "Barrierefreiheit",
+			"barrierefreiheit": {
+				"question": "Wie barrierefrei ist diese Webseite?",
+				"title": "Erklärung zur Barrierefreiheit"
+			},
+			"contact": {
+				"question": "Haben Sie Anmerkungen oder Fragen zur Barrierefreiheit dieser Webseite?",
+				"title": "Kontakt zur Ansprechperson"
+			},
+			"additionalInfo": {
+				"question": "Wo gibt es zusätzliche Informationen zur Barrierefreiheit im Land Berlin?",
+				"title": "Barrierefreie Informations- und Kommunikationstechnik (IKT)"
+			}
 		},
 		"footer": {
 			"title": "Hochwasserinfoportal",

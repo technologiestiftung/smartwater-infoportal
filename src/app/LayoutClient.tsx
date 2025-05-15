@@ -59,8 +59,38 @@ export default function LayoutClient({
 			<Header
 				breadcrumbs={breadcrumbs}
 				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
-				showLanguageSelect={true}
+				showLanguageSelect={false}
 				header={"Senatsverwaltung für"}
+				language="de"
+				translations={{
+					de: {
+						accessibility: t("common.accessibility"),
+						search: t("common.search"),
+						menu: t("common.menu.button"),
+						"menu.title": t("common.menu.title"),
+						"accessibilityMenu.title": t(
+							"common.accessibilityMenu.barrierefreiheit.title",
+						),
+						"accessibilityMenu.barrierefreiheit.question": t(
+							"common.accessibilityMenu.barrierefreiheit.question",
+						),
+						"accessibilityMenu.barrierefreiheit": t(
+							"common.accessibilityMenu.barrierefreiheit.title",
+						),
+						"accessibilityMenu.contact.question": t(
+							"common.accessibilityMenu.contact.question",
+						),
+						"accessibilityMenu.contact": t(
+							"common.accessibilityMenu.contact.title",
+						),
+						"accessibilityMenu.additionalInfo.question": t(
+							"common.accessibilityMenu.additionalInfo.question",
+						),
+						"accessibilityMenu.additionalInfo": t(
+							"common.accessibilityMenu.additionalInfo.title",
+						),
+					},
+				}}
 				menuItems={[
 					{
 						href: "/",
@@ -88,7 +118,7 @@ export default function LayoutClient({
 			/>
 			<Warning type="banner" />
 			<div className="flex flex-grow justify-center">
-				<main className="mx-auto flex flex-grow flex-col py-5 md:max-w-[61.25rem]">
+				<main className="mx-auto flex flex-grow flex-col py-5 lg:max-w-[61.25rem]">
 					{children}
 				</main>
 			</div>
