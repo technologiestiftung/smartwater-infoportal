@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import IframeComponent from "./IFrameComponent";
+import RiskBlock from "./RiskBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -122,13 +123,7 @@ const Results: React.FC = () => {
 			<Button variant="link">{t("hazardInfo.linkWaterGeologyBerlin")}</Button>
 			<h2 className="mt-12">{t("floodCheckfloodCheck.title")}</h2>
 			<p className="mt-4">{t("floodCheckfloodCheck.description")}</p>
-			<Image
-				className="mt-6 w-full max-w-[31.25rem]"
-				src="/placeholder-images/Widget Risiko.jpg"
-				alt="Widget Risiko"
-				width={900}
-				height={900}
-			/>
+			<RiskBlock />
 			<h2 className="mt-12">{t("protectionTips.title")}</h2>
 			<p className="mt-2">{t("protectionTips.intro1")}</p>
 			<p className="mt-2">{t("protectionTips.intro2")}</p>

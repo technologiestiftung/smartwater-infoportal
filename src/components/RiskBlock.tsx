@@ -1,65 +1,110 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-import { HazardLevel } from "@/lib/types";
+import Image from "next/image";
+import { RiskLevel } from "@/lib/types";
 
-interface RiskBlockProps {
-	entity: string;
-	harzardLevel: HazardLevel;
+export interface RiskFactor {
+	id: string;
+	riskLevel: RiskLevel;
+	translationKey: string;
 }
 
-const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
-	low: {
-		border: "border-hazard-low",
-		bg: "bg-hazard-low",
-	},
-	moderate: {
-		border: "border-hazard-moderate",
-		bg: "bg-hazard-moderate",
-	},
-	high: {
-		border: "border-hazard-high",
-		bg: "bg-hazard-high",
-	},
-	severe: {
-		border: "border-hazard-severe",
-		bg: "bg-hazard-severe",
-	},
-};
+interface RiskBlockProps {
+	overallRiskLevel?: RiskLevel;
+	arrowPosition?: number;
+	riskFactors?: RiskFactor[];
+}
 
 const RiskBlock: React.FC<RiskBlockProps> = ({
-	entity,
-	harzardLevel,
-}: RiskBlockProps) => {
+	overallRiskLevel = "moderate",
+	arrowPosition = 50,
+	riskFactors = [],
+}) => {
 	const t = useTranslations("floodCheck");
+
+	const defaultRiskFactors: RiskFactor[] =
+		riskFactors.length > 0
+			? riskFactors
+			: [
+					{
+						id: "basement",
+						riskLevel: "low",
+						translationKey:
+							"floodCheckfloodCheck.buildingRisk.factors.basement",
+					},
+					{
+						id: "basementWindow",
+						riskLevel: "moderate",
+						translationKey:
+							"floodCheckfloodCheck.buildingRisk.factors.basementWindow",
+					},
+					{
+						id: "backflowProtection",
+						riskLevel: "high",
+						translationKey:
+							"floodCheckfloodCheck.buildingRisk.factors.backflowProtection",
+					},
+					{
+						id: "socketInstallation",
+						riskLevel: "moderate",
+						translationKey:
+							"floodCheckfloodCheck.buildingRisk.factors.socketInstallation",
+					},
+					{
+						id: "geographicalLocation",
+						riskLevel: "low",
+						translationKey:
+							"floodCheckfloodCheck.buildingRisk.factors.geographicalLocation",
+					},
+				];
+
 	return (
-		<div
-			className={`Result-block ${hazardColorMap[harzardLevel].border} border-12`}
-		>
+		<div className={`Risk-block border-12 border-risk max-w-1/2`}>
 			<div className="flex flex-col gap-2 p-4">
-				<div className="">
-					<h4 className="">{t(`${entity}.title`)}</h4>
+				<div className="flex items-center gap-2">
+					<Image
+						className="w-6"
+						src="/risk_icon.svg"
+						alt="Risk Icon"
+						width={24}
+						height={24}
+					/>
+					<h4 className="">{t(`floodCheckfloodCheck.buildingRisk.title`)}</h4>
 				</div>
-				<p className="">{t(`${entity}.${harzardLevel}`)}</p>
-				<div className="my-4 grid grid-cols-4 gap-0">
-					{Object.keys(hazardColorMap).map((level) => (
-						<div key={level} className="flex w-full flex-col items-center">
-							<div className="h-6 w-full text-center">
-								{harzardLevel === level && <div>Ar</div>}
-							</div>
+				<p className="">
+					{t(
+						`floodCheckfloodCheck.buildingRisk.level${
+							overallRiskLevel.charAt(0).toUpperCase() +
+							overallRiskLevel.slice(1)
+						}`,
+					)}
+				</p>
+				<div className="my-4 flex flex-col gap-2">
+					<div className="relative flex h-6 w-full">
+						<div
+							className="absolute inset-0 flex"
+							style={{ transform: `translateX(${arrowPosition}%)` }}
+						>
+							<Image
+								className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
+								src="/arrow_down.svg"
+								alt="Arrow Down"
+								width={24}
+								height={24}
+							/>
+						</div>
+					</div>
+					<div className="bg-linear-to-r to-risk-high from-risk-low via-risk-moderate h-12 w-full"></div>
+				</div>
+				<div className="flex flex-col gap-2">
+					{defaultRiskFactors.map((factor) => (
+						<div key={factor.id} className="inline-flex items-center gap-4">
 							<div
-								className={`h-3 w-full ${hazardColorMap[level as HazardLevel].bg}`}
-							></div>
-							<div className="p-2 text-center">{t(`hazardScale.${level}`)}</div>
+								className={`bg-risk-${factor.riskLevel} size-5 rounded-full`}
+							/>
+							<span className="">{t(factor.translationKey)}</span>
 						</div>
 					))}
-				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.waterLevelLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.subLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
 				</div>
 			</div>
 		</div>
