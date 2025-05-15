@@ -8,7 +8,7 @@ export default function About() {
 	const router = useRouter();
 
 	return (
-		<div className="flex flex-col gap-6 justify-self-center">
+		<div className="flex flex-col gap-12 justify-self-center px-5 py-8 lg:px-0">
 			<Button
 				onClick={() => router.push("/")}
 				variant="back-link"
@@ -21,10 +21,10 @@ export default function About() {
 				<h2 className="">{t("about.subTitle")}</h2>
 				<p>
 					{t.rich("about.content.paragraph1", {
-						header: (chunks) => <p className="font-bold">{chunks}</p>,
+						header: (chunks) => <span className="font-bold">{chunks}</span>,
 					})}
 				</p>
-				<p className="">
+				<div className="">
 					{t.rich("about.content.paragraph2", {
 						strong: (chunks) => <strong>{chunks}</strong>,
 						ol: (chunks) => (
@@ -32,8 +32,8 @@ export default function About() {
 						),
 						li: (chunks) => <li className="">{chunks}</li>,
 					})}
-				</p>
-				<p className="">
+				</div>
+				<div className="">
 					{t.rich("about.content.paragraph3", {
 						strong: (chunks) => <strong>{chunks}</strong>,
 						ul: (chunks) => (
@@ -42,7 +42,7 @@ export default function About() {
 						li: (chunks) => <li className="">{chunks}</li>,
 						br: () => <br />,
 					})}
-				</p>
+				</div>
 				<p className="">
 					{t.rich("about.content.paragraph4", {
 						link: (chunks) => (
@@ -60,38 +60,80 @@ export default function About() {
 			<div className="flex flex-col gap-6">
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title1")}</h3>
-					<div className="grid grid-cols-6">
-						<Image
-							src="/Logo_HAD_SenMVKU.png"
-							alt={t("about.credits.logo1.alt")}
-						/>
-						<div className="">
+					<div className="grid grid-cols-2 items-center justify-items-center lg:grid-cols-4">
+						<div className="relative flex h-36 w-40 justify-center overflow-hidden">
 							<Image
-								className=""
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/Logo_HAD_SenMVKU.png"
+								href={t("about.credits.logo1.link")}
+								alt={t("about.credits.logo1.alt")}
+							/>
+						</div>
+						<div className="relative flex h-40 w-56 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
 								src="/Senatsverwaltung-Stadtentwicklung-Bauen-Wohnen.png"
+								href={t("about.credits.logo2.link")}
 								alt={t("about.credits.logo2.alt")}
 							/>
 						</div>
-						<Image src="/BWB-Logo.png" alt={t("about.credits.logo3.alt")} />{" "}
-						<Image src="/KWB-Logo.png" alt={t("about.credits.logo4.alt")} />{" "}
-						<Image src="/TSB-logo.png" alt={t("about.credits.logo5.alt")} />{" "}
-						<Image
-							src="/Berliner-Regenwasseragentur.png"
-							alt={t("about.credits.logo6.alt")}
-						/>
-						<Image
-							src="/Berliner-Regenwasseragentur.png"
-							alt={t("about.credits.logo7.alt")}
-						/>
-						<Image
-							src="/Bezirksamt-Friedrichshain-Kreuzberg.png"
-							alt={t("about.credits.logo8.alt")}
-						/>
+						<div className="relative flex h-40 w-56 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/BWB-Logo.png"
+								href={t("about.credits.logo3.link")}
+								alt={t("about.credits.logo3.alt")}
+							/>
+						</div>
+						<div className="relative flex h-40 w-56 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/KWB-Logo.png"
+								href={t("about.credits.logo4.link")}
+								alt={t("about.credits.logo4.alt")}
+							/>
+						</div>
+						<div className="relative flex h-40 w-56 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/TSB-logo.svg"
+								href={t("about.credits.logo5.link")}
+								alt={t("about.credits.logo5.alt")}
+							/>
+						</div>
+						<div className="relative flex h-36 w-48 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/Berliner-Regenwasseragentur.png"
+								href={t("about.credits.logo6.link")}
+								alt={t("about.credits.logo6.alt")}
+							/>
+						</div>
+						<div className="relative flex h-40 w-56 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/bezirksamt-pankow.png"
+								href={t("about.credits.logo7.link")}
+								alt={t("about.credits.logo7.alt")}
+							/>
+						</div>
+						<div className="relative flex h-40 w-56 justify-center overflow-hidden">
+							<Image
+								className="h-full w-full min-w-full content-center object-cover"
+								src="/Bezirksamt-Friedrichshain-Kreuzberg.png"
+								href={t("about.credits.logo8.link")}
+								alt={t("about.credits.logo8.alt")}
+							/>
+						</div>
 					</div>
 				</div>
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title2")}</h3>
-					<Image src="/logo.svg" alt={t("about.credits.logo1.alt")} />
+					<Image
+						className="h-full w-full min-w-full object-cover"
+						src="/logo.svg"
+						alt={t("about.credits.logo1.alt")}
+					/>
 				</div>
 			</div>
 		</div>
