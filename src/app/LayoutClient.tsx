@@ -3,6 +3,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import Warning from "@/components/Warning";
 import BerlinFooter from "@/components/BerlinFooter";
 
 const Header = dynamic(
@@ -85,6 +86,7 @@ export default function LayoutClient({
 				onOpenMenu={() => {}}
 				onSearch={() => {}}
 			/>
+			<Warning type="banner" />
 			<div className="flex flex-grow justify-center">
 				<main className="mx-auto flex flex-grow flex-col py-5 md:max-w-[61.25rem]">
 					{children}
