@@ -100,8 +100,9 @@ const Results: React.FC = () => {
 				<TextBlock
 					desktopColSpans={{ col1: 1, col2: 1 }}
 					className="w-full gap-6"
+					reverseDesktopColumns={true}
 					slotA={
-						<p className="bg-panel-heavy h-full p-6">
+						<p className="bg-panel-heavy p-6">
 							{t("hazardDisplay.frequencyDescription.rare")}
 						</p>
 					}
@@ -165,7 +166,7 @@ const Results: React.FC = () => {
 					className="w-full gap-6"
 					reverseDesktopColumns={true}
 					slotA={
-						<div className="bg-panel-heavy flex h-full w-full flex-col gap-6 p-6">
+						<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
 							<h3 className="">{t("floodCheckfloodCheck.title")}</h3>
 							<p className="">{t("floodCheckfloodCheck.description")}</p>
 						</div>

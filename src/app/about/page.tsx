@@ -130,7 +130,11 @@ export default function About() {
 				</div>
 				<div className="flex flex-col gap-6">
 					<h3 className="">{t("about.credits.title2")}</h3>
-					<div className="grid lg:grid-cols-3"></div>
+					<Image
+						className="h-full w-full min-w-full object-cover"
+						src="/logo.svg"
+						alt={t("about.credits.logo1.alt")}
+					/>
 				</div>
 			</div>
 		</div>
