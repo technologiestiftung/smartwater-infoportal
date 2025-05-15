@@ -4,11 +4,13 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import Warning from "@/components/Warning";
+import BerlinFooter from "@/components/BerlinFooter";
 
 const Header = dynamic(
 	() => import("berlin-ui-library").then((mod) => mod.Header),
 	{ ssr: false },
 );
+
 const Footer = dynamic(
 	() => import("berlin-ui-library").then((mod) => mod.Footer),
 	{ ssr: false },
@@ -122,6 +124,7 @@ export default function LayoutClient({
 					},
 				}}
 			/>
+			<BerlinFooter />
 		</div>
 	);
 }
