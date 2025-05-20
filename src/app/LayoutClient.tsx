@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import Warning from "@/components/Warning";
 import BerlinFooter from "@/components/BerlinFooter";
+import Joke from "@/components/Joke";
 
 const Header = dynamic(
 	() => import("berlin-ui-library").then((mod) => mod.Header),
@@ -117,6 +118,7 @@ export default function LayoutClient({
 				onSearch={() => {}}
 			/>
 			<Warning type="banner" />
+			<Joke />
 			<div className="flex flex-grow justify-center">
 				<main className="mx-auto flex flex-grow flex-col py-5 lg:max-w-[61.25rem]">
 					{children}
