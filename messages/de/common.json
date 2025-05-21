@@ -66,6 +66,11 @@
 			"allgemeine-informationen": "Allgemeine Informationen",
 			"handlungsempfehlungen": "Handlungsempfehlungen",
 			"accessibility-statement": "Erklärung zur Barrierefreiheit"
+		},
+		"warning": {
+			"noWarning": "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor.",
+			"currentWarning": "Derzeit liegen keine Warnungen im Raum Berlin vor.",
+			"furtherInformation": "Weitere Informationen finden Sie im Wasserportal Berlin"
 		}
 	}
 }
