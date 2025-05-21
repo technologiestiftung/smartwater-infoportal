@@ -17,6 +17,10 @@
 	--color-text-link: var(--text-link);
 	--color-text-error: var(--text-error);
 	--color-text-lightest: var(--text-lightest);
+	--color-risk: var(--risk);
+	--color-risk-low: var(--risk-low);
+	--color-risk-moderate: var(--risk-moderate);
+	--color-risk-high: var(--risk-high);
 	--color-panel-heavy: var(--panel-heavy);
 	--color-panel-light: var(--panel-light);
 	--color-panel-dark: var(--panel-dark);
@@ -63,6 +67,10 @@
 	--hazard-moderate: #e198b5;
 	--hazard-high: #aa5fa5;
 	--hazard-severe: #5b3794;
+	--risk: #f2d72b;
+	--risk-low: #33b558;
+	--risk-moderate: #f2d72b;
+	--risk-high: #e40422;
 	--panel-heavy: #f5f5f5;
 	--panel-light: #ffffff;
 	--panel-dark: #000000;

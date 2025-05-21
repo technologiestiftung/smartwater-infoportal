@@ -13,6 +13,7 @@ import {
 import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
 import TextBlock from "./TextBlock";
+import RiskBlock from "./RiskBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -171,13 +172,7 @@ const Results: React.FC = () => {
 							<p className="">{t("floodCheckfloodCheck.description")}</p>
 						</div>
 					}
-					slotB={
-						<Image
-							className="w-full"
-							src="/placeholder-images/Widget Risiko.jpg"
-							alt="Widget Risiko"
-						/>
-					}
+					slotB={<RiskBlock />}
 				/>
 			</section>
 			<section className="flex w-full flex-col gap-12">
