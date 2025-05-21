@@ -33,6 +33,7 @@
 	--color-message-success: var(--message-success);
 	--color-message-info: var(--message-info);
 	--color-message-error: var(--message-error);
+	--color-message-no-warning: var(--message-no-warning);
 	--color-border: var(--border);
 	--color-hr: var(--hr);
 
@@ -79,6 +80,7 @@
 	--message-success: #e2f1eb;
 	--message-info: #ebf1f7;
 	--message-error: #fdecee;
+	--message-no-warning: #ecf8f5;
 	--border: #dddddd;
 	--hr: #dddddd;
 }

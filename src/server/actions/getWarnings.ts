@@ -1,9 +1,11 @@
-// src/app/api/warning/route.ts
+// app/server/actions/getWarnings.ts
+"use server";
 
-export async function GET() {
+export async function getWarnings() {
 	const url1 =
 		"https://maps.dwd.de/geoserver/dwd/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=dwd%3AWarnungen_Gemeinden&maxFeatures=5000&outputFormat=application%2Fjson&CQL_FILTER=WARNCELLID%20LIKE%20%2711100%25%27";
-	const url2 = `https://api.hochwasserzentralen.de/public/v1/data/stations?states=BE`;
+	const url2 =
+		"https://api.hochwasserzentralen.de/public/v1/data/stations?states=BE";
 
 	try {
 		const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
@@ -19,18 +21,16 @@ export async function GET() {
 			(item: any) => item.properties?.lhpClass > 0,
 		);
 
-		// Return something basic for now
-		return new Response(
-			JSON.stringify({
-				dwdWarnings: data1?.features,
-				lhpWarnings,
-			}),
-			{
-				status: 200,
-				headers: { "Content-Type": "application/json" },
-			},
-		);
-	} catch {
-		return new Response("Failed to fetch warnings", { status: 500 });
+		return {
+			dwdWarnings: data1?.features,
+			lhpWarnings,
+		};
+	} catch (err) {
+		console.error("Failed to fetch warnings:", err);
+		return {
+			dwdWarnings: [],
+			lhpWarnings: [],
+			error: "Failed to fetch warnings",
+		};
 	}
 }

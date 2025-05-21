@@ -1,47 +1,45 @@
-import { Button, Image } from "berlin-ui-library";
+"use client";
+
+import { getWarnings } from "@/server/actions/getWarnings";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { Button, Image } from "berlin-ui-library";
+import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface WarningProps {
 	type: "banner" | "widget";
 }
 
-const Warning: React.FC<WarningProps> = ({ type }) => {
-	const [warning, setWarning] = useState<boolean>(false);
-	const message = warning
-		? "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor."
-		: "Derzeit liegen keine Warnungen im Raum Berlin vor.";
-	const background = warning ? "bg-[#FDECEE]" : "bg-[#ECF8F5]";
+export default function Warning({ type }: WarningProps) {
+	const t = useTranslations();
+	const [warning, setWarning] = useState(false);
 
 	useEffect(() => {
-		const fetchWarning = async () => {
-			try {
-				const response = await fetch("/api/warning");
-				const data = await response.json();
-				setWarning(
-					data.dwdWarnings?.length > 0 || data.lhpWarnings?.length > 0,
-				);
-			} catch (error) {
-				throw new Error(`Failed to fetch warning data: ${error}`);
-			}
+		const requestWarning = async () => {
+			const { dwdWarnings, lhpWarnings } = await getWarnings();
+			setWarning(
+				(dwdWarnings?.length || 0) > 0 || (lhpWarnings?.length || 0) > 0,
+			);
 		};
-		fetchWarning();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		requestWarning();
 	}, []);
 
-	const RenderButton = () => {
-		return (
-			<Link
-				href="https://wasserportal.berlin.de/warnungen.php"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<Button variant="linkWithIcon">
-					Weitere Informationen finden Sie im Wasserportal Berlin
-				</Button>
-			</Link>
-		);
-	};
+	const message = warning
+		? t("common.warning.noWarning")
+		: t("common.warning.currentWarning");
+	const background = warning ? "bg-message-error" : "bg-message-no-warning";
+
+	const RenderButton = () => (
+		<Link
+			href="https://wasserportal.berlin.de/warnungen.php"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			<Button variant="linkWithIcon">
+				{t("common.warning.furtherInformation")}
+			</Button>
+		</Link>
+	);
 
 	if (type === "banner") {
 		return (
@@ -52,7 +50,7 @@ const Warning: React.FC<WarningProps> = ({ type }) => {
 			</div>
 		);
 	}
-	// widget
+
 	return (
 		<div
 			className={`overflow-hidden ${background} flex h-full w-full items-center justify-center gap-4 p-4`}
@@ -68,6 +66,4 @@ const Warning: React.FC<WarningProps> = ({ type }) => {
 			</div>
 		</div>
 	);
-};
-
-export default Warning;
+}

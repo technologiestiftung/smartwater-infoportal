@@ -123,7 +123,7 @@ export default function Home() {
 					}
 					slotB={<Warning type="widget" />}
 					slotC={
-						<p className="">
+						<div className="">
 							{t.rich("floodRadar.description", {
 								link: (chunks) => (
 									<div
@@ -136,7 +136,7 @@ export default function Home() {
 									</div>
 								),
 							})}
-						</p>
+						</div>
 					}
 				/>
 			</section>
