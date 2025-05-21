@@ -14,6 +14,7 @@ import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
+import ReportPDF from "./ReportPDF";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -56,6 +57,9 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12">
+			<div className="mt-10">
+				<ReportPDF />
+			</div>
 			<section className="flex flex-col gap-2">
 				<h2 className="">{t("hazardAtLocation")}</h2>
 				<div className="flex w-full flex-col">
@@ -108,17 +112,18 @@ const Results: React.FC = () => {
 						</p>
 					}
 					slotB={
-						<Image
-							className="w-full"
-							src="/placeholder-images/Widget Starkregen.jpg"
-							alt="Widget Starkregen"
-						/>
+						<div id="starkregen-widget">
+							<Image
+								className="w-full"
+								src="/placeholder-images/Widget Starkregen.jpg"
+								alt="Widget Starkregen"
+							/>
+						</div>
 					}
 				/>
-
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				<div className="">
+				<div id="smartwater-map">
 					<IframeComponent url="https://smartwater-masterportal.netlify.app/smartwater-map/" />
 				</div>
 			</section>
