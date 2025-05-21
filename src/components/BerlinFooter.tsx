@@ -1,11 +1,20 @@
+import { getBerlinFooter } from "@/server/actions/getBerlinFooter";
 import { useEffect, useState } from "react";
 
 export default function BerlinFooter() {
-	const [html, setHtml] = useState("");
+	const [html, setHtml] = useState<string | undefined>("");
 
 	useEffect(() => {
-		setHtml("<h1>Test Berlin Footer...</h1>");
+		const requestBerlinFooter = async () => {
+			const getHTML = await getBerlinFooter();
+			setHtml(getHTML.data);
+		};
+		requestBerlinFooter();
 	}, []);
+
+	if (!html) {
+		return null;
+	}
 
 	return (
 		<div className="mx-auto flex w-full flex-grow flex-col py-5">
