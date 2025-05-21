@@ -1,16 +1,17 @@
-// ❌ Remove any 'use client' directive at the top of the file
 "use client";
 
 import { getWarnings } from "@/server/actions/getWarnings";
 import Link from "next/link";
 import { Button, Image } from "berlin-ui-library";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface WarningProps {
 	type: "banner" | "widget";
 }
 
 export default function Warning({ type }: WarningProps) {
+	const t = useTranslations();
 	const [warning, setWarning] = useState(false);
 
 	useEffect(() => {
@@ -24,9 +25,9 @@ export default function Warning({ type }: WarningProps) {
 	}, []);
 
 	const message = warning
-		? "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor."
-		: "Derzeit liegen keine Warnungen im Raum Berlin vor.";
-	const background = warning ? "bg-[#FDECEE]" : "bg-[#ECF8F5]";
+		? t("common.warning.noWarning")
+		: t("common.warning.currentWarning");
+	const background = warning ? "bg-message-error" : "bg-message-no-warning";
 
 	const RenderButton = () => (
 		<Link
@@ -35,7 +36,7 @@ export default function Warning({ type }: WarningProps) {
 			rel="noopener noreferrer"
 		>
 			<Button variant="linkWithIcon">
-				Weitere Informationen finden Sie im Wasserportal Berlin
+				{t("common.warning.furtherInformation")}
 			</Button>
 		</Link>
 	);
