@@ -8,16 +8,12 @@ import { HazardLevel } from "@/lib/types";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import useStore from "@/store/defaultStore";
-import { useEffect } from "react";
 import AddressSearch from "../../components/AddressSearch";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
 	const entities = [
 		{ name: "fluvialFlood", hazardLevel: "low" as HazardLevel },
@@ -26,13 +22,6 @@ export default function FloodCheckClient() {
 	const submit = async () => {
 		router.push("/wasser-check#results");
 	};
-
-	useEffect(() => {
-		if (!hash && currentUserAddress) {
-			router.push("/wasser-check#interimResult");
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [hash]);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">

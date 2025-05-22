@@ -16,7 +16,8 @@
 			"label": "Adresse",
 			"description": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten.",
 			"placeholder": "Landstraße 1, 12345 Berlin",
-			"button": "HochwasserCheck jetzt starten!"
+			"button": "HochwasserCheck jetzt starten!",
+			"buttonConfirm": "Adresse bestätigen"
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",

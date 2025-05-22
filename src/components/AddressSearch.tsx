@@ -6,10 +6,10 @@ import {
 	FormWrapper,
 	Label,
 } from "berlin-ui-library";
-import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import { getAddressResults } from "@/server/actions/getAddressResults";
@@ -21,6 +21,12 @@ interface AddressSearchProps {
 export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 	const t = useTranslations("home");
 	const router = useRouter();
+
+	const setCurrentUserAddress = useStore(
+		(state) => state.setCurrentUserAddress,
+	);
+
+	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
@@ -39,9 +45,6 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 		placeholder: t("addressCheck.placeholder"),
 		isRequired: true,
 	};
-	const setCurrentUserAddress = useStore(
-		(state) => state.setCurrentUserAddress,
-	);
 
 	const handleSubmit = () => {
 		return methods.handleSubmit(() => {
@@ -117,6 +120,12 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 		}
 	};
 
+	useEffect(() => {
+		if (currentUserAddress) {
+			setValue("addresse", currentUserAddress);
+		}
+	}, [currentUserAddress, setValue]);
+
 	return (
 		<FormWrapper>
 			<Form {...methods}>
@@ -154,7 +163,9 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 						className="w-full justify-end self-start lg:w-fit"
 						type="submit"
 					>
-						{t("addressCheck.button")}
+						{onLandingPage
+							? t("addressCheck.button")
+							: t("addressCheck.buttonConfirm")}
 					</Button>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
