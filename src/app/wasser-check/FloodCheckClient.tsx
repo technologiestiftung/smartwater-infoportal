@@ -31,6 +31,7 @@ export default function FloodCheckClient() {
 		if (!hash && currentUserAddress) {
 			router.push("/wasser-check#interimResult");
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [hash]);
 
 	return (
