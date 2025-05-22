@@ -18,7 +18,6 @@ import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
-import ReportPDF from "./ReportPDF";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -66,9 +65,6 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12">
-			<div className="mt-10">
-				<ReportPDF />
-			</div>
 			<section className="flex flex-col gap-2">
 				<h2 className="">{t("hazardAtLocation")}</h2>
 				<div className="flex w-full flex-col">
