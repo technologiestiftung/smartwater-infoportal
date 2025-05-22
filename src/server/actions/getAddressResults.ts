@@ -6,7 +6,7 @@ export async function getAddressResults(search: string) {
 		const res = await fetch(
 			`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
 				search,
-			)}&format=json&addressdetails=1&limit=5`,
+			)}&format=json&addressdetails=1&limit=5&viewbox=13.1,52.3,13.8,52.7&bounded=1`,
 		);
 
 		if (!res.ok) {
