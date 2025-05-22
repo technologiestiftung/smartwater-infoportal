@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
+import { getAddressResults } from "@/server/actions/getAddressResults";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
@@ -68,12 +69,12 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 		isFetching.current = true;
 
 		try {
-			const response = await fetch(
-				`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-					search,
-				)}&format=json&addressdetails=1&limit=5`, // &viewbox=13.1,52.3,13.8,52.7&bounded=1
-			);
-			const data = await response.json();
+			const data = await getAddressResults(search);
+
+			if (data?.error) {
+				setError(data.error);
+				return;
+			}
 
 			const seen = new Set();
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
