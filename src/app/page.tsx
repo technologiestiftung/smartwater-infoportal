@@ -28,7 +28,7 @@ export default function Home() {
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
-				<AddressSearch />
+				<AddressSearch onLandingPage />
 			</section>
 			<section className="w-full">
 				<TextBlock
