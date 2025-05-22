@@ -14,6 +14,7 @@ import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
+import useStore from "@/store/defaultStore";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -54,14 +55,17 @@ const Results: React.FC = () => {
 		return str.replace(/\s+/g, "-").toLowerCase();
 	};
 
+	const currentUserAddress = useStore((state) => state.currentUserAddress);
+
 	return (
 		<div className="flex w-full flex-col gap-12">
 			<section className="flex flex-col gap-2">
 				<h2 className="">{t("hazardAtLocation")}</h2>
-				<div className="flex w-full flex-col">
-					<p className="">Placeholder Adresse</p>
-					<p className="">Placeholder PLZ - Stadt</p>
-				</div>
+				{currentUserAddress && (
+					<div className="flex w-full flex-col">
+						<p className="">{currentUserAddress}</p>
+					</div>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
