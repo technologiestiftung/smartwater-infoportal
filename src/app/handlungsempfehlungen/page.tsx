@@ -1,30 +1,13 @@
 "use client";
 
 import { After, Before, During } from "@/components/Handlungsempfehlungen";
-import {
-	Button,
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "berlin-ui-library";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 
 export default function Recommendations() {
 	const t = useTranslations();
-	const router = useRouter();
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
-			<Button
-				className="w-full justify-end self-start lg:w-fit"
-				onClick={() => {
-					router.push("/");
-				}}
-				variant="back-link"
-			>
-				{t("common.backToStart")}
-			</Button>
 			<h1 className="">{t("recommendations.pageTitle")}</h1>
 			<p className="">{t("recommendations.intro")}</p>
 			<h2 className="text-accent">{t("recommendations.timeline.title")}</h2>

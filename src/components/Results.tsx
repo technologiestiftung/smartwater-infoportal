@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import {
-	Checkbox,
-	Toggle,
 	Accordion,
 	AccordionItem,
 	AccordionTrigger,
 	AccordionContent,
 	Button,
 	Image,
+	Pill,
+	FilterPillGroup,
+	Tabs,
+	TabsTrigger,
+	TabsList,
+	DownloadItem,
 } from "berlin-ui-library";
 import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
@@ -49,7 +53,12 @@ const Results: React.FC = () => {
 		"protectionTips.traffic.tip4",
 		"protectionTips.traffic.tip5",
 	];
-
+	const [activeFilters, setActiveFilters] = useState<string[]>([]);
+	const handleFilterToggle = (value: string) => {
+		setActiveFilters((prev) =>
+			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
+		);
+	};
 	const convertStringToID = (str: string) => {
 		return str.replace(/\s+/g, "-").toLowerCase();
 	};
@@ -69,35 +78,42 @@ const Results: React.FC = () => {
 					<p className="">{t("hazardDisplay.descriptionPlaceholder")}</p>
 				</div>
 				<div className="flex flex-col gap-2">
-					<div className="flex w-full gap-2 overflow-y-scroll">
-						{filters.map((filter) => (
-							<div className="flex w-1/2 border-2 border-black" key={filter}>
-								<div className="flex h-12 min-w-12 items-center justify-center border-r-2 border-black bg-white">
-									<Checkbox
-										id={convertStringToID(filter)}
-										variant="styled"
-										className="h-5 min-w-5"
-									/>
-								</div>
-								<div className="bg-red flex h-12 flex-1 items-center px-4 font-bold text-white">
-									{filter}
-								</div>
-							</div>
-						))}
+					<div className="flex">
+						<Tabs defaultValue={convertStringToID(filters[0])}>
+							<TabsList variant="module">
+								{filters.map((filter) => (
+									<TabsTrigger
+										key={convertStringToID(filter)}
+										variant="module"
+										className="capitalize"
+										value={convertStringToID(filter)}
+									>
+										<h4>{convertStringToID(filter)}</h4>
+									</TabsTrigger>
+								))}
+							</TabsList>
+						</Tabs>
 					</div>
-					<div className="flex w-full gap-2 overflow-y-scroll">
-						{subFilters.map((subFilter) => (
-							<Toggle
-								key={convertStringToID(subFilter)}
-								aria-label="Toggle italic"
-								className="w-1/3"
-								variant="outline"
-							>
-								<span>{subFilter}</span>
-							</Toggle>
-						))}
+					<div className="flex w-full">
+						<FilterPillGroup
+							size="big"
+							activeValues={activeFilters}
+							onValueToggle={handleFilterToggle}
+						>
+							{subFilters.map((subFilter) => (
+								<Pill
+									variant="filter"
+									value={convertStringToID(subFilter)}
+									key={convertStringToID(subFilter)}
+									className="capitalize"
+								>
+									{convertStringToID(subFilter)}
+								</Pill>
+							))}
+						</FilterPillGroup>
 					</div>
 				</div>
+
 				<TextBlock
 					desktopColSpans={{ col1: 1, col2: 1 }}
 					className="w-full gap-6"
@@ -245,18 +261,16 @@ const Results: React.FC = () => {
 					>
 						Übersicht Handlungsempfehlungen
 					</Button>
+					<div className="divider mt-4" />
+					<DownloadItem
+						buttonText="Download Bericht"
+						date="03/1974"
+						description={t("reportDownload.description")}
+						downloadUrl="#"
+						fileType="PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025"
+						title={t("reportDownload.title")}
+					/>
 				</div>
-			</section>
-			<div className="divider" />
-			<section className="flex flex-col gap-4">
-				<h3 className="">{t("reportDownload.title")}</h3>
-				<p className="">{t("reportDownload.description")}</p>
-				<p className="block break-words text-sm leading-tight text-gray-600">
-					PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025
-				</p>
-				<Button variant="download" className="w-full self-start lg:w-fit">
-					Bericht herunterladen
-				</Button>
 			</section>
 		</div>
 	);
