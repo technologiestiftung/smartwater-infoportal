@@ -8,7 +8,7 @@ import {
 	FormWrapper,
 	Image,
 } from "berlin-ui-library";
-import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -123,7 +123,7 @@ export default function Home() {
 					}
 					slotB={<Warning type="widget" />}
 					slotC={
-						<p className="">
+						<div className="">
 							{t.rich("floodRadar.description", {
 								link: (chunks) => (
 									<div
@@ -136,7 +136,7 @@ export default function Home() {
 									</div>
 								),
 							})}
-						</p>
+						</div>
 					}
 				/>
 			</section>

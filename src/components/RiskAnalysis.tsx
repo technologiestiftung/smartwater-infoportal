@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import {
 	Button,
 	Form,
@@ -10,6 +10,7 @@ import {
 	Image,
 } from "berlin-ui-library";
 import { useForm } from "react-hook-form";
+import TextBlock from "./TextBlock";
 
 interface RiskAnalysisProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -244,22 +245,46 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 					</Form>
 				</FormWrapper>
 				{currentStep === 3 && (
-					<div className="">
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/rueckstausicherung.png"
-							alt={t("floodCheck.questions.q4.image.alt")}
-							caption={t("floodCheck.questions.q4.image.caption")}
-							copyright={t("floodCheck.questions.q4.image.copyright")}
-						/>
-					</div>
+					<TextBlock
+						desktopColSpans={{ col1: 1, col2: 1 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={false}
+						slotA={
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/rueckstausicherung.png"
+								alt={t("floodCheck.questions.q4.image.alt")}
+								caption={t("floodCheck.questions.q4.image.caption")}
+								copyright={t("floodCheck.questions.q4.image.copyright")}
+							/>
+						}
+						slotB={
+							<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+								<h3 className="">{t("floodCheck.questions.q4.title")}</h3>
+								<p className="">{t("floodCheck.questions.q4.description")}</p>
+							</div>
+						}
+					/>
 				)}
 				{currentStep === 4 && (
 					<div className="">
-						<Image
-							src="/ablaeufe.png"
-							alt={t("floodCheck.questions.q5.image.alt")}
-							caption={t("floodCheck.questions.q5.image.caption")}
+						<TextBlock
+							desktopColSpans={{ col1: 1, col2: 1 }}
+							className="w-full gap-6"
+							reverseDesktopColumns={false}
+							slotA={
+								<Image
+									src="/ablaeufe.png"
+									alt={t("floodCheck.questions.q5.image.alt")}
+									caption={t("floodCheck.questions.q5.image.caption")}
+								/>
+							}
+							slotB={
+								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+									<h3 className="">{t("floodCheck.questions.q5.title")}</h3>
+									<p className="">{t("floodCheck.questions.q5.description")}</p>
+								</div>
+							}
 						/>
 					</div>
 				)}

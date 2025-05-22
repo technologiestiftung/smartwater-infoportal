@@ -6,7 +6,7 @@ import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
 import { HazardLevel } from "@/lib/types";
 import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
-import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -45,15 +45,6 @@ export default function FloodCheckClient() {
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 			{hash === "interimResult" ? (
 				<>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => {
-							router.push("/wasser-check");
-						}}
-						variant="back-link"
-					>
-						{t("common.backToStart")}
-					</Button>
 					<div className="flex w-full flex-col gap-2">
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>

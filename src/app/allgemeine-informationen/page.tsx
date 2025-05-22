@@ -9,21 +9,10 @@ import {
 	Image,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 export default function GeneralInformation() {
 	const t = useTranslations();
-	const router = useRouter();
 	return (
 		<div className="flex flex-col justify-start gap-12 px-5 py-8 lg:px-0">
-			<Button
-				className="w-full justify-end self-start lg:w-fit"
-				onClick={() => {
-					router.push("/");
-				}}
-				variant="back-link"
-			>
-				{t("common.backToStart")}
-			</Button>
 			<section className="flex flex-col gap-6">
 				<h1 className="">{t("generalInfo.pageTitle")}</h1>
 				<h2 className="">{t("generalInfo.definition.title")}</h2>
