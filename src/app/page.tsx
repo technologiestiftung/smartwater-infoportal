@@ -80,7 +80,7 @@ export default function Home() {
 							<h3 className="">{t("floodRadar.subtitle")}</h3>
 						</div>
 					}
-					slotB={<Warning type="widget" />}
+					slotB={<Warning />}
 					slotC={
 						<div className="">
 							{t.rich("floodRadar.description", {
