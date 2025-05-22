@@ -5,41 +5,33 @@ import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
 import { HazardLevel } from "@/lib/types";
-import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
-import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
+import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import useStore from "@/store/defaultStore";
+import { useEffect } from "react";
+import AddressSearch from "../../components/AddressSearch";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
 
+	const currentUserAddress = useStore((state) => state.currentUserAddress);
+
 	const entities = [
 		{ name: "fluvialFlood", hazardLevel: "low" as HazardLevel },
 		{ name: "heavyRain", hazardLevel: "high" as HazardLevel },
 	];
-	const methods = useForm({
-		defaultValues: {
-			addresse: "",
-		},
-	});
-
-	const property: FormProperty = {
-		id: "address",
-		name: t("home.addressCheck.label"),
-		type: "text",
-		description: t("home.addressCheck.description"),
-		placeholder: "Landstraße 1, 12345 Berlin",
-		isRequired: true,
-	};
-	const quickCheck = async () => {
-		router.push("/wasser-check#interimResult");
-	};
 	const submit = async () => {
 		router.push("/wasser-check#results");
 	};
+
+	useEffect(() => {
+		if (!hash && currentUserAddress) {
+			router.push("/wasser-check#interimResult");
+		}
+	}, [hash]);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
@@ -114,27 +106,7 @@ export default function FloodCheckClient() {
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<h2 className="">{t("floodCheck.start.title")}</h2>
 						<p className="">{t("floodCheck.start.description")}</p>
-						<FormWrapper>
-							<Form {...methods}>
-								<div className="flex w-full flex-col gap-8">
-									<FormFieldWrapper
-										key={property.id}
-										formProperty={property}
-										form={methods}
-									/>
-
-									<div className="mt-4 flex w-full flex-col space-y-4">
-										<Button
-											className="w-full self-start lg:w-fit"
-											onClick={quickCheck}
-											type="button"
-										>
-											{t("common.confirm")}
-										</Button>
-									</div>
-								</div>
-							</Form>
-						</FormWrapper>
+						<AddressSearch />
 					</div>
 				</>
 			)}
