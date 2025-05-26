@@ -27,7 +27,7 @@ export default function Warning() {
 
 	return (
 		<div
-			className={`overflow-hidden ${background} flex w-full items-center justify-center gap-4 p-4`}
+			className={`overflow-hidden ${background} flex w-full items-center justify-center gap-6 p-5`}
 		>
 			<Image
 				className="w-16"
@@ -35,7 +35,7 @@ export default function Warning() {
 				alt="Warning Icon"
 			/>
 			<div>
-				<h3>{message}</h3>
+				<p>{message}</p>
 				<Link
 					href="https://wasserportal.berlin.de/warnungen.php"
 					target="_blank"

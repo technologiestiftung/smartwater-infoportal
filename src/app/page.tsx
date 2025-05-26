@@ -80,7 +80,11 @@ export default function Home() {
 							<h3 className="">{t("floodRadar.subtitle")}</h3>
 						</div>
 					}
-					slotB={<Warning />}
+					slotB={
+						<div className="flex h-full items-center">
+							<Warning />
+						</div>
+					}
 					slotC={
 						<div className="">
 							{t.rich("floodRadar.description", {
