@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { FormProperty } from "berlin-ui-library/dist/components/FormWrapper/FormFieldWrapper";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import {
 	Button,
 	Form,
