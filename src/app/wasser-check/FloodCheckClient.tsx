@@ -9,6 +9,7 @@ import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../../components/AddressSearch";
+import { useEffect } from "react";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
@@ -22,6 +23,13 @@ export default function FloodCheckClient() {
 	const submit = async () => {
 		router.push("/wasser-check#results");
 	};
+
+	useEffect(() => {
+		// eslint-disable-next-line no-extra-boolean-cast
+		if (!!hash) {
+			window.scrollTo(0, 0);
+		}
+	}, [hash]);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
