@@ -15,7 +15,9 @@
 		"addressCheck": {
 			"label": "Adresse",
 			"description": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten.",
-			"button": "HochwasserCheck jetzt starten!"
+			"placeholder": "Landstraße 1, 12345 Berlin",
+			"button": "HochwasserCheck jetzt starten!",
+			"buttonConfirm": "Adresse bestätigen"
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
@@ -36,7 +38,7 @@
 			"title": "Hochwasser-Radar: Bleiben Sie informiert!",
 			"subtitle": "Achtung Hochwasser? Hier sind die aktuellen Warnungen!",
 			"currentStatus": {
-				"noWarnings": "Derzeit liegen im Raum Berlin keine Warnungen vor."
+				"noWarnings": "Derzeit liegen keine Warnungen für Berlin vor."
 			},
 			"description": "Das Hochwassergeschehen in Berlin wird sowohl durch Zuflüsse aus Brandenburg als auch durch Niederschläge innerhalb der Stadt beeinflusst. Hier finden Sie die aktuellen Wetterwarnungen des <link>Deutschen Wetterdienstes</link>, Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg."
 		},

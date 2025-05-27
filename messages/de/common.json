@@ -13,6 +13,7 @@
 		"clear": "Löschen",
 		"select": "Auswählen",
 		"moreInfo": "Weitere Informationen",
+		"backToAddressSearch": "Zurück zur Adresseingabe",
 		"backToStart": "Zurück zum Infoportal",
 		"externalLink": "Externer Link",
 		"here": "hier",
@@ -69,8 +70,8 @@
 		},
 		"warning": {
 			"noWarning": "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor.",
-			"currentWarning": "Derzeit liegen keine Warnungen im Raum Berlin vor.",
-			"furtherInformation": "Weitere Informationen finden Sie im Wasserportal Berlin"
+			"currentWarning": "Derzeit liegen keine Warnungen für Berlin vor.",
+			"furtherInformation": "Weitere Informationen"
 		}
 	}
 }
