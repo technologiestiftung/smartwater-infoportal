@@ -59,7 +59,7 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 				];
 
 	return (
-		<div id="risk-block" className="Risk-block border-12 border-risk">
+		<div className={`Risk-block border-12 border-risk`}>
 			<div className="flex flex-col gap-2 p-4">
 				<div className="flex items-center gap-2">
 					<Image
@@ -94,7 +94,14 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 							/>
 						</div>
 					</div>
-					<div className="bg-linear-to-r to-risk-high from-risk-low via-risk-moderate h-12 w-full"></div>
+					{/* <div className="bg-linear-to-r to-risk-high from-risk-low via-risk-moderate h-12 w-full"></div> */}
+					<Image
+						className="w-full max-w-none"
+						src="/Farbskala.jpg"
+						alt="Farbskala"
+						width={24}
+						height={24}
+					/>
 				</div>
 				<div className="flex flex-col gap-2">
 					{defaultRiskFactors.map((factor) => (

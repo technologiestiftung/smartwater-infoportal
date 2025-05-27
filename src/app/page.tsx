@@ -1,40 +1,14 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
-import {
-	Button,
-	Form,
-	FormFieldWrapper,
-	FormWrapper,
-	Image,
-} from "berlin-ui-library";
-import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
+import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import AddressSearch from "../components/AddressSearch";
 
 export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
-	const methods = useForm({
-		defaultValues: {
-			addresse: "",
-		},
-	});
-	const property: FormProperty = {
-		id: "addresse",
-		name: "Addresse",
-		type: "text",
-		description: "Enter your full addresse",
-		placeholder: "John Doe",
-		isRequired: true,
-	};
-
-	const handleSubmit = () => {
-		return methods.handleSubmit((data) => {
-			console.warn(data);
-		});
-	};
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
@@ -54,22 +28,7 @@ export default function Home() {
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
-				<FormWrapper>
-					<Form {...methods}>
-						<form className="flex flex-col gap-8" onSubmit={handleSubmit()}>
-							<FormFieldWrapper formProperty={property} form={methods} />
-							<Button
-								className="w-full justify-end self-start lg:w-fit"
-								onClick={() => {
-									router.push("/wasser-check");
-								}}
-								type="submit"
-							>
-								{t("addressCheck.button")}
-							</Button>
-						</form>
-					</Form>
-				</FormWrapper>
+				<AddressSearch onLandingPage />
 			</section>
 			<section className="w-full">
 				<TextBlock
@@ -121,7 +80,11 @@ export default function Home() {
 							<h3 className="">{t("floodRadar.subtitle")}</h3>
 						</div>
 					}
-					slotB={<Warning type="widget" />}
+					slotB={
+						<div className="flex h-full items-center">
+							<Warning />
+						</div>
+					}
 					slotC={
 						<div className="">
 							{t.rich("floodRadar.description", {
