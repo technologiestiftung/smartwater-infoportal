@@ -3,26 +3,34 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
+		"dev": "npm run install-lib && next dev --turbopack",
+		"build": "npm run install-lib && next build",
+		"start": "npm run install-lib && next start",
+		"lint": "next lint",
+		"install-lib": "npm install github:technologiestiftung/berlin-ui-library",
+		"prepare": "husky"
 	},
 	"dependencies": {
+		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
+		"html2canvas": "^1.4.1",
+		"jspdf": "^3.0.1",
 		"next": "15.3.1",
+		"next-intl": "^4.1.0",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"zustand": "^5.0.4"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",
+		"@tailwindcss/postcss": "^4",
 		"@technologiestiftung/eslint-config": "0.3.1",
 		"@technologiestiftung/prettier-config": "1.0.0",
-		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "15.3.1",
+		"husky": "^9.1.7",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"tailwindcss": "^4",

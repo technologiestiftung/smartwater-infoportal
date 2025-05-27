@@ -1,17 +1,22 @@
 {
-  "workbench.colorCustomizations": {
-    "activityBar.activeBorder": "#76092d",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#76092d",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "sash.hoverBorder": "#185ded",
-    "statusBar.background": "#0f49c3",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#185ded",
-    "statusBarItem.remoteBackground": "#0f49c3",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "commandCenter.border": "#e7e7e799"
-  },
-  "peacock.color": "#0f49c3"
+	"workbench.colorCustomizations": {
+		"activityBar.activeBorder": "#76092d",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#76092d",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"sash.hoverBorder": "#185ded",
+		"statusBar.background": "#0f49c3",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#185ded",
+		"statusBarItem.remoteBackground": "#0f49c3",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"commandCenter.border": "#e7e7e799"
+	},
+	"i18n-ally.localesPaths": ["./messages"], // E.g. "./messages"
+	"i18n-ally.keystyle": "nested",
+	"i18n-ally.sortKeys": true,
+	"i18n-ally.keepFulfilled": true,
+	"peacock.color": "#0f49c3",
+	"i18n-ally.sourceLanguage": "de"
 }

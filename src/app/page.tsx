@@ -1,103 +1,181 @@
-import Image from "next/image";
+"use client";
+import TextBlock from "@/components/TextBlock";
+import Warning from "@/components/Warning";
+import {
+	Button,
+	Form,
+	FormFieldWrapper,
+	FormWrapper,
+	Image,
+} from "berlin-ui-library";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 export default function Home() {
-	return (
-		<div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-			<main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
-				<Image
-					className="dark:invert"
-					src="/next.svg"
-					alt="Next.js logo"
-					width={180}
-					height={38}
-					priority
-				/>
-				<ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm/6 sm:text-left">
-					<li className="mb-2 tracking-[-.01em]">
-						Get started by editing{" "}
-						<code className="rounded bg-black/[.05] px-1 py-0.5 font-[family-name:var(--font-geist-mono)] font-semibold dark:bg-white/[.06]">
-							src/app/page.tsx
-						</code>
-						.
-					</li>
-					<li className="tracking-[-.01em]">
-						Save and see your changes instantly.
-					</li>
-				</ol>
+	const t = useTranslations("home");
+	const router = useRouter();
+	const methods = useForm({
+		defaultValues: {
+			addresse: "",
+		},
+	});
+	const property: FormProperty = {
+		id: "addresse",
+		name: "Addresse",
+		type: "text",
+		description: "Enter your full addresse",
+		placeholder: "John Doe",
+		isRequired: true,
+	};
 
-				<div className="flex flex-col items-center gap-4 sm:flex-row">
-					<a
-						className="bg-foreground text-background flex h-10 items-center justify-center gap-2 rounded-full border border-solid border-transparent px-4 text-sm font-medium transition-colors hover:bg-[#383838] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
-						href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<Image
-							className="dark:invert"
-							src="/vercel.svg"
-							alt="Vercel logomark"
-							width={20}
-							height={20}
-						/>
-						Deploy now
-					</a>
-					<a
-						className="flex h-10 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-4 text-sm font-medium transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-						href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Read our docs
-					</a>
+	const handleSubmit = () => {
+		return methods.handleSubmit((data) => {
+			console.warn(data);
+		});
+	};
+
+	return (
+		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
+			<section>
+				<div className="flex flex-col gap-6">
+					<h1 className="">{t("pageTitle")}</h1>
+					<h2 className="">{t("whatIsIt.title")}</h2>
+					<p className="">
+						{t("whatIsIt.quote")} <br />
+						{t("whatIsIt.description1")}
+					</p>
+					<p className="">{t("whatIsIt.description2")}</p>
 				</div>
-			</main>
-			<footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/file.svg"
-						alt="File icon"
-						width={16}
-						height={16}
-					/>
-					Learn
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/window.svg"
-						alt="Window icon"
-						width={16}
-						height={16}
-					/>
-					Examples
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/globe.svg"
-						alt="Globe icon"
-						width={16}
-						height={16}
-					/>
-					Go to nextjs.org →
-				</a>
-			</footer>
+			</section>
+			<div className="divider px-5" />
+			<section className="flex flex-col gap-6">
+				<h2 className="">{t("amIAffected.title")}</h2>
+				<p className="">{t("amIAffected.description")}</p>
+				<p className="">{t("amIAffected.cta")}</p>
+				<FormWrapper>
+					<Form {...methods}>
+						<form className="flex flex-col gap-8" onSubmit={handleSubmit()}>
+							<FormFieldWrapper formProperty={property} form={methods} />
+							<Button
+								className="w-full justify-end self-start lg:w-fit"
+								onClick={() => {
+									router.push("/wasser-check");
+								}}
+								type="submit"
+							>
+								{t("addressCheck.button")}
+							</Button>
+						</form>
+					</Form>
+				</FormWrapper>
+			</section>
+			<section className="w-full">
+				<TextBlock
+					desktopColSpans={{ col1: 2, col2: 3 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="flex w-full flex-col gap-6">
+							<div className="flex flex-col gap-2">
+								<h2 className="">{t("howToProtect.title")}</h2>
+								<p className="">{t("howToProtect.ownerInfo")}</p>
+							</div>
+							<p className="">{t("howToProtect.tenantInfo")}</p>
+							<p className="">{t("howToProtect.generalRule")}</p>
+						</div>
+					}
+					slotB={
+						<Image
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							src="/imagery.png"
+							alt={t("howToProtect.image.alt")}
+							caption={t("howToProtect.image.caption")}
+							copyright={t("howToProtect.image.copyright")}
+						/>
+					}
+					slotC={
+						<div className="flex w-full flex-col gap-6">
+							<p className="">{t("howToProtect.recommendations.info")}</p>
+							<Button
+								className="w-full self-start lg:w-fit"
+								onClick={() => {
+									router.push("/handlungsempfehlungen");
+								}}
+							>
+								{t("howToProtect.recommendations.button")}
+							</Button>
+						</div>
+					}
+				/>
+			</section>
+			<div className="divider" />
+			<section className="">
+				<TextBlock
+					desktopColSpans={{ col1: 3, col2: 2 }}
+					className="w-full gap-6"
+					slotA={
+						<div className="flex w-full flex-col gap-6">
+							<h2 className="">{t("floodRadar.title")}</h2>
+							<h3 className="">{t("floodRadar.subtitle")}</h3>
+						</div>
+					}
+					slotB={<Warning type="widget" />}
+					slotC={
+						<div className="">
+							{t.rich("floodRadar.description", {
+								link: (chunks) => (
+									<div
+										onClick={() => {
+											router.push("/link");
+										}}
+										className="text-text-link"
+									>
+										{chunks}
+									</div>
+								),
+							})}
+						</div>
+					}
+				/>
+			</section>
+			<div className="divider" />
+			<section className="">
+				<TextBlock
+					desktopColSpans={{ col1: 2, col2: 3 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="flex w-full flex-col gap-6">
+							<h2 className="">{t("backgroundInfo.title")}</h2>
+							<p className="">{t("backgroundInfo.questions")}</p>
+							<p className="">{t("backgroundInfo.answer")}</p>
+						</div>
+					}
+					slotB={
+						<Image
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							src="/imagery.png"
+							alt={t("howToProtect.image.alt")}
+							caption={t("howToProtect.image.caption")}
+							copyright={t("howToProtect.image.copyright")}
+						/>
+					}
+					slotC={
+						<div className="flex w-full flex-col gap-6">
+							<Button
+								className="w-full self-start lg:w-fit"
+								onClick={() => {
+									router.push("/allgemeine-informationen");
+								}}
+							>
+								{t("backgroundInfo.button")}
+							</Button>
+						</div>
+					}
+				/>
+			</section>
 		</div>
 	);
 }

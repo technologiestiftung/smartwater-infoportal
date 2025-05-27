@@ -11,8 +11,22 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+	// first ensure this rule always gets its options
+	{
+		rules: {
+			"@typescript-eslint/no-unused-expressions": [
+				"error",
+				{
+					allowShortCircuit: true,
+					allowTernary: false,
+					allowTaggedTemplates: false,
+				},
+			],
+		},
+	},
+
 	...technologiestiftung,
-	...compat.extends("next/core-web-vitals", "next/typescript"),
+	...compat.extends("next/core-web-vitals"),
 ];
 
 export default eslintConfig;

@@ -1,26 +1,157 @@
-@import "tailwindcss";
+@import "tailwindcss" important;
+@import "berlin-ui-library/dist/assets/style.css";
+
+@theme {
+	--breakpoint-lg: 61.25rem;
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+
+	--color-primary: var(--primary);
+	--color-secondary: var(--secondary);
+	--color-tertiary: var(--tertiary);
+	--color-accent: var(--accent);
+	--color-grey: var(--grey);
+	--color-grey-dark: var(--grey-dark);
+	--color-grey-darkest: var(--grey-darkest);
+	--color-text-base: var(--text-base);
+	--color-text-link: var(--text-link);
+	--color-text-error: var(--text-error);
+	--color-text-lightest: var(--text-lightest);
+	--color-risk: var(--risk);
+	--color-risk-low: var(--risk-low);
+	--color-risk-moderate: var(--risk-moderate);
+	--color-risk-high: var(--risk-high);
+	--color-panel-heavy: var(--panel-heavy);
+	--color-panel-light: var(--panel-light);
+	--color-panel-dark: var(--panel-dark);
+	--color-panel-colored: var(--panel-colored);
+	--color-hazard-low: var(--hazard-low);
+	--color-hazard-moderate: var(--hazard-moderate);
+	--color-hazard-high: var(--hazard-high);
+	--color-hazard-severe: var(--hazard-severe);
+	--color-message-default: var(--message-default);
+	--color-message-success: var(--message-success);
+	--color-message-info: var(--message-info);
+	--color-message-error: var(--message-error);
+	--color-message-no-warning: var(--message-no-warning);
+	--color-border: var(--border);
+	--color-hr: var(--hr);
+
+	--animate-scroll-left: scroll-left 25s linear infinite;
+
+	@keyframes scroll-left {
+		0% {
+			transform: translateX(100vw);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	--background: #ffffff;
+	--foreground: #171717;
+
+	--primary: #e40422;
+	--secondary: #000000;
+	--tertiary: #000000;
+	--accent: #e20074;
+	--grey: #f5f5f5;
+	--grey-dark: #dddddd;
+	--grey-darkest: #333333;
+	--text-base: #000000;
+	--text-link: #0047d3;
+	--text-error: #9b0000;
+	--text-lightest: #454545;
+	--hazard-low: #f8dcd9;
+	--hazard-moderate: #e198b5;
+	--hazard-high: #aa5fa5;
+	--hazard-severe: #5b3794;
+	--risk: #f2d72b;
+	--risk-low: #33b558;
+	--risk-moderate: #f2d72b;
+	--risk-high: #e40422;
+	--panel-heavy: #f5f5f5;
+	--panel-light: #ffffff;
+	--panel-dark: #000000;
+	--panel-colored: #f5f5f5;
+	--message-default: #f9f4e4;
+	--message-success: #e2f1eb;
+	--message-info: #ebf1f7;
+	--message-error: #fdecee;
+	--message-no-warning: #ecf8f5;
+	--border: #dddddd;
+	--hr: #dddddd;
+}
+
+@layer components {
+	.divider {
+		@apply border-1 border-border w-full border border-b;
+	}
+	h1 {
+		font-size: 1.688rem;
+		line-height: 1.938rem;
+		@apply font-bold;
+	}
+	h2 {
+		font-size: 1.375rem;
+		line-height: 1.625rem;
+		@apply font-bold;
+	}
+	h3 {
+		font-size: 1.063rem;
+		line-height: 1.438rem;
+		@apply font-bold;
+	}
+	h4 {
+		font-size: 1rem;
+		line-height: 1.5rem;
+		@apply font-bold;
+	}
+
+	p {
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+
+	.metatext {
+		font-size: 0.875rem;
+		line-height: 1.313rem;
+	}
+
+	.caption {
+		font-size: 0.875rem;
+		line-height: 1.067rem;
+	}
+
+	.copyright {
+		font-size: 0.688rem;
+		line-height: 0.813rem;
+	}
+
+	.helptext {
+		font-size: 0.875rem;
+		line-height: 1.313rem;
+	}
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	/* :root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	} */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: Arial, Helvetica, sans-serif;
 }
