@@ -1,22 +1,11 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { Button, Image } from "berlin-ui-library";
-import { useRouter } from "next/navigation";
+import { Image } from "berlin-ui-library";
 import Link from "next/link";
 export default function About() {
 	const t = useTranslations();
-	const router = useRouter();
 	return (
 		<div className="flex flex-col gap-6 justify-self-center px-5 py-8 lg:px-0">
-			<Button
-				className="w-full justify-end self-start lg:w-fit"
-				onClick={() => {
-					router.push("/");
-				}}
-				variant="back-link"
-			>
-				{t("common.backToStart")}
-			</Button>
 			<div className="flex flex-col gap-6">
 				<h1 className="">{t("about.pageTitle")}</h1>
 				<h2 className="">{t("about.subTitle")}</h2>

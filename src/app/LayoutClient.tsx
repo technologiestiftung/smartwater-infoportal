@@ -59,6 +59,7 @@ export default function LayoutClient({
 				breadcrumbs={breadcrumbs}
 				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
 				showLanguageSelect={false}
+				showSearchButton={false}
 				header={"Senatsverwaltung für"}
 				language="de"
 				translations={{
@@ -113,7 +114,6 @@ export default function LayoutClient({
 					},
 				]}
 				onOpenMenu={() => {}}
-				onSearch={() => {}}
 			/>
 			<div className="flex flex-grow justify-center">
 				<main className="mx-auto flex flex-grow flex-col py-5 lg:max-w-[61.25rem]">

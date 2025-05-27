@@ -3,14 +3,17 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "next build",
-		"start": "next start",
+		"dev": "npm run install-lib && next dev --turbopack",
+		"build": "npm run install-lib && next build",
+		"start": "npm run install-lib && next start",
 		"lint": "next lint",
+		"install-lib": "npm install github:technologiestiftung/berlin-ui-library",
 		"prepare": "husky"
 	},
 	"dependencies": {
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
+		"html2canvas": "^1.4.1",
+		"jspdf": "^3.0.1",
 		"next": "15.3.1",
 		"next-intl": "^4.1.0",
 		"react": "^19.0.0",

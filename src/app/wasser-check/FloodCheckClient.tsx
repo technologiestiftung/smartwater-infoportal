@@ -17,8 +17,8 @@ export default function FloodCheckClient() {
 	const router = useRouter();
 
 	const entities = [
-		{ name: "fluvialFlood", hazardLevel: "low" as HazardLevel },
 		{ name: "heavyRain", hazardLevel: "high" as HazardLevel },
+		{ name: "fluvialFlood", hazardLevel: "low" as HazardLevel },
 	];
 	const submit = async () => {
 		router.push("/wasser-check#results");
