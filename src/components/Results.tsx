@@ -58,8 +58,7 @@ const Results: React.FC = () => {
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
 	return (
-		<div className="flex w-full flex-col gap-12">
-			<span></span>
+		<div className="flex w-full flex-col gap-12 pt-2">
 			<section className="flex flex-col gap-2">
 				<h2 className="">{t("hazardAtLocation")}</h2>
 				{currentUserAddress && (
