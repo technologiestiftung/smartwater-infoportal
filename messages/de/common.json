@@ -69,7 +69,7 @@
 		},
 		"warning": {
 			"noWarning": "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor.",
-			"currentWarning": "Derzeit liegen keine Warnungen im Raum Berlin vor.",
+			"currentWarning": "Derzeit liegen keine Warnungen für Berlin vor.",
 			"furtherInformation": "Weitere Informationen"
 		}
 	}
