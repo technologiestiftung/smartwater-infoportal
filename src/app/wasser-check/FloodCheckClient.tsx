@@ -34,7 +34,7 @@ export default function FloodCheckClient() {
 						}}
 						variant="back-link"
 					>
-						{t("common.backToStart")}
+						{t("common.backToAddressSearch")}
 					</Button>
 					<div className="flex w-full flex-col gap-2">
 						<div className="flex items-center space-x-2">
