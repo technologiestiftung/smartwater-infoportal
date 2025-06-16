@@ -221,11 +221,11 @@ const Results: React.FC = () => {
 						}
 						slotB={
 							<Image
-								className="-mx-5 mt-6 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/imagery.png"
-								alt="Placeholder Image"
-								caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-								copyright="@copyright ungeklärt"
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
+								alt={t("protectionTips.inBuilding.image.alt")}
+								caption={t("protectionTips.inBuilding.image.caption")}
+								copyright={t("protectionTips.inBuilding.image.copyright")}
 							/>
 						}
 					/>
@@ -250,11 +250,11 @@ const Results: React.FC = () => {
 						}
 						slotB={
 							<Image
-								className="-mx-5 mt-6 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/imagery.png"
-								alt="Placeholder Image"
-								caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-								copyright="@copyright ungeklärt"
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
+								alt={t("protectionTips.traffic.image.alt")}
+								caption={t("protectionTips.traffic.image.caption")}
+								copyright={t("protectionTips.traffic.image.copyright")}
 							/>
 						}
 					/>

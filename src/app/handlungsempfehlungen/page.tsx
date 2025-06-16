@@ -10,8 +10,7 @@ export default function Recommendations() {
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 			<h1 className="">{t("recommendations.pageTitle")}</h1>
 			<p className="">{t("recommendations.intro")}</p>
-			<h2 className="text-accent">{t("recommendations.timeline.title")}</h2>
-			<p className="text-accent">{t("recommendations.timeline.description")}</p>
+			<h2 className="">{t("recommendations.timeline.title")}</h2>
 			<Tabs defaultValue="before" className="">
 				<TabsList>
 					<TabsTrigger value="before">

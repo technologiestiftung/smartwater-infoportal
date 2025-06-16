@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import TextBlock from "../TextBlock";
 import { Button, Image } from "berlin-ui-library";
+import Link from "next/link";
 
 const Before: React.FC = () => {
 	const t = useTranslations();
@@ -25,7 +26,33 @@ const Before: React.FC = () => {
 								{t("recommendations.beforeEvent.personalPreparedness.title2")}
 							</h3>
 							<p className="">
-								{t("recommendations.beforeEvent.personalPreparedness.item2")}
+								{t.rich(
+									"recommendations.beforeEvent.personalPreparedness.item2",
+									{
+										link1: (chunks) => (
+											<Link
+												href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="linkWithIcon" className="min-h-0">
+													{chunks}
+												</Button>
+											</Link>
+										),
+										link2: (chunks) => (
+											<Link
+												href="https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="linkWithIcon" className="min-h-0">
+													{chunks}
+												</Button>
+											</Link>
+										),
+									},
+								)}
 							</p>
 							<h3 className="">
 								{t("recommendations.beforeEvent.personalPreparedness.title3")}
@@ -37,38 +64,41 @@ const Before: React.FC = () => {
 								{t("recommendations.beforeEvent.personalPreparedness.title4")}
 							</h3>
 							<p className="">
-								{t("recommendations.beforeEvent.personalPreparedness.item4")}
-							</p>
-							<Button
-								className="w-full self-start lg:w-fit"
-								variant="link"
-								onClick={() => {
-									window.open(
-										t(
-											"recommendations.beforeEvent.personalPreparedness.link3.url",
+								{t.rich(
+									"recommendations.beforeEvent.personalPreparedness.item4",
+									{
+										link: (chunks) => (
+											<Link
+												href="https://www.berlin.de/katastrophenschutz/warnung-und-information/anlaufstellen-fuer-die-bevoelkerung/"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="linkWithIcon" className="min-h-0">
+													{chunks}
+												</Button>
+											</Link>
 										),
-										"_blank",
-									);
-								}}
-							>
-								{t(
-									"recommendations.beforeEvent.personalPreparedness.link3.title",
+									},
 								)}
-							</Button>
-
-							<h3 className="">
-								{t("recommendations.beforeEvent.personalPreparedness.title4")}
-							</h3>
-							<p className="">
-								{t("recommendations.beforeEvent.personalPreparedness.item4")}
 							</p>
+							<Link
+								href="https://www.bbk.bund.de/SharedDocs/Videos/DE/Warnung-Vorsorge/youtube-erklaerfilm-notgepaeck.html"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Button variant="linkWithIcon" className="min-h-0">
+									{t(
+										"recommendations.beforeEvent.personalPreparedness.link3.title",
+									)}
+								</Button>
+							</Link>
 						</div>
 					}
 					slotB={
-						<div className="flex h-full items-center">
+						<div className="flex h-full flex-col gap-6">
 							<Image
 								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/imagery.png"
+								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen.png"
 								alt={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.alt",
 								)}
@@ -77,6 +107,19 @@ const Before: React.FC = () => {
 								)}
 								copyright={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.copyright",
+								)}
+							/>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_2.png"
+								alt={t(
+									"recommendations.beforeEvent.personalPreparedness.image5.alt",
+								)}
+								caption={t(
+									"recommendations.beforeEvent.personalPreparedness.image5.caption",
+								)}
+								copyright={t(
+									"recommendations.beforeEvent.personalPreparedness.image5.copyright",
 								)}
 							/>
 						</div>
@@ -107,7 +150,7 @@ const Before: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
 							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
 							caption={t(
 								"recommendations.beforeEvent.inBuilding.image.caption",
@@ -170,11 +213,15 @@ const Before: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.beforeEvent.traffic.image.alt")}
-							caption={t("recommendations.beforeEvent.traffic.image.caption")}
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_4.png"
+							alt={t(
+								"recommendations.beforeEvent.furtherInformation.image.alt",
+							)}
+							caption={t(
+								"recommendations.beforeEvent.furtherInformation.image.caption",
+							)}
 							copyright={t(
-								"recommendations.beforeEvent.traffic.image.copyright",
+								"recommendations.beforeEvent.furtherInformation.image.copyright",
 							)}
 						/>
 					}
@@ -200,10 +247,13 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							src="/imagery.png"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_5.png"
 							alt={t("recommendations.beforeEvent.traffic.image.alt")}
 							className="w-full"
 							caption={t("recommendations.beforeEvent.traffic.image.caption")}
+							copyright={t(
+								"recommendations.beforeEvent.traffic.image.copyright",
+							)}
 						/>
 					}
 				/>
@@ -228,7 +278,7 @@ const Before: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_6.jpg"
 							alt={t("recommendations.beforeEvent.fluvialFlood.image.alt")}
 							caption={t(
 								"recommendations.beforeEvent.fluvialFlood.image.caption",

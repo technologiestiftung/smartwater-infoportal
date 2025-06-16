@@ -16,10 +16,7 @@ export default function Home() {
 				<div className="flex flex-col gap-6">
 					<h1 className="">{t("pageTitle")}</h1>
 					<h2 className="">{t("whatIsIt.title")}</h2>
-					<p className="">
-						{t("whatIsIt.quote")} <br />
-						{t("whatIsIt.description1")}
-					</p>
+					<p className="">{t("whatIsIt.description1")}</p>
 					<p className="">{t("whatIsIt.description2")}</p>
 				</div>
 			</section>
@@ -48,10 +45,10 @@ export default function Home() {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("howToProtect.image.alt")}
-							caption={t("howToProtect.image.caption")}
-							copyright={t("howToProtect.image.copyright")}
+							src="/A1.JPG"
+							alt={t("howToProtect.image_A1.alt")}
+							caption={t("howToProtect.image_A1.caption")}
+							copyright={t("howToProtect.image_A1.copyright")}
 						/>
 					}
 					slotC={
@@ -85,22 +82,7 @@ export default function Home() {
 							<Warning />
 						</div>
 					}
-					slotC={
-						<div className="">
-							{t.rich("floodRadar.description", {
-								link: (chunks) => (
-									<div
-										onClick={() => {
-											router.push("/link");
-										}}
-										className="text-text-link"
-									>
-										{chunks}
-									</div>
-								),
-							})}
-						</div>
-					}
+					slotC={<div className="">{t.rich("floodRadar.description")}</div>}
 				/>
 			</section>
 			<div className="divider" />
@@ -119,10 +101,10 @@ export default function Home() {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("howToProtect.image.alt")}
-							caption={t("howToProtect.image.caption")}
-							copyright={t("howToProtect.image.copyright")}
+							src="/A2.JPG"
+							alt={t("howToProtect.image_A2.alt")}
+							caption={t("howToProtect.image_A2.caption")}
+							copyright={t("howToProtect.image_A2.copyright")}
 						/>
 					}
 					slotC={

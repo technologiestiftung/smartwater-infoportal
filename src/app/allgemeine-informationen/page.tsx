@@ -1,5 +1,6 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
+import Link from "next/link";
 import {
 	Button,
 	Accordion,
@@ -36,7 +37,7 @@ export default function GeneralInformation() {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/fluvial_flooding.png"
+							src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
 							alt={t("generalInfo.types.fluvial.image.alt")}
 							caption={t("generalInfo.types.fluvial.image.caption")}
 							copyright={t("generalInfo.types.fluvial.image.copyright")}
@@ -62,14 +63,22 @@ export default function GeneralInformation() {
 							</p>
 							<p className="">{t("generalInfo.hazardVsRisk.mitigation")}</p>
 							<p className="">
-								{t("generalInfo.hazardVsRisk.cta", { link: "LINK EINFÜGEN" })}
+								{t("generalInfo.hazardVsRisk.cta")}
+								<br />
+								<Link
+									href="/handlungsempfehlungen"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Button variant="linkWithIcon">Handlungsempfehlungen</Button>
+								</Link>
 							</p>
 						</div>
 					}
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/fluvial_risk.png"
+							src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
 							alt={t("generalInfo.hazardVsRisk.risk.image.alt")}
 							caption={t("generalInfo.hazardVsRisk.risk.image.caption")}
 							copyright={t("generalInfo.hazardVsRisk.risk.image.copyright")}
@@ -86,18 +95,14 @@ export default function GeneralInformation() {
 					slotA={
 						<div className="flex w-full flex-col gap-6">
 							<h2 className="">{t("generalInfo.assessment.title")}</h2>
-							<h3 className="text-accent">
-								{t("generalInfo.assessment.how.title")}
-							</h3>
 							<p className="">{t("generalInfo.assessment.how.description")}</p>
 							<p className="">{t("generalInfo.assessment.how.note")}</p>
-							<p className="">{t("generalInfo.assessment.how.note2")}</p>
 						</div>
 					}
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
+							src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-08-2.png"
 							alt={t("generalInfo.assessment.how.image.alt")}
 							caption={t("generalInfo.assessment.how.image.caption")}
 							copyright={t("generalInfo.assessment.how.image.copyright")}
@@ -107,37 +112,17 @@ export default function GeneralInformation() {
 						<div className="flex flex-col gap-6">
 							<p className="">
 								{t("generalInfo.assessment.distribution.description")}
+								<br />
+								<Link
+									href="https://www.berlin.de/umweltatlas/wasser/starkregen/fortlaufend-aktualisiert/zusammenfassung/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Button variant="linkWithIcon">
+										Starkregen- und Überflutungsgefahren 2025
+									</Button>
+								</Link>
 							</p>
-							<ul className="list-disc pl-6">
-								<li>
-									<Button
-										className="w-full self-start lg:w-fit"
-										variant="link"
-										onClick={() => {
-											window.open(
-												t("generalInfo.assessment.distribution.pluvial.url"),
-												"_blank",
-											);
-										}}
-									>
-										{t("generalInfo.assessment.distribution.pluvial.title")}
-									</Button>
-								</li>
-								<li>
-									<Button
-										className="w-full lg:w-fit"
-										variant="link"
-										onClick={() => {
-											window.open(
-												t("generalInfo.assessment.distribution.fluvial.url"),
-												"_blank",
-											);
-										}}
-									>
-										{t("generalInfo.assessment.distribution.fluvial.title")}
-									</Button>
-								</li>
-							</ul>
 						</div>
 					}
 				/>
