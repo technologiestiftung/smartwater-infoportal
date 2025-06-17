@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import TextBlock from "../TextBlock";
-import { Image } from "berlin-ui-library";
+import { Button, Image } from "berlin-ui-library";
+import Link from "next/link";
 
 const After: React.FC = () => {
 	const t = useTranslations();
@@ -14,12 +15,49 @@ const After: React.FC = () => {
 					reverseDesktopColumns={true}
 					slotA={
 						<div className="flex w-full flex-col gap-6">
-							<h2 className="">
+							<h3 className="">
 								{t("recommendations.afterEvent.personalPreparedness.title")}
-							</h2>
+							</h3>
 							<ul className="list-disc space-y-2 pl-6">
 								<li className="">
-									{t("recommendations.afterEvent.personalPreparedness.item1")}
+									{t.rich(
+										"recommendations.afterEvent.personalPreparedness.item1",
+										{
+											link1: (chunks) => (
+												<Link
+													href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="linkWithIcon" className="min-h-0">
+														{chunks}
+													</Button>
+												</Link>
+											),
+											link2: (chunks) => (
+												<Link
+													href="https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="linkWithIcon" className="min-h-0">
+														{chunks}
+													</Button>
+												</Link>
+											),
+											link3: (chunks) => (
+												<Link
+													href="https://www.naturgefahrenportal.de/de"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="linkWithIcon" className="min-h-0">
+														{chunks}
+													</Button>
+												</Link>
+											),
+										},
+									)}
 								</li>
 								<li className="">
 									{t("recommendations.afterEvent.personalPreparedness.item2")}
@@ -35,16 +73,16 @@ const After: React.FC = () => {
 					}
 					slotB={
 						<Image
-							src="/imagery.png"
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_7.png"
 							alt={t(
-								"recommendations.afterEvent.personalPreparedness.image.alt",
+								"recommendations.duringEvent.personalPreparedness.image.alt",
 							)}
-							className="w-full"
 							caption={t(
-								"recommendations.afterEvent.personalPreparedness.image.caption",
+								"recommendations.duringEvent.personalPreparedness.image.caption",
 							)}
 							copyright={t(
-								"recommendations.afterEvent.personalPreparedness.image.copyright",
+								"recommendations.duringEvent.personalPreparedness.image.copyright",
 							)}
 						/>
 					}
@@ -75,11 +113,13 @@ const After: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.afterEvent.inBuilding.image.alt")}
-							caption={t("recommendations.afterEvent.inBuilding.image.caption")}
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
+							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
+							caption={t(
+								"recommendations.beforeEvent.inBuilding.image.caption",
+							)}
 							copyright={t(
-								"recommendations.afterEvent.inBuilding.image.copyright",
+								"recommendations.beforeEvent.inBuilding.image.copyright",
 							)}
 						/>
 					}
@@ -105,7 +145,7 @@ const After: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_9.png"
 							alt={t("recommendations.afterEvent.traffic.image.alt")}
 							caption={t("recommendations.afterEvent.traffic.image.caption")}
 							copyright={t(
@@ -115,7 +155,7 @@ const After: React.FC = () => {
 					}
 				/>
 			</section>
-			<section className="">
+			{/* <section className="">
 				<TextBlock
 					desktopColSpans={{ col1: 3, col2: 2 }}
 					className="w-full gap-6"
@@ -166,7 +206,7 @@ const After: React.FC = () => {
 						/>
 					}
 				/>
-			</section>
+			</section> */}
 		</div>
 	);
 };
