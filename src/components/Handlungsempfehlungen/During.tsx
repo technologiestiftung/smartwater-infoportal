@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import TextBlock from "../TextBlock";
-import { Image } from "berlin-ui-library";
+import { Button, Image } from "berlin-ui-library";
+import Link from "next/link";
 
 const During: React.FC = () => {
 	const t = useTranslations();
@@ -14,12 +15,49 @@ const During: React.FC = () => {
 					reverseDesktopColumns={true}
 					slotA={
 						<div className="flex w-full flex-col gap-6">
-							<h2 className="">
+							<h3 className="">
 								{t("recommendations.duringEvent.personalPreparedness.title")}
-							</h2>
+							</h3>
 							<ul className="list-disc space-y-2 pl-6">
 								<li className="">
-									{t("recommendations.duringEvent.personalPreparedness.item1")}
+									{t.rich(
+										"recommendations.duringEvent.personalPreparedness.item1",
+										{
+											link1: (chunks) => (
+												<Link
+													href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="linkWithIcon" className="min-h-0">
+														{chunks}
+													</Button>
+												</Link>
+											),
+											link2: (chunks) => (
+												<Link
+													href="https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="linkWithIcon" className="min-h-0">
+														{chunks}
+													</Button>
+												</Link>
+											),
+											link3: (chunks) => (
+												<Link
+													href="https://www.naturgefahrenportal.de/de"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="linkWithIcon" className="min-h-0">
+														{chunks}
+													</Button>
+												</Link>
+											),
+										},
+									)}
 								</li>
 								<li className="">
 									{t("recommendations.duringEvent.personalPreparedness.item2")}
@@ -36,7 +74,7 @@ const During: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_7.png"
 							alt={t(
 								"recommendations.duringEvent.personalPreparedness.image.alt",
 							)}
@@ -71,13 +109,13 @@ const During: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.duringEvent.inBuilding.image.alt")}
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
+							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
 							caption={t(
-								"recommendations.duringEvent.inBuilding.image.caption",
+								"recommendations.beforeEvent.inBuilding.image.caption",
 							)}
 							copyright={t(
-								"recommendations.duringEvent.inBuilding.image.copyright",
+								"recommendations.beforeEvent.inBuilding.image.copyright",
 							)}
 						/>
 					}
@@ -105,7 +143,7 @@ const During: React.FC = () => {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
+							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
 							alt={t("recommendations.duringEvent.traffic.image.alt")}
 							caption={t("recommendations.duringEvent.traffic.image.caption")}
 							copyright={t(
@@ -115,7 +153,7 @@ const During: React.FC = () => {
 					}
 				/>
 			</section>
-			<section className="">
+			{/* <section className="">
 				<TextBlock
 					desktopColSpans={{ col1: 3, col2: 2 }}
 					className="w-full gap-6"
@@ -169,7 +207,7 @@ const During: React.FC = () => {
 						/>
 					}
 				/>
-			</section>
+			</section> */}
 		</div>
 	);
 };

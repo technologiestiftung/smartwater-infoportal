@@ -220,7 +220,12 @@
 				"tip2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen, z.B. in ein höher gelegenes Stockwerk.",
 				"tip3": "Betreten Sie keine überfluteten oder durchnässten Räume. Die Türen können bereits bei einem niedrigen Wasserstand nicht mehr geöffnet werden und Ihren Fluchtweg blockieren. Wenn das Betreten eines überschwemmten Raumes unvermeidlich ist, müssen die Türen unbedingt offengehalten und fest verkeilt werden.",
 				"tip4": "Versuchen Sie in keinem Fall Gegenstände oder Fahrzeuge in letzter Minute aus Kellern, Garagen oder Tiefgaragen zu retten. Es besteht Lebensgefahr!",
-				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser."
+				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
+				"image": {
+					"alt": "Eine Grafik zeigt ein Haus mit Keller, bei dem Zutritt zum Keller und zur Garage vermieden werden soll.",
+					"caption": "Im Falle einer Überflutung sind der Keller und Garagen zu meiden.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
+				}
 			},
 			"traffic": {
 				"title": "Verkehr",
@@ -228,7 +233,12 @@
 				"tip2": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgaragen, unter der Erde gelegene Bahnstationen und die Nähe von Fließgewässern, auch wenn Sie mit dem Auto unterwegs sind.",
 				"tip3": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern über den Nachhauseweg. Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
 				"tip4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser",
-				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei."
+				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
+				"image": {
+					"alt": "Eine Grafik zeigt ein Auto, welches aus der Senke auf eine Anhöhe gefahren wird.",
+					"caption": "Während des eines Starkregenereignisses sollten keine Fahrzeuge in Senken abgestellt werden. Parken Sie ihr Fahrzeug am Anfang des Ereignisses um.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
+				}
 			},
 			"recommendationsOverview": {
 				"textPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. @copyright ungeklärt",

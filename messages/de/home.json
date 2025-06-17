@@ -3,20 +3,19 @@
 		"pageTitle": "Hochwasser Infoportal",
 		"whatIsIt": {
 			"title": "Was ist das Hochwasser Infoportal?",
-			"quote": "\"Krass, ist das nass!\"",
-			"description1": "Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
+			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
 			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck, Handlungsempfehlungen, Warnungen vor Hochwasser und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
 		},
 		"amIAffected": {
 			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck",
-			"description": "Der HochwasserCheck gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit x Fragen, eine Gefährdungs- und Risikoeinschätzung an Orten Ihres Alltags sowie individuelle Handlungsempfehlungen. Die Ergebnisse können Sie als Bericht (PDF) herunterladen.",
+			"description": "Der HochwasserCheck gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 10 Fragen, eine Gefährdungs- und Risikoeinschätzung an Orten Ihres Alltags sowie individuelle Handlungsempfehlungen. Die Ergebnisse können Sie als Bericht (PDF) herunterladen.",
 			"cta": "Jetzt den HochwasserCheck mit Eingabe Ihrer Adresse starten!"
 		},
 		"addressCheck": {
 			"label": "Adresse",
 			"description": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten.",
 			"placeholder": "Landstraße 1, 12345 Berlin",
-			"button": "HochwasserCheck jetzt starten!",
+			"button": "HochwasserCheck starten",
 			"buttonConfirm": "Adresse bestätigen"
 		},
 		"howToProtect": {
@@ -28,10 +27,15 @@
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
 				"button": "Übersicht Handlungsempfehlungen"
 			},
-			"image": {
-				"alt": "HochwasserCheck",
-				"caption": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
-				"copyright": "© Lorem ipsum dolor sit amet."
+			"image_A1": {
+				"alt": "Eine überflutete Garageneinfahrt. Das Wasser ist in die Garage geflossen.",
+				"caption": "Für viele Bereiche Berlins besteht Gefahr bei Hochwasser. Informieren Sie sich über die Handlungsempfehlungen und schütze Sie sich selbst und Ihr Gebäude.",
+				"copyright": "© Berliner Feuerwehr"
+			},
+			"image_A2": {
+				"alt": "Ein Feuerwehrmann steht auf einer überfluteten Straße.",
+				"caption": "Hochwasser erfordert schnelles Handeln. Hintergrundwissen kann dabei unterstützen.",
+				"copyright": "© Berliner Feuerwehr"
 			}
 		},
 		"floodRadar": {
@@ -40,11 +44,11 @@
 			"currentStatus": {
 				"noWarnings": "Derzeit liegen keine Warnungen für Berlin vor."
 			},
-			"description": "Das Hochwassergeschehen in Berlin wird sowohl durch Zuflüsse aus Brandenburg als auch durch Niederschläge innerhalb der Stadt beeinflusst. Hier finden Sie die aktuellen Wetterwarnungen des <link>Deutschen Wetterdienstes</link>, Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg."
+			"description": "Das Hochwassergeschehen in Berlin wird sowohl durch Zuflüsse aus Brandenburg als auch durch Niederschläge innerhalb der Stadt beeinflusst. Die Warnmeldung auf der rechten Seite berücksichtigt die aktuellen Wetterwarnungen des Deutschen Wetterdienstes und die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird die Warnmeldung in rot angezigt."
 		},
 		"backgroundInfo": {
 			"title": "Sie wollen Hintergrundinfos zum Thema Hochwasser?",
-			"questions": "Was ist Hochwasser? Wie entsteht Hochwasser? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser?",
+			"questions": "Was ist Hochwasser? Wie entsteht Hochwasser? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko, welche durch Hochwasser entstehen?",
 			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
 			"button": "Allgemeine Informationen"
 		}

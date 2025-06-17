@@ -13,9 +13,9 @@
 			"title": "Persönliche Vorsorge",
 			"personalPreparedness": {
 				"title1": "Sichere Orte",
-				"item1": "Informieren Sie sich über mögliche Gefährdungen und identifizieren Sie sichere Orte, an denen Sie sich bei Hochwasser in Sicherheit bringen können. Nutzen Sie gern unser HochwasserCheck oder die Starkregenhinweiskarte, Starkregengefahrenkarte, Hochwassergefahrenkarte, Überschwemmungsgebiete (Verlinkung).",
+				"item1": "Informieren Sie sich über mögliche Gefährdungen und identifizieren Sie sichere Orte, an denen Sie sich bei Hochwasser in Sicherheit bringen können. Nutzen Sie gern unser HochwasserCheck oder die Starkregenhinweiskarte, Starkregengefahrenkarte, Hochwassergefahrenkarte, Überschwemmungsgebiete.",
 				"title2": "Warn - Apps",
-				"item2": "Installieren Sie die amtlichen Warn-Apps NINA  und DWD-Wetterdienst , um sich über den aktuellen Gefahrenfall zu informieren.",
+				"item2": "Installieren Sie die amtlichen Warn-Apps <link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>, um sich über den aktuellen Gefahrenfall zu informieren.",
 				"title3": "Notfallrucksack",
 				"item3": "Packen Sie einen Notfallrucksackkoffer mit den wichtigsten Sachen, um auf den Ernstfall vorbereitet zu sein. Weitere Information über den Inhalt des Notfallrucksacks finden Sie unter:",
 				"link3": {
@@ -23,11 +23,16 @@
 					"url": "https://www.bbk.bund.de/DE/Service/Infomaterialien/Notfallrucksack/Notfallrucksack_node.html"
 				},
 				"title4": "Privater Notfallplanlan",
-				"item4": "Erstellen Sie sich mit Ihrer Familie und ggf. den Nachbarn einen Handlungsplan, damit im Gefahrenfall alle erforderlichen Maßnahmen schnell und koordiniert eingeleitet werden können. Informieren Sie sich über die Anlaufstellen in den Bezirken – die Katastrophenschutz-Leuchttürme ",
+				"item4": "Erstellen Sie sich mit Ihrer Familie und ggf. den Nachbarn einen Handlungsplan, damit im Gefahrenfall alle erforderlichen Maßnahmen schnell und koordiniert eingeleitet werden können. Informieren Sie sich über die Anlaufstellen in den Bezirken – die <link>Katastrophenschutz-Leuchttürme</link>",
 				"image4": {
-					"alt": "Katastrophenschutz-Leuchttürme",
-					"caption": "Katastrophenschutz-Leuchttürme",
-					"copyright": "© SenMVKU"
+					"alt": "Eine Grafik zeigt ein Smartphone, dass die NINA-App und die Warnapp des Deutschen Wetterdiensts installiert hat.",
+					"caption": "Die NINA-App und die Warnapp des Deutschen Wetterdienstes geben Ihnen aktuellen Auskünfte über Ihre Region",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
+				},
+				"image5": {
+					"alt": "Eine Grafik zeigt eine exemplarische Liste für einen privaten Notfallplan mir Fragen wie 'Wer braucht besonderen Schutz' oder 'Bei Abwesenheit: Wen kontaktieren'.",
+					"caption": "Das Erstellen eines Privaten Notfallplanlans kann in einer Notsituation Zeit sparen.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
 			"inBuilding": {
@@ -41,9 +46,9 @@
 				"item7": "Überprüfen Sie, ob Ihr Versicherungsschutz Elementarschäden abdeckt und dieser erweitert werden soll. Es kann sinnvoll sein, Ihr (intaktes) Eigentum bereits im Vorfeld mit Fotos oder Videos zu dokumentieren.",
 				"item8": "Mobile Barrieren, wie bspw. Sandsäcke vorrätig halten, um diese an kritischen Stellen wie Türschwellen, Lichtschächten, etc. einsetzen zu können.",
 				"image": {
-					"alt": "Katastrophenschutz-Leuchttürme",
-					"caption": "Katastrophenschutz-Leuchttürme",
-					"copyright": "© SenMVKU"
+					"alt": "Eine Grafik zeigt ein Haus mit Keller, bei dem Zutritt zum Keller und zur Garage vermieden werden soll.",
+					"caption": "Im Falle einer Überflutung sind der Keller und Garagen zu meiden.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
 			"furtherInformation": {
@@ -58,7 +63,12 @@
 				"item7": "Sicherung der Heizungsanlagen und Öltanks",
 				"item8": "Stromführende Leitungen und Steckdosen, wenn möglich höher legen",
 				"item9": "rechtzeitiges Abschalten von Strom und Heizung",
-				"item10": "Schließung der Rückstausklappen"
+				"item10": "Schließung der Rückstausklappen",
+				"image": {
+					"alt": "Ein Grafik zeigt ein Gebäude mit den wichtigsten baulichen Strukturen, wie bspw. Regenrinnen, Kellerfenster und Steckdosen, die angepasst werden können, um das Risiko zu minimieren.",
+					"caption": "An Ihrem Gebäude lassen sich viele bauliche Maßnahmen treffen, die das Risiko minimieren können.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
+				}
 			},
 			"traffic": {
 				"title": "Verkehr",
@@ -68,9 +78,9 @@
 				"item4": "Verfolgen Sie die aktuellen Wettermeldungen, Hochwasserwarnungen und -vorhersagen über Rundfunk, Internet und andere Medien.",
 				"item5": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgarage, unter der Erde gelegene Bahnstationen und technische Schutzanlagen wie Dämme und Deiche.",
 				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
+					"alt": "Eine Grafik zeigt ein Auto, welches aus der Senke auf eine Anhöhe gefahren wird.",
+					"caption": "Während des eines Starkregenereignisses sollten keine Fahrzeuge in Senken abgestellt werden. Parken Sie ihr Fahrzeug am Anfang des Ereignisses um.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
 			"heavyRain": {
@@ -85,28 +95,28 @@
 				}
 			},
 			"fluvialFlood": {
-				"title": "Flusshochwasser",
+				"title": "Flusshochwasser und Starkregen",
 				"item1": "Informieren Sie sich, ob Ihre Gemeinde einen Hochwasseralarmplan hat. Machen Sie sich mit dem Hochwasseralarmplan Ihrer Gemeinde vertraut. Den dort enthaltenen Hochwasseralarmstufen sind Maßnahmen zugeordnet, die auch für Sie wichtig sein können.",
 				"item2": "Ab welchem Hochwasserstand an welchem Pegel müssen welche Maßnahmen eingeleitet werden? Machen Sie sich mit Bedeutung und Höhe der Alarmstufen bei Hochwasser vertraut.",
 				"item3": "Lassen Sie sich von Sachverständigen zum Hochwasserschutz beraten (z.B. über HKC e.V.).",
 				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
+					"alt": "Ein Foto zeigt einen großen Pumpenschlauch eines Feuerwehrwagens. Im Hintergrund sieht man das Hochwasser auf der Straße stehen.",
+					"caption": "Die Feuerwehr in Berlin ist im Falle eines Hochwasser-Eregnisses vor Ort, um bspw. Wasser aus dem Keller zu pumpen und Gebäude zu sichern.",
+					"copyright": "© Berliner Feuerwehr"
 				}
 			}
 		},
 		"duringEvent": {
 			"personalPreparedness": {
 				"title": "Helfen Sie sich und anderen",
-				"item1": "Informieren Sie sich über die aktuelle Warnsituation mit Warn-Apps (NINA und DWD-Wetterdienst), dem Naturgefahrenportal und dem Hochwasser-Infoportal Berlins.",
+				"item1": "Informieren Sie sich über die aktuelle Warnsituation mit Warn-Apps (<link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>), dem <link3>Naturgefahrenportal</link3> und dem Hochwasser-Infoportal Berlins.",
 				"item2": "Informieren Sie Personen aus Ihrem Umfeld wie Nachbarn, Familie und Freunde über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
 				"item3": "Helfen Sie sich selbst, bevor Sie anderen helfen.",
 				"item4": "Setzen Sie Ihren Notfallplan um, falls Sie einen haben.",
 				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
+					"alt": "Eine Grafik zeigt einen Menschen, der einem älteren Menschen am Gehstock unter die Arme greift.",
+					"caption": "Informieren Sie Personen aus Ihrem Umfeld, wie Nachbarn, Familie und Freunde, über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
 			"inBuilding": {
@@ -130,9 +140,9 @@
 				"item4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
 				"item5": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
 				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
+					"alt": "Eine Grafik zeig, dass ein Auto während einer Überflutung oder bei heftigen Starkregen nicht in eine Unterführung fahren sollte.",
+					"caption": "Während des eines Starkregenereignisses sollten Sie mit ihrem Fahrzeug keines Falls in Unterführungen oder Tiefgaragen fahren.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
 			"heavyRain": {
@@ -147,10 +157,10 @@
 		"afterEvent": {
 			"personalPreparedness": {
 				"title": "Helfen Sie sich und anderen",
-				"item1": "Informieren Sie sich über die aktuelle Warnsituation mit Warn-Apps (NINA  und DWD-Wetterdienst ), dem Naturgefahrenportal  (Verlinkung) und dem Hochwasser-Infoportal Berlins.",
+				"item1": "Informieren Sie sich über die aktuelle Warnsituation mit Warn-Apps (<link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>), dem <link3>Naturgefahrenportal</link3> und dem Hochwasser-Infoportal Berlins.",
 				"item2": "Informieren Sie Personen aus Ihrem Umfeld wie Nachbarn, Familie und Freunde über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
 				"item3": "Helfen Sie sich selbst, bevor Sie anderen helfen.",
-				"item4": "Nach dem Hochwasser ist vor dem nächsten Hochwasser! Informieren Sie sich über Vorsorgemaßnahmen im Hochwasser-Infoportal, im Naturgefahrenportal, oder bei Beratungsstellen (welche? RWA?), um die Schäden beim nächsten Ereignis zu minimieren!",
+				"item4": "Nach dem Hochwasser ist vor dem nächsten Hochwasser! Informieren Sie sich über Vorsorgemaßnahmen im Hochwasser-Infoportal, im Naturgefahrenportal, oder bei Beratungsstellen, um die Schäden beim nächsten Ereignis zu minimieren!",
 				"image": {
 					"alt": "Verkehr",
 					"caption": "Verkehr",
@@ -165,7 +175,7 @@
 				"item4": "Vermeiden Sie direkten Kontakt mit dem Hochwasser und Schlamm. Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
 				"item5": "Bei Schadstoffaustritt (z. B. Farben, Öl) oder Gasgeruch in der Luft ist umgehend die Feuerwehr zu informieren.",
 				"item6": "Lassen Sie elektrische Geräte, Heizöltanks, Fahrzeuge, Hausanschlüsse (z.B. Strom, Gas, Telefon) und ggf. die Baustatik, die aus überfluteten Gebieten stammen, von Fachpersonal überprüfen.",
-				"item7": "Prüfen Sie, ob das Trinkwasser wieder trinkbar ist. Wenden Sie sich an Ihren Wasserversorger oder an Ihre Gemeinde (BWB mit Verlinkung?).",
+				"item7": "Prüfen Sie, ob das Trinkwasser wieder trinkbar ist. Wenden Sie sich an Ihren Wasserversorger oder an Ihre Gemeinde.",
 				"item8": "Alle Gegenstände, die mit Wasser in Kontakt gekommen sind, sollten gereinigt werden.",
 				"item9": "Dokumentieren Sie den Schaden und melden Sie diesen Ihrer Versicherung.",
 				"image": {
@@ -180,9 +190,9 @@
 				"item2": "Bereiche unter Wasser können gefährlich sein! Vermeiden Sie möglichst das Betreten. Vor dem Betreten auf sicheren Stand achten.",
 				"item3": "Wenn möglich, fahren Sie Ihr Auto vorsichtig aus den überfluteten Bereichen. Steht Ihr Auto bereits bis über die Räder im Wasser, rufen Sie einen Abschleppdienst. Bei Fahrzeugen mit E-Kennzeichen besteht die Gefahr eines Stromflusses – seien Sie besonders vorsichtig.",
 				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
+					"alt": "Eine Grafik zeigt eine Überschwemmte Straße bei Starkregen. Fahrzeuge und Personen sollten das Betreten dieser Überflutungsgebiete meiden.",
+					"caption": "Betreten Sie bereits überschwemmte Gebiete keinesfalls, auch nicht mit Fahrzeugen.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
 			"heavyRain": {
