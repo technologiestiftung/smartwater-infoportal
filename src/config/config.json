@@ -1,0 +1,147 @@
+{
+	"portalConfig": {
+		"map": {
+			"controls": {
+				"zoom": true,
+				"orientation": {
+					"zoomMode": "once"
+				}
+			},
+			"mapView": {
+				"backgroundImage": "",
+				"startCenter": [13.404954, 52.520008],
+				"extent": [1444000, 6860000, 1538000, 6925000],
+				"epsg": "EPSG:3857",
+				"startZoomLevel": 1,
+				"options": [
+					{
+						"resolution": 52.9,
+						"scale": 200000,
+						"zoomLevel": 0
+					},
+					{
+						"resolution": 28,
+						"scale": 100000,
+						"zoomLevel": 1
+					},
+					{
+						"resolution": 14,
+						"scale": 50000,
+						"zoomLevel": 2
+					},
+					{
+						"resolution": 7,
+						"scale": 25000,
+						"zoomLevel": 3
+					},
+					{
+						"resolution": 2.8,
+						"scale": 10000,
+						"zoomLevel": 4
+					},
+					{
+						"resolution": 1.4,
+						"scale": 5000,
+						"zoomLevel": 5
+					},
+					{
+						"resolution": 0.7,
+						"scale": 2500,
+						"zoomLevel": 6
+					},
+					{
+						"resolution": 0.28,
+						"scale": 1000,
+						"zoomLevel": 7
+					},
+					{
+						"resolution": 0.14,
+						"scale": 500,
+						"zoomLevel": 8
+					}
+				]
+			}
+		},
+		"portalFooter": {
+			"urls": []
+		}
+	},
+	"layerConfig": {
+		"baselayer": {
+			"elements": [
+				{
+					"id": "bm_web_gry:contrast",
+					"visibility": false
+				},
+				{
+					"id": "bm_web_gry",
+					"visibility": true
+				}
+			]
+		},
+		"subjectlayer": {
+			"elements": [
+				{
+					"id": "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
+					"visibility": false
+				},
+				{
+					"id": "ua_hochwassergefahrenkarten:a_hwgk_hoch",
+					"visibility": false
+				},
+				{
+					"id": "ua_hochwassergefahrenkarten:b_hwgk_mittel",
+					"visibility": false
+				},
+				{
+					"id": "ua_hochwassergefahrenkarten:c_hwgk_niedrig",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:ec_wasserstand_extrem_max100mm",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:eb_fliessgeschw_extrem_max100mm",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:ea_fr_extrem_max100mm",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:dc_wasserstand_aussergew_kostra",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:db_fliessgeschw_aussergew_kostra",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:da_fr_aussergewoehnlich",
+					"visibility": false
+				},
+				{
+					"id": "ua_srgk:cb_wasserstand_aussergewoehnlich",
+					"visibility": false
+				},
+				{
+					"id": "ua_srgk:ca_wasserstand_selten",
+					"visibility": false
+				},
+				{
+					"id": "ua_srgk:bc_fliessgeschwindigkeit_extrem",
+					"visibility": false
+				},
+				{
+					"id": "ua_srgk:bb_fliessgeschwindigkeit_aussergewoehnlich",
+					"visibility": false
+				},
+				{
+					"id": "ua_srgk:ba_fliessgeschwindigkeit_selten",
+					"visibility": false
+				}
+			]
+		}
+	}
+}

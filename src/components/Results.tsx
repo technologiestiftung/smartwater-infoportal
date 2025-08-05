@@ -14,11 +14,11 @@ import {
 	TabsList,
 	DownloadItem,
 } from "berlin-ui-library";
-import IframeComponent from "./IFrameComponent";
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
 import useStore from "@/store/defaultStore";
+import Map from "./Map/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -104,7 +104,7 @@ const Results: React.FC = () => {
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
-							size="big"
+							// size="xl"
 							activeValues={activeFilters}
 							onValueToggle={handleFilterToggle}
 						>
@@ -143,16 +143,7 @@ const Results: React.FC = () => {
 				/>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				<div id="smartwater-map">
-					<IframeComponent
-						url={
-							window.location.href.includes("localhost")
-								? "http://localhost:3000/"
-								: "https://smartwater-masterportal.netlify.app/smartwater-map/"
-						}
-						height="h-[700px]"
-					/>
-				</div>
+				<Map />
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
