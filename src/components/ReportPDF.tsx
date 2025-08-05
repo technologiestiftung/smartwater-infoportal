@@ -47,7 +47,7 @@ export default function ReportPDF() {
 		});
 
 		const content = document.getElementById("pdf-content");
-		const fileName = "Report-WasserCheck.pdf";
+		const fileName = "Report-HochwasserCheck.pdf";
 
 		if (!content) {
 			throw new Error("Content not found");
@@ -116,7 +116,7 @@ export default function ReportPDF() {
 			<div className="absolute -left-[9999px]">
 				<div id="pdf-content">
 					<div className="flex flex-col gap-6 bg-white p-[20mm] [height:297mm] [width:210mm]">
-						<h1>Gesamtergebnis WasserCheck</h1>
+						<h1>Gesamtergebnis HochwasserCheck</h1>
 						<div className="flex w-full flex-col">
 							<h2>{t("floodCheck.hazardAtLocation")}</h2>
 							<p>Placeholder Adresse</p>
