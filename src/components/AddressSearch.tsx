@@ -5,6 +5,7 @@ import {
 	FormFieldWrapper,
 	FormWrapper,
 	Label,
+	Panel,
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
@@ -188,7 +189,11 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 							</Button>
 						)}
 					</div>
-					{!onLandingPage && <p className="">{t("addressCheck.note")}</p>}
+					{!onLandingPage && (
+						<Panel variant="hint">
+							<p className="">{t("addressCheck.note")}</p>
+						</Panel>
+					)}
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
