@@ -11,6 +11,12 @@ import {
 } from "berlin-ui-library";
 import { useForm } from "react-hook-form";
 import TextBlock from "./TextBlock";
+import useStore from "../store/defaultStore";
+import {
+	calculateFloodRiskScore,
+	validateAnswers,
+	RiskMessages,
+} from "../utils/floodRiskCalculator";
 
 interface RiskAnalysisProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,18 +28,15 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 }: RiskAnalysisProps) => {
 	const t = useTranslations();
 	const [currentStep, setCurrentStep] = useState(0);
-	const methods = useForm({
-		defaultValues: {
-			addresse: "",
-			untergeschoss: "",
-			floodProtection: false,
-		},
-	});
+	const { floodRiskAnswers, updateFloodRiskAnswer, setFloodRiskResult } =
+		useStore();
+
 	const properties: FormProperty[] = [
 		{
 			id: "q1",
 			name: t("floodCheck.questions.q1.text"),
-			type: "checkbox",
+			type: "radio",
+			isRequired: true,
 			options: [
 				{
 					label: t("floodCheck.questions.q1.options.yesWithWindow"),
@@ -54,6 +57,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 			id: "q2",
 			name: t("floodCheck.questions.q2.text"),
 			type: "checkbox",
+			isRequired: true,
 			options: [
 				{
 					label: t("floodCheck.questions.q2.options.living"),
@@ -85,6 +89,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 			id: "q3",
 			name: t("floodCheck.questions.q3.text"),
 			type: "radio",
+			isRequired: true,
 			options: [
 				{
 					label: t("floodCheck.questions.q3.options.one"),
@@ -112,6 +117,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 			id: "q4",
 			name: t("floodCheck.questions.q4.text"),
 			type: "radio",
+			isRequired: true,
 			options: [
 				{
 					label: t("floodCheck.questions.q4.options.yesGood"),
@@ -135,6 +141,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 			id: "q5",
 			name: t("floodCheck.questions.q5.text"),
 			type: "radio",
+			isRequired: true,
 			options: [
 				{
 					label: t("floodCheck.questions.q5.options.good"),
@@ -158,6 +165,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 			id: "q6",
 			name: t("floodCheck.questions.q6.text"),
 			type: "radio",
+			isRequired: true,
 			options: [
 				{
 					label: t("floodCheck.questions.q6.options.one"),
@@ -179,15 +187,99 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 		},
 	];
 
-	const handleNext = async () => {
-		const fieldName = properties[currentStep]
-			.id as keyof typeof methods.control._defaultValues;
-		const isValid = await methods.trigger(fieldName);
+	const methods = useForm({
+		defaultValues: {
+			...floodRiskAnswers,
+			// Ensure radio fields have empty string defaults (controlled)
+			q3: floodRiskAnswers.q3 || "",
+			q4: floodRiskAnswers.q4 || "",
+			q5: floodRiskAnswers.q5 || "",
+			q6: floodRiskAnswers.q6 || "",
+		},
+		mode: "onChange",
+	});
 
-		if (isValid && currentStep < properties.length - 1) {
+	const handleNext = async () => {
+		const currentProperty = properties[currentStep];
+		const fieldName = currentProperty.id as keyof typeof floodRiskAnswers;
+		const currentValue = methods.getValues(fieldName);
+
+		// Manual validation for required questions
+		if (currentProperty.isRequired) {
+			let isValid = true;
+
+			// For checkbox questions, check if at least one option is selected
+			if (currentProperty.type === "checkbox") {
+				if (
+					!currentValue ||
+					(Array.isArray(currentValue) && currentValue.length === 0)
+				) {
+					methods.setError(fieldName, {
+						type: "required",
+						message: t("common.validation.selectAtLeastOne"),
+					});
+					isValid = false;
+				}
+			}
+
+			// For radio questions, check if an option is selected
+			if (currentProperty.type === "radio") {
+				if (
+					!currentValue ||
+					currentValue === "" ||
+					currentValue === null ||
+					currentValue === undefined
+				) {
+					methods.setError(fieldName, {
+						type: "required",
+						message: t("common.validation.selectOne"),
+					});
+					isValid = false;
+				}
+			}
+
+			if (!isValid) {
+				return;
+			}
+		}
+
+		// Clear any previous errors
+		methods.clearErrors(fieldName);
+
+		// Save current answer to store
+		if (currentValue !== undefined) {
+			updateFloodRiskAnswer(fieldName, currentValue);
+		}
+
+		if (currentStep < properties.length - 1) {
 			setCurrentStep(currentStep + 1);
-		} else if (isValid && currentStep === properties.length - 1) {
-			methods.handleSubmit(onSubmit)();
+		} else {
+			// Final step - calculate score and submit
+			const allAnswers = { ...floodRiskAnswers, [fieldName]: currentValue };
+
+			// Prepare risk messages for translation
+			const riskMessages: RiskMessages = {
+				insufficientData: t("floodCheck.riskCalculation.insufficientData"),
+				riskLevels: {
+					low: t("floodCheck.riskCalculation.riskLevels.low"),
+					moderate: t("floodCheck.riskCalculation.riskLevels.moderate"),
+					high: t("floodCheck.riskCalculation.riskLevels.high"),
+				},
+			};
+
+			if (validateAnswers(allAnswers)) {
+				const result = calculateFloodRiskScore(allAnswers, riskMessages);
+				setFloodRiskResult(result);
+				onSubmit(allAnswers);
+			} else {
+				// Not enough answers provided
+				setFloodRiskResult({
+					score: 0,
+					riskLevel: "insufficient-data",
+					message: t("floodCheck.riskCalculation.insufficientAnswers"),
+				});
+				onSubmit(allAnswers);
+			}
 		}
 	};
 

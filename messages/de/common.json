@@ -24,6 +24,10 @@
 		"openLegend": "Legende öffnen",
 		"downloadReport": "Download Bericht",
 		"downloadButton": "Bericht herunterladen",
+		"validation": {
+			"selectAtLeastOne": "Bitte wählen Sie mindestens eine Option aus.",
+			"selectOne": "Bitte wählen Sie eine Option aus."
+		},
 		"menu": {
 			"button": "Menü",
 			"title": "Hauptnavigation",

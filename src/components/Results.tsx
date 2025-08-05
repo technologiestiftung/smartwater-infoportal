@@ -9,19 +9,19 @@ import {
 	Image,
 	Pill,
 	FilterPillGroup,
-	Tabs,
-	TabsTrigger,
-	TabsList,
 	DownloadItem,
 } from "berlin-ui-library";
 import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
+import useStore from "../store/defaultStore";
+import { RiskLevel } from "@/lib/types";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
+	const { floodRiskResult } = useStore();
 
 	const filters = ["Starkregen", "Flusshochwasser"];
 	const subFilters = ["Selten", "Außergewöhnlich", "Extrem"];
@@ -59,6 +59,12 @@ const Results: React.FC = () => {
 			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
 		);
 	};
+	const [activeSubFilters, setActiveSubFilters] = useState<string[]>([]);
+	const handleSubFilterToggle = (value: string) => {
+		setActiveSubFilters((prev) =>
+			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
+		);
+	};
 	const convertStringToID = (str: string) => {
 		return str.replace(/\s+/g, "-").toLowerCase();
 	};
@@ -79,26 +85,30 @@ const Results: React.FC = () => {
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
-						<Tabs defaultValue={convertStringToID(filters[0])}>
-							<TabsList variant="module">
-								{filters.map((filter) => (
-									<TabsTrigger
-										key={convertStringToID(filter)}
-										variant="module"
-										className="capitalize"
-										value={convertStringToID(filter)}
-									>
-										<h4>{convertStringToID(filter)}</h4>
-									</TabsTrigger>
-								))}
-							</TabsList>
-						</Tabs>
+						<FilterPillGroup
+							size="xl"
+							showIcon={false}
+							activeValues={activeFilters}
+							onValueToggle={handleFilterToggle}
+						>
+							{filters.map((filter) => (
+								<Pill
+									variant="filter-outline"
+									size="xl"
+									showIcon={false}
+									value={convertStringToID(filter)}
+									key={convertStringToID(filter)}
+									className="capitalize"
+								>
+									{convertStringToID(filter)}
+								</Pill>
+							))}
+						</FilterPillGroup>
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
-							size="big"
-							activeValues={activeFilters}
-							onValueToggle={handleFilterToggle}
+							activeValues={activeSubFilters}
+							onValueToggle={handleSubFilterToggle}
 						>
 							{subFilters.map((subFilter) => (
 								<Pill
@@ -179,18 +189,54 @@ const Results: React.FC = () => {
 					<h2 className="">{t("floodCheckfloodCheck.title")}</h2>
 					<p className="">{t("floodCheckfloodCheck.description")}</p>
 				</div>
-				<TextBlock
-					desktopColSpans={{ col1: 1, col2: 1 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-							<h3 className="">{t("floodCheckfloodCheck.title")}</h3>
-							<p className="">{t("floodCheckfloodCheck.description")}</p>
-						</div>
-					}
-					slotB={<RiskBlock />}
-				/>
+				{floodRiskResult ? (
+					<TextBlock
+						desktopColSpans={{ col1: 1, col2: 1 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={true}
+						slotA={
+							<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+								<h3 className="">
+									{t("floodCheckfloodCheck.buildingRisk.title")}
+								</h3>
+								<p className="">{floodRiskResult.message}</p>
+								<div className="mt-4">
+									<p className="text-sm text-gray-600">
+										<strong>Score:</strong> {floodRiskResult.score}
+									</p>
+									<p className="text-sm text-gray-600">
+										<strong>Risk Level:</strong> {floodRiskResult.riskLevel}
+									</p>
+								</div>
+							</div>
+						}
+						slotB={
+							<RiskBlock
+								overallRiskLevel={floodRiskResult.riskLevel as RiskLevel}
+								arrowPosition={(() => {
+									switch (floodRiskResult.riskLevel) {
+										case "low":
+											return 15;
+										case "moderate":
+											return 50;
+										case "high":
+											return 85;
+										default:
+											return 50;
+									}
+								})()}
+							/>
+						}
+					/>
+				) : (
+					<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+						<h3 className="">Keine Risikobewertung verfügbar</h3>
+						<p className="">
+							Bitte führen Sie zunächst den WasserCheck durch, um Ihre
+							individuelle Risikobewertung zu erhalten.
+						</p>
+					</div>
+				)}
 			</section>
 			<section className="flex w-full flex-col gap-12">
 				<div className="flex flex-col gap-2">

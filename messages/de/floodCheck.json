@@ -94,8 +94,33 @@
 				"options": {
 					"one": "Ja, eine Maßnahme",
 					"twoOrMore": "Ja, zwei oder mehr Maßnahmen",
-					"no": "Nein",
+					"no": "Keine Maßnahme(n)",
 					"noInformation": "Keine Angabe"
+				}
+			},
+			"a": {
+				"text": "Liegt das Gebäude im Überschwemmungsgebiet?",
+				"options": {
+					"yes": "Ja",
+					"no": "Nein"
+				}
+			},
+			"b": {
+				"text": "Liegt das Gebäude in einem Gebiet, das von Flusshochwasser betroffen sein könnte?",
+				"options": {
+					"1": "1",
+					"2": "2",
+					"3": "3",
+					"4": "4"
+				}
+			},
+			"c": {
+				"text": "Starkregen-Gefährdungsgrad des Gebäudes",
+				"options": {
+					"1": "1",
+					"2": "2",
+					"3": "3",
+					"4": "4"
 				}
 			}
 		},
@@ -201,6 +226,9 @@
 			"buildingRisk": {
 				"title": "Individuelles Gebäuderisiko",
 				"levelModerate": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich.",
+				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
+				"levelLow": "Ihr Gebäude weist ein geringes Hochwasserrisiko auf.",
+				"levelInsufficientData": "Das Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
 				"factors": {
 					"basement": "Untergeschoss",
 					"basementWindow": "Kellerfenster",
@@ -241,6 +269,15 @@
 			"description": "Hier können Sie sich die errechneten Ergebnisse an Ihrer Adresse und auf Basis des Fragebogens als PDF-Datei herunterladen.",
 			"fileInfo": "Doctype: PDF-Dokument ({size}) – Stand: {date}",
 			"button": "Bericht herunterladen"
+		},
+		"riskCalculation": {
+			"insufficientData": "Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
+			"insufficientAnswers": "Bitte beantworten Sie mindestens 2 Fragen, um eine Bewertung zu erhalten.",
+			"riskLevels": {
+				"low": "Ihr Gebäude weist ein geringes Hochwasserrisiko auf.",
+				"moderate": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich.",
+				"high": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf."
+			}
 		}
 	}
 }
