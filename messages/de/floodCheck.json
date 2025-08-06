@@ -22,7 +22,7 @@
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
 			"description": "Der HochwasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"addressLabel": "Adresse*",
-			"addressPlaceholder": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten."
+			"addressPlaceholder": "Bitte geben sie eine exakte Adresse inklusive Hausnummer ein, die Sie überprüfen wollen."
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
