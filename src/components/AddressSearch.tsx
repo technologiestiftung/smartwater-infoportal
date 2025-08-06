@@ -14,6 +14,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import { getAddressResults } from "@/server/actions/getAddressResults";
+import { CoordinatesProps } from "@/types/map";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
@@ -26,11 +27,16 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 	const setCurrentUserAddress = useStore(
 		(state) => state.setCurrentUserAddress,
 	);
+	const setCurrentUserCoordinates = useStore(
+		(state) => state.setCurrentUserCoordinates,
+	);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
+	const [coordinates, setCoordinates] = useState<CoordinatesProps | null>(null);
+	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const methods = useForm({
 		defaultValues: {
@@ -50,6 +56,11 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 	const handleSubmit = () => {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
+
+			if (coordinates) {
+				setCurrentUserCoordinates(coordinates);
+				setCoordinates(null);
+			}
 
 			if (addresse) {
 				setCurrentUserAddress(addresse);
@@ -80,9 +91,25 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 				return;
 			}
 
+			const buildingResults = data.filter(
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				(item: any) =>
+					item.class === "building" ||
+					item.addresstype === "building" ||
+					item.type === "house",
+			);
+
+			if (buildingResults.length === 0) {
+				setError(
+					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
+				);
+				setResults([]);
+				return;
+			}
+
 			const seen = new Set();
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const collectResults = data.filter((item: any) => {
+			const collectResults = buildingResults.filter((item: any) => {
 				if (seen.has(item.display_name)) {
 					return false;
 				}
@@ -100,7 +127,9 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 
 	const handleChange = (e: FormEvent<HTMLFormElement>) => {
 		const target = e.target as HTMLInputElement;
-
+		if (resultClicked) {
+			setResultClicked(false);
+		}
 		if (target.name === "addresse") {
 			const value = target.value;
 
@@ -124,6 +153,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 	useEffect(() => {
 		if (currentUserAddress) {
 			setValue("addresse", currentUserAddress);
+			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
 
@@ -146,8 +176,19 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 											<li key={index}>
 												<Button
 													onClick={() => {
+														if (result.lat && result.lon) {
+															setCoordinates({
+																latitude: result.lat,
+																longitude: result.lon,
+															});
+															setResultClicked(true);
+														} else {
+															return setError(
+																"Koordinaten für diese Adresse nicht verfügbar.",
+															);
+														}
 														setValue("addresse", result.display_name);
-														setResults([]);
+														return setResults([]);
 													}}
 													variant="link"
 												>
@@ -160,9 +201,13 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 							</div>
 						)}
 					</div>
+					{error && (
+						<Label className="text-destructive text-primary">{error}</Label>
+					)}
 					<div className="flex gap-4">
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
+							disabled={!resultClicked}
 							type="submit"
 						>
 							{onLandingPage
@@ -172,9 +217,14 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 						{!onLandingPage && (
 							<Button
 								variant="light"
+								disabled={!resultClicked}
 								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								onClick={(e: any) => {
 									e.preventDefault();
+									if (coordinates) {
+										setCurrentUserCoordinates(coordinates);
+										setCoordinates(null);
+									}
 									const addresse = getValues("addresse");
 									if (addresse) {
 										setCurrentUserAddress(addresse);
@@ -193,9 +243,6 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 						<Panel variant="hint">
 							<p className="">{t("addressCheck.note")}</p>
 						</Panel>
-					)}
-					{error && (
-						<Label className="text-destructive text-primary">{error}</Label>
 					)}
 				</form>
 			</Form>
