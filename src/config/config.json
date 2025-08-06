@@ -82,6 +82,18 @@
 		"subjectlayer": {
 			"elements": [
 				{
+					"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
+					"visibility": true
+				},
+				{
+					"id": "sw_infoportal:sr_gefaehrdung_clip_",
+					"visibility": true
+				},
+				{
+					"id": "sw_infoportal:hw_gefaehrdung_clip_",
+					"visibility": false
+				},
+				{
 					"id": "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
 					"visibility": false
 				},
