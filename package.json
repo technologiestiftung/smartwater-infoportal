@@ -7,17 +7,22 @@
 		"build": "npm run install-lib && next build",
 		"start": "npm run install-lib && next start",
 		"lint": "next lint",
+		"test": "jest",
+		"test:watch": "jest --watch",
 		"install-lib": "npm install github:technologiestiftung/berlin-ui-library",
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@turf/turf": "^7.2.0",
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"html2canvas": "^1.4.1",
 		"jspdf": "^3.0.1",
 		"next": "15.3.1",
 		"next-intl": "^4.1.0",
+		"proj4": "^2.19.10",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
+		"shapefile": "^0.6.6",
 		"zustand": "^5.0.4"
 	},
 	"devDependencies": {
@@ -25,15 +30,19 @@
 		"@tailwindcss/postcss": "^4",
 		"@technologiestiftung/eslint-config": "0.3.1",
 		"@technologiestiftung/prettier-config": "1.0.0",
+		"@types/jest": "^30.0.0",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "15.3.1",
+		"eslint-plugin-jest": "^29.0.1",
 		"husky": "^9.1.7",
+		"jest": "^30.0.5",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"tailwindcss": "^4",
+		"ts-jest": "^29.4.1",
 		"typescript": "^5"
 	}
 }

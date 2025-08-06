@@ -72,7 +72,7 @@ const Results: React.FC = () => {
 				<h2 className="">{t("hazardAtLocation")}</h2>
 				{currentUserAddress && (
 					<div className="flex w-full flex-col">
-						<p className="">{currentUserAddress}</p>
+						<p className="">{currentUserAddress.display_name}</p>
 					</div>
 				)}
 			</section>
@@ -100,7 +100,7 @@ const Results: React.FC = () => {
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
-							size="big"
+							size="lg"
 							activeValues={activeFilters}
 							onValueToggle={handleFilterToggle}
 						>

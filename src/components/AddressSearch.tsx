@@ -16,9 +16,13 @@ import { getAddressResults } from "@/server/actions/getAddressResults";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
+	onAddressConfirmed?: () => void;
 }
 
-export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
+export default function AddressSearch({
+	onLandingPage,
+	onAddressConfirmed,
+}: AddressSearchProps) {
 	const t = useTranslations("home");
 	const router = useRouter();
 
@@ -27,6 +31,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 	);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
+	const isLoadingHazardData = useStore((state) => state.isLoadingHazardData);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
@@ -51,11 +56,19 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 			const addresse = getValues("addresse");
 
 			if (addresse) {
-				setCurrentUserAddress(addresse);
-				reset();
-				router.push(
-					onLandingPage ? "/wasser-check" : "/wasser-check#interimResult",
+				// Find the matching result from the search results
+				const selectedResult = results.find(
+					(result) => result.display_name === addresse,
 				);
+				if (selectedResult) {
+					setCurrentUserAddress(selectedResult);
+				}
+				reset();
+				if (onLandingPage) {
+					router.push("/wasser-check");
+				} else if (onAddressConfirmed) {
+					onAddressConfirmed();
+				}
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
 			}
@@ -122,7 +135,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress);
+			setValue("addresse", currentUserAddress.display_name);
 		}
 	}, [currentUserAddress, setValue]);
 
@@ -146,6 +159,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 												<Button
 													onClick={() => {
 														setValue("addresse", result.display_name);
+														setCurrentUserAddress(result);
 														setResults([]);
 													}}
 													variant="link"
@@ -162,10 +176,17 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
 						type="submit"
+						disabled={isLoadingHazardData}
 					>
-						{onLandingPage
-							? t("addressCheck.button")
-							: t("addressCheck.buttonConfirm")}
+						{(() => {
+							if (isLoadingHazardData) {
+								return t("addressCheck.loading");
+							}
+							if (onLandingPage) {
+								return t("addressCheck.button");
+							}
+							return t("addressCheck.buttonConfirm");
+						})()}
 					</Button>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
