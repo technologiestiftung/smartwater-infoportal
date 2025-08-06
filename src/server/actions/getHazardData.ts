@@ -6,8 +6,12 @@ const geoServer = new GeoServerClient();
 
 export async function getHazardData(longitude: number, latitude: number) {
 	try {
-		const result = await geoServer.findBuildingAtPoint(longitude, latitude);
-		if (result.found) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const result: any | null = await geoServer.findBuildingAtPoint(
+			longitude,
+			latitude,
+		);
+		if (result && result.found) {
 			return {
 				building: result,
 				starkregenGefährdung: result.starkregenGefährdung,
