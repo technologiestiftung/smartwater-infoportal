@@ -18,6 +18,8 @@ import TileWMS from "ol/source/TileWMS";
 import VectorSource from "ol/source/Vector";
 import WMTS, { optionsFromCapabilities } from "ol/source/WMTS";
 import { FC, useCallback, useEffect, useState } from "react";
+import styles from "../Features/Styles";
+import { Style } from "ol/style";
 
 interface WMTSCapabilitiesMap {
 	[url: string]: any;
@@ -215,7 +217,20 @@ const LayerInitializer: FC = () => {
 				});
 
 				return {
-					layer: new VectorLayer({ source: vectorSource }),
+					layer: new VectorLayer({
+						source: vectorSource,
+						style: (feature) => {
+							const geometry = feature.getGeometry();
+
+							if (!geometry) {
+								return new Style();
+							}
+
+							const geomType = geometry.getType() as keyof typeof styles;
+
+							return styles[geomType] || new Style();
+						},
+					}),
 					status: "loaded",
 				};
 			} catch (error) {
