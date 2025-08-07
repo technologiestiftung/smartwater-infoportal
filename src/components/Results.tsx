@@ -67,9 +67,6 @@ const Results: React.FC = () => {
 	};
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const currentUserCoordinates = useStore(
-		(state) => state.currentUserCoordinates,
-	);
 	const currentDangerLevel = useStore((state) => state.currentDangerLevel);
 
 	return (
