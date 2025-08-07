@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useMapStore } from "@/lib/store/mapStore";
 import { ManagedLayer } from "@/types/map";
 import { FC, memo, useCallback, useMemo } from "react";
+import maplist from "@/config/maplist.json";
 
 // Custom hooks
 const useLayerData = () => {
@@ -97,6 +98,20 @@ export const LayerTreeContent: FC<{}> = () => {
 			</div>
 		);
 	}
+
+	return (
+		<div className="flex max-h-[20vh] flex-col overflow-y-scroll py-4">
+			{maplist.map((mapListEntry) => (
+				<div key={mapListEntry.id} className="mb-4">
+					<h3 className="text-lg font-semibold">{mapListEntry.title}</h3>
+					{mapListEntry.maps.map((singleMap) => {
+						const layer = subjectLayers.find((l) => l.id === singleMap.id);
+						return layer ? <LayerItem key={layer.id} layer={layer} /> : null;
+					})}
+				</div>
+			))}
+		</div>
+	);
 
 	return (
 		<div className="flex max-h-[20vh] flex-col overflow-y-scroll py-4">

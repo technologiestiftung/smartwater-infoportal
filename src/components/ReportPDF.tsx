@@ -128,12 +128,7 @@ export default function ReportPDF() {
 					<div className="[page-break-before:always]" />
 					<div className="flex flex-col gap-12 bg-white p-[20mm] [height:297mm] [width:210mm]">
 						<h1>Handlungsempfehlungen</h1>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
-							magni vero, saepe officia reprehenderit explicabo quod nesciunt,
-							deleniti sit quos vel assumenda blanditiis! Delectus impedit in
-							culpa officia id dolorem?
-						</p>
+						<p></p>
 					</div>
 				</div>
 			</div>

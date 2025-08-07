@@ -22,7 +22,7 @@
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
 			"description": "Der HochwasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"addressLabel": "Adresse*",
-			"addressPlaceholder": "Bitte geben sie eine exakte Adresse inklusive Hausnummer ein, die Sie überprüfen wollen."
+			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten."
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
@@ -116,7 +116,7 @@
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"recommendation": "",
 			"subLabel": "Überschwemmungsgebiet",
 			"yes": "ja",
 			"no": "nein"
@@ -128,7 +128,7 @@
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"recommendation": "",
 			"subLabel": "Fließgeschwindigkeit"
 		},
 		"hazardScale": {
@@ -147,7 +147,7 @@
 		"hazardAtLocation": "Gefährdung an ihrem Standort:",
 		"hazardDisplay": {
 			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:",
-			"descriptionPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+			"descriptionPlaceholder": "",
 			"heavyRainTab": "Starkregen",
 			"fluvialFloodTab": "Flusshochwasser",
 			"frequency": {
@@ -180,7 +180,7 @@
 		},
 		"map": {
 			"title": "Karte an Ihrem Standort",
-			"description": "Für die Berechnung der Gefahrenkarte nutzen wir bestimmte Karten bei SenUVKÖ.",
+			"description": "Für die Berechnung der Gefahrenkarte nutzen wir bestimmte Karten bei SenMVKU.",
 			"openLegend": "Legende öffnen"
 		},
 		"hazardInfo": {
@@ -241,8 +241,8 @@
 				}
 			},
 			"recommendationsOverview": {
-				"textPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. @copyright ungeklärt",
-				"linkText": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
+				"textPlaceholder": " @copyright ungeklärt",
+				"linkText": " Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
 				"button": "Übersicht Handlungsempfehlungen"
 			}
 		},

@@ -1,7 +1,7 @@
 "use client";
 
 import mapConfig from "@/config/config.json";
-import services from "@/config/resources/services.json";
+import services from "@/config/services.json";
 import { useMapStore } from "@/lib/store/mapStore";
 import {
 	LayerElement,

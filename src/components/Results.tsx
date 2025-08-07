@@ -89,21 +89,6 @@ const Results: React.FC = () => {
 						</div>
 					</>
 				)}
-				<h3 className="mt-2">{t("map.title")}</h3>
-				<p className="">{t("map.description")}</p>
-				{currentDangerLevel && (
-					<div className="flex w-full flex-col gap-2 bg-red-500 p-4 font-bold text-white">
-						<h4 className="">Ihr Gefahrenlevel</h4>
-						<p className="">Adresse: {currentDangerLevel.address}</p>
-						<p className="">
-							Starkregen Gefahrenlevel: {currentDangerLevel.GS_SR}
-						</p>
-						<p className="">
-							Hochwasser Gefahrenlevel: {currentDangerLevel.GS_HW}
-						</p>
-					</div>
-				)}
-				<Map />
 			</section>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
@@ -166,6 +151,21 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
+				<h3 className="mt-2">{t("map.title")}</h3>
+				<p className="">{t("map.description")}</p>
+				{currentDangerLevel && (
+					<div className="flex w-full flex-col gap-2 bg-red-500 p-4 font-bold text-white">
+						<h4 className="">Ihr Gefahrenlevel</h4>
+						<p className="">Adresse: {currentDangerLevel.address}</p>
+						<p className="">
+							Starkregen Gefahrenlevel: {currentDangerLevel.GS_SR}
+						</p>
+						<p className="">
+							Hochwasser Gefahrenlevel: {currentDangerLevel.GS_HW}
+						</p>
+					</div>
+				)}
+				<Map />
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>

@@ -83,11 +83,11 @@
 			"elements": [
 				{
 					"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
-					"visibility": true
+					"visibility": false
 				},
 				{
 					"id": "sw_infoportal:sr_gefaehrdung_clip_",
-					"visibility": true
+					"visibility": false
 				},
 				{
 					"id": "sw_infoportal:hw_gefaehrdung_clip_",
@@ -107,6 +107,10 @@
 				},
 				{
 					"id": "ua_hochwassergefahrenkarten:c_hwgk_niedrig",
+					"visibility": false
+				},
+				{
+					"id": "ua_uesg:c_ueberschwemmungsgebiete",
 					"visibility": false
 				},
 				{

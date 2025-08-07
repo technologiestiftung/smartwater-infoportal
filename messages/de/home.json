@@ -13,12 +13,15 @@
 		},
 		"addressCheck": {
 			"label": "Adresse",
-			"description": "Bitte geben sie eine exakte Adresse inklusive Hausnummer ein, die Sie überprüfen wollen.",
+			"description": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
 			"placeholder": "Landstraße 1, 12345 Berlin",
 			"button": "HochwasserCheck starten",
 			"buttonConfirm": "Weiter mit Risikocheck",
 			"secondaryButton": "Gefährdung berechnen",
-			"note": "Mit dem Gefährdungscheck erhalten Sie eine erste Einschätzung der Gesamtgefährdung um Ihr Gebäude. Der zusätzliche Risikocheck ist ein Fragebogen von 6 Fragen und bietet eine detailliertere Analyse der Gefahren und Risiken um und in Ihrem Gebäude. Darauf aufbauend werden individuelle Handlungsempfehlungen erstellt."
+			"hint": {
+				"title": "Hinweis",
+				"description": "Mit dem Gefährdungscheck erhalten Sie eine erste Einschätzung der Gesamtgefährdung um Ihr Gebäude. Der zusätzliche Risikocheck ist ein Fragebogen von 6 Fragen und bietet eine detailliertere Analyse der Gefahren und Risiken um und in Ihrem Gebäude. Darauf aufbauend werden individuelle Handlungsempfehlungen erstellt."
+			}
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",

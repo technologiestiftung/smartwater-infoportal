@@ -57,6 +57,12 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 
+			if (onLandingPage && !addresse) {
+				reset();
+				router.push("/wasser-check");
+				return;
+			}
+
 			if (coordinates) {
 				setCurrentUserCoordinates(coordinates);
 				setCoordinates(null);
@@ -71,6 +77,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
 			}
+			return;
 		});
 	};
 
@@ -91,13 +98,17 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 				return;
 			}
 
-			const buildingResults = data.filter(
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(item: any) =>
-					item.class === "building" ||
-					item.addresstype === "building" ||
-					item.type === "house",
-			);
+			const withFilter = false;
+
+			const buildingResults = withFilter
+				? data.filter(
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						(item: any) =>
+							item.class === "building" ||
+							item.addresstype === "building" ||
+							item.type === "house",
+					)
+				: data;
 
 			if (buildingResults.length === 0) {
 				setError(
@@ -133,10 +144,11 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 		if (target.name === "addresse") {
 			const value = target.value;
 
-			if (value.length < 3) {
+			/* if (value.length < 3) {
 				setResults([]);
 				return;
-			} else if (error) {
+			} else  */
+			if (error) {
 				setError("");
 			}
 
@@ -168,34 +180,49 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
 						{results.length > 0 && (
-							<div className="flex cursor-pointer flex-col gap-2 p-4">
+							<div className="flex flex-col gap-2 p-4">
 								<strong>Ergebnisse</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
-										{results.map((result, index) => (
-											<li key={index}>
-												<Button
-													onClick={() => {
-														if (result.lat && result.lon) {
-															setCoordinates({
-																latitude: result.lat,
-																longitude: result.lon,
-															});
-															setResultClicked(true);
-														} else {
-															return setError(
-																"Koordinaten für diese Adresse nicht verfügbar.",
-															);
-														}
-														setValue("addresse", result.display_name);
-														return setResults([]);
-													}}
-													variant="link"
-												>
-													{result?.display_name}
-												</Button>
-											</li>
-										))}
+										{results.map((result, index) => {
+											if (
+												result.class === "building" ||
+												result.addresstype === "building" ||
+												result.type === "house"
+											) {
+												return (
+													<li key={index}>
+														<Button
+															onClick={() => {
+																if (result.lat && result.lon) {
+																	setCoordinates({
+																		latitude: result.lat,
+																		longitude: result.lon,
+																	});
+																	setResultClicked(true);
+																} else {
+																	return setError(
+																		"Koordinaten für diese Adresse nicht verfügbar.",
+																	);
+																}
+																setValue("addresse", result.display_name);
+																return setResults([]);
+															}}
+															variant="link"
+														>
+															{result?.display_name}
+														</Button>
+													</li>
+												);
+											}
+											return (
+												<li key={index}>
+													<div className="flex min-h-[43px] flex-col justify-center">
+														<p>{result?.display_name}</p>
+													</div>
+												</li>
+											);
+										})}
 									</>
 								</ul>
 							</div>
@@ -207,7 +234,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 					<div className="flex gap-4">
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
-							disabled={!resultClicked}
+							disabled={!onLandingPage && !resultClicked}
 							type="submit"
 						>
 							{onLandingPage
@@ -221,11 +248,11 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								onClick={(e: any) => {
 									e.preventDefault();
+									const addresse = getValues("addresse");
 									if (coordinates) {
 										setCurrentUserCoordinates(coordinates);
 										setCoordinates(null);
 									}
-									const addresse = getValues("addresse");
 									if (addresse) {
 										setCurrentUserAddress(addresse);
 										reset();
@@ -240,9 +267,14 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 						)}
 					</div>
 					{!onLandingPage && (
-						<Panel variant="hint">
-							<p className="">{t("addressCheck.note")}</p>
-						</Panel>
+						<div>
+							<div>
+								<Panel variant="hint">
+									<h4 className="">{t("addressCheck.hint.title")}</h4>
+								</Panel>
+							</div>
+							<p className="">{t("addressCheck.hint.description")}</p>
+						</div>
 					)}
 				</form>
 			</Form>
