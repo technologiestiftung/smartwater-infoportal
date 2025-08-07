@@ -4,7 +4,7 @@
 		"intro": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs.2). Deswegen gilt: Sorgen Sie rechtzeitig vor, um Schäden zu mindern und Risiken zu senken. Diese Seite bietet Ihnen grundlegende Handlungsempfehlungen und soll Ihnen dabei helfen.",
 		"timeline": {
 			"title": "Zeitlicher Horizont",
-			"description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+			"description": "",
 			"before": "Vorher",
 			"during": "Während",
 			"after": "Nachher"
@@ -147,11 +147,11 @@
 			},
 			"heavyRain": {
 				"title": "Starkregen",
-				"item1": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
+				"item1": " At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
 			},
 			"fluvialFlood": {
 				"title": "Flusshochwasser",
-				"item1": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
+				"item1": " At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
 			}
 		},
 		"afterEvent": {

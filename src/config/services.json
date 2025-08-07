@@ -1,0 +1,629 @@
+[
+	{
+		"id": "basemap",
+		"name": "Basemap",
+		"epsg": "EPSG:3857",
+		"url": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/tiles/v2/bm_web_de_3857/{z}/{x}/{y}.pbf",
+		"typ": "VectorTile",
+		"transparency": 0,
+		"visibility": true,
+		"legend": false,
+		"gfiAttributes": "ignore",
+		"gfiTheme": "default",
+		"vtStyles": [
+			{
+				"id": "basemap_style",
+				"name": "Tagesansicht",
+				"url": "/resources/basemap-style.json",
+				"defaultStyle": true
+			}
+		]
+	},
+	{
+		"id": "bm_web_gry",
+		"name": "Basemap",
+		"epsg": "EPSG:3857",
+		"url": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/tiles/v2/bm_web_de_3857/{z}/{x}/{y}.pbf",
+		"typ": "VectorTile",
+		"transparency": 0,
+		"visibility": true,
+		"legend": false,
+		"gfiAttributes": "ignore",
+		"gfiTheme": "default",
+		"vtStyles": [
+			{
+				"id": "basemap_style",
+				"name": "Graustufen Ansicht",
+				"url": "/resources/bm_web_gry.json",
+				"defaultStyle": true
+			}
+		]
+	},
+	{
+		"id": "bm_web_gry:contrast",
+		"name": "Basemap",
+		"epsg": "EPSG:3857",
+		"url": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/tiles/v2/bm_web_de_3857/{z}/{x}/{y}.pbf",
+		"typ": "VectorTile",
+		"transparency": 0,
+		"visibility": true,
+		"legend": false,
+		"gfiAttributes": "ignore",
+		"gfiTheme": "default",
+		"vtStyles": [
+			{
+				"id": "basemap_style",
+				"name": "Graustufen Ansicht",
+				"url": "/resources/bm_web_gry_contrast.json",
+				"defaultStyle": true
+			}
+		]
+	},
+	{
+		"id": "hintergrund_default_grau",
+		"name": "Hintergrund Berlin - WTMS",
+		"name_lang": "basemap.de Web Raster Grau",
+		"capabilitiesUrl": "https://sgx.geodatenzentrum.de/wmts_basemapde/1.0.0/WMTSCapabilities.xml",
+		"url": "https://sgx.geodatenzentrum.de/wmts_basemapde/1.0.0/",
+		"typ": "WMTS",
+		"tileMatrixSet": "DE_EPSG_3857_ADV",
+		"layers": "de_basemapde_web_raster_grau",
+		"optionsFromCapabilities": true,
+		"crs": "http://www.opengis.net/def/crs/EPSG/0/25833",
+		"legend": [
+			"https://sgx.geodatenzentrum.de/wms_basemapde?format=image/png&layer=de_basemapde_web_raster_grau&sld_version=1.1.0&request=GetLegendGraphic&service=WMS&version=1.1.1&styles="
+		],
+		"layerAttribution": "© basemap.de / BKG (Monat) (Jahr)",
+		"datasets": [
+			{
+				"md_id": "FE1D2837-ABE0-46B5-9821-BB11BAF22531",
+				"rs_id": "https://registry.gdi-de.org/id/de.bund.bkg.csw/68f48957-a20f-3d93-bd62-e59ce6bd99fa",
+				"csw_url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
+				"show_doc_url": "https://gdz.bkg.bund.de/index.php/default/wmts-basemapde-webraster-wmts-basemapde-webraster.html#"
+			}
+		]
+	},
+	{
+		"id": "basemap_raster_farbe",
+		"name": "basemap.de Web Raster Farbe - WMTS",
+		"name_lang": "basemap.de Web Raster Farbe",
+		"capabilitiesUrl": "https://sgx.geodatenzentrum.de/wmts_basemapde/1.0.0/WMTSCapabilities.xml",
+		"url": "https://sgx.geodatenzentrum.de/wmts_basemapde/1.0.0/",
+		"typ": "WMTS",
+		"tileMatrixSet": "DE_EPSG_3857_ADV",
+		"layers": "de_basemapde_web_raster_farbe",
+		"optionsFromCapabilities": true,
+		"crs": "http://www.opengis.net/def/crs/EPSG/0/25833",
+		"legend": "https://sgx.geodatenzentrum.de/wms_basemapde?format=image%2Fpng&layer=de_basemapde_web_raster_farbe&sld_version=1.1.0&request=GetLegendGraphic&service=WMS&version=1.1.1&styles=",
+		"layerAttribution": "© basemap.de / BKG (Monat) (Jahr)",
+		"datasets": [
+			{
+				"md_id": "FE1D2837-ABE0-46B5-9821-BB11BAF22531",
+				"rs_id": "https://registry.gdi-de.org/id/de.bund.bkg.csw/68f48957-a20f-3d93-bd62-e59ce6bd99fa",
+				"csw_url": "https://gdk.gdi-de.org/gdi-de/srv/ger/csw",
+				"show_doc_url": "https://gdz.bkg.bund.de/index.php/default/wmts-basemapde-webraster-wmts-basemapde-webraster.html#"
+			}
+		]
+	},
+	{
+		"id": "sw_infoportal:sr_gefaehrdung_clip_",
+		"name": "Starkregen Gefahrenkarte",
+		"name_lang": "Starkregen Gefahrenkarte",
+		"crs": "EPSG:25833",
+		"url": "https://geoserver.ionos.ds-apps.tsb-berlin.de/geoserver/smartwater-infoportal/wms",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "smartwater-infoportal:SR_Gefaehrdung_clip_",
+		"legend": true,
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Live Karte von Ionos GeoServer"
+	},
+	{
+		"id": "sw_infoportal:hw_gefaehrdung_clip_",
+		"name": "Hochwasser Gefahrenkarte",
+		"name_lang": "Hochwasser Gefahrenkarte",
+		"crs": "EPSG:25833",
+		"url": "https://geoserver.ionos.ds-apps.tsb-berlin.de/geoserver/smartwater-infoportal/wms",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "smartwater-infoportal:HW_Gefaehrdung_clip_",
+		"legend": true,
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Live Karte von Ionos GeoServer"
+	},
+	{
+		"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
+		"name": "ALKIS Gebäude Gefährdung",
+		"crs": "EPSG:25833",
+		"url": "https://geoserver.ionos.ds-apps.tsb-berlin.de/geoserver/smartwater-infoportal/wfs",
+		"typ": "WFS",
+		"featureType": "smartwater-infoportal:ALKIS_Gebaeude_Gefaehrdung_SR_HW_0624",
+		"featureNS": "http://geoserver.org",
+		"gfiAttributes": "showAll",
+		"maxScale": "25000",
+		"legend": true
+	},
+	{
+		"id": "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
+		"name": "Gew\u00e4sser",
+		"name_lang": "Gew\u00e4sser (Hochwassergefahrenkarten (Umweltatlas))",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_hochwassergefahrenkarten",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "d_hwgk_gewaesser",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Hochwassergefahrenkarten (Umweltatlas)",
+				"md_id": "de192463-9da8-46c1-adb2-00059276e150",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/eaccca01-449d-3ca3-9779-eafabd382163",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_hochwassergefahrenkarten:a_hwgk_hoch",
+		"name": "Hochwasser mit hoher Wahrscheinlichkeit",
+		"name_lang": "Hochwasser mit hoher Wahrscheinlichkeit (Hochwassergefahrenkarten (Umweltatlas))",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_hochwassergefahrenkarten",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "a_hwgk_hoch",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Hochwassergefahrenkarten (Umweltatlas)",
+				"md_id": "de192463-9da8-46c1-adb2-00059276e150",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/eaccca01-449d-3ca3-9779-eafabd382163",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_hochwassergefahrenkarten:b_hwgk_mittel",
+		"name": "Hochwasser mit mittlerer Wahrscheinlichkeit",
+		"name_lang": "Hochwasser mit mittlerer Wahrscheinlichkeit (Hochwassergefahrenkarten (Umweltatlas))",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_hochwassergefahrenkarten",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "b_hwgk_mittel",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Hochwassergefahrenkarten (Umweltatlas)",
+				"md_id": "de192463-9da8-46c1-adb2-00059276e150",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/eaccca01-449d-3ca3-9779-eafabd382163",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_hochwassergefahrenkarten:c_hwgk_niedrig",
+		"name": "Hochwasser mit niedriger Wahrscheinlichkeit",
+		"name_lang": "Hochwasser mit niedriger Wahrscheinlichkeit (Hochwassergefahrenkarten (Umweltatlas))",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_hochwassergefahrenkarten",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "c_hwgk_niedrig",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Hochwassergefahrenkarten (Umweltatlas)",
+				"md_id": "de192463-9da8-46c1-adb2-00059276e150",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/eaccca01-449d-3ca3-9779-eafabd382163",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_uesg:c_ueberschwemmungsgebiete",
+		"name": "Überschwemmungsgebiete",
+		"name_lang": "Überschwemmungsgebiete (Umweltatlas Berlin)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_uesg",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "c_ueberschwemmungsgebiete",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Überschwemmungsgebiete (Umweltatlas)",
+				"md_id": "94d744ee-a520-3920-bbb6-51e09fb592a6",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/c89bb94d-5763-3c94-955c-212f8d823dbf",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Für die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist über https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srhk:ec_wasserstand_extrem_max100mm",
+		"name": "Wasserstand (extremes Ereignis)",
+		"name_lang": "Wasserstand (extremes Ereignis) (Starkregenhinweiskarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srhk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "ec_wasserstand_extrem_max100mm",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregenhinweiskarte",
+				"md_id": "fb5bcb65-6dcc-475b-8a37-c023ce19203b",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/a0dd801e-4933-3e91-a210-310f372c172b",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "50001.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srhk:eb_fliessgeschw_extrem_max100mm",
+		"name": "Flie\u00dfgeschwindigkeit (extremes Ereignis)",
+		"name_lang": "Flie\u00dfgeschwindigkeit (extremes Ereignis) (Starkregenhinweiskarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srhk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "eb_fliessgeschw_extrem_max100mm",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregenhinweiskarte",
+				"md_id": "fb5bcb65-6dcc-475b-8a37-c023ce19203b",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/a0dd801e-4933-3e91-a210-310f372c172b",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "50001.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srhk:ea_fr_extrem_max100mm",
+		"name": "Flie\u00dfrichtung (extremes Ereignis)",
+		"name_lang": "Flie\u00dfrichtung (extremes Ereignis) (Starkregenhinweiskarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srhk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "ea_fr_extrem_max100mm",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregenhinweiskarte",
+				"md_id": "fb5bcb65-6dcc-475b-8a37-c023ce19203b",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/a0dd801e-4933-3e91-a210-310f372c172b",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "2501.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srhk:dc_wasserstand_aussergew_kostra",
+		"name": "Wasserstand (au\u00dfergew\u00f6hnliches Ereignis)",
+		"name_lang": "Wasserstand (au\u00dfergew\u00f6hnliches Ereignis) (Starkregenhinweiskarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srhk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "dc_wasserstand_aussergew_kostra",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregenhinweiskarte",
+				"md_id": "fb5bcb65-6dcc-475b-8a37-c023ce19203b",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/a0dd801e-4933-3e91-a210-310f372c172b",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "50001.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srhk:db_fliessgeschw_aussergew_kostra",
+		"name": "Flie\u00dfgeschwindigkeit (au\u00dfergew\u00f6hnliches Ereignis)",
+		"name_lang": "Flie\u00dfgeschwindigkeit (au\u00dfergew\u00f6hnliches Ereignis) (Starkregenhinweiskarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srhk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "db_fliessgeschw_aussergew_kostra",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregenhinweiskarte",
+				"md_id": "fb5bcb65-6dcc-475b-8a37-c023ce19203b",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/a0dd801e-4933-3e91-a210-310f372c172b",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "50001.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srhk:da_fr_aussergewoehnlich",
+		"name": "Flie\u00dfrichtung (au\u00dfergew\u00f6hnliches Ereignis)",
+		"name_lang": "Flie\u00dfrichtung (au\u00dfergew\u00f6hnliches Ereignis) (Starkregenhinweiskarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srhk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "da_fr_aussergewoehnlich",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregenhinweiskarte",
+				"md_id": "fb5bcb65-6dcc-475b-8a37-c023ce19203b",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/a0dd801e-4933-3e91-a210-310f372c172b",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "2501.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
+	},
+	{
+		"id": "ua_srgk:cc_wassersand_extrem",
+		"name": "Wasserstand (extremes Ereignis, nicht f\u00fcr alle Gebiete verf\u00fcgbar)",
+		"name_lang": "Wasserstand (extremes Ereignis, nicht f\u00fcr alle Gebiete verf\u00fcgbar) (Starkregengefahrenkarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "cc_wassersand_extrem",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregengefahrenkarte",
+				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "10000.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
+	},
+	{
+		"id": "ua_srgk:cb_wasserstand_aussergewoehnlich",
+		"name": "Wasserstand (au\u00dfergew\u00f6hnliches Ereignis)",
+		"name_lang": "Wasserstand (au\u00dfergew\u00f6hnliches Ereignis) (Starkregengefahrenkarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "cb_wasserstand_aussergewoehnlich",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregengefahrenkarte",
+				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "10000.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
+	},
+	{
+		"id": "ua_srgk:ca_wasserstand_selten",
+		"name": "Wasserstand (seltenes Ereignis)",
+		"name_lang": "Wasserstand (seltenes Ereignis) (Starkregengefahrenkarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "ca_wasserstand_selten",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregengefahrenkarte",
+				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "10000.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
+	},
+	{
+		"id": "ua_srgk:bc_fliessgeschwindigkeit_extrem",
+		"name": "Flie\u00dfgeschwindigkeit (extremes Ereignis, nur f\u00fcr das Modellgebiet Obersee)",
+		"name_lang": "Flie\u00dfgeschwindigkeit (extremes Ereignis, nur f\u00fcr das Modellgebiet Obersee) (Starkregengefahrenkarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "bc_fliessgeschwindigkeit_extrem",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregengefahrenkarte",
+				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "2500.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
+	},
+	{
+		"id": "ua_srgk:bb_fliessgeschwindigkeit_aussergewoehnlich",
+		"name": "Flie\u00dfgeschwindigkeit (au\u00dfergew\u00f6hnliches Ereignis)",
+		"name_lang": "Flie\u00dfgeschwindigkeit (au\u00dfergew\u00f6hnliches Ereignis) (Starkregengefahrenkarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "bb_fliessgeschwindigkeit_aussergewoehnlich",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregengefahrenkarte",
+				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "2500.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
+	},
+	{
+		"id": "ua_srgk:ba_fliessgeschwindigkeit_selten",
+		"name": "Flie\u00dfgeschwindigkeit (seltenes Ereignis)",
+		"name_lang": "Flie\u00dfgeschwindigkeit (seltenes Ereignis) (Starkregengefahrenkarte)",
+		"crs": "EPSG:25833",
+		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
+		"typ": "WMS",
+		"gfiAttributes": "showAll",
+		"layers": "ba_fliessgeschwindigkeit_selten",
+		"legend": true,
+		"datasets": [
+			{
+				"md_name": "Starkregengefahrenkarte",
+				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
+				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
+				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
+			}
+		],
+		"maxScale": "2500.0",
+		"format": "image/png",
+		"version": "1.3.0",
+		"featureCount": "5",
+		"gfiTheme": "default",
+		"transparent": true,
+		"singleTile": true,
+		"infoFormat": "application/json",
+		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
+	}
+]

@@ -1,6 +1,6 @@
 {
 	"floodCheck": {
-		"pageTitle": "WasserCheck",
+		"pageTitle": "HochwasserCheck",
 		"navigation": {
 			"next": "Nächste Frage",
 			"submit": "Zur Auswertung",
@@ -15,14 +15,14 @@
 		"results": {
 			"title": "- Gesamtergebnis",
 			"navigation": {
-				"back": "Zurück zum WasserCheck"
+				"back": "Zurück zum HochwasserCheck"
 			}
 		},
 		"start": {
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
-			"description": "Der WasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"description": "Der HochwasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"addressLabel": "Adresse*",
-			"addressPlaceholder": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten."
+			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten."
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
@@ -145,7 +145,8 @@
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
-			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"waterLevelLabel": "möglicher Wasserstand",
+			"recommendation": "",
 			"subLabel": "Überschwemmungsgebiet",
 			"yes": "ja",
 			"no": "nein"
@@ -157,7 +158,8 @@
 			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
-			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+			"waterLevelLabel": "möglicher Wasserstand",
+			"recommendation": "",
 			"subLabel": "Fließgeschwindigkeit"
 		},
 		"hazardScale": {
@@ -177,7 +179,7 @@
 		"hazardAtLocation": "Gefährdung an ihrem Standort:",
 		"hazardDisplay": {
 			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:",
-			"descriptionPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+			"descriptionPlaceholder": "",
 			"heavyRainTab": "Starkregen",
 			"fluvialFloodTab": "Flusshochwasser",
 			"frequency": {
@@ -209,7 +211,7 @@
 		},
 		"map": {
 			"title": "Karte an Ihrem Standort",
-			"description": "Für die Berechnung der Gefahrenkarte nutzen wir bestimmte Karten bei SenUVKÖ.",
+			"description": "Für die Berechnung der Gefahrenkarte nutzen wir bestimmte Karten bei SenMVKU.",
 			"openLegend": "Legende öffnen"
 		},
 		"hazardInfo": {
@@ -273,8 +275,8 @@
 				}
 			},
 			"recommendationsOverview": {
-				"textPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. @copyright ungeklärt",
-				"linkText": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
+				"textPlaceholder": " @copyright ungeklärt",
+				"linkText": " Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
 				"button": "Übersicht Handlungsempfehlungen"
 			}
 		},

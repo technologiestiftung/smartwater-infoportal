@@ -13,12 +13,16 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@radix-ui/react-checkbox": "^1.3.2",
 		"@turf/turf": "^7.2.0",
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"html2canvas": "^1.4.1",
 		"jspdf": "^3.0.1",
+		"lucide-react": "^0.536.0",
 		"next": "15.3.1",
 		"next-intl": "^4.1.0",
+		"ol": "^10.6.1",
+		"ol-mapbox-style": "^13.0.1",
 		"proj4": "^2.19.10",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",

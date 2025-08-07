@@ -11,19 +11,21 @@ import {
 	FilterPillGroup,
 	DownloadItem,
 } from "berlin-ui-library";
-import IframeComponent from "./IFrameComponent";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
-import useStore from "../store/defaultStore";
 import { RiskLevel } from "@/lib/types";
+import useStore from "@/store/defaultStore";
+import Map from "./Map/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const { floodRiskResult } = useStore();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
+	const searchParams = useSearchParams();
+	const skip = searchParams.get("skip");
 
 	const hazardEntities = getHazardEntities();
 
@@ -90,7 +92,6 @@ const Results: React.FC = () => {
 	return (
 		<div className="flex w-full flex-col gap-12 pt-2">
 			<section className="flex flex-col gap-2">
-				<h2 className="">{t("hazardAtLocation")}</h2>
 				{currentUserAddress && (
 					<div className="flex w-full flex-col">
 						<p className="">{currentUserAddress.display_name}</p>
@@ -180,9 +181,7 @@ const Results: React.FC = () => {
 				/>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				<div id="smartwater-map">
-					<IframeComponent url="https://smartwater-masterportal.netlify.app/smartwater-map/" />
-				</div>
+				<Map />
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -218,133 +217,107 @@ const Results: React.FC = () => {
 					</Button>
 				</div>
 			</section>
-			<div className="divider" />
-			<section className="flex flex-col gap-4">
-				<div className="flex w-full flex-col gap-6">
-					<h2 className="">{t("floodCheckfloodCheck.title")}</h2>
-					<p className="">{t("floodCheckfloodCheck.description")}</p>
-				</div>
-				{floodRiskResult ? (
-					<TextBlock
-						desktopColSpans={{ col1: 1, col2: 1 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-								<h3 className="">
-									{t("floodCheckfloodCheck.buildingRisk.title")}
-								</h3>
-								<p className="">
-									{t(`floodCheck.buildingRisk.${floodRiskResult.riskLevel}`)}
-								</p>
-								<div className="mt-4">
-									<p className="text-sm text-gray-600">
-										<strong>Score:</strong> {floodRiskResult.totalScore}
-									</p>
-									<p className="text-sm text-gray-600">
-										<strong>Risk Level:</strong> {floodRiskResult.riskLevel}
-									</p>
+			{!skip && (
+				<>
+					<div className="divider" />
+					<section className="flex flex-col gap-4">
+						<div className="flex w-full flex-col gap-6">
+							<h2 className="">{t("floodCheckfloodCheck.title")}</h2>
+							<p className="">{t("floodCheckfloodCheck.description")}</p>
+						</div>
+						<TextBlock
+							desktopColSpans={{ col1: 1, col2: 1 }}
+							className="w-full gap-6"
+							reverseDesktopColumns={true}
+							slotA={
+								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+									<h3 className="">{t("floodCheckfloodCheck.title")}</h3>
+									<p className="">{t("floodCheckfloodCheck.description")}</p>
 								</div>
-							</div>
-						}
-						slotB={
-							<RiskBlock
-								overallRiskLevel={floodRiskResult.riskLevel as RiskLevel}
-								arrowPosition={(() => {
-									switch (floodRiskResult.riskLevel) {
-										case "low":
-											return 15;
-										case "moderate":
-											return 50;
-										case "high":
-											return 85;
-										default:
-											return 50;
-									}
-								})()}
-							/>
-						}
-					/>
-				) : (
-					<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-						<h3 className="">Keine Risikobewertung verfügbar</h3>
-						<p className="">
-							Bitte führen Sie zunächst den WasserCheck durch, um Ihre
-							individuelle Risikobewertung zu erhalten.
-						</p>
-					</div>
-				)}
-			</section>
+							}
+							slotB={<RiskBlock />}
+						/>
+					</section>
+				</>
+			)}
 			<section className="flex w-full flex-col gap-12">
-				<div className="flex flex-col gap-2">
-					<h2 className="">{t("protectionTips.title")}</h2>
-					<p className="">{t("protectionTips.intro1")}</p>
-					<p className="mt-4">{t("protectionTips.intro2")}</p>
-				</div>
+				{!skip && (
+					<>
+						<div className="flex flex-col gap-2">
+							<h2 className="">{t("protectionTips.title")}</h2>
+							<p className="">{t("protectionTips.intro1")}</p>
+							<p className="mt-4">{t("protectionTips.intro2")}</p>
+						</div>
+
+						<div className="flex flex-col gap-2">
+							<TextBlock
+								desktopColSpans={{ col1: 1, col2: 1 }}
+								className="w-full gap-6"
+								slotA={
+									<div className="flex h-full w-full flex-col p-6">
+										<h2 className="">{t("protectionTips.inBuilding.title")}</h2>
+										<ul className="list-inside list-disc">
+											{inBuildingTipKeys.map((tipKey) => (
+												<li key={tipKey} className="mt-2">
+													{t(tipKey)}
+												</li>
+											))}
+										</ul>{" "}
+									</div>
+								}
+								slotB={
+									<Image
+										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
+										alt={t("protectionTips.inBuilding.image.alt")}
+										caption={t("protectionTips.inBuilding.image.caption")}
+										copyright={t("protectionTips.inBuilding.image.copyright")}
+									/>
+								}
+							/>
+						</div>
+					</>
+				)}
 
 				<div className="flex flex-col gap-2">
-					<TextBlock
-						desktopColSpans={{ col1: 1, col2: 1 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex h-full w-full flex-col p-6">
-								<h2 className="">{t("protectionTips.inBuilding.title")}</h2>
-								<ul className="list-inside list-disc">
-									{inBuildingTipKeys.map((tipKey) => (
-										<li key={tipKey} className="mt-2">
-											{t(tipKey)}
-										</li>
-									))}
-								</ul>{" "}
-							</div>
-						}
-						slotB={
-							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
-								alt={t("protectionTips.inBuilding.image.alt")}
-								caption={t("protectionTips.inBuilding.image.caption")}
-								copyright={t("protectionTips.inBuilding.image.copyright")}
+					{!skip && (
+						<>
+							<TextBlock
+								desktopColSpans={{ col1: 1, col2: 1 }}
+								className="w-full gap-6"
+								reverseDesktopColumns={true}
+								slotA={
+									<div className="flex h-full w-full flex-col p-6">
+										<h2 className="">{t("protectionTips.traffic.title")}</h2>
+										<ul className="list-inside list-disc">
+											{trafficTipKeys.map((tipKey) => (
+												<li key={tipKey} className="mt-2">
+													{t(tipKey)}
+												</li>
+											))}
+										</ul>
+									</div>
+								}
+								slotB={
+									<Image
+										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
+										alt={t("protectionTips.traffic.image.alt")}
+										caption={t("protectionTips.traffic.image.caption")}
+										copyright={t("protectionTips.traffic.image.copyright")}
+									/>
+								}
 							/>
-						}
-					/>
-				</div>
-
-				<div className="flex flex-col gap-2">
-					<TextBlock
-						desktopColSpans={{ col1: 1, col2: 1 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex h-full w-full flex-col p-6">
-								<h2 className="">{t("protectionTips.traffic.title")}</h2>
-								<ul className="list-inside list-disc">
-									{trafficTipKeys.map((tipKey) => (
-										<li key={tipKey} className="mt-2">
-											{t(tipKey)}
-										</li>
-									))}
-								</ul>
-							</div>
-						}
-						slotB={
-							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
-								alt={t("protectionTips.traffic.image.alt")}
-								caption={t("protectionTips.traffic.image.caption")}
-								copyright={t("protectionTips.traffic.image.copyright")}
-							/>
-						}
-					/>
-					<Button
-						className="mt-6 w-full self-start lg:w-fit"
-						onClick={() => {
-							router.push("/handlungsempfehlungen");
-						}}
-					>
-						Übersicht Handlungsempfehlungen
-					</Button>
+							<Button
+								className="mt-6 w-full self-start lg:w-fit"
+								onClick={() => {
+									router.push("/handlungsempfehlungen");
+								}}
+							>
+								Übersicht Handlungsempfehlungen
+							</Button>
+						</>
+					)}
 					<div className="divider mt-4" />
 					<DownloadItem
 						buttonText="Download Bericht"
