@@ -31,7 +31,9 @@ export default function AddressSearch({
 	);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const isLoadingLocationData = useStore((state) => state.isLoadingLocationData);
+	const isLoadingLocationData = useStore(
+		(state) => state.isLoadingLocationData,
+	);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);

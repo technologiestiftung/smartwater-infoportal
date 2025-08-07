@@ -1,14 +1,18 @@
 import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
 import riskConfig from "@/config/floodRiskConfig.json";
 
-export function calculateFloodRiskScore(answers: FloodRiskAnswers): FloodRiskResult {
+export function calculateFloodRiskScore(
+	answers: FloodRiskAnswers,
+): FloodRiskResult {
 	let totalScore = 0;
 	let answeredCount = 0;
 
 	// Calculate score from stored answers
 	Object.entries(answers).forEach(([questionId, questionAnswer]) => {
 		if (questionAnswer?.score !== undefined) {
-			const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
+			const questionConfig = riskConfig.questions.find(
+				(q) => q.id === questionId,
+			);
 			const weight = questionConfig?.weight || 1;
 			totalScore += questionAnswer.score * weight;
 			answeredCount++;
@@ -31,7 +35,7 @@ export function calculateFloodRiskScore(answers: FloodRiskAnswers): FloodRiskRes
 	if (totalScore >= low.min && totalScore <= low.max) {
 		riskLevel = "low";
 	} else if (totalScore >= moderate.min && totalScore <= moderate.max) {
-		riskLevel = "moderate"; 
+		riskLevel = "moderate";
 	} else if (totalScore <= high.min) {
 		riskLevel = "high";
 	} else {
@@ -45,7 +49,10 @@ export function calculateFloodRiskScore(answers: FloodRiskAnswers): FloodRiskRes
 	};
 }
 
-export function calculateQuestionScore(questionId: string, value: string | string[] | number): number {
+export function calculateQuestionScore(
+	questionId: string,
+	value: string | string[] | number,
+): number {
 	// Find question config
 	const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
 	if (!questionConfig) {
@@ -57,14 +64,18 @@ export function calculateQuestionScore(questionId: string, value: string | strin
 	if (Array.isArray(value)) {
 		// Multiple choice - sum all scores
 		value.forEach((option) => {
-			const optionConfig = questionConfig.options.find((opt) => opt.value === option);
+			const optionConfig = questionConfig.options.find(
+				(opt) => opt.value === option,
+			);
 			if (optionConfig) {
 				score += optionConfig.score;
 			}
 		});
 	} else {
 		// Single choice
-		const optionConfig = questionConfig.options.find((opt) => opt.value === value);
+		const optionConfig = questionConfig.options.find(
+			(opt) => opt.value === value,
+		);
 		if (optionConfig) {
 			score = optionConfig.score;
 		}
@@ -78,23 +89,27 @@ export function validateAnswers(answers: FloodRiskAnswers): boolean {
 	return answeredCount >= riskConfig.minimumAnswersRequired;
 }
 
-export function prePopulateFromLocationData(locationData: LocationData | null): FloodRiskAnswers {
+export function prePopulateFromLocationData(
+	locationData: LocationData | null,
+): FloodRiskAnswers {
 	if (!locationData) {
 		return {};
 	}
 
-	// Get all auto-type questions from config
 	const autoQuestions = riskConfig.questions.filter((q) => q.type === "auto");
-	
-	// Helper function to get nested property value using dot notation
+
 	const getNestedValue = (obj: unknown, path: string): unknown => {
-		return path.split('.').reduce((current, key) => (current as Record<string, unknown>)?.[key], obj);
+		return path
+			.split(".")
+			.reduce(
+				(current, key) => (current as Record<string, unknown>)?.[key],
+				obj,
+			);
 	};
 
-	// Transform functions for special cases
 	const transforms: Record<string, (value: unknown) => unknown> = {
-		floodZoneBool: (value: number | null | undefined) => 
-			value && value > 0 ? "yes" : "no"
+		floodZoneBool: (value: number | null | undefined) =>
+			value && value > 0 ? "yes" : "no",
 	};
 
 	const answers: FloodRiskAnswers = {};
@@ -104,18 +119,21 @@ export function prePopulateFromLocationData(locationData: LocationData | null): 
 		if (!questionAny.dataPath) {
 			return;
 		}
-		
+
 		let value = getNestedValue(locationData, questionAny.dataPath as string);
-		
+
 		// Apply transform if specified
 		if (questionAny.transform && transforms[questionAny.transform as string]) {
 			value = transforms[questionAny.transform as string](value);
 		}
-		
+
 		if (value !== undefined) {
 			answers[question.id] = {
 				value: value as string | string[] | number,
-				score: calculateQuestionScore(question.id, value as string | string[] | number),
+				score: calculateQuestionScore(
+					question.id,
+					value as string | string[] | number,
+				),
 				weight: question.weight || 1,
 			};
 		}
@@ -124,38 +142,33 @@ export function prePopulateFromLocationData(locationData: LocationData | null): 
 	return answers;
 }
 
-// Workflow management
 export type WorkflowStep = "address" | "interim" | "questionnaire" | "results";
 
 export function getNextWorkflowStep(
 	locationData: LocationData | null,
 	answers: FloodRiskAnswers,
-	currentPath: string
+	currentPath: string,
 ): WorkflowStep {
-	// No location data -> go to address search
 	if (!locationData) {
 		return "address";
 	}
 
-	// Have location data but on address page -> go to interim
 	if (currentPath.includes("wasser-check") && !currentPath.includes("#")) {
 		return "interim";
 	}
 
-	// Have location data, on interim -> check if questionnaire is needed
 	if (currentPath.includes("#interimResult")) {
 		const requiredQuestions = riskConfig.questions
 			.filter((q) => q.type !== "auto")
 			.map((q) => q.id);
 		const missingAnswers = requiredQuestions.some((q) => !answers[q]);
-		
+
 		if (missingAnswers) {
 			return "questionnaire";
 		}
 		return "results";
 	}
 
-	// On questionnaire -> check if complete
 	if (currentPath.includes("questionnaire")) {
 		if (validateAnswers(answers)) {
 			return "results";
@@ -168,10 +181,15 @@ export function getNextWorkflowStep(
 
 export function getWorkflowRoute(step: WorkflowStep): string {
 	switch (step) {
-		case "address": return "/wasser-check";
-		case "interim": return "/wasser-check#interimResult";
-		case "questionnaire": return "/wasser-check/questionnaire";
-		case "results": return "/wasser-check/results";
-		default: return "/wasser-check";
+		case "address":
+			return "/wasser-check";
+		case "interim":
+			return "/wasser-check#interimResult";
+		case "questionnaire":
+			return "/wasser-check/questionnaire";
+		case "results":
+			return "/wasser-check/results";
+		default:
+			return "/wasser-check";
 	}
 }
