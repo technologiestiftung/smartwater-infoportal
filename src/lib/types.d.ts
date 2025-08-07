@@ -42,3 +42,21 @@ export interface LocationData {
 	distance?: number;
 	floodZoneIndex?: number | null;
 }
+
+export interface FloodRiskAnswers {
+	q1?: string;
+	q2?: string[];
+	q3?: string;
+	q4?: string;
+	q5?: string;
+	q6?: string;
+	qA?: string;
+	qB?: number;
+	qC?: number;
+}
+
+export interface FloodRiskResult {
+	score: number;
+	riskLevel: "low" | "moderate" | "high" | "insufficient-data";
+	message: string;
+}

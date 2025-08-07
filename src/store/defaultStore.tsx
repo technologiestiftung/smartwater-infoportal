@@ -1,33 +1,22 @@
 import { create } from "zustand";
+import {
+	AddressResult,
+	FloodRiskAnswers,
+	FloodRiskResult,
+	LocationData,
+} from "@/lib/types";
 import { devtools } from "zustand/middleware";
 
-export interface FloodRiskAnswers {
-	q1?: string;
-	q2?: string[];
-	q3?: string;
-	q4?: string;
-	q5?: string;
-	q6?: string;
-	qA?: string;
-	qB?: number;
-	qC?: number;
-}
-
-export interface FloodRiskResult {
-	score: number;
-	riskLevel: "low" | "moderate" | "high" | "insufficient-data";
-	message: string;
-}
-
-interface StoreState {
-	currentUserAddress: string | null;
+type StoreState = {
+	currentUserAddress: AddressResult | null;
 	currentfloodCheckState: string | null;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
-	setCurrentUserAddress: (address: string) => void;
+	locationData: LocationData | null;
+	isLoadingLocationData: boolean;
+
+	setCurrentUserAddress: (address: AddressResult) => void;
 	resetCurrentUserAddress: () => void;
-	setCurrentfloodCheckState: (state: string) => void;
-	resetCurrentfloodCheckState: () => void;
 	setFloodRiskAnswers: (answers: FloodRiskAnswers) => void;
 	updateFloodRiskAnswer: (
 		questionId: string,
@@ -35,7 +24,10 @@ interface StoreState {
 	) => void;
 	setFloodRiskResult: (result: FloodRiskResult) => void;
 	resetFloodRiskData: () => void;
-}
+	setLocationData: (data: LocationData) => void;
+	resetLocationData: () => void;
+	setLoadingLocationData: (loading: boolean) => void;
+};
 
 const useStore = create<StoreState>()(
 	devtools(
@@ -44,12 +36,12 @@ const useStore = create<StoreState>()(
 			currentfloodCheckState: null,
 			floodRiskAnswers: {},
 			floodRiskResult: null,
-			setCurrentUserAddress: (address: string) =>
+
+			locationData: null,
+			isLoadingLocationData: false,
+			setCurrentUserAddress: (address: AddressResult) =>
 				set({ currentUserAddress: address }),
 			resetCurrentUserAddress: () => set({ currentUserAddress: null }),
-			setCurrentfloodCheckState: (state: string) =>
-				set({ currentfloodCheckState: state }),
-			resetCurrentfloodCheckState: () => set({ currentfloodCheckState: null }),
 			setFloodRiskAnswers: (answers: FloodRiskAnswers) =>
 				set({ floodRiskAnswers: answers }),
 			updateFloodRiskAnswer: (
@@ -66,6 +58,10 @@ const useStore = create<StoreState>()(
 				set({ floodRiskResult: result }),
 			resetFloodRiskData: () =>
 				set({ floodRiskAnswers: {}, floodRiskResult: null }),
+			setLocationData: (data) => set({ locationData: data }),
+			resetLocationData: () => set({ locationData: null }),
+			setLoadingLocationData: (loading) =>
+				set({ isLoadingLocationData: loading }),
 		}),
 		{
 			name: "flood-risk-store",
