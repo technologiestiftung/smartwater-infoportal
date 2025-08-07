@@ -56,9 +56,3 @@ export function getEpsgFromCrs(crs: string) {
 	const epsgMatch = crs.match(/EPSG[:/](\d+)/i);
 	return epsgMatch ? `EPSG:${epsgMatch[1]}` : crs;
 }
-
-export function fixTextEncoding(str: string) {
-	return new TextDecoder("utf-8").decode(
-		new Uint8Array([...str].map((c) => c.charCodeAt(0))),
-	);
-}
