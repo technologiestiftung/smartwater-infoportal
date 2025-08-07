@@ -27,6 +27,21 @@ const eslintConfig = [
 
 	...technologiestiftung,
 	...compat.extends("next/core-web-vitals"),
+	{
+		files: ["**/__tests__/**/*.ts", "**/*.test.ts", "**/*.test.tsx", "**/tests/**/*.ts"],
+		languageOptions: {
+			globals: {
+				jest: "readonly",
+				describe: "readonly",
+				it: "readonly",
+				expect: "readonly",
+				beforeEach: "readonly",
+				afterEach: "readonly",
+				beforeAll: "readonly",
+				afterAll: "readonly",
+			},
+		},
+	},
 ];
 
 export default eslintConfig;

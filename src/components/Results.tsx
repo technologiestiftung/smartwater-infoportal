@@ -69,14 +69,17 @@ const Results: React.FC = () => {
 		return str.replace(/\s+/g, "-").toLowerCase();
 	};
 
+	const currentUserAddress = useStore((state) => state.currentUserAddress);
+
 	return (
-		<div className="flex w-full flex-col gap-12">
+		<div className="flex w-full flex-col gap-12 pt-2">
 			<section className="flex flex-col gap-2">
 				<h2 className="">{t("hazardAtLocation")}</h2>
-				<div className="flex w-full flex-col">
-					<p className="">Placeholder Adresse</p>
-					<p className="">Placeholder PLZ - Stadt</p>
-				</div>
+				{currentUserAddress && (
+					<div className="flex w-full flex-col">
+						<p className="">{currentUserAddress.display_name}</p>
+					</div>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
@@ -263,11 +266,11 @@ const Results: React.FC = () => {
 						}
 						slotB={
 							<Image
-								className="-mx-5 mt-6 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/imagery.png"
-								alt="Placeholder Image"
-								caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-								copyright="@copyright ungeklärt"
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
+								alt={t("protectionTips.inBuilding.image.alt")}
+								caption={t("protectionTips.inBuilding.image.caption")}
+								copyright={t("protectionTips.inBuilding.image.copyright")}
 							/>
 						}
 					/>
@@ -292,11 +295,11 @@ const Results: React.FC = () => {
 						}
 						slotB={
 							<Image
-								className="-mx-5 mt-6 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/imagery.png"
-								alt="Placeholder Image"
-								caption="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-								copyright="@copyright ungeklärt"
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
+								alt={t("protectionTips.traffic.image.alt")}
+								caption={t("protectionTips.traffic.image.caption")}
+								copyright={t("protectionTips.traffic.image.copyright")}
 							/>
 						}
 					/>

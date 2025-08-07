@@ -4,28 +4,64 @@ import { useTranslations } from "next-intl";
 import { Button, Panel } from "berlin-ui-library";
 import { HazardLevel } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import useStore from "@/store/defaultStore";
+import { mapScaleToHazardLevel } from "@/lib/utils";
 
-interface InterimResultsProps {
-	entities: { name: string; hazardLevel: HazardLevel }[];
-}
-
-const InterimResults: React.FC<InterimResultsProps> = ({
-	entities,
-}: InterimResultsProps) => {
+const InterimResults: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
+	const locationData = useStore((state) => state.locationData);
+
+	const getHazardEntities = () => {
+		if (!locationData || !locationData.found || !locationData.building) {
+			return [
+				{ name: "heavyRain", hazardLevel: "low" as HazardLevel },
+				{
+					name: "fluvialFlood",
+					hazardLevel: "low" as HazardLevel,
+					showSubLabel: true,
+					subHazardLevel: "no",
+				},
+			];
+		}
+
+		return [
+			{
+				name: "heavyRain",
+				hazardLevel: mapScaleToHazardLevel(
+					locationData.building.starkregenGefährdung || 0,
+				),
+			},
+			{
+				name: "fluvialFlood",
+				hazardLevel: mapScaleToHazardLevel(
+					locationData.building.hochwasserGefährdung || 0,
+				),
+				showSubLabel: true,
+				subHazardLevel: (locationData.floodZoneIndex || 0) > 0 ? "yes" : "no",
+			},
+		];
+	};
+
+	const hazardEntities = getHazardEntities();
+	const maxHazardLevel = Math.max(
+		locationData?.building?.starkregenGefährdung || 0,
+		locationData?.building?.hochwasserGefährdung || 0,
+	);
+	const overallHazardLevel = mapScaleToHazardLevel(maxHazardLevel);
 
 	return (
 		<div className="flex w-full flex-col gap-12">
 			<div className="flex flex-col gap-6">
-				<h2>{t("hazardSummary.low")}</h2>
+				<h2>{t(`hazardSummary.${overallHazardLevel}`)}</h2>
 				<div className="grid gap-4 lg:grid-cols-2">
-					{/* Content goes here */}
-					{entities.map((entity) => (
+					{hazardEntities.map((entity) => (
 						<ResultBlock
 							key={entity.name}
 							entity={entity.name}
-							harzardLevel={entity.hazardLevel}
+							hazardLevel={entity.hazardLevel}
+							showSubLabel={entity.showSubLabel || false}
+							subHazardLevel={entity.subHazardLevel}
 						/>
 					))}
 				</div>

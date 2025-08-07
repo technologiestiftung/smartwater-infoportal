@@ -129,18 +129,22 @@
 			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift"
 		},
 		"hazardSummary": {
+			"none": "An Ihrem Standort liegt keine Gefährdung vor.",
 			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
+			"moderate": "An Ihrem Standort liegt eine mittlere Gefährdung vor.",
+			"high": "An Ihrem Standort liegt eine hohe Gefährdung vor.",
+			"severe": "An Ihrem Standort liegt eine sehr hohe Gefährdung vor.",
 			"highFluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Flusshochwasser vor.",
 			"highPluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Starkregen vor.",
 			"multiple": "An Ihrem Standort liegen mehrere Gefährdungen vor."
 		},
 		"fluvialFlood": {
 			"title": "Flusshochwasser",
+			"none": "Der überprüfte Standort ist bei Flusshochwasser keiner Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
-			"waterLevelLabel": "möglicher Wasserstand",
 			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
 			"subLabel": "Überschwemmungsgebiet",
 			"yes": "ja",
@@ -148,15 +152,16 @@
 		},
 		"heavyRain": {
 			"title": "Starkregen",
+			"none": "Der überprüfte Standort ist bei Starkregen keiner Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
-			"waterLevelLabel": "möglicher Wasserstand",
 			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
 			"subLabel": "Fließgeschwindigkeit"
 		},
 		"hazardScale": {
+			"none": "Keine Gefährdung",
 			"low": "Gering",
 			"moderate": "Mittel",
 			"high": "Hoch",
@@ -189,7 +194,6 @@
 				"heavyRain": {
 					"title": "Starkregen",
 					"descriptionLow": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
-					"waterLevelLabel": "möglicher Wasserstand",
 					"flowVelocityLabel": "Fließgeschwindigkeit"
 				},
 				"fluvialFlood": {
@@ -248,7 +252,12 @@
 				"tip2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen, z.B. in ein höher gelegenes Stockwerk.",
 				"tip3": "Betreten Sie keine überfluteten oder durchnässten Räume. Die Türen können bereits bei einem niedrigen Wasserstand nicht mehr geöffnet werden und Ihren Fluchtweg blockieren. Wenn das Betreten eines überschwemmten Raumes unvermeidlich ist, müssen die Türen unbedingt offengehalten und fest verkeilt werden.",
 				"tip4": "Versuchen Sie in keinem Fall Gegenstände oder Fahrzeuge in letzter Minute aus Kellern, Garagen oder Tiefgaragen zu retten. Es besteht Lebensgefahr!",
-				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser."
+				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
+				"image": {
+					"alt": "Eine Grafik zeigt ein Haus mit Keller, bei dem Zutritt zum Keller und zur Garage vermieden werden soll.",
+					"caption": "Im Falle einer Überflutung sind der Keller und Garagen zu meiden.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
+				}
 			},
 			"traffic": {
 				"title": "Verkehr",
@@ -256,7 +265,12 @@
 				"tip2": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgaragen, unter der Erde gelegene Bahnstationen und die Nähe von Fließgewässern, auch wenn Sie mit dem Auto unterwegs sind.",
 				"tip3": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern über den Nachhauseweg. Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
 				"tip4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser",
-				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei."
+				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
+				"image": {
+					"alt": "Eine Grafik zeigt ein Auto, welches aus der Senke auf eine Anhöhe gefahren wird.",
+					"caption": "Während des eines Starkregenereignisses sollten keine Fahrzeuge in Senken abgestellt werden. Parken Sie ihr Fahrzeug am Anfang des Ereignisses um.",
+					"copyright": "© Kompetenzzentrum Wasser Berlin"
+				}
 			},
 			"recommendationsOverview": {
 				"textPlaceholder": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor. @copyright ungeklärt",
