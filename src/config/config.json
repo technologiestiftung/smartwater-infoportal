@@ -71,11 +71,11 @@
 			"elements": [
 				{
 					"id": "bm_web_gry:contrast",
-					"visibility": false
+					"visibility": true
 				},
 				{
 					"id": "bm_web_gry",
-					"visibility": true
+					"visibility": false
 				}
 			]
 		},
