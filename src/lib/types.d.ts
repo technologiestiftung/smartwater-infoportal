@@ -1,4 +1,4 @@
-export type HazardLevel = "none" | "low" | "moderate" | "high" | "severe";
+export type HazardLevel = "low" | "moderate" | "high" | "severe";
 export type RiskLevel = "low" | "moderate" | "high";
 
 // Address result from Nominatim API

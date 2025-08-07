@@ -11,10 +11,6 @@ interface ResultBlockProps {
 }
 
 const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
-	none: {
-		border: "border-hazard-none",
-		bg: "bg-hazard-none",
-	},
 	low: {
 		border: "border-hazard-low",
 		bg: "bg-hazard-low",
@@ -49,7 +45,7 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 					<h4 className="">{t(`${entity}.title`)}</h4>
 				</div>
 				<p className="">{t(`${entity}.${harzardLevel}`)}</p>
-				<div className="my-4 grid grid-cols-5 gap-0">
+				<div className="my-4 grid grid-cols-4 gap-0">
 					{Object.keys(hazardColorMap).map((level) => (
 						<div key={level} className="flex w-full flex-col items-center">
 							<div className="flex h-10 w-full items-center justify-center text-center">

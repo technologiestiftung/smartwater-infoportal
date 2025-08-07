@@ -37,19 +37,16 @@ export function formatGermanTimestamp(timestamp: number): string {
  */
 export function mapScaleToHazardLevel(value: number): HazardLevel {
 	if (value === 0) {
-		return "none";
-	}
-	if (value === 1) {
 		return "low";
 	}
-	if (value === 2) {
+	if (value === 1) {
 		return "moderate";
 	}
-	if (value === 3) {
+	if (value === 2) {
 		return "high";
 	}
-	if (value >= 4) {
+	if (value >= 3) {
 		return "severe";
 	}
-	return "none"; // fallback
+	return "low"; // fallback
 }
