@@ -1,6 +1,6 @@
 {
 	"floodCheck": {
-		"pageTitle": "WasserCheck",
+		"pageTitle": "HochwasserCheck",
 		"navigation": {
 			"next": "Nächste Frage",
 			"submit": "Zur Auswertung",
@@ -15,12 +15,12 @@
 		"results": {
 			"title": "- Gesamtergebnis",
 			"navigation": {
-				"back": "Zurück zum WasserCheck"
+				"back": "Zurück zum HochwasserCheck"
 			}
 		},
 		"start": {
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen",
-			"description": "Der WasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"description": "Der HochwasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Geben Sie hier eine Adresse ein, die Sie überprüfen möchten."
 		},

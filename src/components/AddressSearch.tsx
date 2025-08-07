@@ -5,6 +5,7 @@ import {
 	FormFieldWrapper,
 	FormWrapper,
 	Label,
+	Panel,
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
@@ -159,14 +160,40 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 							</div>
 						)}
 					</div>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						type="submit"
-					>
-						{onLandingPage
-							? t("addressCheck.button")
-							: t("addressCheck.buttonConfirm")}
-					</Button>
+					<div className="flex gap-4">
+						<Button
+							className="w-full justify-end self-start lg:w-fit"
+							type="submit"
+						>
+							{onLandingPage
+								? t("addressCheck.button")
+								: t("addressCheck.buttonConfirm")}
+						</Button>
+						{!onLandingPage && (
+							<Button
+								variant="light"
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								onClick={(e: any) => {
+									e.preventDefault();
+									const addresse = getValues("addresse");
+									if (addresse) {
+										setCurrentUserAddress(addresse);
+										reset();
+										router.push("/wasser-check?skip=true#results");
+									} else {
+										setError("Bitte geben Sie eine Adresse ein.");
+									}
+								}}
+							>
+								{t("addressCheck.secondaryButton")}
+							</Button>
+						)}
+					</div>
+					{!onLandingPage && (
+						<Panel variant="hint">
+							<p className="">{t("addressCheck.note")}</p>
+						</Panel>
+					)}
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
