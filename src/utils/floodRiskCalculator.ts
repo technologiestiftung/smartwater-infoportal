@@ -108,8 +108,8 @@ export function prePopulateFromLocationData(
 	};
 
 	const transforms: Record<string, (value: unknown) => unknown> = {
-		floodZoneBool: (value: number | null | undefined) =>
-			value && value > 0 ? "yes" : "no",
+		floodZoneBool: (value: unknown) =>
+			value && (value as number) > 0 ? "yes" : "no",
 	};
 
 	const answers: FloodRiskAnswers = {};
