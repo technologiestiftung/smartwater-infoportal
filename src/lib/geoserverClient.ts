@@ -2,15 +2,17 @@ import proj4 from "proj4";
 import type { Geometry } from "./types";
 
 export class GeoServerClient {
-	private baseUrl?: string;
-	private workspace?: string;
-	private layer: string;
+	private readonly baseUrl?: string;
+	private readonly workspace?: string;
+	private readonly buildingLayer: string;
+	private readonly floodLayer: string;
 
 	constructor() {
 		this.baseUrl = process.env.GEOSERVER_BASE_URL;
 		this.workspace = process.env.GEOSERVER_WORKSPACE;
-		const layerName = process.env.GEOSERVER_LAYER;
-		this.layer = `${this.workspace}:${layerName}`;
+		this.buildingLayer = `${this.workspace}:${process.env.GEOSERVER_BUILDING_LAYER}`;
+		this.floodLayer = `${this.workspace}:${process.env.GEOSERVER_FLOOD_LAYER}`;
+
 		proj4.defs(
 			"EPSG:25833",
 			"+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
@@ -33,6 +35,7 @@ export class GeoServerClient {
 				longitude,
 				latitude,
 			]);
+
 			const floodZoneIndex = await this.getFloodZoneIndex(
 				transformedX,
 				transformedY,
@@ -42,7 +45,6 @@ export class GeoServerClient {
 				transformedX,
 				transformedY,
 			);
-
 			if (exactMatch) {
 				return {
 					found: true,
@@ -55,7 +57,6 @@ export class GeoServerClient {
 				[transformedX, transformedY],
 				[longitude, latitude],
 			);
-
 			if (bufferResult) {
 				return {
 					found: true,
@@ -69,15 +70,13 @@ export class GeoServerClient {
 				buildingInformation: null,
 				floodZoneIndex,
 			};
-		} catch (_error) {
-			// Silent fail - return not found
+		} catch {
+			return {
+				found: false,
+				buildingInformation: null,
+				floodZoneIndex: null,
+			};
 		}
-
-		return {
-			found: false,
-			buildingInformation: null,
-			floodZoneIndex: null,
-		};
 	}
 
 	async getFloodZoneIndex(
@@ -85,27 +84,22 @@ export class GeoServerClient {
 		transformedY: number,
 	): Promise<number | null> {
 		try {
-			// Create bounding box around the point (100m x 100m)
-			const bufferSize = 50; // 50 meters in each direction
-			const minX = transformedX - bufferSize;
-			const minY = transformedY - bufferSize;
-			const maxX = transformedX + bufferSize;
-			const maxY = transformedY + bufferSize;
+			const bufferSize = 50;
+			const bbox = [
+				transformedX - bufferSize,
+				transformedY - bufferSize,
+				transformedX + bufferSize,
+				transformedY + bufferSize,
+			].join(",");
 
 			const wmsUrl = new URL(`${this.baseUrl}/wms`);
 			wmsUrl.searchParams.set("SERVICE", "WMS");
 			wmsUrl.searchParams.set("VERSION", "1.1.1");
 			wmsUrl.searchParams.set("REQUEST", "GetFeatureInfo");
-			wmsUrl.searchParams.set(
-				"LAYERS",
-				`${this.workspace}:HW_Gefaehrdung_clip_`,
-			);
-			wmsUrl.searchParams.set(
-				"QUERY_LAYERS",
-				`${this.workspace}:HW_Gefaehrdung_clip_`,
-			);
+			wmsUrl.searchParams.set("LAYERS", this.floodLayer);
+			wmsUrl.searchParams.set("QUERY_LAYERS", this.floodLayer);
 			wmsUrl.searchParams.set("SRS", "EPSG:25833");
-			wmsUrl.searchParams.set("BBOX", `${minX},${minY},${maxX},${maxY}`);
+			wmsUrl.searchParams.set("BBOX", bbox);
 			wmsUrl.searchParams.set("WIDTH", "256");
 			wmsUrl.searchParams.set("HEIGHT", "256");
 			wmsUrl.searchParams.set("X", "128");
@@ -118,15 +112,13 @@ export class GeoServerClient {
 			}
 
 			const data = await response.json();
-			if (!data.features || data.features.length === 0) {
+			if (!data.features?.length) {
 				return null;
 			}
 
-			const feature = data.features[0];
-			const grayIndex = feature.properties?.GRAY_INDEX;
-
+			const grayIndex = data.features[0].properties?.GRAY_INDEX;
 			return typeof grayIndex === "number" ? grayIndex : null;
-		} catch (_error) {
+		} catch {
 			return null;
 		}
 	}
@@ -206,7 +198,7 @@ export class GeoServerClient {
 		url.searchParams.set("service", "wfs");
 		url.searchParams.set("version", "1.1.0");
 		url.searchParams.set("request", "GetFeature");
-		url.searchParams.set("typeName", this.layer);
+		url.searchParams.set("typeName", this.buildingLayer);
 		url.searchParams.set("outputFormat", "application/json");
 		url.searchParams.set("SRSNAME", "EPSG:25833");
 		return url;

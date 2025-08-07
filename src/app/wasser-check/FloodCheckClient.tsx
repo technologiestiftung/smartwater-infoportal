@@ -18,7 +18,9 @@ export default function FloodCheckClient() {
 	const router = useRouter();
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const setLocationData = useStore((state) => state.setLocationData);
-	const setLoadingLocationData = useStore((state) => state.setLoadingLocationData);
+	const setLoadingLocationData = useStore(
+		(state) => state.setLoadingLocationData,
+	);
 
 	const checkHazard = async () => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {

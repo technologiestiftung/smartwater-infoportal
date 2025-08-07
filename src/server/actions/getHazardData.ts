@@ -1,20 +1,23 @@
 "use server";
 
 import { GeoServerClient } from "../../lib/geoserverClient";
+import type { LocationData } from "../../lib/types";
 
-const geoServer = new GeoServerClient();
+const geoServerClient = new GeoServerClient();
 
-export async function getHazardData(longitude: number, latitude: number) {
+export async function getHazardData(
+	longitude: number,
+	latitude: number,
+): Promise<LocationData> {
 	try {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const result: any | null = await geoServer.findBuildingAtPoint(
+		const result = await geoServerClient.findBuildingAtPoint(
 			longitude,
 			latitude,
 		);
-		if (result && result.found) {
+		if (result.found && result.buildingInformation) {
 			const building = result.buildingInformation;
 			return {
-				building: building,
+				building,
 				maxGefährdung: Math.max(
 					building.starkregenGefährdung || 0,
 					building.hochwasserGefährdung || 0,
@@ -29,7 +32,7 @@ export async function getHazardData(longitude: number, latitude: number) {
 			building: null,
 			maxGefährdung: 0,
 			found: false,
-			floodZoneIndex: result?.floodZoneIndex || null,
+			floodZoneIndex: result.floodZoneIndex,
 		};
 	} catch {
 		return {
