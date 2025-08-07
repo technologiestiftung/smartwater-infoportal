@@ -15,10 +15,10 @@ const InterimResults: React.FC = () => {
 	const getHazardEntities = () => {
 		if (!locationData || !locationData.found || !locationData.building) {
 			return [
-				{ name: "heavyRain", hazardLevel: "none" as HazardLevel },
+				{ name: "heavyRain", hazardLevel: "low" as HazardLevel },
 				{
 					name: "fluvialFlood",
-					hazardLevel: "none" as HazardLevel,
+					hazardLevel: "low" as HazardLevel,
 					showSubLabel: true,
 					subHazardLevel: "no",
 				},
@@ -59,7 +59,7 @@ const InterimResults: React.FC = () => {
 						<ResultBlock
 							key={entity.name}
 							entity={entity.name}
-							harzardLevel={entity.hazardLevel}
+							hazardLevel={entity.hazardLevel}
 							showSubLabel={entity.showSubLabel || false}
 							subHazardLevel={entity.subHazardLevel}
 						/>

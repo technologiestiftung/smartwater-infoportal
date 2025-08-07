@@ -18,9 +18,13 @@ jest.mock("../../../src/lib/geoserverClient", () => {
 });
 
 // Import the mock functions
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockFindBuildingAtPoint = (mockModule as any).__mockFindBuildingAtPoint;
+type MockGeoServerClientModule = {
+	__mockFindBuildingAtPoint: jest.Mock;
+	__mockTestConnection: jest.Mock;
+};
 
+const { __mockFindBuildingAtPoint: mockFindBuildingAtPoint } =
+	mockModule as unknown as MockGeoServerClientModule;
 describe("getHazardData", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -110,10 +114,10 @@ describe("getHazardData", () => {
 
 		it("should return zero values when no buildings found", async () => {
 			// Arrange
-			mockFindBuildingAtPoint.mockResolvedValue({ 
-				found: false, 
+			mockFindBuildingAtPoint.mockResolvedValue({
+				found: false,
 				buildingInformation: null,
-				floodZoneIndex: 3 
+				floodZoneIndex: 3,
 			});
 
 			// Act
