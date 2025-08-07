@@ -15,6 +15,7 @@ import IframeComponent from "./IFrameComponent";
 import { useRouter } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
+import ResultBlock from "./ResultBlock";
 import useStore from "../store/defaultStore";
 import { RiskLevel } from "@/lib/types";
 
@@ -22,9 +23,20 @@ const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const { floodRiskResult } = useStore();
+	const getHazardEntities = useStore((state) => state.getHazardEntities);
 
-	const filters = ["Starkregen", "Flusshochwasser"];
-	const subFilters = ["Selten", "Außergewöhnlich", "Extrem"];
+	const hazardEntities = getHazardEntities();
+
+	// Define filter keys for translation
+	const filterKeys = [
+		{ key: "heavyRain", translationKey: "hazardDisplay.heavyRainTab" },
+		{ key: "fluvialFlood", translationKey: "hazardDisplay.fluvialFloodTab" },
+	];
+	const subFilterKeys = [
+		{ key: "rare", translationKey: "hazardDisplay.frequency.rare" },
+		{ key: "uncommon", translationKey: "hazardDisplay.frequency.uncommon" },
+		{ key: "extreme", translationKey: "hazardDisplay.frequency.extreme" },
+	];
 	const accordion = [
 		{
 			title: t("hazardInfo.calculation"),
@@ -53,11 +65,9 @@ const Results: React.FC = () => {
 		"protectionTips.traffic.tip4",
 		"protectionTips.traffic.tip5",
 	];
-	const [activeFilters, setActiveFilters] = useState<string[]>([]);
+	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
 	const handleFilterToggle = (value: string) => {
-		setActiveFilters((prev) =>
-			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
-		);
+		setActiveFilter(value);
 	};
 	const [activeSubFilters, setActiveSubFilters] = useState<string[]>([]);
 	const handleSubFilterToggle = (value: string) => {
@@ -65,8 +75,14 @@ const Results: React.FC = () => {
 			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
 		);
 	};
-	const convertStringToID = (str: string) => {
-		return str.replace(/\s+/g, "-").toLowerCase();
+	// Filter hazard entities based on active filter
+	const getFilteredHazardEntities = () => {
+		if (!hazardEntities) {
+			return null;
+		}
+
+		// Filter entities based on the single active filter
+		return hazardEntities.filter((entity) => entity.name === activeFilter);
 	};
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
@@ -91,19 +107,19 @@ const Results: React.FC = () => {
 						<FilterPillGroup
 							size="xl"
 							showIcon={false}
-							activeValues={activeFilters}
+							activeValues={[activeFilter]}
 							onValueToggle={handleFilterToggle}
 						>
-							{filters.map((filter) => (
+							{filterKeys.map((filter) => (
 								<Pill
 									variant="filter-outline"
 									size="xl"
 									showIcon={false}
-									value={convertStringToID(filter)}
-									key={convertStringToID(filter)}
+									value={filter.key}
+									key={filter.key}
 									className="capitalize"
 								>
-									{convertStringToID(filter)}
+									{t(filter.translationKey)}
 								</Pill>
 							))}
 						</FilterPillGroup>
@@ -113,14 +129,14 @@ const Results: React.FC = () => {
 							activeValues={activeSubFilters}
 							onValueToggle={handleSubFilterToggle}
 						>
-							{subFilters.map((subFilter) => (
+							{subFilterKeys.map((subFilter) => (
 								<Pill
 									variant="filter"
-									value={convertStringToID(subFilter)}
-									key={convertStringToID(subFilter)}
+									value={subFilter.key}
+									key={subFilter.key}
 									className="capitalize"
 								>
-									{convertStringToID(subFilter)}
+									{t(subFilter.translationKey)}
 								</Pill>
 							))}
 						</FilterPillGroup>
@@ -137,12 +153,28 @@ const Results: React.FC = () => {
 						</p>
 					}
 					slotB={
-						<div id="starkregen-widget">
-							<Image
-								className="w-full"
-								src="/placeholder-images/Widget Starkregen.jpg"
-								alt="Widget Starkregen"
-							/>
+						<div>
+							{(() => {
+								const filteredEntities = getFilteredHazardEntities();
+
+								if (filteredEntities && filteredEntities.length > 0) {
+									return (
+										<div className="">
+											{filteredEntities.map((entity) => (
+												<ResultBlock
+													key={entity.name}
+													entity={entity.name}
+													hazardLevel={entity.hazardLevel}
+													showSubLabel={entity.showSubLabel || false}
+													subHazardLevel={entity.subHazardLevel}
+												/>
+											))}
+										</div>
+									);
+								}
+
+								return <p className="">{t("noHazardData")}</p>;
+							})()}
 						</div>
 					}
 				/>
@@ -202,10 +234,12 @@ const Results: React.FC = () => {
 								<h3 className="">
 									{t("floodCheckfloodCheck.buildingRisk.title")}
 								</h3>
-								<p className="">{floodRiskResult.message}</p>
+								<p className="">
+									{t(`floodCheck.buildingRisk.${floodRiskResult.riskLevel}`)}
+								</p>
 								<div className="mt-4">
 									<p className="text-sm text-gray-600">
-										<strong>Score:</strong> {floodRiskResult.score}
+										<strong>Score:</strong> {floodRiskResult.totalScore}
 									</p>
 									<p className="text-sm text-gray-600">
 										<strong>Risk Level:</strong> {floodRiskResult.riskLevel}

@@ -5,66 +5,127 @@ import {
 	FloodRiskResult,
 	LocationData,
 } from "@/lib/types";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
+import {
+	prePopulateFromLocationData,
+	calculateFloodRiskScore,
+	getNextWorkflowStep,
+	getWorkflowRoute,
+	calculateQuestionScore,
+} from "@/utils/floodRiskCalculator";
+import riskConfig from "@/config/floodRiskConfig.json";
+import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
 
 type StoreState = {
+	// Core data
 	currentUserAddress: AddressResult | null;
-	currentfloodCheckState: string | null;
+	locationData: LocationData | null;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
-	locationData: LocationData | null;
 	isLoadingLocationData: boolean;
 
+	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
 	resetCurrentUserAddress: () => void;
-	setFloodRiskAnswers: (answers: FloodRiskAnswers) => void;
+	setLocationData: (data: LocationData) => void;
+	resetLocationData: () => void;
+	setLoadingLocationData: (loading: boolean) => void;
 	updateFloodRiskAnswer: (
 		questionId: string,
 		answer: string | string[] | number,
 	) => void;
-	setFloodRiskResult: (result: FloodRiskResult) => void;
-	resetFloodRiskData: () => void;
-	setLocationData: (data: LocationData) => void;
-	resetLocationData: () => void;
-	setLoadingLocationData: (loading: boolean) => void;
+	calculateAndSetResult: () => void;
+	resetAll: () => void;
+	getNextStep: (currentPath: string) => string;
+
+	// Selectors
+	getHazardEntities: () => HazardEntity[] | null;
 };
 
 const useStore = create<StoreState>()(
 	devtools(
-		(set) => ({
-			currentUserAddress: null,
-			currentfloodCheckState: null,
-			floodRiskAnswers: {},
-			floodRiskResult: null,
+		persist(
+			(set, get) => ({
+				// Initial state
+				currentUserAddress: null,
+				locationData: null,
+				floodRiskAnswers: {},
+				floodRiskResult: null,
+				isLoadingLocationData: false,
 
-			locationData: null,
-			isLoadingLocationData: false,
-			setCurrentUserAddress: (address: AddressResult) =>
-				set({ currentUserAddress: address }),
-			resetCurrentUserAddress: () => set({ currentUserAddress: null }),
-			setFloodRiskAnswers: (answers: FloodRiskAnswers) =>
-				set({ floodRiskAnswers: answers }),
-			updateFloodRiskAnswer: (
-				questionId: string,
-				answer: string | string[] | number,
-			) =>
-				set((state) => ({
-					floodRiskAnswers: {
-						...state.floodRiskAnswers,
-						[questionId]: answer,
-					},
-				})),
-			setFloodRiskResult: (result: FloodRiskResult) =>
-				set({ floodRiskResult: result }),
-			resetFloodRiskData: () =>
-				set({ floodRiskAnswers: {}, floodRiskResult: null }),
-			setLocationData: (data) => set({ locationData: data }),
-			resetLocationData: () => set({ locationData: null }),
-			setLoadingLocationData: (loading) =>
-				set({ isLoadingLocationData: loading }),
-		}),
+				setCurrentUserAddress: (address: AddressResult) =>
+					set({ currentUserAddress: address }),
+				resetCurrentUserAddress: () => set({ currentUserAddress: null }),
+
+				setLocationData: (data) =>
+					set((state) => ({
+						locationData: data,
+						floodRiskAnswers: {
+							...state.floodRiskAnswers,
+							...prePopulateFromLocationData(data),
+						},
+					})),
+				resetLocationData: () => set({ locationData: null }),
+				setLoadingLocationData: (loading) =>
+					set({ isLoadingLocationData: loading }),
+
+				updateFloodRiskAnswer: (
+					questionId: string,
+					answer: string | string[] | number,
+				) =>
+					set((state) => {
+						const questionConfig = riskConfig.questions.find(
+							(q) => q.id === questionId,
+						);
+						return {
+							floodRiskAnswers: {
+								...state.floodRiskAnswers,
+								[questionId]: {
+									value: answer,
+									score: calculateQuestionScore(questionId, answer),
+									weight: questionConfig?.weight || 1,
+								},
+							},
+						};
+					}),
+
+				calculateAndSetResult: () => {
+					const state = get();
+					const result = calculateFloodRiskScore(state.floodRiskAnswers);
+					set({ floodRiskResult: result });
+				},
+
+				getNextStep: (currentPath: string) => {
+					const state = get();
+					const nextStep = getNextWorkflowStep(
+						state.locationData,
+						state.floodRiskAnswers,
+						currentPath,
+					);
+					return getWorkflowRoute(nextStep);
+				},
+
+				resetAll: () =>
+					set({
+						currentUserAddress: null,
+						locationData: null,
+						floodRiskAnswers: {},
+						floodRiskResult: null,
+						isLoadingLocationData: false,
+					}),
+
+				// Selectors
+				getHazardEntities: (): HazardEntity[] | null => {
+					const state = get();
+					return getHazardEntities(state.locationData);
+				},
+			}),
+			{
+				name: "flood-risk-store",
+			},
+		),
 		{
-			name: "flood-risk-store",
+			name: "flood-risk-store-devtools",
 		},
 	),
 );

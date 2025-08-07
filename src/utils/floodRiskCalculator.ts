@@ -1,189 +1,177 @@
-import { FloodRiskAnswers, FloodRiskResult } from "../store/defaultStore";
+import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
+import riskConfig from "@/config/floodRiskConfig.json";
 
-export interface RiskMessages {
-	insufficientData: string;
-	riskLevels: {
-		low: string;
-		moderate: string;
-		high: string;
-	};
-}
-
-const SCORING_WEIGHTS = {
-	q1: 2,
-	q2: 3,
-	q3: 5,
-	q4: 4,
-	q5: 4,
-	q6: 5,
-	qA: 3,
-	qB: 3,
-	qC: 3,
-};
-
-const SCORING_VALUES = {
-	q1: {
-		yesWithWindow: -2,
-		yesWithoutWindow: -1,
-		no: 2,
-		noInformation: 0,
-	},
-	q2: {
-		living: -3,
-		utility: -2,
-		storageLowValue: -1,
-		storageHighValue: -2,
-		none: 1,
-		noInformation: 0,
-	},
-	q3: {
-		one: -1,
-		two: -2,
-		threeOrMore: -3,
-		no: 2,
-		noInformation: 0,
-	},
-	q4: {
-		yesGood: 3,
-		yesUnknown: 1,
-		no: -1,
-		noInformation: 0,
-	},
-	q5: {
-		good: 3,
-		bad: -2,
-		unknown: -1,
-		noInformation: 0,
-	},
-	q6: {
-		one: 2,
-		twoOrMore: 3,
-		no: -1,
-		noInformation: 0,
-	},
-	qA: {
-		yes: -2,
-		no: 2,
-	},
-	qB: {
-		1: 1,
-		2: 0,
-		3: -1,
-		4: -2,
-	},
-	qC: {
-		1: 1,
-		2: 0,
-		3: -1,
-		4: -2,
-	},
-};
-
-export function calculateFloodRiskScore(
-	answers: FloodRiskAnswers,
-	messages: RiskMessages,
-): FloodRiskResult {
+export function calculateFloodRiskScore(answers: FloodRiskAnswers): FloodRiskResult {
 	let totalScore = 0;
-	let noInformationCount = 0;
+	let answeredCount = 0;
 
-	// Count "no information" answers for questions 1-6
-	const mainQuestions = ["q1", "q2", "q3", "q4", "q5", "q6"];
-	for (const questionId of mainQuestions) {
-		const answer = answers[questionId as keyof FloodRiskAnswers];
-		if (
-			answer === "noInformation" ||
-			(Array.isArray(answer) && answer.includes("noInformation"))
-		) {
-			noInformationCount++;
+	// Calculate score from stored answers
+	Object.entries(answers).forEach(([questionId, questionAnswer]) => {
+		if (questionAnswer?.score !== undefined) {
+			const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
+			const weight = questionConfig?.weight || 1;
+			totalScore += questionAnswer.score * weight;
+			answeredCount++;
 		}
-	}
+	});
 
-	// Check if more than 4 out of 6 questions answered with "no information"
-	if (noInformationCount > 4) {
+	// Check if we have enough data
+	if (answeredCount < riskConfig.minimumAnswersRequired) {
 		return {
-			score: 0,
+			totalScore: 0,
 			riskLevel: "insufficient-data",
-			message: messages.insufficientData,
 		};
 	}
 
-	// Calculate weighted score for each question
-	Object.entries(answers).forEach(([questionId, answer]) => {
-		const weight = SCORING_WEIGHTS[questionId as keyof typeof SCORING_WEIGHTS];
-		if (!weight || !answer) {
-			return;
-		}
+	// Determine risk level based on configurable score ranges
+	const { low, moderate, high } = riskConfig.riskThresholds;
 
-		let questionScore = 0;
-
-		if (questionId === "q2" && Array.isArray(answer)) {
-			// Q2 is multiple choice, sum all selected values
-			answer.forEach((option) => {
-				const optionScore =
-					SCORING_VALUES.q2[option as keyof typeof SCORING_VALUES.q2];
-				if (optionScore !== undefined) {
-					questionScore += optionScore;
-				}
-			});
-		} else if (questionId === "qB" || questionId === "qC") {
-			// qB and qC are numeric values (1-4)
-			const numericAnswer = Number(answer);
-			questionScore =
-				SCORING_VALUES[questionId as "qB" | "qC"][
-					numericAnswer as 1 | 2 | 3 | 4
-				] || 0;
-		} else {
-			// Single choice questions
-			const scoringTable =
-				SCORING_VALUES[questionId as keyof typeof SCORING_VALUES];
-			if (scoringTable && typeof scoringTable === "object") {
-				questionScore =
-					(scoringTable as Record<string, number>)[answer as string] || 0;
-			}
-		}
-
-		totalScore += questionScore * weight;
-	});
-
-	// Use total score directly (not weighted average)
-	const finalScore = totalScore;
-
-	// Determine risk level based on score ranges
 	let riskLevel: FloodRiskResult["riskLevel"];
-	let message: string;
 
-	// Risk levels based on total score ranges from the table
-	if (finalScore >= 28) {
+	if (totalScore >= low.min && totalScore <= low.max) {
 		riskLevel = "low";
-		message = messages.riskLevels.low;
-	} else if (finalScore >= 19) {
-		riskLevel = "moderate";
-		message = messages.riskLevels.moderate;
-	} else if (finalScore > -28) {
+	} else if (totalScore >= moderate.min && totalScore <= moderate.max) {
+		riskLevel = "moderate"; 
+	} else if (totalScore <= high.min) {
 		riskLevel = "high";
-		message = messages.riskLevels.high;
 	} else {
-		riskLevel = "insufficient-data";
-		message = messages.insufficientData;
+		// Fallback - shouldn't happen with proper ranges
+		riskLevel = "moderate";
 	}
 
 	return {
-		score: Math.round(finalScore * 100) / 100, // Round to 2 decimal places
+		totalScore,
 		riskLevel,
-		message,
 	};
 }
 
-export function validateAnswers(answers: FloodRiskAnswers): boolean {
-	const mainQuestions = ["q1", "q2", "q3", "q4", "q5", "q6"];
-	let answeredCount = 0;
+export function calculateQuestionScore(questionId: string, value: string | string[] | number): number {
+	// Find question config
+	const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
+	if (!questionConfig) {
+		return 0;
+	}
 
-	for (const questionId of mainQuestions) {
-		const answer = answers[questionId as keyof FloodRiskAnswers];
-		if (answer && answer !== "noInformation") {
-			answeredCount++;
+	let score = 0;
+
+	if (Array.isArray(value)) {
+		// Multiple choice - sum all scores
+		value.forEach((option) => {
+			const optionConfig = questionConfig.options.find((opt) => opt.value === option);
+			if (optionConfig) {
+				score += optionConfig.score;
+			}
+		});
+	} else {
+		// Single choice
+		const optionConfig = questionConfig.options.find((opt) => opt.value === value);
+		if (optionConfig) {
+			score = optionConfig.score;
 		}
 	}
 
-	return answeredCount >= 2; // At least 2 out of 6 questions must be answered
+	return score;
+}
+
+export function validateAnswers(answers: FloodRiskAnswers): boolean {
+	const answeredCount = Object.keys(answers).length;
+	return answeredCount >= riskConfig.minimumAnswersRequired;
+}
+
+export function prePopulateFromLocationData(locationData: LocationData | null): FloodRiskAnswers {
+	if (!locationData) {
+		return {};
+	}
+
+	// Get all auto-type questions from config
+	const autoQuestions = riskConfig.questions.filter((q) => q.type === "auto");
+	
+	// Helper function to get nested property value using dot notation
+	const getNestedValue = (obj: unknown, path: string): unknown => {
+		return path.split('.').reduce((current, key) => (current as Record<string, unknown>)?.[key], obj);
+	};
+
+	// Transform functions for special cases
+	const transforms: Record<string, (value: unknown) => unknown> = {
+		floodZoneBool: (value: number | null | undefined) => 
+			value && value > 0 ? "yes" : "no"
+	};
+
+	const answers: FloodRiskAnswers = {};
+
+	autoQuestions.forEach((question) => {
+		const questionAny = question as Record<string, unknown>; // Type assertion to access dataPath
+		if (!questionAny.dataPath) {
+			return;
+		}
+		
+		let value = getNestedValue(locationData, questionAny.dataPath as string);
+		
+		// Apply transform if specified
+		if (questionAny.transform && transforms[questionAny.transform as string]) {
+			value = transforms[questionAny.transform as string](value);
+		}
+		
+		if (value !== undefined) {
+			answers[question.id] = {
+				value: value as string | string[] | number,
+				score: calculateQuestionScore(question.id, value as string | string[] | number),
+				weight: question.weight || 1,
+			};
+		}
+	});
+
+	return answers;
+}
+
+// Workflow management
+export type WorkflowStep = "address" | "interim" | "questionnaire" | "results";
+
+export function getNextWorkflowStep(
+	locationData: LocationData | null,
+	answers: FloodRiskAnswers,
+	currentPath: string
+): WorkflowStep {
+	// No location data -> go to address search
+	if (!locationData) {
+		return "address";
+	}
+
+	// Have location data but on address page -> go to interim
+	if (currentPath.includes("wasser-check") && !currentPath.includes("#")) {
+		return "interim";
+	}
+
+	// Have location data, on interim -> check if questionnaire is needed
+	if (currentPath.includes("#interimResult")) {
+		const requiredQuestions = riskConfig.questions
+			.filter((q) => q.type !== "auto")
+			.map((q) => q.id);
+		const missingAnswers = requiredQuestions.some((q) => !answers[q]);
+		
+		if (missingAnswers) {
+			return "questionnaire";
+		}
+		return "results";
+	}
+
+	// On questionnaire -> check if complete
+	if (currentPath.includes("questionnaire")) {
+		if (validateAnswers(answers)) {
+			return "results";
+		}
+		return "questionnaire";
+	}
+
+	return "address";
+}
+
+export function getWorkflowRoute(step: WorkflowStep): string {
+	switch (step) {
+		case "address": return "/wasser-check";
+		case "interim": return "/wasser-check#interimResult";
+		case "questionnaire": return "/wasser-check/questionnaire";
+		case "results": return "/wasser-check/results";
+		default: return "/wasser-check";
+	}
 }
