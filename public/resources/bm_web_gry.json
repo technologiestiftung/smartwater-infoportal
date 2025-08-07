@@ -1,0 +1,2070 @@
+{
+	"version": 8,
+	"name": "bm_web_gry",
+	"metadata": {
+		"basemapde:style-version": "4.0.0",
+		"mapbox:autocomposite": false,
+		"mapbox:type": "template",
+		"maputnik:renderer": "mbgljs"
+	},
+	"center": [10, 51],
+	"zoom": 6,
+	"sources": {
+		"smarttiles_de": {
+			"type": "vector",
+			"attribution": "&copy; 2025 basemap.de / BKG | Datenquellen: &copy; GeoBasis-DE",
+			"url": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/tiles/v2/bm_web_de_3857/bm_web_de_3857.json"
+		}
+	},
+	"sprite": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/sprites/v2/bm_web_gry_sprite",
+	"glyphs": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/fonts/v2/{fontstack}/{range}.pbf",
+	"transition": {
+		"duration": 300,
+		"delay": 0
+	},
+	"layers": [
+		{
+			"id": "Hintergrund",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Hintergrund",
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(248, 246, 242, 1)",
+				"fill-opacity": 1
+			}
+		},
+		{
+			"id": "SiedlungF_SportFreizeitundErholung",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Siedlungsflaeche",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"in",
+				"klasse",
+				"Autokino, Freilichtkino",
+				"Botanischer Garten",
+				"Campingplatz",
+				"Erholungsfläche",
+				"Freilichtmuseum",
+				"Freilichtbühne",
+				"Freizeitanlage",
+				"Freizeitpark",
+				"Garten",
+				"Gelände für Luftsportgeräte",
+				"Go-Kart-Bahn",
+				"Golf",
+				"Grünanlage",
+				"Hundeübungsplatz",
+				"Kletteranlage",
+				"Reitsport",
+				"Kleingarten",
+				"Modellfluggelände",
+				"Park",
+				"Safaripark, Wildpark",
+				"Schwimmen",
+				"Sportanlage",
+				"Sport- Freizeit- und Erholungsfläche",
+				"Wochenend- und Ferienhausfläche",
+				"Zoo",
+				"Siedlungsgrünfläche",
+				"Spielplatz, Bolzplatz",
+				"Tennis",
+				"Verkehrsübungsplatz, Testgelände, Fahrsicherheit",
+				"Wochenendplatz"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(220, 224, 220, 1)",
+				"fill-opacity": 1,
+				"fill-outline-color": "rgba(183, 180, 180, 0)"
+			}
+		},
+		{
+			"id": "SiedlungF_Friedhof",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Siedlungsflaeche",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": ["in", "klasse", "Friedhof", "Parkfriedhof"],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(220, 224, 220, 1)",
+				"fill-opacity": 1
+			}
+		},
+		{
+			"id": "SiedlungF_Siedlung_Industrie",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Siedlungsflaeche",
+			"minzoom": 9,
+			"maxzoom": 22,
+			"filter": [
+				"in",
+				"klasse",
+				"Bildung und Wissenschaft",
+				"Wohnbaufläche",
+				"Fläche besonderer funktionaler Prägung",
+				"Gesundheit, Kur",
+				"Kultur",
+				"Medien und Kommunikation",
+				"Regierung und Verwaltung",
+				"Religiöse Einrichtung",
+				"Sicherheit und Ordnung",
+				"Soziales",
+				"Öffentliche Zwecke",
+				"Fläche gemischter Nutzung",
+				"Gebäude- und Freifläche Land- und Forstwirtschaft",
+				"Landwirtschaftliche Betriebsfläche",
+				"Landwirtschaftliche Betriebsfläche für Tierhaltung",
+				"Landwirtschaftliche Betriebsfläche für pflanzliche Produktion",
+				"Landwirtschaftliche Betriebsfläche für Tierhaltung und pflanzliche Produktion",
+				"Wohnen",
+				"Wohnen und Betrieb",
+				"Abfallbehandlungsanlage",
+				"Ausstellung, Messe",
+				"Beherbergung",
+				"Deponie (oberirdisch)",
+				"Deponie (untertägig)",
+				"Entsorgung",
+				"Förderanlage",
+				"Gärtnerei",
+				"Handel",
+				"Handel und Dienstleistung",
+				"Heizwerk",
+				"Industrie und Gewerbe",
+				"Kläranlage, Klärwerk",
+				"Kraftwerk",
+				"Raffinerie",
+				"Umspannstation",
+				"Versorgungsanlage",
+				"Wasserwerk",
+				"Werft",
+				"Forschung und Entwicklung",
+				"Funk- und Fernmeldeanlage",
+				"Gaswerk",
+				"Lagerfläche",
+				"Logistik und Transport",
+				"Maschinenbau",
+				"Tankstelle",
+				"Technik, Elektrik, Elektronik",
+				"Vergnügung",
+				"Freie Berufe und weitere Dienstleistungen",
+				"Bank, Kredit",
+				"Versicherung",
+				"Restauration",
+				"Handwerk",
+				"Produktion",
+				"Betriebliche Sozialeinrichtung",
+				"Grundstoff",
+				"Nahrungs-, Futter-, Genussmittel",
+				"Textil, Bekleidung, Lederwaren",
+				"Holz-, Naturfaser-, Verpackungsprodukte",
+				"Print-, Audio-, Videoprodukte",
+				"Mineralölverarbeitung, Kokerei",
+				"Chemie-, Pharma-, Kunststoffprodukte",
+				"Mineralische Bau- und Werkstoffe",
+				"Metallerzeugung und -verarbeitung",
+				"Fahrzeugbau",
+				"Möbel und sonstige Konsumgüter",
+				"Siedlungsfläche"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": {
+					"stops": [
+						[9, "rgba(248, 246, 242, 1)"],
+						[13, "rgba(248, 246, 242, 1)"]
+					]
+				},
+				"fill-opacity": 1,
+				"fill-outline-color": "rgba(248, 246, 242, 1)"
+			}
+		},
+		{
+			"id": "SiedlungF_Siedlung",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Siedlungsflaeche",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": [
+				"in",
+				"klasse",
+				"Bildung und Wissenschaft",
+				"Wohnbaufläche",
+				"Fläche besonderer funktionaler Prägung",
+				"Gesundheit, Kur",
+				"Kultur",
+				"Medien und Kommunikation",
+				"Regierung und Verwaltung",
+				"Religiöse Einrichtung",
+				"Sicherheit und Ordnung",
+				"Soziales",
+				"Öffentliche Zwecke",
+				"Fläche gemischter Nutzung",
+				"Gebäude- und Freifläche Land- und Forstwirtschaft",
+				"Wohnen",
+				"Wohnen und Betrieb"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(248, 246, 242, 1)",
+				"fill-opacity": 1,
+				"fill-outline-color": "rgba(185, 184, 181, 1)"
+			}
+		},
+		{
+			"id": "VegetationsF_Gruenland",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Vegetationsflaeche",
+			"minzoom": 11,
+			"maxzoom": 24,
+			"filter": [
+				"in",
+				"klasse",
+				"Grünland",
+				"Streuobstwiese",
+				"Streuobst",
+				"Gras"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(230, 233, 229, 1)",
+				"fill-opacity": 0.3
+			}
+		},
+		{
+			"id": "VegetationsF_Gehoelz",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Vegetationsflaeche",
+			"minzoom": 11,
+			"maxzoom": 24,
+			"filter": ["in", "klasse", "Gehölz", "Bewuchs, Gehölz", "Gebüsch"],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": {
+					"stops": [
+						[11, "rgba(248, 246, 242, 1)"],
+						[22, "rgba(230, 233, 229, 1)"]
+					]
+				},
+				"fill-opacity": 1
+			}
+		},
+		{
+			"id": "VegetationsF_Wald",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Vegetationsflaeche",
+			"minzoom": 6,
+			"maxzoom": 24,
+			"filter": [
+				"in",
+				"klasse",
+				"Laubholz",
+				"Laub- und Nadelholz",
+				"Nadelholz",
+				"Wald",
+				"Baumbestand, Laub- und Nadelholz",
+				"Baumbestand, Laubholz",
+				"Baumbestand, Nadelholz"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": {
+					"stops": [
+						[6, "rgba(220, 224, 220, 1)"],
+						[12, "rgba(220, 224, 220, 1)"]
+					]
+				},
+				"fill-opacity": {
+					"stops": [
+						[6, 0.3],
+						[8, 1]
+					]
+				}
+			}
+		},
+		{
+			"id": "Gewaesser_L_Breite_6m",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserlinie",
+			"minzoom": 9,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "breite", 6],
+				["!=", "klasse", "Sickerstrecke"],
+				["!has", "merkmal"],
+				["!in", "bauwerk", "Durchlass", "Rohrdurchlass", "Düker"]
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"line-color": "rgba(194, 200, 202, 1)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[9, 0.5],
+						[10, 1],
+						[11, 1.5],
+						[16, 3],
+						[22, 7]
+					]
+				}
+			}
+		},
+		{
+			"id": "Gewaesser_L_Breite_30m",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserlinie",
+			"minzoom": 9,
+			"maxzoom": 11,
+			"filter": [
+				"all",
+				["==", "breite", 30],
+				["!=", "klasse", "Sickerstrecke"],
+				["!has", "merkmal"],
+				["!in", "bauwerk", "Durchlass", "Rohrdurchlass", "Düker"]
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"line-color": "rgba(194, 200, 202, 1)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[9, 2],
+						[10, 2.5],
+						[11, 3]
+					]
+				}
+			}
+		},
+		{
+			"id": "Gewaesser_L_Breite_200m",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserlinie",
+			"minzoom": 6,
+			"maxzoom": 9,
+			"filter": [
+				"all",
+				["==", "breite", 200],
+				["!=", "klasse", "Sickerstrecke"],
+				["!has", "merkmal"],
+				["!in", "bauwerk", "Durchlass", "Rohrdurchlass", "Düker"]
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"line-color": "rgba(194, 200, 202, 1)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[6, 1],
+						[7, 1.5],
+						[8, 2],
+						[9, 3]
+					]
+				}
+			}
+		},
+		{
+			"id": "Gewaesser_F_Fliessgewaesser",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserflaeche",
+			"minzoom": 0,
+			"maxzoom": 22,
+			"filter": [
+				"in",
+				"klasse",
+				"Fliessgewässer",
+				"Kanal",
+				"Flussmündungstrichter"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(194, 200, 202, 1)",
+				"fill-opacity": 1
+			}
+		},
+		{
+			"id": "Gewaesser_F_See_Hafenbecken",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserflaeche",
+			"minzoom": 0,
+			"maxzoom": 22,
+			"filter": [
+				"in",
+				"klasse",
+				"See",
+				"Hafenbecken",
+				"Baggersee",
+				"Stausee",
+				"Speicherbecken"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(194, 200, 202, 1)",
+				"fill-opacity": 1
+			}
+		},
+		{
+			"id": "Gebaeude2D_nicht_oeffentlich",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Gebaeudeflaeche",
+			"minzoom": 14,
+			"maxzoom": 22,
+			"filter": [
+				"!in",
+				"klasse",
+				"Kino",
+				"Verwaltungsgebäude",
+				"Parlament",
+				"Rathaus",
+				"Gericht",
+				"Kreisverwaltung",
+				"Bezirksregierung",
+				"Allgemein bildende Schule",
+				"Berufsbildende Schule",
+				"Hochschulgebäude (Fachhochschule, Universität)",
+				"Forschungsinstitut",
+				"Schloss",
+				"Theater, Oper",
+				"Konzertgebäude",
+				"Museum",
+				"Rundfunk, Fernsehen",
+				"Burg, Festung",
+				"Kirche",
+				"Synagoge",
+				"Kapelle",
+				"Gotteshaus",
+				"Moschee",
+				"Tempel",
+				"Krankenhaus",
+				"Polizei",
+				"Feuerwehr",
+				"Sport-, Turnhalle",
+				"Hallenbad",
+				"Sanatorium"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(226, 223, 219, 1)",
+				"fill-opacity": 1
+			}
+		},
+		{
+			"id": "Gebaeude2D_oeffentlich",
+			"type": "fill",
+			"source": "smarttiles_de",
+			"source-layer": "Gebaeudeflaeche",
+			"minzoom": 14,
+			"maxzoom": 22,
+			"filter": [
+				"in",
+				"klasse",
+				"Kino",
+				"Verwaltungsgebäude",
+				"Parlament",
+				"Rathaus",
+				"Gericht",
+				"Kreisverwaltung",
+				"Bezirksregierung",
+				"Allgemein bildende Schule",
+				"Berufsbildende Schule",
+				"Hochschulgebäude (Fachhochschule, Universität)",
+				"Forschungsinstitut",
+				"Schloss",
+				"Theater, Oper",
+				"Konzertgebäude",
+				"Museum",
+				"Rundfunk, Fernsehen",
+				"Burg, Festung",
+				"Kirche",
+				"Synagoge",
+				"Kapelle",
+				"Gotteshaus",
+				"Moschee",
+				"Tempel",
+				"Krankenhaus",
+				"Polizei",
+				"Feuerwehr",
+				"Sport-, Turnhalle",
+				"Hallenbad",
+				"Sanatorium"
+			],
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "rgba(234, 234, 229, 1)",
+				"fill-opacity": 1,
+				"fill-outline-color": "rgba(0, 0, 0, 0)"
+			}
+		},
+		{
+			"id": "Decker_Fussgaengerzone_Gemeindestr_Sonstige_Str",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				[
+					"in",
+					"klasse",
+					"Gemeindestraße",
+					"Nicht öffentliche Straße",
+					"Sonstige öffentliche Straße"
+				],
+				["!has", "fahrbahn"],
+				["!has", "bauwerk"],
+				["==", "funktion", "Fußgängerzone"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "square"
+			},
+			"paint": {
+				"line-color": "rgb(238,238,238)",
+				"line-opacity": {
+					"stops": [
+						[12, 0.5],
+						[13, 1]
+					]
+				},
+				"line-width": {
+					"stops": [
+						[12, 0.8],
+						[13, 2],
+						[14, 3],
+						[16, 6],
+						[20, 18]
+					]
+				}
+			}
+		},
+		{
+			"id": "Decker_Gemeindestr_Sonstige_Str",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 12,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				[
+					"in",
+					"klasse",
+					"Gemeindestraße",
+					"Nicht öffentliche Straße",
+					"Sonstige öffentliche Straße"
+				],
+				["!has", "fahrbahn"],
+				["!has", "bauwerk"],
+				["!has", "funktion"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(255,255,255)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[10, 2],
+						[11, 2],
+						[12, 1.7],
+						[13, 2],
+						[14, 3],
+						[16, 6],
+						[20, 18]
+					]
+				}
+			}
+		},
+		{
+			"id": "Decker_Kreisstr",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Kreisstraße"],
+				["!has", "fahrbahn"],
+				["!has", "bauwerk"],
+				["!=", "anzahl", "1"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(255,255,255)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[10, 2],
+						[11, 2],
+						[12, 1.7],
+						[13, 3],
+						[14, 5],
+						[16, 8],
+						[20, 20]
+					]
+				}
+			}
+		},
+		{
+			"id": "Decker_Landesstr_Staatsstr",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Landesstraße, Staatsstraße"],
+				["!has", "fahrbahn"],
+				["!has", "bauwerk"],
+				["!=", "anzahl", "1"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(255,255,255)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 1.2],
+						[12, 1.5],
+						[13, 3],
+						[14, 5],
+						[16, 8],
+						[20, 20]
+					]
+				}
+			}
+		},
+		{
+			"id": "Decker_Bundesstr",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Bundesstraße"],
+				["!has", "fahrbahn"],
+				["!has", "bauwerk"],
+				["!=", "anzahl", "1"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgba(255, 255, 255, 1)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 1.5],
+						[12, 1.5],
+						[13, 2.5],
+						[14, 4.5],
+						[16, 8.5],
+						[20, 20.5]
+					]
+				}
+			}
+		},
+		{
+			"id": "Decker_Autobahn_getrennt",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 14,
+			"filter": [
+				"all",
+				["==", "klasse", "Bundesautobahn"],
+				["==", "fahrbahn", "Getrennt"],
+				["!has", "bauwerk"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(229,229,229)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 2.5],
+						[12, 5.5],
+						[13, 7.5]
+					]
+				}
+			}
+		},
+		{
+			"id": "Bruecke_Gemeindestr_Sonstige_Str_Decker",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 12,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				[
+					"in",
+					"klasse",
+					"Gemeindestraße",
+					"Nicht öffentliche Straße",
+					"Sonstige öffentliche Straße"
+				],
+				["!has", "fahrbahn"],
+				[
+					"in",
+					"bauwerk",
+					"Brücke",
+					"Drehbrücke",
+					"Hebebrücke",
+					"Bogenbrücke",
+					"Fachwerkbrücke",
+					"Hochbahn, Hochstraße",
+					"Hängebrücke",
+					"Mehrstöckige Brücke",
+					"Pontonbrücke",
+					"Zugbrücke",
+					"Staudamm",
+					"Staumauer",
+					"Sperrwerk"
+				],
+				["!has", "funktion"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(255,255,255)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 1.2],
+						[12, 1.5],
+						[13, 2],
+						[14, 3],
+						[16, 6],
+						[20, 18]
+					]
+				}
+			}
+		},
+		{
+			"id": "Bruecke_Kreisstr_Decker",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 9,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Kreisstraße"],
+				["!has", "fahrbahn"],
+				[
+					"in",
+					"bauwerk",
+					"Brücke",
+					"Drehbrücke",
+					"Hebebrücke",
+					"Bogenbrücke",
+					"Fachwerkbrücke",
+					"Hochbahn, Hochstraße",
+					"Hängebrücke",
+					"Mehrstöckige Brücke",
+					"Pontonbrücke",
+					"Zugbrücke",
+					"Staudamm",
+					"Staumauer",
+					"Sperrwerk"
+				],
+				["!=", "anzahl", "1"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(255,255,255)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 1.2],
+						[12, 1.5],
+						[13, 3],
+						[14, 5],
+						[16, 8],
+						[20, 20]
+					]
+				}
+			}
+		},
+		{
+			"id": "Bruecke_Landesstr_Staatsstr_Decker",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Landesstraße, Staatsstraße"],
+				["!has", "fahrbahn"],
+				[
+					"in",
+					"bauwerk",
+					"Brücke",
+					"Drehbrücke",
+					"Hebebrücke",
+					"Bogenbrücke",
+					"Fachwerkbrücke",
+					"Hochbahn, Hochstraße",
+					"Hängebrücke",
+					"Mehrstöckige Brücke",
+					"Pontonbrücke",
+					"Zugbrücke",
+					"Staudamm",
+					"Staumauer",
+					"Sperrwerk"
+				],
+				["!=", "anzahl", "1"],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(255,255,255)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 1.2],
+						[12, 1.5],
+						[13, 3],
+						[14, 5],
+						[16, 8],
+						[20, 20]
+					]
+				}
+			}
+		},
+		{
+			"id": "Bruecke_Bundesstr_Decker",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Bundesstraße"],
+				["!has", "fahrbahn"],
+				[
+					"in",
+					"bauwerk",
+					"Brücke",
+					"Drehbrücke",
+					"Hebebrücke",
+					"Bogenbrücke",
+					"Fachwerkbrücke",
+					"Hochbahn, Hochstraße",
+					"Hängebrücke",
+					"Mehrstöckige Brücke",
+					"Pontonbrücke",
+					"Zugbrücke",
+					"Staudamm",
+					"Staumauer",
+					"Sperrwerk"
+				],
+				["!=", "anzahl", "1"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "rgb(216,216,216)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[11, 1.2],
+						[12, 1.5],
+						[13, 3],
+						[14, 5],
+						[16, 8],
+						[20, 20]
+					]
+				}
+			}
+		},
+		{
+			"id": "Bruecke_Autobahn_getrennt_Decker",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 14,
+			"filter": [
+				"all",
+				["==", "klasse", "Bundesautobahn"],
+				["==", "fahrbahn", "Getrennt"],
+				[
+					"in",
+					"bauwerk",
+					"Brücke",
+					"Drehbrücke",
+					"Hebebrücke",
+					"Bogenbrücke",
+					"Fachwerkbrücke",
+					"Hochbahn, Hochstraße",
+					"Hängebrücke",
+					"Mehrstöckige Brücke",
+					"Pontonbrücke",
+					"Zugbrücke",
+					"Staudamm",
+					"Staumauer",
+					"Sperrwerk"
+				],
+				["!has", "zustand"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"line-cap": "butt"
+			},
+			"paint": {
+				"line-color": "rgba(255, 255, 255, 1)",
+				"line-opacity": 1,
+				"line-width": {
+					"stops": [
+						[10, 2.5],
+						[12, 5.5],
+						[13, 7.5],
+						[14, 10.5],
+						[20, 33.5]
+					]
+				}
+			}
+		},
+		{
+			"id": "Tunnel_Strasse",
+			"type": "line",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 14,
+			"filter": [
+				"all",
+				["==", "bauwerk", "Tunnel, Unterführung"],
+				[
+					"in",
+					"klasse",
+					"Bundesautobahn",
+					"Kreisstraße",
+					"Landesstraße, Staatsstraße",
+					"Bundesstraße",
+					"Gemeindestraße",
+					"Nicht öffentliche Straße",
+					"Sonstige öffentliche Straße"
+				]
+			],
+			"layout": {
+				"visibility": "none",
+				"line-cap": "butt"
+			},
+			"paint": {
+				"line-color": "rgb(51,51,51)",
+				"line-dasharray": {
+					"stops": [
+						[11, [4, 1]],
+						[14, [6, 2]],
+						[20, [10, 2]]
+					]
+				},
+				"line-opacity": {
+					"stops": [
+						[10, 0],
+						[13, 0.5]
+					]
+				},
+				"line-width": {
+					"stops": [
+						[10, 1],
+						[12, 2],
+						[13, 2],
+						[14, 2],
+						[20, 4]
+					]
+				}
+			}
+		},
+		{
+			"id": "Name_GewaesserF_See_gross",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserflaeche",
+			"minzoom": 9,
+			"maxzoom": 22,
+			"filter": ["all", ["==", "klasse", "See"], [">", "flaeche", 5000000]],
+			"layout": {
+				"visibility": "none",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Italic"],
+				"text-max-width": 5,
+				"text-offset": [0, 0],
+				"text-padding": {
+					"stops": [
+						[11, 2],
+						[12, 50],
+						[13, 230],
+						[14, 100],
+						[16, 200]
+					]
+				},
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[9, 12],
+						[13, 14],
+						[20, 16]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 1,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_GewaesserL",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Gewaesserlinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["!in", "bauwerk", "Durchlass", "Rohrdurchlass", "Düker"],
+				["in", "klasse", "Gewässerachse", "Kanal"]
+			],
+			"layout": {
+				"visibility": "none",
+				"symbol-placement": "line",
+				"symbol-spacing": 250,
+				"text-field": "{name}",
+				"text-anchor": "bottom",
+				"text-font": ["Noto Sans Italic"],
+				"text-max-angle": 30,
+				"text-offset": [0, 0],
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[11, 10],
+						[20, 14]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 1,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Nummer_Kreisstr",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 12,
+			"maxzoom": 22,
+			"filter": ["==", "klasse", "Kreisstraße"],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "line-center",
+				"symbol-spacing": {
+					"stops": [
+						[13, 350],
+						[15, 300]
+					]
+				},
+				"text-field": "{nummer}",
+				"text-allow-overlap": false,
+				"text-anchor": "bottom",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-justify": "auto",
+				"text-letter-spacing": 0.08,
+				"text-line-height": {
+					"base": 1,
+					"stops": [
+						[13, 1.8],
+						[15, 2.3]
+					]
+				},
+				"text-max-angle": 15,
+				"text-offset": [0, 0],
+				"text-padding": 0,
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[13, 9],
+						[14, 10]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Nummer_Landesstr",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": ["==", "klasse", "Landesstraße, Staatsstraße"],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "line-center",
+				"symbol-spacing": {
+					"stops": [
+						[13, 450],
+						[15, 300]
+					]
+				},
+				"text-field": "{nummer}",
+				"text-allow-overlap": false,
+				"text-anchor": "bottom",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-justify": "auto",
+				"text-letter-spacing": 0.08,
+				"text-line-height": {
+					"base": 1,
+					"stops": [
+						[13, 1.8],
+						[15, 2.3]
+					]
+				},
+				"text-max-angle": 15,
+				"text-offset": [0, 0],
+				"text-padding": 0,
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[13, 9],
+						[14, 10]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Nummer_Bundesstr",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 8,
+			"maxzoom": 22,
+			"filter": ["all", ["==", "klasse", "Bundesstraße"], ["!has", "zustand"]],
+			"layout": {
+				"visibility": "none",
+				"symbol-placement": "point",
+				"icon-image": "Bundesstrassennummer",
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.5],
+						[14, 0.8],
+						[20, 1]
+					]
+				},
+				"icon-text-fit": "none",
+				"icon-text-fit-padding": [10, 10, 10, 10],
+				"text-field": "{nummer}",
+				"text-allow-overlap": true,
+				"text-font": ["Noto Sans Regular"],
+				"text-offset": [0, 0],
+				"text-padding": {
+					"stops": [
+						[8, 100],
+						[10, 100],
+						[12, 150],
+						[16, 250],
+						[17, 250]
+					]
+				},
+				"text-size": {
+					"stops": [
+						[8, 9],
+						[10, 9],
+						[12, 9],
+						[14, 12]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)"
+			}
+		},
+		{
+			"id": "Nummer_Autobahn",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Bundesautobahn"],
+				["!has", "zustand"],
+				["!has", "bauwerk"]
+			],
+			"layout": {
+				"visibility": "none",
+				"symbol-placement": "point",
+				"symbol-spacing": 250,
+				"icon-image": "Autobahnnummer",
+				"icon-allow-overlap": false,
+				"icon-ignore-placement": false,
+				"icon-optional": false,
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.65],
+						[20, 1.2]
+					]
+				},
+				"icon-text-fit": "none",
+				"icon-text-fit-padding": [10, 10, 10, 10],
+				"text-field": "{nummer}",
+				"text-allow-overlap": true,
+				"text-font": ["Noto Sans Bold"],
+				"text-ignore-placement": false,
+				"text-max-angle": 45,
+				"text-offset": [0, 0],
+				"text-padding": {
+					"stops": [
+						[6, 50],
+						[10, 120],
+						[12, 150],
+						[16, 250]
+					]
+				},
+				"text-size": {
+					"stops": [
+						[6, 9],
+						[10, 8],
+						[12, 10],
+						[14, 13]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgb(255,255,255)",
+				"text-translate": [0, 0]
+			}
+		},
+		{
+			"id": "Hauskoordinate",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Adresse",
+			"minzoom": 17,
+			"maxzoom": 20,
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{hausnummer}",
+				"text-allow-overlap": false,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-justify": "center",
+				"text-keep-upright": true,
+				"text-line-height": 0.6,
+				"text-padding": 0,
+				"text-pitch-alignment": "viewport",
+				"text-rotate": 0,
+				"text-rotation-alignment": "viewport",
+				"text-size": {
+					"stops": [
+						[17, 11.5],
+						[19, 14]
+					]
+				}
+			},
+			"paint": {
+				"text-color": "rgb(0,0,0)",
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Kreis_Gemeindestr",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 14,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				[
+					"in",
+					"klasse",
+					"Kreisstraße",
+					"Gemeindestraße",
+					"Nicht öffentliche Straße",
+					"Sonstige öffentliche Straße"
+				],
+				["!has", "fahrbahn"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-avoid-edges": false,
+				"symbol-placement": {
+					"stops": [
+						[13, "line"],
+						[16, "line-center"]
+					]
+				},
+				"symbol-spacing": {
+					"stops": [
+						[13, 120],
+						[15, 180]
+					]
+				},
+				"symbol-z-order": "auto",
+				"text-field": "{name}",
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-justify": "auto",
+				"text-keep-upright": true,
+				"text-letter-spacing": 0.08,
+				"text-line-height": 1.2,
+				"text-max-angle": 45,
+				"text-max-width": 50,
+				"text-offset": [0, 0],
+				"text-optional": false,
+				"text-padding": 0,
+				"text-pitch-alignment": "viewport",
+				"text-rotate": 0,
+				"text-rotation-alignment": "map",
+				"text-size": 14
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": {
+					"stops": [
+						[14, "rgb(255,255,255)"],
+						[15, "rgb(255,255,255)"]
+					]
+				},
+				"text-halo-width": 2,
+				"text-opacity": 1,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Landesstr",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["==", "klasse", "Landesstraße, Staatsstraße"],
+				["!has", "fahrbahn"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": {
+					"stops": [
+						[11, "line"],
+						[16, "line-center"]
+					]
+				},
+				"symbol-spacing": {
+					"stops": [
+						[11, 120],
+						[16, 300]
+					]
+				},
+				"text-field": "{name}",
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-letter-spacing": 0.08,
+				"text-offset": [0, 0],
+				"text-size": 13
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": {
+					"stops": [
+						[12, "rgb(255,255,255)"],
+						[14, "rgb(255,255,255)"]
+					]
+				},
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Bundesstr",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrslinie",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": ["all", ["==", "klasse", "Bundesstraße"], ["!has", "fahrbahn"]],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "line-center",
+				"symbol-spacing": 1,
+				"text-field": "{name}",
+				"text-allow-overlap": false,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-letter-spacing": 0.1,
+				"text-offset": [0, 0],
+				"text-size": 14
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": {
+					"stops": [
+						[12, "rgb(255,255,255)"],
+						[14, "rgb(216,216,216)"]
+					]
+				},
+				"text-halo-width": 2,
+				"text-opacity": 1,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Symbol_VerkehrP_U_Bahn",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrspunkt",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["in", "klasse", "U-Bahn-Hp", "U-Bahn-Hs"],
+				["!=", "$type", "Polygon"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"icon-image": "U_Bahn",
+				"icon-allow-overlap": false,
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.65],
+						[20, 1.2]
+					]
+				}
+			},
+			"paint": {
+				"icon-halo-width": 0,
+				"icon-opacity": 1
+			}
+		},
+		{
+			"id": "Symbol_VerkehrP_S_Bahn",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrspunkt",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["in", "klasse", "S-Bahn-Hp", "S-Bahn-Hs"],
+				["!=", "$type", "Polygon"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"icon-image": "S_Bahn",
+				"icon-allow-overlap": false,
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.65],
+						[20, 1.2]
+					]
+				}
+			},
+			"paint": {
+				"icon-halo-width": 0,
+				"icon-opacity": 1
+			}
+		},
+		{
+			"id": "Symbol_VerkehrP_Bahnhof",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Verkehrspunkt",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				[
+					"in",
+					"klasse",
+					"Bahnhof",
+					"S-Bahn-Bhf",
+					"U-Bahn-Bhf",
+					"Straßenbahn-Bhf",
+					"Stadtbahn-Bhf"
+				],
+				["!=", "$type", "Polygon"]
+			],
+			"layout": {
+				"visibility": "visible",
+				"icon-image": "Bahnhof",
+				"icon-allow-overlap": false,
+				"icon-ignore-placement": false,
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.65],
+						[20, 1.2]
+					]
+				}
+			},
+			"paint": {
+				"icon-opacity": 1
+			}
+		},
+		{
+			"id": "Gebaeudepunkt_Krankenhaus",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Gebaeudepunkt",
+			"minzoom": 13,
+			"maxzoom": 22,
+			"filter": ["==", "klasse", "Krankenhaus"],
+			"layout": {
+				"visibility": "none",
+				"icon-image": "Krankenhaus",
+				"icon-allow-overlap": false,
+				"icon-ignore-placement": false,
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.65],
+						[20, 1.2]
+					]
+				}
+			},
+			"paint": {
+				"icon-opacity": {
+					"stops": [
+						[13, 0.5],
+						[16, 1]
+					]
+				}
+			}
+		},
+		{
+			"id": "Gebaeudepunkt_Kirche",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Gebaeudepunkt",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": ["==", "klasse", "Kirche"],
+			"layout": {
+				"visibility": "none",
+				"icon-image": "Kirche",
+				"icon-allow-overlap": false,
+				"icon-ignore-placement": false,
+				"icon-padding": 0,
+				"icon-size": {
+					"stops": [
+						[10, 0.65],
+						[20, 1.2]
+					]
+				}
+			}
+		},
+		{
+			"id": "Name_Ortsteil_1000_10000_Gemeindeteil",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Name_Punkt",
+			"minzoom": 11,
+			"maxzoom": 22,
+			"filter": [
+				"all",
+				["in", "klasse", "Ort"],
+				["in", "art", "Gemeindeteil"],
+				[">=", "einwohnerzahl", 1000],
+				["<", "einwohnerzahl", 10000]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-allow-overlap": false,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-max-width": {
+					"stops": [
+						[11, 6],
+						[15, 8]
+					]
+				},
+				"text-offset": [0, 0],
+				"text-padding": 0,
+				"text-radial-offset": {
+					"stops": [
+						[12, 1],
+						[16, 7],
+						[22, 20]
+					]
+				},
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[11, 12],
+						[20, 20]
+					]
+				},
+				"text-variable-anchor": [
+					"bottom-left",
+					"bottom-right",
+					"top",
+					"bottom",
+					"top-left",
+					"top-right"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Landgemeinde_1000_10000",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Name_Punkt",
+			"minzoom": 13,
+			"maxzoom": 16,
+			"filter": [
+				"all",
+				["in", "klasse", "Ort"],
+				["in", "art", "Gemeinde", "Gemeindefreies Gebiet"],
+				["<", "einwohnerzahl", 10000],
+				[">=", "einwohnerzahl", 1000]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Bold"],
+				"text-max-width": 9,
+				"text-offset": [0, 0],
+				"text-padding": 2,
+				"text-radial-offset": {
+					"stops": [
+						[10, 0.5],
+						[14, 5]
+					]
+				},
+				"text-rotation-alignment": "auto",
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[9, 11],
+						[12, 13],
+						[20, 23]
+					]
+				},
+				"text-variable-anchor": [
+					"top-left",
+					"top-right",
+					"bottom-left",
+					"bottom-right",
+					"top",
+					"bottom"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Stadtgemeinde_25000_50000",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Name_Punkt",
+			"minzoom": 8,
+			"maxzoom": 14,
+			"filter": [
+				"all",
+				["in", "klasse", "Ort"],
+				["in", "art", "Stadt"],
+				["<", "einwohnerzahl", 50000],
+				[">=", "einwohnerzahl", 25000]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-allow-overlap": false,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-max-width": 10,
+				"text-offset": [0, 0],
+				"text-padding": 2,
+				"text-pitch-alignment": "auto",
+				"text-radial-offset": {
+					"stops": [
+						[5, 0],
+						[11, 1],
+						[14, 2]
+					]
+				},
+				"text-rotation-alignment": "auto",
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[5, 11],
+						[6, 12],
+						[7, 13],
+						[10, 14],
+						[12, 16],
+						[20, 26]
+					]
+				},
+				"text-transform": {
+					"stops": [
+						[9, "none"],
+						[11, "none"]
+					]
+				},
+				"text-variable-anchor": [
+					"bottom-left",
+					"bottom-right",
+					"top",
+					"bottom",
+					"top-left",
+					"top-right"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Stadtgemeinde_100000_250000",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Name_Punkt",
+			"minzoom": 6,
+			"maxzoom": 14,
+			"filter": [
+				"all",
+				["in", "klasse", "Ort"],
+				["in", "art", "Stadt", "Hauptstadt", "Landeshauptstadt"],
+				[">=", "einwohnerzahl", 100000],
+				["<", "einwohnerzahl", 250000]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-allow-overlap": false,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-letter-spacing": 0.02,
+				"text-max-width": 10,
+				"text-offset": [0, 0],
+				"text-padding": 2,
+				"text-pitch-alignment": "auto",
+				"text-radial-offset": {
+					"stops": [
+						[5, 0.4],
+						[11, 0.5],
+						[14, 2]
+					]
+				},
+				"text-rotation-alignment": "auto",
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[5, 11],
+						[6, 12],
+						[7, 14],
+						[10, 18],
+						[12, 22],
+						[20, 28]
+					]
+				},
+				"text-transform": {
+					"stops": [
+						[9, "none"],
+						[11, "none"]
+					]
+				},
+				"text-variable-anchor": [
+					"bottom-left",
+					"bottom-right",
+					"top",
+					"bottom",
+					"top-left",
+					"top-right"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Landeshauptstadt",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Name_Punkt",
+			"minzoom": 4,
+			"maxzoom": 6,
+			"filter": [
+				"in",
+				"name",
+				"Schwerin",
+				"Erfurt",
+				"Saarbrücken",
+				"Kiel",
+				"Mainz",
+				"Wiesbaden",
+				"Magdeburg",
+				"Potsdam"
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-allow-overlap": true,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Bold"],
+				"text-ignore-placement": false,
+				"text-letter-spacing": 0.02,
+				"text-max-width": 10,
+				"text-offset": [0, 0],
+				"text-padding": 3,
+				"text-pitch-alignment": "auto",
+				"text-radial-offset": {
+					"stops": [
+						[5, 0.2],
+						[11, 0.5],
+						[14, 2]
+					]
+				},
+				"text-rotation-alignment": "auto",
+				"text-size": {
+					"stops": [
+						[5, 11],
+						[6, 12],
+						[7, 14],
+						[10, 18],
+						[12, 22],
+						[20, 28]
+					]
+				},
+				"text-transform": {
+					"stops": [
+						[9, "none"],
+						[11, "uppercase"]
+					]
+				},
+				"text-variable-anchor": ["left", "right"]
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		},
+		{
+			"id": "Name_Stadtgemeinde_groesser_1Mio",
+			"type": "symbol",
+			"source": "smarttiles_de",
+			"source-layer": "Name_Punkt",
+			"minzoom": 3,
+			"maxzoom": 14,
+			"filter": [
+				"all",
+				["in", "art", "Stadt", "Hauptstadt", "Landeshauptstadt"],
+				[">=", "einwohnerzahl", 1000000]
+			],
+			"layout": {
+				"visibility": "visible",
+				"symbol-placement": "point",
+				"text-field": "{name}",
+				"text-allow-overlap": false,
+				"text-anchor": "center",
+				"text-font": ["Noto Sans Regular"],
+				"text-ignore-placement": false,
+				"text-letter-spacing": 0.02,
+				"text-line-height": 0.4,
+				"text-max-width": 10,
+				"text-offset": [0, 0],
+				"text-padding": 2,
+				"text-pitch-alignment": "auto",
+				"text-radial-offset": {
+					"stops": [
+						[4, 0.4],
+						[14, 2]
+					]
+				},
+				"text-rotation-alignment": "auto",
+				"text-size": {
+					"base": 1,
+					"stops": [
+						[4, 10],
+						[5, 14],
+						[6, 18],
+						[7, 22],
+						[10, 26],
+						[12, 28],
+						[20, 32]
+					]
+				},
+				"text-transform": {
+					"stops": [
+						[9, "none"],
+						[11, "none"]
+					]
+				},
+				"text-variable-anchor": [
+					"bottom-left",
+					"bottom-right",
+					"top",
+					"bottom",
+					"top-left",
+					"top-right"
+				]
+			},
+			"paint": {
+				"text-color": "rgba(85, 91, 84, 1)",
+				"text-halo-blur": 0.5,
+				"text-halo-color": "rgb(255,255,255)",
+				"text-halo-width": 2,
+				"text-translate-anchor": "map"
+			}
+		}
+	],
+	"id": "bm_web_gry"
+}

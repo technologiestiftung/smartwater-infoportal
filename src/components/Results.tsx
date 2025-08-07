@@ -14,11 +14,11 @@ import {
 	TabsList,
 	DownloadItem,
 } from "berlin-ui-library";
-import IframeComponent from "./IFrameComponent";
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
 import useStore from "@/store/defaultStore";
+import Map from "./Map/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -67,6 +67,10 @@ const Results: React.FC = () => {
 	};
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
+	const currentUserCoordinates = useStore(
+		(state) => state.currentUserCoordinates,
+	);
+	const currentDangerLevel = useStore((state) => state.currentDangerLevel);
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-2">
@@ -76,6 +80,12 @@ const Results: React.FC = () => {
 						<h2 className="">{t("hazardAtLocation")}</h2>
 						<div className="flex w-full flex-col">
 							<p className="">{currentUserAddress}</p>
+							{window.location.href.includes("localhost") && (
+								<>
+									<p className="">{currentUserCoordinates?.latitude}</p>
+									<p className="">{currentUserCoordinates?.longitude}</p>
+								</>
+							)}
 						</div>
 					</>
 				)}
@@ -142,16 +152,19 @@ const Results: React.FC = () => {
 				/>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				<div id="smartwater-map">
-					<IframeComponent
-						url={
-							window.location.href.includes("localhost")
-								? "http://localhost:3000/"
-								: "https://smartwater-masterportal.netlify.app/smartwater-map/"
-						}
-						height="h-[700px]"
-					/>
-				</div>
+				{currentDangerLevel && (
+					<div className="flex w-full flex-col gap-2 bg-red-500 p-4 font-bold text-white">
+						<h4 className="">Ihr Gefahrenlevel</h4>
+						<p className="">Adresse: {currentDangerLevel.address}</p>
+						<p className="">
+							Starkregen Gefahrenlevel: {currentDangerLevel.GS_SR}
+						</p>
+						<p className="">
+							Hochwasser Gefahrenlevel: {currentDangerLevel.GS_HW}
+						</p>
+					</div>
+				)}
+				<Map />
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
