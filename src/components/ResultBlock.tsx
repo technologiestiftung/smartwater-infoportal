@@ -38,7 +38,7 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 	const t = useTranslations("floodCheck");
 	return (
 		<div
-			className={`Result-block ${hazardColorMap[harzardLevel].border} border-12`}
+			className={`Result-block ${hazardColorMap[harzardLevel]?.border} border-12`}
 		>
 			<div className="flex flex-col gap-2 p-4">
 				<div className="">
