@@ -15,14 +15,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
-import { RiskLevel } from "@/lib/types";
 import useStore from "@/store/defaultStore";
 import Map from "./Map/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
-	const { floodRiskResult } = useStore();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
