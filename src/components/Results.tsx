@@ -114,7 +114,6 @@ const Results: React.FC = () => {
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
-							// size="xl"
 							activeValues={activeFilters}
 							onValueToggle={handleFilterToggle}
 						>
