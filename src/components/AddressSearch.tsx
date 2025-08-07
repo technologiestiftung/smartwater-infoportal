@@ -14,7 +14,6 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import { getAddressResults } from "@/server/actions/getAddressResults";
-import { CoordinatesProps } from "@/types/map";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
@@ -31,9 +30,6 @@ export default function AddressSearch({
 	const setCurrentUserAddress = useStore(
 		(state) => state.setCurrentUserAddress,
 	);
-	const setCurrentUserCoordinates = useStore(
-		(state) => state.setCurrentUserCoordinates,
-	);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const isLoadingLocationData = useStore(
@@ -42,7 +38,6 @@ export default function AddressSearch({
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
-	const [coordinates, setCoordinates] = useState<CoordinatesProps | null>(null);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const methods = useForm({
@@ -68,11 +63,6 @@ export default function AddressSearch({
 				reset();
 				router.push("/wasser-check");
 				return;
-			}
-
-			if (coordinates) {
-				setCurrentUserCoordinates(coordinates);
-				setCoordinates(null);
 			}
 
 			if (addresse) {
@@ -233,26 +223,28 @@ export default function AddressSearch({
 							</div>
 						)}
 					</div>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						type="submit"
-						disabled={isLoadingLocationData}
-					>
-						{(() => {
-							if (isLoadingLocationData) {
-								return t("addressCheck.loading");
-							}
-							if (onLandingPage) {
-								return t("addressCheck.button");
-							}
-							return t("addressCheck.buttonConfirm");
-						})()}
-					</Button>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
 					<div className="flex gap-4">
 						<Button
+							className="w-full justify-end self-start lg:w-fit"
+							type="submit"
+							disabled={
+								isLoadingLocationData || (!onLandingPage && !resultClicked)
+							}
+						>
+							{(() => {
+								if (isLoadingLocationData) {
+									return t("addressCheck.loading");
+								}
+								if (onLandingPage) {
+									return t("addressCheck.button");
+								}
+								return t("addressCheck.buttonConfirm");
+							})()}
+						</Button>
+						{/* <Button
 							className="w-full justify-end self-start lg:w-fit"
 							disabled={!onLandingPage && !resultClicked}
 							type="submit"
@@ -260,7 +252,7 @@ export default function AddressSearch({
 							{onLandingPage
 								? t("addressCheck.button")
 								: t("addressCheck.buttonConfirm")}
-						</Button>
+						</Button> */}
 						{!onLandingPage && (
 							<Button
 								variant="light"
@@ -269,12 +261,7 @@ export default function AddressSearch({
 								onClick={(e: any) => {
 									e.preventDefault();
 									const addresse = getValues("addresse");
-									if (coordinates) {
-										setCurrentUserCoordinates(coordinates);
-										setCoordinates(null);
-									}
 									if (addresse) {
-										// setCurrentUserAddress(addresse);
 										reset();
 										router.push("/wasser-check?skip=true#results");
 									} else {

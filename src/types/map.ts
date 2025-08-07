@@ -6,17 +6,6 @@ import Map from "ol/Map";
 export type LayerType = "WMS" | "WFS" | "WMTS" | "VectorTile";
 export type LayerStatus = "initial" | "loading" | "loaded" | "error";
 
-export interface DangerProps {
-	GS_SR: number;
-	GS_HW: number;
-	address: string;
-}
-
-export interface CoordinatesProps {
-	latitude: number;
-	longitude: number;
-}
-
 export interface MapViewOptions {
 	resolution: number;
 	scale: number;

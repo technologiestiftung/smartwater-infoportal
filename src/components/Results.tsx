@@ -67,7 +67,6 @@ const Results: React.FC = () => {
 	};
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const currentDangerLevel = useStore((state) => state.currentDangerLevel);
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-2">
@@ -141,18 +140,6 @@ const Results: React.FC = () => {
 				/>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				{currentDangerLevel && (
-					<div className="flex w-full flex-col gap-2 bg-red-500 p-4 font-bold text-white">
-						<h4 className="">Ihr Gefahrenlevel</h4>
-						<p className="">Adresse: {currentDangerLevel.address}</p>
-						<p className="">
-							Starkregen Gefahrenlevel: {currentDangerLevel.GS_SR}
-						</p>
-						<p className="">
-							Hochwasser Gefahrenlevel: {currentDangerLevel.GS_HW}
-						</p>
-					</div>
-				)}
 				<Map />
 			</section>
 			<section className="flex flex-col gap-4">
