@@ -5,7 +5,9 @@ import { HazardLevel } from "@/lib/types";
 
 interface ResultBlockProps {
 	entity: string;
-	harzardLevel: HazardLevel;
+	hazardLevel: HazardLevel;
+	showSubLabel?: boolean;
+	subHazardLevel?: string;
 }
 
 const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
@@ -29,23 +31,25 @@ const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
 
 const ResultBlock: React.FC<ResultBlockProps> = ({
 	entity,
-	harzardLevel,
+	hazardLevel,
+	showSubLabel = false,
+	subHazardLevel,
 }: ResultBlockProps) => {
 	const t = useTranslations("floodCheck");
 	return (
 		<div
-			className={`Result-block ${hazardColorMap[harzardLevel].border} border-12`}
+			className={`Result-block ${hazardColorMap[hazardLevel]?.border} border-12`}
 		>
 			<div className="flex flex-col gap-2 p-4">
 				<div className="">
 					<h4 className="">{t(`${entity}.title`)}</h4>
 				</div>
-				<p className="">{t(`${entity}.${harzardLevel}`)}</p>
+				<p className="">{t(`${entity}.${hazardLevel}`)}</p>
 				<div className="my-4 grid grid-cols-4 gap-0">
 					{Object.keys(hazardColorMap).map((level) => (
 						<div key={level} className="flex w-full flex-col items-center">
 							<div className="flex h-10 w-full items-center justify-center text-center">
-								{harzardLevel === level && (
+								{hazardLevel === level && (
 									<Image
 										src="/arrow_down.svg"
 										alt="Arrow Down"
@@ -61,14 +65,12 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 						</div>
 					))}
 				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.waterLevelLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.subLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
+				{showSubLabel && (
+					<div className="flex flex-col gap-2">
+						<span className="font-bold">{t(`${entity}.subLabel`)}</span>
+						<p className="">{t(`${entity}.${subHazardLevel}`)}</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);

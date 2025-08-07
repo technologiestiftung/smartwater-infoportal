@@ -104,13 +104,18 @@
 			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift"
 		},
 		"hazardSummary": {
+			"none": "An Ihrem Standort liegt keine Gefährdung vor.",
 			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
+			"moderate": "An Ihrem Standort liegt eine mittlere Gefährdung vor.",
+			"high": "An Ihrem Standort liegt eine hohe Gefährdung vor.",
+			"severe": "An Ihrem Standort liegt eine sehr hohe Gefährdung vor.",
 			"highFluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Flusshochwasser vor.",
 			"highPluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Starkregen vor.",
 			"multiple": "An Ihrem Standort liegen mehrere Gefährdungen vor."
 		},
 		"fluvialFlood": {
 			"title": "Flusshochwasser",
+			"none": "Der überprüfte Standort ist bei Flusshochwasser keiner Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
@@ -123,6 +128,7 @@
 		},
 		"heavyRain": {
 			"title": "Starkregen",
+			"none": "Der überprüfte Standort ist bei Starkregen keiner Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
@@ -132,6 +138,7 @@
 			"subLabel": "Fließgeschwindigkeit"
 		},
 		"hazardScale": {
+			"none": "Keine Gefährdung",
 			"low": "Gering",
 			"moderate": "Mittel",
 			"high": "Hoch",
@@ -164,7 +171,6 @@
 				"heavyRain": {
 					"title": "Starkregen",
 					"descriptionLow": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
-					"waterLevelLabel": "möglicher Wasserstand",
 					"flowVelocityLabel": "Fließgeschwindigkeit"
 				},
 				"fluvialFlood": {

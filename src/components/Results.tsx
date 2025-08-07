@@ -76,18 +76,9 @@ const Results: React.FC = () => {
 		<div className="flex w-full flex-col gap-12 pt-2">
 			<section className="flex flex-col gap-2">
 				{currentUserAddress && (
-					<>
-						<h2 className="">{t("hazardAtLocation")}</h2>
-						<div className="flex w-full flex-col">
-							<p className="">{currentUserAddress}</p>
-							{window.location.href.includes("localhost") && (
-								<>
-									<p className="">{currentUserCoordinates?.latitude}</p>
-									<p className="">{currentUserCoordinates?.longitude}</p>
-								</>
-							)}
-						</div>
-					</>
+					<div className="flex w-full flex-col">
+						<p className="">{currentUserAddress.display_name}</p>
+					</div>
 				)}
 			</section>
 			<section className="flex flex-col gap-4">
@@ -114,6 +105,7 @@ const Results: React.FC = () => {
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
+							size="lg"
 							activeValues={activeFilters}
 							onValueToggle={handleFilterToggle}
 						>

@@ -18,9 +18,13 @@ import { CoordinatesProps } from "@/types/map";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
+	onAddressConfirmed?: () => void;
 }
 
-export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
+export default function AddressSearch({
+	onLandingPage,
+	onAddressConfirmed,
+}: AddressSearchProps) {
 	const t = useTranslations("home");
 	const router = useRouter();
 
@@ -32,6 +36,9 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 	);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
+	const isLoadingLocationData = useStore(
+		(state) => state.isLoadingLocationData,
+	);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
@@ -69,11 +76,19 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 			}
 
 			if (addresse) {
-				setCurrentUserAddress(addresse);
-				reset();
-				router.push(
-					onLandingPage ? "/wasser-check" : "/wasser-check#interimResult",
+				// Find the matching result from the search results
+				const selectedResult = results.find(
+					(result) => result.display_name === addresse,
 				);
+				if (selectedResult) {
+					setCurrentUserAddress(selectedResult);
+				}
+				reset();
+				if (onLandingPage) {
+					router.push("/wasser-check");
+				} else if (onAddressConfirmed) {
+					onAddressConfirmed();
+				}
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
 			}
@@ -164,7 +179,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress);
+			setValue("addresse", currentUserAddress.display_name);
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
@@ -194,19 +209,9 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 													<li key={index}>
 														<Button
 															onClick={() => {
-																if (result.lat && result.lon) {
-																	setCoordinates({
-																		latitude: result.lat,
-																		longitude: result.lon,
-																	});
-																	setResultClicked(true);
-																} else {
-																	return setError(
-																		"Koordinaten für diese Adresse nicht verfügbar.",
-																	);
-																}
 																setValue("addresse", result.display_name);
-																return setResults([]);
+																setCurrentUserAddress(result);
+																setResults([]);
 															}}
 															variant="link"
 														>
@@ -228,6 +233,21 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 							</div>
 						)}
 					</div>
+					<Button
+						className="w-full justify-end self-start lg:w-fit"
+						type="submit"
+						disabled={isLoadingLocationData}
+					>
+						{(() => {
+							if (isLoadingLocationData) {
+								return t("addressCheck.loading");
+							}
+							if (onLandingPage) {
+								return t("addressCheck.button");
+							}
+							return t("addressCheck.buttonConfirm");
+						})()}
+					</Button>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
@@ -254,7 +274,7 @@ export default function AddressSearch({ onLandingPage }: AddressSearchProps) {
 										setCoordinates(null);
 									}
 									if (addresse) {
-										setCurrentUserAddress(addresse);
+										// setCurrentUserAddress(addresse);
 										reset();
 										router.push("/wasser-check?skip=true#results");
 									} else {

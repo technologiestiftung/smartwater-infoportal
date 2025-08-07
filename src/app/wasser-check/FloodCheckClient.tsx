@@ -4,22 +4,41 @@ import InterimResults from "@/components/InterimResults";
 import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
-import { HazardLevel } from "@/lib/types";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../../components/AddressSearch";
 import { useEffect } from "react";
+import useStore from "@/store/defaultStore";
+import { getHazardData } from "@/server/actions/getHazardData";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
+	const currentUserAddress = useStore((state) => state.currentUserAddress);
+	const setLocationData = useStore((state) => state.setLocationData);
+	const setLoadingLocationData = useStore(
+		(state) => state.setLoadingLocationData,
+	);
 
-	const entities = [
-		{ name: "heavyRain", hazardLevel: "high" as HazardLevel },
-		{ name: "fluvialFlood", hazardLevel: "low" as HazardLevel },
-	];
+	const checkHazard = async () => {
+		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
+			return;
+		}
+
+		setLoadingLocationData(true);
+		try {
+			const longitude = parseFloat(currentUserAddress.lon);
+			const latitude = parseFloat(currentUserAddress.lat);
+			const result = await getHazardData(longitude, latitude);
+			setLocationData(result);
+			router.push("/wasser-check#interimResult");
+		} finally {
+			setLoadingLocationData(false);
+		}
+	};
+
 	const submit = async () => {
 		router.push("/wasser-check#results");
 	};
@@ -49,7 +68,7 @@ export default function FloodCheckClient() {
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
 							<h1 className="">{t("floodCheck.interimResults.title")}</h1>
 						</div>
-						<InterimResults entities={entities} />
+						<InterimResults />
 					</div>
 				</>
 			) : hash === "questionnaire" ? (
@@ -104,7 +123,7 @@ export default function FloodCheckClient() {
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<h2 className="">{t("floodCheck.start.title")}</h2>
 						<p className="">{t("floodCheck.start.description")}</p>
-						<AddressSearch />
+						<AddressSearch onAddressConfirmed={checkHazard} />
 					</div>
 				</>
 			)}

@@ -25,6 +25,7 @@
 	--color-panel-light: var(--panel-light);
 	--color-panel-dark: var(--panel-dark);
 	--color-panel-colored: var(--panel-colored);
+	--color-hazard-none: var(--hazard-none);
 	--color-hazard-low: var(--hazard-low);
 	--color-hazard-moderate: var(--hazard-moderate);
 	--color-hazard-high: var(--hazard-high);
