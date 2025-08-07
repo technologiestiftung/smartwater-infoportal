@@ -16,18 +16,29 @@ const InterimResults: React.FC = () => {
 		if (!locationData || !locationData.found || !locationData.building) {
 			return [
 				{ name: "heavyRain", hazardLevel: "none" as HazardLevel },
-				{ name: "fluvialFlood", hazardLevel: "none" as HazardLevel },
+				{
+					name: "fluvialFlood",
+					hazardLevel: "none" as HazardLevel,
+					showSubLabel: true,
+					subHazardLevel: "no",
+				},
 			];
 		}
 
 		return [
 			{
 				name: "heavyRain",
-				hazardLevel: mapScaleToHazardLevel(locationData.building.starkregenGefährdung || 0),
+				hazardLevel: mapScaleToHazardLevel(
+					locationData.building.starkregenGefährdung || 0,
+				),
 			},
 			{
 				name: "fluvialFlood",
-				hazardLevel: mapScaleToHazardLevel(locationData.building.hochwasserGefährdung || 0),
+				hazardLevel: mapScaleToHazardLevel(
+					locationData.building.hochwasserGefährdung || 0,
+				),
+				showSubLabel: true,
+				subHazardLevel: (locationData.floodZoneIndex || 0) > 0 ? "yes" : "no",
 			},
 		];
 	};
@@ -49,6 +60,8 @@ const InterimResults: React.FC = () => {
 							key={entity.name}
 							entity={entity.name}
 							harzardLevel={entity.hazardLevel}
+							showSubLabel={entity.showSubLabel || false}
+							subHazardLevel={entity.subHazardLevel}
 						/>
 					))}
 				</div>

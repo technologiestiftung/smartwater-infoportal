@@ -33,6 +33,10 @@ export class GeoServerClient {
 				longitude,
 				latitude,
 			]);
+			const floodZoneIndex = await this.getFloodZoneIndex(
+				transformedX,
+				transformedY,
+			);
 
 			const exactMatch = await this.searchExactIntersection(
 				transformedX,
@@ -40,7 +44,11 @@ export class GeoServerClient {
 			);
 
 			if (exactMatch) {
-				return exactMatch;
+				return {
+					found: true,
+					buildingInformation: exactMatch,
+					floodZoneIndex,
+				};
 			}
 
 			const bufferResult = await this.searchWithProgressiveBuffers(
@@ -48,12 +56,79 @@ export class GeoServerClient {
 				[longitude, latitude],
 			);
 
-			return bufferResult || { found: false };
+			if (bufferResult) {
+				return {
+					found: true,
+					buildingInformation: bufferResult,
+					floodZoneIndex,
+				};
+			}
+
+			return {
+				found: false,
+				buildingInformation: null,
+				floodZoneIndex,
+			};
 		} catch (_error) {
 			// Silent fail - return not found
 		}
 
-		return { found: false };
+		return {
+			found: false,
+			buildingInformation: null,
+			floodZoneIndex: null,
+		};
+	}
+
+	async getFloodZoneIndex(
+		transformedX: number,
+		transformedY: number,
+	): Promise<number | null> {
+		try {
+			// Create bounding box around the point (100m x 100m)
+			const bufferSize = 50; // 50 meters in each direction
+			const minX = transformedX - bufferSize;
+			const minY = transformedY - bufferSize;
+			const maxX = transformedX + bufferSize;
+			const maxY = transformedY + bufferSize;
+
+			const wmsUrl = new URL(`${this.baseUrl}/wms`);
+			wmsUrl.searchParams.set("SERVICE", "WMS");
+			wmsUrl.searchParams.set("VERSION", "1.1.1");
+			wmsUrl.searchParams.set("REQUEST", "GetFeatureInfo");
+			wmsUrl.searchParams.set(
+				"LAYERS",
+				`${this.workspace}:HW_Gefaehrdung_clip_`,
+			);
+			wmsUrl.searchParams.set(
+				"QUERY_LAYERS",
+				`${this.workspace}:HW_Gefaehrdung_clip_`,
+			);
+			wmsUrl.searchParams.set("SRS", "EPSG:25833");
+			wmsUrl.searchParams.set("BBOX", `${minX},${minY},${maxX},${maxY}`);
+			wmsUrl.searchParams.set("WIDTH", "256");
+			wmsUrl.searchParams.set("HEIGHT", "256");
+			wmsUrl.searchParams.set("X", "128");
+			wmsUrl.searchParams.set("Y", "128");
+			wmsUrl.searchParams.set("INFO_FORMAT", "application/json");
+
+			const response = await fetch(wmsUrl.toString());
+			if (!response.ok) {
+				return null;
+			}
+
+			const data = await response.json();
+			if (!data.features || data.features.length === 0) {
+				return null;
+			}
+
+			const feature = data.features[0];
+			const grayIndex = feature.properties?.GRAY_INDEX;
+
+			return typeof grayIndex === "number" ? grayIndex : null;
+		} catch (_error) {
+			return null;
+		}
 	}
 
 	private async searchExactIntersection(
@@ -149,7 +224,6 @@ export class GeoServerClient {
 			hochwasserGefährdung: (props.GS_HW as number) || 0,
 			geometry: building.geometry as Geometry,
 			...(distance !== undefined && { distance }),
-			found: true,
 		};
 	}
 

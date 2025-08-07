@@ -6,6 +6,8 @@ import { HazardLevel } from "@/lib/types";
 interface ResultBlockProps {
 	entity: string;
 	harzardLevel: HazardLevel;
+	showSubLabel?: boolean;
+	subHazardLevel?: string;
 }
 
 const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
@@ -34,6 +36,8 @@ const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
 const ResultBlock: React.FC<ResultBlockProps> = ({
 	entity,
 	harzardLevel,
+	showSubLabel = false,
+	subHazardLevel,
 }: ResultBlockProps) => {
 	const t = useTranslations("floodCheck");
 	return (
@@ -65,14 +69,12 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 						</div>
 					))}
 				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.waterLevelLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.subLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
+				{showSubLabel && (
+					<div className="flex flex-col gap-2">
+						<span className="font-bold">{t(`${entity}.subLabel`)}</span>
+						<p className="">{t(`${entity}.${subHazardLevel}`)}</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);

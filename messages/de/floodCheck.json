@@ -120,7 +120,6 @@
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
-			"waterLevelLabel": "möglicher Wasserstand",
 			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
 			"subLabel": "Überschwemmungsgebiet",
 			"yes": "ja",
@@ -133,7 +132,6 @@
 			"moderate": "Der überprüfte Standort ist bei Starkregen einer mittleren Gefährdung ausgesetzt.",
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Starkregen einer sehr hohen Gefährdung ausgesetzt.",
-			"waterLevelLabel": "möglicher Wasserstand",
 			"recommendation": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
 			"subLabel": "Fließgeschwindigkeit"
 		},
@@ -171,7 +169,6 @@
 				"heavyRain": {
 					"title": "Starkregen",
 					"descriptionLow": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
-					"waterLevelLabel": "möglicher Wasserstand",
 					"flowVelocityLabel": "Fließgeschwindigkeit"
 				},
 				"fluvialFlood": {

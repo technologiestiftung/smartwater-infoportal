@@ -12,14 +12,16 @@ export async function getHazardData(longitude: number, latitude: number) {
 			latitude,
 		);
 		if (result && result.found) {
+			const building = result.buildingInformation;
 			return {
-				building: result,
+				building: building,
 				maxGefährdung: Math.max(
-					result.starkregenGefährdung || 0,
-					result.hochwasserGefährdung || 0,
+					building.starkregenGefährdung || 0,
+					building.hochwasserGefährdung || 0,
 				),
 				found: true,
-				...(result.distance && { distance: result.distance }),
+				floodZoneIndex: result.floodZoneIndex,
+				...(building.distance && { distance: building.distance }),
 			};
 		}
 
@@ -27,12 +29,14 @@ export async function getHazardData(longitude: number, latitude: number) {
 			building: null,
 			maxGefährdung: 0,
 			found: false,
+			floodZoneIndex: result?.floodZoneIndex || null,
 		};
 	} catch {
 		return {
 			building: null,
 			maxGefährdung: 0,
 			found: false,
+			floodZoneIndex: null,
 		};
 	}
 }

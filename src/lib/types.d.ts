@@ -32,7 +32,6 @@ export interface Building {
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;
 	distance?: number;
-	found?: boolean;
 	[key: string]: unknown;
 }
 
@@ -41,4 +40,5 @@ export interface LocationData {
 	building: Building | null;
 	maxGefährdung: number;
 	distance?: number;
+	floodZoneIndex?: number | null;
 }

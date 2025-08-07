@@ -34,16 +34,21 @@ describe("getHazardData", () => {
 
 		it("should return exact match when building is found at point", async () => {
 			// Arrange
-			const mockBuilding = {
+			const mockBuildingInfo = {
 				uuid: "test-uuid-123",
 				address: "Test Address, Berlin",
 				starkregenGefährdung: 3,
 				hochwasserGefährdung: 2,
 				geometry: { type: "Polygon", coordinates: [] },
-				found: true,
 			};
 
-			mockFindBuildingAtPoint.mockResolvedValue(mockBuilding);
+			const mockResult = {
+				found: true,
+				buildingInformation: mockBuildingInfo,
+				floodZoneIndex: 2,
+			};
+
+			mockFindBuildingAtPoint.mockResolvedValue(mockResult);
 
 			// Act
 			const result = await getHazardData(
@@ -57,9 +62,10 @@ describe("getHazardData", () => {
 				testCoordinates.latitude,
 			);
 			expect(result).toEqual({
-				building: mockBuilding,
+				building: mockBuildingInfo,
 				maxGefährdung: 3, // Math.max(3, 2)
 				found: true,
+				floodZoneIndex: 2,
 			});
 		});
 
@@ -72,10 +78,15 @@ describe("getHazardData", () => {
 				hochwasserGefährdung: 1,
 				geometry: { type: "Polygon", coordinates: [] },
 				distance: 75,
-				found: true,
 			};
 
-			mockFindBuildingAtPoint.mockResolvedValue(mockBuildingWithDistance);
+			const mockResult = {
+				found: true,
+				buildingInformation: mockBuildingWithDistance,
+				floodZoneIndex: 1,
+			};
+
+			mockFindBuildingAtPoint.mockResolvedValue(mockResult);
 
 			// Act
 			const result = await getHazardData(
@@ -92,13 +103,18 @@ describe("getHazardData", () => {
 				building: mockBuildingWithDistance,
 				maxGefährdung: 3, // Math.max(3, 1)
 				found: true,
+				floodZoneIndex: 1,
 				distance: 75,
 			});
 		});
 
 		it("should return zero values when no buildings found", async () => {
 			// Arrange
-			mockFindBuildingAtPoint.mockResolvedValue({ found: false });
+			mockFindBuildingAtPoint.mockResolvedValue({ 
+				found: false, 
+				buildingInformation: null,
+				floodZoneIndex: 3 
+			});
 
 			// Act
 			const result = await getHazardData(
@@ -115,6 +131,7 @@ describe("getHazardData", () => {
 				building: null,
 				maxGefährdung: 0,
 				found: false,
+				floodZoneIndex: 3,
 			});
 		});
 
@@ -135,6 +152,7 @@ describe("getHazardData", () => {
 				building: null,
 				maxGefährdung: 0,
 				found: false,
+				floodZoneIndex: null,
 			});
 		});
 	});
