@@ -58,8 +58,6 @@ describe("getHazardData", () => {
 			);
 			expect(result).toEqual({
 				building: mockBuilding,
-				starkregenGefährdung: 3,
-				hochwasserGefährdung: 2,
 				maxGefährdung: 3, // Math.max(3, 2)
 				found: true,
 			});
@@ -92,8 +90,6 @@ describe("getHazardData", () => {
 			);
 			expect(result).toEqual({
 				building: mockBuildingWithDistance,
-				starkregenGefährdung: 3,
-				hochwasserGefährdung: 1,
 				maxGefährdung: 3, // Math.max(3, 1)
 				found: true,
 				distance: 75,
@@ -116,8 +112,7 @@ describe("getHazardData", () => {
 				testCoordinates.latitude,
 			);
 			expect(result).toEqual({
-				starkregenGefährdung: 0,
-				hochwasserGefährdung: 0,
+				building: null,
 				maxGefährdung: 0,
 				found: false,
 			});
@@ -137,8 +132,7 @@ describe("getHazardData", () => {
 
 			// Assert - should return safe defaults without throwing
 			expect(result).toEqual({
-				starkregenGefährdung: 0,
-				hochwasserGefährdung: 0,
+				building: null,
 				maxGefährdung: 0,
 				found: false,
 			});

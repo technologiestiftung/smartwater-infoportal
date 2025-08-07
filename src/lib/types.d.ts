@@ -36,11 +36,9 @@ export interface Building {
 	[key: string]: unknown;
 }
 
-export interface HazardData {
+export interface LocationData {
 	found: boolean;
-	starkregenGefährdung: number;
-	hochwasserGefährdung: number;
+	building: Building | null;
 	maxGefährdung: number;
-	building?: Building;
 	distance?: number;
 }

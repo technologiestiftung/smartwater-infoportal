@@ -17,23 +17,23 @@ export default function FloodCheckClient() {
 	const hash = useHash();
 	const router = useRouter();
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const setHazardData = useStore((state) => state.setHazardData);
-	const setLoadingHazardData = useStore((state) => state.setLoadingHazardData);
+	const setLocationData = useStore((state) => state.setLocationData);
+	const setLoadingLocationData = useStore((state) => state.setLoadingLocationData);
 
 	const checkHazard = async () => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
 
-		setLoadingHazardData(true);
+		setLoadingLocationData(true);
 		try {
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
 			const result = await getHazardData(longitude, latitude);
-			setHazardData(result);
+			setLocationData(result);
 			router.push("/wasser-check#interimResult");
 		} finally {
-			setLoadingHazardData(false);
+			setLoadingLocationData(false);
 		}
 	};
 

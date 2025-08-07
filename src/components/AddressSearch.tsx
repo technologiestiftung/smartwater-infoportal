@@ -31,7 +31,7 @@ export default function AddressSearch({
 	);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const isLoadingHazardData = useStore((state) => state.isLoadingHazardData);
+	const isLoadingLocationData = useStore((state) => state.isLoadingLocationData);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
@@ -176,10 +176,10 @@ export default function AddressSearch({
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
 						type="submit"
-						disabled={isLoadingHazardData}
+						disabled={isLoadingLocationData}
 					>
 						{(() => {
-							if (isLoadingHazardData) {
+							if (isLoadingLocationData) {
 								return t("addressCheck.loading");
 							}
 							if (onLandingPage) {

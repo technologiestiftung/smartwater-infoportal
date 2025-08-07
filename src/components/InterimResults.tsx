@@ -10,10 +10,10 @@ import { mapScaleToHazardLevel } from "@/lib/utils";
 const InterimResults: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
-	const hazardData = useStore((state) => state.hazardData);
+	const locationData = useStore((state) => state.locationData);
 
 	const getHazardEntities = () => {
-		if (!hazardData || !hazardData.found) {
+		if (!locationData || !locationData.found || !locationData.building) {
 			return [
 				{ name: "heavyRain", hazardLevel: "none" as HazardLevel },
 				{ name: "fluvialFlood", hazardLevel: "none" as HazardLevel },
@@ -23,19 +23,19 @@ const InterimResults: React.FC = () => {
 		return [
 			{
 				name: "heavyRain",
-				hazardLevel: mapScaleToHazardLevel(hazardData.starkregenGefährdung),
+				hazardLevel: mapScaleToHazardLevel(locationData.building.starkregenGefährdung || 0),
 			},
 			{
 				name: "fluvialFlood",
-				hazardLevel: mapScaleToHazardLevel(hazardData.hochwasserGefährdung),
+				hazardLevel: mapScaleToHazardLevel(locationData.building.hochwasserGefährdung || 0),
 			},
 		];
 	};
 
 	const hazardEntities = getHazardEntities();
 	const maxHazardLevel = Math.max(
-		hazardData?.starkregenGefährdung || 0,
-		hazardData?.hochwasserGefährdung || 0,
+		locationData?.building?.starkregenGefährdung || 0,
+		locationData?.building?.hochwasserGefährdung || 0,
 	);
 	const overallHazardLevel = mapScaleToHazardLevel(maxHazardLevel);
 

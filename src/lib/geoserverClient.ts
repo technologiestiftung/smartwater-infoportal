@@ -2,16 +2,14 @@ import proj4 from "proj4";
 import type { Geometry } from "./types";
 
 export class GeoServerClient {
-	private baseUrl: string;
-	private workspace: string;
+	private baseUrl?: string;
+	private workspace?: string;
 	private layer: string;
 
 	constructor() {
-		this.baseUrl =
-			process.env.GEOSERVER_BASE_URL || "http://localhost:8085/geoserver";
-		this.workspace = process.env.GEOSERVER_WORKSPACE || "Smartwater";
-		const layerName =
-			process.env.GEOSERVER_LAYER || "ALKIS_Gebäude_Gefaehrdung_SR_HW_0624";
+		this.baseUrl = process.env.GEOSERVER_BASE_URL;
+		this.workspace = process.env.GEOSERVER_WORKSPACE;
+		const layerName = process.env.GEOSERVER_LAYER;
 		this.layer = `${this.workspace}:${layerName}`;
 		proj4.defs(
 			"EPSG:25833",
@@ -40,6 +38,7 @@ export class GeoServerClient {
 				transformedX,
 				transformedY,
 			);
+
 			if (exactMatch) {
 				return exactMatch;
 			}
@@ -48,6 +47,7 @@ export class GeoServerClient {
 				[transformedX, transformedY],
 				[longitude, latitude],
 			);
+
 			return bufferResult || { found: false };
 		} catch (_error) {
 			// Silent fail - return not found
