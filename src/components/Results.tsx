@@ -104,7 +104,7 @@ const Results: React.FC = () => {
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<h3 className="">{t("hazardDisplay.title")}</h3>
-					<p className="">{t("hazardDisplay.descriptionPlaceholder")}</p>
+					{/* <p className="">{t("hazardDisplay.descriptionPlaceholder")}</p> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
