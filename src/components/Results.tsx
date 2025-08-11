@@ -17,6 +17,7 @@ import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import Map from "./Map/Map";
+import Link from "next/link";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -43,8 +44,8 @@ const Results: React.FC = () => {
 			content: t("hazardDisplay.descriptionPlaceholder"),
 		},
 		{
-			title: t("hazardInfo.learnMore"),
-			content: t("hazardDisplay.descriptionPlaceholder"),
+			title: t("hazardInfo.disclaimerTitle"),
+			content: t("hazardInfo.disclaimerText"),
 		},
 		{
 			title: t("hazardInfo.mapInfo"),
@@ -204,20 +205,42 @@ const Results: React.FC = () => {
 							</AccordionTrigger>
 							<AccordionContent variant="default">
 								{item.content}
+								{index === 2 && (
+									<>
+										<div className="mt-4 flex flex-col">
+											<span className="">
+												{t("hazardInfo.linkGroundwaterPortalTitle")}
+											</span>
+											<Link
+												href={t("hazardInfo.linkGroundwaterPortalLink")}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="link">
+													{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+												</Button>
+											</Link>
+										</div>
+										<div className="flex flex-col">
+											<span className="">
+												{t("hazardInfo.linkWaterGeologyTitle")}
+											</span>
+											<Link
+												href={t("hazardInfo.linkWaterGeologyLink")}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="link">
+													{t("hazardInfo.linkWaterGeologyLinkTitle")}
+												</Button>
+											</Link>
+										</div>
+									</>
+								)}
 							</AccordionContent>
 						</AccordionItem>
 					))}
 				</Accordion>
-				<div className="flex flex-col">
-					<span className="">{t("hazardInfo.linkGroundwaterPortal")}</span>
-					<Button variant="link">{t("hazardInfo.linkGeologicalPortal")}</Button>
-				</div>
-				<div className="flex flex-col">
-					<span className="">{t("hazardInfo.linkWaterGeologyInfo")}</span>
-					<Button variant="link">
-						{t("hazardInfo.linkWaterGeologyBerlin")}
-					</Button>
-				</div>
 			</section>
 			{!skip && hazardEntities && hazardEntities.length > 0 && (
 				<>
