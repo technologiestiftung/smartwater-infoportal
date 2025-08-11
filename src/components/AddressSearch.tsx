@@ -237,15 +237,6 @@ export default function AddressSearch({
 								return t("addressCheck.buttonConfirm");
 							})()}
 						</Button>
-						{/* <Button
-							className="w-full justify-end self-start lg:w-fit"
-							disabled={!onLandingPage && !resultClicked}
-							type="submit"
-						>
-							{onLandingPage
-								? t("addressCheck.button")
-								: t("addressCheck.buttonConfirm")}
-						</Button> */}
 						{!onLandingPage && (
 							<Button
 								variant="light"

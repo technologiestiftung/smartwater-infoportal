@@ -94,7 +94,6 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 							/>
 						</div>
 					</div>
-					{/* <div className="bg-linear-to-r to-risk-high from-risk-low via-risk-moderate h-12 w-full"></div> */}
 					<Image
 						className="w-full max-w-none"
 						src="/Farbskala.jpg"
