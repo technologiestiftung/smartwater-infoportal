@@ -70,7 +70,8 @@
 			"wasser-check": "Hochwasser Check",
 			"allgemeine-informationen": "Allgemeine Informationen",
 			"handlungsempfehlungen": "Handlungsempfehlungen",
-			"accessibility-statement": "Erklärung zur Barrierefreiheit"
+			"accessibility-statement": "Erklärung zur Barrierefreiheit",
+			"_not-found": "Seite nicht gefunden"
 		},
 		"warning": {
 			"noWarning": "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor.",

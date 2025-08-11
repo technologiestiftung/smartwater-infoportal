@@ -169,6 +169,7 @@
 			"high": "Hoch",
 			"severe": "Sehr Hoch"
 		},
+		"noHazardData": "Es liegen keine Daten zu Gefährdungen an Ihrem Standort vor.",
 		"hint": {
 			"title": "Hinweis",
 			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen."

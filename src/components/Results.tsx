@@ -215,7 +215,7 @@ const Results: React.FC = () => {
 					</Button>
 				</div>
 			</section>
-			{!skip && (
+			{!skip && hazardEntities && hazardEntities.length > 0 && (
 				<>
 					<div className="divider" />
 					<section className="flex flex-col gap-4">
@@ -239,7 +239,7 @@ const Results: React.FC = () => {
 				</>
 			)}
 			<section className="flex w-full flex-col gap-12">
-				{!skip && (
+				{!skip && hazardEntities && hazardEntities.length > 0 && (
 					<>
 						<div className="flex flex-col gap-2">
 							<h2 className="">{t("protectionTips.title")}</h2>
@@ -260,7 +260,7 @@ const Results: React.FC = () => {
 													{t(tipKey)}
 												</li>
 											))}
-										</ul>{" "}
+										</ul>
 									</div>
 								}
 								slotB={

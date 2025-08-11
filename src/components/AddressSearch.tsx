@@ -73,7 +73,6 @@ export default function AddressSearch({
 				if (selectedResult) {
 					setCurrentUserAddress(selectedResult);
 				}
-				reset();
 				if (onLandingPage) {
 					router.push("/wasser-check");
 				} else if (onAddressConfirmed) {
