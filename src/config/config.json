@@ -71,11 +71,15 @@
 			"elements": [
 				{
 					"id": "bm_web_gry:contrast",
-					"visibility": true
+					"visibility": false
 				},
 				{
 					"id": "bm_web_gry",
 					"visibility": false
+				},
+				{
+					"id": "basemap",
+					"visibility": true
 				}
 			]
 		},
