@@ -66,7 +66,11 @@ const Results: React.FC = () => {
 		"protectionTips.traffic.tip5",
 	];
 	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
+	const updateActiveMapFilter = useStore(
+		(state) => state.updateActiveMapFilter,
+	);
 	const handleFilterToggle = (value: string) => {
+		updateActiveMapFilter(value);
 		setActiveFilter(value);
 	};
 	const [activeSubFilters, setActiveSubFilters] = useState<string[]>([]);
