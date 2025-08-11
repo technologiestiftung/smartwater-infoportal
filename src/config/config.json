@@ -86,10 +86,6 @@
 		"subjectlayer": {
 			"elements": [
 				{
-					"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
-					"visibility": false
-				},
-				{
 					"id": "sw_infoportal:sr_gefaehrdung_clip_",
 					"visibility": false
 				},
