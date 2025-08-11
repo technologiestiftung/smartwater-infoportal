@@ -31,6 +31,8 @@ export default function AddressSearch({
 		(state) => state.setCurrentUserAddress,
 	);
 
+	const [showLoading, setShowLoading] = useState<boolean>(false);
+
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const isLoadingLocationData = useStore(
 		(state) => state.isLoadingLocationData,
@@ -87,6 +89,7 @@ export default function AddressSearch({
 			return;
 		}
 		isFetching.current = true;
+		setShowLoading(true);
 
 		try {
 			const data = await getAddressResults(search);
@@ -131,6 +134,7 @@ export default function AddressSearch({
 			throw new Error(`Error fetching data: ${e}`);
 		} finally {
 			isFetching.current = false;
+			setShowLoading(false);
 		}
 	};
 
@@ -142,10 +146,6 @@ export default function AddressSearch({
 		if (target.name === "addresse") {
 			const value = target.value;
 
-			/* if (value.length < 3) {
-				setResults([]);
-				return;
-			} else  */
 			if (error) {
 				setError("");
 			}
@@ -177,7 +177,7 @@ export default function AddressSearch({
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
-						{results.length > 0 && (
+						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 p-4">
 								<strong>Ergebnisse</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
@@ -218,6 +218,12 @@ export default function AddressSearch({
 					</div>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
+					)}
+					{showLoading && (
+						<video autoPlay loop muted playsInline width="30">
+							<source src="/spinner.mp4" type="video/mp4" />
+							Your browser does not support HTML video.
+						</video>
 					)}
 					<div className="flex gap-4">
 						<Button
