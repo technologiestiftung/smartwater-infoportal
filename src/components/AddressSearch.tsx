@@ -146,7 +146,11 @@ export default function AddressSearch({
 		if (target.name === "addresse") {
 			const value = target.value;
 
-			if (error) {
+			if (value.length < 3) {
+				setResults([]);
+				setShowLoading(false);
+				return;
+			} else if (error) {
 				setError("");
 			}
 
