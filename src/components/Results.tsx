@@ -22,6 +22,7 @@ const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
+	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 
@@ -220,8 +221,8 @@ const Results: React.FC = () => {
 					<div className="divider" />
 					<section className="flex flex-col gap-4">
 						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("floodCheckfloodCheck.title")}</h2>
-							<p className="">{t("floodCheckfloodCheck.description")}</p>
+							<h2 className="">{t("buildingRiskAssessment.title")}</h2>
+							<p className="">{t("buildingRiskAssessment.description")}</p>
 						</div>
 						<TextBlock
 							desktopColSpans={{ col1: 1, col2: 1 }}
@@ -229,11 +230,11 @@ const Results: React.FC = () => {
 							reverseDesktopColumns={true}
 							slotA={
 								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-									<h3 className="">{t("floodCheckfloodCheck.title")}</h3>
-									<p className="">{t("floodCheckfloodCheck.description")}</p>
+									<h3 className="">{t("buildingRiskAssessment.title")}</h3>
+									<p className="">{t("buildingRiskAssessment.description")}</p>
 								</div>
 							}
-							slotB={<RiskBlock />}
+							slotB={<RiskBlock floodRiskAnswers={floodRiskAnswers} />}
 						/>
 					</section>
 				</>

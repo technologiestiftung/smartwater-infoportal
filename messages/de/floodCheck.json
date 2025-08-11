@@ -227,7 +227,7 @@
 			"linkWaterGeologyInfo": "Informationen zum Thema Wasser und Geologie",
 			"linkWaterGeologyBerlin": "Wasser und Geologie - Berlin.de"
 		},
-		"floodCheckfloodCheck": {
+		"buildingRiskAssessment": {
 			"title": "Auswertung Fragebogen",
 			"description": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet.",
 			"buildingRisk": {
@@ -237,11 +237,12 @@
 				"levelLow": "Ihr Gebäude weist ein geringes Hochwasserrisiko auf.",
 				"levelInsufficientData": "Das Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
 				"factors": {
-					"basement": "Untergeschoss",
-					"basementWindow": "Kellerfenster",
+					"basement": "Keller",
+					"basementUsage": "Untergeschoss",
+					"pastDamages": "Bekannte Schäden",
 					"backflowProtection": "Rückstausicherung",
-					"socketInstallation": "Anbringung Steckdosen",
-					"geographicalLocation": "Geographische Lage"
+					"rainwaterDrains": "Regenwasser",
+					"protectionMeasures": "Ergriffene Schutzmaßnahmen"
 				}
 			}
 		},

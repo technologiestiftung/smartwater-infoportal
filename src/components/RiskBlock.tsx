@@ -1,11 +1,12 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { RiskLevel } from "@/lib/types";
+import { RiskLevel, FloodRiskAnswers } from "@/lib/types";
+import floodRiskConfig from "@/config/floodRiskConfig.json";
 
 export interface RiskFactor {
 	id: string;
-	riskLevel: RiskLevel;
+	riskLevel: RiskLevel | "unknown";
 	translationKey: string;
 }
 
@@ -13,50 +14,58 @@ interface RiskBlockProps {
 	overallRiskLevel?: RiskLevel;
 	arrowPosition?: number;
 	riskFactors?: RiskFactor[];
+	floodRiskAnswers?: FloodRiskAnswers;
 }
 
 const RiskBlock: React.FC<RiskBlockProps> = ({
 	overallRiskLevel = "moderate",
 	arrowPosition = 50,
 	riskFactors = [],
+	floodRiskAnswers,
 }) => {
 	const t = useTranslations("floodCheck");
+
+	// Get risk class for styling
+	const getRiskClass = (riskLevel: RiskLevel | "unknown") => {
+		switch (riskLevel) {
+			case "low": 
+				return "bg-risk-low";
+			case "moderate": 
+				return "bg-risk-moderate";
+			case "high": 
+				return "bg-risk-high";
+			default: 
+				return "bg-gray-400";
+		}
+	};
+
+	// Simple risk level calculation based on individual answer scores
+	const calculateRiskLevel = (questionId: string): RiskLevel | "unknown" => {
+		if (!floodRiskAnswers || !floodRiskAnswers[questionId]) {
+			return "unknown";
+		}
+
+		const answer = floodRiskAnswers[questionId];
+		const score = answer.score || 0;
+		
+		// Simple score-based risk levels: positive = low risk (green), negative = high risk (red)
+		if (score >= 2) {
+			return "low";    // Green
+		}
+		if (score >= 0) {
+			return "moderate"; // Yellow
+		}
+		return "high";     // Red
+	};
 
 	const defaultRiskFactors: RiskFactor[] =
 		riskFactors.length > 0
 			? riskFactors
-			: [
-					{
-						id: "basement",
-						riskLevel: "low",
-						translationKey:
-							"floodCheckfloodCheck.buildingRisk.factors.basement",
-					},
-					{
-						id: "basementWindow",
-						riskLevel: "moderate",
-						translationKey:
-							"floodCheckfloodCheck.buildingRisk.factors.basementWindow",
-					},
-					{
-						id: "backflowProtection",
-						riskLevel: "high",
-						translationKey:
-							"floodCheckfloodCheck.buildingRisk.factors.backflowProtection",
-					},
-					{
-						id: "socketInstallation",
-						riskLevel: "moderate",
-						translationKey:
-							"floodCheckfloodCheck.buildingRisk.factors.socketInstallation",
-					},
-					{
-						id: "geographicalLocation",
-						riskLevel: "low",
-						translationKey:
-							"floodCheckfloodCheck.buildingRisk.factors.geographicalLocation",
-					},
-				];
+			: floodRiskConfig.riskFactors.map((factor) => ({
+					id: factor.id,
+					riskLevel: calculateRiskLevel(factor.questionId),
+					translationKey: factor.translationKey,
+				}));
 
 	return (
 		<div className={`Risk-block border-12 border-risk`}>
@@ -69,11 +78,11 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 						width={24}
 						height={24}
 					/>
-					<h4 className="">{t(`floodCheckfloodCheck.buildingRisk.title`)}</h4>
+					<h4 className="">{t(`buildingRiskAssessment.buildingRisk.title`)}</h4>
 				</div>
 				<p className="">
 					{t(
-						`floodCheckfloodCheck.buildingRisk.level${
+						`buildingRiskAssessment.buildingRisk.level${
 							overallRiskLevel.charAt(0).toUpperCase() +
 							overallRiskLevel.slice(1)
 						}`,
@@ -94,7 +103,6 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 							/>
 						</div>
 					</div>
-					{/* <div className="bg-linear-to-r to-risk-high from-risk-low via-risk-moderate h-12 w-full"></div> */}
 					<Image
 						className="w-full max-w-none"
 						src="/Farbskala.jpg"
@@ -107,8 +115,12 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 					{defaultRiskFactors.map((factor) => (
 						<div key={factor.id} className="inline-flex items-center gap-4">
 							<div
-								className={`bg-risk-${factor.riskLevel} size-5 rounded-full`}
-							/>
+								className={`${getRiskClass(factor.riskLevel)} size-5 rounded-full flex items-center justify-center`}
+							>
+								{factor.riskLevel === "unknown" && (
+									<span className="text-white text-xs font-bold">?</span>
+								)}
+							</div>
 							<span className="">{t(factor.translationKey)}</span>
 						</div>
 					))}
