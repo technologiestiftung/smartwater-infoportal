@@ -11,6 +11,8 @@ import {
 } from "berlin-ui-library";
 import { useForm } from "react-hook-form";
 import TextBlock from "./TextBlock";
+import useStore from "../store/defaultStore";
+import riskConfig from "../config/floodRiskConfig.json";
 
 interface RiskAnalysisProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,172 +24,96 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 }: RiskAnalysisProps) => {
 	const t = useTranslations();
 	const [currentStep, setCurrentStep] = useState(0);
+	const { floodRiskAnswers, updateFloodRiskAnswer, calculateAndSetResult } =
+		useStore();
+
+	// Get questions from config, filter out auto questions
+	const questions = riskConfig.questions.filter((q) => q.type !== "auto");
+
+	const properties: FormProperty[] = questions.map((question) => ({
+		id: question.id,
+		name: t(`${question.translationKey}.text`),
+		type: question.type as "radio" | "checkbox",
+		isRequired: question.isRequired,
+		options: question.options.map((option) => ({
+			label: t(`${question.translationKey}.options.${option.value}`),
+			value: String(option.value), // Convert to string for FormProperty
+		})),
+	}));
+
+	// Create default values from stored answers
+	const defaultValues = Object.keys(floodRiskAnswers).reduce(
+		(acc, key) => {
+			const answer = floodRiskAnswers[key];
+			acc[key] = answer?.value || "";
+			return acc;
+		},
+		{} as Record<string, string | string[] | number>,
+	);
+
 	const methods = useForm({
-		defaultValues: {
-			addresse: "",
-			untergeschoss: "",
-			floodProtection: false,
-		},
+		defaultValues,
+		mode: "onChange",
 	});
-	const properties: FormProperty[] = [
-		{
-			id: "q1",
-			name: t("floodCheck.questions.q1.text"),
-			type: "checkbox",
-			options: [
-				{
-					label: t("floodCheck.questions.q1.options.yesWithWindow"),
-					value: "yesWithWindow",
-				},
-				{
-					label: t("floodCheck.questions.q1.options.yesWithoutWindow"),
-					value: "yesWithoutWindow",
-				},
-				{ label: t("floodCheck.questions.q1.options.no"), value: "no" },
-				{
-					label: t("floodCheck.questions.q1.options.noInformation"),
-					value: "noInformation",
-				},
-			],
-		},
-		{
-			id: "q2",
-			name: t("floodCheck.questions.q2.text"),
-			type: "checkbox",
-			options: [
-				{
-					label: t("floodCheck.questions.q2.options.living"),
-					value: "living",
-				},
-				{
-					label: t("floodCheck.questions.q2.options.utility"),
-					value: "utility",
-				},
-				{
-					label: t("floodCheck.questions.q2.options.storageLowValue"),
-					value: "storageLowValue",
-				},
-				{
-					label: t("floodCheck.questions.q2.options.storageHighValue"),
-					value: "storageHighValue",
-				},
-				{
-					label: t("floodCheck.questions.q2.options.none"),
-					value: "none",
-				},
-				{
-					label: t("floodCheck.questions.q2.options.noInformation"),
-					value: "noInformation",
-				},
-			],
-		},
-		{
-			id: "q3",
-			name: t("floodCheck.questions.q3.text"),
-			type: "radio",
-			options: [
-				{
-					label: t("floodCheck.questions.q3.options.one"),
-					value: "one",
-				},
-				{
-					label: t("floodCheck.questions.q3.options.two"),
-					value: "two",
-				},
-				{
-					label: t("floodCheck.questions.q3.options.threeOrMore"),
-					value: "threeOrMore",
-				},
-				{
-					label: t("floodCheck.questions.q3.options.no"),
-					value: "no",
-				},
-				{
-					label: t("floodCheck.questions.q3.options.noInformation"),
-					value: "noInformation",
-				},
-			],
-		},
-		{
-			id: "q4",
-			name: t("floodCheck.questions.q4.text"),
-			type: "radio",
-			options: [
-				{
-					label: t("floodCheck.questions.q4.options.yesGood"),
-					value: "yesGood",
-				},
-				{
-					label: t("floodCheck.questions.q4.options.yesUnknown"),
-					value: "yesUnknown",
-				},
-				{
-					label: t("floodCheck.questions.q4.options.no"),
-					value: "no",
-				},
-				{
-					label: t("floodCheck.questions.q4.options.noInformation"),
-					value: "noInformation",
-				},
-			],
-		},
-		{
-			id: "q5",
-			name: t("floodCheck.questions.q5.text"),
-			type: "radio",
-			options: [
-				{
-					label: t("floodCheck.questions.q5.options.good"),
-					value: "good",
-				},
-				{
-					label: t("floodCheck.questions.q5.options.bad"),
-					value: "bad",
-				},
-				{
-					label: t("floodCheck.questions.q5.options.unknown"),
-					value: "unknown",
-				},
-				{
-					label: t("floodCheck.questions.q5.options.noInformation"),
-					value: "noInformation",
-				},
-			],
-		},
-		{
-			id: "q6",
-			name: t("floodCheck.questions.q6.text"),
-			type: "radio",
-			options: [
-				{
-					label: t("floodCheck.questions.q6.options.one"),
-					value: "one",
-				},
-				{
-					label: t("floodCheck.questions.q6.options.twoOrMore"),
-					value: "twoOrMore",
-				},
-				{
-					label: t("floodCheck.questions.q6.options.no"),
-					value: "no",
-				},
-				{
-					label: t("floodCheck.questions.q6.options.noInformation"),
-					value: "noInformation",
-				},
-			],
-		},
-	];
 
 	const handleNext = async () => {
-		const fieldName = properties[currentStep]
-			.id as keyof typeof methods.control._defaultValues;
-		const isValid = await methods.trigger(fieldName);
+		const currentProperty = properties[currentStep];
+		const fieldName = currentProperty.id;
+		const currentValue = methods.getValues(fieldName);
 
-		if (isValid && currentStep < properties.length - 1) {
+		// Manual validation for required questions
+		if (currentProperty.isRequired) {
+			let isValid = true;
+
+			// For checkbox questions, check if at least one option is selected
+			if (currentProperty.type === "checkbox") {
+				if (
+					!currentValue ||
+					(Array.isArray(currentValue) && currentValue.length === 0)
+				) {
+					methods.setError(fieldName, {
+						type: "required",
+						message: t("common.validation.selectAtLeastOne"),
+					});
+					isValid = false;
+				}
+			}
+
+			// For radio questions, check if an option is selected
+			if (currentProperty.type === "radio") {
+				if (
+					!currentValue ||
+					currentValue === "" ||
+					currentValue === null ||
+					currentValue === undefined
+				) {
+					methods.setError(fieldName, {
+						type: "required",
+						message: t("common.validation.selectOne"),
+					});
+					isValid = false;
+				}
+			}
+
+			if (!isValid) {
+				return;
+			}
+		}
+
+		// Clear any previous errors
+		methods.clearErrors(fieldName);
+
+		// Save current answer to store
+		if (currentValue !== undefined) {
+			updateFloodRiskAnswer(fieldName, currentValue);
+		}
+
+		if (currentStep < properties.length - 1) {
 			setCurrentStep(currentStep + 1);
-		} else if (isValid && currentStep === properties.length - 1) {
-			methods.handleSubmit(onSubmit)();
+		} else {
+			// Final step - calculate score and submit
+			calculateAndSetResult();
+			onSubmit(floodRiskAnswers);
 		}
 	};
 
@@ -198,6 +124,7 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 	};
 
 	const currentProperty = properties[currentStep];
+	const currentQuestion = questions[currentStep];
 
 	return (
 		<div className={``}>
@@ -244,7 +171,8 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 						</div>
 					</Form>
 				</FormWrapper>
-				{currentStep === 3 && (
+				{/* Dynamic image display based on config */}
+				{currentQuestion?.hasImage && (
 					<TextBlock
 						desktopColSpans={{ col1: 1, col2: 1 }}
 						className="w-full gap-6"
@@ -252,41 +180,25 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 						slotA={
 							<Image
 								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-								src="/rueckstausicherung.png"
-								alt={t("floodCheck.questions.q4.image.alt")}
-								caption={t("floodCheck.questions.q4.image.caption")}
-								copyright={t("floodCheck.questions.q4.image.copyright")}
+								src={currentQuestion.imageSrc}
+								alt={t(`${currentQuestion.translationKey}.image.alt`)}
+								caption={t(`${currentQuestion.translationKey}.image.caption`)}
+								copyright={t(
+									`${currentQuestion.translationKey}.image.copyright`,
+								)}
 							/>
 						}
 						slotB={
 							<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-								<h3 className="">{t("floodCheck.questions.q4.title")}</h3>
-								<p className="">{t("floodCheck.questions.q4.description")}</p>
+								<h3 className="">
+									{t(`${currentQuestion.translationKey}.title`)}
+								</h3>
+								<p className="">
+									{t(`${currentQuestion.translationKey}.description`)}
+								</p>
 							</div>
 						}
 					/>
-				)}
-				{currentStep === 4 && (
-					<div className="">
-						<TextBlock
-							desktopColSpans={{ col1: 1, col2: 1 }}
-							className="w-full gap-6"
-							reverseDesktopColumns={false}
-							slotA={
-								<Image
-									src="/ablaeufe.png"
-									alt={t("floodCheck.questions.q5.image.alt")}
-									caption={t("floodCheck.questions.q5.image.caption")}
-								/>
-							}
-							slotB={
-								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-									<h3 className="">{t("floodCheck.questions.q5.title")}</h3>
-									<p className="">{t("floodCheck.questions.q5.description")}</p>
-								</div>
-							}
-						/>
-					</div>
 				)}
 			</div>
 		</div>

@@ -1,0 +1,139 @@
+{
+	"riskThresholds": {
+		"low": {
+			"max": 66,
+			"min": 20
+		},
+		"moderate": {
+			"min": -28,
+			"max": 19
+		},
+		"high": {
+			"min": -28
+		}
+	},
+	"questions": [
+		{
+			"id": "q1",
+			"type": "radio",
+			"weight": 2,
+			"isRequired": true,
+			"translationKey": "floodCheck.questions.q1",
+			"options": [
+				{ "value": "yesWithWindow", "score": -2 },
+				{ "value": "yesWithoutWindow", "score": -1 },
+				{ "value": "no", "score": 2 },
+				{ "value": "noInformation", "score": 0 }
+			]
+		},
+		{
+			"id": "q2",
+			"type": "checkbox",
+			"weight": 3,
+			"isRequired": true,
+			"translationKey": "floodCheck.questions.q2",
+			"options": [
+				{ "value": "living", "score": -3 },
+				{ "value": "utility", "score": -2 },
+				{ "value": "storageLowValue", "score": -1 },
+				{ "value": "storageHighValue", "score": -2 },
+				{ "value": "none", "score": 1 },
+				{ "value": "noInformation", "score": 0 }
+			]
+		},
+		{
+			"id": "q3",
+			"type": "radio",
+			"weight": 5,
+			"isRequired": true,
+			"translationKey": "floodCheck.questions.q3",
+			"options": [
+				{ "value": "one", "score": -1 },
+				{ "value": "two", "score": -2 },
+				{ "value": "threeOrMore", "score": -3 },
+				{ "value": "no", "score": 2 },
+				{ "value": "noInformation", "score": 0 }
+			]
+		},
+		{
+			"id": "q4",
+			"type": "radio",
+			"weight": 4,
+			"isRequired": true,
+			"translationKey": "floodCheck.questions.q4",
+			"options": [
+				{ "value": "yesGood", "score": 3 },
+				{ "value": "yesUnknown", "score": 1 },
+				{ "value": "no", "score": -1 },
+				{ "value": "noInformation", "score": 0 }
+			],
+			"hasImage": true,
+			"imageSrc": "/rueckstausicherung.png"
+		},
+		{
+			"id": "q5",
+			"type": "radio",
+			"weight": 4,
+			"isRequired": true,
+			"translationKey": "floodCheck.questions.q5",
+			"options": [
+				{ "value": "good", "score": 3 },
+				{ "value": "bad", "score": -2 },
+				{ "value": "unknown", "score": -1 },
+				{ "value": "noInformation", "score": 0 }
+			],
+			"hasImage": true,
+			"imageSrc": "/ablaeufe.png"
+		},
+		{
+			"id": "q6",
+			"type": "radio",
+			"weight": 5,
+			"isRequired": true,
+			"translationKey": "floodCheck.questions.q6",
+			"options": [
+				{ "value": "one", "score": 2 },
+				{ "value": "twoOrMore", "score": 3 },
+				{ "value": "no", "score": -1 },
+				{ "value": "noInformation", "score": 0 }
+			]
+		},
+		{
+			"id": "qA",
+			"type": "auto",
+			"weight": 3,
+			"dataPath": "floodZoneIndex",
+			"transform": "floodZoneBool",
+			"options": [
+				{ "value": "yes", "score": -2 },
+				{ "value": "no", "score": 2 }
+			]
+		},
+		{
+			"id": "qB",
+			"type": "auto",
+			"weight": 3,
+			"dataPath": "building.hochwasserGefährdung",
+			"options": [
+				{ "value": 0, "score": 1 },
+				{ "value": 1, "score": 0 },
+				{ "value": 2, "score": -1 },
+				{ "value": 3, "score": -2 }
+			]
+		},
+		{
+			"id": "qC",
+			"type": "auto",
+			"weight": 3,
+			"dataPath": "building.starkregenGefährdung",
+			"options": [
+				{ "value": 0, "score": 1 },
+				{ "value": 1, "score": 0 },
+				{ "value": 2, "score": -1 },
+				{ "value": 3, "score": -2 }
+			]
+		}
+	],
+	"minimumAnswersRequired": 4,
+	"version": "1.0"
+}

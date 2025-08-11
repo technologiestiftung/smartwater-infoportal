@@ -41,7 +41,14 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 			className={`Result-block ${hazardColorMap[hazardLevel]?.border} border-12`}
 		>
 			<div className="flex flex-col gap-2 p-4">
-				<div className="">
+				<div className="flex items-center gap-2">
+					<Image
+						className="w-6"
+						src={`/${entity}.svg`}
+						alt={`${entity} Icon`}
+						width={24}
+						height={24}
+					/>
 					<h4 className="">{t(`${entity}.title`)}</h4>
 				</div>
 				<p className="">{t(`${entity}.${hazardLevel}`)}</p>

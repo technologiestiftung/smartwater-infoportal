@@ -42,3 +42,16 @@ export interface LocationData {
 	distance?: number;
 	floodZoneIndex?: number | null;
 }
+
+export interface QuestionAnswer {
+	value: string | string[] | number;
+	score?: number;
+	weight?: number;
+}
+
+export type FloodRiskAnswers = Record<string, QuestionAnswer>;
+
+export interface FloodRiskResult {
+	totalScore: number;
+	riskLevel: "low" | "moderate" | "high" | "insufficient-data";
+}

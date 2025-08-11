@@ -9,25 +9,34 @@ import {
 	Image,
 	Pill,
 	FilterPillGroup,
-	Tabs,
-	TabsTrigger,
-	TabsList,
 	DownloadItem,
 } from "berlin-ui-library";
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
+import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import Map from "./Map/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
+	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 
-	const filters = ["Starkregen", "Flusshochwasser"];
-	const subFilters = ["Selten", "Außergewöhnlich", "Extrem"];
+	const hazardEntities = getHazardEntities();
+
+	// Define filter keys for translation
+	const filterKeys = [
+		{ key: "heavyRain", translationKey: "hazardDisplay.heavyRainTab" },
+		{ key: "fluvialFlood", translationKey: "hazardDisplay.fluvialFloodTab" },
+	];
+	const subFilterKeys = [
+		{ key: "rare", translationKey: "hazardDisplay.frequency.rare" },
+		{ key: "uncommon", translationKey: "hazardDisplay.frequency.uncommon" },
+		{ key: "extreme", translationKey: "hazardDisplay.frequency.extreme" },
+	];
 	const accordion = [
 		{
 			title: t("hazardInfo.calculation"),
@@ -56,14 +65,24 @@ const Results: React.FC = () => {
 		"protectionTips.traffic.tip4",
 		"protectionTips.traffic.tip5",
 	];
-	const [activeFilters, setActiveFilters] = useState<string[]>([]);
+	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
 	const handleFilterToggle = (value: string) => {
-		setActiveFilters((prev) =>
+		setActiveFilter(value);
+	};
+	const [activeSubFilters, setActiveSubFilters] = useState<string[]>([]);
+	const handleSubFilterToggle = (value: string) => {
+		setActiveSubFilters((prev) =>
 			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
 		);
 	};
-	const convertStringToID = (str: string) => {
-		return str.replace(/\s+/g, "-").toLowerCase();
+	// Filter hazard entities based on active filter
+	const getFilteredHazardEntities = () => {
+		if (!hazardEntities) {
+			return null;
+		}
+
+		// Filter entities based on the single active filter
+		return hazardEntities.filter((entity) => entity.name === activeFilter);
 	};
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
@@ -84,35 +103,39 @@ const Results: React.FC = () => {
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
-						<Tabs defaultValue={convertStringToID(filters[0])}>
-							<TabsList variant="module">
-								{filters.map((filter) => (
-									<TabsTrigger
-										key={convertStringToID(filter)}
-										variant="module"
-										className="capitalize"
-										value={convertStringToID(filter)}
-									>
-										<h4>{convertStringToID(filter)}</h4>
-									</TabsTrigger>
-								))}
-							</TabsList>
-						</Tabs>
+						<FilterPillGroup
+							size="xl"
+							showIcon={false}
+							activeValues={[activeFilter]}
+							onValueToggle={handleFilterToggle}
+						>
+							{filterKeys.map((filter) => (
+								<Pill
+									variant="filter-outline"
+									size="xl"
+									showIcon={false}
+									value={filter.key}
+									key={filter.key}
+									className="capitalize"
+								>
+									{t(filter.translationKey)}
+								</Pill>
+							))}
+						</FilterPillGroup>
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
-							size="lg"
-							activeValues={activeFilters}
-							onValueToggle={handleFilterToggle}
+							activeValues={activeSubFilters}
+							onValueToggle={handleSubFilterToggle}
 						>
-							{subFilters.map((subFilter) => (
+							{subFilterKeys.map((subFilter) => (
 								<Pill
 									variant="filter"
-									value={convertStringToID(subFilter)}
-									key={convertStringToID(subFilter)}
+									value={subFilter.key}
+									key={subFilter.key}
 									className="capitalize"
 								>
-									{convertStringToID(subFilter)}
+									{t(subFilter.translationKey)}
 								</Pill>
 							))}
 						</FilterPillGroup>
@@ -129,12 +152,28 @@ const Results: React.FC = () => {
 						</p>
 					}
 					slotB={
-						<div id="starkregen-widget">
-							<Image
-								className="w-full"
-								src="/placeholder-images/Widget Starkregen.jpg"
-								alt="Widget Starkregen"
-							/>
+						<div>
+							{(() => {
+								const filteredEntities = getFilteredHazardEntities();
+
+								if (filteredEntities && filteredEntities.length > 0) {
+									return (
+										<div className="">
+											{filteredEntities.map((entity) => (
+												<ResultBlock
+													key={entity.name}
+													entity={entity.name}
+													hazardLevel={entity.hazardLevel}
+													showSubLabel={entity.showSubLabel || false}
+													subHazardLevel={entity.subHazardLevel}
+												/>
+											))}
+										</div>
+									);
+								}
+
+								return <p className="">{t("noHazardData")}</p>;
+							})()}
 						</div>
 					}
 				/>
@@ -176,7 +215,7 @@ const Results: React.FC = () => {
 					</Button>
 				</div>
 			</section>
-			{!skip && (
+			{!skip && hazardEntities && hazardEntities.length > 0 && (
 				<>
 					<div className="divider" />
 					<section className="flex flex-col gap-4">
@@ -200,7 +239,7 @@ const Results: React.FC = () => {
 				</>
 			)}
 			<section className="flex w-full flex-col gap-12">
-				{!skip && (
+				{!skip && hazardEntities && hazardEntities.length > 0 && (
 					<>
 						<div className="flex flex-col gap-2">
 							<h2 className="">{t("protectionTips.title")}</h2>
@@ -221,7 +260,7 @@ const Results: React.FC = () => {
 													{t(tipKey)}
 												</li>
 											))}
-										</ul>{" "}
+										</ul>
 									</div>
 								}
 								slotB={
