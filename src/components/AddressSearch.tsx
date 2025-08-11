@@ -59,12 +59,6 @@ export default function AddressSearch({
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 
-			if (onLandingPage && !addresse) {
-				reset();
-				router.push("/wasser-check");
-				return;
-			}
-
 			if (addresse) {
 				// Find the matching result from the search results
 				const selectedResult = results.find(
