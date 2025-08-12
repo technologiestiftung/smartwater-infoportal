@@ -10,6 +10,8 @@ import {
 	Pill,
 	FilterPillGroup,
 	DownloadItem,
+	List,
+	ListItem,
 } from "berlin-ui-library";
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
@@ -69,11 +71,11 @@ const Results: React.FC = () => {
 	const handleFilterToggle = (value: string) => {
 		setActiveFilter(value);
 	};
-	const [activeSubFilters, setActiveSubFilters] = useState<string[]>([]);
+	const [activeSubFilter, setActiveSubFilter] = useState<string>(
+		subFilterKeys[0].key,
+	);
 	const handleSubFilterToggle = (value: string) => {
-		setActiveSubFilters((prev) =>
-			prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
-		);
+		setActiveSubFilter(value);
 	};
 	// Filter hazard entities based on active filter
 	const getFilteredHazardEntities = () => {
@@ -125,7 +127,7 @@ const Results: React.FC = () => {
 					</div>
 					<div className="flex w-full">
 						<FilterPillGroup
-							activeValues={activeSubFilters}
+							activeValues={[activeSubFilter]}
 							onValueToggle={handleSubFilterToggle}
 						>
 							{subFilterKeys.map((subFilter) => (
@@ -147,9 +149,25 @@ const Results: React.FC = () => {
 					className="w-full gap-6"
 					reverseDesktopColumns={true}
 					slotA={
-						<p className="bg-panel-heavy p-6">
-							{t("hazardDisplay.frequencyDescription.rare")}
-						</p>
+						<div className="bg-panel-heavy p-6">
+							<p className="mb-4">
+								{t(
+									`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
+								)}
+							</p>
+							<List variant="unordered">
+								<ListItem>
+									{t(
+										`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
+									)}
+								</ListItem>
+								<ListItem>
+									{t(
+										`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
+									)}
+								</ListItem>
+							</List>
+						</div>
 					}
 					slotB={
 						<div>

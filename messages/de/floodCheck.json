@@ -189,9 +189,21 @@
 				"extreme": "Extrem"
 			},
 			"frequencyDescription": {
-				"rare": "Ein seltenes Ereignis tritt in der Regel alle 30 bis 50 Jahre auf und kennzeichnet sich dadurch aus, dass zu Beginn die größte Menge Wasser direkt niedergeht. Von einem solchen Ereignis geht keine größere Gefahr aus, eine absolute Sicherheit gibt es allerdings nicht.",
-				"uncommon": "Ein außergewöhnliches Ereignis...",
-				"extreme": "Ein extremes Ereignis..."
+				"rare": {
+					"text": "Ein seltenes Ereignis tritt in der Regel alle 30 bis 50 Jahre auf und kennzeichnet sich dadurch aus, dass zu Beginn die größte Menge Wasser direkt niedergeht. Von einem solchen Ereignis geht keine größere Gefahr aus, eine absolute Sicherheit gibt es allerdings nicht.",
+					"waterLevel": "Wasserstand (Durchschnitt) < 0,3 m",
+					"flowVelocity": "Fließgeschwindigkeit: < 0,2 m/s"
+				},
+				"uncommon": {
+					"text": "Ein außergewöhnliches Ereignis tritt statistisch betrachtet alle 50-100 Jahre auf.",
+					"waterLevel": "Wasserstand (Durchschnitt) 0,3 – <0,5 m",
+					"flowVelocity": "Fließgeschwindigkeit 0,25 m/s"
+				},
+				"extreme": {
+					"text": "Ein extremes Ereignis tritt nur im Extremfall auf. Dabei verteilten sich 100 Millimeter Niederschlag über mehrere Stunden (Blockregen) auf eine kleine Fläche. Zum Vergleich: der Mittelwert der jährlichen Niederschlagssumme in Berlin im Zeitraum 1981 – 2010 beträgt 576,9 mm.",
+					"waterLevel": "Wasserstand (Durchschnitt) 0,5 – <1,0 m",
+					"flowVelocity": "Fließgeschwindigkeit 0,30 m/s"
+				}
 			},
 			"hazardDetails": {
 				"heavyRain": {
