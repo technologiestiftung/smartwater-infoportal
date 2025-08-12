@@ -9,7 +9,8 @@
 			"max": 19
 		},
 		"high": {
-			"min": -28
+			"max": -28,
+			"min": -75
 		}
 	},
 	"questions": [
@@ -143,13 +144,13 @@
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basement"
 		},
 		{
-			"id": "basementUsage", 
+			"id": "basementUsage",
 			"questionId": "q2",
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basementUsage"
 		},
 		{
 			"id": "pastDamages",
-			"questionId": "q3", 
+			"questionId": "q3",
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
 		},
 		{

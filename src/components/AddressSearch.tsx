@@ -17,7 +17,7 @@ import { getAddressResults } from "@/server/actions/getAddressResults";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
-	onAddressConfirmed?: () => void;
+	onAddressConfirmed?: (skip?: boolean) => void;
 }
 
 export default function AddressSearch({
@@ -55,7 +55,7 @@ export default function AddressSearch({
 		isRequired: true,
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = (skip?: boolean) => {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 
@@ -76,7 +76,7 @@ export default function AddressSearch({
 				if (onLandingPage) {
 					router.push("/wasser-check");
 				} else if (onAddressConfirmed) {
-					onAddressConfirmed();
+					onAddressConfirmed(skip);
 				}
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
@@ -225,7 +225,7 @@ export default function AddressSearch({
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
-					<div className="flex gap-4">
+					<div className="flex flex-col gap-4 lg:flex-row">
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
 							type="submit"
@@ -255,14 +255,13 @@ export default function AddressSearch({
 						{!onLandingPage && (
 							<Button
 								variant="light"
-								disabled={!resultClicked}
+								disabled={isLoadingLocationData || !resultClicked}
 								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								onClick={(e: any) => {
 									e.preventDefault();
 									const addresse = getValues("addresse");
 									if (addresse) {
-										reset();
-										router.push("/wasser-check?skip=true#results");
+										handleSubmit(true)();
 									} else {
 										setError("Bitte geben Sie eine Adresse ein.");
 									}

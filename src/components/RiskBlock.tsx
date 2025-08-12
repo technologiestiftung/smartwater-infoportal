@@ -12,18 +12,24 @@ export interface RiskFactor {
 
 interface RiskBlockProps {
 	overallRiskLevel?: RiskLevel;
-	arrowPosition?: number;
+	value?: number;
+	min?: number;
+	max?: number;
 	riskFactors?: RiskFactor[];
 	floodRiskAnswers?: FloodRiskAnswers;
 }
 
 const RiskBlock: React.FC<RiskBlockProps> = ({
 	overallRiskLevel = "moderate",
-	arrowPosition = 50,
+	value = 50,
+	min = -100,
+	max = 100,
 	riskFactors = [],
 	floodRiskAnswers,
 }) => {
 	const t = useTranslations("floodCheck");
+
+	const arrowPosition = ((value - min) / (max - min)) * 100;
 
 	// Get risk class for styling
 	const getRiskClass = (riskLevel: RiskLevel | "unknown") => {
@@ -109,7 +115,6 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 							style={{ transform: `translateX(${arrowPosition}%)` }}
 						>
 							<Image
-								className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 								src="/arrow_down.svg"
 								alt={t(
 									"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
