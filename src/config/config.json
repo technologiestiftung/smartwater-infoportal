@@ -12,7 +12,7 @@
 				"startCenter": [13.404954, 52.520008],
 				"extent": [1444000, 6860000, 1538000, 6925000],
 				"epsg": "EPSG:3857",
-				"startZoomLevel": 1,
+				"startZoomLevel": 7,
 				"options": [
 					{
 						"resolution": 52.9,

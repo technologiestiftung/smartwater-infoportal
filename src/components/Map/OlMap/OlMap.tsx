@@ -46,9 +46,6 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 
 		const projection = mapViewConfig.epsg;
 		let center = mapViewConfig.startCenter;
-		let setStartZoomLevel;
-
-		console.log("locationData on MapInit :>> ", locationData);
 
 		if (
 			currentUserAddress?.lon &&
@@ -56,7 +53,6 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 			checkNumber(currentUserAddress.lon) &&
 			checkNumber(currentUserAddress.lat)
 		) {
-			setStartZoomLevel = 14;
 			center = [Number(currentUserAddress.lon), Number(currentUserAddress.lat)];
 		}
 
@@ -77,13 +73,11 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 			.sort((a, b) => a.zoomLevel - b.zoomLevel)
 			.map((option) => option.resolution);
 
-		const startZoomLevel =
-			setStartZoomLevel ||
-			Math.max(
-				0,
-				Math.min(mapViewConfig.startZoomLevel, resolutions.length - 1),
-			);
-		if (startZoomLevel !== mapViewConfig.startZoomLevel && !setStartZoomLevel) {
+		const startZoomLevel = Math.max(
+			0,
+			Math.min(mapViewConfig.startZoomLevel, resolutions.length - 1),
+		);
+		if (startZoomLevel !== mapViewConfig.startZoomLevel) {
 			console.warn(
 				`[OlMap] Start zoom level ${mapViewConfig.startZoomLevel} is out of range. Using ${startZoomLevel} instead.`,
 			);
@@ -129,11 +123,10 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				const layer = new VectorLayer({
 					source: src,
 					style: new Style({
-						stroke: new Stroke({ color: "rgba(255,0,0,1)", width: 10 }),
+						stroke: new Stroke({ color: "rgba(255,0,0,1)", width: 6 }),
 					}),
 				});
 				layer.setZIndex(9999);
-				console.log("map.addLayer");
 				map.addLayer(layer);
 				highlightLayer = layer;
 			}
