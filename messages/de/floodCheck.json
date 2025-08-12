@@ -243,6 +243,19 @@
 					"backflowProtection": "Rückstausicherung",
 					"rainwaterDrains": "Regenwasser",
 					"protectionMeasures": "Ergriffene Schutzmaßnahmen"
+				},
+				"riskLevels": {
+					"low": "Geringes Risiko",
+					"moderate": "Mittleres Risiko", 
+					"high": "Hohes Risiko",
+					"unknown": "Keine Angabe"
+				},
+				"ariaLabels": {
+					"riskIndicator": "{factor}: {riskLevel}",
+					"currentHazardLevel": "Aktueller Gefahrengrad: {level}",
+					"hazardLevelIndicator": "{level}: {status}",
+					"currentStatus": "Aktuell",
+					"notApplicableStatus": "Nicht zutreffend"
 				}
 			}
 		},

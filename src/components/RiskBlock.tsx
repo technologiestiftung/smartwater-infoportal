@@ -28,15 +28,29 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 	// Get risk class for styling
 	const getRiskClass = (riskLevel: RiskLevel | "unknown") => {
 		switch (riskLevel) {
-			case "low": 
+			case "low":
 				return "bg-risk-low";
-			case "moderate": 
+			case "moderate":
 				return "bg-risk-moderate";
-			case "high": 
+			case "high":
 				return "bg-risk-high";
-			default: 
+			default:
 				return "bg-gray-400";
 		}
+	};
+
+	// Get aria label for risk level using i18n
+	const getRiskAriaLabel = (
+		riskLevel: RiskLevel | "unknown",
+		factorName: string,
+	) => {
+		const riskLevelText = t(
+			`buildingRiskAssessment.buildingRisk.riskLevels.${riskLevel}`,
+		);
+		return t("buildingRiskAssessment.buildingRisk.ariaLabels.riskIndicator", {
+			factor: factorName,
+			riskLevel: riskLevelText,
+		});
 	};
 
 	// Simple risk level calculation based on individual answer scores
@@ -47,15 +61,15 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 
 		const answer = floodRiskAnswers[questionId];
 		const score = answer.score || 0;
-		
+
 		// Simple score-based risk levels: positive = low risk (green), negative = high risk (red)
 		if (score >= 2) {
-			return "low";    // Green
+			return "low"; // Green
 		}
 		if (score >= 0) {
 			return "moderate"; // Yellow
 		}
-		return "high";     // Red
+		return "high"; // Red
 	};
 
 	const defaultRiskFactors: RiskFactor[] =
@@ -97,7 +111,14 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 							<Image
 								className="-mx-5 w-screen max-w-none md:-mx-0 md:w-auto"
 								src="/arrow_down.svg"
-								alt="Arrow Down"
+								alt={t(
+									"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
+									{
+										level: t(
+											`buildingRiskAssessment.buildingRisk.riskLevels.${overallRiskLevel}`,
+										),
+									},
+								)}
 								width={24}
 								height={24}
 							/>
@@ -112,18 +133,23 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
-					{defaultRiskFactors.map((factor) => (
-						<div key={factor.id} className="inline-flex items-center gap-4">
-							<div
-								className={`${getRiskClass(factor.riskLevel)} size-5 rounded-full flex items-center justify-center`}
-							>
-								{factor.riskLevel === "unknown" && (
-									<span className="text-white text-xs font-bold">?</span>
-								)}
+					{defaultRiskFactors.map((factor) => {
+						const factorName = t(factor.translationKey);
+						return (
+							<div key={factor.id} className="inline-flex items-center gap-4">
+								<div
+									className={`${getRiskClass(factor.riskLevel)} flex size-5 items-center justify-center rounded-full`}
+									role="status"
+									aria-label={getRiskAriaLabel(factor.riskLevel, factorName)}
+								>
+									{factor.riskLevel === "unknown" && (
+										<span className="text-xs font-bold text-white">?</span>
+									)}
+								</div>
+								<span aria-hidden>{factorName}</span>
 							</div>
-							<span className="">{t(factor.translationKey)}</span>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</div>
