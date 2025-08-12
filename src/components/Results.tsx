@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import {
 	Accordion,
@@ -70,6 +70,7 @@ const Results: React.FC = () => {
 	const updateActiveMapFilter = useStore(
 		(state) => state.updateActiveMapFilter,
 	);
+	const activeMapFilter = useStore((state) => state.activeMapFilter);
 	const handleFilterToggle = (value: string) => {
 		updateActiveMapFilter(value);
 		setActiveFilter(value);
@@ -91,6 +92,13 @@ const Results: React.FC = () => {
 	};
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
+
+	useEffect(() => {
+		if (activeMapFilter !== activeFilter) {
+			updateActiveMapFilter(activeFilter);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-2">
