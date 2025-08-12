@@ -17,7 +17,7 @@ import { getAddressResults } from "@/server/actions/getAddressResults";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
-	onAddressConfirmed?: () => void;
+	onAddressConfirmed?: (skipToResults: boolean) => void;
 }
 
 export default function AddressSearch({
@@ -47,7 +47,7 @@ export default function AddressSearch({
 			addresse: "",
 		},
 	});
-	const { setValue, getValues, reset } = methods;
+	const { setValue, getValues } = methods;
 	const property: FormProperty = {
 		id: "addresse",
 		name: t("addressCheck.label"),
@@ -57,12 +57,10 @@ export default function AddressSearch({
 		isRequired: true,
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = (skipToResults: boolean) => {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
-
 			if (addresse) {
-				// Find the matching result from the search results
 				const selectedResult = results.find(
 					(result) => result.display_name === addresse,
 				);
@@ -72,7 +70,7 @@ export default function AddressSearch({
 				if (onLandingPage) {
 					router.push("/wasser-check");
 				} else if (onAddressConfirmed) {
-					onAddressConfirmed();
+					onAddressConfirmed(skipToResults);
 				}
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
@@ -176,7 +174,7 @@ export default function AddressSearch({
 			<Form {...methods}>
 				<form
 					className="flex flex-col gap-8"
-					onSubmit={handleSubmit()}
+					onSubmit={handleSubmit(false)}
 					onChange={handleChange}
 				>
 					<div className="">
@@ -251,17 +249,7 @@ export default function AddressSearch({
 							<Button
 								variant="light"
 								disabled={!resultClicked}
-								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								onClick={(e: any) => {
-									e.preventDefault();
-									const addresse = getValues("addresse");
-									if (addresse) {
-										reset();
-										router.push("/wasser-check?skip=true#results");
-									} else {
-										setError("Bitte geben Sie eine Adresse ein.");
-									}
-								}}
+								onClick={handleSubmit(true)}
 							>
 								{t("addressCheck.secondaryButton")}
 							</Button>
