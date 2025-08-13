@@ -19,7 +19,7 @@ import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
-import Map from "./Map/Map";
+// import Map from "./Map/Map";
 import Link from "next/link";
 
 const Results: React.FC = () => {
@@ -213,7 +213,7 @@ const Results: React.FC = () => {
 				/>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				<Map />
+				{/* <Map /> */}
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
