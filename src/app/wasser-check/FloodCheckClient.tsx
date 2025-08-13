@@ -68,7 +68,7 @@ export default function FloodCheckClient() {
 						{t("common.backToAddressSearch")}
 					</Button>
 					<div className="flex w-full flex-col gap-2">
-						<div className="flex items-center space-x-2">
+						<div className="flex flex-wrap items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
 							<h1 className="">{t("floodCheck.interimResults.title")}</h1>
 						</div>
