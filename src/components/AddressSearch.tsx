@@ -17,7 +17,7 @@ import { getAddressResults } from "@/server/actions/getAddressResults";
 
 interface AddressSearchProps {
 	onLandingPage?: boolean;
-	onAddressConfirmed?: (skipToResults: boolean) => void;
+	onAddressConfirmed?: (skip?: boolean) => void;
 }
 
 export default function AddressSearch({
@@ -57,7 +57,7 @@ export default function AddressSearch({
 		isRequired: true,
 	};
 
-	const handleSubmit = (skipToResults: boolean) => {
+	const handleSubmit = (skip?: boolean) => {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 			if (addresse) {
@@ -70,7 +70,7 @@ export default function AddressSearch({
 				if (onLandingPage) {
 					router.push("/wasser-check");
 				} else if (onAddressConfirmed) {
-					onAddressConfirmed(skipToResults);
+					onAddressConfirmed(skip);
 				}
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
@@ -227,7 +227,7 @@ export default function AddressSearch({
 							Your browser does not support HTML video.
 						</video>
 					)}
-					<div className="flex gap-4">
+					<div className="flex flex-col gap-4 lg:flex-row">
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
 							type="submit"
@@ -248,8 +248,17 @@ export default function AddressSearch({
 						{!onLandingPage && (
 							<Button
 								variant="light"
-								disabled={!resultClicked}
-								onClick={handleSubmit(true)}
+								disabled={isLoadingLocationData || !resultClicked}
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								onClick={(e: any) => {
+									e.preventDefault();
+									const addresse = getValues("addresse");
+									if (addresse) {
+										handleSubmit(true)();
+									} else {
+										setError("Bitte geben Sie eine Adresse ein.");
+									}
+								}}
 							>
 								{t("addressCheck.secondaryButton")}
 							</Button>

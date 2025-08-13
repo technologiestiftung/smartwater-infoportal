@@ -22,7 +22,7 @@ export default function FloodCheckClient() {
 		(state) => state.setLoadingLocationData,
 	);
 
-	const checkHazard = async (skipToResults: boolean) => {
+	const checkHazard = async (skip?: boolean) => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
@@ -32,7 +32,7 @@ export default function FloodCheckClient() {
 			const latitude = parseFloat(currentUserAddress.lat);
 			const result = await getHazardData(longitude, latitude);
 			setLocationData(result);
-			if (skipToResults) {
+			if (skip) {
 				router.push("/wasser-check?skip=true#results");
 			} else {
 				router.push("/wasser-check#interimResult");
@@ -67,7 +67,7 @@ export default function FloodCheckClient() {
 						{t("common.backToAddressSearch")}
 					</Button>
 					<div className="flex w-full flex-col gap-2">
-						<div className="flex items-center space-x-2">
+						<div className="flex flex-wrap items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
 							<h1 className="">{t("floodCheck.interimResults.title")}</h1>
 						</div>
@@ -126,9 +126,7 @@ export default function FloodCheckClient() {
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<h2 className="">{t("floodCheck.start.title")}</h2>
 						<p className="">{t("floodCheck.start.description")}</p>
-						<AddressSearch
-							onAddressConfirmed={(skipToResults) => checkHazard(skipToResults)}
-						/>
+						<AddressSearch onAddressConfirmed={(skip) => checkHazard(skip)} />
 					</div>
 				</>
 			)}

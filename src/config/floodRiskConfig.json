@@ -9,7 +9,8 @@
 			"max": 19
 		},
 		"high": {
-			"min": -28
+			"max": -28,
+			"min": -75
 		}
 	},
 	"questions": [
@@ -135,5 +136,37 @@
 		}
 	],
 	"minimumAnswersRequired": 4,
-	"version": "1.0"
+	"version": "1.0",
+	"riskFactors": [
+		{
+			"id": "basement",
+			"questionId": "q1",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basement"
+		},
+		{
+			"id": "basementUsage",
+			"questionId": "q2",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basementUsage"
+		},
+		{
+			"id": "pastDamages",
+			"questionId": "q3",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
+		},
+		{
+			"id": "backflowProtection",
+			"questionId": "q4",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.backflowProtection"
+		},
+		{
+			"id": "rainwaterDrains",
+			"questionId": "q5",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.rainwaterDrains"
+		},
+		{
+			"id": "protectionMeasures",
+			"questionId": "q6",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.protectionMeasures"
+		}
+	]
 }
