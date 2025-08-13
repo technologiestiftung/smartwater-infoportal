@@ -19,8 +19,9 @@ import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
-// import Map from "./Map/Map";
+import Map from "./Map/Map";
 import Link from "next/link";
+import ErrorCatcher from "./ErrorCatcher";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -107,291 +108,312 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-2">
-			<section className="flex flex-col gap-2">
-				{currentUserAddress && (
-					<div className="flex w-full flex-col">
-						<p className="">{currentUserAddress.display_name}</p>
-					</div>
-				)}
-			</section>
+			<ErrorCatcher name="Section 1">
+				<section className="flex flex-col gap-2">
+					{currentUserAddress && (
+						<div className="flex w-full flex-col">
+							<p className="">{currentUserAddress.display_name}</p>
+						</div>
+					)}
+				</section>
+			</ErrorCatcher>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<h3 className="">{t("hazardDisplay.title")}</h3>
 					{/* <p className="">{t("hazardDisplay.descriptionPlaceholder")}</p> */}
 				</div>
-				<div className="flex flex-col gap-2">
-					<div className="flex">
-						<FilterPillGroup
-							size="xl"
-							showIcon={false}
-							activeValues={[activeFilter]}
-							onValueToggle={handleFilterToggle}
-						>
-							{filterKeys.map((filter) => (
-								<Pill
-									variant="filter-outline"
-									size="xl"
-									showIcon={false}
-									value={filter.key}
-									key={filter.key}
-									className="capitalize"
-								>
-									{t(filter.translationKey)}
-								</Pill>
-							))}
-						</FilterPillGroup>
-					</div>
-					<div className="flex w-full">
-						<FilterPillGroup
-							activeValues={[activeSubFilter]}
-							onValueToggle={handleSubFilterToggle}
-						>
-							{subFilterKeys.map((subFilter) => (
-								<Pill
-									variant="filter"
-									value={subFilter.key}
-									key={subFilter.key}
-									className="capitalize"
-								>
-									{t(subFilter.translationKey)}
-								</Pill>
-							))}
-						</FilterPillGroup>
-					</div>
-				</div>
-
-				<TextBlock
-					desktopColSpans={{ col1: 1, col2: 1 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="bg-panel-heavy p-6">
-							<p className="mb-4">
-								{t(
-									`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
-								)}
-							</p>
-							<List variant="unordered">
-								<ListItem>
-									{t(
-										`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
-									)}
-								</ListItem>
-								<ListItem>
-									{t(
-										`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
-									)}
-								</ListItem>
-							</List>
+				<ErrorCatcher name="FilterPillGroup">
+					<div className="flex flex-col gap-2">
+						<div className="flex">
+							<FilterPillGroup
+								size="xl"
+								showIcon={false}
+								activeValues={[activeFilter]}
+								onValueToggle={handleFilterToggle}
+							>
+								{filterKeys.map((filter) => (
+									<Pill
+										variant="filter-outline"
+										size="xl"
+										showIcon={false}
+										value={filter.key}
+										key={filter.key}
+										className="capitalize"
+									>
+										{t(filter.translationKey)}
+									</Pill>
+								))}
+							</FilterPillGroup>
 						</div>
-					}
-					slotB={
-						<div>
-							{(() => {
-								const filteredEntities = getFilteredHazardEntities();
-
-								if (filteredEntities && filteredEntities.length > 0) {
-									return (
-										<div className="">
-											{filteredEntities.map((entity) => (
-												<ResultBlock
-													key={entity.name}
-													entity={entity.name}
-													hazardLevel={entity.hazardLevel}
-													showSubLabel={entity.showSubLabel || false}
-													subHazardLevel={entity.subHazardLevel}
-												/>
-											))}
-										</div>
-									);
-								}
-
-								return <p className="">{t("noHazardData")}</p>;
-							})()}
+						<div className="flex w-full">
+							<FilterPillGroup
+								activeValues={[activeSubFilter]}
+								onValueToggle={handleSubFilterToggle}
+							>
+								{subFilterKeys.map((subFilter) => (
+									<Pill
+										variant="filter"
+										value={subFilter.key}
+										key={subFilter.key}
+										className="capitalize"
+									>
+										{t(subFilter.translationKey)}
+									</Pill>
+								))}
+							</FilterPillGroup>
 						</div>
-					}
-				/>
+					</div>
+				</ErrorCatcher>
+				<ErrorCatcher name="TextBlock">
+					<TextBlock
+						desktopColSpans={{ col1: 1, col2: 1 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={true}
+						slotA={
+							<div className="bg-panel-heavy p-6">
+								<p className="mb-4">
+									{t(
+										`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
+									)}
+								</p>
+								<List variant="unordered">
+									<ListItem>
+										{t(
+											`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
+										)}
+									</ListItem>
+									<ListItem>
+										{t(
+											`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
+										)}
+									</ListItem>
+								</List>
+							</div>
+						}
+						slotB={
+							<div>
+								{(() => {
+									const filteredEntities = getFilteredHazardEntities();
+
+									if (filteredEntities && filteredEntities.length > 0) {
+										return (
+											<div className="">
+												{filteredEntities.map((entity) => (
+													<ResultBlock
+														key={entity.name}
+														entity={entity.name}
+														hazardLevel={entity.hazardLevel}
+														showSubLabel={entity.showSubLabel || false}
+														subHazardLevel={entity.subHazardLevel}
+													/>
+												))}
+											</div>
+										);
+									}
+
+									return <p className="">{t("noHazardData")}</p>;
+								})()}
+							</div>
+						}
+					/>
+				</ErrorCatcher>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
-				{/* <Map /> */}
+				<ErrorCatcher name="Map">
+					<Map />
+				</ErrorCatcher>
 			</section>
-			<section className="flex flex-col gap-4">
-				<h2 className="">{t("hazardInfo.title")}</h2>
-				<Accordion
-					type="single"
-					collapsible
-					variant="default"
-					className="text-start"
-				>
-					{accordion.map((item, index) => (
-						<AccordionItem
-							key={`item-${index}`}
-							value={`item-${index}`}
-							variant="default"
-						>
-							<AccordionTrigger variant="default">
-								{item.title}
-							</AccordionTrigger>
-							<AccordionContent variant="default">
-								{item.content}
-								{index === 2 && (
-									<>
-										<div className="mt-4 flex flex-col">
-											<span className="">
-												{t("hazardInfo.linkGroundwaterPortalTitle")}
-											</span>
-											<Link
-												href={t("hazardInfo.linkGroundwaterPortalLink")}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<Button variant="link">
-													{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
-												</Button>
-											</Link>
-										</div>
-										<div className="flex flex-col">
-											<span className="">
-												{t("hazardInfo.linkWaterGeologyTitle")}
-											</span>
-											<Link
-												href={t("hazardInfo.linkWaterGeologyLink")}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<Button variant="link">
-													{t("hazardInfo.linkWaterGeologyLinkTitle")}
-												</Button>
-											</Link>
-										</div>
-									</>
-								)}
-							</AccordionContent>
-						</AccordionItem>
-					))}
-				</Accordion>
-			</section>
-			{!skip && hazardEntities && hazardEntities.length > 0 && (
+			<ErrorCatcher name="Section 2">
+				<section className="flex flex-col gap-4">
+					<h2 className="">{t("hazardInfo.title")}</h2>
+					<Accordion
+						type="single"
+						collapsible
+						variant="default"
+						className="text-start"
+					>
+						{accordion.map((item, index) => (
+							<AccordionItem
+								key={`item-${index}`}
+								value={`item-${index}`}
+								variant="default"
+							>
+								<AccordionTrigger variant="default">
+									{item.title}
+								</AccordionTrigger>
+								<AccordionContent variant="default">
+									{item.content}
+									{index === 2 && (
+										<>
+											<div className="mt-4 flex flex-col">
+												<span className="">
+													{t("hazardInfo.linkGroundwaterPortalTitle")}
+												</span>
+												<Link
+													href={t("hazardInfo.linkGroundwaterPortalLink")}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="link">
+														{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+													</Button>
+												</Link>
+											</div>
+											<div className="flex flex-col">
+												<span className="">
+													{t("hazardInfo.linkWaterGeologyTitle")}
+												</span>
+												<Link
+													href={t("hazardInfo.linkWaterGeologyLink")}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Button variant="link">
+														{t("hazardInfo.linkWaterGeologyLinkTitle")}
+													</Button>
+												</Link>
+											</div>
+										</>
+									)}
+								</AccordionContent>
+							</AccordionItem>
+						))}
+					</Accordion>
+				</section>
+			</ErrorCatcher>
+			<ErrorCatcher name="HazardEntities">
 				<>
-					<div className="divider" />
-					<section className="flex flex-col gap-4">
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("buildingRiskAssessment.title")}</h2>
-							<p className="">{t("buildingRiskAssessment.description1")}</p>
-							<p className="">{t("buildingRiskAssessment.description2")}</p>
-						</div>
-						<TextBlock
-							desktopColSpans={{ col1: 1, col2: 1 }}
-							className="w-full gap-6"
-							reverseDesktopColumns={true}
-							slotA={
-								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-									<h3 className="">{t("buildingRiskAssessment.title")}</h3>
+					{!skip && hazardEntities && hazardEntities.length > 0 && (
+						<>
+							<div className="divider" />
+							<section className="flex flex-col gap-4">
+								<div className="flex w-full flex-col gap-6">
+									<h2 className="">{t("buildingRiskAssessment.title")}</h2>
 									<p className="">{t("buildingRiskAssessment.description1")}</p>
 									<p className="">{t("buildingRiskAssessment.description2")}</p>
 								</div>
-							}
-							slotB={
-								<RiskBlock
-									floodRiskAnswers={floodRiskAnswers}
-									value={floodRiskResult?.totalScore}
-									min={floodRiskConfig.riskThresholds.low.max}
-									max={floodRiskConfig.riskThresholds.high.min}
+								<TextBlock
+									desktopColSpans={{ col1: 1, col2: 1 }}
+									className="w-full gap-6"
+									reverseDesktopColumns={true}
+									slotA={
+										<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+											<h3 className="">{t("buildingRiskAssessment.title")}</h3>
+											<p className="">
+												{t("buildingRiskAssessment.description1")}
+											</p>
+											<p className="">
+												{t("buildingRiskAssessment.description2")}
+											</p>
+										</div>
+									}
+									slotB={
+										<RiskBlock
+											floodRiskAnswers={floodRiskAnswers}
+											value={floodRiskResult?.totalScore}
+											min={floodRiskConfig.riskThresholds.low.max}
+											max={floodRiskConfig.riskThresholds.high.min}
+										/>
+									}
 								/>
-							}
-						/>
-					</section>
-				</>
-			)}
-			<section className="flex w-full flex-col gap-12">
-				{!skip && hazardEntities && hazardEntities.length > 0 && (
-					<>
-						<div className="flex flex-col gap-2">
-							<h2 className="">{t("protectionTips.title")}</h2>
-							<p className="">{t("protectionTips.intro1")}</p>
-							<p className="mt-4">{t("protectionTips.intro2")}</p>
-						</div>
-
-						<div className="flex flex-col gap-2">
-							<TextBlock
-								desktopColSpans={{ col1: 1, col2: 1 }}
-								className="w-full gap-6"
-								slotA={
-									<div className="flex h-full w-full flex-col p-6">
-										<h2 className="">{t("protectionTips.inBuilding.title")}</h2>
-										<ul className="list-inside list-disc">
-											{inBuildingTipKeys.map((tipKey) => (
-												<li key={tipKey} className="mt-2">
-													{t(tipKey)}
-												</li>
-											))}
-										</ul>
-									</div>
-								}
-								slotB={
-									<Image
-										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
-										alt={t("protectionTips.inBuilding.image.alt")}
-										caption={t("protectionTips.inBuilding.image.caption")}
-										copyright={t("protectionTips.inBuilding.image.copyright")}
-									/>
-								}
-							/>
-						</div>
-					</>
-				)}
-
-				<div className="flex flex-col gap-2">
-					{!skip && (
-						<>
-							<TextBlock
-								desktopColSpans={{ col1: 1, col2: 1 }}
-								className="w-full gap-6"
-								reverseDesktopColumns={true}
-								slotA={
-									<div className="flex h-full w-full flex-col p-6">
-										<h2 className="">{t("protectionTips.traffic.title")}</h2>
-										<ul className="list-inside list-disc">
-											{trafficTipKeys.map((tipKey) => (
-												<li key={tipKey} className="mt-2">
-													{t(tipKey)}
-												</li>
-											))}
-										</ul>
-									</div>
-								}
-								slotB={
-									<Image
-										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
-										alt={t("protectionTips.traffic.image.alt")}
-										caption={t("protectionTips.traffic.image.caption")}
-										copyright={t("protectionTips.traffic.image.copyright")}
-									/>
-								}
-							/>
-							<Button
-								className="mt-6 w-full self-start lg:w-fit"
-								onClick={() => {
-									router.push("/handlungsempfehlungen");
-								}}
-							>
-								Übersicht Handlungsempfehlungen
-							</Button>
+							</section>
 						</>
 					)}
-					<div className="divider mt-4" />
-					<DownloadItem
-						buttonText="Download Bericht"
-						date="03/1974"
-						description={t("reportDownload.description")}
-						downloadUrl="#"
-						fileType="PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025"
-						title={t("reportDownload.title")}
-					/>
-				</div>
-			</section>
+				</>
+			</ErrorCatcher>
+			<ErrorCatcher name="Section 3">
+				<section className="flex w-full flex-col gap-12">
+					{!skip && hazardEntities && hazardEntities.length > 0 && (
+						<>
+							<div className="flex flex-col gap-2">
+								<h2 className="">{t("protectionTips.title")}</h2>
+								<p className="">{t("protectionTips.intro1")}</p>
+								<p className="mt-4">{t("protectionTips.intro2")}</p>
+							</div>
+
+							<div className="flex flex-col gap-2">
+								<TextBlock
+									desktopColSpans={{ col1: 1, col2: 1 }}
+									className="w-full gap-6"
+									slotA={
+										<div className="flex h-full w-full flex-col p-6">
+											<h2 className="">
+												{t("protectionTips.inBuilding.title")}
+											</h2>
+											<ul className="list-inside list-disc">
+												{inBuildingTipKeys.map((tipKey) => (
+													<li key={tipKey} className="mt-2">
+														{t(tipKey)}
+													</li>
+												))}
+											</ul>
+										</div>
+									}
+									slotB={
+										<Image
+											className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+											src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
+											alt={t("protectionTips.inBuilding.image.alt")}
+											caption={t("protectionTips.inBuilding.image.caption")}
+											copyright={t("protectionTips.inBuilding.image.copyright")}
+										/>
+									}
+								/>
+							</div>
+						</>
+					)}
+
+					<div className="flex flex-col gap-2">
+						{!skip && (
+							<>
+								<TextBlock
+									desktopColSpans={{ col1: 1, col2: 1 }}
+									className="w-full gap-6"
+									reverseDesktopColumns={true}
+									slotA={
+										<div className="flex h-full w-full flex-col p-6">
+											<h2 className="">{t("protectionTips.traffic.title")}</h2>
+											<ul className="list-inside list-disc">
+												{trafficTipKeys.map((tipKey) => (
+													<li key={tipKey} className="mt-2">
+														{t(tipKey)}
+													</li>
+												))}
+											</ul>
+										</div>
+									}
+									slotB={
+										<Image
+											className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+											src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
+											alt={t("protectionTips.traffic.image.alt")}
+											caption={t("protectionTips.traffic.image.caption")}
+											copyright={t("protectionTips.traffic.image.copyright")}
+										/>
+									}
+								/>
+								<Button
+									className="mt-6 w-full self-start lg:w-fit"
+									onClick={() => {
+										router.push("/handlungsempfehlungen");
+									}}
+								>
+									Übersicht Handlungsempfehlungen
+								</Button>
+							</>
+						)}
+						<div className="divider mt-4" />
+						<DownloadItem
+							buttonText="Download Bericht"
+							date="03/1974"
+							description={t("reportDownload.description")}
+							downloadUrl="#"
+							fileType="PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025"
+							title={t("reportDownload.title")}
+						/>
+					</div>
+				</section>
+			</ErrorCatcher>
 		</div>
 	);
 };
