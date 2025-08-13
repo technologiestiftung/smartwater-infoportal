@@ -171,25 +171,47 @@ const Results: React.FC = () => {
 					reverseDesktopColumns={true}
 					slotA={
 						<ErrorCatcher name="TextBlock-SlotA">
-							<div className="bg-panel-heavy p-6">
-								<p className="mb-4">
-									{t(
-										`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
-									)}
-								</p>
-								<List variant="unordered">
-									<ListItem>
-										{t(
-											`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
-										)}
-									</ListItem>
-									<ListItem>
-										{t(
-											`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
-										)}
-									</ListItem>
-								</List>
-							</div>
+							{(() => {
+								const text = t(
+									`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
+								);
+								const waterLevel = t(
+									`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
+								);
+								const flowVelocity = t(
+									`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
+								);
+
+								const shouldRender =
+									text &&
+									waterLevel &&
+									flowVelocity &&
+									text !==
+										`hazardDisplay.frequencyDescription.${activeSubFilter}.text` &&
+									waterLevel !==
+										`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel` &&
+									flowVelocity !==
+										`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`;
+
+								if (!shouldRender) {
+									console.warn("Missing translations for:", {
+										text,
+										waterLevel,
+										flowVelocity,
+									});
+									return null;
+								}
+
+								return (
+									<div className="bg-panel-heavy p-6">
+										<p className="mb-4">{text}</p>
+										<List variant="unordered">
+											<ListItem>{waterLevel}</ListItem>
+											<ListItem>{flowVelocity}</ListItem>
+										</List>
+									</div>
+								);
+							})()}
 						</ErrorCatcher>
 					}
 					slotB={
