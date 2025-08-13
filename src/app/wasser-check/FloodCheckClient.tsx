@@ -22,7 +22,7 @@ export default function FloodCheckClient() {
 		(state) => state.setLoadingLocationData,
 	);
 
-	const checkHazard = async () => {
+	const checkHazard = async (skip?: boolean) => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
@@ -33,7 +33,11 @@ export default function FloodCheckClient() {
 			const latitude = parseFloat(currentUserAddress.lat);
 			const result = await getHazardData(longitude, latitude);
 			setLocationData(result);
-			router.push("/wasser-check#interimResult");
+			if (skip) {
+				router.push("/wasser-check?skip=true#results");
+			} else {
+				router.push("/wasser-check#interimResult");
+			}
 		} finally {
 			setLoadingLocationData(false);
 		}
@@ -123,7 +127,7 @@ export default function FloodCheckClient() {
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<h2 className="">{t("floodCheck.start.title")}</h2>
 						<p className="">{t("floodCheck.start.description")}</p>
-						<AddressSearch onAddressConfirmed={checkHazard} />
+						<AddressSearch onAddressConfirmed={(skip) => checkHazard(skip)} />
 					</div>
 				</>
 			)}

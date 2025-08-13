@@ -36,6 +36,21 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 	subHazardLevel,
 }: ResultBlockProps) => {
 	const t = useTranslations("floodCheck");
+
+	// Get aria label for hazard level indicator
+	const getHazardAriaLabel = (level: string, isCurrent: boolean) => {
+		const levelText = t(`hazardScale.${level}`);
+		const status = isCurrent
+			? t("buildingRiskAssessment.buildingRisk.ariaLabels.currentStatus")
+			: t("buildingRiskAssessment.buildingRisk.ariaLabels.notApplicableStatus");
+		return t(
+			"buildingRiskAssessment.buildingRisk.ariaLabels.hazardLevelIndicator",
+			{
+				level: levelText,
+				status: status,
+			},
+		);
+	};
 	return (
 		<div
 			className={`Result-block ${hazardColorMap[hazardLevel]?.border} border-12`}
@@ -59,7 +74,12 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 								{hazardLevel === level && (
 									<Image
 										src="/arrow_down.svg"
-										alt="Arrow Down"
+										alt={t(
+											"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
+											{
+												level: t(`hazardScale.${level}`),
+											},
+										)}
 										width={24}
 										height={24}
 									/>
@@ -67,8 +87,11 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 							</div>
 							<div
 								className={`h-3 w-full ${hazardColorMap[level as HazardLevel].bg}`}
+								aria-label={getHazardAriaLabel(level, hazardLevel === level)}
 							></div>
-							<div className="p-2 text-center">{t(`hazardScale.${level}`)}</div>
+							<div aria-hidden className="p-2 text-center">
+								{t(`hazardScale.${level}`)}
+							</div>
 						</div>
 					))}
 				</div>
