@@ -120,17 +120,26 @@ const Results: React.FC = () => {
 			flowVelocity !==
 				`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`;
 
-		console.warn("shouldRender :>> ", shouldRender);
+		console.warn("HazardTranslations", {
+			shouldRender,
+			text,
+			waterLevel,
+			flowVelocity,
+		});
 
 		if (!shouldRender) {
-			console.warn("Missing translations for:", {
-				text,
-				waterLevel,
-				flowVelocity,
-			});
 			return null;
 		}
 
+		return (
+			<div className="bg-panel-heavy p-6">
+				<p className="mb-4">TEXT</p>
+				<List variant="unordered">
+					<ListItem>waterLevel</ListItem>
+					<ListItem>flowVelocity</ListItem>
+				</List>
+			</div>
+		);
 		return (
 			<div className="bg-panel-heavy p-6">
 				<p className="mb-4">{text}</p>
