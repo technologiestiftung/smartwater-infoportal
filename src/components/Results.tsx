@@ -164,12 +164,13 @@ const Results: React.FC = () => {
 						</div>
 					</div>
 				</ErrorCatcher>
-				<ErrorCatcher name="TextBlock">
-					<TextBlock
-						desktopColSpans={{ col1: 1, col2: 1 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
+
+				<TextBlock
+					desktopColSpans={{ col1: 1, col2: 1 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<ErrorCatcher name="TextBlock-SlotA">
 							<div className="bg-panel-heavy p-6">
 								<p className="mb-4">
 									{t(
@@ -189,8 +190,10 @@ const Results: React.FC = () => {
 									</ListItem>
 								</List>
 							</div>
-						}
-						slotB={
+						</ErrorCatcher>
+					}
+					slotB={
+						<ErrorCatcher name="TextBlock-SlotB">
 							<div>
 								{(() => {
 									const filteredEntities = getFilteredHazardEntities();
@@ -214,9 +217,9 @@ const Results: React.FC = () => {
 									return <p className="">{t("noHazardData")}</p>;
 								})()}
 							</div>
-						}
-					/>
-				</ErrorCatcher>
+						</ErrorCatcher>
+					}
+				/>
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
 				<ErrorCatcher name="Map">
