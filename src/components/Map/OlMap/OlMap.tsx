@@ -15,6 +15,7 @@ import VectorSource from "ol/source/Vector";
 import { Stroke, Style } from "ol/style";
 import VectorLayer from "ol/layer/Vector";
 import OLGeoJSON from "ol/format/GeoJSON";
+import ScaleLine from "ol/control/ScaleLine";
 
 if (appConfig?.namedProjections?.length) {
 	appConfig.namedProjections.forEach(([name, def]) => {
@@ -73,16 +74,6 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 			.sort((a, b) => a.zoomLevel - b.zoomLevel)
 			.map((option) => option.resolution);
 
-		const startZoomLevel = Math.max(
-			0,
-			Math.min(mapViewConfig.startZoomLevel, resolutions.length - 1),
-		);
-		if (startZoomLevel !== mapViewConfig.startZoomLevel) {
-			console.warn(
-				`[OlMap] Start zoom level ${mapViewConfig.startZoomLevel} is out of range. Using ${startZoomLevel} instead.`,
-			);
-		}
-
 		if (!mapId.current) {
 			console.error("[OlMap] mapId.current is not defined");
 			return;
@@ -93,17 +84,15 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				target: mapId.current,
 				view: new View({
 					center: center,
-					zoom: startZoomLevel,
+					zoom: mapViewConfig.startZoomLevel,
 					projection: projection,
 					extent: mapViewConfig.extent,
 					resolutions: resolutions,
-					minZoom: 0,
-					maxZoom: resolutions.length - 1,
+					minZoom: mapViewConfig.minZoomLevel,
+					maxZoom: mapViewConfig.maxZoomLevel,
 				}),
 				controls: [],
 			});
-
-			let highlightLayer: VectorLayer<VectorSource> | null = null;
 
 			if (locationData?.found && locationData?.building?.geometry) {
 				const src = new VectorSource({
@@ -128,10 +117,31 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				});
 				layer.setZIndex(9999);
 				map.addLayer(layer);
-				highlightLayer = layer;
 			}
 
+			// Inside your map initialization:
+			/* const scaleLineControl = new ScaleLine({
+				units: "metric", // could also be 'imperial', 'nautical', etc.
+				bar: true, // shows a bar instead of just text
+				steps: 4, // number of steps on the bar
+				text: true, // show the text labels
+				minWidth: 140, // minimum width of the scale bar
+			}); */
+			const scaleLineControl = new ScaleLine({
+				units: "metric",
+				bar: false, // just the text + single bar
+				text: true,
+			});
+
+			map.addControl(scaleLineControl);
+
 			setMap(map);
+
+			const view = map.getView();
+			view.on("change:resolution", () => {
+				const zoom = view.getZoom();
+				// console.log("Zoom level changed:", zoom);
+			});
 
 			return () => {
 				if (map) {
@@ -145,7 +155,7 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 	}, [config, destroyMap, setMap]);
 
 	return (
-		<div ref={mapId} className="map h-[65vh] w-full bg-slate-300">
+		<div ref={mapId} className="map h-full w-full bg-slate-300">
 			{children}
 		</div>
 	);

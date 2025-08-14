@@ -25,6 +25,9 @@ type StoreState = {
 	floodRiskResult: FloodRiskResult | null;
 	isLoadingLocationData: boolean;
 	activeMapFilter: "heavyRain" | "fluvialFlood";
+	fullScreenMap: boolean;
+	isLayerTreeOpen: boolean;
+	isLegendeOpen: boolean;
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
@@ -33,6 +36,9 @@ type StoreState = {
 	resetLocationData: () => void;
 	setLoadingLocationData: (loading: boolean) => void;
 	updateActiveMapFilter: (filter: string) => void;
+	updateFullScreenMap: (fullScreen: boolean) => void;
+	updateLayerTreeIsOpen: (open: boolean) => void;
+	updateLegendeIsOpen: (open: boolean) => void;
 	updateFloodRiskAnswer: (
 		questionId: string,
 		answer: string | string[] | number,
@@ -56,6 +62,9 @@ const useStore = create<StoreState>()(
 				floodRiskResult: null,
 				isLoadingLocationData: false,
 				activeMapFilter: "heavyRain",
+				fullScreenMap: false,
+				isLayerTreeOpen: false,
+				isLegendeOpen: true,
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),
@@ -75,6 +84,14 @@ const useStore = create<StoreState>()(
 
 				updateActiveMapFilter: (filter) =>
 					set({ activeMapFilter: filter as "heavyRain" | "fluvialFlood" }),
+
+				updateFullScreenMap: (fullScreen: boolean) =>
+					set({ fullScreenMap: fullScreen }),
+
+				updateLayerTreeIsOpen: (open: boolean) =>
+					set({ isLayerTreeOpen: open }),
+
+				updateLegendeIsOpen: (open: boolean) => set({ isLegendeOpen: open }),
 
 				updateFloodRiskAnswer: (
 					questionId: string,

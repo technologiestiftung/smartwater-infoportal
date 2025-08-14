@@ -2,61 +2,100 @@
 "use client";
 
 import { useMapStore } from "@/lib/store/mapStore";
-import { useCallback, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useCallback, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "berlin-ui-library";
 
 const ZoomControl = () => {
-	const map = useMapStore((state) => state.map);
+	const map = useMapStore((s) => s.map);
+	const config = useMapStore((s) => s.config);
 
-	const handleZoomIn = useCallback(() => {
+	const [canZoomIn, setCanZoomIn] = useState(true);
+	const [canZoomOut, setCanZoomOut] = useState(true);
+
+	const updateDisabled = useCallback(() => {
 		if (!map) return;
 		const view = map.getView();
-		const zoom = view.getZoom();
-		if (zoom !== undefined) {
-			view.animate({ zoom: zoom + 1, duration: 250 });
-		}
-	}, [map]);
 
-	const handleZoomOut = useCallback(() => {
-		if (!map) return;
-		const view = map.getView();
-		const zoom = view.getZoom();
-		if (zoom !== undefined) {
-			view.animate({ zoom: zoom - 1, duration: 250 });
-		}
-	}, [map]);
+		const z = view.getZoom() ?? 0;
+		const min =
+			view.getMinZoom?.() ?? config?.portalConfig.map.mapView.minZoomLevel ?? 0;
+		const max =
+			view.getMaxZoom?.() ??
+			config?.portalConfig.map.mapView.maxZoomLevel ??
+			28;
 
-	// Remove default zoom control
+		// booleans mean "action is allowed"
+		setCanZoomOut(z > min);
+		setCanZoomIn(z < max);
+	}, [map, config]);
+
 	useEffect(() => {
 		if (!map) return;
 
-		const existingControls = map.getControls().getArray();
-		existingControls.forEach((control) => {
-			if (control.constructor.name === "Zoom") {
-				map.removeControl(control);
-			}
-		});
-	}, [map]);
+		// remove default OL zoom
+		map
+			.getControls()
+			.getArray()
+			.forEach((c) => c.constructor.name === "Zoom" && map.removeControl(c));
+
+		const view = map.getView();
+		// init state
+		updateDisabled();
+
+		// update on any zoom/resolution change
+		const onChange = () => updateDisabled();
+		view.on("change:resolution", onChange);
+
+		return () => {
+			view.un("change:resolution", onChange);
+		};
+	}, [map, updateDisabled]);
+
+	const handleZoomIn = useCallback(() => {
+		if (!map || !canZoomIn) return;
+		const view = map.getView();
+		const z = view.getZoom();
+		if (z !== undefined) view.animate({ zoom: z + 1, duration: 250 });
+	}, [map, canZoomIn]);
+
+	const handleZoomOut = useCallback(() => {
+		if (!map || !canZoomOut) return;
+		const view = map.getView();
+		const z = view.getZoom();
+		if (z !== undefined) view.animate({ zoom: z - 1, duration: 250 });
+	}, [map, canZoomOut]);
 
 	if (!map) return null;
 
 	return (
-		<div className="hidden flex-col gap-2 md:flex">
+		<div className="hidden flex-col gap-0 md:flex">
 			<Button
-				variant="map-icon"
-				size="icon-only"
+				variant="light"
+				className="w-[44px] p-0"
 				title="Zoom in"
 				onClick={handleZoomIn}
+				disabled={!canZoomIn}
+				aria-disabled={!canZoomIn}
 			>
-				<img src="/map-icons/plus.svg" alt="Zoom in" width={24} height={24} />
+				<FontAwesomeIcon
+					icon={faPlus}
+					className={`text-[18px] ${canZoomIn ? "text-black" : "text-gray-500"}`}
+				/>
 			</Button>
 			<Button
-				variant="map-icon"
-				size="icon-only"
+				variant="light"
+				className="-mt-[2px] w-[44px] p-0"
 				title="Zoom out"
 				onClick={handleZoomOut}
+				disabled={!canZoomOut}
+				aria-disabled={!canZoomOut}
 			>
-				<img src="/map-icons/minus.svg" alt="Zoom out" width={24} height={24} />
+				<FontAwesomeIcon
+					icon={faMinus}
+					className={`text-[18px] ${canZoomOut ? "text-black" : "text-gray-500"}`}
+				/>
 			</Button>
 		</div>
 	);

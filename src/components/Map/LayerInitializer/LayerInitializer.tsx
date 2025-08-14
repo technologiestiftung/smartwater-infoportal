@@ -335,6 +335,7 @@ const LayerInitializer: FC = () => {
 						olLayer: olLayer,
 						status: status,
 						visibility: layerConfig.visibility,
+						map_group: layerConfig.service.map_group,
 						opacity: 1,
 						zIndex: zIndex,
 						layerType: layerType,

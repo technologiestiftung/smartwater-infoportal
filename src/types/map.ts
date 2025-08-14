@@ -18,6 +18,8 @@ export interface MapViewConfig {
 	extent: number[];
 	epsg: string;
 	startZoomLevel: number;
+	minZoomLevel: number;
+	maxZoomLevel: number;
 	options: MapViewOptions[];
 }
 
@@ -41,6 +43,7 @@ export interface LayerElement extends LayerElementBase {
 	visibility: boolean;
 	status: LayerStatus;
 	service: LayerService;
+	map_group: string;
 }
 
 export interface ManagedLayer {
@@ -49,6 +52,7 @@ export interface ManagedLayer {
 	olLayer: Layer;
 	status: LayerStatus;
 	visibility: boolean;
+	map_group: string;
 	opacity: number;
 	zIndex: number;
 	layerType: "base" | "subject";
@@ -66,6 +70,7 @@ export interface LayerService {
 	id: string;
 	name: string;
 	name_lang?: string;
+	map_group: string;
 	capabilitiesUrl?: string;
 	url: string;
 	typ: LayerType;
