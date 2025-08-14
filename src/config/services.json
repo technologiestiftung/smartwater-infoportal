@@ -144,18 +144,6 @@
 		"layerAttribution": "Live Karte von Ionos GeoServer"
 	},
 	{
-		"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
-		"name": "ALKIS Gebäude Gefährdung",
-		"crs": "EPSG:25833",
-		"url": "https://geoserver.ionos.ds-apps.tsb-berlin.de/geoserver/smartwater-infoportal/wfs",
-		"typ": "WFS",
-		"featureType": "smartwater-infoportal:ALKIS_Gebaeude_Gefaehrdung_SR_HW_0624",
-		"featureNS": "http://geoserver.org",
-		"gfiAttributes": "showAll",
-		"maxScale": "25000",
-		"legend": true
-	},
-	{
 		"id": "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
 		"name": "Gew\u00e4sser",
 		"name_lang": "Gew\u00e4sser (Hochwassergefahrenkarten (Umweltatlas))",

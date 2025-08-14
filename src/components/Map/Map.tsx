@@ -20,7 +20,6 @@ const Map: FC = () => {
 			<div className="Map-root relative h-full w-full">
 				<LazyOlMap>
 					<LayerInitializer />
-
 					<MapControls>
 						<MapNavigationControls />
 					</MapControls>

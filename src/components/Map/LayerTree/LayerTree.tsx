@@ -4,8 +4,9 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useMapStore } from "@/lib/store/mapStore";
 import { ManagedLayer } from "@/types/map";
-import { FC, memo, useCallback, useMemo } from "react";
+import { FC, memo, useCallback, useEffect, useMemo } from "react";
 import maplist from "@/config/maplist.json";
+import useStore from "@/store/defaultStore";
 
 // Custom hooks
 const useLayerData = () => {
@@ -39,6 +40,8 @@ const LayerItem = memo<{
 }>(({ layer }) => {
 	const setLayerVisibility = useMapStore((state) => state.setLayerVisibility);
 
+	const activeMapFilter = useStore((state) => state.activeMapFilter);
+
 	const handleVisibilityChange = useCallback(
 		(checked: boolean) => {
 			setLayerVisibility(layer.id, checked);
@@ -52,6 +55,14 @@ const LayerItem = memo<{
 
 	const serviceName = layer.config.service.name;
 	const serviceNameLang = layer.config.service.name_lang;
+
+	useEffect(() => {
+		if (layer.id === "sw_infoportal:sr_gefaehrdung_clip_") {
+			handleVisibilityChange(activeMapFilter === "heavyRain");
+		} else if (layer.id === "sw_infoportal:hw_gefaehrdung_clip_") {
+			handleVisibilityChange(activeMapFilter === "fluvialFlood");
+		}
+	}, [activeMapFilter]);
 
 	return (
 		<div

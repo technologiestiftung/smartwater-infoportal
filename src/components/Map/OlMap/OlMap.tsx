@@ -11,6 +11,10 @@ import React, { FC, useEffect, useRef } from "react";
 import "../../../../node_modules/ol/ol.css";
 import { useMapStore } from "../../../lib/store/mapStore";
 import useStore from "@/store/defaultStore";
+import VectorSource from "ol/source/Vector";
+import { Stroke, Style } from "ol/style";
+import VectorLayer from "ol/layer/Vector";
+import OLGeoJSON from "ol/format/GeoJSON";
 
 if (appConfig?.namedProjections?.length) {
 	appConfig.namedProjections.forEach(([name, def]) => {
@@ -29,6 +33,7 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 	const config = useMapStore((state) => state.config);
 	const mapId = useRef<HTMLDivElement>(null);
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
+	const locationData = useStore((state) => state.locationData);
 
 	const checkNumber = (str: string): boolean => {
 		return !isNaN(Number(str)) && str.trim() !== "";
@@ -41,7 +46,6 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 
 		const projection = mapViewConfig.epsg;
 		let center = mapViewConfig.startCenter;
-		let setStartZoomLevel;
 
 		if (
 			currentUserAddress?.lon &&
@@ -49,7 +53,6 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 			checkNumber(currentUserAddress.lon) &&
 			checkNumber(currentUserAddress.lat)
 		) {
-			setStartZoomLevel = 14;
 			center = [Number(currentUserAddress.lon), Number(currentUserAddress.lat)];
 		}
 
@@ -60,19 +63,21 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 		) {
 			center = transform(center, "EPSG:4326", projection);
 		} else if (projection !== "EPSG:25833") {
+			console.warn(
+				"[OlMap] Unsupported projection :>> projection !== EPSG:25833 :>>",
+				projection,
+			);
 		}
 
 		const resolutions = mapViewConfig.options
 			.sort((a, b) => a.zoomLevel - b.zoomLevel)
 			.map((option) => option.resolution);
 
-		const startZoomLevel =
-			setStartZoomLevel ||
-			Math.max(
-				0,
-				Math.min(mapViewConfig.startZoomLevel, resolutions.length - 1),
-			);
-		if (startZoomLevel !== mapViewConfig.startZoomLevel && !setStartZoomLevel) {
+		const startZoomLevel = Math.max(
+			0,
+			Math.min(mapViewConfig.startZoomLevel, resolutions.length - 1),
+		);
+		if (startZoomLevel !== mapViewConfig.startZoomLevel) {
 			console.warn(
 				`[OlMap] Start zoom level ${mapViewConfig.startZoomLevel} is out of range. Using ${startZoomLevel} instead.`,
 			);
@@ -97,6 +102,34 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				}),
 				controls: [],
 			});
+
+			let highlightLayer: VectorLayer<VectorSource> | null = null;
+
+			if (locationData?.found && locationData?.building?.geometry) {
+				const src = new VectorSource({
+					features: new OLGeoJSON().readFeatures(
+						{
+							type: "Feature",
+							geometry: locationData.building.geometry,
+							properties: {},
+						},
+						{
+							dataProjection: "EPSG:25833",
+							featureProjection: projection,
+						},
+					),
+				});
+
+				const layer = new VectorLayer({
+					source: src,
+					style: new Style({
+						stroke: new Stroke({ color: "rgba(255,0,0,1)", width: 6 }),
+					}),
+				});
+				layer.setZIndex(9999);
+				map.addLayer(layer);
+				highlightLayer = layer;
+			}
 
 			setMap(map);
 

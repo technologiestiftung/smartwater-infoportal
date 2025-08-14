@@ -31,6 +31,8 @@ export default function AddressSearch({
 		(state) => state.setCurrentUserAddress,
 	);
 
+	const [showLoading, setShowLoading] = useState<boolean>(false);
+
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const isLoadingLocationData = useStore(
 		(state) => state.isLoadingLocationData,
@@ -45,7 +47,7 @@ export default function AddressSearch({
 			addresse: "",
 		},
 	});
-	const { setValue, getValues, reset } = methods;
+	const { setValue, getValues } = methods;
 	const property: FormProperty = {
 		id: "addresse",
 		name: t("addressCheck.label"),
@@ -58,15 +60,7 @@ export default function AddressSearch({
 	const handleSubmit = (skip?: boolean) => {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
-
-			if (onLandingPage && !addresse) {
-				reset();
-				router.push("/wasser-check");
-				return;
-			}
-
 			if (addresse) {
-				// Find the matching result from the search results
 				const selectedResult = results.find(
 					(result) => result.display_name === addresse,
 				);
@@ -93,6 +87,7 @@ export default function AddressSearch({
 			return;
 		}
 		isFetching.current = true;
+		setShowLoading(true);
 
 		try {
 			const data = await getAddressResults(search);
@@ -137,6 +132,7 @@ export default function AddressSearch({
 			throw new Error(`Error fetching data: ${e}`);
 		} finally {
 			isFetching.current = false;
+			setShowLoading(false);
 		}
 	};
 
@@ -148,11 +144,11 @@ export default function AddressSearch({
 		if (target.name === "addresse") {
 			const value = target.value;
 
-			/* if (value.length < 3) {
+			if (value.length < 3) {
 				setResults([]);
+				setShowLoading(false);
 				return;
-			} else  */
-			if (error) {
+			} else if (error) {
 				setError("");
 			}
 
@@ -178,12 +174,12 @@ export default function AddressSearch({
 			<Form {...methods}>
 				<form
 					className="flex flex-col gap-8"
-					onSubmit={handleSubmit()}
+					onSubmit={handleSubmit(false)}
 					onChange={handleChange}
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
-						{results.length > 0 && (
+						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 p-4">
 								<strong>Ergebnisse</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
@@ -225,6 +221,12 @@ export default function AddressSearch({
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
+					{showLoading && (
+						<video autoPlay loop muted playsInline width="30">
+							<source src="/spinner.mp4" type="video/mp4" />
+							Your browser does not support HTML video.
+						</video>
+					)}
 					<div className="flex flex-col gap-4 lg:flex-row">
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
@@ -243,15 +245,6 @@ export default function AddressSearch({
 								return t("addressCheck.buttonConfirm");
 							})()}
 						</Button>
-						{/* <Button
-							className="w-full justify-end self-start lg:w-fit"
-							disabled={!onLandingPage && !resultClicked}
-							type="submit"
-						>
-							{onLandingPage
-								? t("addressCheck.button")
-								: t("addressCheck.buttonConfirm")}
-						</Button> */}
 						{!onLandingPage && (
 							<Button
 								variant="light"

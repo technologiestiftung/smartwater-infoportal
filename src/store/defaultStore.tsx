@@ -24,6 +24,7 @@ type StoreState = {
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
 	isLoadingLocationData: boolean;
+	activeMapFilter: "heavyRain" | "fluvialFlood";
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
@@ -31,6 +32,7 @@ type StoreState = {
 	setLocationData: (data: LocationData) => void;
 	resetLocationData: () => void;
 	setLoadingLocationData: (loading: boolean) => void;
+	updateActiveMapFilter: (filter: string) => void;
 	updateFloodRiskAnswer: (
 		questionId: string,
 		answer: string | string[] | number,
@@ -53,6 +55,7 @@ const useStore = create<StoreState>()(
 				floodRiskAnswers: {},
 				floodRiskResult: null,
 				isLoadingLocationData: false,
+				activeMapFilter: "heavyRain",
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),
@@ -69,6 +72,9 @@ const useStore = create<StoreState>()(
 				resetLocationData: () => set({ locationData: null }),
 				setLoadingLocationData: (loading) =>
 					set({ isLoadingLocationData: loading }),
+
+				updateActiveMapFilter: (filter) =>
+					set({ activeMapFilter: filter as "heavyRain" | "fluvialFlood" }),
 
 				updateFloodRiskAnswer: (
 					questionId: string,

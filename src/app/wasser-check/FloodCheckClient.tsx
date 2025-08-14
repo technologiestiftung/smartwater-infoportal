@@ -26,7 +26,6 @@ export default function FloodCheckClient() {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
-
 		setLoadingLocationData(true);
 		try {
 			const longitude = parseFloat(currentUserAddress.lon);

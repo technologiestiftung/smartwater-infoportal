@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import {
 	Accordion,
@@ -20,6 +20,7 @@ import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
 import Map from "./Map/Map";
+import Link from "next/link";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -48,8 +49,8 @@ const Results: React.FC = () => {
 			content: t("hazardDisplay.descriptionPlaceholder"),
 		},
 		{
-			title: t("hazardInfo.learnMore"),
-			content: t("hazardDisplay.descriptionPlaceholder"),
+			title: t("hazardInfo.disclaimerTitle"),
+			content: t("hazardInfo.disclaimerText"),
 		},
 		{
 			title: t("hazardInfo.mapInfo"),
@@ -71,7 +72,12 @@ const Results: React.FC = () => {
 		"protectionTips.traffic.tip5",
 	];
 	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
+	const updateActiveMapFilter = useStore(
+		(state) => state.updateActiveMapFilter,
+	);
+	const activeMapFilter = useStore((state) => state.activeMapFilter);
 	const handleFilterToggle = (value: string) => {
+		updateActiveMapFilter(value);
 		setActiveFilter(value);
 	};
 	const [activeSubFilter, setActiveSubFilter] = useState<string>(
@@ -92,6 +98,49 @@ const Results: React.FC = () => {
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
+	const HazardTranslations = () => {
+		const text = t(
+			`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
+		);
+		const waterLevel = t(
+			`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
+		);
+		const flowVelocity = t(
+			`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
+		);
+
+		const shouldRender =
+			text &&
+			waterLevel &&
+			flowVelocity &&
+			text !== `hazardDisplay.frequencyDescription.${activeSubFilter}.text` &&
+			waterLevel !==
+				`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel` &&
+			flowVelocity !==
+				`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`;
+
+		if (!shouldRender) {
+			return null;
+		}
+
+		return (
+			<div className="bg-panel-heavy p-6">
+				<p className="mb-4">{text}</p>
+				<List variant="unordered">
+					<ListItem>{waterLevel}</ListItem>
+					<ListItem>{flowVelocity}</ListItem>
+				</List>
+			</div>
+		);
+	};
+
+	useEffect(() => {
+		if (activeMapFilter !== activeFilter) {
+			updateActiveMapFilter(activeFilter);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<div className="flex w-full flex-col gap-12 pt-2">
 			<section className="flex flex-col gap-2">
@@ -104,7 +153,7 @@ const Results: React.FC = () => {
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<h3 className="">{t("hazardDisplay.title")}</h3>
-					<p className="">{t("hazardDisplay.descriptionPlaceholder")}</p>
+					{/* <p className="">{t("hazardDisplay.descriptionPlaceholder")}</p> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
@@ -151,27 +200,7 @@ const Results: React.FC = () => {
 					desktopColSpans={{ col1: 1, col2: 1 }}
 					className="w-full gap-6"
 					reverseDesktopColumns={true}
-					slotA={
-						<div className="bg-panel-heavy p-6">
-							<p className="mb-4">
-								{t(
-									`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
-								)}
-							</p>
-							<List variant="unordered">
-								<ListItem>
-									{t(
-										`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
-									)}
-								</ListItem>
-								<ListItem>
-									{t(
-										`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
-									)}
-								</ListItem>
-							</List>
-						</div>
-					}
+					slotA={<HazardTranslations />}
 					slotB={
 						<div>
 							{(() => {
@@ -221,20 +250,42 @@ const Results: React.FC = () => {
 							</AccordionTrigger>
 							<AccordionContent variant="default">
 								{item.content}
+								{index === 2 && (
+									<>
+										<div className="mt-4 flex flex-col">
+											<span className="">
+												{t("hazardInfo.linkGroundwaterPortalTitle")}
+											</span>
+											<Link
+												href={t("hazardInfo.linkGroundwaterPortalLink")}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="link">
+													{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+												</Button>
+											</Link>
+										</div>
+										<div className="flex flex-col">
+											<span className="">
+												{t("hazardInfo.linkWaterGeologyTitle")}
+											</span>
+											<Link
+												href={t("hazardInfo.linkWaterGeologyLink")}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<Button variant="link">
+													{t("hazardInfo.linkWaterGeologyLinkTitle")}
+												</Button>
+											</Link>
+										</div>
+									</>
+								)}
 							</AccordionContent>
 						</AccordionItem>
 					))}
 				</Accordion>
-				<div className="flex flex-col">
-					<span className="">{t("hazardInfo.linkGroundwaterPortal")}</span>
-					<Button variant="link">{t("hazardInfo.linkGeologicalPortal")}</Button>
-				</div>
-				<div className="flex flex-col">
-					<span className="">{t("hazardInfo.linkWaterGeologyInfo")}</span>
-					<Button variant="link">
-						{t("hazardInfo.linkWaterGeologyBerlin")}
-					</Button>
-				</div>
 			</section>
 			{!skip && hazardEntities && hazardEntities.length > 0 && (
 				<>

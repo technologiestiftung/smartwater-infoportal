@@ -10,10 +10,6 @@
 			{
 				"id": "sw_infoportal:hw_gefaehrdung_clip_",
 				"name": "Hochwasser Gefahrenkarte"
-			},
-			{
-				"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
-				"name": "ALKIS Gebäude Gefährdung"
 			}
 		]
 	},

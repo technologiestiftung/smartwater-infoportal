@@ -12,7 +12,7 @@
 				"startCenter": [13.404954, 52.520008],
 				"extent": [1444000, 6860000, 1538000, 6925000],
 				"epsg": "EPSG:3857",
-				"startZoomLevel": 1,
+				"startZoomLevel": 7,
 				"options": [
 					{
 						"resolution": 52.9,
@@ -71,20 +71,20 @@
 			"elements": [
 				{
 					"id": "bm_web_gry:contrast",
-					"visibility": true
+					"visibility": false
 				},
 				{
 					"id": "bm_web_gry",
 					"visibility": false
+				},
+				{
+					"id": "basemap",
+					"visibility": true
 				}
 			]
 		},
 		"subjectlayer": {
 			"elements": [
-				{
-					"id": "sw_infoportal:alkis_gebaeude_gefaehrdung_sr_hw_0624_wfs",
-					"visibility": false
-				},
 				{
 					"id": "sw_infoportal:sr_gefaehrdung_clip_",
 					"visibility": false
