@@ -21,6 +21,8 @@ import useStore from "@/store/defaultStore";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
 import Map from "./Map/Map";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -142,12 +144,16 @@ const Results: React.FC = () => {
 	}, []);
 
 	return (
-		<div className="flex w-full flex-col gap-12 pt-2">
-			<section className="flex flex-col gap-2">
+		<div className="flex w-full flex-col gap-12 pt-4">
+			<section className="flex items-center gap-2">
 				{currentUserAddress && (
-					<div className="flex w-full flex-col">
-						<p className="">{currentUserAddress.display_name}</p>
-					</div>
+					<>
+						<FontAwesomeIcon
+							icon={faLocationDot}
+							className="text-[18px] text-black"
+						/>
+						<p className="mt-[3px]">{currentUserAddress.display_name}</p>
+					</>
 				)}
 			</section>
 			<section className="flex flex-col gap-4">
@@ -246,16 +252,16 @@ const Results: React.FC = () => {
 							variant="default"
 						>
 							<AccordionTrigger variant="default">
-								{item.title}
+								<h3>{item.title}</h3>
 							</AccordionTrigger>
 							<AccordionContent variant="default">
-								{item.content}
+								<p>{item.content}</p>
 								{index === 2 && (
 									<>
 										<div className="mt-4 flex flex-col">
-											<span className="">
+											<p className="">
 												{t("hazardInfo.linkGroundwaterPortalTitle")}
-											</span>
+											</p>
 											<Link
 												href={t("hazardInfo.linkGroundwaterPortalLink")}
 												target="_blank"
@@ -267,9 +273,9 @@ const Results: React.FC = () => {
 											</Link>
 										</div>
 										<div className="flex flex-col">
-											<span className="">
+											<p className="">
 												{t("hazardInfo.linkWaterGeologyTitle")}
-											</span>
+											</p>
 											<Link
 												href={t("hazardInfo.linkWaterGeologyLink")}
 												target="_blank"
