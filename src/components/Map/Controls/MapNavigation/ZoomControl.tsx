@@ -70,10 +70,10 @@ const ZoomControl = () => {
 	if (!map) return null;
 
 	return (
-		<div className="hidden flex-col gap-0 md:flex">
+		<div className="flex flex-col gap-0">
 			<Button
 				variant="light"
-				className="w-[44px] p-0"
+				className="border-1 w-[44px] p-0"
 				title="Zoom in"
 				onClick={handleZoomIn}
 				disabled={!canZoomIn}
@@ -86,7 +86,7 @@ const ZoomControl = () => {
 			</Button>
 			<Button
 				variant="light"
-				className="-mt-[2px] w-[44px] p-0"
+				className="border-1 -mt-[2px] w-[44px] p-0"
 				title="Zoom out"
 				onClick={handleZoomOut}
 				disabled={!canZoomOut}

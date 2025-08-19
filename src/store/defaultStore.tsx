@@ -28,6 +28,7 @@ type StoreState = {
 	fullScreenMap: boolean;
 	isLayerTreeOpen: boolean;
 	isLegendeOpen: boolean;
+	errorLayers: string[];
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
@@ -39,6 +40,7 @@ type StoreState = {
 	updateFullScreenMap: (fullScreen: boolean) => void;
 	updateLayerTreeIsOpen: (open: boolean) => void;
 	updateLegendeIsOpen: (open: boolean) => void;
+	updateErrorLayers: (layers: string[]) => void;
 	updateFloodRiskAnswer: (
 		questionId: string,
 		answer: string | string[] | number,
@@ -65,6 +67,7 @@ const useStore = create<StoreState>()(
 				fullScreenMap: false,
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
+				errorLayers: [],
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),
@@ -90,6 +93,8 @@ const useStore = create<StoreState>()(
 
 				updateLayerTreeIsOpen: (open: boolean) =>
 					set({ isLayerTreeOpen: open }),
+
+				updateErrorLayers: (layers: string[]) => set({ errorLayers: layers }),
 
 				updateLegendeIsOpen: (open: boolean) => set({ isLegendeOpen: open }),
 

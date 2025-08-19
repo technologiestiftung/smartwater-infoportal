@@ -119,29 +119,15 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				map.addLayer(layer);
 			}
 
-			// Inside your map initialization:
-			/* const scaleLineControl = new ScaleLine({
-				units: "metric", // could also be 'imperial', 'nautical', etc.
-				bar: true, // shows a bar instead of just text
-				steps: 4, // number of steps on the bar
-				text: true, // show the text labels
-				minWidth: 140, // minimum width of the scale bar
-			}); */
 			const scaleLineControl = new ScaleLine({
 				units: "metric",
-				bar: false, // just the text + single bar
+				bar: false,
 				text: true,
 			});
 
 			map.addControl(scaleLineControl);
 
 			setMap(map);
-
-			const view = map.getView();
-			view.on("change:resolution", () => {
-				const zoom = view.getZoom();
-				// console.log("Zoom level changed:", zoom);
-			});
 
 			return () => {
 				if (map) {

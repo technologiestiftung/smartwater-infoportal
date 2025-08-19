@@ -56,3 +56,17 @@ export function getEpsgFromCrs(crs: string) {
 	const epsgMatch = crs.match(/EPSG[:/](\d+)/i);
 	return epsgMatch ? `EPSG:${epsgMatch[1]}` : crs;
 }
+
+export const getScale = (map: any) => {
+	const view = map.getView();
+	const resolution = view.getResolution();
+
+	if (!resolution) {
+		return null;
+	}
+
+	const projection = view.getProjection();
+	const metersPerUnit = projection.getMetersPerUnit() || 1;
+
+	return (resolution * metersPerUnit) / 0.00028;
+};

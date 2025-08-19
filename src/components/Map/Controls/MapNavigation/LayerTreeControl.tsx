@@ -11,8 +11,9 @@ const LayerTreeControl = () => {
 
 	return (
 		<div
-			className={`inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-2 border-black ${isLayerTreeOpen ? "bg-red" : "bg-white"}`}
+			className={`inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border border-black ${isLayerTreeOpen ? "bg-red" : "bg-white"}`}
 			onClick={() => updateLayerTreeIsOpen(!isLayerTreeOpen)}
+			// onMouseEnter={() => updateLayerTreeIsOpen(true)}
 		>
 			<FontAwesomeIcon
 				icon={faLayerGroup}

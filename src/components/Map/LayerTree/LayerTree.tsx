@@ -26,6 +26,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
+import { getScale } from "@/lib/utils/mapUtils";
+import useMobile from "@/lib/utils/useMobile";
 
 // Custom hooks
 const useLayerData = () => {
@@ -57,32 +59,70 @@ const LayerTree = () => {
 	const updateLayerTreeIsOpen = useStore(
 		(state) => state.updateLayerTreeIsOpen,
 	);
+	const isMobile = useMobile();
 	return (
-		<div className="w-[450px] bg-white">
-			<div className="flex min-h-[44px] items-center justify-between border-2 border-b-0 border-black pl-4">
-				<p className="font-bold">Kartenlayer</p>
+		<div
+			className={`bg-white ${isMobile ? "w-full" : "w-[450px]"}`}
+			// onMouseLeave={() => updateLayerTreeIsOpen(false)}
+		>
+			<div className="border-l-1 border-r-1 border-t-1 flex min-h-[44px] items-center justify-between border-b-0 border-black pl-4">
+				<p className="select-none font-bold">Kartenlayer</p>
 				<div
-					className="bg-red inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-2 border-r-0 border-t-0 border-black"
+					className="bg-red border-1 inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-r-0 border-t-0 border-black"
 					onClick={() => updateLayerTreeIsOpen(false)}
 				>
 					<FontAwesomeIcon icon={faXmark} className="text-[18px] text-white" />
 				</div>
 			</div>
-			<div className="border-2 border-t-0 border-black py-2">
+			<div
+				className={`border-l-1 border-r-1 border-t-0 border-black py-2 ${isMobile ? "border-b-0" : "border-b-1"}`}
+			>
 				<LayerTreeContentDraggable />
 			</div>
 		</div>
 	);
 };
 
-export const LayerTreeContentDraggable = () => {
+const LayerTreeContentDraggable = () => {
 	const { subjectLayers } = useLayerData();
+	const errorLayers = useStore((state) => state.errorLayers);
 	const setLayerOrder = useMapStore((state) => state.setLayerOrder);
-	const [items, setItems] = useState<string[]>([]); // just IDs
+	const map = useMapStore((s) => s.map);
+	const [items, setItems] = useState<string[]>([]);
+	const [disabledLayers, setDisabledLayers] = useState<string[]>([]);
 
 	useEffect(() => {
 		setItems(subjectLayers.map((l) => l.id));
 	}, [subjectLayers]);
+
+	useEffect(() => {
+		if (!map || subjectLayers.length === 0) return;
+
+		const handler = () => {
+			const scale = getScale(map);
+			if (!scale) return;
+
+			setDisabledLayers([]);
+
+			subjectLayers.forEach((layer) => {
+				const maxScale = parseFloat(layer.config.service.maxScale || "0");
+
+				const shouldBeVisible = maxScale === 0 || scale <= maxScale;
+				if (!shouldBeVisible) {
+					setDisabledLayers((prev) => [...prev, layer.id]);
+				}
+			});
+		};
+
+		map.on("moveend", handler);
+
+		// Run once on mount
+		handler();
+
+		return () => {
+			map.un("moveend", handler);
+		};
+	}, [map, subjectLayers]);
 
 	const sensors = useSensors(useSensor(PointerSensor));
 
@@ -116,7 +156,12 @@ export const LayerTreeContentDraggable = () => {
 					{[...items].reverse().map((id) => {
 						const layer = subjectLayers.find((l) => l.id === id);
 						return layer ? (
-							<SortableLayerItem key={layer.id} layer={layer} />
+							<SortableLayerItem
+								key={layer.id}
+								layer={layer}
+								disabledLayers={disabledLayers}
+								errorLayers={errorLayers}
+							/>
 						) : null;
 					})}
 				</div>
@@ -125,7 +170,15 @@ export const LayerTreeContentDraggable = () => {
 	);
 };
 
-const SortableLayerItem = ({ layer }: { layer: ManagedLayer }) => {
+const SortableLayerItem = ({
+	layer,
+	disabledLayers,
+	errorLayers,
+}: {
+	layer: ManagedLayer;
+	disabledLayers: string[];
+	errorLayers: string[];
+}) => {
 	const { attributes, listeners, setNodeRef, transform, transition } =
 		useSortable({
 			id: layer.id,
@@ -136,24 +189,42 @@ const SortableLayerItem = ({ layer }: { layer: ManagedLayer }) => {
 		transition,
 	};
 
+	const disabled = disabledLayers.includes(layer.id);
+	const notAvailable = !!layer.error || errorLayers.includes(layer.id);
+
 	return (
-		<div ref={setNodeRef} style={style} className="bg-grey flex px-2">
-			<div
-				{...attributes}
-				{...listeners}
-				className="flex cursor-grab items-center"
-				title="Reihenfolge ändern"
-			>
-				<FontAwesomeIcon icon={faBars} className="text-[18px] text-black" />
-			</div>
-			<LayerItem layer={layer} />
+		<div
+			ref={setNodeRef}
+			style={style}
+			className={`flex px-2 ${disabled || notAvailable ? "bg-[#FDECEE]" : "bg-grey"}`}
+		>
+			{!notAvailable && (
+				<div
+					{...attributes}
+					{...listeners}
+					className="flex cursor-grab items-center"
+					title="Reihenfolge ändern"
+				>
+					<FontAwesomeIcon
+						icon={faBars}
+						className="text-[18px] text-[#D2D2D2]"
+					/>
+				</div>
+			)}
+			<LayerItem
+				layer={layer}
+				disabled={disabled}
+				notAvailable={notAvailable}
+			/>
 		</div>
 	);
 };
 
 const LayerItem = memo<{
 	layer: ManagedLayer;
-}>(({ layer }) => {
+	disabled: boolean;
+	notAvailable: boolean;
+}>(({ layer, disabled, notAvailable }) => {
 	const setLayerVisibility = useMapStore((state) => state.setLayerVisibility);
 
 	const activeMapFilter = useStore((state) => state.activeMapFilter);
@@ -166,6 +237,7 @@ const LayerItem = memo<{
 	);
 
 	const serviceName = layer.config.service.name;
+	const serviceNameLang = layer.config.service.name_lang || serviceName;
 	const mapGroup = layer.config.service.map_group;
 
 	useEffect(() => {
@@ -178,43 +250,47 @@ const LayerItem = memo<{
 
 	return (
 		<div
-			className="flex min-w-0 cursor-pointer items-center gap-4 border-black p-3"
-			onClick={() => handleVisibilityChange(!layer.visibility)}
+			className={`flex min-w-0 items-center gap-4 border-black px-2 py-1 ${disabled || notAvailable ? "cursor-not-allowed" : "cursor-pointer"}`}
+			onClick={() => {
+				if (disabled) return;
+				handleVisibilityChange(!layer.visibility);
+			}}
 		>
-			<div className="inline-flex h-[22px] w-[22px] items-center justify-center">
-				{layer.visibility ? (
-					<FontAwesomeIcon
-						icon={faCircleCheck}
-						className="text-red text-[18px]"
-					/>
-				) : (
-					<div className="h-[18px] w-[18px] shrink-0 rounded-full border-2 border-black" />
-				)}
-			</div>
-
+			{!notAvailable && (
+				<div className="inline-flex h-[22px] w-[22px] items-center justify-center">
+					{layer.visibility ? (
+						<FontAwesomeIcon
+							icon={faCircleCheck}
+							className={`text-[18px] ${disabled ? "text-[#DCDCDC]" : "text-red"}`}
+						/>
+					) : (
+						<div
+							className={`border-1 h-[18px] w-[18px] shrink-0 rounded-full ${disabled ? "border-[#DCDCDC]" : "border-black"}`}
+						/>
+					)}
+				</div>
+			)}
 			<div className="flex-1 overflow-hidden">
-				<p className="overflow-hidden truncate whitespace-nowrap font-bold">
+				<p
+					className="translate-y-[2px] overflow-hidden truncate whitespace-nowrap text-[14px] font-bold"
+					title={serviceNameLang}
+				>
 					{serviceName}
 				</p>
-				<p className="overflow-hidden truncate whitespace-nowrap text-xs">
-					{mapGroup}
-				</p>
+				{disabled || notAvailable ? (
+					<p className="translate-y-[-2px] overflow-hidden truncate whitespace-nowrap text-xs text-[var(--text-error)]">
+						{disabled
+							? "Karte wird im aktuellen Maßstab nicht angezeigt"
+							: "Karte konnte nicht geladen werden"}
+					</p>
+				) : (
+					<p className="translate-y-[-2px] overflow-hidden truncate whitespace-nowrap text-xs">
+						{mapGroup}
+					</p>
+				)}
 			</div>
 		</div>
 	);
 });
-
-{
-	/* <Checkbox
-				id={layer.id}
-				checked={layer.visibility}
-				onCheckedChange={() => {}}
-				className="h-6 w-6 rounded-full"
-				aria-label={`Toggle visibility for ${serviceName}`}
-				disabled={layer.status === "error"}
-			/> */
-}
-
-LayerItem.displayName = "LayerItem";
 
 export default LayerTree;

@@ -8,6 +8,7 @@ import LayerTree from "../../LayerTree/LayerTree";
 import { useMapStore } from "@/lib/store/mapStore";
 import { useMapLoading } from "@/lib/utils/useMapLoading";
 import Legende from "../../Legende/Legende";
+import MobileLayerTree from "../../LayerTree/MobileLayerTree";
 
 const MapNavigationControls = () => {
 	const isMobile = useMobile();
@@ -17,7 +18,9 @@ const MapNavigationControls = () => {
 
 	return (
 		<>
-			<div className="absolute right-4 top-4 z-[2] flex flex-col gap-4">
+			<div
+				className={`absolute z-[2] flex flex-col ${isMobile ? "right-2 top-2 gap-2" : "right-4 top-4 gap-4"}`}
+			>
 				<div className="relative">
 					<FullScreenControl />
 				</div>
@@ -42,8 +45,10 @@ const MapNavigationControls = () => {
 					</div>
 				</>
 			)}
-			<div className="absolute left-4 top-4 flex items-start gap-2">
-				<Legende />
+			<div
+				className={`absolute flex items-start gap-2 ${isMobile ? "left-2 top-2" : "left-4 top-4"}`}
+			>
+				{!isMobile && <Legende />}
 				{loading && (
 					<div className="z-2 flex h-[48px] items-center gap-2">
 						<video autoPlay loop muted playsInline width="30">
@@ -54,6 +59,12 @@ const MapNavigationControls = () => {
 					</div>
 				)}
 			</div>
+			{isMobile && (
+				<>
+					<Legende />
+					<MobileLayerTree />
+				</>
+			)}
 		</>
 	);
 };

@@ -9,7 +9,7 @@ const FullScreenControl = () => {
 
 	return (
 		<div
-			className="inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-2 border-black bg-white"
+			className="inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border border-black bg-white"
 			onClick={() => updateFullScreenMap(!fullScreenMap)}
 		>
 			<FontAwesomeIcon

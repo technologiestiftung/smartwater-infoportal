@@ -88,6 +88,7 @@ export interface LayerService {
 	transparent?: boolean;
 	singleTile?: boolean;
 	infoFormat?: string;
+	maxScale?: string;
 	vtStyles: VectorTileStyle[];
 	preview?: {
 		src: string;
