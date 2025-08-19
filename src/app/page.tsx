@@ -43,7 +43,7 @@ export default function Home() {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A1_heller.png"
+							src="/A1_heller.jpg"
 							alt={t("howToProtect.image_A1.alt")}
 							caption={t("howToProtect.image_A1.caption")}
 							copyright={t("howToProtect.image_A1.copyright")}
@@ -98,7 +98,7 @@ export default function Home() {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A2_heller.png"
+							src="/A2_heller.jpg"
 							alt={t("howToProtect.image_A2.alt")}
 							caption={t("howToProtect.image_A2.caption")}
 							copyright={t("howToProtect.image_A2.copyright")}
