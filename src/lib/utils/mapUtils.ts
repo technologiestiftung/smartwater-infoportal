@@ -70,3 +70,13 @@ export const getScale = (map: any) => {
 
 	return (resolution * metersPerUnit) / 0.00028;
 };
+
+export const getHeightClass = (isMobile: boolean, fullScreenMap: boolean) => {
+	if (!isMobile && !fullScreenMap) {
+		return "max-h-[calc((65vh-60px-46px-46px)/2)]";
+	}
+	if (!isMobile && fullScreenMap) {
+		return "max-h-[calc((100vh-60px-46px-46px)/2)]";
+	}
+	return "max-h-[calc(40vh-46px-46px)]";
+};

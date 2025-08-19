@@ -36,11 +36,11 @@ const MapNavigationControls = () => {
 			{!isMobile && (
 				<>
 					<div
-						className={`z-3 absolute bottom-4 ${isLayerTreeOpen ? "right-4" : "right-[30000px]"}`}
+						className={`z-3 absolute bottom-4 ${isLayerTreeOpen ? "left-4" : "right-[30000px]"}`}
 					>
 						<LayerTree />
 					</div>
-					<div className="z-2 absolute bottom-4 right-4">
+					<div className="z-2 absolute bottom-4 left-4">
 						<LayerTreeControl />
 					</div>
 				</>

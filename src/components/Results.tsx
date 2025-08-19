@@ -268,7 +268,9 @@ const Results: React.FC = () => {
 												rel="noopener noreferrer"
 											>
 												<Button variant="link">
-													{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+													<p className="">
+														{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+													</p>
 												</Button>
 											</Link>
 										</div>
@@ -282,7 +284,9 @@ const Results: React.FC = () => {
 												rel="noopener noreferrer"
 											>
 												<Button variant="link">
-													{t("hazardInfo.linkWaterGeologyLinkTitle")}
+													<p className="">
+														{t("hazardInfo.linkWaterGeologyLinkTitle")}
+													</p>
 												</Button>
 											</Link>
 										</div>

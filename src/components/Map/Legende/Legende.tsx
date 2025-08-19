@@ -5,6 +5,7 @@ import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useMapStore } from "@/lib/store/mapStore";
 import Image from "next/image";
 import useMobile from "@/lib/utils/useMobile";
+import { getHeightClass } from "@/lib/utils/mapUtils";
 
 const Legende = () => {
 	const isLegendeOpen = useStore((state) => state.isLegendeOpen);
@@ -12,6 +13,7 @@ const Legende = () => {
 	const updateLayerTreeIsOpen = useStore(
 		(state) => state.updateLayerTreeIsOpen,
 	);
+	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const layers = useMapStore((state) => state.layers);
 	const subjectLayers = layers.filter((l) => l.layerType === "subject");
 	const isMobile = useMobile();
@@ -58,6 +60,13 @@ const Legende = () => {
 		}
 	};
 
+	const getCorrectIcon = () => {
+		if (isMobile) {
+			return isLegendeOpen ? faArrowDown : faArrowUp;
+		}
+		return isLegendeOpen ? faArrowUp : faArrowDown;
+	};
+
 	useEffect(() => {
 		if (!isMobile) {
 			return;
@@ -97,7 +106,7 @@ const Legende = () => {
 	return (
 		<div
 			id="map-legende"
-			className={`z-10 bg-white ${isMobile ? "duration-600 absolute bottom-0 w-full transition-transform ease-in-out" : "w-[300px]"} ${transformClass()}`}
+			className={`z-10 bg-white ${isMobile ? "duration-600 absolute bottom-0 w-full transition-transform ease-in-out" : "w-[370px]"} ${transformClass()}`}
 		>
 			<div
 				className={`border-l-1 border-r-1 border-t-1 flex min-h-[44px] cursor-pointer items-center justify-between border-black pl-4 ${isLegendeOpen ? "border-b-0" : "border-b-1"}`}
@@ -108,13 +117,15 @@ const Legende = () => {
 					className={`bg-red border-l-1 border-b-1 inline-flex h-[44px] w-[44px] items-center justify-center border-r-0 border-t-0 border-black ${isLegendeOpen ? "border-b-black" : "border-b-[#E40422]"}`}
 				>
 					<FontAwesomeIcon
-						icon={isLegendeOpen ? faArrowDown : faArrowUp}
+						icon={getCorrectIcon()}
 						className="text-[18px] text-white"
 					/>
 				</div>
 			</div>
 			{!isMobile && !isLegendeOpen ? null : (
-				<div className="border-l-1 border-r-1 border-b-1 flex max-h-[30dvh] flex-col gap-4 overflow-y-scroll border-t-0 border-black p-2">
+				<div
+					className={`border-l-1 border-r-1 border-b-1 flex flex-col gap-2 overflow-y-scroll border-t-0 border-black p-2 ${getHeightClass(isMobile, fullScreenMap)}`}
+				>
 					<Image
 						src="/resources/legende/Adresse.jpg"
 						alt="Legend"

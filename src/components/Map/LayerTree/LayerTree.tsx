@@ -26,7 +26,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
-import { getScale } from "@/lib/utils/mapUtils";
+import { getHeightClass, getScale } from "@/lib/utils/mapUtils";
 import useMobile from "@/lib/utils/useMobile";
 
 // Custom hooks
@@ -62,7 +62,7 @@ const LayerTree = () => {
 	const isMobile = useMobile();
 	return (
 		<div
-			className={`bg-white ${isMobile ? "w-full" : "w-[450px]"}`}
+			className={`bg-white ${isMobile ? "w-full" : "w-[370px]"}`}
 			// onMouseLeave={() => updateLayerTreeIsOpen(false)}
 		>
 			<div className="border-l-1 border-r-1 border-t-1 flex min-h-[44px] items-center justify-between border-b-0 border-black pl-4">
@@ -86,6 +86,8 @@ const LayerTree = () => {
 const LayerTreeContentDraggable = () => {
 	const { subjectLayers } = useLayerData();
 	const errorLayers = useStore((state) => state.errorLayers);
+	const isMobile = useMobile();
+	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const setLayerOrder = useMapStore((state) => state.setLayerOrder);
 	const map = useMapStore((s) => s.map);
 	const [items, setItems] = useState<string[]>([]);
@@ -152,7 +154,9 @@ const LayerTreeContentDraggable = () => {
 			onDragEnd={handleDragEnd}
 		>
 			<SortableContext items={items} strategy={verticalListSortingStrategy}>
-				<div className="flex max-h-[30dvh] flex-col gap-2 overflow-y-scroll px-2">
+				<div
+					className={`flex flex-col gap-2 overflow-y-scroll px-2 ${getHeightClass(isMobile, fullScreenMap)}`}
+				>
 					{[...items].reverse().map((id) => {
 						const layer = subjectLayers.find((l) => l.id === id);
 						return layer ? (
