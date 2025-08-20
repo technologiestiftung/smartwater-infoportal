@@ -17,7 +17,7 @@ const Legende = () => {
 	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const layers = useMapStore((state) => state.layers);
 	const subjectLayers = layers.filter((l) => l.layerType === "subject");
-	const { isMobile } = useMobile();
+	const isMobile = useMobile();
 	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const [reopenLegend, setReopenLegend] = useState<boolean>(false);
 

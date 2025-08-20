@@ -60,7 +60,7 @@ const LayerTree = () => {
 		(state) => state.updateLayerTreeIsOpen,
 	);
 	const fullScreenMap = useStore((state) => state.fullScreenMap);
-	const { isMobile } = useMobile();
+	const isMobile = useMobile();
 	return (
 		<div
 			className={`bg-white ${isMobile ? "w-full" : getWidthClass(fullScreenMap)}`}
@@ -86,7 +86,7 @@ const LayerTree = () => {
 const LayerTreeContentDraggable = () => {
 	const { subjectLayers } = useLayerData();
 	const errorLayers = useStore((state) => state.errorLayers);
-	const { isMobile } = useMobile();
+	const isMobile = useMobile();
 	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const setLayerOrder = useMapStore((state) => state.setLayerOrder);
 	const map = useMapStore((s) => s.map);
