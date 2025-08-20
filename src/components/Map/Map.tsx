@@ -18,7 +18,7 @@ const Map = () => {
 	const isMobile = useMobile();
 	const getMapRootClasses = () => {
 		if (fullScreenMap) {
-			return "z-21 fixed left-0 top-0 h-[100vh] w-[100vw]";
+			return "z-21 fixed left-0 top-0 h-full w-[100vw]";
 		}
 		if (isMobile) {
 			return "relative h-[80lvh] w-full overflow-hidden";
