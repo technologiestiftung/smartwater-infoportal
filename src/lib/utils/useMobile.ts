@@ -5,6 +5,8 @@ const MOBILE_BREAKPOINT = 768;
 
 const useMobile = () => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
+	const [innerHeightOnRenderOnMobile, setInnerHeightOnRenderOnMobile] =
+		useState<number>(0);
 
 	useEffect(() => {
 		// Handler that sets isMobile based on window width
@@ -15,6 +17,10 @@ const useMobile = () => {
 		// Run on first load
 		handleResize();
 
+		if (window.innerWidth < MOBILE_BREAKPOINT) {
+			setInnerHeightOnRenderOnMobile(window.innerHeight);
+		}
+
 		// Listen for window resize
 		window.addEventListener("resize", handleResize);
 
@@ -22,7 +28,7 @@ const useMobile = () => {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
-	return isMobile;
+	return { isMobile, innerHeightOnRenderOnMobile };
 };
 
 export default useMobile;

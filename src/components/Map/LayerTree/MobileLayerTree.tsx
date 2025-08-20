@@ -5,7 +5,7 @@ import useMobile from "@/lib/utils/useMobile";
 
 const MobileLayerTree = () => {
 	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
-	const isMobile = useMobile();
+	const { isMobile } = useMobile();
 
 	const transformClass = () => {
 		if (isMobile && isLayerTreeOpen) {

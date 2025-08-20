@@ -3,9 +3,10 @@ import useStore from "@/store/defaultStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useMapStore } from "@/lib/store/mapStore";
-import Image from "next/image";
+import legende from "./legende.json";
 import useMobile from "@/lib/utils/useMobile";
 import { getHeightClass, getWidthClass } from "@/lib/utils/mapUtils";
+import { LegendeItem } from "@/lib/types";
 
 const Legende = () => {
 	const isLegendeOpen = useStore((state) => state.isLegendeOpen);
@@ -16,55 +17,9 @@ const Legende = () => {
 	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const layers = useMapStore((state) => state.layers);
 	const subjectLayers = layers.filter((l) => l.layerType === "subject");
-	const isMobile = useMobile();
+	const { isMobile } = useMobile();
 	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const [reopenLegend, setReopenLegend] = useState<boolean>(false);
-	const renderConditionallegendes = [
-		{
-			IDneedsToInclude: "_gefaehrdung_clip_",
-			title: "Gefährdung durch Starkregen bzw. Hochwasser",
-			src: "/resources/legende/Legende-Gefahrenkarte.jpg",
-		},
-		{
-			IDneedsToInclude: "_fliessgeschw",
-			title: "Fließgeschwindigkeit",
-			src: "/resources/legende/Legende-Fliessgeschwindigkeit.jpg",
-		},
-		{
-			IDneedsToInclude: "_fr_",
-			title: "Fließrichtung",
-			src: "/resources/legende/Legende-Fliessrichtung.jpg",
-		},
-		{
-			IDneedsToInclude: "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
-			title: "Gewässer",
-			src: "/resources/legende/Legende-Gewaesser.jpg",
-		},
-		{
-			IDneedsToInclude: "ua_hochwassergefahrenkarten",
-			IDisNotAllowedToInclude: "d_hwgk_gewaesser",
-			title: "Hochwasser",
-			src: "/resources/legende/Legende-Hochwasser.jpg",
-		},
-		{
-			IDneedsToInclude: "_wasserstand_",
-			title: "Wasserstand",
-			src: "/resources/legende/Legende-Wasserstand.jpg",
-		},
-		{
-			IDneedsToInclude: "ueberschwemmungsgebiete",
-			title: "Überschwemmungsgebiet",
-			src: "/resources/legende/Legende-Ueberschwemmungsgebiet.jpg",
-		},
-	];
-
-	/* const getLegendUrl = (layer: any): string => {
-		const baseUrl = layer.url;
-		const version = layer.version || "1.3.0";
-		const format = encodeURIComponent(layer.format || "image/png");
-		const layerName = layer.layers;
-		return `${baseUrl}?SERVICE=WMS&VERSION=${version}&REQUEST=GetLegendGraphic&FORMAT=${format}&LAYER=${layerName}`;
-	}; */
 
 	const transformClass = () => {
 		if (isMobile && isLegendeOpen) {
@@ -163,45 +118,112 @@ const Legende = () => {
 				<div
 					className={`border-l-1 border-r-1 border-b-1 flex flex-col gap-2 overflow-y-scroll border-t-0 border-black p-2 ${getHeightClass(isMobile, fullScreenMap)}`}
 				>
-					<Image
-						src="/resources/legende/Adresse.jpg"
-						alt="Legend"
-						width={300}
-						height={0}
-						style={{ height: "auto" }}
-						className="max-w-[300px]"
-					/>
-					{renderConditionallegendes.map((legende, index) => {
+					{legende.map((singleLegende, index) => {
+						const isAdresse = singleLegende.IDneedsToInclude === "adresse";
 						const checkForVisibility = subjectLayers
-							.filter((layer) => layer.visibility)
+							// .filter((layer) => layer.visibility)
 							.some((singleLayer) => {
-								if (legende.IDisNotAllowedToInclude) {
+								if (isAdresse) {
+									return true;
+								}
+								if (singleLegende.IDisNotAllowedToInclude) {
 									return (
-										singleLayer.id.includes(legende.IDneedsToInclude) &&
-										!singleLayer.id.includes(legende.IDisNotAllowedToInclude)
+										singleLayer.id.includes(singleLegende.IDneedsToInclude) &&
+										!singleLayer.id.includes(
+											singleLegende.IDisNotAllowedToInclude,
+										)
 									);
 								}
-								return singleLayer.id.includes(legende.IDneedsToInclude);
+								return singleLayer.id.includes(singleLegende.IDneedsToInclude);
 							});
 						if (checkForVisibility) {
-							return (
-								<div key={index}>
-									<p
-										className="mb-2 select-none whitespace-normal break-words text-[14px] font-bold leading-[16px]"
-										title={legende.title}
-									>
-										{legende.title}
-									</p>
-									<Image
-										src={legende.src}
-										alt="Legende"
-										width={300}
-										height={0}
-										style={{ height: "auto" }}
-										className="max-w-[300px]"
-									/>
-								</div>
-							);
+							if (singleLegende.items || isAdresse) {
+								return (
+									<div key={index}>
+										{!isAdresse && (
+											<p
+												className="mb-2 select-none whitespace-normal break-words text-[14px] font-bold leading-[16px]"
+												title={singleLegende.title}
+											>
+												{singleLegende.title}
+											</p>
+										)}
+										<div className="inline-flex min-w-[213px] flex-col items-start gap-3 px-6 py-4">
+											{singleLegende.subTitle && (
+												<p className="select-none text-[10px] font-bold leading-[10px] text-black">
+													{singleLegende.subTitle}
+												</p>
+											)}
+											{singleLegende.items?.map(
+												(legendeItem: LegendeItem, itemIndex) => {
+													const getBorder = () => {
+														if (
+															(singleLegende.IDneedsToInclude ===
+																"_fliessgeschw" &&
+																!itemIndex) ||
+															legendeItem.sub_items
+														) {
+															return "";
+														}
+														if (isAdresse) {
+															return "border-2 border-red";
+														}
+														if (legendeItem.background?.includes("url")) {
+															return `${legendeItem.background} bg-no-repeat bg-center bg-contain h-[21px] w-full`;
+														}
+														return "border border-[#B4B4B4]";
+													};
+													return (
+														<div
+															key={`${index}_${itemIndex}`}
+															className="flex flex-col gap-1.5"
+														>
+															{legendeItem.subTitle && (
+																<p className="select-none text-[10px] leading-[10px] text-black">
+																	{legendeItem.subTitle}
+																</p>
+															)}
+															{legendeItem.sub_items ? (
+																<>
+																	{legendeItem.sub_items.map(
+																		(legendeSubItem, legendeSubItemIndex) => (
+																			<div
+																				key={legendeSubItemIndex}
+																				className="flex items-center gap-5"
+																			>
+																				<div
+																					className={`flex h-[21px] w-[36px] ${getBorder()} ${legendeSubItem.background}`}
+																				/>
+																				{legendeSubItem.title && (
+																					<p className="select-none text-[10px] leading-[10px] text-black">
+																						{legendeSubItem.title}
+																					</p>
+																				)}
+																			</div>
+																		),
+																	)}
+																</>
+															) : (
+																<div className="flex items-center gap-5">
+																	<div
+																		className={`flex h-[21px] w-[36px] ${getBorder()} ${legendeItem.background}`}
+																	/>
+																	{legendeItem.title && (
+																		<p className="select-none text-[10px] leading-[10px] text-black">
+																			{legendeItem.title}
+																		</p>
+																	)}
+																</div>
+															)}
+														</div>
+													);
+												},
+											)}
+										</div>
+									</div>
+								);
+							}
+							return null;
 						}
 						return null;
 					})}

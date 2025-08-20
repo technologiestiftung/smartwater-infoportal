@@ -60,7 +60,7 @@ const LayerTree = () => {
 		(state) => state.updateLayerTreeIsOpen,
 	);
 	const fullScreenMap = useStore((state) => state.fullScreenMap);
-	const isMobile = useMobile();
+	const { isMobile } = useMobile();
 	return (
 		<div
 			className={`bg-white ${isMobile ? "w-full" : getWidthClass(fullScreenMap)}`}
@@ -86,7 +86,7 @@ const LayerTree = () => {
 const LayerTreeContentDraggable = () => {
 	const { subjectLayers } = useLayerData();
 	const errorLayers = useStore((state) => state.errorLayers);
-	const isMobile = useMobile();
+	const { isMobile } = useMobile();
 	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const setLayerOrder = useMapStore((state) => state.setLayerOrder);
 	const map = useMapStore((s) => s.map);
@@ -194,15 +194,15 @@ const SortableLayerItem = ({
 	};
 
 	const disabled = disabledLayers.includes(layer.id);
-	const notAvailable = !!layer.error || errorLayers.includes(layer.id);
+	const isNotAvailable = !!layer.error || errorLayers.includes(layer.id);
 
 	return (
 		<div
 			ref={setNodeRef}
 			style={style}
-			className={`flex px-2 ${disabled || notAvailable ? "bg-[#FDECEE]" : "bg-grey"}`}
+			className={`flex px-2 ${disabled || isNotAvailable ? "bg-[#FDECEE]" : "bg-grey"}`}
 		>
-			{!notAvailable && (
+			{!isNotAvailable && (
 				<div
 					{...attributes}
 					{...listeners}
@@ -218,7 +218,7 @@ const SortableLayerItem = ({
 			<LayerItem
 				layer={layer}
 				disabled={disabled}
-				notAvailable={notAvailable}
+				isNotAvailable={isNotAvailable}
 			/>
 		</div>
 	);
@@ -227,8 +227,8 @@ const SortableLayerItem = ({
 const LayerItem = memo<{
 	layer: ManagedLayer;
 	disabled: boolean;
-	notAvailable: boolean;
-}>(({ layer, disabled, notAvailable }) => {
+	isNotAvailable: boolean;
+}>(({ layer, disabled, isNotAvailable }) => {
 	const setLayerVisibility = useMapStore((state) => state.setLayerVisibility);
 
 	const activeMapFilter = useStore((state) => state.activeMapFilter);
@@ -254,13 +254,13 @@ const LayerItem = memo<{
 
 	return (
 		<div
-			className={`flex min-w-0 items-center gap-4 border-black px-2 py-1 ${disabled || notAvailable ? "cursor-not-allowed" : "cursor-pointer"}`}
+			className={`flex min-w-0 items-center gap-4 border-black px-2 py-1 ${disabled || isNotAvailable ? "cursor-not-allowed" : "cursor-pointer"}`}
 			onClick={() => {
 				if (disabled) return;
 				handleVisibilityChange(!layer.visibility);
 			}}
 		>
-			{!notAvailable && (
+			{!isNotAvailable && (
 				<div className="inline-flex h-[22px] w-[22px] items-center justify-center">
 					{layer.visibility ? (
 						<FontAwesomeIcon
@@ -276,16 +276,16 @@ const LayerItem = memo<{
 			)}
 			<div className="flex-1 overflow-hidden">
 				<p
-					className="translate-y-[2px] overflow-hidden truncate whitespace-nowrap text-[14px] font-bold"
+					className="translate-y-[2px] select-none overflow-hidden truncate whitespace-nowrap text-[14px] font-bold"
 					title={serviceNameLang}
 				>
 					{serviceName}
 				</p>
-				{disabled || notAvailable ? (
+				{disabled || isNotAvailable ? (
 					<p className="translate-y-[-2px] overflow-hidden truncate whitespace-nowrap text-xs text-[var(--text-error)]">
-						{disabled
-							? "Karte wird im aktuellen Maßstab nicht angezeigt"
-							: "Karte konnte nicht geladen werden"}
+						{isNotAvailable
+							? "Karte konnte nicht geladen werden"
+							: "Karte wird im aktuellen Maßstab nicht angezeigt"}
 					</p>
 				) : (
 					<p className="translate-y-[-2px] overflow-hidden truncate whitespace-nowrap text-xs">
