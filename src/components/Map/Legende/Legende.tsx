@@ -121,7 +121,7 @@ const Legende = () => {
 					{legende.map((singleLegende, index) => {
 						const isAdresse = singleLegende.IDneedsToInclude === "adresse";
 						const checkForVisibility = subjectLayers
-							// .filter((layer) => layer.visibility)
+							.filter((layer) => layer.visibility)
 							.some((singleLayer) => {
 								if (isAdresse) {
 									return true;
