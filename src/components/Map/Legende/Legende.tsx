@@ -166,10 +166,10 @@ const Legende = () => {
 					<Image
 						src="/resources/legende/Adresse.jpg"
 						alt="Legend"
-						width={200}
+						width={300}
 						height={0}
 						style={{ height: "auto" }}
-						className="max-w-[200px]"
+						className="max-w-[300px]"
 					/>
 					{renderConditionallegendes.map((legende, index) => {
 						const checkForVisibility = subjectLayers
@@ -195,10 +195,10 @@ const Legende = () => {
 									<Image
 										src={legende.src}
 										alt="Legende"
-										width={200}
+										width={300}
 										height={0}
 										style={{ height: "auto" }}
-										className="max-w-[200px]"
+										className="max-w-[300px]"
 									/>
 								</div>
 							);
