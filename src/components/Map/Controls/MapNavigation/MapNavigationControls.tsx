@@ -9,6 +9,7 @@ import { useMapStore } from "@/lib/store/mapStore";
 import { useMapLoading } from "@/lib/utils/useMapLoading";
 import Legende from "../../Legende/Legende";
 import MobileLayerTree from "../../LayerTree/MobileLayerTree";
+import { Spinner } from "berlin-ui-library";
 
 const MapNavigationControls = () => {
 	const isMobile = useMobile();
@@ -50,12 +51,13 @@ const MapNavigationControls = () => {
 			>
 				{!isMobile && <Legende />}
 				{loading && (
-					<div className="z-2 flex h-[48px] items-center gap-2">
-						<video autoPlay loop muted playsInline width="30">
-							<source src="/spinner.mp4" type="video/mp4" />
-							Your browser does not support HTML video.
-						</video>
-						<h4>Karte lädt...</h4>
+					<div className="z-2 align-start flex">
+						<Spinner
+							text="Karte lädt..."
+							textColor="black"
+							position="right"
+							size="small"
+						/>
 					</div>
 				)}
 			</div>

@@ -143,7 +143,9 @@
 	}
 	@media screen and (min-width: 768px) {
 		.ol-scale-line {
-			@apply bottom-4 left-auto right-4;
+			bottom: 16px !important;
+			left: auto !important;
+			right: 16px !important;
 		}
 	}
 }
