@@ -18,12 +18,12 @@ const Map = () => {
 	const { isMobile } = useMobile();
 	const getMapRootClasses = () => {
 		if (fullScreenMap) {
-			return "z-21 fixed left-0 top-0 h-[100dvh] w-[100dvw]";
+			return "z-21 fixed left-0 top-0 h-[100lvh] w-[100dvw]";
 		}
 		if (isMobile) {
-			return "relative h-[80dvh] w-full overflow-hidden";
+			return "relative h-[80lvh] w-full overflow-hidden";
 		}
-		return "relative h-[65dvh] w-full";
+		return "relative h-[65lvh] w-full";
 	};
 	return (
 		<>
