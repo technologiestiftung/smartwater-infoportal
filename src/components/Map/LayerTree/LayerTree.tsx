@@ -26,7 +26,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
-import { getHeightClass, getScale } from "@/lib/utils/mapUtils";
+import { getHeightClass, getScale, getWidthClass } from "@/lib/utils/mapUtils";
 import useMobile from "@/lib/utils/useMobile";
 
 // Custom hooks
@@ -59,11 +59,11 @@ const LayerTree = () => {
 	const updateLayerTreeIsOpen = useStore(
 		(state) => state.updateLayerTreeIsOpen,
 	);
+	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const isMobile = useMobile();
 	return (
 		<div
-			className={`bg-white ${isMobile ? "w-full" : "w-[370px]"}`}
-			// onMouseLeave={() => updateLayerTreeIsOpen(false)}
+			className={`bg-white ${isMobile ? "w-full" : getWidthClass(fullScreenMap)}`}
 		>
 			<div className="border-l-1 border-r-1 border-t-1 flex min-h-[44px] items-center justify-between border-b-0 border-black pl-4">
 				<p className="select-none font-bold">Kartenlayer</p>

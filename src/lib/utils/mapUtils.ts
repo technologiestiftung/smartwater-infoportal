@@ -80,3 +80,10 @@ export const getHeightClass = (isMobile: boolean, fullScreenMap: boolean) => {
 	}
 	return "max-h-[calc(40vh-46px-46px)]";
 };
+
+export const getWidthClass = (fullScreenMap: boolean) => {
+	if (fullScreenMap) {
+		return "w-[33vw]";
+	}
+	return "w-[370px]";
+};

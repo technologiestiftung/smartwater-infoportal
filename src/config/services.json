@@ -460,7 +460,7 @@
 		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
 	},
 	{
-		"id": "ua_srgk:cc_wassersand_extrem",
+		"id": "ua_srgk:cc_wasserstand_extrem",
 		"name": "Wasserstand (extremes Ereignis, nicht f\u00fcr alle Gebiete verf\u00fcgbar)",
 		"name_lang": "Wasserstand (extremes Ereignis, nicht f\u00fcr alle Gebiete verf\u00fcgbar) (Starkregengefahrenkarte)",
 		"map_group": "Starkregengefahrenkarten",
@@ -468,7 +468,7 @@
 		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
 		"typ": "WMS",
 		"gfiAttributes": "showAll",
-		"layers": "cc_wassersand_extrem",
+		"layers": "cc_wasserstand_extrem",
 		"legend": true,
 		"datasets": [
 			{

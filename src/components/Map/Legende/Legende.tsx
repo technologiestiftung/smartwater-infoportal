@@ -5,7 +5,7 @@ import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useMapStore } from "@/lib/store/mapStore";
 import Image from "next/image";
 import useMobile from "@/lib/utils/useMobile";
-import { getHeightClass } from "@/lib/utils/mapUtils";
+import { getHeightClass, getWidthClass } from "@/lib/utils/mapUtils";
 
 const Legende = () => {
 	const isLegendeOpen = useStore((state) => state.isLegendeOpen);
@@ -19,15 +19,52 @@ const Legende = () => {
 	const isMobile = useMobile();
 	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const [reopenLegend, setReopenLegend] = useState<boolean>(false);
+	const renderConditionallegendes = [
+		{
+			IDneedsToInclude: "_gefaehrdung_clip_",
+			title: "Gefährdung durch Starkregen bzw. Hochwasser",
+			src: "/resources/legende/Legende-Gefahrenkarte.jpg",
+		},
+		{
+			IDneedsToInclude: "_fliessgeschw",
+			title: "Fließgeschwindigkeit",
+			src: "/resources/legende/Legende-Fliessgeschwindigkeit.jpg",
+		},
+		{
+			IDneedsToInclude: "_fr_",
+			title: "Fließrichtung",
+			src: "/resources/legende/Legende-Fliessrichtung.jpg",
+		},
+		{
+			IDneedsToInclude: "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
+			title: "Gewässer",
+			src: "/resources/legende/Legende-Gewaesser.jpg",
+		},
+		{
+			IDneedsToInclude: "ua_hochwassergefahrenkarten",
+			IDisNotAllowedToInclude: "d_hwgk_gewaesser",
+			title: "Hochwasser",
+			src: "/resources/legende/Legende-Hochwasser.jpg",
+		},
+		{
+			IDneedsToInclude: "_wasserstand_",
+			title: "Wasserstand",
+			src: "/resources/legende/Legende-Wasserstand.jpg",
+		},
+		{
+			IDneedsToInclude: "ueberschwemmungsgebiete",
+			title: "Überschwemmungsgebiet",
+			src: "/resources/legende/Legende-Ueberschwemmungsgebiet.jpg",
+		},
+	];
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const getLegendUrl = (layer: any): string => {
+	/* const getLegendUrl = (layer: any): string => {
 		const baseUrl = layer.url;
 		const version = layer.version || "1.3.0";
 		const format = encodeURIComponent(layer.format || "image/png");
 		const layerName = layer.layers;
 		return `${baseUrl}?SERVICE=WMS&VERSION=${version}&REQUEST=GetLegendGraphic&FORMAT=${format}&LAYER=${layerName}`;
-	};
+	}; */
 
 	const transformClass = () => {
 		if (isMobile && isLegendeOpen) {
@@ -106,7 +143,7 @@ const Legende = () => {
 	return (
 		<div
 			id="map-legende"
-			className={`z-10 bg-white ${isMobile ? "duration-600 absolute bottom-0 w-full transition-transform ease-in-out" : "w-[370px]"} ${transformClass()}`}
+			className={`z-10 bg-white ${isMobile ? "duration-600 absolute bottom-0 w-full transition-transform ease-in-out" : getWidthClass(fullScreenMap)} ${transformClass()}`}
 		>
 			<div
 				className={`border-l-1 border-r-1 border-t-1 flex min-h-[44px] cursor-pointer items-center justify-between border-black pl-4 ${isLegendeOpen ? "border-b-0" : "border-b-1"}`}
@@ -134,28 +171,30 @@ const Legende = () => {
 						style={{ height: "auto" }}
 						className="max-w-[200px]"
 					/>
-					{subjectLayers
-						.filter((layer) => layer.visibility)
-						.sort((a, b) => b.zIndex - a.zIndex)
-						.map((layer, index) => {
-							const serviceName = layer.config.service.name;
-							const serviceNameLang =
-								layer.config.service.name_lang || serviceName;
+					{renderConditionallegendes.map((legende, index) => {
+						const checkForVisibility = subjectLayers
+							.filter((layer) => layer.visibility)
+							.some((singleLayer) => {
+								if (legende.IDisNotAllowedToInclude) {
+									return (
+										singleLayer.id.includes(legende.IDneedsToInclude) &&
+										!singleLayer.id.includes(legende.IDisNotAllowedToInclude)
+									);
+								}
+								return singleLayer.id.includes(legende.IDneedsToInclude);
+							});
+						if (checkForVisibility) {
 							return (
 								<div key={index}>
 									<p
 										className="mb-2 select-none whitespace-normal break-words text-[14px] font-bold leading-[16px]"
-										title={serviceNameLang}
+										title={legende.title}
 									>
-										{serviceName}
+										{legende.title}
 									</p>
 									<Image
-										src={
-											typeof layer.config.service.legend === "string"
-												? layer.config.service.legend
-												: getLegendUrl(layer.config.service)
-										}
-										alt="Legend"
+										src={legende.src}
+										alt="Legende"
 										width={200}
 										height={0}
 										style={{ height: "auto" }}
@@ -163,7 +202,9 @@ const Legende = () => {
 									/>
 								</div>
 							);
-						})}
+						}
+						return null;
+					})}
 				</div>
 			)}
 		</div>
