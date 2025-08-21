@@ -166,6 +166,7 @@ const LayerInitializer: FC = () => {
 						params,
 						serverType: "geoserver",
 						attributions: serviceConfig.layerAttribution,
+						crossOrigin: "anonymous",
 					});
 					imageSource.on("imageloaderror", (event) => {
 						console.error(
@@ -186,6 +187,7 @@ const LayerInitializer: FC = () => {
 					params,
 					serverType: "geoserver",
 					attributions: serviceConfig.layerAttribution,
+					crossOrigin: "anonymous",
 				});
 
 				tileSource.on("tileloaderror", (event) => {

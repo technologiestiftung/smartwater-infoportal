@@ -23,6 +23,7 @@
 		"@turf/turf": "^7.2.0",
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"html2canvas": "^1.4.1",
+		"html2canvas-pro": "^1.5.11",
 		"jspdf": "^3.0.1",
 		"lucide-react": "^0.536.0",
 		"next": "15.3.1",

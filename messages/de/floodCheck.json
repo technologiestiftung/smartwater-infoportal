@@ -300,7 +300,13 @@
 			"button": "Bericht herunterladen",
 			"description": "Hier können Sie sich die errechneten Ergebnisse an Ihrer Adresse und auf Basis des Fragebogens als PDF-Datei herunterladen.",
 			"fileInfo": "Doctype: PDF-Dokument ({size}) – Stand: {date}",
-			"title": "Download Bericht"
+			"title": "Download Bericht",
+			"pdf": {
+				"title": "Hochwasser-Infoportal Berlin",
+				"subTitle": "Report zum Gesamtergebnis HochwasserCheck",
+				"date": "Report vom {date}",
+				"locationTitle": "Es wurde die folgende Adresse überprüft:"
+			}
 		},
 		"results": {
 			"navigation": {

@@ -9,7 +9,6 @@ import {
 	Image,
 	Pill,
 	FilterPillGroup,
-	DownloadItem,
 	List,
 	ListItem,
 } from "berlin-ui-library";
@@ -23,6 +22,7 @@ import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import ReportPDF from "./ReportPDF";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -30,10 +30,11 @@ const Results: React.FC = () => {
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
+	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
-
 	const hazardEntities = getHazardEntities();
+	const testing = process.env.NODE_ENV === "development";
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -145,6 +146,7 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
+			{testing && <Button onClick={resetOnPageLoad}>Reset State</Button>}
 			<section className="flex items-center gap-2">
 				{currentUserAddress && (
 					<>
@@ -329,7 +331,7 @@ const Results: React.FC = () => {
 					</section>
 				</>
 			)}
-			<section className="flex w-full flex-col gap-12">
+			<section className="flex w-full flex-col gap-12" id="protection-tips">
 				{!skip && hazardEntities && hazardEntities.length > 0 && (
 					<>
 						<div className="flex flex-col gap-2">
@@ -367,7 +369,6 @@ const Results: React.FC = () => {
 						</div>
 					</>
 				)}
-
 				<div className="flex flex-col gap-2">
 					{!skip && (
 						<>
@@ -397,26 +398,21 @@ const Results: React.FC = () => {
 									/>
 								}
 							/>
-							<Button
-								className="mt-6 w-full self-start lg:w-fit"
-								onClick={() => {
-									router.push("/handlungsempfehlungen");
-								}}
-							>
-								Übersicht Handlungsempfehlungen
-							</Button>
 						</>
 					)}
-					<div className="divider mt-4" />
-					<DownloadItem
-						buttonText="Download Bericht"
-						date="03/1974"
-						description={t("reportDownload.description")}
-						downloadUrl="#"
-						fileType="PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025"
-						title={t("reportDownload.title")}
-					/>
 				</div>
+			</section>
+			<section>
+				<Button
+					className="mt-6 w-full self-start lg:w-fit"
+					onClick={() => {
+						router.push("/handlungsempfehlungen");
+					}}
+				>
+					Übersicht Handlungsempfehlungen
+				</Button>
+				<div className="divider mt-4" />
+				<ReportPDF skip={skip} />
 			</section>
 		</div>
 	);

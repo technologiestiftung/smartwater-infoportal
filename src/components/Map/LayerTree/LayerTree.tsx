@@ -230,7 +230,7 @@ const LayerItem = memo<{
 	isNotAvailable: boolean;
 }>(({ layer, disabled, isNotAvailable }) => {
 	const setLayerVisibility = useMapStore((state) => state.setLayerVisibility);
-
+	const createReport = useStore((state) => state.createReport);
 	const activeMapFilter = useStore((state) => state.activeMapFilter);
 
 	const handleVisibilityChange = useCallback(
@@ -251,6 +251,18 @@ const LayerItem = memo<{
 			handleVisibilityChange(activeMapFilter === "fluvialFlood");
 		}
 	}, [activeMapFilter]);
+
+	useEffect(() => {
+		if (createReport !== null) {
+			if (layer.id === "sw_infoportal:sr_gefaehrdung_clip_") {
+				handleVisibilityChange(createReport === "heavyRain");
+			} else if (layer.id === "sw_infoportal:hw_gefaehrdung_clip_") {
+				handleVisibilityChange(createReport === "fluvialFlood");
+			} else {
+				handleVisibilityChange(false);
+			}
+		}
+	}, [createReport]);
 
 	return (
 		<div

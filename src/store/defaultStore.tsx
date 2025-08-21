@@ -29,6 +29,7 @@ type StoreState = {
 	isLayerTreeOpen: boolean;
 	isLegendeOpen: boolean;
 	errorLayers: string[];
+	createReport: "heavyRain" | "fluvialFlood" | null;
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
@@ -45,8 +46,12 @@ type StoreState = {
 		questionId: string,
 		answer: string | string[] | number,
 	) => void;
+	updateCreateReport: (
+		changedReport: "heavyRain" | "fluvialFlood" | null,
+	) => void;
 	calculateAndSetResult: () => void;
 	resetAll: () => void;
+	resetOnPageLoad: () => void;
 	getNextStep: (currentPath: string) => string;
 
 	// Selectors
@@ -68,6 +73,7 @@ const useStore = create<StoreState>()(
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
+				createReport: null,
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),
@@ -95,6 +101,10 @@ const useStore = create<StoreState>()(
 					set({ isLayerTreeOpen: open }),
 
 				updateErrorLayers: (layers: string[]) => set({ errorLayers: layers }),
+
+				updateCreateReport: (
+					changedReport: "heavyRain" | "fluvialFlood" | null,
+				) => set({ createReport: changedReport }),
 
 				updateLegendeIsOpen: (open: boolean) => set({ isLegendeOpen: open }),
 
@@ -141,6 +151,16 @@ const useStore = create<StoreState>()(
 						floodRiskAnswers: {},
 						floodRiskResult: null,
 						isLoadingLocationData: false,
+					}),
+
+				resetOnPageLoad: () =>
+					set({
+						isLoadingLocationData: false,
+						fullScreenMap: false,
+						isLayerTreeOpen: false,
+						isLegendeOpen: true,
+						errorLayers: [],
+						createReport: null,
 					}),
 
 				// Selectors
