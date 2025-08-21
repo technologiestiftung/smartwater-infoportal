@@ -9,7 +9,6 @@ import {
 	Image,
 	Pill,
 	FilterPillGroup,
-	DownloadItem,
 	List,
 	ListItem,
 } from "berlin-ui-library";
@@ -21,6 +20,9 @@ import useStore from "@/store/defaultStore";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
 import Map from "./Map/Map";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import ReportPDF from "./ReportPDF";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -28,10 +30,11 @@ const Results: React.FC = () => {
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
+	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
-
 	const hazardEntities = getHazardEntities();
+	const testing = process.env.NODE_ENV === "development";
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -142,12 +145,17 @@ const Results: React.FC = () => {
 	}, []);
 
 	return (
-		<div className="flex w-full flex-col gap-12 pt-2">
-			<section className="flex flex-col gap-2">
+		<div className="flex w-full flex-col gap-12 pt-4">
+			{testing && <Button onClick={resetOnPageLoad}>Reset State</Button>}
+			<section className="flex items-center gap-2">
 				{currentUserAddress && (
-					<div className="flex w-full flex-col">
-						<p className="">{currentUserAddress.display_name}</p>
-					</div>
+					<>
+						<FontAwesomeIcon
+							icon={faLocationDot}
+							className="text-[18px] text-black"
+						/>
+						<p className="mt-[3px]">{currentUserAddress.display_name}</p>
+					</>
 				)}
 			</section>
 			<section className="flex flex-col gap-4">
@@ -246,37 +254,41 @@ const Results: React.FC = () => {
 							variant="default"
 						>
 							<AccordionTrigger variant="default">
-								{item.title}
+								<h3>{item.title}</h3>
 							</AccordionTrigger>
 							<AccordionContent variant="default">
-								{item.content}
+								<p>{item.content}</p>
 								{index === 2 && (
 									<>
 										<div className="mt-4 flex flex-col">
-											<span className="">
+											<p className="">
 												{t("hazardInfo.linkGroundwaterPortalTitle")}
-											</span>
+											</p>
 											<Link
 												href={t("hazardInfo.linkGroundwaterPortalLink")}
 												target="_blank"
 												rel="noopener noreferrer"
 											>
 												<Button variant="link">
-													{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+													<p className="">
+														{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
+													</p>
 												</Button>
 											</Link>
 										</div>
 										<div className="flex flex-col">
-											<span className="">
+											<p className="">
 												{t("hazardInfo.linkWaterGeologyTitle")}
-											</span>
+											</p>
 											<Link
 												href={t("hazardInfo.linkWaterGeologyLink")}
 												target="_blank"
 												rel="noopener noreferrer"
 											>
 												<Button variant="link">
-													{t("hazardInfo.linkWaterGeologyLinkTitle")}
+													<p className="">
+														{t("hazardInfo.linkWaterGeologyLinkTitle")}
+													</p>
 												</Button>
 											</Link>
 										</div>
@@ -319,7 +331,7 @@ const Results: React.FC = () => {
 					</section>
 				</>
 			)}
-			<section className="flex w-full flex-col gap-12">
+			<section className="flex w-full flex-col gap-12" id="protection-tips">
 				{!skip && hazardEntities && hazardEntities.length > 0 && (
 					<>
 						<div className="flex flex-col gap-2">
@@ -357,7 +369,6 @@ const Results: React.FC = () => {
 						</div>
 					</>
 				)}
-
 				<div className="flex flex-col gap-2">
 					{!skip && (
 						<>
@@ -387,26 +398,21 @@ const Results: React.FC = () => {
 									/>
 								}
 							/>
-							<Button
-								className="mt-6 w-full self-start lg:w-fit"
-								onClick={() => {
-									router.push("/handlungsempfehlungen");
-								}}
-							>
-								Übersicht Handlungsempfehlungen
-							</Button>
 						</>
 					)}
-					<div className="divider mt-4" />
-					<DownloadItem
-						buttonText="Download Bericht"
-						date="03/1974"
-						description={t("reportDownload.description")}
-						downloadUrl="#"
-						fileType="PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025"
-						title={t("reportDownload.title")}
-					/>
 				</div>
+			</section>
+			<section>
+				<Button
+					className="mt-6 w-full self-start lg:w-fit"
+					onClick={() => {
+						router.push("/handlungsempfehlungen");
+					}}
+				>
+					Übersicht Handlungsempfehlungen
+				</Button>
+				<div className="divider mt-4" />
+				<ReportPDF skip={skip} />
 			</section>
 		</div>
 	);
