@@ -6,6 +6,7 @@ import {
 	FormWrapper,
 	Label,
 	Panel,
+	Spinner,
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { useTranslations } from "next-intl";
@@ -222,10 +223,9 @@ export default function AddressSearch({
 						<Label className="text-destructive text-primary">{error}</Label>
 					)}
 					{showLoading && (
-						<video autoPlay loop muted playsInline width="30">
-							<source src="/spinner.mp4" type="video/mp4" />
-							Your browser does not support HTML video.
-						</video>
+						<div className="align-start flex">
+							<Spinner size="small" />
+						</div>
 					)}
 					<div className="flex flex-col gap-4 lg:flex-row">
 						<Button

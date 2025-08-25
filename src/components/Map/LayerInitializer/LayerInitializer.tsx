@@ -20,6 +20,7 @@ import WMTS, { optionsFromCapabilities } from "ol/source/WMTS";
 import { FC, useCallback, useEffect, useState } from "react";
 import styles from "../Features/Styles";
 import { Style } from "ol/style";
+import useStore from "@/store/defaultStore";
 
 interface WMTSCapabilitiesMap {
 	[url: string]: any;
@@ -35,6 +36,8 @@ const LayerInitializer: FC = () => {
 	const config = useMapStore((state) => state.config);
 	const map = useMapStore((state) => state.map);
 	const setLayersInStore = useMapStore((state) => state.setLayers);
+	const errorLayers = useStore((state) => state.errorLayers);
+	const updateErrorLayers = useStore((state) => state.updateErrorLayers);
 
 	const [wmtsCapabilities, setWmtsCapabilities] = useState<WMTSCapabilitiesMap>(
 		{},
@@ -164,6 +167,14 @@ const LayerInitializer: FC = () => {
 						serverType: "geoserver",
 						attributions: serviceConfig.layerAttribution,
 					});
+					imageSource.on("imageloaderror", (event) => {
+						console.error(
+							"❌ Image load error for WMS layer:",
+							serviceConfig.id,
+						);
+						updateErrorLayers([...errorLayers, serviceConfig.id]);
+					});
+
 					return {
 						layer: new ImageLayer({ source: imageSource }),
 						status: "loaded",
@@ -177,11 +188,17 @@ const LayerInitializer: FC = () => {
 					attributions: serviceConfig.layerAttribution,
 				});
 
+				tileSource.on("tileloaderror", (event) => {
+					console.error("Tile load error for:", serviceConfig.id);
+					updateErrorLayers([...errorLayers, serviceConfig.id]);
+				});
+
 				return {
 					layer: new TileLayer({ source: tileSource }),
 					status: "loaded",
 				};
 			} catch (error) {
+				console.error("[LayerInitializer @ createWMSLayer]", serviceConfig);
 				return {
 					layer: null,
 					status: "error",
@@ -335,6 +352,7 @@ const LayerInitializer: FC = () => {
 						olLayer: olLayer,
 						status: status,
 						visibility: layerConfig.visibility,
+						map_group: layerConfig.service.map_group,
 						opacity: 1,
 						zIndex: zIndex,
 						layerType: layerType,

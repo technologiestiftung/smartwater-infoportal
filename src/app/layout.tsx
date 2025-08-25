@@ -5,6 +5,8 @@ import { getLocale } from "next-intl/server";
 import React from "react";
 import type { Viewport } from "next";
 import LayoutClient from "./LayoutClient";
+import "../lib/fontawesome";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export const metadata: Metadata = {
 	title: "Berlin Smartwater Info-Planner",

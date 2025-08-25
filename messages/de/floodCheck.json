@@ -150,7 +150,7 @@
 			"title": "Hier käme das Zwischenergebnis"
 		},
 		"map": {
-			"description": "Für die Berechnung der Gefahrenkarte nutzen wir bestimmte Karten bei SenMVKU.",
+			"description": "Für die Berechnung der Gefährdungskarten nutzen wir Karten des Geoportals Berlin, veröffentlicht durch die SenMVKU.",
 			"openLegend": "Legende öffnen",
 			"title": "Karte an Ihrem Standort"
 		},
@@ -320,7 +320,7 @@
 		"start": {
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
-			"description": "Der HochwasserCheck kombiniert die Gefahrenkarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"description": "Der HochwasserCheck kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen"
 		}
 	}
