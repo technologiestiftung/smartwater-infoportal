@@ -13,6 +13,8 @@
 				"extent": [1444000, 6860000, 1538000, 6925000],
 				"epsg": "EPSG:3857",
 				"startZoomLevel": 7,
+				"minZoomLevel": 3,
+				"maxZoomLevel": 7,
 				"options": [
 					{
 						"resolution": 52.9,
@@ -86,11 +88,7 @@
 		"subjectlayer": {
 			"elements": [
 				{
-					"id": "sw_infoportal:sr_gefaehrdung_clip_",
-					"visibility": false
-				},
-				{
-					"id": "sw_infoportal:hw_gefaehrdung_clip_",
+					"id": "ua_uesg:c_ueberschwemmungsgebiete",
 					"visibility": false
 				},
 				{
@@ -110,7 +108,7 @@
 					"visibility": false
 				},
 				{
-					"id": "ua_uesg:c_ueberschwemmungsgebiete",
+					"id": "ua_srgk:cc_wassersand_extrem",
 					"visibility": false
 				},
 				{
@@ -118,23 +116,7 @@
 					"visibility": false
 				},
 				{
-					"id": "ua_srhk:eb_fliessgeschw_extrem_max100mm",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:ea_fr_extrem_max100mm",
-					"visibility": false
-				},
-				{
 					"id": "ua_srhk:dc_wasserstand_aussergew_kostra",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:db_fliessgeschw_aussergew_kostra",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:da_fr_aussergewoehnlich",
 					"visibility": false
 				},
 				{
@@ -143,6 +125,22 @@
 				},
 				{
 					"id": "ua_srgk:ca_wasserstand_selten",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:ea_fr_extrem_max100mm",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:da_fr_aussergewoehnlich",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:eb_fliessgeschw_extrem_max100mm",
+					"visibility": false
+				},
+				{
+					"id": "ua_srhk:db_fliessgeschw_aussergew_kostra",
 					"visibility": false
 				},
 				{
@@ -155,6 +153,14 @@
 				},
 				{
 					"id": "ua_srgk:ba_fliessgeschwindigkeit_selten",
+					"visibility": false
+				},
+				{
+					"id": "sw_infoportal:hw_gefaehrdung_clip_",
+					"visibility": false
+				},
+				{
+					"id": "sw_infoportal:sr_gefaehrdung_clip_",
 					"visibility": false
 				}
 			]

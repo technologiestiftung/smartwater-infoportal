@@ -1,0 +1,169 @@
+[
+	{
+		"IDneedsToInclude": "adresse",
+		"title": "Ausgewählte Adresse",
+		"items": [
+			{
+				"title": "Ausgewählte Adresse",
+				"background": "bg-white"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "_gefaehrdung_clip_",
+		"title": "Gefährdung durch Starkregen bzw. Hochwasser",
+		"items": [
+			{
+				"background": "bg-[#F5DCD9]",
+				"title": "Geringe Gefährdung"
+			},
+			{
+				"background": "bg-[#DC98B5]",
+				"title": "Mittlere Gefährdung"
+			},
+			{
+				"background": "bg-[#A55FA7]",
+				"title": "Hohe Gefährdung"
+			},
+			{
+				"background": "bg-[#5A3896]",
+				"title": "Sehr hohe Gefährdung"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "_fliessgeschw",
+		"title": "Fließgeschwindigkeit",
+		"items": [
+			{
+				"background": "bg-white",
+				"title": "< 0,2 m/s (nicht dargestellt)"
+			},
+			{
+				"background": "bg-[url('/resources/legende/FG-1.svg')]",
+				"title": "0,2 - < 0,5 m/s"
+			},
+			{
+				"background": "bg-[url('/resources/legende/FG-2.svg')]",
+				"title": "0,5 - < 1,0 m/s"
+			},
+			{
+				"background": "bg-[url('/resources/legende/FG-3.svg')]",
+				"title": "1.0 - < 2.0 m/s"
+			},
+			{
+				"background": "bg-[url('/resources/legende/FG-4.svg')]",
+				"title": "≥ 2.0 m/s"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "_fr_",
+		"title": "Fließrichtung",
+		"items": [
+			{
+				"background": "bg-[url('/resources/legende/FR.svg')]",
+				"title": "Fließrichtung"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
+		"title": "Gewässer",
+		"items": [
+			{
+				"background": "bg-[#004CA9]",
+				"title": "Gewässer"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "ua_hochwassergefahrenkarten",
+		"IDisNotAllowedToInclude": "d_hwgk_gewaesser",
+		"title": "Wassertiefe Fluviales Hochwasser",
+		"subTitle": "Wassertiefe",
+		"items": [
+			{
+				"background": "bg-[#CEEBFE]",
+				"title": "0 - 0,5 m"
+			},
+			{
+				"background": "bg-[#CEEBFE]",
+				"title": "0 - 0,5 m"
+			},
+			{
+				"background": "bg-[#97CDFF]",
+				"title": "> 0,5 - 1 m"
+			},
+			{
+				"background": "bg-[#6599FE]",
+				"title": "> 1 - 2 m"
+			},
+			{
+				"background": "bg-[#3D66FE]",
+				"title": "> 2 - 4 m"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "_wasserstand_",
+		"title": "Wassertiefe Pluviales Hochwasser",
+		"items": [
+			{
+				"background": "bg-white",
+				"title": "< 10 cm (nicht dargestellt)"
+			},
+			{
+				"background": "bg-[#CCEBFE]",
+				"title": "10 - < 30 cm"
+			},
+			{
+				"background": "bg-[#99CCFF]",
+				"title": "30 - < 50 cm"
+			},
+			{
+				"background": "bg-[#6E99FE]",
+				"title": "50 - < 100 cm"
+			},
+			{
+				"background": "bg-[#3D66FE]",
+				"title": ">= 100 cm"
+			}
+		]
+	},
+	{
+		"IDneedsToInclude": "ueberschwemmungsgebiete",
+		"title": "Überschwemmungsgebiet",
+		"items": [
+			{
+				"subTitle": "Erpe",
+				"background": "bg-[url('/resources/legende/Erpe.jpg')]"
+			},
+			{
+				"subTitle": "Panke",
+				"background": "bg-[url('/resources/legende/Panke.jpg')]"
+			},
+			{
+				"subTitle": "Tegeler Fließ",
+				"background": "bg-[url('/resources/legende/Tegeler_Fliess.jpg')]"
+			},
+			{
+				"subTitle": "Müggelspree / Gosener Wiesen",
+				"background": "bg-[url('/resources/legende/Mueggelspree.jpg')]"
+			},
+			{
+				"subTitle": "Untere Havel / Untere Spree",
+				"sub_items": [
+					{
+						"background": "bg-[url('/resources/legende/UntereHavel1.jpg')]",
+						"title": "Untere Havel I"
+					},
+					{
+						"background": "bg-[url('/resources/legende/UntereHavel2.jpg')]",
+						"title": "Untere Havel II"
+					}
+				]
+			}
+		]
+	}
+]

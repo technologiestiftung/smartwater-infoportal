@@ -55,3 +55,10 @@ export interface FloodRiskResult {
 	totalScore: number;
 	riskLevel: "low" | "moderate" | "high" | "insufficient-data";
 }
+
+export interface LegendeItem {
+	background?: string;
+	title?: string;
+	subTitle?: string;
+	sub_items?: { background: string; title: string }[] | undefined;
+}

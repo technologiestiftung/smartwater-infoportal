@@ -135,6 +135,19 @@
 		font-size: 0.875rem;
 		line-height: 1.313rem;
 	}
+
+	@media screen and (max-width: 767px) {
+		.ol-scale-line {
+			@apply duration-600 transform ease-in-out;
+		}
+	}
+	@media screen and (min-width: 768px) {
+		.ol-scale-line {
+			bottom: 16px !important;
+			left: auto !important;
+			right: 16px !important;
+		}
+	}
 }
 
 @theme inline {
