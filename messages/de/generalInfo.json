@@ -3,7 +3,7 @@
 		"pageTitle": "Allgemeine Informationen",
 		"definition": {
 			"title": "Was ist Hochwasser und wie entsteht es?",
-			"description": "Nach Definition ist Hochwasser eine zeitlich beschränkte Überschwemmung, insbesondere durch oberirdische Gewässer, von normalerweise nicht mit Wasser bedecktem Land. Fachlich wird zwischen Überflutungen (pluviale Hochwasser) und Überschwemmungen (fluviale Hochwasser) unterschieden."
+			"description": "Nach Definition ist Hochwasser eine zeitlich beschränkte Überschwemmung, insbesondere durch oberirdische Gewässer, von normalerweise nicht mit Wasser bedecktem Land. Fachlich wird zwischen Überflutungen, also pluvialem Hochwasser, und Überschwemmungen, respektive fluvialem Hochwasser, unterschieden."
 		},
 		"types": {
 			"title": "Überflutungen und Überschwemmungen",
@@ -25,26 +25,26 @@
 			"title": "Warum unterscheidet man zwischen Gefahr und Risiko bei Hochwasser?",
 			"hazard": {
 				"title": "Gefahr: Wo und wie viel Wasser?",
-				"description": "Die Gefahr ist eine Situation, die einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo und wie stark es zum Hochwasser kommen kann, z.B. wie hoch steht das Wasser an einem Ort. Die Gefahr wird in den Karten anhand der Wasserstände und Fließgeschwindigkeiten dargestellt."
+				"description": "Die Gefahr beschreibt eine Situation, die potenziell einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo und wie stark es zum Hochwasser kommen kann, z.B. wie hoch steht das Wasser an einem Ort. In den Karten wird die Gefahr anhand der Wasserstände und Fließgeschwindigkeiten dargestellt."
 			},
 			"risk": {
 				"title": "Risiko: Wie schlimm wären die Folgen?",
-				"description": "Hochwasserrisiko betrachtet, wie wahrscheinlich ein Hochwasser ist und welche Folgen es für Mensch, Umwelt, Kulturgüter, Wirtschaft und Sachwerte haben kann, d.h. welche Schäden das Hochwasser verursachen könnte.",
+				"description": "Das Hochwasserrisiko betrachtet, wie wahrscheinlich ein Hochwasser ist und welche Folgen es für Mensch, Umwelt, Kulturgüter, Wirtschaft und Sachwerte haben kann. Es zeigt also, welche Schäden durch ein Hochwasser entstehen könnten.",
 				"image": {
 					"alt": "Eine Grafik zeigt den Unterschied zwischen Schadenspotenzial, Risiko und Gefahr, welche durch Überschwemmungen und Starkregen entstehen können.",
 					"caption": "Hochwasserrisiko beschreibt, welche Schäden durch eine bestimmte Hochwassergefahr entstehen könnten.",
 					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
-			"mitigation": "Wir können die Hochwassergefahr zwar nicht gänzlich verhindern, jedoch lässt sich das Hochwasserrisiko mit geeigneten Maßnahmen reduzieren. Beispielsweise können Sie das Risiko einer Überflutung Ihres Kellers (Hochwasserrisiko) wahrscheinlich verringern, indem Sie Stufen an Kellerfenstern und Lichtschächten anbringen oder wertvolle Gegenstände an anderen Orten lagern.",
+			"mitigation": "Wir können die Hochwassergefahr zwar nicht gänzlich verhindern, jedoch lässt sich das Hochwasserrisiko mit geeigneten Maßnahmen reduzieren. Beispielsweise können Sie das Risiko einer Überflutung Ihres Kellers wahrscheinlich reduzieren, indem Sie Stufen an Kellerfenstern und Lichtschächten anbringen oder wertvolle Gegenstände an anderen Orten aufbewahren.",
 			"cta": "Bewusst, aufmerksam und aktiv sein lohnt sich! Individuelle Maßnahmen und Handlungsempfehlungen finden Sie am Ende des HochwasserChecks. Eine vollständige Übersicht finden Sie unter:"
 		},
 		"assessment": {
 			"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
 			"how": {
 				"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
-				"description": "Die bei Hochwasser unter Wasser stehenden Flächen einschließlich der Wassertiefen werden durch Simulationen berechnet und in Form von Karten dargestellt. Dabei werden Regenereignisse verschiedener Intensitäten, Dauern und Verläufe berücksichtigt. Diese Szenarien können je nach zugrundeliegendem Ereignis einer bestimmten Eintrittswahrscheinlichkeit zugeordnet werden, z.B. alle 50 Jahre oder alle 100 Jahre.",
-				"note": "Wichtig ist, dass es sich um statistische Wahrscheinlichkeiten handelt, d.h. ein solches Ereignis kann auch häufiger oder seltener auftreten. Als Beispiel können einige Wahrscheinlichkeiten für Hochwasserereignisse in der Grafik verglichen werden.",
+				"description": "Die durch Hochwasser überfluteten Flächen einschließlich der jeweiligen Wassertiefen werden mithilfe von Simulationen berechnet und anschließend in Karten dargestellt. Dabei fließen Regenereignisse unterschiedlicher Intensität, Dauer und Verläufe in die Berechnungen ein. Diese Szenarien können je nach zugrundeliegendem Ereignis einer bestimmten Eintrittswahrscheinlichkeit zugeordnet werden, z.B. alle 50 Jahre oder alle 100 Jahre.",
+				"note": "Wichtig ist, dass es sich hierbei um statistische Wahrscheinlichkeiten handelt. Das bedeutet, ein solches Ereignis kann auch häufiger oder seltener auftreten. In der beigefügten Grafik werden einige Wahrscheinlichkeiten von Hochwasserereignissen gegenübergestellt.",
 				"image": {
 					"alt": "Eine Balkendiagramm zeigt den Unterschied zwischen der Wahrscheinlichkeit von Arbeitsunfällen (45%) zu Außergewöhnlichen Starkregenereignissen (51%) und zu Mittleren Flusshochwasserereignissen (51%).",
 					"caption": "Sogar außergewöhnlichen Starkregenereignisse und  mittlere Flusshochwasserereignisse treten statistisch gesehen häufiger auf, als Arbeitsunfälle.",
@@ -67,7 +67,7 @@
 			"sectionTitle": "Weitere Informationen",
 			"item1": {
 				"title": "Hochwasser und Überschwemmung in Berlin",
-				"content": "Hochwasser ist ein vom Wetter abhängiges natürliches Ereignis. Für rund 26 km der Gesamtlänge der Fließgewässer in Berlin besteht ein potenziell signifikantes Hochwasserrisiko. Hier erhalten Sie Informationen zur Hochwassersituation in Berlin, zur Hochwasservorsorge sowie Informationen zu Maßnahmen zur Verbesserung des Hochwasserschutzes, die Hochwasserrisikomanagementrichtlinie und die Überschwemmungsgebiete."
+				"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 			},
 			"item2": {
 				"title": "Informationen zu Starkregen und Überflutung in Berlin"

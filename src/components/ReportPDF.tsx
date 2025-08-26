@@ -47,7 +47,7 @@ export default function ReportPDF() {
 		});
 
 		const content = document.getElementById("pdf-content");
-		const fileName = "Report-WasserCheck.pdf";
+		const fileName = "Report-HochwasserCheck.pdf";
 
 		if (!content) {
 			throw new Error("Content not found");
@@ -116,7 +116,7 @@ export default function ReportPDF() {
 			<div className="absolute -left-[9999px]">
 				<div id="pdf-content">
 					<div className="flex flex-col gap-6 bg-white p-[20mm] [height:297mm] [width:210mm]">
-						<h1>Gesamtergebnis WasserCheck</h1>
+						<h1>Gesamtergebnis HochwasserCheck</h1>
 						<div className="flex w-full flex-col">
 							<h2>{t("floodCheck.hazardAtLocation")}</h2>
 							<p>Placeholder Adresse</p>
@@ -128,12 +128,7 @@ export default function ReportPDF() {
 					<div className="[page-break-before:always]" />
 					<div className="flex flex-col gap-12 bg-white p-[20mm] [height:297mm] [width:210mm]">
 						<h1>Handlungsempfehlungen</h1>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
-							magni vero, saepe officia reprehenderit explicabo quod nesciunt,
-							deleniti sit quos vel assumenda blanditiis! Delectus impedit in
-							culpa officia id dolorem?
-						</p>
+						<p></p>
 					</div>
 				</div>
 			</div>

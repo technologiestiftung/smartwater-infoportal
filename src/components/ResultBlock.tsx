@@ -5,7 +5,9 @@ import { HazardLevel } from "@/lib/types";
 
 interface ResultBlockProps {
 	entity: string;
-	harzardLevel: HazardLevel;
+	hazardLevel: HazardLevel;
+	showSubLabel?: boolean;
+	subHazardLevel?: string;
 }
 
 const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
@@ -29,26 +31,55 @@ const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
 
 const ResultBlock: React.FC<ResultBlockProps> = ({
 	entity,
-	harzardLevel,
+	hazardLevel,
+	showSubLabel = false,
+	subHazardLevel,
 }: ResultBlockProps) => {
 	const t = useTranslations("floodCheck");
+
+	// Get aria label for hazard level indicator
+	const getHazardAriaLabel = (level: string, isCurrent: boolean) => {
+		const levelText = t(`hazardScale.${level}`);
+		const status = isCurrent
+			? t("buildingRiskAssessment.buildingRisk.ariaLabels.currentStatus")
+			: t("buildingRiskAssessment.buildingRisk.ariaLabels.notApplicableStatus");
+		return t(
+			"buildingRiskAssessment.buildingRisk.ariaLabels.hazardLevelIndicator",
+			{
+				level: levelText,
+				status: status,
+			},
+		);
+	};
 	return (
 		<div
-			className={`Result-block ${hazardColorMap[harzardLevel].border} border-12`}
+			className={`Result-block ${hazardColorMap[hazardLevel]?.border} border-12`}
 		>
 			<div className="flex flex-col gap-2 p-4">
-				<div className="">
+				<div className="flex items-center gap-2">
+					<Image
+						className="w-6"
+						src={`/${entity}.svg`}
+						alt={`${entity} Icon`}
+						width={24}
+						height={24}
+					/>
 					<h4 className="">{t(`${entity}.title`)}</h4>
 				</div>
-				<p className="">{t(`${entity}.${harzardLevel}`)}</p>
+				<p className="">{t(`${entity}.${hazardLevel}`)}</p>
 				<div className="my-4 grid grid-cols-4 gap-0">
 					{Object.keys(hazardColorMap).map((level) => (
 						<div key={level} className="flex w-full flex-col items-center">
 							<div className="flex h-10 w-full items-center justify-center text-center">
-								{harzardLevel === level && (
+								{hazardLevel === level && (
 									<Image
 										src="/arrow_down.svg"
-										alt="Arrow Down"
+										alt={t(
+											"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
+											{
+												level: t(`hazardScale.${level}`),
+											},
+										)}
 										width={24}
 										height={24}
 									/>
@@ -56,19 +87,20 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 							</div>
 							<div
 								className={`h-3 w-full ${hazardColorMap[level as HazardLevel].bg}`}
+								aria-label={getHazardAriaLabel(level, hazardLevel === level)}
 							></div>
-							<div className="p-2 text-center">{t(`hazardScale.${level}`)}</div>
+							<div aria-hidden className="p-2 text-center">
+								{t(`hazardScale.${level}`)}
+							</div>
 						</div>
 					))}
 				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.waterLevelLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
-				<div className="flex flex-col gap-2">
-					<span className="font-bold">{t(`${entity}.subLabel`)}</span>
-					<p className="">{t(`${entity}.recommendation`)}</p>
-				</div>
+				{showSubLabel && (
+					<div className="flex flex-col gap-2">
+						<span className="font-bold">{t(`${entity}.subLabel`)}</span>
+						<p className="">{t(`${entity}.${subHazardLevel}`)}</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);

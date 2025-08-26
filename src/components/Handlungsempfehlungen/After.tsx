@@ -155,58 +155,6 @@ const After: React.FC = () => {
 					}
 				/>
 			</section>
-			{/* <section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.afterEvent.heavyRain.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.afterEvent.heavyRain.item1")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.afterEvent.traffic.image.alt")}
-							caption={t("recommendations.afterEvent.traffic.image.caption")}
-							copyright={t(
-								"recommendations.afterEvent.traffic.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section>
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.afterEvent.fluvialFlood.title")}
-							</h3>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.afterEvent.traffic.image.alt")}
-							caption={t("recommendations.afterEvent.traffic.image.caption")}
-							copyright={t(
-								"recommendations.afterEvent.traffic.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section> */}
 		</div>
 	);
 };

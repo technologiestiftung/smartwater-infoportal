@@ -2,33 +2,42 @@ import React from "react";
 import ResultBlock from "./ResultBlock";
 import { useTranslations } from "next-intl";
 import { Button, Panel } from "berlin-ui-library";
-import { HazardLevel } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import useStore from "@/store/defaultStore";
+import { mapScaleToHazardLevel } from "@/lib/utils";
 
-interface InterimResultsProps {
-	entities: { name: string; hazardLevel: HazardLevel }[];
-}
-
-const InterimResults: React.FC<InterimResultsProps> = ({
-	entities,
-}: InterimResultsProps) => {
+const InterimResults: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
+	const locationData = useStore((state) => state.locationData);
+	const getHazardEntities = useStore((state) => state.getHazardEntities);
+
+	const hazardEntities = getHazardEntities();
+	const maxHazardLevel = Math.max(
+		locationData?.building?.starkregenGefährdung || 0,
+		locationData?.building?.hochwasserGefährdung || 0,
+	);
+	const overallHazardLevel = mapScaleToHazardLevel(maxHazardLevel);
 
 	return (
 		<div className="flex w-full flex-col gap-12">
 			<div className="flex flex-col gap-6">
-				<h2>{t("hazardSummary.low")}</h2>
-				<div className="grid gap-4 lg:grid-cols-2">
-					{/* Content goes here */}
-					{entities.map((entity) => (
-						<ResultBlock
-							key={entity.name}
-							entity={entity.name}
-							harzardLevel={entity.hazardLevel}
-						/>
-					))}
-				</div>
+				<h2>{t(`hazardSummary.${overallHazardLevel}`)}</h2>
+				{hazardEntities && hazardEntities.length > 0 ? (
+					<div className="grid gap-4 lg:grid-cols-2">
+						{hazardEntities.map((entity) => (
+							<ResultBlock
+								key={entity.name}
+								entity={entity.name}
+								hazardLevel={entity.hazardLevel}
+								showSubLabel={entity.showSubLabel || false}
+								subHazardLevel={entity.subHazardLevel}
+							/>
+						))}
+					</div>
+				) : (
+					<p className="">{t("noHazardData")}</p>
+				)}
 				{
 					<div>
 						<div>

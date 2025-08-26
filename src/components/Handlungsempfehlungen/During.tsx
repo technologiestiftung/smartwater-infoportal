@@ -153,61 +153,6 @@ const During: React.FC = () => {
 					}
 				/>
 			</section>
-			{/* <section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.duringEvent.heavyRain.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.duringEvent.heavyRain.item1")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.duringEvent.traffic.image.alt")}
-							caption={t("recommendations.duringEvent.traffic.image.caption")}
-							copyright={t(
-								"recommendations.duringEvent.traffic.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section>
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.duringEvent.fluvialFlood.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.duringEvent.fluvialFlood.item1")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/imagery.png"
-							alt={t("recommendations.duringEvent.traffic.image.alt")}
-							caption={t("recommendations.duringEvent.traffic.image.caption")}
-							copyright={t(
-								"recommendations.duringEvent.traffic.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section> */}
 		</div>
 	);
 };

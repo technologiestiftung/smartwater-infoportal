@@ -25,6 +25,7 @@
 	--color-panel-light: var(--panel-light);
 	--color-panel-dark: var(--panel-dark);
 	--color-panel-colored: var(--panel-colored);
+	--color-hazard-none: var(--hazard-none);
 	--color-hazard-low: var(--hazard-low);
 	--color-hazard-moderate: var(--hazard-moderate);
 	--color-hazard-high: var(--hazard-high);
@@ -133,6 +134,19 @@
 	.helptext {
 		font-size: 0.875rem;
 		line-height: 1.313rem;
+	}
+
+	@media screen and (max-width: 767px) {
+		.ol-scale-line {
+			@apply duration-600 transform ease-in-out;
+		}
+	}
+	@media screen and (min-width: 768px) {
+		.ol-scale-line {
+			bottom: 16px !important;
+			left: auto !important;
+			right: 16px !important;
+		}
 	}
 }
 

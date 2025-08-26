@@ -25,6 +25,10 @@
 		"openLegend": "Legende öffnen",
 		"downloadReport": "Download Bericht",
 		"downloadButton": "Bericht herunterladen",
+		"validation": {
+			"selectAtLeastOne": "Bitte wählen Sie mindestens eine Option aus.",
+			"selectOne": "Bitte wählen Sie eine Option aus."
+		},
 		"menu": {
 			"button": "Menü",
 			"title": "Hauptnavigation",
@@ -66,11 +70,12 @@
 			"wasser-check": "Hochwasser Check",
 			"allgemeine-informationen": "Allgemeine Informationen",
 			"handlungsempfehlungen": "Handlungsempfehlungen",
-			"accessibility-statement": "Erklärung zur Barrierefreiheit"
+			"accessibility-statement": "Erklärung zur Barrierefreiheit",
+			"_not-found": "Seite nicht gefunden"
 		},
 		"warning": {
-			"noWarning": "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor.",
-			"currentWarning": "Derzeit liegen keine Warnungen für Berlin vor.",
+			"noWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
+			"currentWarning": "Derzeit liegen keine Warnungen vor.",
 			"furtherInformation": "Weitere Informationen"
 		}
 	}
