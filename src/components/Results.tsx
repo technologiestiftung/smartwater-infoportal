@@ -22,7 +22,9 @@ import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./ReportPDF";
+import ReportPDF from "./DownloadPDF/ReportPDF";
+import MapSR from "./MapSR/Map";
+import MapHW from "./MapHW/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -238,6 +240,10 @@ const Results: React.FC = () => {
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
 				<Map />
+				<div className={testing ? "" : "absolute -left-[9999px]"}>
+					<MapSR />
+					<MapHW />
+				</div>
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -403,14 +409,16 @@ const Results: React.FC = () => {
 				</div>
 			</section>
 			<section>
-				<Button
-					className="mt-6 w-full self-start lg:w-fit"
-					onClick={() => {
-						router.push("/handlungsempfehlungen");
-					}}
-				>
-					Übersicht Handlungsempfehlungen
-				</Button>
+				{!skip && (
+					<Button
+						className="mb-8 w-full self-start lg:w-fit"
+						onClick={() => {
+							router.push("/handlungsempfehlungen");
+						}}
+					>
+						Übersicht Handlungsempfehlungen
+					</Button>
+				)}
 				<div className="divider mt-4" />
 				<ReportPDF skip={skip} />
 			</section>

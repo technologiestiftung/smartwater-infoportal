@@ -7,21 +7,35 @@ import { create } from "zustand";
 
 export const useMapStore = create<MapStoreState>((set, get) => ({
 	map: null,
+	mapSR: null,
+	mapHW: null,
 	config: null,
+	configSR: null,
+	configHW: null,
 	layers: [],
+	layersSR: [],
+	layersHW: [],
 	currentFeature: null,
 	isLayerTreeOpen: false,
 
 	// Map
 	setConfig: (config) => set({ config }),
+	setConfigSR: (configSR) => set({ configSR }),
+	setConfigHW: (configHW) => set({ configHW }),
 	populateMap: (map) => set({ map }),
+	populateMapSR: (mapSR) => set({ mapSR }),
+	populateMapHW: (mapHW) => set({ mapHW }),
 	removeMap: () => set({ map: null }),
+	removeMapSR: () => set({ mapSR: null }),
+	removeMapHW: () => set({ mapHW: null }),
 
 	// LayerTree
 	setIsLayerTreeOpen: (isOpen) => set({ isLayerTreeOpen: isOpen }),
 
 	// Layers    layers: [],
 	setLayers: (layers) => set({ layers }),
+	setLayersSR: (layersSR) => set({ layersSR }),
+	setLayersHW: (layersHW) => set({ layersHW }),
 	addLayer: (layer) => set((state) => ({ layers: [...state.layers, layer] })),
 	removeLayer: (layerId) =>
 		set((state) => ({

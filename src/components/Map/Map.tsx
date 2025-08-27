@@ -28,7 +28,7 @@ const Map = () => {
 	return (
 		<>
 			<MapInitializer />
-			<div className={`Map-root ${getMapRootClasses()}`} id="map-root">
+			<div className={`Map-root ${getMapRootClasses()}`}>
 				<LazyOlMap>
 					<LayerInitializer />
 					<MapControls>

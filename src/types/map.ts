@@ -122,12 +122,22 @@ export interface MapConfig {
 
 export interface MapStoreState {
 	config: MapConfig | null;
+	configSR: MapConfig | null;
+	configHW: MapConfig | null;
 	setConfig: (config: MapConfig) => void;
+	setConfigSR: (configSR: MapConfig) => void;
+	setConfigHW: (configHW: MapConfig) => void;
 
 	// Map
 	map: Map | null;
+	mapSR: Map | null;
+	mapHW: Map | null;
 	populateMap: (map: Map) => void;
+	populateMapSR: (mapSR: Map) => void;
+	populateMapHW: (mapHW: Map) => void;
 	removeMap: () => void;
+	removeMapSR: () => void;
+	removeMapHW: () => void;
 
 	// LayerTree
 	isLayerTreeOpen: boolean;
@@ -135,7 +145,11 @@ export interface MapStoreState {
 
 	// Layers
 	layers: ManagedLayer[];
+	layersSR: ManagedLayer[];
+	layersHW: ManagedLayer[];
 	setLayers: (layers: ManagedLayer[]) => void;
+	setLayersSR: (layersSR: ManagedLayer[]) => void;
+	setLayersHW: (layersHW: ManagedLayer[]) => void;
 	addLayer: (layer: ManagedLayer) => void;
 	removeLayer: (layerId: string) => void;
 	updateLayer: (
