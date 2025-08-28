@@ -3,6 +3,7 @@ import useMobile from "@/lib/utils/useMobile";
 import FullScreenControl from "./FullScreenControl";
 import ZoomControl from "./ZoomControl";
 import LayerTreeControl from "./LayerTreeControl";
+import useStore from "@/store/defaultStore";
 import LayerTree from "../../LayerTree/LayerTree";
 import { useMapStore } from "@/lib/store/mapStore";
 import { useMapLoading } from "@/lib/utils/useMapLoading";
@@ -12,6 +13,7 @@ import { Spinner } from "berlin-ui-library";
 
 const MapNavigationControls = () => {
 	const isMobile = useMobile();
+	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const map = useMapStore((s) => s.map);
 	const loading = useMapLoading(map, true);
 
@@ -34,7 +36,9 @@ const MapNavigationControls = () => {
 			</div>
 			{!isMobile && (
 				<>
-					<div className="z-3 absolute bottom-4">
+					<div
+						className={`z-3 absolute bottom-4 ${isLayerTreeOpen ? "left-4" : "right-[30000px]"}`}
+					>
 						<LayerTree />
 					</div>
 					<div className="z-2 absolute bottom-4 left-4">
