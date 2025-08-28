@@ -290,7 +290,7 @@ export const createDownloadPDF = async (
 
 	writeTextOnPDF({
 		text: currentUserAddress?.display_name,
-		x: paddingHorizontal + mm(15),
+		x: paddingHorizontal + mm(20),
 		extraMarginBottom: gap,
 	});
 

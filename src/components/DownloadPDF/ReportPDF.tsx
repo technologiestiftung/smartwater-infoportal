@@ -7,6 +7,7 @@ import useStore from "@/store/defaultStore";
 import PDFContent from "./PDFContent";
 import { createDownloadPDF, getImageFromHTML, getToday } from "./pdfUtils";
 import { useMapStore } from "@/lib/store/mapStore";
+import { useMapLoading } from "@/lib/utils/useMapLoading";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -23,6 +24,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const mapSR = useMapStore((s) => s.mapSR);
 	const mapHW = useMapStore((s) => s.mapHW);
+	const loadingSR = useMapLoading(mapSR, false);
+	const loadingHW = useMapLoading(mapHW, false);
 
 	const getScreenshotsFromResultsPage = async () => {
 		const collectImages = [];
@@ -55,14 +58,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	useEffect(() => {
-		if (!mapSR || !mapHW) {
+		if (!mapSR || !mapHW || loadingSR || loadingHW) {
 			return;
 		}
-		setTimeout(() => {
-			getScreenshotsFromResultsPage();
-		}, 5000);
+		getScreenshotsFromResultsPage();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mapSR, mapHW]);
+	}, [mapSR, mapHW, loadingSR, loadingHW]);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;

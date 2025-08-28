@@ -16,7 +16,7 @@ const MapNavigationControls = () => {
 	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const createReport = useStore((state) => state.createReport);
 	const map = useMapStore((s) => s.map);
-	const loading = useMapLoading(map);
+	const loading = useMapLoading(map, true);
 
 	const getPositionOfDesktopLayerTree = () => {
 		if (createReport || !isLayerTreeOpen) {
