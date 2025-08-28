@@ -15,7 +15,6 @@ const Before: React.FC = () => {
 					reverseDesktopColumns={true}
 					slotA={
 						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("recommendations.beforeEvent.title")}</h2>
 							<h3 className="">
 								{t("recommendations.beforeEvent.personalPreparedness.title1")}
 							</h3>
@@ -170,42 +169,42 @@ const Before: React.FC = () => {
 					slotA={
 						<div className="flex w-full flex-col gap-6">
 							<h3 className="">
-								{t("recommendations.beforeEvent.furtherInformation.title")}
+								{t("recommendations.beforeEvent.precautionBuilding.title")}
 							</h3>
 							<p className="">
-								{t("recommendations.beforeEvent.furtherInformation.subtitle")}
+								{t("recommendations.beforeEvent.precautionBuilding.subtitle")}
 							</p>
 							<ul className="list-disc space-y-2 pl-6">
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item1")}
+									{t("recommendations.beforeEvent.precautionBuilding.item1")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item2")}
+									{t("recommendations.beforeEvent.precautionBuilding.item2")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item3")}
+									{t("recommendations.beforeEvent.precautionBuilding.item3")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item4")}
+									{t("recommendations.beforeEvent.precautionBuilding.item4")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item5")}
+									{t("recommendations.beforeEvent.precautionBuilding.item5")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item6")}
+									{t("recommendations.beforeEvent.precautionBuilding.item6")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item7")}
+									{t("recommendations.beforeEvent.precautionBuilding.item7")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item8")}
+									{t("recommendations.beforeEvent.precautionBuilding.item8")}
 								</li>
 
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item9")}
+									{t("recommendations.beforeEvent.precautionBuilding.item9")}
 								</li>
 								<li>
-									{t("recommendations.beforeEvent.furtherInformation.item10")}
+									{t("recommendations.beforeEvent.precautionBuilding.item10")}
 								</li>
 							</ul>
 						</div>
@@ -215,13 +214,13 @@ const Before: React.FC = () => {
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
 							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_4.png"
 							alt={t(
-								"recommendations.beforeEvent.furtherInformation.image.alt",
+								"recommendations.beforeEvent.precautionBuilding.image.alt",
 							)}
 							caption={t(
-								"recommendations.beforeEvent.furtherInformation.image.caption",
+								"recommendations.beforeEvent.precautionBuilding.image.caption",
 							)}
 							copyright={t(
-								"recommendations.beforeEvent.furtherInformation.image.copyright",
+								"recommendations.beforeEvent.precautionBuilding.image.copyright",
 							)}
 						/>
 					}

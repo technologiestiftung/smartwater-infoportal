@@ -10,9 +10,8 @@
 			"after": "Nachher"
 		},
 		"beforeEvent": {
-			"title": "Persönliche Vorsorge",
 			"personalPreparedness": {
-				"title1": "Sichere Orte",
+				"title1": "Helfen Sie sich und anderen",
 				"item1": "Informieren Sie sich über mögliche Gefährdungen und identifizieren Sie sichere Orte, an denen Sie sich bei Hochwasser in Sicherheit bringen können. Nutzen Sie gern unser HochwasserCheck oder die Starkregenhinweiskarte, Starkregengefahrenkarte, Hochwassergefahrenkarte, Überschwemmungsgebiete.",
 				"title2": "Warn - Apps",
 				"item2": "Installieren Sie die amtlichen Warn-Apps <link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>, um sich über den aktuellen Gefahrenfall zu informieren.",
@@ -51,9 +50,9 @@
 					"copyright": "© Kompetenzzentrum Wasser Berlin"
 				}
 			},
-			"furtherInformation": {
-				"title": "Weitere Informationen",
-				"subtitle": "Bitte klären Sie ggf. mit dem Eigentümer bzw. der Hausverwaltung Ihres Gebäudes.",
+			"precautionBuilding": {
+				"title": "Vorsorge am Gebäude",
+				"subtitle": "Bitte klären Sie die Umsetzung der folgenden Maßnahmen ggf. mit dem Eigentümer bzw. der Hausverwaltung Ihres Gebäudes.",
 				"item1": "Einbau wasserdichter Fenster und Türen in Untergeschossen",
 				"item2": "Einbau erhöhter Lichtschächte",
 				"item3": "Anbringung von festen Schwellen und Stufen an Eingängen, Kellerfenstern und Lichtschächten",

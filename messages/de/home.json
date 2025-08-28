@@ -1,15 +1,14 @@
 {
 	"home": {
-		"pageTitle": "Hochwasser Infoportal",
+		"pageTitle": "Über das Hochwasser-Infoportal",
 		"whatIsIt": {
-			"title": "Was ist das Hochwasser Infoportal?",
 			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
 			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck, Handlungsempfehlungen, Warnungen vor Hochwasser und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
 		},
 		"amIAffected": {
 			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck",
-			"description": "Der HochwasserCheck gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 10 Fragen, eine Gefährdungs- und Risikoeinschätzung an Orten Ihres Alltags sowie individuelle Handlungsempfehlungen. Die Ergebnisse können Sie als Bericht (PDF) herunterladen.",
-			"cta": "Jetzt den HochwasserCheck mit Eingabe Ihrer Adresse starten!"
+			"description": "Der HochwasserCheck gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 6 Fragen, eine Gefährdungs- und Risikoeinschätzung an Ihrer persönlichen Adresse, sowie individuelle Handlungsempfehlungen zur Minimierung des Risikos. Die Ergebnisse können Sie als Bericht (PDF) herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den HochwasserCheck!",
+			"cta": ""
 		},
 		"addressCheck": {
 			"label": "Adresse",
@@ -27,15 +26,14 @@
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
 			"ownerInfo": "Jede:r Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen. So können Sie als Eigentümer:in Ihre Gebäude z.B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen.",
-			"tenantInfo": "Auch als Mieter:in können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen.",
-			"generalRule": "Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
+			"tenantInfo": "Auch als Mieter:in können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
 			"recommendations": {
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
 				"button": "Übersicht Handlungsempfehlungen"
 			},
 			"image_A1": {
 				"alt": "Eine überflutete Garageneinfahrt. Das Wasser ist in die Garage geflossen.",
-				"caption": "Für viele Bereiche Berlins besteht Gefahr bei Hochwasser. Informieren Sie sich über die Handlungsempfehlungen und schütze Sie sich selbst und Ihr Gebäude.",
+				"caption": "Für viele Bereiche Berlins wie bspw.für Tiefgaragen besteht Gefahr bei Hochwasser. Informieren Sie sich über die Handlungsempfehlungen und schütze Sie sich selbst und Ihr Gebäude.",
 				"copyright": "© Berliner Feuerwehr"
 			},
 			"image_A2": {
@@ -46,15 +44,14 @@
 		},
 		"floodRadar": {
 			"title": "Hochwasser-Radar: Bleiben Sie informiert!",
-			"subtitle": "Achtung Hochwasser? Hier sind die aktuellen Warnungen!",
 			"currentStatus": {
-				"noWarnings": "Derzeit liegen keine Warnungen für Berlin vor."
+				"noWarnings": "Derzeit liegen keine Warnungen vor."
 			},
-			"description": "Das Hochwassergeschehen in Berlin wird sowohl durch Zuflüsse aus Brandenburg als auch durch Niederschläge innerhalb der Stadt beeinflusst. Die Warnmeldung auf der rechten Seite berücksichtigt die aktuellen Wetterwarnungen des Deutschen Wetterdienstes und die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird die Warnmeldung in rot angezigt."
+			"description": "Unser Hochwasser-Radar zeigt Ihnen die aktuellen Warnungen und berücksichtigt dabei die Wetterwarnungen des Deutschen Wetterdienstes, die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird der Infokasten und das Icon rot angezeigt."
 		},
 		"backgroundInfo": {
-			"title": "Sie wollen Hintergrundinfos zum Thema Hochwasser?",
-			"questions": "Was ist Hochwasser? Wie entsteht Hochwasser? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko, welche durch Hochwasser entstehen?",
+			"title": "Hintergrundinformation zum Thema Hochwasser",
+			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
 			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
 			"button": "Allgemeine Informationen"
 		}

@@ -15,7 +15,6 @@ export default function Home() {
 			<section>
 				<div className="flex flex-col gap-6">
 					<h1 className="">{t("pageTitle")}</h1>
-					<h2 className="">{t("whatIsIt.title")}</h2>
 					<p className="">{t("whatIsIt.description1")}</p>
 					<p className="">{t("whatIsIt.description2")}</p>
 				</div>
@@ -39,13 +38,12 @@ export default function Home() {
 								<p className="">{t("howToProtect.ownerInfo")}</p>
 							</div>
 							<p className="">{t("howToProtect.tenantInfo")}</p>
-							<p className="">{t("howToProtect.generalRule")}</p>
 						</div>
 					}
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A1.JPG"
+							src="/A1_heller.jpg"
 							alt={t("howToProtect.image_A1.alt")}
 							caption={t("howToProtect.image_A1.caption")}
 							copyright={t("howToProtect.image_A1.copyright")}
@@ -74,7 +72,6 @@ export default function Home() {
 					slotA={
 						<div className="flex w-full flex-col gap-6">
 							<h2 className="">{t("floodRadar.title")}</h2>
-							<h3 className="">{t("floodRadar.subtitle")}</h3>
 						</div>
 					}
 					slotB={
@@ -101,7 +98,7 @@ export default function Home() {
 					slotB={
 						<Image
 							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A2.JPG"
+							src="/A2_heller.jpg"
 							alt={t("howToProtect.image_A2.alt")}
 							caption={t("howToProtect.image_A2.caption")}
 							copyright={t("howToProtect.image_A2.copyright")}

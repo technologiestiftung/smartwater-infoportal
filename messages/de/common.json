@@ -74,8 +74,8 @@
 			"_not-found": "Seite nicht gefunden"
 		},
 		"warning": {
-			"noWarning": "Achtung! Es liegt mindestens eine Warnung für den Raum Berlin vor.",
-			"currentWarning": "Derzeit liegen keine Warnungen für Berlin vor.",
+			"noWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
+			"currentWarning": "Derzeit liegen keine Warnungen vor.",
 			"furtherInformation": "Weitere Informationen"
 		}
 	}
