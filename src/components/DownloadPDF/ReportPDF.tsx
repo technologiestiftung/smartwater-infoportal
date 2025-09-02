@@ -91,6 +91,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				const url = URL.createObjectURL(pdfBlob);
 
 				if (isMobile) {
+					if (!window) {
+						const err = new Error("window is undefined");
+						err.name = "WindowUndefined";
+						setError(err);
+					}
 					window.open(url, "_blank");
 				} else {
 					const a = document.createElement("a");
@@ -101,6 +106,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				setTimeout(() => {
 					URL.revokeObjectURL(url);
 				}, 4000);
+			} else {
+				const err = new Error("Button not found");
+				err.name = "ButtonNotFoundOnPDF";
+				setError(err);
 			}
 		};
 

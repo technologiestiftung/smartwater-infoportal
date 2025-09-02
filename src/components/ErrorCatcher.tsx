@@ -10,7 +10,7 @@ const ErrorCatcher: React.FC<ErrorCatcherProps> = ({ children, name }) => {
 	return (
 		<ErrorBoundary
 			fallbackRender={({ error }) => (
-				<div className="text-red whitespace-pre-wrap">
+				<div className="bg-red overflow-hidden whitespace-pre-wrap p-12 text-white">
 					<h1>--- Error in Component ---</h1>
 					<p>
 						<strong>Component:</strong> {name}
