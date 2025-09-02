@@ -8,6 +8,7 @@ import PDFContent from "./PDFContent";
 import { createDownloadPDF, getImageFromHTML, getToday } from "./pdfUtils";
 import { useMapStore } from "@/lib/store/mapStore";
 import { useMapLoading } from "@/lib/utils/useMapLoading";
+import useMobile from "@/lib/utils/useMobile";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -26,35 +27,46 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const mapHW = useMapStore((s) => s.mapHW);
 	const loadingSR = useMapLoading(mapSR, false);
 	const loadingHW = useMapLoading(mapHW, false);
+	const isMobile = useMobile();
+	const [error, setError] = useState<Error | null>(null);
 
 	const getScreenshotsFromResultsPage = async () => {
-		const collectImages = [];
-		const IDsToCollect = [
-			"heavyRainWidget",
-			"fluvialFloodWidget",
-			"map-root-sr",
-			"map-root-hw",
-		];
-		if (!skip) {
-			IDsToCollect.push("risk-block", "protection-tips");
-		}
-		for (let index = 0; index < IDsToCollect.length; index++) {
-			const id = IDsToCollect[index];
-			const findImage = await getImageFromHTML(id);
-			if (findImage) {
-				collectImages.push(findImage);
+		try {
+			const collectImages = [];
+			const IDsToCollect = [
+				"heavyRainWidget",
+				"fluvialFloodWidget",
+				"map-root-sr",
+				"map-root-hw",
+			];
+			if (!skip) {
+				IDsToCollect.push("risk-block", "protection-tips");
 			}
+			for (let index = 0; index < IDsToCollect.length; index++) {
+				const id = IDsToCollect[index];
+				const findImage = await getImageFromHTML(id);
+				if (findImage) {
+					collectImages.push(findImage);
+				} else {
+					throw new Error("Image from getImageFromHTML not found!!!");
+				}
+			}
+			const pdf = await createDownloadPDF(
+				t,
+				skip,
+				floodRiskResult,
+				hazardEntities,
+				currentUserAddress,
+				collectImages,
+			);
+			if (!pdf.blob || !pdf.sizeInMB) {
+				throw new Error("!pdf.blob || !pdf.sizeInMB");
+			}
+			setPdfBlob(pdf.blob);
+			setPdfSizeKB(pdf.sizeInMB);
+		} catch (e) {
+			setError(e as Error);
 		}
-		const pdf = await createDownloadPDF(
-			t,
-			skip,
-			floodRiskResult,
-			hazardEntities,
-			currentUserAddress,
-			collectImages,
-		);
-		setPdfBlob(pdf.blob);
-		setPdfSizeKB(pdf.sizeInMB);
 	};
 
 	useEffect(() => {
@@ -77,11 +89,18 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 			if (clickedButton && wrapper.contains(clickedButton)) {
 				const url = URL.createObjectURL(pdfBlob);
-				const a = document.createElement("a");
-				a.href = url;
-				a.download = "Report-Hochwassercheck.pdf";
-				a.click();
-				URL.revokeObjectURL(url);
+
+				if (isMobile) {
+					window.open(url, "_blank");
+				} else {
+					const a = document.createElement("a");
+					a.href = url;
+					a.download = "Report-Hochwassercheck.pdf";
+					a.click();
+				}
+				setTimeout(() => {
+					URL.revokeObjectURL(url);
+				}, 4000);
 			}
 		};
 
@@ -90,7 +109,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		return () => {
 			wrapper.removeEventListener("click", handleClick);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pdfBlob]);
+
+	if (error) {
+		throw error;
+	}
 
 	return (
 		<>

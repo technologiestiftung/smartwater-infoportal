@@ -25,6 +25,8 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import ReportPDF from "./DownloadPDF/ReportPDF";
 import MapSR from "./MapSR/Map";
 import MapHW from "./MapHW/Map";
+import ErrorCatcher from "./ErrorCatcher";
+import useMobile from "@/lib/utils/useMobile";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -36,7 +38,8 @@ const Results: React.FC = () => {
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const testing = process.env.NODE_ENV === "development";
+	const isMobile = useMobile();
+	const testing = process.env.NODE_ENV === "development" && !isMobile;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -420,7 +423,9 @@ const Results: React.FC = () => {
 					</Button>
 				)}
 				<div className="divider mt-4" />
-				<ReportPDF skip={skip} />
+				<ErrorCatcher name="ReportPDF">
+					<ReportPDF skip={skip} />
+				</ErrorCatcher>
 			</section>
 		</div>
 	);

@@ -2,9 +2,11 @@ import React from "react";
 import useStore from "@/store/defaultStore";
 import { useTranslations } from "next-intl";
 import ResultBlock from "../ResultBlock";
+import useMobile from "@/lib/utils/useMobile";
 
 const PDFContent = () => {
-	const testing = process.env.NODE_ENV === "development";
+	const isMobile = useMobile();
+	const testing = process.env.NODE_ENV === "development" && !isMobile;
 	const t = useTranslations();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const hazardEntities = getHazardEntities();
