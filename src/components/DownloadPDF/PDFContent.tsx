@@ -10,6 +10,7 @@ const PDFContent = () => {
 	const t = useTranslations();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const hazardEntities = getHazardEntities();
+
 	const heavyRain = hazardEntities?.filter(
 		(entity) => entity.name === "heavyRain",
 	);
@@ -20,44 +21,39 @@ const PDFContent = () => {
 	return (
 		<div className={testing ? "" : "absolute -left-[9999px]"}>
 			<div id="heavyRainWidget" className="w-fit">
-				{(() => {
-					if (heavyRain) {
-						return (
-							<div className="w-[400px]">
-								{heavyRain.map((entity) => (
-									<ResultBlock
-										key={entity.name}
-										entity={entity.name}
-										hazardLevel={entity.hazardLevel}
-										showSubLabel={entity.showSubLabel || false}
-										subHazardLevel={entity.subHazardLevel}
-									/>
-								))}
-							</div>
-						);
-					}
-					return <p className="">{t("floodCheck.noHazardData")}</p>;
-				})()}
+				{heavyRain && heavyRain.length > 0 ? (
+					<div className="w-[400px]">
+						{heavyRain.map((entity) => (
+							<ResultBlock
+								key={entity.name}
+								entity={entity.name}
+								hazardLevel={entity.hazardLevel}
+								showSubLabel={entity.showSubLabel || false}
+								subHazardLevel={entity.subHazardLevel}
+							/>
+						))}
+					</div>
+				) : (
+					<p>{t("floodCheck.noHazardData")}</p>
+				)}
 			</div>
+
 			<div id="fluvialFloodWidget" className="w-fit">
-				{(() => {
-					if (fluvialFlood) {
-						return (
-							<div className="w-[400px]">
-								{fluvialFlood.map((entity) => (
-									<ResultBlock
-										key={entity.name}
-										entity={entity.name}
-										hazardLevel={entity.hazardLevel}
-										showSubLabel={entity.showSubLabel || false}
-										subHazardLevel={entity.subHazardLevel}
-									/>
-								))}
-							</div>
-						);
-					}
-					return <p className="">{t("floodCheck.noHazardData")}</p>;
-				})()}
+				{fluvialFlood && fluvialFlood.length > 0 ? (
+					<div className="w-[400px]">
+						{fluvialFlood.map((entity) => (
+							<ResultBlock
+								key={entity.name}
+								entity={entity.name}
+								hazardLevel={entity.hazardLevel}
+								showSubLabel={entity.showSubLabel || false}
+								subHazardLevel={entity.subHazardLevel}
+							/>
+						))}
+					</div>
+				) : (
+					<p>{t("floodCheck.noHazardData")}</p>
+				)}
 			</div>
 		</div>
 	);

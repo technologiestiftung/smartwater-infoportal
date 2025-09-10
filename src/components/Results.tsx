@@ -419,7 +419,7 @@ const Results: React.FC = () => {
 							router.push("/handlungsempfehlungen");
 						}}
 					>
-						Übersicht Handlungsempfehlungen
+						{t("protectionTips.recommendationsOverview.button")}
 					</Button>
 				)}
 				<div className="divider mt-4" />
