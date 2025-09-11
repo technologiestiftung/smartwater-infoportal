@@ -298,9 +298,22 @@
 		},
 		"reportDownload": {
 			"button": "Bericht herunterladen",
-			"description": "Hier können Sie sich die errechneten Ergebnisse an Ihrer Adresse und auf Basis des Fragebogens als PDF-Datei herunterladen.",
-			"fileInfo": "Doctype: PDF-Dokument ({size}) – Stand: {date}",
-			"title": "Download Bericht"
+			"description": "Hier können Sie sich die errechneten Ergebnisse für Gefährdung und Risiko auf Basis Ihrer Angaben als PDF-Datei herunterladen.",
+			"fileInfo": "Doctype: PDF-Dokument ({size})",
+			"title": "Download HochwasserCheck Report",
+			"pdf": {
+				"title": "Hochwasser-Infoportal Berlin",
+				"subTitle": "Report zum Gesamtergebnis HochwasserCheck",
+				"date": "Report vom {date}",
+				"page": "Seite {current} von {total}",
+				"pageBottomText": "Herausgeber: Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt Berlin",
+				"locationTitle": "Es wurde die folgende Adresse überprüft:",
+				"hazardIntro": "Gefährdung durch {hazard} an Ihrem Standort:",
+				"calcHintTitle": "Für die Berechnung der Gefährdungskarten nutzen wir Karten des Geoportals Berlin, veröffentlicht durch die SenMVKU",
+				"calcHintText": "Bitte beachten Sie, dass die Ergebnisse der Karte sowie die Einschätzung der Hochwassergefährdung eine gewisse Unsicherheit bergen. Die Datengrundlage entbindet nicht von der Pflicht für einzelne Projekte, die hydraulischen Standortvoraussetzungen vor Ort zu erkunden und nachzuweisen. Ein Abgleich des Modells ist mit der Situation vor Ort erforderlich.",
+				"riskTitle": "Risiko an Ihrem Standort:",
+				"tipTitle": "Handlungsempfehlungen"
+			}
 		},
 		"results": {
 			"navigation": {

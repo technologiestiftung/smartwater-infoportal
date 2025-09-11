@@ -15,7 +15,7 @@ const MapNavigationControls = () => {
 	const isMobile = useMobile();
 	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const map = useMapStore((s) => s.map);
-	const loading = useMapLoading(map);
+	const loading = useMapLoading(map, true);
 
 	return (
 		<>

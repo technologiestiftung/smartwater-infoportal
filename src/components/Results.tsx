@@ -9,7 +9,6 @@ import {
 	Image,
 	Pill,
 	FilterPillGroup,
-	DownloadItem,
 	List,
 	ListItem,
 } from "berlin-ui-library";
@@ -23,6 +22,11 @@ import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import ReportPDF from "./DownloadPDF/ReportPDF";
+import MapSR from "./MapSR/Map";
+import MapHW from "./MapHW/Map";
+import ErrorCatcher from "./ErrorCatcher";
+import useMobile from "@/lib/utils/useMobile";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -30,10 +34,12 @@ const Results: React.FC = () => {
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
+	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
-
 	const hazardEntities = getHazardEntities();
+	const isMobile = useMobile();
+	const testing = process.env.NODE_ENV === "development" && !isMobile;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -145,6 +151,7 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
+			{testing && <Button onClick={resetOnPageLoad}>Reset State</Button>}
 			<section className="flex items-center gap-2">
 				{currentUserAddress && (
 					<>
@@ -236,6 +243,10 @@ const Results: React.FC = () => {
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
 				<Map />
+				<div className={testing ? "" : "absolute -left-[9999px]"}>
+					<MapSR />
+					<MapHW />
+				</div>
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -329,7 +340,7 @@ const Results: React.FC = () => {
 					</section>
 				</>
 			)}
-			<section className="flex w-full flex-col gap-12">
+			<section className="flex w-full flex-col gap-12" id="protection-tips">
 				{!skip && hazardEntities && hazardEntities.length > 0 && (
 					<>
 						<div className="flex flex-col gap-2">
@@ -367,7 +378,6 @@ const Results: React.FC = () => {
 						</div>
 					</>
 				)}
-
 				<div className="flex flex-col gap-2">
 					{!skip && (
 						<>
@@ -397,26 +407,25 @@ const Results: React.FC = () => {
 									/>
 								}
 							/>
-							<Button
-								className="mt-6 w-full self-start lg:w-fit"
-								onClick={() => {
-									router.push("/handlungsempfehlungen");
-								}}
-							>
-								Übersicht Handlungsempfehlungen
-							</Button>
 						</>
 					)}
-					<div className="divider mt-4" />
-					<DownloadItem
-						buttonText="Download Bericht"
-						date="03/1974"
-						description={t("reportDownload.description")}
-						downloadUrl="#"
-						fileType="PLACEHOLDER: Doctype: PDF-Dokument (39,6 kB) – Stand: 02/2025"
-						title={t("reportDownload.title")}
-					/>
 				</div>
+			</section>
+			<section>
+				{!skip && (
+					<Button
+						className="mb-8 w-full self-start lg:w-fit"
+						onClick={() => {
+							router.push("/handlungsempfehlungen");
+						}}
+					>
+						{t("protectionTips.recommendationsOverview.button")}
+					</Button>
+				)}
+				<div className="divider mt-4" />
+				<ErrorCatcher name="ReportPDF">
+					<ReportPDF skip={skip} />
+				</ErrorCatcher>
 			</section>
 		</div>
 	);
