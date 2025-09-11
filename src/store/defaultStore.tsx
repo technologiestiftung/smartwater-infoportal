@@ -47,6 +47,7 @@ type StoreState = {
 	) => void;
 	calculateAndSetResult: () => void;
 	resetAll: () => void;
+	resetOnPageLoad: () => void;
 	getNextStep: (currentPath: string) => string;
 
 	// Selectors
@@ -141,6 +142,15 @@ const useStore = create<StoreState>()(
 						floodRiskAnswers: {},
 						floodRiskResult: null,
 						isLoadingLocationData: false,
+					}),
+
+				resetOnPageLoad: () =>
+					set({
+						isLoadingLocationData: false,
+						fullScreenMap: false,
+						isLayerTreeOpen: false,
+						isLegendeOpen: true,
+						errorLayers: [],
 					}),
 
 				// Selectors

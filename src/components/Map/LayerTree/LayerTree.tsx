@@ -230,7 +230,6 @@ const LayerItem = memo<{
 	isNotAvailable: boolean;
 }>(({ layer, disabled, isNotAvailable }) => {
 	const setLayerVisibility = useMapStore((state) => state.setLayerVisibility);
-
 	const activeMapFilter = useStore((state) => state.activeMapFilter);
 
 	const handleVisibilityChange = useCallback(

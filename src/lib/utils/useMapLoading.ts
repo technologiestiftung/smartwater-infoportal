@@ -11,8 +11,8 @@ import VectorSource from "ol/source/Vector";
 
 type Unsub = () => void;
 
-export function useMapLoading(map: OLMap | null) {
-	const [loading, setLoading] = useState(false);
+export function useMapLoading(map: OLMap | null, visibleMap: boolean) {
+	const [loading, setLoading] = useState(!visibleMap);
 
 	useEffect(() => {
 		if (!map) return;
@@ -42,8 +42,9 @@ export function useMapLoading(map: OLMap | null) {
 			// Wait a tick so render completes and cached loads stabilize
 			if (offTimer) clearTimeout(offTimer);
 			offTimer = setTimeout(() => {
+				if (!moving && !visibleMap && totalInflight() === 1) setLoading(false);
 				if (!moving && totalInflight() === 0) setLoading(false);
-			}, 150); // tweak if needed
+			}, 150);
 		};
 
 		// ---- Map view motion ----

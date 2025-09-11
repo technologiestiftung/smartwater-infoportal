@@ -30,9 +30,9 @@ interface OlMapProps {
 }
 
 const OlMap: FC<OlMapProps> = ({ children }) => {
-	const setMap = useMapStore((state) => state.populateMap);
-	const destroyMap = useMapStore((state) => state.removeMap);
-	const config = useMapStore((state) => state.config);
+	const setMap = useMapStore((state) => state.populateMapSR);
+	const destroyMap = useMapStore((state) => state.removeMapSR);
+	const config = useMapStore((state) => state.configSR);
 	const mapId = useRef<HTMLDivElement>(null);
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const locationData = useStore((state) => state.locationData);

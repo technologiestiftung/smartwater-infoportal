@@ -88,7 +88,7 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 				}));
 
 	return (
-		<div className={`Risk-block border-12 border-risk`}>
+		<div className={`Risk-block border-12 border-risk`} id="risk-block">
 			<div className="flex flex-col gap-2 p-4">
 				<div className="flex items-center gap-2">
 					<Image
