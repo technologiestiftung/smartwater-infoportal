@@ -109,7 +109,7 @@ export default function Home() {
 							<Button
 								className="w-full self-start lg:w-fit"
 								onClick={() => {
-									router.push("/allgemeine-informationen");
+									router.push("/hintergrund-informationen");
 								}}
 							>
 								{t("backgroundInfo.button")}

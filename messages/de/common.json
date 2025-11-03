@@ -34,7 +34,7 @@
 			"title": "Hauptnavigation",
 			"home": "Startseite",
 			"about": "Über das Projekt",
-			"generalInfo": "Allgemeine Informationen",
+			"generalInfo": "Hintergrundinformationen",
 			"floodCheck": "Hochwassergefahr-Check",
 			"recommendations": "Handlungsempfehlungen"
 		},
@@ -68,7 +68,7 @@
 			"rainFlood": "Starkregen und Überflutungen",
 			"infoportal": "Hochwasser-Infoportal",
 			"wasser-check": "Hochwasser Check",
-			"allgemeine-informationen": "Allgemeine Informationen",
+			"hintergrund-informationen": "Hintergrundinformationen",
 			"handlungsempfehlungen": "Handlungsempfehlungen",
 			"accessibility-statement": "Erklärung zur Barrierefreiheit",
 			"_not-found": "Seite nicht gefunden"

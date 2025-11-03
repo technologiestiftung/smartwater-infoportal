@@ -101,7 +101,7 @@ export default function LayoutClient({
 						label: t("common.menu.about"),
 					},
 					{
-						href: "/allgemeine-informationen",
+						href: "/hintergrund-informationen",
 						label: t("common.menu.generalInfo"),
 					},
 					{

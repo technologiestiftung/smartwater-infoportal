@@ -51,9 +51,9 @@
 		},
 		"backgroundInfo": {
 			"title": "Hintergrundinformation zum Thema Hochwasser",
-			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
-			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
-			"button": "Allgemeine Informationen"
+			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"button": "Hintergrundinformationen"
 		}
 	}
 }
