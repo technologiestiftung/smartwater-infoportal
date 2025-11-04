@@ -33,9 +33,9 @@ export default function FloodCheckClient() {
 			const result = await getHazardData(longitude, latitude);
 			setLocationData(result);
 			if (skip) {
-				router.push("/wasser-check?skip=true#results");
+				router.push("/hochwasser-check?skip=true#results");
 			} else {
-				router.push("/wasser-check#interimResult");
+				router.push("/hochwasser-check#interimResult");
 			}
 		} finally {
 			setLoadingLocationData(false);
@@ -43,7 +43,7 @@ export default function FloodCheckClient() {
 	};
 
 	const submit = async () => {
-		router.push("/wasser-check#results");
+		router.push("/hochwasser-check#results");
 	};
 
 	useEffect(() => {
@@ -60,7 +60,7 @@ export default function FloodCheckClient() {
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
 						onClick={() => {
-							router.push("/wasser-check");
+							router.push("/hochwasser-check");
 						}}
 						variant="back-link"
 					>
@@ -79,7 +79,7 @@ export default function FloodCheckClient() {
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
 						onClick={() => {
-							router.push("/wasser-check#interimResult");
+							router.push("/hochwasser-check#interimResult");
 						}}
 						variant="back-link"
 					>
@@ -97,7 +97,7 @@ export default function FloodCheckClient() {
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
 						onClick={() => {
-							router.push("/wasser-check#questionnaire");
+							router.push("/hochwasser-check#questionnaire");
 						}}
 						variant="back-link"
 					>

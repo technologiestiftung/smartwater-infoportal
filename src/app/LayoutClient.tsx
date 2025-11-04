@@ -105,7 +105,7 @@ export default function LayoutClient({
 						label: t("common.menu.generalInfo"),
 					},
 					{
-						href: "/wasser-check",
+						href: "/hochwasser-check",
 						label: t("common.menu.floodCheck"),
 					},
 					{

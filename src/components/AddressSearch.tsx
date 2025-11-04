@@ -69,7 +69,7 @@ export default function AddressSearch({
 					setCurrentUserAddress(selectedResult);
 				}
 				if (onLandingPage) {
-					router.push("/wasser-check");
+					router.push("/hochwasser-check");
 				} else if (onAddressConfirmed) {
 					onAddressConfirmed(skip);
 				}

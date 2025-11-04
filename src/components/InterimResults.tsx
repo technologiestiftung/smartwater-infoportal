@@ -51,7 +51,7 @@ const InterimResults: React.FC = () => {
 
 				<Button
 					onClick={() => {
-						router.push("/wasser-check#questionnaire");
+						router.push("/hochwasser-check#questionnaire");
 					}}
 					className="w-full lg:w-fit"
 				>
