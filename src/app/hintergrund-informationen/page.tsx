@@ -3,23 +3,12 @@ import TextBlock from "@/components/TextBlock";
 import Link from "next/link";
 import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import { ReactNode, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMaximize, faTimes } from "@fortawesome/free-solid-svg-icons";
-import NextImage from "next/image";
+import { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 
-type OpenImage = {
-	src: string;
-	caption: string;
-	alt: string;
-};
-
 export default function GeneralInformation() {
 	const t = useTranslations();
-
-	const [openImage, setOpenImage] = useState<OpenImage | null>(null);
 
 	const content = useMessages() as {
 		generalInfo: {
@@ -149,30 +138,13 @@ export default function GeneralInformation() {
 							</div>
 						}
 						slotB={
-							<div className="relative">
-								<Image
-									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
-									alt={t("generalInfo.definition.image.alt")}
-									caption={t("generalInfo.definition.image.caption")}
-									copyright={t("generalInfo.definition.image.copyright")}
-								/>
-								<div
-									className="absolute left-auto right-[5px] top-[320px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
-									onClick={() =>
-										setOpenImage({
-											src: "/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png",
-											caption: t("generalInfo.definition.image.caption"),
-											alt: t("generalInfo.definition.image.alt"),
-										})
-									}
-								>
-									<FontAwesomeIcon
-										icon={faMaximize}
-										className="translate-y-[1px] text-[22px] text-black"
-									/>
-								</div>
-							</div>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
+								alt={t("generalInfo.definition.image.alt")}
+								caption={t("generalInfo.definition.image.caption")}
+								copyright={t("generalInfo.definition.image.copyright")}
+							/>
 						}
 					/>
 				</section>
@@ -208,30 +180,13 @@ export default function GeneralInformation() {
 							</div>
 						}
 						slotB={
-							<div className="relative">
-								<Image
-									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
-									alt={t("generalInfo.hazardVsRisk.image.alt")}
-									caption={t("generalInfo.hazardVsRisk.image.caption")}
-									copyright={t("generalInfo.hazardVsRisk.image.copyright")}
-								/>
-								<div
-									className="absolute left-auto right-[5px] top-[320px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
-									onClick={() =>
-										setOpenImage({
-											src: "/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png",
-											caption: t("generalInfo.hazardVsRisk.image.caption"),
-											alt: t("generalInfo.hazardVsRisk.image.alt"),
-										})
-									}
-								>
-									<FontAwesomeIcon
-										icon={faMaximize}
-										className="translate-y-[1px] text-[22px] text-black"
-									/>
-								</div>
-							</div>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
+								alt={t("generalInfo.hazardVsRisk.image.alt")}
+								caption={t("generalInfo.hazardVsRisk.image.caption")}
+								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+							/>
 						}
 					/>
 				</section>
@@ -282,30 +237,13 @@ export default function GeneralInformation() {
 							</div>
 						}
 						slotB={
-							<div className="relative">
-								<Image
-									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-									src="/Enstehung_Starkregenereignis.png"
-									alt={t("generalInfo.floodThroughRain.image.alt")}
-									caption={t("generalInfo.floodThroughRain.image.caption")}
-									copyright={t("generalInfo.floodThroughRain.image.copyright")}
-								/>
-								<div
-									className="absolute left-auto right-[5px] top-[685px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
-									onClick={() =>
-										setOpenImage({
-											src: "/Enstehung_Starkregenereignis.png",
-											caption: t("generalInfo.floodThroughRain.image.caption"),
-											alt: t("generalInfo.floodThroughRain.image.alt"),
-										})
-									}
-								>
-									<FontAwesomeIcon
-										icon={faMaximize}
-										className="translate-y-[1px] text-[22px] text-black"
-									/>
-								</div>
-							</div>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/Enstehung_Starkregenereignis.png"
+								alt={t("generalInfo.floodThroughRain.image.alt")}
+								caption={t("generalInfo.floodThroughRain.image.caption")}
+								copyright={t("generalInfo.floodThroughRain.image.copyright")}
+							/>
 						}
 					/>
 				</section>
@@ -332,7 +270,7 @@ export default function GeneralInformation() {
 											),
 											link2: (chunks) => (
 												<Link
-													href="/wasser-check"
+													href="/hochwasser-check"
 													rel="noopener noreferrer"
 													className="text-text-link underline"
 												>
@@ -355,30 +293,13 @@ export default function GeneralInformation() {
 							</div>
 						}
 						slotB={
-							<div className="relative">
-								<Image
-									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-									src="/Wahrscheinlichkeiten.png"
-									alt={t("generalInfo.assessment.image.alt")}
-									caption={t("generalInfo.assessment.image.caption")}
-									copyright={t("generalInfo.assessment.image.copyright")}
-								/>
-								<div
-									className="absolute left-auto right-[5px] top-[400px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
-									onClick={() =>
-										setOpenImage({
-											src: "/Wahrscheinlichkeiten.png",
-											caption: t("generalInfo.assessment.image.caption"),
-											alt: t("generalInfo.assessment.image.alt"),
-										})
-									}
-								>
-									<FontAwesomeIcon
-										icon={faMaximize}
-										className="translate-y-[1px] text-[22px] text-black"
-									/>
-								</div>
-							</div>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/Wahrscheinlichkeiten.png"
+								alt={t("generalInfo.assessment.image.alt")}
+								caption={t("generalInfo.assessment.image.caption")}
+								copyright={t("generalInfo.assessment.image.copyright")}
+							/>
 						}
 					/>
 				</section>
@@ -417,30 +338,13 @@ export default function GeneralInformation() {
 							</div>
 						}
 						slotB={
-							<div className="relative">
-								<Image
-									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-									src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
-									alt={t("generalInfo.types.image.alt")}
-									caption={t("generalInfo.types.image.caption")}
-									copyright={t("generalInfo.types.image.copyright")}
-								/>
-								<div
-									className="absolute left-auto right-[5px] top-[220px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
-									onClick={() =>
-										setOpenImage({
-											src: "/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg",
-											caption: t("generalInfo.types.image.caption"),
-											alt: t("generalInfo.types.image.alt"),
-										})
-									}
-								>
-									<FontAwesomeIcon
-										icon={faMaximize}
-										className="translate-y-[1px] text-[22px] text-black"
-									/>
-								</div>
-							</div>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
+								alt={t("generalInfo.types.image.alt")}
+								caption={t("generalInfo.types.image.caption")}
+								copyright={t("generalInfo.types.image.copyright")}
+							/>
 						}
 					/>
 					<div className="max-w-[calc(100vw - 48px)] overflow-x-scroll">
@@ -532,7 +436,7 @@ export default function GeneralInformation() {
 											),
 											link3: (chunks) => (
 												<Link
-													href="/wasser-check"
+													href="/hochwasser-check"
 													rel="noopener noreferrer"
 													className="text-text-link underline"
 												>
@@ -554,30 +458,13 @@ export default function GeneralInformation() {
 							</div>
 						}
 						slotB={
-							<div className="relative">
-								<Image
-									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-									src="/Abbildung5.png"
-									alt={t("generalInfo.handling.image.alt")}
-									caption={t("generalInfo.handling.image.caption")}
-									copyright={t("generalInfo.handling.image.copyright")}
-								/>
-								<div
-									className="absolute left-auto right-[5px] top-[380px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
-									onClick={() =>
-										setOpenImage({
-											src: "/Abbildung5.png",
-											caption: t("generalInfo.handling.image.caption"),
-											alt: t("generalInfo.handling.image.alt"),
-										})
-									}
-								>
-									<FontAwesomeIcon
-										icon={faMaximize}
-										className="translate-y-[1px] text-[22px] text-black"
-									/>
-								</div>
-							</div>
+							<Image
+								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								src="/Abbildung5.png"
+								alt={t("generalInfo.handling.image.alt")}
+								caption={t("generalInfo.handling.image.caption")}
+								copyright={t("generalInfo.handling.image.copyright")}
+							/>
 						}
 					/>
 				</section>
@@ -646,7 +533,7 @@ export default function GeneralInformation() {
 						<h3>{t("generalInfo.furtherInformation.subTitle")}</h3>
 						<p className="whitespace-pre-line">
 							{t.rich("generalInfo.furtherInformation.description", {
-								link6: (chunks) => (
+								link1: (chunks) => (
 									<Link
 										href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
 										target="_blank"
@@ -656,7 +543,7 @@ export default function GeneralInformation() {
 										{chunks}
 									</Link>
 								),
-								link7: (chunks) => (
+								link2: (chunks) => (
 									<Link
 										href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
 										target="_blank"
@@ -666,7 +553,7 @@ export default function GeneralInformation() {
 										{chunks}
 									</Link>
 								),
-								link8: (chunks) => (
+								link3: (chunks) => (
 									<Link
 										href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
 										target="_blank"
@@ -681,39 +568,6 @@ export default function GeneralInformation() {
 					</div>
 				</section>
 			</div>
-			{openImage?.src && (
-				<>
-					<div
-						className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.8)]"
-						onClick={() => setOpenImage(null)}
-					>
-						<div className="relative bg-white">
-							<div
-								className="z-2 absolute right-0 top-0 inline-flex h-[35px] w-[35px] cursor-pointer items-center justify-center bg-white"
-								onClick={() => setOpenImage(null)}
-							>
-								<FontAwesomeIcon
-									icon={faTimes}
-									className="text-[22px] text-black"
-								/>
-							</div>
-							<div className="relative h-[min(735px,100vh)] w-[min(980px,100vw)]">
-								<NextImage
-									src={openImage?.src ?? ""}
-									alt={openImage?.alt ?? ""}
-									fill
-									className="pointer-events-none object-contain"
-									sizes="(max-width: 980px) 100vw, 980px"
-									priority
-								/>
-							</div>
-							<div className="w-[min(980px,100vw)] bg-white p-1">
-								<p>{openImage?.caption}</p>
-							</div>
-						</div>
-					</div>
-				</>
-			)}
 		</>
 	);
 }
