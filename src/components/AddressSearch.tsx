@@ -162,7 +162,7 @@ export default function AddressSearch() {
 			<Form {...methods}>
 				<form
 					className="flex flex-col gap-8"
-					onSubmit={handleSubmit}
+					onSubmit={handleSubmit()}
 					onChange={handleChange}
 				>
 					<div className="">
