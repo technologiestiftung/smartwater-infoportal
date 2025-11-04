@@ -303,7 +303,7 @@
 			"title": "Download HochwasserCheck Berlin Report",
 			"pdf": {
 				"title": "Hochwasser-Infoportal Berlin",
-				"subTitle": "Report zum Gesamtergebnis HochwasserCheck Berlin",
+				"subTitle": "Report zum Ergebnis HochwasserCheck Berlin",
 				"date": "Report vom {date}",
 				"page": "Seite {current} von {total}",
 				"pageBottomText": "Herausgeber: Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt Berlin",
@@ -319,7 +319,7 @@
 			"navigation": {
 				"back": "Zurück zum HochwasserCheck Berlin"
 			},
-			"title": "- Gesamtergebnis"
+			"title": "- Ergebnis"
 		},
 		"riskCalculation": {
 			"insufficientAnswers": "Bitte beantworten Sie mindestens 2 Fragen, um eine Bewertung zu erhalten.",
