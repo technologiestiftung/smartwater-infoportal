@@ -5,7 +5,6 @@ import {
 	FormFieldWrapper,
 	FormWrapper,
 	Label,
-	Panel,
 	Spinner,
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
@@ -16,15 +15,7 @@ import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import { getAddressResults } from "@/server/actions/getAddressResults";
 
-interface AddressSearchProps {
-	onLandingPage?: boolean;
-	onAddressConfirmed?: (skip?: boolean) => void;
-}
-
-export default function AddressSearch({
-	onLandingPage,
-	onAddressConfirmed,
-}: AddressSearchProps) {
+export default function AddressSearch() {
 	const t = useTranslations("home");
 	const router = useRouter();
 
@@ -58,7 +49,7 @@ export default function AddressSearch({
 		isRequired: true,
 	};
 
-	const handleSubmit = (skip?: boolean) => {
+	const handleSubmit = () => {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 			if (addresse) {
@@ -68,11 +59,7 @@ export default function AddressSearch({
 				if (selectedResult) {
 					setCurrentUserAddress(selectedResult);
 				}
-				if (onLandingPage) {
-					router.push("/hochwasser-check");
-				} else if (onAddressConfirmed) {
-					onAddressConfirmed(skip);
-				}
+				router.push("/hochwasser-check");
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
 			}
@@ -175,7 +162,7 @@ export default function AddressSearch({
 			<Form {...methods}>
 				<form
 					className="flex flex-col gap-8"
-					onSubmit={handleSubmit(false)}
+					onSubmit={handleSubmit}
 					onChange={handleChange}
 				>
 					<div className="">
@@ -231,49 +218,16 @@ export default function AddressSearch({
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
 							type="submit"
-							disabled={
-								isLoadingLocationData || (!onLandingPage && !resultClicked)
-							}
+							disabled={isLoadingLocationData || !resultClicked}
 						>
 							{(() => {
 								if (isLoadingLocationData) {
 									return t("addressCheck.loading");
 								}
-								if (onLandingPage) {
-									return t("addressCheck.button");
-								}
-								return t("addressCheck.buttonConfirm");
+								return t("addressCheck.button");
 							})()}
 						</Button>
-						{!onLandingPage && (
-							<Button
-								variant="light"
-								disabled={isLoadingLocationData || !resultClicked}
-								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								onClick={(e: any) => {
-									e.preventDefault();
-									const addresse = getValues("addresse");
-									if (addresse) {
-										handleSubmit(true)();
-									} else {
-										setError("Bitte geben Sie eine Adresse ein.");
-									}
-								}}
-							>
-								{t("addressCheck.secondaryButton")}
-							</Button>
-						)}
 					</div>
-					{!onLandingPage && (
-						<div>
-							<div>
-								<Panel variant="hint">
-									<h4 className="">{t("addressCheck.hint.title")}</h4>
-								</Panel>
-							</div>
-							<p className="">{t("addressCheck.hint.description")}</p>
-						</div>
-					)}
 				</form>
 			</Form>
 		</FormWrapper>
