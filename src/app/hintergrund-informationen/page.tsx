@@ -3,12 +3,23 @@ import TextBlock from "@/components/TextBlock";
 import Link from "next/link";
 import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMaximize, faTimes } from "@fortawesome/free-solid-svg-icons";
+import NextImage from "next/image";
 
 type TocMap = Record<string, string>;
 
+type OpenImage = {
+	src: string;
+	caption: string;
+	alt: string;
+};
+
 export default function GeneralInformation() {
 	const t = useTranslations();
+
+	const [openImage, setOpenImage] = useState<OpenImage | null>(null);
 
 	const content = useMessages() as {
 		generalInfo: {
@@ -41,6 +52,9 @@ export default function GeneralInformation() {
 			handling: {
 				paragraphs: TocMap;
 			};
+			furtherInformation: {
+				list: TocMap;
+			};
 		};
 	};
 	const tableOfContentsItems = content.generalInfo.tableOfContents.items;
@@ -54,6 +68,7 @@ export default function GeneralInformation() {
 	const floodRow2Entries = content.generalInfo.types.table.flood.row2;
 	const floodRow3Entries = content.generalInfo.types.table.flood.row3;
 	const handlingItems = content.generalInfo.handling.paragraphs;
+	const furtherInformationItems = content.generalInfo.furtherInformation.list;
 
 	const TableHead = ({ text }: { text?: string }) => {
 		if (!text) {
@@ -85,106 +100,248 @@ export default function GeneralInformation() {
 		);
 	};
 
+	const scrollToWithOffset = (id: string, offset = 128) => {
+		const el = document.getElementById(id);
+		if (!el) {
+			return;
+		}
+
+		const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+
+		window.scrollTo({ top: y, behavior: "smooth" });
+	};
+
 	return (
-		<div className="flex flex-col justify-start gap-12 px-5 py-8 lg:px-0">
-			<section className="flex flex-col gap-6">
-				<h1 className="">{t("generalInfo.pageTitle")}</h1>
-				<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
-				<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
-					{Object.entries(tableOfContentsItems).map(([key, label]) => (
-						<li key={key}>
-							<a href={`#${key}`} className="text-text-link">
-								{label}
-							</a>
-						</li>
-					))}
-				</ul>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker1" />
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("generalInfo.definition.title")}</h2>
-							<p className="whitespace-pre-line">
-								{t("generalInfo.definition.description")}
-							</p>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
-							alt={t("generalInfo.definition.image.alt")}
-							caption={t("generalInfo.definition.image.caption")}
-							copyright={t("generalInfo.definition.image.copyright")}
-						/>
-					}
-				/>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker2" />
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("generalInfo.hazardVsRisk.title")}</h2>
-							<p className="">{t("generalInfo.hazardVsRisk.description")}</p>
-							<h3 className="">{t("generalInfo.hazardVsRisk.hazard.title")}</h3>
-							<p className="">
-								{t("generalInfo.hazardVsRisk.hazard.description")}
-							</p>
-							<h3 className="">{t("generalInfo.hazardVsRisk.risk.title")}</h3>
-							<p className="whitespace-pre-line">
-								{t("generalInfo.hazardVsRisk.risk.description")}
-							</p>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
-							alt={t("generalInfo.hazardVsRisk.image.alt")}
-							caption={t("generalInfo.hazardVsRisk.image.caption")}
-							copyright={t("generalInfo.hazardVsRisk.image.copyright")}
-						/>
-					}
-				/>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker3" />
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("generalInfo.floodThroughRain.title")}</h2>
-							<p className="whitespace-pre-line">
-								{t.rich("generalInfo.floodThroughRain.description", {
-									link: (chunks) => (
-										<Link
-											href="https://www.gdv.de/gdv/themen/klima/128-millionen-euro-starkregen-schaden-in-berlin-52782"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-text-link underline"
-										>
-											{chunks}
-										</Link>
-									),
-								})}
-							</p>
-							<ul className="list-decimal ps-6">
-								{Object.keys(floodThroughRainItems).map((key) => (
-									<li key={key} className="whitespace-pre-line">
-										{t.rich(`generalInfo.floodThroughRain.list.items.${key}`, {
-											link: (chunks) => (
+		<>
+			<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
+				<section className="flex flex-col gap-6">
+					<h1 className="">{t("generalInfo.pageTitle")}</h1>
+					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
+					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+						{Object.entries(tableOfContentsItems).map(([key, label]) => (
+							<li key={key}>
+								<a
+									href={`#${key}`}
+									className="text-text-link"
+									onClick={(e) => {
+										e.preventDefault();
+										scrollToWithOffset(key);
+									}}
+								>
+									{label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+				<div className="divider" id="anker1" />
+				<section className="">
+					<TextBlock
+						desktopColSpans={{ col1: 2, col2: 3 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={true}
+						slotA={
+							<div className="flex w-full flex-col gap-6">
+								<h2 className="">{t("generalInfo.definition.title")}</h2>
+								<p className="whitespace-pre-line">
+									{t("generalInfo.definition.description")}
+								</p>
+							</div>
+						}
+						slotB={
+							<div className="relative">
+								<Image
+									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
+									alt={t("generalInfo.definition.image.alt")}
+									caption={t("generalInfo.definition.image.caption")}
+									copyright={t("generalInfo.definition.image.copyright")}
+								/>
+								<div
+									className="absolute left-auto right-[5px] top-[320px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
+									onClick={() =>
+										setOpenImage({
+											src: "/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png",
+											caption: t("generalInfo.definition.image.caption"),
+											alt: t("generalInfo.definition.image.alt"),
+										})
+									}
+								>
+									<FontAwesomeIcon
+										icon={faMaximize}
+										className="translate-y-[1px] text-[22px] text-black"
+									/>
+								</div>
+							</div>
+						}
+					/>
+				</section>
+				<div className="divider" id="anker2" />
+				<section className="">
+					<TextBlock
+						desktopColSpans={{ col1: 3, col2: 2 }}
+						className="w-full gap-6"
+						slotA={
+							<div className="flex w-full flex-col gap-6">
+								<h2 className="">{t("generalInfo.hazardVsRisk.title")}</h2>
+								<p className="">{t("generalInfo.hazardVsRisk.description")}</p>
+								<h3 className="">
+									{t("generalInfo.hazardVsRisk.hazard.title")}
+								</h3>
+								<p className="">
+									{t("generalInfo.hazardVsRisk.hazard.description")}
+								</p>
+								<h3 className="">{t("generalInfo.hazardVsRisk.risk.title")}</h3>
+								<p className="whitespace-pre-line">
+									{t.rich("generalInfo.hazardVsRisk.risk.description", {
+										link1: (chunks) => (
+											<Link
+												href="/handlungsempfehlungen"
+												rel="noopener noreferrer"
+												className="text-text-link underline"
+											>
+												{chunks}
+											</Link>
+										),
+									})}
+								</p>
+							</div>
+						}
+						slotB={
+							<div className="relative">
+								<Image
+									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
+									alt={t("generalInfo.hazardVsRisk.image.alt")}
+									caption={t("generalInfo.hazardVsRisk.image.caption")}
+									copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+								/>
+								<div
+									className="absolute left-auto right-[5px] top-[320px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
+									onClick={() =>
+										setOpenImage({
+											src: "/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png",
+											caption: t("generalInfo.hazardVsRisk.image.caption"),
+											alt: t("generalInfo.hazardVsRisk.image.alt"),
+										})
+									}
+								>
+									<FontAwesomeIcon
+										icon={faMaximize}
+										className="translate-y-[1px] text-[22px] text-black"
+									/>
+								</div>
+							</div>
+						}
+					/>
+				</section>
+				<div className="divider" id="anker3" />
+				<section className="">
+					<TextBlock
+						desktopColSpans={{ col1: 2, col2: 3 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={true}
+						slotA={
+							<div className="flex w-full flex-col gap-6">
+								<h2 className="">{t("generalInfo.floodThroughRain.title")}</h2>
+								<p className="whitespace-pre-line">
+									{t.rich("generalInfo.floodThroughRain.description", {
+										link: (chunks) => (
+											<Link
+												href="https://www.gdv.de/gdv/themen/klima/128-millionen-euro-starkregen-schaden-in-berlin-52782"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-text-link underline"
+											>
+												{chunks}
+											</Link>
+										),
+									})}
+								</p>
+								<ul className="list-decimal ps-6">
+									{Object.keys(floodThroughRainItems).map((key) => (
+										<li key={key} className="whitespace-pre-line">
+											{t.rich(
+												`generalInfo.floodThroughRain.list.items.${key}`,
+												{
+													link: (chunks) => (
+														<Link
+															href="https://www.dwd.de/DE/wetter/thema_des_tages/2025/9/28.html"
+															target="_blank"
+															rel="noopener noreferrer"
+															className="text-text-link underline"
+														>
+															{chunks}
+														</Link>
+													),
+												},
+											)}
+										</li>
+									))}
+								</ul>
+							</div>
+						}
+						slotB={
+							<div className="relative">
+								<Image
+									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+									src="/Enstehung_Starkregenereignis.png"
+									alt={t("generalInfo.floodThroughRain.image.alt")}
+									caption={t("generalInfo.floodThroughRain.image.caption")}
+									copyright={t("generalInfo.floodThroughRain.image.copyright")}
+								/>
+								<div
+									className="absolute left-auto right-[5px] top-[685px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
+									onClick={() =>
+										setOpenImage({
+											src: "/Enstehung_Starkregenereignis.png",
+											caption: t("generalInfo.floodThroughRain.image.caption"),
+											alt: t("generalInfo.floodThroughRain.image.alt"),
+										})
+									}
+								>
+									<FontAwesomeIcon
+										icon={faMaximize}
+										className="translate-y-[1px] text-[22px] text-black"
+									/>
+								</div>
+							</div>
+						}
+					/>
+				</section>
+				<div className="divider" id="anker4" />
+				<section className="">
+					<TextBlock
+						desktopColSpans={{ col1: 3, col2: 2 }}
+						className="w-full gap-6"
+						slotA={
+							<div className="flex w-full flex-col gap-6">
+								<h2 className="">{t("generalInfo.assessment.title")}</h2>
+								{Object.entries(assessmentItems).map(([key]) => (
+									<p key={key} className="">
+										{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
+											strong: (chunks) => <strong>{chunks}</strong>,
+											link1: (chunks) => (
 												<Link
-													href="https://www.dwd.de/DE/wetter/thema_des_tages/2025/9/28.html"
+													href="#anker3"
+													rel="noopener noreferrer"
+													className="text-text-link underline"
+												>
+													{chunks}
+												</Link>
+											),
+											link2: (chunks) => (
+												<Link
+													href="/wasser-check"
+													rel="noopener noreferrer"
+													className="text-text-link underline"
+												>
+													{chunks}
+												</Link>
+											),
+											link3: (chunks) => (
+												<Link
+													href="https://www.berlin.de/umweltatlas/wasser/starkregen/fortlaufend-aktualisiert/zusammenfassung/"
 													target="_blank"
 													rel="noopener noreferrer"
 													className="text-text-link underline"
@@ -193,37 +350,53 @@ export default function GeneralInformation() {
 												</Link>
 											),
 										})}
-									</li>
+									</p>
 								))}
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/Enstehung_Starkregenereignis.png"
-							alt={t("generalInfo.floodThroughRain.image.alt")}
-							caption={t("generalInfo.floodThroughRain.image.caption")}
-							copyright={t("generalInfo.floodThroughRain.image.copyright")}
-						/>
-					}
-				/>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker4" />
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("generalInfo.assessment.title")}</h2>
-							{Object.entries(assessmentItems).map(([key]) => (
-								<p key={key} className="">
-									{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
-										strong: (chunks) => <strong>{chunks}</strong>,
+							</div>
+						}
+						slotB={
+							<div className="relative">
+								<Image
+									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+									src="/Wahrscheinlichkeiten.png"
+									alt={t("generalInfo.assessment.image.alt")}
+									caption={t("generalInfo.assessment.image.caption")}
+									copyright={t("generalInfo.assessment.image.copyright")}
+								/>
+								<div
+									className="absolute left-auto right-[5px] top-[400px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
+									onClick={() =>
+										setOpenImage({
+											src: "/Wahrscheinlichkeiten.png",
+											caption: t("generalInfo.assessment.image.caption"),
+											alt: t("generalInfo.assessment.image.alt"),
+										})
+									}
+								>
+									<FontAwesomeIcon
+										icon={faMaximize}
+										className="translate-y-[1px] text-[22px] text-black"
+									/>
+								</div>
+							</div>
+						}
+					/>
+				</section>
+				<div className="divider" id="anker5" />
+				<section className="">
+					<TextBlock
+						desktopColSpans={{ col1: 2, col2: 3 }}
+						className="w-full gap-6"
+						reverseDesktopColumns={true}
+						slotA={
+							<div className="flex w-full flex-col gap-6">
+								<h2 className="">{t("generalInfo.types.title")}</h2>
+								<p className="whitespace-pre-line">
+									{t.rich("generalInfo.types.description", {
 										link1: (chunks) => (
 											<Link
-												href="#anker3"
+												href="https://gdi.berlin.de/viewer/main/"
+												target="_blank"
 												rel="noopener noreferrer"
 												className="text-text-link underline"
 											>
@@ -232,17 +405,7 @@ export default function GeneralInformation() {
 										),
 										link2: (chunks) => (
 											<Link
-												href="/wasser-check"
-												rel="noopener noreferrer"
-												className="text-text-link underline"
-											>
-												{chunks}
-											</Link>
-										),
-										link3: (chunks) => (
-											<Link
-												href="https://www.berlin.de/umweltatlas/wasser/starkregen/fortlaufend-aktualisiert/zusammenfassung/"
-												target="_blank"
+												href="#anker4"
 												rel="noopener noreferrer"
 												className="text-text-link underline"
 											>
@@ -251,132 +414,184 @@ export default function GeneralInformation() {
 										),
 									})}
 								</p>
-							))}
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/Wahrscheinlichkeiten.png"
-							alt={t("generalInfo.assessment.image.alt")}
-							caption={t("generalInfo.assessment.image.caption")}
-							copyright={t("generalInfo.assessment.image.copyright")}
-						/>
-					}
-				/>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker5" />
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("generalInfo.types.title")}</h2>
-							<p className="whitespace-pre-line">
-								{t.rich("generalInfo.types.description", {
-									link1: (chunks) => (
-										<Link
-											href="https://gdi.berlin.de/viewer/main/"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-text-link underline"
-										>
-											{chunks}
-										</Link>
-									),
-									link2: (chunks) => (
-										<Link
-											href="#anker4"
-											rel="noopener noreferrer"
-											className="text-text-link underline"
-										>
-											{chunks}
-										</Link>
-									),
-								})}
-							</p>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/Starkregenhinweiskarte-Starkregengefahrenkarte.png"
-							alt={t("generalInfo.types.image.alt")}
-							caption={t("generalInfo.types.image.caption")}
-							copyright={t("generalInfo.types.image.copyright")}
-						/>
-					}
-				/>
-				<table className="mt-12 w-full table-auto text-left">
-					<thead>
-						<tr>
-							{Object.entries(typesEntries).map(([key, label]) => (
-								<TableHead key={key} text={label} />
-							))}
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<TableCell
-								title
-								text={t("generalInfo.types.table.heavyRain.title")}
-							/>
-							{Object.entries(heavyRainRow1Entries).map(([key, label]) => (
-								<TableCell key={key} text={label} />
-							))}
-						</tr>
-						<tr>
-							{Object.entries(heavyRainRow2Entries).map(([key, label]) => (
-								<TableCell key={key} text={label} />
-							))}
-						</tr>
-						<tr>
-							{Object.entries(heavyRainRow3Entries).map(([key, label]) => (
-								<TableCell key={key} text={label} />
-							))}
-						</tr>
-						<tr>
-							<TableCell
-								title
-								text={t("generalInfo.types.table.flood.title")}
-							/>
-							{Object.entries(floodRow1Entries).map(([key, label]) => (
-								<TableCell key={key} text={label} />
-							))}
-						</tr>
-						<tr>
-							{Object.entries(floodRow2Entries).map(([key, label]) => (
-								<TableCell key={key} text={label} />
-							))}
-						</tr>
-						<tr>
-							{Object.entries(floodRow3Entries).map(([key, label]) => (
-								<TableCell key={key} text={label} />
-							))}
-						</tr>
-					</tbody>
-				</table>
-				<p className="mt-1 break-words px-4 text-sm font-normal leading-tight text-black lg:px-0">
-					Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
-					Hochwasser erstellt wurden.
-				</p>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker6" />
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h2 className="">{t("generalInfo.handling.title")}</h2>
-							{Object.entries(handlingItems).map(([key]) => (
-								<p key={key} className="">
-									{t.rich(`generalInfo.handling.paragraphs.${key}`, {
+							</div>
+						}
+						slotB={
+							<div className="relative">
+								<Image
+									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+									src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
+									alt={t("generalInfo.types.image.alt")}
+									caption={t("generalInfo.types.image.caption")}
+									copyright={t("generalInfo.types.image.copyright")}
+								/>
+								<div
+									className="absolute left-auto right-[5px] top-[220px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
+									onClick={() =>
+										setOpenImage({
+											src: "/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg",
+											caption: t("generalInfo.types.image.caption"),
+											alt: t("generalInfo.types.image.alt"),
+										})
+									}
+								>
+									<FontAwesomeIcon
+										icon={faMaximize}
+										className="translate-y-[1px] text-[22px] text-black"
+									/>
+								</div>
+							</div>
+						}
+					/>
+					<div className="max-w-[calc(100vw - 48px)] overflow-x-scroll">
+						<table className="mt-12 w-full table-auto text-left">
+							<thead>
+								<tr>
+									{Object.entries(typesEntries).map(([key, label]) => (
+										<TableHead key={key} text={label} />
+									))}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<TableCell
+										title
+										text={t("generalInfo.types.table.heavyRain.title")}
+									/>
+									{Object.entries(heavyRainRow1Entries).map(([key, label]) => (
+										<TableCell key={key} text={label} />
+									))}
+								</tr>
+								<tr>
+									{Object.entries(heavyRainRow2Entries).map(([key, label]) => (
+										<TableCell key={key} text={label} />
+									))}
+								</tr>
+								<tr>
+									{Object.entries(heavyRainRow3Entries).map(([key, label]) => (
+										<TableCell key={key} text={label} />
+									))}
+								</tr>
+								<tr>
+									<TableCell
+										title
+										text={t("generalInfo.types.table.flood.title")}
+									/>
+									{Object.entries(floodRow1Entries).map(([key, label]) => (
+										<TableCell key={key} text={label} />
+									))}
+								</tr>
+								<tr>
+									{Object.entries(floodRow2Entries).map(([key, label]) => (
+										<TableCell key={key} text={label} />
+									))}
+								</tr>
+								<tr>
+									{Object.entries(floodRow3Entries).map(([key, label]) => (
+										<TableCell key={key} text={label} />
+									))}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p className="mt-1 break-words px-4 text-sm font-normal leading-tight text-black lg:px-0">
+						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
+						Hochwasser erstellt wurden.
+					</p>
+				</section>
+				<div className="divider" id="anker6" />
+				<section className="">
+					<TextBlock
+						desktopColSpans={{ col1: 3, col2: 2 }}
+						className="w-full gap-6"
+						slotA={
+							<div className="flex w-full flex-col gap-6">
+								<h2 className="">{t("generalInfo.handling.title")}</h2>
+								{Object.entries(handlingItems).map(([key]) => (
+									<p key={key} className="">
+										{t.rich(`generalInfo.handling.paragraphs.${key}`, {
+											link1: (chunks) => (
+												<Link
+													href="https://regenwasseragentur.berlin/schwammstadt/"
+													target="_blank"
+													rel="noopener noreferrer"
+													className="text-text-link underline"
+												>
+													{chunks}
+												</Link>
+											),
+											link2: (chunks) => (
+												<Link
+													href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
+													target="_blank"
+													rel="noopener noreferrer"
+													className="text-text-link underline"
+												>
+													{chunks}
+												</Link>
+											),
+											link3: (chunks) => (
+												<Link
+													href="/wasser-check"
+													rel="noopener noreferrer"
+													className="text-text-link underline"
+												>
+													{chunks}
+												</Link>
+											),
+											link4: (chunks) => (
+												<Link
+													href="/handlungsempfehlungen"
+													rel="noopener noreferrer"
+													className="text-text-link underline"
+												>
+													{chunks}
+												</Link>
+											),
+										})}
+									</p>
+								))}
+							</div>
+						}
+						slotB={
+							<div className="relative">
+								<Image
+									className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+									src="/Abbildung5.png"
+									alt={t("generalInfo.handling.image.alt")}
+									caption={t("generalInfo.handling.image.caption")}
+									copyright={t("generalInfo.handling.image.copyright")}
+								/>
+								<div
+									className="absolute left-auto right-[5px] top-[380px] flex h-[33px] w-[33px] cursor-pointer items-center justify-center bg-white"
+									onClick={() =>
+										setOpenImage({
+											src: "/Abbildung5.png",
+											caption: t("generalInfo.handling.image.caption"),
+											alt: t("generalInfo.handling.image.alt"),
+										})
+									}
+								>
+									<FontAwesomeIcon
+										icon={faMaximize}
+										className="translate-y-[1px] text-[22px] text-black"
+									/>
+								</div>
+							</div>
+						}
+					/>
+				</section>
+				<div className="divider" id="anker7" />
+				<section className="">
+					<div className="flex w-full flex-col gap-6">
+						<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
+						<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+							{Object.entries(furtherInformationItems).map(([key]) => (
+								<li key={key}>
+									{t.rich(`generalInfo.furtherInformation.list.${key}`, {
 										link1: (chunks) => (
 											<Link
-												href="https://regenwasseragentur.berlin/schwammstadt/"
+												href="https://www.naturgefahrenportal.de/de"
 												target="_blank"
 												rel="noopener noreferrer"
 												className="text-text-link underline"
@@ -386,7 +601,7 @@ export default function GeneralInformation() {
 										),
 										link2: (chunks) => (
 											<Link
-												href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
+												href="https://www.bmwsb.bund.de/SharedDocs/downloads/DE/publikationen/raumordnung/hochwasserschutzfibel.html"
 												target="_blank"
 												rel="noopener noreferrer"
 												className="text-text-link underline"
@@ -396,7 +611,8 @@ export default function GeneralInformation() {
 										),
 										link3: (chunks) => (
 											<Link
-												href="/wasser-check"
+												href="https://www.hochwasser-pass.info/"
+												target="_blank"
 												rel="noopener noreferrer"
 												className="text-text-link underline"
 											>
@@ -405,7 +621,18 @@ export default function GeneralInformation() {
 										),
 										link4: (chunks) => (
 											<Link
-												href="#"
+												href="https://www.bbk.bund.de/DE/Themen/Risikomanagement/Baulicher-Bevoelkerungsschutz/Schutz-vor-Naturgefahren/Hochwasser/hochwasser_node.html"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-text-link underline"
+											>
+												{chunks}
+											</Link>
+										),
+										link5: (chunks) => (
+											<Link
+												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
+												target="_blank"
 												rel="noopener noreferrer"
 												className="text-text-link underline"
 											>
@@ -413,111 +640,80 @@ export default function GeneralInformation() {
 											</Link>
 										),
 									})}
-								</p>
+								</li>
 							))}
+						</ul>
+						<h3>{t("generalInfo.furtherInformation.subTitle")}</h3>
+						<p className="whitespace-pre-line">
+							{t.rich("generalInfo.furtherInformation.description", {
+								link6: (chunks) => (
+									<Link
+										href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-text-link underline"
+									>
+										{chunks}
+									</Link>
+								),
+								link7: (chunks) => (
+									<Link
+										href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-text-link underline"
+									>
+										{chunks}
+									</Link>
+								),
+								link8: (chunks) => (
+									<Link
+										href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-text-link underline"
+									>
+										{chunks}
+									</Link>
+								),
+							})}
+						</p>
+					</div>
+				</section>
+			</div>
+			{openImage?.src && (
+				<>
+					<div
+						className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.8)]"
+						onClick={() => setOpenImage(null)}
+					>
+						<div className="relative bg-white">
+							<div
+								className="z-2 absolute right-0 top-0 inline-flex h-[35px] w-[35px] cursor-pointer items-center justify-center bg-white"
+								onClick={() => setOpenImage(null)}
+							>
+								<FontAwesomeIcon
+									icon={faTimes}
+									className="text-[22px] text-black"
+								/>
+							</div>
+							<div className="relative h-[min(735px,100vh)] w-[min(980px,100vw)]">
+								<NextImage
+									src={openImage?.src ?? ""}
+									alt={openImage?.alt ?? ""}
+									fill
+									className="pointer-events-none object-contain"
+									sizes="(max-width: 980px) 100vw, 980px"
+									priority
+								/>
+							</div>
+							<div className="w-[min(980px,100vw)] bg-white p-1">
+								<p>{openImage?.caption}</p>
+							</div>
 						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/Abbildung5.png"
-							alt={t("generalInfo.handling.image.alt")}
-							caption={t("generalInfo.handling.image.caption")}
-							copyright={t("generalInfo.handling.image.copyright")}
-						/>
-					}
-				/>
-			</section>
-			<div className="divider scroll-mt-[85px]" id="anker7" />
-			<section className="">
-				<div className="flex w-full flex-col gap-6">
-					<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
-					<p className="whitespace-pre-line">
-						{t.rich("generalInfo.furtherInformation.description", {
-							link1: (chunks) => (
-								<Link
-									href="https://www.naturgefahrenportal.de/de"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link2: (chunks) => (
-								<Link
-									href="https://www.bmwsb.bund.de/SharedDocs/downloads/DE/publikationen/raumordnung/hochwasserschutzfibel.html"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link3: (chunks) => (
-								<Link
-									href="https://www.hochwasser-pass.info/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link4: (chunks) => (
-								<Link
-									href="https://www.bbk.bund.de/DE/Themen/Risikomanagement/Baulicher-Bevoelkerungsschutz/Schutz-vor-Naturgefahren/Hochwasser/hochwasser_node.html"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link5: (chunks) => (
-								<Link
-									href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link6: (chunks) => (
-								<Link
-									href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link7: (chunks) => (
-								<Link
-									href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-							link8: (chunks) => (
-								<Link
-									href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-text-link underline"
-								>
-									{chunks}
-								</Link>
-							),
-						})}
-					</p>
-				</div>
-			</section>
-		</div>
+					</div>
+				</>
+			)}
+		</>
 	);
 }
