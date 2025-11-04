@@ -160,7 +160,7 @@
 			"submit": "Zur Auswertung"
 		},
 		"noHazardData": "Es liegen keine Daten zu Gefährdungen an Ihrem Standort vor.",
-		"pageTitle": "HochwasserCheck",
+		"pageTitle": "HochwasserCheck Berlin",
 		"protectionTips": {
 			"inBuilding": {
 				"image": {
@@ -300,10 +300,10 @@
 			"button": "Bericht herunterladen",
 			"description": "Hier können Sie sich die errechneten Ergebnisse für Gefährdung und Risiko auf Basis Ihrer Angaben als PDF-Datei herunterladen.",
 			"fileInfo": "Doctype: PDF-Dokument ({size})",
-			"title": "Download HochwasserCheck Report",
+			"title": "Download HochwasserCheck Berlin Report",
 			"pdf": {
 				"title": "Hochwasser-Infoportal Berlin",
-				"subTitle": "Report zum Gesamtergebnis HochwasserCheck",
+				"subTitle": "Report zum Gesamtergebnis HochwasserCheck Berlin",
 				"date": "Report vom {date}",
 				"page": "Seite {current} von {total}",
 				"pageBottomText": "Herausgeber: Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt Berlin",
@@ -317,7 +317,7 @@
 		},
 		"results": {
 			"navigation": {
-				"back": "Zurück zum HochwasserCheck"
+				"back": "Zurück zum HochwasserCheck Berlin"
 			},
 			"title": "- Gesamtergebnis"
 		},
@@ -333,7 +333,7 @@
 		"start": {
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
-			"description": "Der HochwasserCheck kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"description": "Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen"
 		}
 	}
