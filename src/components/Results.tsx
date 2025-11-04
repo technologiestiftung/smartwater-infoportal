@@ -159,7 +159,7 @@ const Results: React.FC = () => {
 							icon={faLocationDot}
 							className="text-[18px] text-black"
 						/>
-						<p className="mt-[3px]">{currentUserAddress.display_name}</p>
+						<p className="mt-[3px]">{currentUserAddress.label}</p>
 					</>
 				)}
 			</section>
