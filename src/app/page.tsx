@@ -24,8 +24,9 @@ export default function Home() {
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
-				<AddressSearch onLandingPage />
+				<AddressSearch />
 			</section>
+			<div className="divider px-5" />
 			<section className="w-full">
 				<TextBlock
 					desktopColSpans={{ col1: 2, col2: 3 }}
