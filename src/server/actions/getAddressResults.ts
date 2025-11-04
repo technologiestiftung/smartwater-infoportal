@@ -26,6 +26,8 @@ export async function getAddressResults(search: string) {
 
 		const data = await res.json();
 
+		// Test
+
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const dataWithLabels = data.map((item: any) => {
 			const addr = item.address;
