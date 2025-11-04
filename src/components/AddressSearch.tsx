@@ -63,7 +63,7 @@ export default function AddressSearch({
 			const addresse = getValues("addresse");
 			if (addresse) {
 				const selectedResult = results.find(
-					(result) => result.display_name === addresse,
+					(result) => result.label === addresse,
 				);
 				if (selectedResult) {
 					setCurrentUserAddress(selectedResult);
@@ -98,19 +98,7 @@ export default function AddressSearch({
 				return;
 			}
 
-			const withFilter = false;
-
-			const buildingResults = withFilter
-				? data.filter(
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						(item: any) =>
-							item.class === "building" ||
-							item.addresstype === "building" ||
-							item.type === "house",
-					)
-				: data;
-
-			if (buildingResults.length === 0) {
+			if (data.length === 0) {
 				setError(
 					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
 				);
@@ -120,11 +108,11 @@ export default function AddressSearch({
 
 			const seen = new Set();
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const collectResults = buildingResults.filter((item: any) => {
-				if (seen.has(item.display_name)) {
+			const collectResults = data.filter((item: any) => {
+				if (seen.has(item.label)) {
 					return false;
 				}
-				seen.add(item.display_name);
+				seen.add(item.label);
 				return true;
 			});
 
@@ -165,7 +153,7 @@ export default function AddressSearch({
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.display_name);
+			setValue("addresse", currentUserAddress.label);
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
@@ -195,13 +183,13 @@ export default function AddressSearch({
 													<li key={index}>
 														<Button
 															onClick={() => {
-																setValue("addresse", result.display_name);
+																setValue("addresse", result.label);
 																setCurrentUserAddress(result);
 																setResults([]);
 															}}
 															variant="link"
 														>
-															{result?.display_name}
+															{result?.label}
 														</Button>
 													</li>
 												);
@@ -209,7 +197,7 @@ export default function AddressSearch({
 											return (
 												<li key={index}>
 													<div className="flex min-h-[43px] flex-col justify-center">
-														<p>{result?.display_name}</p>
+														<p>{result?.label}</p>
 													</div>
 												</li>
 											);

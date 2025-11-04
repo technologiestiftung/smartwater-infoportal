@@ -7,6 +7,7 @@ export interface AddressResult {
 	lat: string;
 	lon: string;
 	display_name: string;
+	label: string;
 	address: {
 		[key: string]: string;
 	};
