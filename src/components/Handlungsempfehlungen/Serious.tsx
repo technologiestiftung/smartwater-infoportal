@@ -4,7 +4,7 @@ import TextBlock from "../TextBlock";
 import { Button, Image } from "berlin-ui-library";
 import Link from "next/link";
 
-const During: React.FC = () => {
+const Serious: React.FC = () => {
 	const t = useTranslations();
 	return (
 		<div className="flex flex-col gap-12">
@@ -157,4 +157,4 @@ const During: React.FC = () => {
 	);
 };
 
-export default During;
+export default Serious;

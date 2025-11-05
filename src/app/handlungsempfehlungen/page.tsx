@@ -1,25 +1,47 @@
 "use client";
 
-import { After, Before, During } from "@/components/Handlungsempfehlungen";
+import { After, Before, Serious } from "@/components/Handlungsempfehlungen";
+import Emergency from "@/components/Handlungsempfehlungen/Emergency";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 export default function Recommendations() {
 	const t = useTranslations();
 	return (
-		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
+		<div className="relative flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 			<h1 className="">{t("recommendations.pageTitle")}</h1>
 			<p className="">{t("recommendations.intro")}</p>
-			<h2 className="">{t("recommendations.timeline.title")}</h2>
+			<div className="relative w-full">
+				<div className="relative hidden aspect-[4.7/1] w-[90%] lg:block">
+					<Image
+						src="/Handlungsempfehlungen-desktop.jpg"
+						alt="Alt Tag for Graphic"
+						fill
+						className="object-contain"
+					/>
+				</div>
+				<div className="relative aspect-[1/1.49] w-full lg:hidden">
+					<Image
+						src="/Handlungsempfehlungen-mobile.jpg"
+						alt="Alt Tag for Graphic"
+						fill
+						className="object-contain"
+					/>
+				</div>
+			</div>
 			<Tabs defaultValue="before" className="">
 				<TabsList>
-					<TabsTrigger value="before">
+					<TabsTrigger value="before" tabColor="#9BCFAF">
 						{t("recommendations.timeline.before")}
 					</TabsTrigger>
-					<TabsTrigger value="during">
-						{t("recommendations.timeline.during")}
+					<TabsTrigger value="emergency" tabColor="#FFE70E">
+						{t("recommendations.timeline.emergency")}
 					</TabsTrigger>
-					<TabsTrigger value="after">
+					<TabsTrigger value="serious" tabColor="#F5B4CB">
+						{t("recommendations.timeline.serious")}
+					</TabsTrigger>
+					<TabsTrigger value="after" tabColor="#AAC9E7">
 						{t("recommendations.timeline.after")}
 					</TabsTrigger>
 				</TabsList>
@@ -28,9 +50,14 @@ export default function Recommendations() {
 						<Before />
 					</div>
 				</TabsContent>
-				<TabsContent value="during">
+				<TabsContent value="emergency">
 					<div className="mt-6">
-						<During />{" "}
+						<Emergency />
+					</div>
+				</TabsContent>
+				<TabsContent value="serious">
+					<div className="mt-6">
+						<Serious />{" "}
 					</div>
 				</TabsContent>
 				<TabsContent value="after">

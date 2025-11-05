@@ -3,10 +3,9 @@
 		"pageTitle": "Handlungsempfehlungen",
 		"intro": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs.2). Deswegen gilt: Sorgen Sie rechtzeitig vor, um Schäden zu mindern und Risiken zu senken. Diese Seite bietet Ihnen grundlegende Handlungsempfehlungen und soll Ihnen dabei helfen.",
 		"timeline": {
-			"title": "Zeitlicher Horizont",
-			"description": "",
 			"before": "Vorher",
-			"during": "Während",
+			"emergency": "Notfall",
+			"serious": "Ernstfall",
 			"after": "Nachher"
 		},
 		"beforeEvent": {
