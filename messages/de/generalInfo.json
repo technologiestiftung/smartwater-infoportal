@@ -56,7 +56,7 @@
 			}
 		},
 		"assessment": {
-			"title": "Wie schätzen wir die Gefahren durch Hochwasser?",
+			"title": "Wie wird die Hochwassergefahr geschätzt?",
 			"paragraphs": {
 				"paragraph1": "Der erste Schritt, um Handlungsbedarfe zu identifizieren und das Hochwasserrisiko zu senken, ist die Hochwassergefahr zu schätzen. Die Flächen, die bei Hochwasser unter Wasser stehen, und die jeweiligen Wassertiefen und Fließgeschwindigkeiten werden mit Hilfe von Simulationen berechnet. Dabei werden verschiedene Regenereignisse berücksichtigt – mit unterschiedlicher Stärke, Dauer und Verlauf.",
 				"paragraph2": "Um sich angemessen vorzubereiten, ist es wichtig zu wissen, wie häufig ein Hochwasser zu erwarten ist. Daher werden die Szenarien bestimmten Eintrittswahrscheinlichkeit, zum Beispiel 100-jährlich, zugeordnet. In Berlin sind den Eintrittswahrscheinlichkeiten Begriffe wie „mittleres Ereignis“ oder „außergewöhnliches Ereignis“ zugeordnet. Mehr dazu <link1>hier</link1>. Die Ergebnisse werden als Karten dargestellt. Diese Karten werden hier im <link2>HochwasserCheck Berlin</link2> verwendet und befinden sich zur Einsicht im <link3>Umweltatlas</link3>.",
