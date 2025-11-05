@@ -270,7 +270,7 @@ export default function GeneralInformation() {
 											),
 											link2: (chunks) => (
 												<Link
-													href="/hochwasser-check"
+													href="/#hochwasser-check"
 													rel="noopener noreferrer"
 													className="text-text-link underline"
 												>
@@ -436,7 +436,7 @@ export default function GeneralInformation() {
 											),
 											link3: (chunks) => (
 												<Link
-													href="/hochwasser-check"
+													href="/#hochwasser-check"
 													rel="noopener noreferrer"
 													className="text-text-link underline"
 												>
