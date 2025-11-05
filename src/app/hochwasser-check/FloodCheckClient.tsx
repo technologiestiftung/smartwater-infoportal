@@ -5,7 +5,7 @@ import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import useStore from "@/store/defaultStore";
 import { getHazardData } from "@/server/actions/getHazardData";
@@ -20,6 +20,8 @@ export default function FloodCheckClient() {
 	const setLoadingLocationData = useStore(
 		(state) => state.setLoadingLocationData,
 	);
+	const searchParams = useSearchParams();
+	const getCheckFromURL = searchParams.get("skip") === "true";
 
 	const checkHazard = async (skip?: boolean) => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
@@ -35,7 +37,6 @@ export default function FloodCheckClient() {
 				router.push("/hochwasser-check?skip=true#results");
 			} else {
 				router.push("/hochwasser-check#questionnaire");
-				// router.push("/hochwasser-check#results");
 			}
 		} finally {
 			setLoadingLocationData(false);
@@ -51,6 +52,16 @@ export default function FloodCheckClient() {
 		if (!!hash) {
 			window.scrollTo(0, 0);
 		}
+	}, [hash]);
+
+	useEffect(() => {
+		if (!hash) {
+			const check = useStore.getState().currentUserAddress;
+			if (!check) {
+				router.push("/#hochwasser-check");
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [hash]);
 
 	return (
@@ -75,12 +86,18 @@ export default function FloodCheckClient() {
 				<>
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => {
-							router.push("/hochwasser-check#questionnaire");
-						}}
+						onClick={() =>
+							router.push(
+								getCheckFromURL
+									? "/hochwasser-check"
+									: "/hochwasser-check#questionnaire",
+							)
+						}
 						variant="back-link"
 					>
-						{t("floodCheck.results.navigation.back")}
+						{getCheckFromURL
+							? t("floodCheck.results.navigation.back")
+							: t("floodCheck.results.navigation.backQuestionnaire")}
 					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex flex-wrap items-center space-x-2">
@@ -103,8 +120,8 @@ export default function FloodCheckClient() {
 					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
-						{/* <h2 className="">{t("floodCheck.start.title")}</h2>
-						<p className="">{t("floodCheck.start.description")}</p> */}
+						<h2 className="">{t("floodCheck.start.title")}</h2>
+						<p className="">{t("floodCheck.start.description")}</p>
 						<CheckBlock
 							onSubmit={(goTo) => {
 								checkHazard(goTo === "no");

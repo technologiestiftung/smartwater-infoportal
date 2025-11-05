@@ -306,7 +306,8 @@
 		},
 		"results": {
 			"navigation": {
-				"back": "Zurück zum HochwasserCheck Berlin"
+				"back": "Zurück zum HochwasserCheck Berlin",
+				"backQuestionnaire": "Zurück zum Fragebogen"
 			},
 			"title": "- Ergebnis"
 		},
