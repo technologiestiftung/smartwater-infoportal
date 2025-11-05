@@ -35,6 +35,7 @@
 	--color-message-info: var(--message-info);
 	--color-message-error: var(--message-error);
 	--color-message-no-warning: var(--message-no-warning);
+	--color-message-warning-error: var(--message-warning-error);
 	--color-border: var(--border);
 	--color-hr: var(--hr);
 
@@ -82,6 +83,7 @@
 	--message-info: #ebf1f7;
 	--message-error: #fdecee;
 	--message-no-warning: #ecf8f5;
+	--message-warning-error: #fcf9e8;
 	--border: #dddddd;
 	--hr: #dddddd;
 }
