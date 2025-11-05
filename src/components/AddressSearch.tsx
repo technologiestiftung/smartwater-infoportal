@@ -168,7 +168,7 @@ export default function AddressSearch() {
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
 						{results.length > 0 && !showLoading && (
-							<div className="flex flex-col gap-2 p-4">
+							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
 								<strong>Ergebnisse</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
