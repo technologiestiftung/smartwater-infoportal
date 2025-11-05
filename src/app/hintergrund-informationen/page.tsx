@@ -192,7 +192,7 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker3" />
+				<div className="divider scroll-mt-[85px]" id="anker3" />
 				<section className="">
 					<TextBlock
 						desktopColSpans={{ col1: 2, col2: 3 }}
@@ -262,7 +262,7 @@ export default function GeneralInformation() {
 									<p key={key} className="">
 										{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
 											strong: (chunks) => <strong>{chunks}</strong>,
-											link1: (chunks) => (
+											/* link1: (chunks) => (
 												<Link
 													href="#anker3"
 													rel="noopener noreferrer"
@@ -270,7 +270,7 @@ export default function GeneralInformation() {
 												>
 													{chunks}
 												</Link>
-											),
+											), */
 											link2: (chunks) => (
 												<Link
 													href="/hochwasser-check"
