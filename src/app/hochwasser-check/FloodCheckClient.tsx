@@ -120,7 +120,6 @@ export default function FloodCheckClient() {
 					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
-						<h2 className="">{t("floodCheck.start.title")}</h2>
 						<p className="">{t("floodCheck.start.description")}</p>
 						<CheckBlock
 							onSubmit={(goTo) => {
