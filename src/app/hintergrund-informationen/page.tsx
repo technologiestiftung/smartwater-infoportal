@@ -144,6 +144,7 @@ export default function GeneralInformation() {
 								alt={t("generalInfo.definition.image.alt")}
 								caption={t("generalInfo.definition.image.caption")}
 								copyright={t("generalInfo.definition.image.copyright")}
+								withZoomBox
 							/>
 						}
 					/>
@@ -186,6 +187,7 @@ export default function GeneralInformation() {
 								alt={t("generalInfo.hazardVsRisk.image.alt")}
 								caption={t("generalInfo.hazardVsRisk.image.caption")}
 								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+								withZoomBox
 							/>
 						}
 					/>
@@ -243,6 +245,7 @@ export default function GeneralInformation() {
 								alt={t("generalInfo.floodThroughRain.image.alt")}
 								caption={t("generalInfo.floodThroughRain.image.caption")}
 								copyright={t("generalInfo.floodThroughRain.image.copyright")}
+								withZoomBox
 							/>
 						}
 					/>
@@ -299,6 +302,7 @@ export default function GeneralInformation() {
 								alt={t("generalInfo.assessment.image.alt")}
 								caption={t("generalInfo.assessment.image.caption")}
 								copyright={t("generalInfo.assessment.image.copyright")}
+								withZoomBox
 							/>
 						}
 					/>
@@ -344,6 +348,7 @@ export default function GeneralInformation() {
 								alt={t("generalInfo.types.image.alt")}
 								caption={t("generalInfo.types.image.caption")}
 								copyright={t("generalInfo.types.image.copyright")}
+								withZoomBox
 							/>
 						}
 					/>
@@ -464,6 +469,7 @@ export default function GeneralInformation() {
 								alt={t("generalInfo.handling.image.alt")}
 								caption={t("generalInfo.handling.image.caption")}
 								copyright={t("generalInfo.handling.image.copyright")}
+								withZoomBox
 							/>
 						}
 					/>
