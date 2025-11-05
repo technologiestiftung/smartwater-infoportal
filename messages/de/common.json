@@ -74,9 +74,11 @@
 			"_not-found": "Seite nicht gefunden"
 		},
 		"warning": {
-			"noWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
-			"currentWarning": "Derzeit liegen keine Warnungen vor.",
-			"furtherInformation": "Weitere Informationen"
+			"currentWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
+			"noWarning": "Derzeit liegen keine Warnungen vor.",
+			"furtherInformation": "Weitere Informationen",
+			"timeStamp": "Letzte Aktualisierung: {timeStamp}",
+			"error": "Beim Abrufen der Warnungen ist ein Fehler aufgetreten."
 		}
 	}
 }
