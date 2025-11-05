@@ -3,19 +3,18 @@
 		"pageTitle": "Über das Hochwasser-Infoportal",
 		"whatIsIt": {
 			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
-			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck, Handlungsempfehlungen, Warnungen vor Hochwasser und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
+			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck Berlin, Handlungsempfehlungen, Warnungen vor Hochwasser und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
 		},
 		"amIAffected": {
-			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck",
-			"description": "Der HochwasserCheck gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 6 Fragen, eine Gefährdungs- und Risikoeinschätzung an Ihrer persönlichen Adresse, sowie individuelle Handlungsempfehlungen zur Minimierung des Risikos. Die Ergebnisse können Sie als Bericht (PDF) herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den HochwasserCheck!",
+			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck Berlin",
+			"description": "Der HochwasserCheck Berlin gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 6 Fragen, eine Gefährdungs- und Risikoeinschätzung an Ihrer persönlichen Adresse, sowie individuelle Handlungsempfehlungen zur Minimierung des Risikos. Die Ergebnisse können Sie als Bericht (PDF) herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den HochwasserCheck Berlin!",
 			"cta": ""
 		},
 		"addressCheck": {
 			"label": "Adresse",
 			"description": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
 			"placeholder": "Landstraße 1, 12345 Berlin",
-			"button": "HochwasserCheck starten",
-			"buttonConfirm": "Weiter mit Risikocheck",
+			"button": "HochwasserCheck Berlin starten",
 			"secondaryButton": "Gefährdung berechnen",
 			"hint": {
 				"title": "Hinweis",
@@ -51,9 +50,9 @@
 		},
 		"backgroundInfo": {
 			"title": "Hintergrundinformation zum Thema Hochwasser",
-			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
-			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
-			"button": "Allgemeine Informationen"
+			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"button": "Hintergrundinformationen"
 		}
 	}
 }

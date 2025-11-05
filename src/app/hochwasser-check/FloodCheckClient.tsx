@@ -1,16 +1,15 @@
 /* eslint-disable no-nested-ternary */
 "use client";
-import InterimResults from "@/components/InterimResults";
 import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import AddressSearch from "../../components/AddressSearch";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import useStore from "@/store/defaultStore";
 import { getHazardData } from "@/server/actions/getHazardData";
+import CheckBlock from "@/components/CheckBlock";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
@@ -21,6 +20,8 @@ export default function FloodCheckClient() {
 	const setLoadingLocationData = useStore(
 		(state) => state.setLoadingLocationData,
 	);
+	const searchParams = useSearchParams();
+	const getCheckFromURL = searchParams.get("skip") === "true";
 
 	const checkHazard = async (skip?: boolean) => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
@@ -33,9 +34,9 @@ export default function FloodCheckClient() {
 			const result = await getHazardData(longitude, latitude);
 			setLocationData(result);
 			if (skip) {
-				router.push("/wasser-check?skip=true#results");
+				router.push("/hochwasser-check?skip=true#results");
 			} else {
-				router.push("/wasser-check#interimResult");
+				router.push("/hochwasser-check#questionnaire");
 			}
 		} finally {
 			setLoadingLocationData(false);
@@ -43,7 +44,7 @@ export default function FloodCheckClient() {
 	};
 
 	const submit = async () => {
-		router.push("/wasser-check#results");
+		router.push("/hochwasser-check#results");
 	};
 
 	useEffect(() => {
@@ -53,34 +54,23 @@ export default function FloodCheckClient() {
 		}
 	}, [hash]);
 
+	useEffect(() => {
+		if (!hash) {
+			const check = useStore.getState().currentUserAddress;
+			if (!check) {
+				router.push("/#hochwasser-check");
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [hash]);
+
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
-			{hash === "interimResult" ? (
+			{hash === "questionnaire" ? (
 				<>
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => {
-							router.push("/wasser-check");
-						}}
-						variant="back-link"
-					>
-						{t("common.backToAddressSearch")}
-					</Button>
-					<div className="flex w-full flex-col gap-2">
-						<div className="flex flex-wrap items-center space-x-2">
-							<h1 className="">{t("floodCheck.pageTitle")}</h1>
-							<h1 className="">{t("floodCheck.interimResults.title")}</h1>
-						</div>
-						<InterimResults />
-					</div>
-				</>
-			) : hash === "questionnaire" ? (
-				<>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => {
-							router.push("/wasser-check#interimResult");
-						}}
+						onClick={() => router.push("/hochwasser-check")}
 						variant="back-link"
 					>
 						{t("floodCheck.navigation.back")}
@@ -96,12 +86,18 @@ export default function FloodCheckClient() {
 				<>
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => {
-							router.push("/wasser-check#questionnaire");
-						}}
+						onClick={() =>
+							router.push(
+								getCheckFromURL
+									? "/hochwasser-check"
+									: "/hochwasser-check#questionnaire",
+							)
+						}
 						variant="back-link"
 					>
-						{t("floodCheck.results.navigation.back")}
+						{getCheckFromURL
+							? t("floodCheck.results.navigation.back")
+							: t("floodCheck.results.navigation.backQuestionnaire")}
 					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex flex-wrap items-center space-x-2">
@@ -124,9 +120,12 @@ export default function FloodCheckClient() {
 					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
-						<h2 className="">{t("floodCheck.start.title")}</h2>
 						<p className="">{t("floodCheck.start.description")}</p>
-						<AddressSearch onAddressConfirmed={(skip) => checkHazard(skip)} />
+						<CheckBlock
+							onSubmit={(goTo) => {
+								checkHazard(goTo === "no");
+							}}
+						/>
 					</div>
 				</>
 			)}

@@ -153,11 +153,13 @@ export function getNextWorkflowStep(
 		return "address";
 	}
 
-	if (currentPath.includes("wasser-check") && !currentPath.includes("#")) {
-		return "interim";
-	}
+	// !!! check after interimResult removal
 
-	if (currentPath.includes("#interimResult")) {
+	/* if (currentPath.includes("hochwasser-check") && !currentPath.includes("#")) {
+		return "interim";
+	} */
+
+	/* if (currentPath.includes("#interimResult")) {
 		const requiredQuestions = riskConfig.questions
 			.filter((q) => q.type !== "auto")
 			.map((q) => q.id);
@@ -167,7 +169,7 @@ export function getNextWorkflowStep(
 			return "questionnaire";
 		}
 		return "results";
-	}
+	} */
 
 	if (currentPath.includes("questionnaire")) {
 		if (validateAnswers(answers)) {
@@ -182,14 +184,14 @@ export function getNextWorkflowStep(
 export function getWorkflowRoute(step: WorkflowStep): string {
 	switch (step) {
 		case "address":
-			return "/wasser-check";
-		case "interim":
-			return "/wasser-check#interimResult";
+			return "/hochwasser-check";
+		// case "interim":
+		// 	return "/hochwasser-check#interimResult";
 		case "questionnaire":
-			return "/wasser-check/questionnaire";
+			return "/hochwasser-check/questionnaire";
 		case "results":
-			return "/wasser-check/results";
+			return "/hochwasser-check/results";
 		default:
-			return "/wasser-check";
+			return "/hochwasser-check";
 	}
 }

@@ -100,7 +100,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				} else {
 					const a = document.createElement("a");
 					a.href = url;
-					a.download = "Report-Hochwassercheck.pdf";
+					a.download = "Report-HochwasserCheck-Berlin.pdf";
 					a.click();
 				}
 				setTimeout(() => {
