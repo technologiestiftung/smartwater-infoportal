@@ -15,7 +15,6 @@
 			"description": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
 			"placeholder": "Landstraße 1, 12345 Berlin",
 			"button": "HochwasserCheck Berlin starten",
-			"buttonConfirm": "Weiter mit Risikocheck",
 			"secondaryButton": "Gefährdung berechnen",
 			"hint": {
 				"title": "Hinweis",

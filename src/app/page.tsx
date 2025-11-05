@@ -19,13 +19,14 @@ export default function Home() {
 					<p className="">{t("whatIsIt.description2")}</p>
 				</div>
 			</section>
-			<div className="divider px-5" />
+			<div className="divider scroll-mt-[85px] px-5" id="hochwasser-check" />
 			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
-				<AddressSearch onLandingPage />
+				<AddressSearch />
 			</section>
+			<div className="divider px-5" />
 			<section className="w-full">
 				<TextBlock
 					desktopColSpans={{ col1: 2, col2: 3 }}

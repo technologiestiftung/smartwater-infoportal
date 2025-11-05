@@ -35,7 +35,6 @@
 		},
 		"checkBuildingRiskButton": "Nun Gebäuderisiko prüfen",
 		"dataSourceInfo": "Die Ermittlung der Hochwassergefährdung basiert auf den vorhandenen Ressourcen, u.a.: Starkregenhinweiskarte (SRHK), Starkregengefahrenkarte (SRGK), Hochwassergefahrenkarte (HWGK), Hochwasserrisikokarte (HWRK), Überschwemmungsgebiet (ÜSG) und der Gewässerkarte.",
-		"eventRarityInfo": "Das Zwischenergebnis geht von einem seltenem Ereignis aus.",
 		"fluvialFlood": {
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
@@ -139,23 +138,13 @@
 			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen.",
 			"title": "Hinweis"
 		},
-		"interimResults": {
-			"navigation": {
-				"back": "Zurück zum Zwischenergebnis"
-			},
-			"title": "- Zwischenergebnis"
-		},
-		"intermediateResult": {
-			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift",
-			"title": "Hier käme das Zwischenergebnis"
-		},
 		"map": {
 			"description": "Für die Berechnung der Gefährdungskarten nutzen wir Karten des Geoportals Berlin, veröffentlicht durch die SenMVKU.",
 			"openLegend": "Legende öffnen",
 			"title": "Karte an Ihrem Standort"
 		},
 		"navigation": {
-			"back": "Zurück zum Zwischenergebnis",
+			"back": "Zurück zum Start",
 			"next": "Nächste Frage",
 			"submit": "Zur Auswertung"
 		},
@@ -317,7 +306,8 @@
 		},
 		"results": {
 			"navigation": {
-				"back": "Zurück zum HochwasserCheck Berlin"
+				"back": "Zurück zum HochwasserCheck Berlin",
+				"backQuestionnaire": "Zurück zum Fragebogen"
 			},
 			"title": "- Ergebnis"
 		},
@@ -333,8 +323,14 @@
 		"start": {
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
-			"description": "Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
-			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen"
+			"description": "Jetzt schauen ob Sie sich Sorgen machen müssen. Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"locationTitle": "Es wird die folgende Adresse überprüft:",
+			"question": "Wollen Sie auch das Risiko für Ihr Wohngebäude überprüfen?",
+			"questionDescription": "Zur Berechnung des Risikos werden Sie durch einen Fragebogen von sechs Fragen zu ihrem Wohngebäude geleitet.",
+			"formButtons": {
+				"toResult": "Zum Ergebnis",
+				"toQuestionnaire": "Zum Fragebogen"
+			}
 		}
 	}
 }
