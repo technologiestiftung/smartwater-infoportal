@@ -82,10 +82,10 @@
 					"entry1": "",
 					"entry2": "Benennung der Karte",
 					"entry3": "Verwendetes Szenario:\nWiederkehrintervall",
-					"entry4": "Verwendetes Szenario:\nSpezifisches Regenereignise"
+					"entry4": "Verwendetes Szenario:\nSpezifisches Regenereignisse"
 				},
 				"heavyRain": {
-					"title": "Starkregengefahrenkarten",
+					"title": "Starkregen\ngefahrenkarten",
 					"row1": {
 						"entry1": "Seltenes Ereignis",
 						"entry2": "30-jähriges,\n50-jähriges",
@@ -103,7 +103,7 @@
 					}
 				},
 				"flood": {
-					"title": "Flusshochwassergefahrenkarten ",
+					"title": "Flusshochwasser\ngefahrenkarten ",
 					"row1": {
 						"entry1": "Häufiges Ereignis",
 						"entry2": "5-jähriges\n10-jähriges\n20-jähriges",
