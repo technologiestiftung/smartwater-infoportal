@@ -96,7 +96,7 @@ const Before: React.FC = () => {
 					slotB={
 						<div className="flex h-full flex-col gap-6">
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:w-full lg:translate-x-0"
 								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen.png"
 								alt={t(
 									"recommendations.beforeEvent.personalPreparedness.image4.alt",
@@ -109,7 +109,7 @@ const Before: React.FC = () => {
 								)}
 							/>
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:w-full lg:translate-x-0"
 								src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_2.png"
 								alt={t(
 									"recommendations.beforeEvent.personalPreparedness.image5.alt",
@@ -148,7 +148,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:w-full lg:translate-x-0"
 							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
 							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
 							caption={t(
@@ -211,7 +211,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:w-full lg:translate-x-0"
 							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_4.png"
 							alt={t(
 								"recommendations.beforeEvent.precautionBuilding.image.alt",
@@ -248,7 +248,7 @@ const Before: React.FC = () => {
 						<Image
 							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_5.png"
 							alt={t("recommendations.beforeEvent.traffic.image.alt")}
-							className="w-full"
+							className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:w-full lg:translate-x-0"
 							caption={t("recommendations.beforeEvent.traffic.image.caption")}
 							copyright={t(
 								"recommendations.beforeEvent.traffic.image.copyright",
@@ -276,7 +276,7 @@ const Before: React.FC = () => {
 					}
 					slotB={
 						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:w-full lg:translate-x-0"
 							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_6.jpg"
 							alt={t("recommendations.beforeEvent.fluvialFlood.image.alt")}
 							caption={t(
