@@ -87,7 +87,7 @@ const Serious: React.FC = () => {
 			img: "/HandlungsempfehlungIcons/Icon_AutoUeberflutungsflaechen.png",
 			list: list4,
 			fullIMG: "/Unterführung_Tiefgarage_Auto-desktop.jpg",
-			fullIMGMobile: "/Unterführung_Tiefgarage_Auto-mobile.jpg",
+			fullIMGMobile: true,
 		},
 		{
 			listKey: "list5",
@@ -173,7 +173,7 @@ const Serious: React.FC = () => {
 					{fullIMGMobile && (
 						<Image
 							className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
-							src={fullIMGMobile}
+							src="/Unterführung_Tiefgarage_Auto-mobile.jpg"
 							alt={t(`${listKey}Image.alt`)}
 							caption={t(`${listKey}Image.caption`)}
 							copyright={t(`${listKey}Image.copyright`)}
