@@ -16,7 +16,7 @@ export default function Recommendations() {
 				<div className="relative hidden aspect-[4.7/1] w-[90%] lg:block">
 					<Image
 						src="/Handlungsempfehlungen-desktop.jpg"
-						alt="Alt Tag for Graphic"
+						alt="???"
 						fill
 						className="object-contain"
 					/>
@@ -24,7 +24,7 @@ export default function Recommendations() {
 				<div className="relative aspect-[1/1.49] w-full lg:hidden">
 					<Image
 						src="/Handlungsempfehlungen-mobile.jpg"
-						alt="Alt Tag for Graphic"
+						alt="???"
 						fill
 						className="object-contain"
 					/>
