@@ -1,7 +1,18 @@
 {
 	"recommendations": {
-		"pageTitle": "Handlungsempfehlungen",
-		"intro": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs.2). Deswegen gilt: Sorgen Sie rechtzeitig vor, um Schäden zu mindern und Risiken zu senken. Diese Seite bietet Ihnen grundlegende Handlungsempfehlungen und soll Ihnen dabei helfen.",
+		"pageTitle": "Handlungsempfehlungen – Wie gehe ich mit Überflutungen und Überschwemmungen um?",
+		"intro": "Berlin war z.B. <link1>2017 und 2019</link1> von schweren Hochwassern nach Starkregenereignissen betroffen. Solche Hochwasser können erhebliche Personen- und Sachschäden verursachen. Von Hochwasser betroffene Gebiete wie Berlin sind nicht einmalig, sondern immer wieder betroffen. Gleichzeitig ist es gesetzlich verankert, dass jede*r Bürger*in im Rahmen ihrer Möglichkeiten dafür verantwortlich ist, Maßnahmen zu ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (<link2>WHG §5 Abs.2</link2>). Deswegen gilt:",
+		"introList": {
+			"entry1": "Sorgen Sie rechtzeitig vor, um Schäden und Risiken zu minimieren.",
+			"entry2": "Maßnahmen gegen Hochwasser müssen nicht teuer sein!  Es gibt eine Vielzahl von Maßnahmen, die ein weites Spektrum von Kosten und Wirkweisen abdecken.",
+			"entry3": "Hier sind Sie richtig: Diese Seite informiert Sie umfänglich über Optionen der Anpassung."
+		},
+		"introImage": {
+			"alt": "???",
+			"caption": "Abbildung 1: Einteilung von Anpassungsmaßnahmen gegen Hochwasserschäden ausgehend vom Zeitpunkt ihrer Umsetzung.",
+			"copyright": "© SenMVKU"
+		},
+		"intro2": "Maßnahmen gegen Hochwasser können unterschieden werden in Vorsorgemaßnahmen, welche zum Zeitpunkt des Hochwassers bereits umgesetzt sein müssen, und Notfallmaßnahmen, welche kurz vor oder während des Hochwassers umgesetzt werden. Ist das Hochwasser bereits da, kommt es auf das richtige Verhalten im Ernstfall und kurz nach dem Hochwasser an. Da Hochwasser <link1>wiederkehrende Ereignisse</link1> sind, gilt es, sich nach dem Hochwasser auf ein potenzielles nächstes Hochwasser vorzubereiten - siehe Abbildung 1.\n\nDiese Seite bietet Ihnen einen Überblick über Handlungsempfehlungen und soll Ihnen dabei helfen, sich, ihr Eigentum und die Personen in Ihrem Umfeld besser zu schützen. Bitte beachten Sie, dass dieser Überblick im Bereich „Vorsorgemaßnahmen“ auch bauliche Maßnahmen enthält, die ggf. nicht für Mieter*innen und damit ggf. nicht für ihren individuellen Fall geeignet sein könnten. Einen individuelleren Überblick über Vorsorgemaßnahmen erhalten Sie, wenn Sie den <link2>Hochwasser-Check Berlin</link2> für Ihren Wohnraum durchführen und sich diesen als Bericht (PDF) ausgeben lassen.",
 		"timeline": {
 			"before": "Vorher",
 			"emergency": "Notfall",
@@ -9,197 +20,191 @@
 			"after": "Nachher"
 		},
 		"beforeEvent": {
-			"personalPreparedness": {
-				"title1": "Helfen Sie sich und anderen",
-				"item1": "Informieren Sie sich über mögliche Gefährdungen und identifizieren Sie sichere Orte, an denen Sie sich bei Hochwasser in Sicherheit bringen können. Nutzen Sie gern unser HochwasserCheck Berlin oder die Starkregenhinweiskarte, Starkregengefahrenkarte, Hochwassergefahrenkarte, Überschwemmungsgebiete.",
-				"title2": "Warn - Apps",
-				"item2": "Installieren Sie die amtlichen Warn-Apps <link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>, um sich über den aktuellen Gefahrenfall zu informieren.",
-				"title3": "Notfallrucksack",
-				"item3": "Packen Sie einen Notfallrucksackkoffer mit den wichtigsten Sachen, um auf den Ernstfall vorbereitet zu sein. Weitere Information über den Inhalt des Notfallrucksacks finden Sie unter:",
-				"link3": {
-					"title": "Wenn es schnell gehen muss: Notgepäck",
-					"url": "https://www.bbk.bund.de/DE/Service/Infomaterialien/Notfallrucksack/Notfallrucksack_node.html"
-				},
-				"title4": "Privater Notfallplanlan",
-				"item4": "Erstellen Sie sich mit Ihrer Familie und ggf. den Nachbarn einen Handlungsplan, damit im Gefahrenfall alle erforderlichen Maßnahmen schnell und koordiniert eingeleitet werden können. Informieren Sie sich über die Anlaufstellen in den Bezirken – die <link>Katastrophenschutz-Leuchttürme</link>",
-				"image4": {
-					"alt": "Eine Grafik zeigt ein Smartphone, dass die NINA-App und die Warnapp des Deutschen Wetterdiensts installiert hat.",
-					"caption": "Die NINA-App und die Warnapp des Deutschen Wetterdienstes geben Ihnen aktuellen Auskünfte über Ihre Region",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				},
-				"image5": {
-					"alt": "Eine Grafik zeigt eine exemplarische Liste für einen privaten Notfallplan mir Fragen wie 'Wer braucht besonderen Schutz' oder 'Bei Abwesenheit: Wen kontaktieren'.",
-					"caption": "Das Erstellen eines Privaten Notfallplanlans kann in einer Notsituation Zeit sparen.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
+			"intro": "<strong>Vorsorgemaßnahmen</strong> sind Anpassungsmaßnahmen, die bei Eintritt eines Hochwassers bereits umgesetzt sein müssen.",
+			"list1Intro": "<strong>Verhaltensvorsorge:</strong> Planen und Anpassen des eigenen Verhaltens, um im Ernstfall Schäden zu minimieren. ",
+			"list1": {
+				"entry1": "Nutzen Sie den <link>HochwasserCheck Berlin</link> oder das <link>länderübergreifende Hochwasser</link> Portal um sich über Ihre Gefahrenlage zu informieren.",
+				"entry2": "Identifizieren Sie sichere und nicht-sichere Orte, sodass Sie sich und ggf. hilfebedürftige Angehörige bei Hochwasser in Sicherheit bringen können. Sichere Orte sind solche, die nicht in hochwassergefährdeten Gebieten liegen und gleichzeitig ein Mindestmaß an Versorgung gewährleisten. Das können z.B. die Wohnungen von Verwandten & Bekannten oder Einkaufszentren sein, die nicht in Überflutungsflächen liegen. <link>Die Starkregengefahren- und hinweiskarte</link> sowie <link>Hochwassergefahrenkarten und -risikokarten</link> können Ihnen bei der Identifizierung solcher Orte helfen.",
+				"entry3": "Identifizieren Sie ggf. auch Orte, an denen Sie Ihren PKW im Falle eines Hochwassers sicher parken können.",
+				"entry4": "Nutzen Sie den <link>bundesweiten jährlichen Warntag</link> im September um zu überprüfen, ob Sie eine Warnung erreichen kann.",
+				"entry5": "Installieren Sie eine kostenfreie Warnapp (<link>NINA</link>, <link>WarnWetter-App</link>).",
+				"entry6": "Informieren Sie sich über die Bedeutung von Unwetter-Warnstufen des <link>DWD</link>.",
+				"entry7": "Informieren Sie sich über <link>Sirenenalarm</link>.",
+				"entry8": "Informieren Sie sich über die <link>Katastrophenschutz-Leuchttürme</link> ihres Bezirkes.",
+				"entry9": "Erstellen Sie einen <link>Notfallplan</link> und sprechen Sie diesen mit Ihrer Familie bzw. Ihren Mitbewohnern ab.",
+				"entry10": "Packen Sie einen <link>Notfallrucksack</link> und legen diesen bereit.",
+				"entry11": "Schaffen Sie sich ein <link>batteriebetriebenes Radio oder Kurbelradio</link> an, damit Sie auch im Falle eines Stromausfalles informiert bleiben können."
 			},
-			"inBuilding": {
-				"title": "Im Gebäude",
-				"item1": "Bei Abwesenheit Türen und Fenster verschlossen halten.",
-				"item2": "Sichern Sie wichtige Dokumente und Gegenstände wasserdicht und/oder in Ihrem Notfallrucksack.",
-				"item3": "Hochwasser ist schmutzig und stark keimbelastet. Legen Sie einen Vorrat an Schutzkleidung (z. B. wasserdichte Handschuhe, Stiefel und Schutzbrillen) und Desinfektionsmittel an.",
-				"item4": "Überprüfen Sie die Lagerung Ihrer Gegenstände in gefährdeten Bereichen (z. B. Keller) und lagern Sie nötige Objekte vorab um, solange der Zutritt möglich ist. Sobald Wasser ins Gebäude eindringt, sollten Sie Kellerräume und Tiefgaragen nicht mehr betreten.",
-				"item5": "Platzieren Sie in gefährdeten Bereichen (z. B. Untergeschosse) keine elektrischen Geräte in Bodennähe.",
-				"item6": "Erhöhte Lagerung bzw. möglichst keine Lagerung von Giftstoffen (z. B. Lacke) in Kellern.",
-				"item7": "Überprüfen Sie, ob Ihr Versicherungsschutz Elementarschäden abdeckt und dieser erweitert werden soll. Es kann sinnvoll sein, Ihr (intaktes) Eigentum bereits im Vorfeld mit Fotos oder Videos zu dokumentieren.",
-				"item8": "Mobile Barrieren, wie bspw. Sandsäcke vorrätig halten, um diese an kritischen Stellen wie Türschwellen, Lichtschächten, etc. einsetzen zu können.",
-				"image": {
-					"alt": "Eine Grafik zeigt ein Haus mit Keller, bei dem Zutritt zum Keller und zur Garage vermieden werden soll.",
-					"caption": "Im Falle einer Überflutung sind der Keller und Garagen zu meiden.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
+			"list2Intro": "<strong>Versicherungen:</strong> Eine Maßnahme, die zwar keine Schäden reduziert, jedoch das Risiko für Hochwasserschäden teilweise auf ein Versicherungsunternehmen transferiert.",
+			"list2": {
+				"entry1": "Überprüfen Sie Ihren Versicherungsschutz. Die Schäden durch Hochwasser sind in der Regel NICHT mit einer normalen Hausratsversicherung abgedeckt.",
+				"entry2": "Schließen Sie ggf. eine <link>Elementarzusatzversicherung</link> ab.",
+				"entry3": "Es kann sinnvoll sein, Ihr (intaktes) Eigentum bereits im Vorfeld mit Fotos oder Videos zu dokumentieren."
 			},
-			"precautionBuilding": {
-				"title": "Vorsorge am Gebäude",
-				"subtitle": "Bitte klären Sie die Umsetzung der folgenden Maßnahmen ggf. mit dem Eigentümer bzw. der Hausverwaltung Ihres Gebäudes.",
-				"item1": "Einbau wasserdichter Fenster und Türen in Untergeschossen",
-				"item2": "Einbau erhöhter Lichtschächte",
-				"item3": "Anbringung von festen Schwellen und Stufen an Eingängen, Kellerfenstern und Lichtschächten",
-				"item4": "Einbau und regelmäßige Wartung einer Rückstausicherung",
-				"item5": "Regelmäßige Reinigung der Dachrinnen",
-				"item6": "Abdichtung des Fundaments und der Bodenplatte",
-				"item7": "Sicherung der Heizungsanlagen und Öltanks",
-				"item8": "Stromführende Leitungen und Steckdosen, wenn möglich höher legen",
-				"item9": "rechtzeitiges Abschalten von Strom und Heizung",
-				"item10": "Schließung der Rückstausklappen",
-				"image": {
-					"alt": "Ein Grafik zeigt ein Gebäude mit den wichtigsten baulichen Strukturen, wie bspw. Regenrinnen, Kellerfenster und Steckdosen, die angepasst werden können, um das Risiko zu minimieren.",
-					"caption": "An Ihrem Gebäude lassen sich viele bauliche Maßnahmen treffen, die das Risiko minimieren können.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
+			"list2Image": {
+				"alt": "???",
+				"caption": "Abbildung 2: Darstellung verschiedener Vorsorgemaßnahmen.",
+				"copyright": "© SenMVKU"
 			},
-			"traffic": {
-				"title": "Verkehr",
-				"item1": "Parken Sie Ihr Fahrzeug rechtzeitig in höher gelegenen Bereichen, solange dies noch gefahrlos ist.",
-				"item2": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
-				"item3": "Bereits überschwemmte Gebiete sind keinesfalls zu betreten, auch nicht mit Fahrzeugen.",
-				"item4": "Verfolgen Sie die aktuellen Wettermeldungen, Hochwasserwarnungen und -vorhersagen über Rundfunk, Internet und andere Medien.",
-				"item5": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgarage, unter der Erde gelegene Bahnstationen und technische Schutzanlagen wie Dämme und Deiche.",
-				"image": {
-					"alt": "Eine Grafik zeigt ein Auto, welches aus der Senke auf eine Anhöhe gefahren wird.",
-					"caption": "Während des eines Starkregenereignisses sollten keine Fahrzeuge in Senken abgestellt werden. Parken Sie ihr Fahrzeug am Anfang des Ereignisses um.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
+			"list3Intro": "<strong>Trockenvorsorge:</strong> Maßnahmen, die das Eindringen von Wasser in den Innenraum verhindern (Abbildung 2, Maßnahmen 1 – 6). Bauliche Maßnahmen und Wartungsarbeiten richten sich vorrangig an die Eigentümer des Hauses bzw. der Wohnung.",
+			"list3": {
+				"entry1": "Bei Balkonen: Regelmäßige Überprüfung und Wartung der Balkonentwässerung. Auch Mieter*innen sollten überprüfen, ob Regenwasser gut abfließen kann und ggf. den Vermieter informieren.",
+				"entry2": "Anschaffung mobiler Barrieren, die im Hochwasserfall an kritischen Stellen wie Türschwellen oder Lichtschächten angebracht werden können. (Abbildung 2, Maßnahme 5)",
+				"entry3": "Einbau wasserdichter und druckfester Fenster und Türen in den hochwassergefährdeten Bereichen. (Abbildung 2, Maßnahme 1)",
+				"entry4": "Anbringung von festen Schwellen und Stufen an Eingängen, Kellerfenstern und Lichtschächten – bei Hauseingängen, ggf. unter Berücksichtigung der Barrierefreiheit. (Abbildung 2, Maßnahme 2)",
+				"entry5": "Einbau erhöhter bzw. überdachter Lichtschächte. (Abbildung 2, Maßnahme 2)",
+				"entry6": "Installation und regelmäßige Wartung von Rückstausicherungen. (Abbildung 2, Maßnahme 3)",
+				"entry7": "Regelmäßige Reinigung von Dachrinnen und Regenrohren. (Abbildung 2; Punkt 4)",
+				"entry8": "Abdichtung von Fundament und Bodenplatte. (Abbildung 2, Maßnahme 6)."
 			},
-			"heavyRain": {
-				"title": "Starkregen",
-				"item1": "Die Grundversorgung (Notunterkünfte, mobile Küchen etc.) gewährleistet in aller Regel Ihre Kommune.",
-				"item2": "Informationen zu sicheren Wegen und Sammelstellen sowie zum Standort der Notunterkünfte erhalten Sie bei einer Evakuierung von Ihrer Feuerwehr oder Polizei.",
-				"item3": "Wenden Sie sich an Ihre Gemeinde, um sich rund um den baulichen Überschwemmungsschutz beraten zu lassen.",
-				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
-				}
+			"afterList3": "Welche Maßnahmen geeignet sind, ist sehr stark von der individuellen Situation vor Ort abhängig. Wenn Sie als Eigentümer eine Hochwassergefährdung an Ihrem Gebäude festgestellt haben, kann eine weitere Begutachtung der Lage ein nächster Schritt sein, z.B. mit dem <link1>Hochwasserpasses.</link1>",
+			"list4Intro": "<strong>Nassvorsorge:</strong> Maßnahmen die Schäden minimieren, wenn Wasser in den Innenraum gelangt ist, (Abbildung 2, Maßnahmen A – C). <strong>Bauliche Maßnahmen und Wartungsarbeiten richten sich vorrangig an die Eigentümer des Hauses bzw. der Wohnung.</strong>",
+			"list4": {
+				"entry1": "Überprüfung der Lagerung von wasserempfindlichen Gegenständen (z.B. Dokumenten) und Gefahrenstoffen (z.B. Farben & Lacken) in hochwassergefährdeten Bereichen (z.B. im Keller). (Abbildung 2, Maßnahme C)",
+				"entry2": "Anschaffung einer Pumpe.",
+				"entry3": "Geringwertige Nutzung der gefährdeten Bereiche.",
+				"entry4": "Verwendung wasserresistenter Baumaterialien in gefährdeten Bereichen.",
+				"entry5": "Sicherung von Heizungsanlagen und Öltanks. (Abbildung 2, Maßnahme A)",
+				"entry6": "Erhöhen von stromführenden Leitungen, Steckdosen und ggf. der Hausanschlussanlage. (Abbildung 2, Maßnahme B)"
 			},
-			"fluvialFlood": {
-				"title": "Flusshochwasser und Starkregen",
-				"item1": "Informieren Sie sich, ob Ihre Gemeinde einen Hochwasseralarmplan hat. Machen Sie sich mit dem Hochwasseralarmplan Ihrer Gemeinde vertraut. Den dort enthaltenen Hochwasseralarmstufen sind Maßnahmen zugeordnet, die auch für Sie wichtig sein können.",
-				"item2": "Ab welchem Hochwasserstand an welchem Pegel müssen welche Maßnahmen eingeleitet werden? Machen Sie sich mit Bedeutung und Höhe der Alarmstufen bei Hochwasser vertraut.",
-				"item3": "Lassen Sie sich von Sachverständigen zum Hochwasserschutz beraten (z.B. über HKC e.V.).",
-				"image": {
-					"alt": "Ein Foto zeigt einen großen Pumpenschlauch eines Feuerwehrwagens. Im Hintergrund sieht man das Hochwasser auf der Straße stehen.",
-					"caption": "Die Feuerwehr in Berlin ist im Falle eines Hochwasser-Eregnisses vor Ort, um bspw. Wasser aus dem Keller zu pumpen und Gebäude zu sichern.",
-					"copyright": "© Berliner Feuerwehr"
-				}
+			"list5Intro": "<strong>Ausweichen:</strong> Maßnahmen, die den Wohnraum aus dem gefährdeten Bereich herausnehmen. <strong>Diese Maßnahmen richten sich vorrangig an Verantwortliche von Bauprojekten.</strong> (Abbildung 2, Maßnahmen 0 und D)",
+			"list5": {
+				"entry1": "Bei Neubau:  Informieren Sie sich über die Hochwassergefährdung des Grundstückes.",
+				"entry2": "Bei Neubau: Verzicht auf einen Keller.",
+				"entry3": "Bei Neubau: Haus erhöht bauen und Treppenstufen vor den Eingängen anbringen. (Abbildung 2, Maßnahme 0)",
+				"entry4": "Bei Neubau: Einfahrten so anlegen, dass sie zur Straße hin abfallen. (Abbildung 2, Maßnahme D)"
+			},
+			"afterList5": "Alle Vorsorgemaßnahmen, ihre Wirkweise und Implementierungsmöglichkeiten, finden Sie detailliert in der <link2>Hochwasserschutzfibel</link2> des Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen."
+		},
+		"emergency": {
+			"intro": "<strong>Notfallmaßnahmen im oder am Haus</strong> sind Anpassungsmaßnahmen, die <strong>KURZ VOR</strong> dem Eintritt eines Hochwassers umgesetzt werden können.",
+			"warning1": "<strong>ACHTUNG:</strong> Ist das Hochwasser bereits da, d.h. sind Flächen bereits geflutet, kann die Umsetzung von Notfallmaßnahmen lebensbedrohlich sein! Denn das Betreten von überfluteten Flächen birgt enorme Gefahren und sollte stets vermieden werden!\n\nVerzichten Sie daher <strong>während</strong> des Hochwassers auf die Umsetzung von Notfallmaßnahmen und beachten Sie stattdessen die Empfehlungen <strong>„Richtiges Verhalten im Ernstfall“</strong>.",
+			"list1Intro": "<strong>Seien Sie informiert!</strong> Hochwasserereignisse sind dynamische Ereignisse, die sich schnell ändern können. Informieren Sie sich kontinuierlich über die aktuelle Situation.",
+			"list1": {
+				"entry1": "Nutzen Sie Warnapps (<link>NINA</link>, <link>WarnWetter-App</link>).",
+				"entry2": "Achten Sie auf <link>Sirenenalarm</link>.",
+				"entry3": "Nutzen Sie das <link>Hochwasser-Infoportal</link> um ggf. Warnungen für Ihren Standort abzurufen.",
+				"entry4": "Nutzen Sie zudem lokale Sendungen im Radio und ggf. dem Fernsehen um sich zu informieren.",
+				"entry5": "Wenn es eine Warnung über die oben genannten Kanäle gibt: Informieren Sie sich kontinuierlich über das Radio oder die Warn-Apps über Handlungsempfehlungen der Behörden.",
+				"entry6": "Wenn Sie erfahren, dass die Hochwassergefahr an Ihrem Standort akut geworden ist, verzichten Sie auf Notfallmaßnahmen und beachten Sie die Hinweise unter „Richtiges Verhalten im Ernstfall“."
+			},
+			"list2Intro": "<strong>Packen Sie letzte Dinge in Ihr Notfallgepäck.</strong>",
+			"list2": {
+				"entry1": "Aktuelle Medikamente und Nahrungsmittel können oft erst kurz vorher eingepackt werden."
+			},
+			"list3Intro": "<strong>Informieren Sie andere potenziell Betroffene.</strong>",
+			"list3": {
+				"entry1": "Wenn Sie eine Warnung empfangen haben: Informieren Sie Personen aus Ihrem Umfeld, wie Nachbarn, Familie, Mitbewohner und Freunde, über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
+				"entry2": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern bzw. Mitbewohnern über den Heimweg: Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
+				"entry3": "BRINGEN SIE SICH NICHT IN GEFAHR!!! Ist das Hochwasser bereits da, informieren Sie ggf. Einsatzkräfte und Notfallhelfer (Polizei und Feuerwehr) über hilfsbedürftige Person. Achten Sie jedoch darauf, die Einsatzkräfte nur in Notfällen zu benachrichtigen, sodass die Leitungen für Notfälle frei bleiben."
+			},
+			"list4Intro": "<strong>Parken Sie Ihr Fahrzeug <underline>rechtzeitig</underline> in höheren Bereichen.</strong>",
+			"list4": {
+				"entry1": "Wenn das Hochwasser bereits da ist, ist es hierfür zu spät:\nBringen Sie sich nicht in Gefahr! Gehen Sie nicht in überflutete Bereiche und gehen Sie nicht in Tiefgaragen!"
+			},
+			"list4Image": {
+				"alt": "???",
+				"caption": "CAPTION",
+				"copyright": "© SenMVKU"
+			},
+			"list5Intro": "<strong>Notfallmaßnahmen am und im Haus</strong>",
+			"list5": {
+				"entry1": "Bringen Sie ggf. Haustiere in Sicherheit.",
+				"entry2": "Stellen Sie Strom, Heizung und Gas in betroffenen Bereichen ab.",
+				"entry3": "ACHTUNG: Wenn Bereiche jedoch bereits geflutet sind, betreten Sie diese NICHT mehr und gehen Sie dann NICHT mehr in den Keller um den Strom abzustellen!",
+				"entry4": "Umleiten von Wasser auf dem Gelände, z.B. durch das Ausheben von Abflussrinnen mit einem Spaten.",
+				"entry5": "Abdichtung von Fenstern und Türen mit Handtüchern o.ä..",
+				"entry6": "Wenn Sie eine Pumpe haben: Legen Sie diese bereit."
+			},
+			"warning2": "Wenn die von Ihnen ergriffenen Notfallmaßnahmen erkennbar nicht ausreichen, um die Überflutung Ihres Wohnraumes zu verhindern: <strong>Bringen Sie sich rechtzeitig in Sicherheit.</strong> Suchen Sie sichere Orte auf. Evakuieren Sie ggf. vertikal, d.h. suchen Sie höhere Stockwerke auf. <strong>Beachten Sie die Empfehlungen „Richtiges Verhalten im Ernstfall“.</strong>"
+		},
+		"serious": {
+			"intro": "<strong>Das richtige Verhalten im Ernstfall:</strong> Sind Bereiche bereits überflutet, gilt: <strong>Schützen Sie sich und andere!</strong>",
+			"list1Intro": "<strong>Achten Sie auf die Anweisungen der Einsatzkräfte und Behörden</strong>",
+			"list1": {
+				"entry1": "Behindern Sie keine Einsatzkräfte bei ihrer Arbeit.",
+				"entry2": "Folgen Sie den Handlungsanweisungen der Einsatzkräfte und Behörden.",
+				"entry3": "Achten Sie auch auf <link>Sirenenalarm</link>. Wenn es einen Sirenenalarm gibt, nutzen Sie Warnapps (<link>NINA</link>, <link>WarnWetter-App</link>) oder ggf. auch das Radio und das Fernsehen um sich über standortspezifische Evakuierungsanweisungen oder andere Handlungsanweisungen der Einsatzkräfte und Behörden zu informieren.",
+				"entry4": "Wählen Sie den Notruf nur in Notfällen, damit die Leitungen frei für dringende Fälle bleiben."
+			},
+			"list2Intro": "<strong>Seien Sie informiert!</strong> Hochwasserereignisse sind dynamische Ereignisse, die sich schnell ändern können. Informieren Sie sich kontinuierlich über die aktuelle Situation.",
+			"list2": {
+				"entry1": "Nutzen Sie Warnapps (<link>NINA</link>, <link>WarnWetter-App</link>) oder ggf. auch das Radio und das Fernsehen um sich über standortspezifische Evakuierungsanweisungen oder andere Handlungsanweisungen der Einsatzkräfte und Behörden zu informieren.",
+				"entry2": "Wählen Sie den Notruf nur in Notfällen, damit die Leitungen frei für dringende Fälle bleiben."
+			},
+			"list3Intro": "<strong>Vermeiden Sie gefluteten Bereiche!</strong>",
+			"list3": {
+				"entry1": "Gehen Sie nicht in tiefliegende Bereiche (z.B. Keller oder Tiefgaragen).",
+				"entry2": "Evakuieren Sie stattdessen ggf. vertikal, d.h. begeben Sie sich in höhere Stockwerke.",
+				"entry3": "Flutwasser ist häufig kontaminiert und kann zu Infektionen führen: Vermeiden Sie den Kontakt.",
+				"entry4": "Offene Gullideckel, Bordsteinkanten oder andere Gefahren und Hindernisse können in einem gefluteten Bereich nicht gut erkannt werden.",
+				"entry5": "Bereits bei geringen Überflutungshöhen kann die Standsicherheit durch die Strömung beeinträchtigt sein.",
+				"entry6": "Schon geringe Überflutungshöhen können Türen blockiert. Wenn Sie wegen eines Notfalls in einen gefluteten Raum gehen müssen: <strong>ACHTEN SIE DARAUF, DIE GEÖFFNETE TÜR FEST ZU VERKEILEN!</strong>"
+			},
+			"list3Image": {
+				"alt": "???",
+				"caption": "CAPTION",
+				"copyright": "© SenMVKU"
+			},
+			"list4Intro": "<strong>Fahren Sie nicht in überflutete Flächen oder tieferliegende Bereiche.</strong>",
+			"list4": {
+				"entry1": "Auch bei geringen Wassertiefen kann es zu Aquaplaning kommen.",
+				"entry2": "Hindernisse unter Wasser (z.B. aufgespülte Gullideckel, Bordsteinkanten oder Treibgut) sind oft nicht sichtbar.",
+				"entry3": "Überflutungshöhen und Strömungsgeschwindigkeiten sind häufig schwer einzuschätzen.",
+				"entry4": "<strong>Meiden Sie Unterführungen und U-Bahneingänge:</strong> Dort sammelt sich das Flutwasser, wodurch es zu hohen Überflutungshöhen und Strömungen kommen kann.",
+				"entry5": "<strong>Meiden Sie Tiefgaragen:</strong> Dort sammelt sich das Flutwasser, wodurch es zu hohen Überflutungshöhen und Strömungen kommen kann. <strong>Auch wenn Ihr Auto in einer Tiefgarage geparkt ist, gehen Sie nicht bei Hochwasser in eine Tiefgarage, um das Auto umzuparken.</strong>"
+			},
+			"list4Image": {
+				"alt": "???",
+				"caption": "CAPTION",
+				"copyright": "© SenMVKU"
+			},
+			"list5Intro": "<strong>Seien Sie ggf. auf eine Evakuierung vorbereitet.</strong>",
+			"list5": {
+				"entry1": "Halten Sie Ihr Notfallgepäck bereit und folgen Sie den Anweisungen der Einsatzkräfte."
 			}
 		},
-		"duringEvent": {
-			"personalPreparedness": {
-				"title": "Helfen Sie sich und anderen",
-				"item1": "Informieren Sie sich über die aktuelle Warnsituation mit Warn-Apps (<link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>), dem <link3>Naturgefahrenportal</link3> und dem Hochwasser-Infoportal Berlins.",
-				"item2": "Informieren Sie Personen aus Ihrem Umfeld wie Nachbarn, Familie und Freunde über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
-				"item3": "Helfen Sie sich selbst, bevor Sie anderen helfen.",
-				"item4": "Setzen Sie Ihren Notfallplan um, falls Sie einen haben.",
-				"image": {
-					"alt": "Eine Grafik zeigt einen Menschen, der einem älteren Menschen am Gehstock unter die Arme greift.",
-					"caption": "Informieren Sie Personen aus Ihrem Umfeld, wie Nachbarn, Familie und Freunde, über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
+		"after": {
+			"intro": "<strong>Das richtige Verhalten kurz nach dem Hochwasser:</strong> Worauf müssen Sie kurz nach einem Hochwasser achten?",
+			"list1Intro": "<strong>Es ist erst vorbei, wenn es vorbei ist.</strong>",
+			"list1": {
+				"entry1": "Warten Sie ab, bis eine offizielle Entwarnung erfolgt ist.",
+				"entry2": "Bleiben Sie weiterhin über die Lage informiert, z.B. über Radio und Fernsehen.",
+				"entry3": "Achten Sie auf weitere Warnungen."
 			},
-			"inBuilding": {
-				"title": "Im Gebäude",
-				"item1": "Schalten Sie rechtzeitig Strom, Gas und wenn möglich Heizung ab. Ist dies nicht mehr möglich, gefährdete Räume mit Steckdosen und elektrischen Geräten verlassen und nicht mehr betreten.",
-				"item2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen, z.B. in ein höher gelegenes Stockwerk.",
-				"item3": "Betreten Sie keine überfluteten oder durchnässten Räume. Die Türen können bereits bei einem niedrigen Wasserstand nicht mehr geöffnet werden und Ihren Fluchtweg blockieren. Wenn das Betreten eines überschwemmten Raumes unvermeidlich ist, müssen die Türen unbedingt offengehalten und fest verkeilt werden!",
-				"item4": "Versuchen Sie in keinem Fall Gegenstände oder Fahrzeuge in letzter Minute aus Kellern, Garagen oder Tiefgaragen zu retten. Es besteht Lebensgefahr!",
-				"item5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
-				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
-				}
+			"list2Intro": "<strong>Helfen Sie sich und anderen.</strong>",
+			"list2": {
+				"entry1": "Helfen Sie sich selbst, bevor Sie anderen helfen.",
+				"entry2": "Schauen Sie nach hilfsbedürftigen Menschen und helfen Sie, jedoch ohne sich selbst in Gefahr zu bringen.",
+				"entry3": "Im Zweifelsfall informieren Sie die Einsatzkräfte über hilfsbedürftige Personen."
 			},
-			"traffic": {
-				"title": "Verkehr",
-				"item1": "Bereits überschwemmte Gebiete sind keinesfalls zu betreten, auch nicht mit Fahrzeugen.",
-				"item2": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgaragen, unter der Erde gelegene Bahnstationen und die Nähe von Fließgewässern, auch wenn Sie mit dem Auto unterwegs sind.",
-				"item3": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern über den Nachhauseweg. Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
-				"item4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
-				"item5": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
-				"image": {
-					"alt": "Eine Grafik zeig, dass ein Auto während einer Überflutung oder bei heftigen Starkregen nicht in eine Unterführung fahren sollte.",
-					"caption": "Während des eines Starkregenereignisses sollten Sie mit ihrem Fahrzeug keines Falls in Unterführungen oder Tiefgaragen fahren.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
+			"list3Intro": "<strong>Im und am Gebäude</strong>",
+			"list3": {
+				"entry1": "Betreten Sie Gebäude und Gebäudeteile nicht, wenn diese geflutet sind und/oder deren Standsicherheit erkennbar Schaden genommen hat.",
+				"entry2": "Achtung! Überflutete Bereiche können Strom führen. Sollt es sich nicht vermeiden lassen in die gefluteten Bereiche zu treten: Schalten Sie vorher den Strom ab und achten Sie auf einen sicheren Stand.",
+				"entry3": "Warten Sie mit dem Auspumpen des Kellers, bis das Hochwasser vollständig abgelaufen ist.",
+				"entry4": "Vermeiden Sie wo möglich direkten Kontakt mit dem Hochwasser und Schlamm. Schützen Sie sich mit Schutzkleidung (Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Kontakt mit Hochwassser.",
+				"entry5": "Bei Schadstoffaustritt (z. B. Farben, Öl) oder Gasgeruch in der Luft ist umgehend die Feuerwehr zu informieren.",
+				"entry6": "Jedoch: Bei Wassermengen von wenigen cm Höhe (1 bis 10 cm) in gut überschaubaren Flächen, bei denen keine Gefahr durch Strom oder Gefahrenstoffe besteht: Beseitigen Sie das Wasser und die Wasserschäden selbst, um Folgeschäden zu minimieren. Vermeiden Sie es in diesen Fällen, die Feuerwehr zu kontaktieren.",
+				"entry7": "Alle Gegenstände, die mit Flutwasser in Kontakt gekommen sind, sollten gereinigt werden.",
+				"entry8": "Lassen Sie elektrische Geräte, Heizöltanks, Fahrzeuge, Hausanschlüsse (z.B. Strom, Gas, Telefon) die geflutet wurden von Fachpersonal überprüfen.",
+				"entry9": "Nach Unterbrechungen der Trinkwasserversorgung beachten Sie bitte die Hinweise in folgendem <link>Merkblatt</link>."
 			},
-			"heavyRain": {
-				"title": "Starkregen",
-				"item1": " At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
+			"list4Intro": "<strong>Dokumentieren Sie die Schäden</strong>",
+			"list4": {
+				"entry1": "Dokumentieren Sie den Schaden und melden Sie diesen Ihrer Versicherung.",
+				"entry2": "Machen Sie Fotos für die Versicherung. Achten Sie dabei auf gute Lichtverhältnisse.",
+				"entry3": "Legen Sie ein Protokoll der Sachschäden an.",
+				"entry4": "Achten Sie darauf ALLE Schäden zu erfassen."
 			},
-			"fluvialFlood": {
-				"title": "Flusshochwasser",
-				"item1": " At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
-			}
-		},
-		"afterEvent": {
-			"personalPreparedness": {
-				"title": "Helfen Sie sich und anderen",
-				"item1": "Informieren Sie sich über die aktuelle Warnsituation mit Warn-Apps (<link1>NINA</link1> und <link2>DWD-Wetterdienst</link2>), dem <link3>Naturgefahrenportal</link3> und dem Hochwasser-Infoportal Berlins.",
-				"item2": "Informieren Sie Personen aus Ihrem Umfeld wie Nachbarn, Familie und Freunde über den Notfall und achten Sie dabei insbesondere auf schutzbedürftige Menschen.",
-				"item3": "Helfen Sie sich selbst, bevor Sie anderen helfen.",
-				"item4": "Nach dem Hochwasser ist vor dem nächsten Hochwasser! Informieren Sie sich über Vorsorgemaßnahmen im Hochwasser-Infoportal, im Naturgefahrenportal, oder bei Beratungsstellen, um die Schäden beim nächsten Ereignis zu minimieren!",
-				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
-				}
+			"list5Intro": "<strong>Im Verkehr</strong>",
+			"list5": {
+				"entry1": "Wenn möglich, fahren Sie Ihr Auto vorsichtig aus den überfluteten Bereichen. Steht Ihr Auto jedoch bis über die Räder im Wasser, rufen Sie einen Abschleppdienst.",
+				"entry2": "Bei Fahrzeugen mit E-Kennzeichen besteht die Gefahr eines Stromflusses – Seien Sie besonders vorsichtig."
 			},
-			"inBuilding": {
-				"title": "Im Gebäude",
-				"item1": "Warten Sie mit dem Auspumpen des Kellers, bis das Wasser vollständig abgelaufen ist.",
-				"item2": "Betreten Sie nur Gebäude und Gebäudeteile, die sicher stehen.",
-				"item3": "Bereiche unter Wasser können Strom führen! Vermeiden Sie möglichst das Betreten. Vor dem Betreten Strom abschalten und auf sicheren Stand achten.",
-				"item4": "Vermeiden Sie direkten Kontakt mit dem Hochwasser und Schlamm. Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
-				"item5": "Bei Schadstoffaustritt (z. B. Farben, Öl) oder Gasgeruch in der Luft ist umgehend die Feuerwehr zu informieren.",
-				"item6": "Lassen Sie elektrische Geräte, Heizöltanks, Fahrzeuge, Hausanschlüsse (z.B. Strom, Gas, Telefon) und ggf. die Baustatik, die aus überfluteten Gebieten stammen, von Fachpersonal überprüfen.",
-				"item7": "Prüfen Sie, ob das Trinkwasser wieder trinkbar ist. Wenden Sie sich an Ihren Wasserversorger oder an Ihre Gemeinde.",
-				"item8": "Alle Gegenstände, die mit Wasser in Kontakt gekommen sind, sollten gereinigt werden.",
-				"item9": "Dokumentieren Sie den Schaden und melden Sie diesen Ihrer Versicherung.",
-				"image": {
-					"alt": "Verkehr",
-					"caption": "Verkehr",
-					"copyright": "© SenMVKU"
-				}
-			},
-			"traffic": {
-				"title": "Verkehr",
-				"item1": "Vermeiden Sie direkten Kontakt mit dem Hochwasser und Schlamm. Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
-				"item2": "Bereiche unter Wasser können gefährlich sein! Vermeiden Sie möglichst das Betreten. Vor dem Betreten auf sicheren Stand achten.",
-				"item3": "Wenn möglich, fahren Sie Ihr Auto vorsichtig aus den überfluteten Bereichen. Steht Ihr Auto bereits bis über die Räder im Wasser, rufen Sie einen Abschleppdienst. Bei Fahrzeugen mit E-Kennzeichen besteht die Gefahr eines Stromflusses – seien Sie besonders vorsichtig.",
-				"image": {
-					"alt": "Eine Grafik zeigt eine Überschwemmte Straße bei Starkregen. Fahrzeuge und Personen sollten das Betreten dieser Überflutungsgebiete meiden.",
-					"caption": "Betreten Sie bereits überschwemmte Gebiete keinesfalls, auch nicht mit Fahrzeugen.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				}
-			},
-			"heavyRain": {
-				"title": "Starkregen",
-				"item1": "Überprüfen Sie Abflusssysteme auf Verstopfungen."
-			},
-			"fluvialFlood": {
-				"title": "Flusshochwasser",
-				"item1": "Achten Sie auf mögliche Uferabbrüche und Unterspülungen."
+			"list6Intro": "<strong>Im Verkehr</strong>",
+			"list6": {
+				"entry1": "Um die Schäden beim nächsten Ereignis zu minimieren, informieren Sie sich über Vorsorgemaßnahmen im <link>Hochwasser-Infoportal</link>, im <link>Naturgefahrenportal</link>, oder über <link>Vorsorgemaßnahmen</link> für Überflutungen durch Starkregen."
 			}
 		}
 	}
