@@ -11,7 +11,6 @@ import {
 } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import Link from "next/link";
-import NextImage from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -62,24 +61,6 @@ export default function Recommendations() {
 					</li>
 				))}
 			</ul>
-			<div className="relative w-full">
-				<div className="relative hidden aspect-[4.7/1] w-[90%] lg:block">
-					<NextImage
-						src="/Handlungsempfehlungen-desktop.jpg"
-						alt="???"
-						fill
-						className="object-contain"
-					/>
-				</div>
-				<div className="relative aspect-[1/1.49] w-full lg:hidden">
-					<NextImage
-						src="/Handlungsempfehlungen-mobile.jpg"
-						alt="???"
-						fill
-						className="object-contain"
-					/>
-				</div>
-			</div>
 			<Image
 				// className="-mx-5 hidden w-screen max-w-none lg:-mx-0 lg:block lg:w-auto"
 				className="hidden w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:block lg:w-full lg:translate-x-0"
