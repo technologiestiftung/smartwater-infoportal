@@ -39,7 +39,10 @@ export default function Home() {
 					}
 				/>
 			</section>
-			<div className="divider scroll-mt-[85px] px-5" id="hochwasser-check" />
+			<div
+				className="divider scroll-mt-[62px] px-5 lg:scroll-mt-[85px]"
+				id="hochwasser-check"
+			/>
 			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>

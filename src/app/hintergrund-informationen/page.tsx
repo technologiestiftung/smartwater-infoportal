@@ -62,11 +62,11 @@ export default function GeneralInformation() {
 	const TableHead = ({ text }: { text?: string }) => {
 		if (!text) {
 			return (
-				<th className="w-0 whitespace-nowrap border border-[#dddddd] p-[1em_0.65em] text-left align-top font-bold text-black"></th>
+				<th className="w-0 whitespace-nowrap border border-[#dddddd] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]"></th>
 			);
 		}
 		return (
-			<th className="whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-[1em_0.65em] text-left align-top font-bold text-black">
+			<th className="whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]">
 				{text}
 			</th>
 		);
@@ -76,14 +76,14 @@ export default function GeneralInformation() {
 			return (
 				<td
 					rowSpan={3}
-					className="w-0 whitespace-nowrap border border-[#dddddd] bg-[#f5f5f5] p-[1em_0.65em] align-top font-bold"
+					className="w-0 whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold lg:p-[1em_0.65em]"
 				>
 					{text}
 				</td>
 			);
 		}
 		return (
-			<td className="whitespace-pre-line border border-[#dddddd] p-[1em_0.65em]">
+			<td className="whitespace-pre-line border border-[#dddddd] p-1 lg:p-[1em_0.65em]">
 				{text}
 			</td>
 		);
@@ -139,7 +139,7 @@ export default function GeneralInformation() {
 						}
 						slotB={
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
 								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
 								alt={t("generalInfo.definition.image.alt")}
 								caption={t("generalInfo.definition.image.caption")}
@@ -182,7 +182,7 @@ export default function GeneralInformation() {
 						}
 						slotB={
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
 								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
 								alt={t("generalInfo.hazardVsRisk.image.alt")}
 								caption={t("generalInfo.hazardVsRisk.image.caption")}
@@ -192,7 +192,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider scroll-mt-[85px]" id="anker3" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker3"
+				/>
 				<section className="">
 					<TextBlock
 						desktopColSpans={{ col1: 2, col2: 3 }}
@@ -240,7 +243,7 @@ export default function GeneralInformation() {
 						}
 						slotB={
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
 								src="/Enstehung_Starkregenereignis.png"
 								alt={t("generalInfo.floodThroughRain.image.alt")}
 								caption={t("generalInfo.floodThroughRain.image.caption")}
@@ -300,7 +303,7 @@ export default function GeneralInformation() {
 						}
 						slotB={
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
 								src="/Wahrscheinlichkeiten.png"
 								alt={t("generalInfo.assessment.image.alt")}
 								caption={t("generalInfo.assessment.image.caption")}
@@ -311,7 +314,7 @@ export default function GeneralInformation() {
 					/>
 				</section>
 				<div className="divider" id="anker5" />
-				<section className="">
+				<section className="relative mb-12 w-full lg:mb-0">
 					<TextBlock
 						desktopColSpans={{ col1: 2, col2: 3 }}
 						className="w-full gap-6"
@@ -346,7 +349,7 @@ export default function GeneralInformation() {
 						}
 						slotB={
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
 								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
 								alt={t("generalInfo.types.image.alt")}
 								caption={t("generalInfo.types.image.caption")}
@@ -355,7 +358,7 @@ export default function GeneralInformation() {
 							/>
 						}
 					/>
-					<div className="max-w-[calc(100vw - 48px)] overflow-x-scroll">
+					<div className="max-w-[calc(100vw-2.5rem)] overflow-x-scroll">
 						<table className="mt-12 w-full table-auto text-left">
 							<thead>
 								<tr>
@@ -467,7 +470,7 @@ export default function GeneralInformation() {
 						}
 						slotB={
 							<Image
-								className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
 								src="/Abbildung5.png"
 								alt={t("generalInfo.handling.image.alt")}
 								caption={t("generalInfo.handling.image.caption")}
