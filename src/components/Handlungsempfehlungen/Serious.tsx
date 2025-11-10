@@ -1,159 +1,215 @@
-import React from "react";
-import { useTranslations } from "next-intl";
-import TextBlock from "../TextBlock";
-import { Button, Image } from "berlin-ui-library";
+import React, { FC, ReactNode } from "react";
+import { useMessages, useTranslations } from "next-intl";
 import Link from "next/link";
+import NextImage from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { Image } from "berlin-ui-library";
+
+type TocMap = Record<string, string>;
+interface FullResponsiveImageProps {
+	fullIMG?: string;
+	fullIMGDesktop?: string;
+	fullIMGMobile?: string;
+	listKey?: string;
+}
+const lisztIconSize = 44;
 
 const Serious: React.FC = () => {
-	const t = useTranslations();
+	const t = useTranslations("recommendations.serious");
+	const content = useMessages() as {
+		recommendations: {
+			serious: {
+				list1: TocMap;
+				list2: TocMap;
+				list3: TocMap;
+				list4: TocMap;
+				list5: TocMap;
+			};
+		};
+	};
+	const list1 = content.recommendations.serious.list1;
+	const list2 = content.recommendations.serious.list2;
+	const list3 = content.recommendations.serious.list3;
+	const list4 = content.recommendations.serious.list4;
+	const list5 = content.recommendations.serious.list5;
+
+	const getLink = (chunks: ReactNode) => {
+		let text = "";
+		if (typeof chunks === "string") {
+			text = chunks;
+		} else if (Array.isArray(chunks)) {
+			text = chunks.join("");
+		}
+		if (text.includes("NINA")) {
+			return {
+				target: "_blank",
+				link: "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html",
+			};
+		}
+		if (text.includes("WarnWetter")) {
+			return {
+				target: "_blank",
+				link: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
+			};
+		}
+		if (text.includes("Sirenen")) {
+			return {
+				target: "_blank",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/sirenen/artikel.1578804.php#headline_1_39",
+			};
+		}
+		if (text.includes("Aquaplaning")) {
+			return {
+				target: "_blank",
+				link: "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/sicherheit/aquaplaning/",
+			};
+		}
+		return {
+			target: "_self",
+			link: "#",
+		};
+	};
+
+	const Lists = [
+		{
+			listKey: "list1",
+			img: "/HandlungsempfehlungIcons/Icon_Achtung.png",
+			list: list1,
+		},
+		{
+			listKey: "list2",
+			img: "/HandlungsempfehlungIcons/Icon_Warn.png",
+			list: list2,
+			hasParagraph: true,
+		},
+		{
+			listKey: "list3",
+			img: "/HandlungsempfehlungIcons/Icon_Ueberflutungsflaechen.png",
+			list: list3,
+			fullIMG: "/Verkehr_ueberflutung.png",
+		},
+		{
+			listKey: "list4",
+			img: "/HandlungsempfehlungIcons/Icon_AutoUeberflutungsflaechen.png",
+			list: list4,
+			fullIMGDesktop: "/Unterfuehrung_Tiefgarage_Auto-desktop.jpg",
+			fullIMGMobile: "/Unterfuehrung_Tiefgarage_Auto-mobile.jpg",
+		},
+		{
+			listKey: "list5",
+			img: "/HandlungsempfehlungIcons/icon_EmgerncyPackage.png",
+			list: list5,
+		},
+	];
+
+	const FullResponsiveImage: FC<FullResponsiveImageProps> = ({
+		fullIMG,
+		fullIMGDesktop,
+		fullIMGMobile,
+		listKey,
+	}) => {
+		const desktopSrc = fullIMG ?? fullIMGDesktop;
+		const mobileSrc = fullIMG ?? fullIMGMobile;
+		if (!mobileSrc || !desktopSrc) {
+			return null;
+		}
+		return (
+			<>
+				<div className="flex justify-center">
+					<Image
+						className="hidden w-[75%] lg:block"
+						src={desktopSrc}
+						alt={t(`${listKey}Image.alt`)}
+						caption={t(`${listKey}Image.caption`)}
+						copyright={t(`${listKey}Image.copyright`)}
+						withZoomBox
+					/>
+				</div>
+				<Image
+					className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+					src={mobileSrc}
+					alt={t(`${listKey}Image.alt`)}
+					caption={t(`${listKey}Image.caption`)}
+					copyright={t(`${listKey}Image.copyright`)}
+					withZoomBox
+				/>
+			</>
+		);
+	};
+
 	return (
-		<div className="flex flex-col gap-12">
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.duringEvent.personalPreparedness.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li className="">
-									{t.rich(
-										"recommendations.duringEvent.personalPreparedness.item1",
-										{
-											link1: (chunks) => (
+		<section className="mb-12 flex flex-col gap-12">
+			<h2 className="font-normal">
+				{t.rich("intro", {
+					strong: (chunks) => <strong>{chunks}</strong>,
+				})}
+			</h2>
+			{Lists.map(
+				({
+					listKey,
+					img,
+					hasParagraph,
+					list,
+					fullIMG,
+					fullIMGDesktop,
+					fullIMGMobile,
+				}) => (
+					<div className="flex flex-col gap-6" key={listKey}>
+						<div className="flex items-center gap-4">
+							<NextImage
+								src={img}
+								alt={`Icon for ${listKey}`}
+								width={lisztIconSize}
+								height={lisztIconSize}
+							/>
+							<div>
+								<h3 className="font-normal">
+									{t.rich(`${listKey}Intro`, {
+										strong: (chunks) => <strong>{chunks}</strong>,
+										underline: (chunks) => (
+											<span className="underline">{chunks}</span>
+										),
+									})}
+								</h3>
+								{hasParagraph && <p>{t(`${listKey}Paragraph`)}</p>}
+							</div>
+						</div>
+						<ul className={"list-none space-y-2 lg:ps-12"}>
+							{Object.keys(list).map((key) => (
+								<li key={key} className="flex items-start gap-2">
+									<FontAwesomeIcon
+										icon={faCheck}
+										className={`flex-shrink-0 text-[18px]`}
+									/>
+									<span className="whitespace-pre-line">
+										{t.rich(`${listKey}.${key}`, {
+											link: (chunks) => (
 												<Link
-													href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
-													target="_blank"
+													href={getLink(chunks).link}
+													target={getLink(chunks).target}
 													rel="noopener noreferrer"
+													className="text-text-link underline"
 												>
-													<Button variant="linkWithIcon" className="min-h-0">
-														{chunks}
-													</Button>
+													{chunks}
 												</Link>
 											),
-											link2: (chunks) => (
-												<Link
-													href="https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html"
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<Button variant="linkWithIcon" className="min-h-0">
-														{chunks}
-													</Button>
-												</Link>
-											),
-											link3: (chunks) => (
-												<Link
-													href="https://www.naturgefahrenportal.de/de"
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<Button variant="linkWithIcon" className="min-h-0">
-														{chunks}
-													</Button>
-												</Link>
-											),
-										},
-									)}
+											strong: (chunks) => <strong>{chunks}</strong>,
+										})}
+									</span>
 								</li>
-								<li className="">
-									{t("recommendations.duringEvent.personalPreparedness.item2")}
-								</li>
-								<li className="">
-									{t("recommendations.duringEvent.personalPreparedness.item3")}
-								</li>
-								<li className="">
-									{t("recommendations.duringEvent.personalPreparedness.item4")}
-								</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_7.png"
-							alt={t(
-								"recommendations.duringEvent.personalPreparedness.image.alt",
-							)}
-							caption={t(
-								"recommendations.duringEvent.personalPreparedness.image.caption",
-							)}
-							copyright={t(
-								"recommendations.duringEvent.personalPreparedness.image.copyright",
-							)}
+							))}
+						</ul>
+						<FullResponsiveImage
+							fullIMG={fullIMG}
+							fullIMGDesktop={fullIMGDesktop}
+							fullIMGMobile={fullIMGMobile}
+							listKey={listKey}
 						/>
-					}
-				/>
-			</section>
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.duringEvent.inBuilding.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.duringEvent.inBuilding.item1")}</li>
-								<li>{t("recommendations.duringEvent.inBuilding.item2")}</li>
-								<li>{t("recommendations.duringEvent.inBuilding.item3")}</li>
-								<li>{t("recommendations.duringEvent.inBuilding.item4")}</li>
-								<li>{t("recommendations.duringEvent.inBuilding.item5")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
-							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
-							caption={t(
-								"recommendations.beforeEvent.inBuilding.image.caption",
-							)}
-							copyright={t(
-								"recommendations.beforeEvent.inBuilding.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section>
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.duringEvent.traffic.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.duringEvent.traffic.item1")}</li>
-								<li>{t("recommendations.duringEvent.traffic.item2")}</li>
-								<li>{t("recommendations.duringEvent.traffic.item3")}</li>
-								<li>{t("recommendations.duringEvent.traffic.item4")}</li>
-								<li>{t("recommendations.duringEvent.traffic.item5")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
-							alt={t("recommendations.duringEvent.traffic.image.alt")}
-							caption={t("recommendations.duringEvent.traffic.image.caption")}
-							copyright={t(
-								"recommendations.duringEvent.traffic.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section>
-		</div>
+					</div>
+				),
+			)}
+		</section>
 	);
 };
 

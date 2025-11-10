@@ -1,161 +1,157 @@
-import React from "react";
-import { useTranslations } from "next-intl";
-import TextBlock from "../TextBlock";
-import { Button, Image } from "berlin-ui-library";
+import React, { ReactNode } from "react";
+import { useMessages, useTranslations } from "next-intl";
 import Link from "next/link";
+import NextImage from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+
+type TocMap = Record<string, string>;
+const lisztIconSize = 44;
 
 const After: React.FC = () => {
-	const t = useTranslations();
+	const t = useTranslations("recommendations.after");
+	const content = useMessages() as {
+		recommendations: {
+			after: {
+				list1: TocMap;
+				list2: TocMap;
+				list3: TocMap;
+				list4: TocMap;
+				list5: TocMap;
+				list6: TocMap;
+			};
+		};
+	};
+	const list1 = content.recommendations.after.list1;
+	const list2 = content.recommendations.after.list2;
+	const list3 = content.recommendations.after.list3;
+	const list4 = content.recommendations.after.list4;
+	const list5 = content.recommendations.after.list5;
+	const list6 = content.recommendations.after.list6;
+
+	const getLink = (chunks: ReactNode) => {
+		let text = "";
+		if (typeof chunks === "string") {
+			text = chunks;
+		} else if (Array.isArray(chunks)) {
+			text = chunks.join("");
+		}
+		if (text.includes("Merkblatt")) {
+			return {
+				target: "_blank",
+				link: "https://www.dvgw.de/medien/dvgw/leistungen/publikationen/Info-wiederinbetriebnahme-trinkwasser-installation-nach-betriebsunterbrechungen.pdf",
+			};
+		}
+		if (text.includes("Naturgefahrenportal")) {
+			return {
+				target: "_blank",
+				link: "https://www.naturgefahrenportal.de/de",
+			};
+		}
+		if (text.includes("Vorsorgemaßnahmen")) {
+			return {
+				target: "_blank",
+				link: "https://www.fib-bund.de/inhalt/themen/hochwasser/",
+			};
+		}
+		if (text.includes("Hochwasser")) {
+			return {
+				target: "_self",
+				link: "/",
+			};
+		}
+		return {
+			target: "_self",
+			link: "#",
+		};
+	};
+
+	const Lists = [
+		{
+			listKey: "list1",
+			img: "/HandlungsempfehlungIcons/Icon_Achtung.png",
+			list: list1,
+		},
+		{
+			listKey: "list2",
+			img: "/HandlungsempfehlungIcons/icon_HelpingOthers.png",
+			list: list2,
+		},
+		{
+			listKey: "list3",
+			img: "/HandlungsempfehlungIcons/Icon_Haus.png",
+			list: list3,
+		},
+		{
+			listKey: "list4",
+			img: "/HandlungsempfehlungIcons/Icon_Kamera.png",
+			list: list4,
+		},
+		{
+			listKey: "list5",
+			img: "/HandlungsempfehlungIcons/Icon_Auto2.png",
+			list: list5,
+		},
+		{
+			listKey: "list6",
+			img: "/HandlungsempfehlungIcons/Icon_gruenesHaus.png",
+			list: list6,
+		},
+	];
+
 	return (
-		<div className="flex flex-col gap-12">
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.afterEvent.personalPreparedness.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li className="">
-									{t.rich(
-										"recommendations.afterEvent.personalPreparedness.item1",
-										{
-											link1: (chunks) => (
-												<Link
-													href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<Button variant="linkWithIcon" className="min-h-0">
-														{chunks}
-													</Button>
-												</Link>
-											),
-											link2: (chunks) => (
-												<Link
-													href="https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html"
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<Button variant="linkWithIcon" className="min-h-0">
-														{chunks}
-													</Button>
-												</Link>
-											),
-											link3: (chunks) => (
-												<Link
-													href="https://www.naturgefahrenportal.de/de"
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<Button variant="linkWithIcon" className="min-h-0">
-														{chunks}
-													</Button>
-												</Link>
-											),
-										},
-									)}
-								</li>
-								<li className="">
-									{t("recommendations.afterEvent.personalPreparedness.item2")}
-								</li>
-								<li className="">
-									{t("recommendations.afterEvent.personalPreparedness.item3")}
-								</li>
-								<li className="">
-									{t("recommendations.afterEvent.personalPreparedness.item4")}
-								</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_7.png"
-							alt={t(
-								"recommendations.duringEvent.personalPreparedness.image.alt",
-							)}
-							caption={t(
-								"recommendations.duringEvent.personalPreparedness.image.caption",
-							)}
-							copyright={t(
-								"recommendations.duringEvent.personalPreparedness.image.copyright",
-							)}
+		<section className="mb-12 flex flex-col gap-12">
+			<h2 className="font-normal">
+				{t.rich("intro", {
+					strong: (chunks) => <strong>{chunks}</strong>,
+				})}
+			</h2>
+			{Lists.map(({ listKey, img, list }) => (
+				<div className="flex flex-col gap-6" key={listKey}>
+					<div className="flex items-center gap-4">
+						<NextImage
+							src={img}
+							alt={`Icon for ${listKey}`}
+							width={lisztIconSize}
+							height={lisztIconSize}
 						/>
-					}
-				/>
-			</section>
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 3, col2: 2 }}
-					className="w-full gap-6"
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.afterEvent.inBuilding.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.afterEvent.inBuilding.item1")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item2")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item3")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item4")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item5")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item6")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item7")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item8")}</li>
-								<li>{t("recommendations.afterEvent.inBuilding.item9")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
-							alt={t("recommendations.beforeEvent.inBuilding.image.alt")}
-							caption={t(
-								"recommendations.beforeEvent.inBuilding.image.caption",
-							)}
-							copyright={t(
-								"recommendations.beforeEvent.inBuilding.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section>
-			<section className="">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex w-full flex-col gap-6">
-							<h3 className="">
-								{t("recommendations.afterEvent.traffic.title")}
-							</h3>
-							<ul className="list-disc space-y-2 pl-6">
-								<li>{t("recommendations.afterEvent.traffic.item1")}</li>
-								<li>{t("recommendations.afterEvent.traffic.item2")}</li>
-								<li>{t("recommendations.afterEvent.traffic.item3")}</li>
-							</ul>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_9.png"
-							alt={t("recommendations.afterEvent.traffic.image.alt")}
-							caption={t("recommendations.afterEvent.traffic.image.caption")}
-							copyright={t(
-								"recommendations.afterEvent.traffic.image.copyright",
-							)}
-						/>
-					}
-				/>
-			</section>
-		</div>
+						<h3 className="font-normal">
+							{t.rich(`${listKey}Intro`, {
+								strong: (chunks) => <strong>{chunks}</strong>,
+								underline: (chunks) => (
+									<span className="underline">{chunks}</span>
+								),
+							})}
+						</h3>
+					</div>
+					<ul className="list-none space-y-2 lg:ps-12">
+						{Object.keys(list).map((key) => (
+							<li key={key} className="flex items-start gap-2">
+								<FontAwesomeIcon
+									icon={faCheck}
+									className={`flex-shrink-0 text-[18px]`}
+								/>
+								<span className="whitespace-pre-line">
+									{t.rich(`${listKey}.${key}`, {
+										link: (chunks) => (
+											<Link
+												href={getLink(chunks).link}
+												target={getLink(chunks).target}
+												rel="noopener noreferrer"
+												className="text-text-link underline"
+											>
+												{chunks}
+											</Link>
+										),
+										strong: (chunks) => <strong>{chunks}</strong>,
+									})}
+								</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</section>
 	);
 };
 

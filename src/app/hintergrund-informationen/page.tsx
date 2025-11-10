@@ -253,7 +253,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker4" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker4"
+				/>
 				<section className="">
 					<TextBlock
 						desktopColSpans={{ col1: 3, col2: 2 }}

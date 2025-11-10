@@ -15,9 +15,29 @@ export default function Home() {
 			<section>
 				<div className="flex flex-col gap-6">
 					<h1 className="">{t("pageTitle")}</h1>
-					<p className="">{t("whatIsIt.description1")}</p>
-					<p className="">{t("whatIsIt.description2")}</p>
 				</div>
+			</section>
+			<section className="w-full">
+				<TextBlock
+					desktopColSpans={{ col1: 2, col2: 3 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="flex flex-col gap-6">
+							<p className="">{t("whatIsIt.description1")}</p>
+							<p className="">{t("whatIsIt.description2")}</p>
+						</div>
+					}
+					slotB={
+						<Image
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							src="/title.png"
+							alt={t("howToProtect.titleImage.alt")}
+							caption={t("howToProtect.titleImage.caption")}
+							copyright={t("howToProtect.titleImage.copyright")}
+						/>
+					}
+				/>
 			</section>
 			<div
 				className="divider scroll-mt-[62px] px-5 lg:scroll-mt-[85px]"
