@@ -25,6 +25,11 @@
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
 			"ownerInfo": "Jede:r Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen. So können Sie als Eigentümer:in Ihre Gebäude z.B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen.",
+			"titleImage": {
+				"alt": "???",
+				"caption": "Sinnbild für das Smart Water Umsetzungsprojekt der Digitalstrategie des Landes Berlins",
+				"copyright": "© Senatskanzlei Berlin"
+			},
 			"tenantInfo": "Auch als Mieter:in können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
 			"recommendations": {
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
