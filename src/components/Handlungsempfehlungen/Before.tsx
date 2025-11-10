@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 type TocMap = Record<string, string>;
-const lisztIconSize = 32;
+const lisztIconSize = 44;
 
 const Before: React.FC = () => {
 	const t = useTranslations("recommendations.beforeEvent");
@@ -124,28 +124,33 @@ const Before: React.FC = () => {
 			listKey: "list1",
 			img: "/HandlungsempfehlungIcons/icon_verhaltensvorsorge.png",
 			list: list1,
+			hasParagraph: true,
 		},
 		{
 			listKey: "list2",
 			img: "/HandlungsempfehlungIcons/icon_versicherung.png",
 			list: list2,
 			fullIMG: "/BeforeList2IMG.jpg",
+			hasParagraph: true,
 		},
 		{
 			listKey: "list3",
 			img: "/HandlungsempfehlungIcons/icon_Trockenvorsorge.png",
 			list: list3,
 			afterList: "afterList3",
+			hasParagraph: true,
 		},
 		{
 			listKey: "list4",
 			img: "/HandlungsempfehlungIcons/icon_Nassvorsorge.png",
 			list: list4,
+			hasParagraph: true,
 		},
 		{
 			listKey: "list5",
 			img: "/HandlungsempfehlungIcons/icon_Ausweichen.png",
 			list: list5,
+			hasParagraph: true,
 			afterList: "afterList5",
 			afterListImage: "/Hochwasserschutzfibel_Bild.png",
 		},
@@ -159,7 +164,15 @@ const Before: React.FC = () => {
 				})}
 			</h2>
 			{Lists.map(
-				({ listKey, img, list, fullIMG, afterList, afterListImage }) => (
+				({
+					listKey,
+					img,
+					hasParagraph,
+					list,
+					fullIMG,
+					afterList,
+					afterListImage,
+				}) => (
 					<div className="flex flex-col gap-6" key={listKey}>
 						<div className="flex items-center gap-4">
 							<NextImage
@@ -168,11 +181,20 @@ const Before: React.FC = () => {
 								width={lisztIconSize}
 								height={lisztIconSize}
 							/>
-							<h3 className="font-normal">
-								{t.rich(`${listKey}Intro`, {
-									strong: (chunks) => <strong>{chunks}</strong>,
-								})}
-							</h3>
+							<div>
+								<h3 className="font-normal">
+									{t.rich(`${listKey}Intro`, {
+										strong: (chunks) => <strong>{chunks}</strong>,
+									})}
+								</h3>
+								{hasParagraph && (
+									<p>
+										{t.rich(`${listKey}Paragraph`, {
+											strong: (chunks) => <strong>{chunks}</strong>,
+										})}
+									</p>
+								)}
+							</div>
 						</div>
 						<ul className="list-none space-y-2 lg:ps-12">
 							{Object.keys(list).map((key) => (

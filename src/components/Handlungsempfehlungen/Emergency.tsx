@@ -7,7 +7,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Image } from "berlin-ui-library";
 
 type TocMap = Record<string, string>;
-const lisztIconSize = 32;
+const lisztIconSize = 44;
 
 const Emergency: React.FC = () => {
 	const t = useTranslations("recommendations.emergency");
@@ -67,6 +67,7 @@ const Emergency: React.FC = () => {
 			listKey: "list1",
 			img: "/HandlungsempfehlungIcons/Icon_Warn.png",
 			list: list1,
+			hasParagraph: true,
 		},
 		{
 			listKey: "list2",
@@ -104,7 +105,7 @@ const Emergency: React.FC = () => {
 					})}
 				</p>
 			</div>
-			{Lists.map(({ listKey, img, list, fullIMG }) => (
+			{Lists.map(({ listKey, img, hasParagraph, list, fullIMG }) => (
 				<div className="flex flex-col gap-6" key={listKey}>
 					<div className="flex items-center gap-4">
 						<NextImage
@@ -113,14 +114,17 @@ const Emergency: React.FC = () => {
 							width={lisztIconSize}
 							height={lisztIconSize}
 						/>
-						<h3 className="font-normal">
-							{t.rich(`${listKey}Intro`, {
-								strong: (chunks) => <strong>{chunks}</strong>,
-								underline: (chunks) => (
-									<span className="underline">{chunks}</span>
-								),
-							})}
-						</h3>
+						<div>
+							<h3 className="font-normal">
+								{t.rich(`${listKey}Intro`, {
+									strong: (chunks) => <strong>{chunks}</strong>,
+									underline: (chunks) => (
+										<span className="underline">{chunks}</span>
+									),
+								})}
+							</h3>
+							{hasParagraph && <p>{t(`${listKey}Paragraph`)}</p>}
+						</div>
 					</div>
 					<ul className={"list-none space-y-2 lg:ps-12"}>
 						{Object.keys(list).map((key) => (
@@ -131,6 +135,7 @@ const Emergency: React.FC = () => {
 								/>
 								<span className="whitespace-pre-line">
 									{t.rich(`${listKey}.${key}`, {
+										strong: (chunks) => <strong>{chunks}</strong>,
 										link: (chunks) => (
 											<Link
 												href={getLink(key, chunks).link}

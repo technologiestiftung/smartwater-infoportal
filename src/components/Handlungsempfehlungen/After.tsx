@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 type TocMap = Record<string, string>;
-const lisztIconSize = 32;
+const lisztIconSize = 44;
 
 const After: React.FC = () => {
 	const t = useTranslations("recommendations.after");
@@ -124,7 +124,7 @@ const After: React.FC = () => {
 							})}
 						</h3>
 					</div>
-					<ul className={"list-none space-y-2 ps-12"}>
+					<ul className="list-none space-y-2 lg:ps-12">
 						{Object.keys(list).map((key) => (
 							<li key={key} className="flex items-start gap-2">
 								<FontAwesomeIcon

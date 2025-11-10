@@ -13,7 +13,7 @@ interface FullResponsiveImageProps {
 	fullIMGMobile?: string;
 	listKey?: string;
 }
-const lisztIconSize = 32;
+const lisztIconSize = 44;
 
 const Serious: React.FC = () => {
 	const t = useTranslations("recommendations.serious");
@@ -81,6 +81,7 @@ const Serious: React.FC = () => {
 			listKey: "list2",
 			img: "/HandlungsempfehlungIcons/Icon_Warn.png",
 			list: list2,
+			hasParagraph: true,
 		},
 		{
 			listKey: "list3",
@@ -145,7 +146,15 @@ const Serious: React.FC = () => {
 				})}
 			</h2>
 			{Lists.map(
-				({ listKey, img, list, fullIMG, fullIMGDesktop, fullIMGMobile }) => (
+				({
+					listKey,
+					img,
+					hasParagraph,
+					list,
+					fullIMG,
+					fullIMGDesktop,
+					fullIMGMobile,
+				}) => (
 					<div className="flex flex-col gap-6" key={listKey}>
 						<div className="flex items-center gap-4">
 							<NextImage
@@ -154,14 +163,17 @@ const Serious: React.FC = () => {
 								width={lisztIconSize}
 								height={lisztIconSize}
 							/>
-							<h3 className="font-normal">
-								{t.rich(`${listKey}Intro`, {
-									strong: (chunks) => <strong>{chunks}</strong>,
-									underline: (chunks) => (
-										<span className="underline">{chunks}</span>
-									),
-								})}
-							</h3>
+							<div>
+								<h3 className="font-normal">
+									{t.rich(`${listKey}Intro`, {
+										strong: (chunks) => <strong>{chunks}</strong>,
+										underline: (chunks) => (
+											<span className="underline">{chunks}</span>
+										),
+									})}
+								</h3>
+								{hasParagraph && <p>{t(`${listKey}Paragraph`)}</p>}
+							</div>
 						</div>
 						<ul className={"list-none space-y-2 lg:ps-12"}>
 							{Object.keys(list).map((key) => (
