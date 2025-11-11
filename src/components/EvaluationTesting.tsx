@@ -237,7 +237,7 @@ export default function EvaluationTesting() {
 	return (
 		<>
 			<Button onClick={runEvaluationSimulation}>
-				Alle Risiko Ausgänge in Tabelle anzeigen
+				Alle Gefährdungsbewertungs-Möglichkeiten anzeigen
 			</Button>
 			<div className="space-y-4">
 				{rows.length > 0 && <h3>Möglichkeiten insgesamt: {rows.length}</h3>}

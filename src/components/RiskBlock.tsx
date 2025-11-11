@@ -67,8 +67,12 @@ const RiskBlock = () => {
 	};
 
 	const getBorder = () => {
-		if (floodRiskResult?.riskLevel) {
-			return `border-risk-${floodRiskResult?.riskLevel}`;
+		if (floodRiskResult?.riskLevel === "high") {
+			return "border-risk-high";
+		} else if (floodRiskResult?.riskLevel === "moderate") {
+			return "border-risk-moderate";
+		} else if (floodRiskResult?.riskLevel === "low") {
+			return "border-risk-low";
 		}
 		return "border-risk";
 	};
