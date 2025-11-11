@@ -46,14 +46,17 @@ export interface LocationData {
 
 export interface QuestionAnswer {
 	value: string | string[] | number;
-	score?: number;
-	weight?: number;
+	score: number;
+	addToCounter: number;
+	skipNextQuestion?: boolean;
 }
 
 export type FloodRiskAnswers = Record<string, QuestionAnswer>;
 
 export interface FloodRiskResult {
 	totalScore: number;
+	counter: number;
+	evaluation: number;
 	riskLevel: "low" | "moderate" | "high" | "insufficient-data";
 }
 

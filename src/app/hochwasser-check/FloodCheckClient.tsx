@@ -17,9 +17,6 @@ export default function FloodCheckClient() {
 	const router = useRouter();
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const setLocationData = useStore((state) => state.setLocationData);
-	const setLoadingLocationData = useStore(
-		(state) => state.setLoadingLocationData,
-	);
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
 
@@ -27,7 +24,6 @@ export default function FloodCheckClient() {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
-		setLoadingLocationData(true);
 		try {
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
@@ -38,13 +34,9 @@ export default function FloodCheckClient() {
 			} else {
 				router.push("/hochwasser-check#questionnaire");
 			}
-		} finally {
-			setLoadingLocationData(false);
+		} catch (error) {
+			console.error("Error in checkHazard function:", error);
 		}
-	};
-
-	const submit = async () => {
-		router.push("/hochwasser-check#results");
 	};
 
 	useEffect(() => {
@@ -79,7 +71,7 @@ export default function FloodCheckClient() {
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						</div>
-						<RiskAnalysis onSubmit={submit} />
+						<RiskAnalysis />
 					</div>
 				</>
 			) : hash === "results" ? (

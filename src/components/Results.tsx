@@ -17,7 +17,6 @@ import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
-import floodRiskConfig from "@/config/floodRiskConfig.json";
 import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,20 +25,17 @@ import ReportPDF from "./DownloadPDF/ReportPDF";
 import MapSR from "./MapSR/Map";
 import MapHW from "./MapHW/Map";
 import ErrorCatcher from "./ErrorCatcher";
-import useMobile from "@/lib/utils/useMobile";
+import EvaluationTesting from "./EvaluationTesting";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
-	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isMobile = useMobile();
-	const testing = process.env.NODE_ENV === "development" && !isMobile;
+	const testing = false;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -166,7 +162,6 @@ const Results: React.FC = () => {
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<h3 className="">{t("hazardDisplay.title")}</h3>
-					{/* <p className="">{t("hazardDisplay.descriptionPlaceholder")}</p> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
@@ -328,15 +323,9 @@ const Results: React.FC = () => {
 									<p className="">{t("buildingRiskAssessment.description2")}</p>
 								</div>
 							}
-							slotB={
-								<RiskBlock
-									floodRiskAnswers={floodRiskAnswers}
-									value={floodRiskResult?.totalScore}
-									min={floodRiskConfig.riskThresholds.low.max}
-									max={floodRiskConfig.riskThresholds.high.min}
-								/>
-							}
+							slotB={<RiskBlock />}
 						/>
+						<EvaluationTesting />
 					</section>
 				</>
 			)}

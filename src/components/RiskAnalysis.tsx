@@ -13,19 +13,19 @@ import { useForm } from "react-hook-form";
 import TextBlock from "./TextBlock";
 import useStore from "../store/defaultStore";
 import riskConfig from "../config/floodRiskConfig.json";
+import { useRouter } from "next/navigation";
 
-interface RiskAnalysisProps {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onSubmit: (data: any) => void;
-}
-
-const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
-	onSubmit,
-}: RiskAnalysisProps) => {
+const RiskAnalysis = () => {
 	const t = useTranslations();
+	const router = useRouter();
 	const [currentStep, setCurrentStep] = useState(0);
-	const { floodRiskAnswers, updateFloodRiskAnswer, calculateAndSetResult } =
-		useStore();
+	const [questionSkipped, setQuestionsSkipped] = useState<boolean>(false);
+	const {
+		floodRiskAnswers,
+		updateFloodRiskAnswer,
+		removeFloodRiskAnswer,
+		calculateAndSetResult,
+	} = useStore();
 
 	// Get questions from config, filter out auto questions
 	const questions = riskConfig.questions.filter((q) => q.type !== "auto");
@@ -33,11 +33,12 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 	const properties: FormProperty[] = questions.map((question) => ({
 		id: question.id,
 		name: t(`${question.translationKey}.text`),
+		helperText: t(`${question.translationKey}.helperText`),
 		type: question.type as "radio" | "checkbox",
 		isRequired: question.isRequired,
 		options: question.options.map((option) => ({
 			label: t(`${question.translationKey}.options.${option.value}`),
-			value: String(option.value), // Convert to string for FormProperty
+			value: String(option.value),
 		})),
 	}));
 
@@ -60,24 +61,11 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 		const currentProperty = properties[currentStep];
 		const fieldName = currentProperty.id;
 		const currentValue = methods.getValues(fieldName);
+		let nextStep = currentStep + 1;
 
 		// Manual validation for required questions
 		if (currentProperty.isRequired) {
 			let isValid = true;
-
-			// For checkbox questions, check if at least one option is selected
-			if (currentProperty.type === "checkbox") {
-				if (
-					!currentValue ||
-					(Array.isArray(currentValue) && currentValue.length === 0)
-				) {
-					methods.setError(fieldName, {
-						type: "required",
-						message: t("common.validation.selectAtLeastOne"),
-					});
-					isValid = false;
-				}
-			}
 
 			// For radio questions, check if an option is selected
 			if (currentProperty.type === "radio") {
@@ -103,28 +91,65 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 		// Clear any previous errors
 		methods.clearErrors(fieldName);
 
+		// check if the next question needs to be skipped
+		if (
+			questions[currentStep] &&
+			questions[currentStep].options &&
+			questions[currentStep].id === "q1"
+		) {
+			const findCurrentOption = questions[currentStep].options.find(
+				(currentOption) => currentOption.value === currentValue,
+			);
+			if (findCurrentOption) {
+				const skip =
+					"skipNextQuestion" in findCurrentOption
+						? Boolean(findCurrentOption.skipNextQuestion)
+						: false;
+				if (skip) {
+					// skip over the next question
+					setQuestionsSkipped(true);
+					removeFloodRiskAnswer("q2");
+					methods.setValue("q2", "");
+					nextStep += 1;
+				} else if (questionSkipped) {
+					setQuestionsSkipped(false);
+				}
+			}
+		}
+
 		// Save current answer to store
 		if (currentValue !== undefined) {
 			updateFloodRiskAnswer(fieldName, currentValue);
 		}
 
 		if (currentStep < properties.length - 1) {
-			setCurrentStep(currentStep + 1);
+			setCurrentStep(nextStep);
 		} else {
 			// Final step - calculate score and submit
 			calculateAndSetResult();
-			onSubmit(floodRiskAnswers);
+			router.push("/hochwasser-check#results");
 		}
 	};
 
 	const handleBack = () => {
 		if (currentStep > 0) {
-			setCurrentStep(currentStep - 1);
+			if (questionSkipped && currentStep - 1 === 2) {
+				setCurrentStep(currentStep - 2);
+			} else {
+				setCurrentStep(currentStep - 1);
+			}
 		}
 	};
 
 	const currentProperty = properties[currentStep];
 	const currentQuestion = questions[currentStep];
+
+	const displayCurrentStep = () => {
+		if (questionSkipped && currentStep > 2) {
+			return currentStep;
+		}
+		return currentStep + 1;
+	};
 
 	return (
 		<div className={``}>
@@ -132,8 +157,8 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 				<h1 className=""></h1>
 				<h2>
 					{t("floodCheck.questionLabel", {
-						current: currentStep + 1,
-						total: properties.length,
+						current: displayCurrentStep(),
+						total: questionSkipped ? properties.length - 1 : properties.length,
 					})}{" "}
 				</h2>
 				<FormWrapper>
@@ -146,7 +171,6 @@ const RiskAnalysis: React.FC<RiskAnalysisProps> = ({
 									form={methods}
 								/>
 							)}
-
 							<div className="mt-4 flex w-full flex-col items-center space-y-4 lg:flex-row lg:justify-between lg:space-y-0">
 								{currentStep > 0 && (
 									<Button
