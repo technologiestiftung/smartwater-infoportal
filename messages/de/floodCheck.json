@@ -40,13 +40,13 @@
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
-			"no": "nein",
+			"no": "Nein",
 			"none": "Der überprüfte Standort ist bei Flusshochwasser keiner Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
 			"subLabel": "Überschwemmungsgebiet",
 			"title": "Flusshochwasser",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"yes": "ja"
+			"yes": "Ja"
 		},
 		"hazardDisplay": {
 			"descriptionPlaceholder": "Lorem Ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
