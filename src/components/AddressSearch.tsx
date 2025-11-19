@@ -158,33 +158,51 @@ export default function AddressSearch() {
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
+											return (
+												<li key={index}>
+													<Button
+														onClick={() => {
+															setValue("addresse", result.label);
+															setCurrentUserAddress(result);
+															setResults([]);
+														}}
+														variant="link"
+													>
+														{result?.label}
+													</Button>
+													<p>
+														Addresstype:{" "}
+														<span className="font-bold">
+															{result.addresstype}
+														</span>
+													</p>
+													<p>
+														Class:{" "}
+														<span className="font-bold">{result.class}</span>
+													</p>
+													<p>
+														OSM Type:{" "}
+														<span className="font-bold">{result.osm_type}</span>
+													</p>
+													<p>
+														Type:{" "}
+														<span className="font-bold">{result.type}</span>
+													</p>
+												</li>
+											);
+											/* }
 											if (
 												result.class === "building" ||
 												result.addresstype === "building" ||
 												result.type === "house"
 											) {
-												return (
-													<li key={index}>
-														<Button
-															onClick={() => {
-																setValue("addresse", result.label);
-																setCurrentUserAddress(result);
-																setResults([]);
-															}}
-															variant="link"
-														>
-															{result?.label}
-														</Button>
-													</li>
-												);
-											}
 											return (
 												<li key={index}>
 													<div className="flex min-h-[43px] flex-col justify-center">
 														<p>{result?.label}</p>
 													</div>
 												</li>
-											);
+											); */
 										})}
 									</>
 								</ul>
