@@ -156,14 +156,14 @@ const Serious: React.FC = () => {
 					fullIMGMobile,
 				}) => (
 					<div className="flex flex-col gap-6" key={listKey}>
-						<div className="flex items-center gap-4">
-							<NextImage
-								src={img}
-								alt={`Icon for ${listKey}`}
-								width={lisztIconSize}
-								height={lisztIconSize}
-							/>
-							<div>
+						<div className="space-y-2">
+							<div className="flex items-center gap-4">
+								<NextImage
+									src={img}
+									alt={`Icon for ${listKey}`}
+									width={lisztIconSize}
+									height={lisztIconSize}
+								/>
 								<h3 className="font-normal">
 									{t.rich(`${listKey}Intro`, {
 										strong: (chunks) => <strong>{chunks}</strong>,
@@ -172,8 +172,8 @@ const Serious: React.FC = () => {
 										),
 									})}
 								</h3>
-								{hasParagraph && <p>{t(`${listKey}Paragraph`)}</p>}
 							</div>
+							{hasParagraph && <p>{t(`${listKey}Paragraph`)}</p>}
 						</div>
 						<ul className={"list-none space-y-2 lg:ps-12"}>
 							{Object.keys(list).map((key) => (
