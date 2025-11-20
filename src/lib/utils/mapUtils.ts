@@ -39,3 +39,29 @@ export const getWidthClass = (fullScreenMap: boolean) => {
 export const checkNumber = (str: string): boolean => {
 	return !isNaN(Number(str)) && str.trim() !== "";
 };
+
+export const addLabelToAddressResults = (results: any[]): any[] => {
+	if (!results || results.length === 0) {
+		return [];
+	}
+	const dataWithLabels = results.map((item: any) => {
+		const addr = item.address;
+
+		const name = addr.office || "";
+		const street =
+			addr.road || addr.pedestrian || addr.cycleway || addr.footway || "";
+		const number = addr.house_number || "";
+		const postcode = addr.postcode || "";
+		const city = addr.city || addr.town || addr.village || addr.hamlet || "";
+
+		// final display string
+		const label =
+			`${name ? name + ", " : ""}${street}${number ? " " + number : ""}, ${postcode} ${city}`.trim();
+
+		return {
+			...item,
+			label,
+		};
+	});
+	return dataWithLabels;
+};

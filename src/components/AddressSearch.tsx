@@ -14,6 +14,8 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import { getAddressResults } from "@/server/actions/getAddressResults";
+import LocationButton from "./LocationButton";
+import { addLabelToAddressResults } from "@/lib/utils/mapUtils";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -50,8 +52,9 @@ export default function AddressSearch() {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 			if (addresse) {
+				// replace label with display_name
 				const selectedResult = results.find(
-					(result) => result.label === addresse,
+					(result) => result.display_name === addresse,
 				);
 				if (selectedResult) {
 					setCurrentUserAddress(selectedResult);
@@ -90,17 +93,18 @@ export default function AddressSearch() {
 				return;
 			}
 
-			const seen = new Set();
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const collectResults = data.filter((item: any) => {
+			// console.log("getAddressResults :>> ", data);
+
+			// const seen = new Set();
+			/* const collectResults = data.filter((item: any) => {
 				if (seen.has(item.label)) {
 					return false;
 				}
 				seen.add(item.label);
 				return true;
-			});
+			}); */
 
-			setResults(collectResults);
+			setResults(addLabelToAddressResults(data));
 		} catch (e) {
 			throw new Error(`Error fetching data: ${e}`);
 		} finally {
@@ -137,7 +141,7 @@ export default function AddressSearch() {
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.label);
+			setValue("addresse", currentUserAddress.display_name); // replace label with display_name
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
@@ -162,14 +166,19 @@ export default function AddressSearch() {
 												<li key={index}>
 													<Button
 														onClick={() => {
-															setValue("addresse", result.label);
+															setValue("addresse", result.display_name); // replace label with display_name
+															// setValue("addresse", result.label);
 															setCurrentUserAddress(result);
 															setResults([]);
 														}}
 														variant="link"
 													>
-														{result?.label}
+														{result?.display_name}
 													</Button>
+													<p>
+														Display name:{" "}
+														<span className="font-bold">{result.label}</span>
+													</p>
 													<p>
 														Addresstype:{" "}
 														<span className="font-bold">
@@ -187,6 +196,12 @@ export default function AddressSearch() {
 													<p>
 														Type:{" "}
 														<span className="font-bold">{result.type}</span>
+													</p>
+													<p>
+														Importance:{" "}
+														<span className="font-bold">
+															{result.importance}
+														</span>
 													</p>
 												</li>
 											);
@@ -229,6 +244,15 @@ export default function AddressSearch() {
 								return t("addressCheck.button");
 							})()}
 						</Button>
+						<div className="border-1 border-black p-4">
+							<LocationButton
+								resultsLoaded={(resultsFromLocationButton) => {
+									setResults(
+										addLabelToAddressResults(resultsFromLocationButton),
+									);
+								}}
+							/>
+						</div>
 					</div>
 				</form>
 			</Form>
