@@ -13,10 +13,11 @@ interface RiskFactor {
 }
 
 const RiskBlock = () => {
-	const testing = true;
 	const t = useTranslations("floodCheck");
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
+	const testing = showTestingFeatures.includes("riskWidgetDetails");
 	const { min, max } = floodRiskConfig.evaluation;
 	const value = floodRiskResult?.evaluation ?? 0;
 	const arrowPosition = ((value - min) / (max - min)) * 100;

@@ -11,7 +11,8 @@ export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
 	const resetAll = useStore((state) => state.resetAll);
-	const testing = true;
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
+	const testing = showTestingFeatures.includes("resetAllButton");
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">

@@ -25,6 +25,7 @@ type StoreState = {
 	isLayerTreeOpen: boolean;
 	isLegendeOpen: boolean;
 	errorLayers: string[];
+	showTestingFeatures: string[];
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
@@ -63,6 +64,12 @@ const useStore = create<StoreState>()(
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
+				showTestingFeatures: [
+					"addressSearchDetails",
+					"calculationTable",
+					"riskWidgetDetails",
+					"showWidgetsInPDF",
+				],
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),

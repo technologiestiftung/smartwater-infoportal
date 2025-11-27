@@ -32,10 +32,11 @@ const Results: React.FC = () => {
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const testing = false;
+	const testing = showTestingFeatures.includes("resultsPage");
 
 	// Define filter keys for translation
 	const filterKeys = [

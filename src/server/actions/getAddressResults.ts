@@ -41,7 +41,7 @@ export async function reverseAddressResults(lat: number, lon: number) {
 	if (!userAgent) {
 		throw new Error("Missing NOMINATIM_USER_AGENT environment variable");
 	}
-	const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1`;
+	const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&limit=40`;
 
 	const res = await fetch(url, {
 		headers: {

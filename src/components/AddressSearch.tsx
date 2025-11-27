@@ -25,6 +25,8 @@ export default function AddressSearch() {
 		(state) => state.setCurrentUserAddress,
 	);
 
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
+
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
@@ -175,34 +177,46 @@ export default function AddressSearch() {
 													>
 														{result?.display_name}
 													</Button>
-													<p>
-														Display name:{" "}
-														<span className="font-bold">{result.label}</span>
-													</p>
-													<p>
-														Addresstype:{" "}
-														<span className="font-bold">
-															{result.addresstype}
-														</span>
-													</p>
-													<p>
-														Class:{" "}
-														<span className="font-bold">{result.class}</span>
-													</p>
-													<p>
-														OSM Type:{" "}
-														<span className="font-bold">{result.osm_type}</span>
-													</p>
-													<p>
-														Type:{" "}
-														<span className="font-bold">{result.type}</span>
-													</p>
-													<p>
-														Importance:{" "}
-														<span className="font-bold">
-															{result.importance}
-														</span>
-													</p>
+													{showTestingFeatures.includes(
+														"addressSearchDetails",
+													) && (
+														<>
+															<p className="text-xs">
+																Display name:{" "}
+																<span className="font-bold">
+																	{result.label}
+																</span>
+															</p>
+															<p className="text-xs">
+																Addresstype:{" "}
+																<span className="font-bold">
+																	{result.addresstype}
+																</span>
+															</p>
+															<p className="text-xs">
+																Class:{" "}
+																<span className="font-bold">
+																	{result.class}
+																</span>
+															</p>
+															<p className="text-xs">
+																OSM Type:{" "}
+																<span className="font-bold">
+																	{result.osm_type}
+																</span>
+															</p>
+															<p className="text-xs">
+																Type:{" "}
+																<span className="font-bold">{result.type}</span>
+															</p>
+															<p className="text-xs">
+																Importance:{" "}
+																<span className="font-bold">
+																	{result.importance}
+																</span>
+															</p>
+														</>
+													)}
 												</li>
 											);
 											/* }
@@ -244,15 +258,17 @@ export default function AddressSearch() {
 								return t("addressCheck.button");
 							})()}
 						</Button>
-						<div className="border-1 border-black p-4">
-							<LocationButton
-								resultsLoaded={(resultsFromLocationButton) => {
-									setResults(
-										addLabelToAddressResults(resultsFromLocationButton),
-									);
-								}}
-							/>
-						</div>
+						{showTestingFeatures.includes("locationButton") && (
+							<div className="border-1 border-black p-4">
+								<LocationButton
+									resultsLoaded={(resultsFromLocationButton) => {
+										setResults(
+											addLabelToAddressResults(resultsFromLocationButton),
+										);
+									}}
+								/>
+							</div>
+						)}
 					</div>
 				</form>
 			</Form>
