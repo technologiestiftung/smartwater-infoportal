@@ -72,11 +72,7 @@ const useStore = create<StoreState>()(
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
-				showTestingFeatures: [
-					"resetAllButtonOnHomepage",
-					"evaluationTesting",
-					"riskWidgetDetails",
-				],
+				showTestingFeatures: ["evaluationTesting", "riskWidgetDetails"],
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),
