@@ -40,6 +40,13 @@ export const checkNumber = (str: string): boolean => {
 	return !isNaN(Number(str)) && str.trim() !== "";
 };
 
+export const containsNumber = (str: string): boolean => {
+	if (!str) {
+		return false;
+	}
+	return /\d/.test(str);
+};
+
 const filterOutAddressResults = (item: any, results: any[]): boolean => {
 	if (item.type === "house" && item.type !== "secondary_link") {
 		return true;

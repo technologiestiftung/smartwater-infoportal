@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import { getAddressResults } from "@/server/actions/getAddressResults";
 import LocationButton from "./LocationButton";
-import { addLabelToAddressResults } from "@/lib/utils/mapUtils";
+import { addLabelToAddressResults, containsNumber } from "@/lib/utils/mapUtils";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -129,7 +129,7 @@ export default function AddressSearch() {
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.label); // replace label with display_name
+			setValue("addresse", currentUserAddress.label);
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
@@ -149,7 +149,9 @@ export default function AddressSearch() {
 								<strong>{t("addressCheck.result")}</strong>
 								{!results.some((result) => result.hasHouseNumber) && (
 									<Label className="text-destructive text-primary">
-										{t("addressCheck.pleaseAddHouseNumber")}
+										{containsNumber(getValues("addresse") ?? "")
+											? t("addressCheck.probablyNoAddress")
+											: t("addressCheck.pleaseAddHouseNumber")}
 									</Label>
 								)}
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">

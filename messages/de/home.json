@@ -22,7 +22,8 @@
 			},
 			"loading": "Überprüfe Adresse...",
 			"result": "Ergebnisse",
-			"pleaseAddHouseNumber": "Bitte ergänzen Sie eine Hausnummer zur Adresse"
+			"pleaseAddHouseNumber": "Bitte ergänzen Sie eine Hausnummer zur Adresse",
+			"probablyNoAddress": "Die eingegebene Adresse scheint keinen Treffer zu ergeben. Bitte überprüfen Sie die Eingabe."
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
