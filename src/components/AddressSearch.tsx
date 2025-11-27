@@ -54,14 +54,11 @@ export default function AddressSearch() {
 		return methods.handleSubmit(() => {
 			const addresse = getValues("addresse");
 			if (addresse) {
-				// replace label with display_name
-				const selectedResult = results.find(
-					(result) => result.display_name === addresse,
-				);
-				if (selectedResult) {
-					setCurrentUserAddress(selectedResult);
+				if (!currentUserAddress) {
+					setError("Bitte wählen Sie eine Adresse aus.");
+				} else {
+					router.push("/hochwasser-check");
 				}
-				router.push("/hochwasser-check");
 			} else {
 				setError("Bitte geben Sie eine Adresse ein.");
 			}
@@ -94,17 +91,6 @@ export default function AddressSearch() {
 				setResults([]);
 				return;
 			}
-
-			// console.log("getAddressResults :>> ", data);
-
-			// const seen = new Set();
-			/* const collectResults = data.filter((item: any) => {
-				if (seen.has(item.label)) {
-					return false;
-				}
-				seen.add(item.label);
-				return true;
-			}); */
 
 			setResults(addLabelToAddressResults(data));
 		} catch (e) {
@@ -143,7 +129,7 @@ export default function AddressSearch() {
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.display_name); // replace label with display_name
+			setValue("addresse", currentUserAddress.label); // replace label with display_name
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
@@ -160,23 +146,32 @@ export default function AddressSearch() {
 						<FormFieldWrapper formProperty={property} form={methods} />
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
-								<strong>Ergebnisse</strong>
+								<strong>{t("addressCheck.result")}</strong>
+								{!results.some((result) => result.hasHouseNumber) && (
+									<Label className="text-destructive text-primary">
+										{t("addressCheck.pleaseAddHouseNumber")}
+									</Label>
+								)}
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
 											return (
 												<li key={index}>
-													<Button
-														onClick={() => {
-															setValue("addresse", result.display_name); // replace label with display_name
-															// setValue("addresse", result.label);
-															setCurrentUserAddress(result);
-															setResults([]);
-														}}
-														variant="link"
-													>
-														{result?.display_name}
-													</Button>
+													{result.hasHouseNumber ? (
+														<Button
+															onClick={() => {
+																setError("");
+																setValue("addresse", result.label);
+																setCurrentUserAddress(result);
+																setResults([]);
+															}}
+															variant="link"
+														>
+															{result.label}
+														</Button>
+													) : (
+														<span>{result.label}</span>
+													)}
 													{showTestingFeatures.includes(
 														"addressSearchDetails",
 													) && (
@@ -219,19 +214,6 @@ export default function AddressSearch() {
 													)}
 												</li>
 											);
-											/* }
-											if (
-												result.class === "building" ||
-												result.addresstype === "building" ||
-												result.type === "house"
-											) {
-											return (
-												<li key={index}>
-													<div className="flex min-h-[43px] flex-col justify-center">
-														<p>{result?.label}</p>
-													</div>
-												</li>
-											); */
 										})}
 									</>
 								</ul>
