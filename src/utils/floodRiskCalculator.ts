@@ -5,46 +5,36 @@ export function calculateFloodRiskScore(
 	answers: FloodRiskAnswers,
 ): FloodRiskResult {
 	let totalScore = 0;
-	let answeredCount = 0;
+	let counter = 0;
 
 	// Calculate score from stored answers
-	Object.entries(answers).forEach(([questionId, questionAnswer]) => {
+	Object.entries(answers).forEach(([_, questionAnswer]) => {
 		if (questionAnswer?.score !== undefined) {
-			const questionConfig = riskConfig.questions.find(
-				(q) => q.id === questionId,
-			);
-			const weight = questionConfig?.weight || 1;
-			totalScore += questionAnswer.score * weight;
-			answeredCount++;
+			totalScore += questionAnswer.score;
+			counter += questionAnswer.addToCounter;
 		}
 	});
 
-	// Check if we have enough data
-	if (answeredCount < riskConfig.minimumAnswersRequired) {
-		return {
-			totalScore: 0,
-			riskLevel: "insufficient-data",
-		};
-	}
+	const evaluation = totalScore / counter;
 
-	// Determine risk level based on configurable score ranges
 	const { low, moderate, high } = riskConfig.riskThresholds;
 
 	let riskLevel: FloodRiskResult["riskLevel"];
 
-	if (totalScore >= low.min && totalScore <= low.max) {
+	if (evaluation >= low.min && evaluation <= low.max) {
 		riskLevel = "low";
-	} else if (totalScore >= moderate.min && totalScore <= moderate.max) {
+	} else if (evaluation >= moderate.min && evaluation <= moderate.max) {
 		riskLevel = "moderate";
-	} else if (totalScore <= high.min) {
+	} else if (evaluation >= high.min && evaluation <= high.max) {
 		riskLevel = "high";
 	} else {
-		// Fallback - shouldn't happen with proper ranges
-		riskLevel = "moderate";
+		riskLevel = "insufficient-data";
 	}
 
 	return {
 		totalScore,
+		counter,
+		evaluation,
 		riskLevel,
 	};
 }
@@ -52,14 +42,42 @@ export function calculateFloodRiskScore(
 export function calculateQuestionScore(
 	questionId: string,
 	value: string | string[] | number,
-): number {
+): { score: number; addToCounter: number } {
 	// Find question config
 	const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
 	if (!questionConfig) {
-		return 0;
+		return { score: 0, addToCounter: 0 };
 	}
 
 	let score = 0;
+	let addToCounter = 0;
+
+	const optionConfig = questionConfig.options.find(
+		(opt) => opt.value === value,
+	);
+	if (optionConfig) {
+		score = optionConfig.score;
+		addToCounter = optionConfig.addToCounter || 0;
+	}
+
+	return {
+		score,
+		addToCounter,
+	};
+}
+
+export function calculateQuestionScoreFromMultiple(
+	questionId: string,
+	value: string | string[] | number,
+): { score: number; addToCounter: number } {
+	// Find question config
+	const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
+	if (!questionConfig) {
+		return { score: 0, addToCounter: 0 };
+	}
+
+	let score = 0;
+	let addToCounter = 0;
 
 	if (Array.isArray(value)) {
 		// Multiple choice - sum all scores
@@ -69,6 +87,7 @@ export function calculateQuestionScore(
 			);
 			if (optionConfig) {
 				score += optionConfig.score;
+				addToCounter += optionConfig.addToCounter || 0;
 			}
 		});
 	} else {
@@ -78,15 +97,11 @@ export function calculateQuestionScore(
 		);
 		if (optionConfig) {
 			score = optionConfig.score;
+			addToCounter = optionConfig.addToCounter || 0;
 		}
 	}
 
-	return score;
-}
-
-export function validateAnswers(answers: FloodRiskAnswers): boolean {
-	const answeredCount = Object.keys(answers).length;
-	return answeredCount >= riskConfig.minimumAnswersRequired;
+	return { score, addToCounter };
 }
 
 export function prePopulateFromLocationData(
@@ -128,70 +143,17 @@ export function prePopulateFromLocationData(
 		}
 
 		if (value !== undefined) {
+			const getCalc = calculateQuestionScore(
+				question.id,
+				value as string | string[] | number,
+			);
 			answers[question.id] = {
 				value: value as string | string[] | number,
-				score: calculateQuestionScore(
-					question.id,
-					value as string | string[] | number,
-				),
-				weight: question.weight || 1,
+				score: getCalc.score,
+				addToCounter: getCalc.addToCounter,
 			};
 		}
 	});
 
 	return answers;
-}
-
-export type WorkflowStep = "address" | "interim" | "questionnaire" | "results";
-
-export function getNextWorkflowStep(
-	locationData: LocationData | null,
-	answers: FloodRiskAnswers,
-	currentPath: string,
-): WorkflowStep {
-	if (!locationData) {
-		return "address";
-	}
-
-	// !!! check after interimResult removal
-
-	/* if (currentPath.includes("hochwasser-check") && !currentPath.includes("#")) {
-		return "interim";
-	} */
-
-	/* if (currentPath.includes("#interimResult")) {
-		const requiredQuestions = riskConfig.questions
-			.filter((q) => q.type !== "auto")
-			.map((q) => q.id);
-		const missingAnswers = requiredQuestions.some((q) => !answers[q]);
-
-		if (missingAnswers) {
-			return "questionnaire";
-		}
-		return "results";
-	} */
-
-	if (currentPath.includes("questionnaire")) {
-		if (validateAnswers(answers)) {
-			return "results";
-		}
-		return "questionnaire";
-	}
-
-	return "address";
-}
-
-export function getWorkflowRoute(step: WorkflowStep): string {
-	switch (step) {
-		case "address":
-			return "/hochwasser-check";
-		// case "interim":
-		// 	return "/hochwasser-check#interimResult";
-		case "questionnaire":
-			return "/hochwasser-check/questionnaire";
-		case "results":
-			return "/hochwasser-check/results";
-		default:
-			return "/hochwasser-check";
-	}
 }

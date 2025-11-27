@@ -10,12 +10,18 @@ import { devtools, persist } from "zustand/middleware";
 import {
 	prePopulateFromLocationData,
 	calculateFloodRiskScore,
-	getNextWorkflowStep,
-	getWorkflowRoute,
 	calculateQuestionScore,
 } from "@/utils/floodRiskCalculator";
-import riskConfig from "@/config/floodRiskConfig.json";
 import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
+
+type TestingFeatureNames =
+	| "resetAllButtonOnHomepage"
+	| "addressSearchDetails"
+	| "locationButton"
+	| "mapsOnResultPage"
+	| "evaluationTesting"
+	| "riskWidgetDetails"
+	| "showWidgetsBelowPDF";
 
 type StoreState = {
 	// Core data
@@ -23,19 +29,18 @@ type StoreState = {
 	locationData: LocationData | null;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
-	isLoadingLocationData: boolean;
 	activeMapFilter: "heavyRain" | "fluvialFlood";
 	fullScreenMap: boolean;
 	isLayerTreeOpen: boolean;
 	isLegendeOpen: boolean;
 	errorLayers: string[];
+	showTestingFeatures: TestingFeatureNames[];
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
 	resetCurrentUserAddress: () => void;
 	setLocationData: (data: LocationData) => void;
 	resetLocationData: () => void;
-	setLoadingLocationData: (loading: boolean) => void;
 	updateActiveMapFilter: (filter: string) => void;
 	updateFullScreenMap: (fullScreen: boolean) => void;
 	updateLayerTreeIsOpen: (open: boolean) => void;
@@ -45,10 +50,9 @@ type StoreState = {
 		questionId: string,
 		answer: string | string[] | number,
 	) => void;
+	removeFloodRiskAnswer: (questionId: string) => void;
 	calculateAndSetResult: () => void;
 	resetAll: () => void;
-	resetOnPageLoad: () => void;
-	getNextStep: (currentPath: string) => string;
 
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
@@ -63,12 +67,12 @@ const useStore = create<StoreState>()(
 				locationData: null,
 				floodRiskAnswers: {},
 				floodRiskResult: null,
-				isLoadingLocationData: false,
 				activeMapFilter: "heavyRain",
 				fullScreenMap: false,
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
+				showTestingFeatures: ["evaluationTesting", "riskWidgetDetails"],
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),
@@ -83,8 +87,6 @@ const useStore = create<StoreState>()(
 						},
 					})),
 				resetLocationData: () => set({ locationData: null }),
-				setLoadingLocationData: (loading) =>
-					set({ isLoadingLocationData: loading }),
 
 				updateActiveMapFilter: (filter) =>
 					set({ activeMapFilter: filter as "heavyRain" | "fluvialFlood" }),
@@ -104,18 +106,24 @@ const useStore = create<StoreState>()(
 					answer: string | string[] | number,
 				) =>
 					set((state) => {
-						const questionConfig = riskConfig.questions.find(
-							(q) => q.id === questionId,
-						);
+						const getCalc = calculateQuestionScore(questionId, answer);
 						return {
 							floodRiskAnswers: {
 								...state.floodRiskAnswers,
 								[questionId]: {
 									value: answer,
-									score: calculateQuestionScore(questionId, answer),
-									weight: questionConfig?.weight || 1,
+									score: getCalc.score,
+									addToCounter: getCalc.addToCounter,
 								},
 							},
+						};
+					}),
+
+				removeFloodRiskAnswer: (questionId: string) =>
+					set((state) => {
+						const { [questionId]: _removed, ...rest } = state.floodRiskAnswers;
+						return {
+							floodRiskAnswers: rest,
 						};
 					}),
 
@@ -125,32 +133,12 @@ const useStore = create<StoreState>()(
 					set({ floodRiskResult: result });
 				},
 
-				getNextStep: (currentPath: string) => {
-					const state = get();
-					const nextStep = getNextWorkflowStep(
-						state.locationData,
-						state.floodRiskAnswers,
-						currentPath,
-					);
-					return getWorkflowRoute(nextStep);
-				},
-
 				resetAll: () =>
 					set({
 						currentUserAddress: null,
 						locationData: null,
 						floodRiskAnswers: {},
 						floodRiskResult: null,
-						isLoadingLocationData: false,
-					}),
-
-				resetOnPageLoad: () =>
-					set({
-						isLoadingLocationData: false,
-						fullScreenMap: false,
-						isLayerTreeOpen: false,
-						isLegendeOpen: true,
-						errorLayers: [],
 					}),
 
 				// Selectors

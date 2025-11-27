@@ -17,7 +17,6 @@ import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
 import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
-import floodRiskConfig from "@/config/floodRiskConfig.json";
 import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,20 +25,16 @@ import ReportPDF from "./DownloadPDF/ReportPDF";
 import MapSR from "./MapSR/Map";
 import MapHW from "./MapHW/Map";
 import ErrorCatcher from "./ErrorCatcher";
-import useMobile from "@/lib/utils/useMobile";
+import EvaluationTesting from "./EvaluationTesting";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
-	const floodRiskResult = useStore((state) => state.floodRiskResult);
-	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isMobile = useMobile();
-	const testing = process.env.NODE_ENV === "development" && !isMobile;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -151,7 +146,6 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
-			{testing && <Button onClick={resetOnPageLoad}>Reset State</Button>}
 			<section className="flex items-center gap-2">
 				{currentUserAddress && (
 					<>
@@ -166,7 +160,6 @@ const Results: React.FC = () => {
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<h3 className="">{t("hazardDisplay.title")}</h3>
-					{/* <p className="">{t("hazardDisplay.descriptionPlaceholder")}</p> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
@@ -243,7 +236,13 @@ const Results: React.FC = () => {
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
 				<Map />
-				<div className={testing ? "" : "absolute -left-[9999px]"}>
+				<div
+					className={
+						showTestingFeatures.includes("mapsOnResultPage")
+							? ""
+							: "absolute -left-[9999px]"
+					}
+				>
 					<MapSR />
 					<MapHW />
 				</div>
@@ -328,15 +327,11 @@ const Results: React.FC = () => {
 									<p className="">{t("buildingRiskAssessment.description2")}</p>
 								</div>
 							}
-							slotB={
-								<RiskBlock
-									floodRiskAnswers={floodRiskAnswers}
-									value={floodRiskResult?.totalScore}
-									min={floodRiskConfig.riskThresholds.low.max}
-									max={floodRiskConfig.riskThresholds.high.min}
-								/>
-							}
+							slotB={<RiskBlock />}
 						/>
+						{showTestingFeatures.includes("evaluationTesting") && (
+							<EvaluationTesting />
+						)}
 					</section>
 				</>
 			)}

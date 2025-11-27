@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import proj4 from "proj4";
 import type { Geometry } from "./types";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import { point } from "@turf/helpers";
 
 export class GeoServerClient {
 	private readonly baseUrl?: string;
@@ -36,10 +40,16 @@ export class GeoServerClient {
 				latitude,
 			]);
 
-			const floodZoneIndex = await this.getFloodZoneIndex(
+			/* const floodZoneIndex = await this.getFloodZoneIndex(
+				transformedX,
+				transformedY,
+			); */
+
+			const isFlood = await this.getUeberschwemmungsgebieteWFS(
 				transformedX,
 				transformedY,
 			);
+			const floodZoneIndex = typeof isFlood === "boolean" && !!isFlood ? 1 : 0;
 
 			const exactMatch = await this.searchExactIntersection(
 				transformedX,
@@ -119,6 +129,70 @@ export class GeoServerClient {
 			const grayIndex = data.features[0].properties?.GRAY_INDEX;
 			return typeof grayIndex === "number" ? grayIndex : null;
 		} catch {
+			return null;
+		}
+	}
+
+	isInsideFloodZone(x25833: number, y25833: number, features: any) {
+		const p = point([x25833, y25833]);
+
+		for (const f of features) {
+			if (booleanPointInPolygon(p, f as any)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	async getUeberschwemmungsgebieteWFS(
+		x25833: number,
+		y25833: number,
+		buffer = 50,
+	): Promise<any | null> {
+		try {
+			// Buffer BBOX exactly like your GetFeatureInfo logic
+			const bbox = [
+				x25833 - buffer,
+				y25833 - buffer,
+				x25833 + buffer,
+				y25833 + buffer,
+			].join(",");
+
+			const url = new URL("https://gdi.berlin.de/services/wfs/ua_uesg");
+
+			url.searchParams.set("SERVICE", "WFS");
+			url.searchParams.set("VERSION", "2.0.0");
+			url.searchParams.set("REQUEST", "GetFeature");
+			url.searchParams.set("TYPENAMES", "ua_uesg:c_ueberschwemmungsgebiete");
+
+			// IMPORTANT: Berlin WFS supports JSON!
+			url.searchParams.set("OUTPUTFORMAT", "application/json");
+
+			// coordinate system
+			url.searchParams.set("SRSNAME", "EPSG:25833");
+
+			// your dynamic bounding box
+			url.searchParams.set("BBOX", bbox);
+
+			const response = await fetch(url.toString());
+			if (!response.ok) {
+				console.error("WFS error:", response.status, response.statusText);
+				return null;
+			}
+
+			const json = await response.json();
+
+			if (!json.features || json.features.length === 0) {
+				return null;
+			}
+
+			const isFlood =
+				json.features && this.isInsideFloodZone(x25833, y25833, json.features);
+
+			return isFlood;
+		} catch (err) {
+			console.error("WFS fetch failed:", err);
 			return null;
 		}
 	}

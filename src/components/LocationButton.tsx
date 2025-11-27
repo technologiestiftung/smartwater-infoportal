@@ -1,0 +1,156 @@
+"use client";
+
+import { reverseAddressResults } from "@/server/actions/getAddressResults";
+import { Button } from "berlin-ui-library";
+import Image from "next/image";
+import React, { FC, useEffect, useState } from "react";
+
+interface LocationButtonProps {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	resultsLoaded?: (results: any[]) => void;
+}
+const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
+	const [status, setStatus] = useState<
+		"idle" | "loading" | "granted" | "denied"
+	>("idle");
+	const [lat, setLat] = useState<number | null>(null);
+	const [long, setLong] = useState<number | null>(null);
+
+	async function requestLocation() {
+		setStatus("loading");
+
+		// Check if the browser supports geolocation
+		if (!("geolocation" in navigator)) {
+			setStatus("denied");
+			return;
+		}
+
+		// Ask permission explicitly
+		try {
+			const permission = await navigator.permissions.query({
+				name: "geolocation",
+			});
+
+			if (permission.state === "denied") {
+				setStatus("denied");
+				return;
+			}
+		} catch {
+			// Safari does not support permissions API → continue normally
+		}
+
+		// Attempt to get position
+		navigator.geolocation.getCurrentPosition(
+			(pos) => {
+				setStatus("granted");
+				setLat(pos.coords.latitude);
+				setLong(pos.coords.longitude);
+			},
+			(err) => {
+				console.error("Error getting location:", err);
+				setStatus("denied");
+			},
+			{
+				enableHighAccuracy: true,
+				timeout: 8000,
+			},
+		);
+	}
+
+	useEffect(() => {
+		const reverseSearch = async () => {
+			const results = await reverseAddressResults(
+				lat as number,
+				long as number,
+			);
+			if (resultsLoaded) {
+				resultsLoaded(results ? [results] : []);
+			}
+		};
+		if (lat !== null && long !== null) {
+			reverseSearch();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [lat, long]);
+
+	return (
+		<div className="">
+			<div className="space-y-4">
+				<h3>Testing: Standort bestimmen</h3>
+				<div
+					className="relative aspect-[293/48] h-[48px] cursor-pointer bg-black"
+					onClick={(e) => {
+						e.preventDefault();
+						requestLocation();
+					}}
+				>
+					<Image
+						src="/LocationButton.svg"
+						alt="Location Button Icon"
+						fill
+						className="object-cover"
+						sizes="100vw"
+					/>
+				</div>
+				{status === "loading" && <p>Frage Standort ab…</p>}
+				{status === "denied" && (
+					<p className="text-red-600">
+						Standort abgelehnt. Bitte Browser-Einstellungen prüfen.
+					</p>
+				)}
+
+				{status === "granted" && lat !== null && long !== null && (
+					<p className="text-green-700">
+						Latitude: {lat.toFixed(6)}, Longitude: {long.toFixed(6)}
+					</p>
+				)}
+			</div>
+			<hr className="my-6" />
+			<div className="space-y-4">
+				<h3>Testing: Selber Koordinaten eintragen</h3>
+				<div className="flex">
+					<div>
+						<label className="mb-1 block font-medium">Latitude</label>
+						<input
+							type="number"
+							step="any"
+							placeholder="Latitude"
+							value={lat !== null ? lat : ""}
+							onChange={(e) =>
+								setLat(e.target.value === "" ? null : Number(e.target.value))
+							}
+							className="mr-2 rounded border p-2"
+						/>
+					</div>
+					<div>
+						<label className="mb-1 block font-medium">Longitude</label>
+						<input
+							type="number"
+							step="any"
+							placeholder="Longitude"
+							value={long !== null ? long : ""}
+							onChange={(e) =>
+								setLong(e.target.value === "" ? null : Number(e.target.value))
+							}
+							className="rounded border p-2"
+						/>
+					</div>
+				</div>
+				<Button
+					variant="link"
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					onClick={(e: any) => {
+						e.preventDefault();
+						setLat(null);
+						setLong(null);
+						setStatus("idle");
+					}}
+				>
+					Koordinaten Löschen
+				</Button>
+			</div>
+		</div>
+	);
+};
+
+export default LocationButton;

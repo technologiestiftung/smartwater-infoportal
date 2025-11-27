@@ -1,49 +1,26 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { RiskLevel, FloodRiskAnswers } from "@/lib/types";
+import { RiskLevel } from "@/lib/types";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
+import useStore from "@/store/defaultStore";
+import { cn } from "@/lib/utils";
 
-export interface RiskFactor {
+interface RiskFactor {
 	id: string;
 	riskLevel: RiskLevel | "unknown";
 	translationKey: string;
 }
 
-interface RiskBlockProps {
-	overallRiskLevel?: RiskLevel;
-	value?: number;
-	min?: number;
-	max?: number;
-	riskFactors?: RiskFactor[];
-	floodRiskAnswers?: FloodRiskAnswers;
-}
-
-const RiskBlock: React.FC<RiskBlockProps> = ({
-	overallRiskLevel = "moderate",
-	value = 50,
-	min = -100,
-	max = 100,
-	riskFactors = [],
-	floodRiskAnswers,
-}) => {
+const RiskBlock = () => {
 	const t = useTranslations("floodCheck");
-
+	const floodRiskResult = useStore((state) => state.floodRiskResult);
+	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
+	const testing = showTestingFeatures.includes("riskWidgetDetails");
+	const { min, max } = floodRiskConfig.evaluation;
+	const value = floodRiskResult?.evaluation ?? 0;
 	const arrowPosition = ((value - min) / (max - min)) * 100;
-
-	// Get risk class for styling
-	const getRiskClass = (riskLevel: RiskLevel | "unknown") => {
-		switch (riskLevel) {
-			case "low":
-				return "bg-risk-low";
-			case "moderate":
-				return "bg-risk-moderate";
-			case "high":
-				return "bg-risk-high";
-			default:
-				return "bg-gray-400";
-		}
-	};
 
 	// Get aria label for risk level using i18n
 	const getRiskAriaLabel = (
@@ -58,7 +35,19 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 			riskLevel: riskLevelText,
 		});
 	};
-
+	// Get risk class for styling
+	const getRiskClass = (riskLevel: RiskLevel | "unknown") => {
+		switch (riskLevel) {
+			case "low":
+				return "bg-risk-low";
+			case "moderate":
+				return "bg-risk-moderate";
+			case "high":
+				return "bg-risk-high";
+			default:
+				return "bg-gray-400";
+		}
+	};
 	// Simple risk level calculation based on individual answer scores
 	const calculateRiskLevel = (questionId: string): RiskLevel | "unknown" => {
 		if (!floodRiskAnswers || !floodRiskAnswers[questionId]) {
@@ -78,18 +67,28 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 		return "high"; // Red
 	};
 
-	const defaultRiskFactors: RiskFactor[] =
-		riskFactors.length > 0
-			? riskFactors
-			: floodRiskConfig.riskFactors.map((factor) => ({
-					id: factor.id,
-					riskLevel: calculateRiskLevel(factor.questionId),
-					translationKey: factor.translationKey,
-				}));
+	const getBorder = () => {
+		if (floodRiskResult?.riskLevel === "high") {
+			return "border-risk-high";
+		} else if (floodRiskResult?.riskLevel === "moderate") {
+			return "border-risk-moderate";
+		} else if (floodRiskResult?.riskLevel === "low") {
+			return "border-risk-low";
+		}
+		return "border-risk";
+	};
+
+	const defaultRiskFactors: RiskFactor[] = floodRiskConfig.riskFactors.map(
+		(factor) => ({
+			id: factor.id,
+			riskLevel: calculateRiskLevel(factor.questionId),
+			translationKey: factor.translationKey,
+		}),
+	);
 
 	return (
 		<div
-			className="Risk-block border-12 border-risk overflow-hidden"
+			className={cn("Risk-block border-12 overflow-hidden", getBorder())}
 			id="risk-block"
 		>
 			<div className="flex flex-col gap-2 p-4">
@@ -103,14 +102,34 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 					/>
 					<h4 className="">{t(`buildingRiskAssessment.buildingRisk.title`)}</h4>
 				</div>
-				<p className="">
-					{t(
-						`buildingRiskAssessment.buildingRisk.level${
-							overallRiskLevel.charAt(0).toUpperCase() +
-							overallRiskLevel.slice(1)
-						}`,
-					)}
-				</p>
+				{floodRiskResult?.riskLevel && (
+					<p className="">
+						{t(
+							`buildingRiskAssessment.buildingRisk.level${
+								floodRiskResult?.riskLevel.charAt(0).toUpperCase() +
+								floodRiskResult?.riskLevel.slice(1)
+							}`,
+						)}
+					</p>
+				)}
+				{testing && (
+					<div className="border-1 border-black p-4">
+						<p className="">Berechnungswerte:</p>
+						<p className="">
+							SUMME-Punkte: <strong>{floodRiskResult?.totalScore}</strong>
+						</p>
+						<p className="">
+							X: <strong>{floodRiskResult?.counter}</strong>
+						</p>
+						<p className="">
+							Bewertung Gefährdung <br /> (SUMME-Punkte/X):{" "}
+							<strong>{floodRiskResult?.evaluation}</strong>
+						</p>
+						<p className="">
+							Risiko Level: <strong>{floodRiskResult?.riskLevel}</strong>
+						</p>
+					</div>
+				)}
 				<div className="my-4 flex flex-col gap-2">
 					<div className="relative flex h-6 w-full">
 						<div
@@ -123,7 +142,7 @@ const RiskBlock: React.FC<RiskBlockProps> = ({
 									"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
 									{
 										level: t(
-											`buildingRiskAssessment.buildingRisk.riskLevels.${overallRiskLevel}`,
+											`buildingRiskAssessment.buildingRisk.riskLevels.${floodRiskResult?.riskLevel || "unknown"}`,
 										),
 									},
 								)}

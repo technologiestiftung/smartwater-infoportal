@@ -15,7 +15,10 @@
 					"basementUsage": "Untergeschoss",
 					"pastDamages": "Bekannte Schäden",
 					"protectionMeasures": "Ergriffene Schutzmaßnahmen",
-					"rainwaterDrains": "Regenwasser"
+					"rainwaterDrains": "Regenwasser",
+					"floodplain": "Überschwemmungsgebiet",
+					"riverFloodHazardLevel": "Flusshochwasser-Gefährdungsgrad",
+					"heavyRainHazardLevel": "Starkregen-Gefährdungsgrad"
 				},
 				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
 				"levelInsufficientData": "Das Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
@@ -33,21 +36,18 @@
 			"description2": "Die Berechnung basiert auf bestehenden Angeboten des LAWA-Starkregenportals, des Hochwasser Kompetenz Centrums HKC („Quick-Check“) und des Gesamtverbands der Deutschen Versicherungswirtschaft (GDV).",
 			"title": "Hinweis & Disclaimer"
 		},
-		"checkBuildingRiskButton": "Nun Gebäuderisiko prüfen",
-		"dataSourceInfo": "Die Ermittlung der Hochwassergefährdung basiert auf den vorhandenen Ressourcen, u.a.: Starkregenhinweiskarte (SRHK), Starkregengefahrenkarte (SRGK), Hochwassergefahrenkarte (HWGK), Hochwasserrisikokarte (HWRK), Überschwemmungsgebiet (ÜSG) und der Gewässerkarte.",
 		"fluvialFlood": {
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
-			"no": "nein",
+			"no": "Nein",
 			"none": "Der überprüfte Standort ist bei Flusshochwasser keiner Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
 			"subLabel": "Überschwemmungsgebiet",
 			"title": "Flusshochwasser",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"yes": "ja"
+			"yes": "Ja"
 		},
-		"hazardAtLocation": "Gefährdung an ihrem Standort:",
 		"hazardDisplay": {
 			"descriptionPlaceholder": "Lorem Ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
 			"fluvialFloodTab": "Flusshochwasser",
@@ -114,16 +114,6 @@
 			"none": "Keine Gefährdung",
 			"severe": "Sehr Hoch"
 		},
-		"hazardSummary": {
-			"high": "An Ihrem Standort liegt eine hohe Gefährdung vor.",
-			"highFluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Flusshochwasser vor.",
-			"highPluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Starkregen vor.",
-			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
-			"moderate": "An Ihrem Standort liegt eine mittlere Gefährdung vor.",
-			"multiple": "An Ihrem Standort liegen mehrere Gefährdungen vor.",
-			"none": "An Ihrem Standort liegt keine Gefährdung vor.",
-			"severe": "An Ihrem Standort liegt eine sehr hohe Gefährdung vor."
-		},
 		"heavyRain": {
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
@@ -133,10 +123,6 @@
 			"subLabel": "Fließgeschwindigkeit",
 			"title": "Starkregen",
 			"waterLevelLabel": "möglicher Wasserstand"
-		},
-		"hint": {
-			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen.",
-			"title": "Hinweis"
 		},
 		"map": {
 			"description": "Für die Berechnung der Gefährdungskarten nutzen wir Karten des Geoportals Berlin, veröffentlicht durch die SenMVKU.",
@@ -188,62 +174,35 @@
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
-			"a": {
+			"q0": {
 				"options": {
-					"no": "Nein",
-					"yes": "Ja"
+					"rent": "Ich wohne zur Miete.",
+					"flatOwner": "Ich bin Eigentümer der Wohnung.",
+					"houseOwner": "Ich bin Eigentümer des Hauses."
 				},
-				"text": "Liegt das Gebäude im Überschwemmungsgebiet?"
-			},
-			"b": {
-				"options": {
-					"1": "1",
-					"2": "2",
-					"3": "3",
-					"4": "4"
-				},
-				"text": "Liegt das Gebäude in einem Gebiet, das von Flusshochwasser betroffen sein könnte?"
-			},
-			"c": {
-				"options": {
-					"1": "1",
-					"2": "2",
-					"3": "3",
-					"4": "4"
-				},
-				"text": "Starkregen-Gefährdungsgrad des Gebäudes"
+				"text": "Wohnen Sie zur Miete oder gehört Ihnen das Haus oder die Wohnung?",
+				"helperText": "Teileigentümer gelten als Eigentümer, z.B. gemeinsames Eigentum mit Ehepartner, Eigentümergemeinschaft."
 			},
 			"q1": {
 				"options": {
-					"no": "Nein",
-					"noInformation": "Keine Angabe",
 					"yesWithWindow": "Ja, es gibt auch Fenster",
-					"yesWithoutWindow": "Ja, es gibt aber kein Fenster"
+					"yesWithoutWindow": "Ja, es gibt aber kein Fenster",
+					"no": "Nein",
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?"
+				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?",
+				"helperText": ""
 			},
 			"q2": {
 				"options": {
-					"living": "Als Wohnraum",
-					"noInformation": "Keine Angabe",
-					"none": "Es gibt kein Untergeschoss.",
-					"storageHighValue": "Als Lagerraum mit wertvollen Sachen",
-					"storageLowValue": "Als Lagerraum für Sachen, die nicht viel wert sind",
-					"utility": "Als Technikraum für Elektrik, Wärmepumpe, etc."
+					"highValue": "Höherwertige Nutzung (z.B. Technikraum, Wohnraum oder Lagerraum für wertvolle Gegenstände).",
+					"lowValue": "Geringwertige Nutzung (z.B. ein Lagerraum für Dinge, die nicht viel wert sind).",
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Sofern Ihr Gebäude über ein Untergeschoss verfügt, welche Nutzung erfolgt dort vorwiegend?"
+				"text": "Welche Nutzung erfolgt im Untergeschoß vorwiegend?",
+				"helperText": "Wenn die Nutzung des Kellers sowohl hochwertig als auch geringwertig ist, gilt die gesamte Nutzung des Kellers als hochwertig."
 			},
 			"q3": {
-				"options": {
-					"no": "Nein",
-					"noInformation": "Keine Angabe",
-					"one": "Ja, bei einem Ereignis",
-					"threeOrMore": "Ja, bei drei oder mehr Ereignissen",
-					"two": "Ja, bei zwei Ereignissen"
-				},
-				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?"
-			},
-			"q4": {
 				"description": "Eine Rückstausicherung ist eine technische Einrichtung, die bei einem Hochwasserereignis den Rückstau von Wasser in die Abwasserleitungen verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert und sorgt dafür, dass das Abwasser nicht zurückfließen kann.",
 				"image": {
 					"alt": "Rückstauklappen",
@@ -252,14 +211,16 @@
 				},
 				"options": {
 					"no": "Nein",
-					"noInformation": "Keine Angabe",
+					"dontKnow": "Weiß nicht",
+					"yesUnknown": "Ja, in unbekanntem Zustand",
 					"yesGood": "Ja, in gutem Zustand (gewartet entsprechend der Herstellerangaben)",
-					"yesUnknown": "Ja, in unbekanntem Zustand"
+					"noInformation": "Keine Angabe"
 				},
 				"text": "Gibt es eine Rückstausicherung für sanitäre Anlagen und Abläufe?",
-				"title": "Rückstausicherung"
+				"title": "Rückstausicherung",
+				"helperText": ""
 			},
-			"q5": {
+			"q4": {
 				"description": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
 				"image": {
 					"alt": "Abläufe",
@@ -269,20 +230,29 @@
 				"options": {
 					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
 					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
-					"noInformation": "Keine Angabe",
-					"unknown": "In unbekanntem Zustand"
+					"noInformation": "Weiß nicht / Keine Angabe "
 				},
 				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
-				"title": "Abläufe"
+				"title": "Abläufe",
+				"helperText": ""
+			},
+			"q5": {
+				"options": {
+					"no": "Keine (weiteren) Maßnahme(n)",
+					"oneOrMore": "Ja, ich habe eine oder mehrere weitere Maßnahme(n) umgesetzt.",
+					"noInformation": "Weiß nicht / Keine Angabe "
+				},
+				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?",
+				"helperText": ""
 			},
 			"q6": {
 				"options": {
-					"no": "Keine Maßnahme(n)",
-					"noInformation": "Keine Angabe",
-					"one": "Ja, eine Maßnahme",
-					"twoOrMore": "Ja, zwei oder mehr Maßnahmen"
+					"yes": "Ja",
+					"no": "Nein",
+					"noInformation": "Weiß nicht / Keine Angabe "
 				},
-				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?"
+				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?",
+				"helperText": ""
 			}
 		},
 		"reportDownload": {
@@ -310,15 +280,6 @@
 				"backQuestionnaire": "Zurück zum Fragebogen"
 			},
 			"title": "- Ergebnis"
-		},
-		"riskCalculation": {
-			"insufficientAnswers": "Bitte beantworten Sie mindestens 2 Fragen, um eine Bewertung zu erhalten.",
-			"insufficientData": "Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
-			"riskLevels": {
-				"high": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
-				"low": "Ihr Gebäude weist ein geringes Hochwasserrisiko auf.",
-				"moderate": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich."
-			}
 		},
 		"start": {
 			"addressLabel": "Adresse*",

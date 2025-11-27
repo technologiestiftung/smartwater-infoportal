@@ -5,10 +5,13 @@ import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
+import useStore from "@/store/defaultStore";
 
 export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
+	const resetAll = useStore((state) => state.resetAll);
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
@@ -17,6 +20,18 @@ export default function Home() {
 					<h1 className="">{t("pageTitle")}</h1>
 				</div>
 			</section>
+			{showTestingFeatures.includes("resetAllButtonOnHomepage") && (
+				<Button
+					onClick={() => {
+						resetAll();
+						setTimeout(() => {
+							window.location.reload();
+						}, 500);
+					}}
+				>
+					Alles zurücksetzen
+				</Button>
+			)}
 			<section className="w-full">
 				<TextBlock
 					desktopColSpans={{ col1: 2, col2: 3 }}
