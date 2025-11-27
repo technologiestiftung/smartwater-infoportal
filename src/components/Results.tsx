@@ -31,12 +31,10 @@ const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
 	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const testing = showTestingFeatures.includes("resultsPage");
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -148,7 +146,6 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
-			{testing && <Button onClick={resetOnPageLoad}>Reset State</Button>}
 			<section className="flex items-center gap-2">
 				{currentUserAddress && (
 					<>
@@ -239,7 +236,13 @@ const Results: React.FC = () => {
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
 				<Map />
-				<div className={testing ? "" : "absolute -left-[9999px]"}>
+				<div
+					className={
+						showTestingFeatures.includes("mapsOnResultPage")
+							? ""
+							: "absolute -left-[9999px]"
+					}
+				>
 					<MapSR />
 					<MapHW />
 				</div>
@@ -326,7 +329,9 @@ const Results: React.FC = () => {
 							}
 							slotB={<RiskBlock />}
 						/>
-						<EvaluationTesting />
+						{showTestingFeatures.includes("evaluationTesting") && (
+							<EvaluationTesting />
+						)}
 					</section>
 				</>
 			)}

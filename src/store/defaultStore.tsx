@@ -14,6 +14,15 @@ import {
 } from "@/utils/floodRiskCalculator";
 import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
 
+type TestingFeatureNames =
+	| "resetAllButtonOnHomepage"
+	| "addressSearchDetails"
+	| "locationButton"
+	| "mapsOnResultPage"
+	| "evaluationTesting"
+	| "riskWidgetDetails"
+	| "showWidgetsBelowPDF";
+
 type StoreState = {
 	// Core data
 	currentUserAddress: AddressResult | null;
@@ -25,7 +34,7 @@ type StoreState = {
 	isLayerTreeOpen: boolean;
 	isLegendeOpen: boolean;
 	errorLayers: string[];
-	showTestingFeatures: string[];
+	showTestingFeatures: TestingFeatureNames[];
 
 	// Actions
 	setCurrentUserAddress: (address: AddressResult) => void;
@@ -44,7 +53,6 @@ type StoreState = {
 	removeFloodRiskAnswer: (questionId: string) => void;
 	calculateAndSetResult: () => void;
 	resetAll: () => void;
-	resetOnPageLoad: () => void;
 
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
@@ -65,10 +73,9 @@ const useStore = create<StoreState>()(
 				isLegendeOpen: true,
 				errorLayers: [],
 				showTestingFeatures: [
-					"addressSearchDetails",
-					"calculationTable",
+					"resetAllButtonOnHomepage",
+					"evaluationTesting",
 					"riskWidgetDetails",
-					"showWidgetsInPDF",
 				],
 
 				setCurrentUserAddress: (address: AddressResult) =>
@@ -136,14 +143,6 @@ const useStore = create<StoreState>()(
 						locationData: null,
 						floodRiskAnswers: {},
 						floodRiskResult: null,
-					}),
-
-				resetOnPageLoad: () =>
-					set({
-						fullScreenMap: false,
-						isLayerTreeOpen: false,
-						isLegendeOpen: true,
-						errorLayers: [],
 					}),
 
 				// Selectors
