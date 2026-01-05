@@ -246,8 +246,8 @@ const Results: React.FC = () => {
 				>
 					<MapSR />
 					<MapHW />
+					<MapSeltenSR />
 				</div>
-				<MapSeltenSR />
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>

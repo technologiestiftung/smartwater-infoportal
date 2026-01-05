@@ -154,7 +154,28 @@
 			},
 			{
 				"imageSRC": "/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg",
-				"width": "halfPage"
+				"width": "halfPage",
+				"marginBottom": 5
+			},
+			{
+				"hide": "{showNoRareHeavyRain}",
+				"imageSRC": "#map-root-selten-sr",
+				"width": "fullPage",
+				"marginBottom": 5
+			},
+			{
+				"hide": "{showNoRareHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"seltenes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"seltenes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu XXX cm auftreten können."
+			},
+			{
+				"hide": "{showRareHeavyRain}",
+				"text": "An Ihrem Wohnort liegt keine Gefährdung durch \"seltenen\" Starkregen vor.",
+				"fontWeight": "bold",
+				"marginBottom": "paragraph"
+			},
+			{
+				"hide": "{showRareHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"seltenes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"seltenes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt keine Wasserstände für das untersuchte Szenario zu erwarten sind."
 			}
 		]
 	]

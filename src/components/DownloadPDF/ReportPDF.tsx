@@ -19,15 +19,16 @@ interface ReportPDFProps {
 const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const getHazardEntities = useStore((state) => state.getHazardEntities);
+	const { currentUserAddress, getHazardEntities, locationData } = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const mapSR = useMapStore((s) => s.mapSR);
 	const mapHW = useMapStore((s) => s.mapHW);
+	const mapSeltenSR = useMapStore((s) => s.mapSeltenSR);
 	const loadingSR = useMapLoading(mapSR, false);
 	const loadingHW = useMapLoading(mapHW, false);
+	const loadingSeltenSR = useMapLoading(mapSeltenSR, false);
 	const isMobile = useMobile();
 	const [error, setError] = useState<Error | null>(null);
 	const openPDFInNewTab = true;
@@ -42,6 +43,8 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 			"{hazardLevelfloodRisk}": hazardEntities
 				? translateHazardLevels(hazardEntities[1].hazardLevel)
 				: "Keine Daten",
+			"{showNoRareHeavyRain}": !locationData?.isInRareHeavyRainZone,
+			"{showRareHeavyRain}": locationData?.isInRareHeavyRainZone,
 		};
 		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {
@@ -53,12 +56,19 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 	};
 
 	useEffect(() => {
-		if (!mapSR || !mapHW || loadingSR || loadingHW) {
+		if (
+			!mapSR ||
+			!mapHW ||
+			!mapSeltenSR ||
+			loadingSR ||
+			loadingHW ||
+			loadingSeltenSR
+		) {
 			return;
 		}
 		makePDF();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mapSR, mapHW, loadingSR, loadingHW]);
+	}, [mapSR, mapHW, mapSeltenSR, loadingSR, loadingHW, loadingSeltenSR]);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;

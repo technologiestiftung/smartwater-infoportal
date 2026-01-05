@@ -85,6 +85,7 @@ interface PDFPageItem {
 	nextElementOnSameLine?: boolean;
 	marginBottom?: "paragraph" | number;
 	marginLeft?: "halfPage" | number;
+	hide?: string;
 }
 
 export interface PDFProps {
@@ -116,7 +117,6 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 	const pagesPaddingX = paddingX || 12;
 
 	const pageInnerWidth = 210 - 2 * pagesPaddingX;
-	console.log("pageInnerWidth :>> ", pageInnerWidth);
 	const gap = 5;
 	const leftHalfOfThePage = pageInnerWidth / 2 - gap;
 
@@ -197,7 +197,6 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 				posX += marginLeft;
 			}
 			if (line.includes("<b>")) {
-				console.log("text includes bold", parseBoldText(line));
 				const boldTextChunks = parseBoldText(line);
 				let cursorX = posX;
 				boldTextChunks.forEach((chunk) => {
@@ -262,7 +261,18 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			for (let itemIndex = 0; itemIndex < pageItems.length; itemIndex++) {
 				const item = pageItems[itemIndex];
 				console.log("item :>> ", item);
-				console.log("vertical :>> ", vertical);
+				let hide = false;
+				if (pdfKeys) {
+					Object.keys(pdfKeys).forEach((key) => {
+						const value = pdfKeys[key];
+						if (item.hide === key) {
+							hide = value;
+						}
+					});
+				}
+				if (hide) {
+					continue;
+				}
 				if (vertical > 297 - pagesPaddingY) {
 					newPage();
 				}
