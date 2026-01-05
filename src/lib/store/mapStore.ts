@@ -9,12 +9,15 @@ export const useMapStore = create<MapStoreState>((set, get) => ({
 	map: null,
 	mapSR: null,
 	mapHW: null,
+	mapSeltenSR: null,
 	config: null,
 	configSR: null,
 	configHW: null,
+	configSeltenSR: null,
 	layers: [],
 	layersSR: [],
 	layersHW: [],
+	layersSeltenSR: [],
 	currentFeature: null,
 	isLayerTreeOpen: false,
 
@@ -22,12 +25,15 @@ export const useMapStore = create<MapStoreState>((set, get) => ({
 	setConfig: (config) => set({ config }),
 	setConfigSR: (configSR) => set({ configSR }),
 	setConfigHW: (configHW) => set({ configHW }),
+	setConfigSeltenSR: (configSeltenSR) => set({ configSeltenSR }),
 	populateMap: (map) => set({ map }),
 	populateMapSR: (mapSR) => set({ mapSR }),
 	populateMapHW: (mapHW) => set({ mapHW }),
+	populateMapSeltenSR: (mapSeltenSR) => set({ mapSeltenSR }),
 	removeMap: () => set({ map: null }),
 	removeMapSR: () => set({ mapSR: null }),
 	removeMapHW: () => set({ mapHW: null }),
+	removeMapSeltenSR: () => set({ mapSeltenSR: null }),
 
 	// LayerTree
 	setIsLayerTreeOpen: (isOpen) => set({ isLayerTreeOpen: isOpen }),
@@ -36,6 +42,7 @@ export const useMapStore = create<MapStoreState>((set, get) => ({
 	setLayers: (layers) => set({ layers }),
 	setLayersSR: (layersSR) => set({ layersSR }),
 	setLayersHW: (layersHW) => set({ layersHW }),
+	setLayersSeltenSR: (layersSeltenSR) => set({ layersSeltenSR }),
 	addLayer: (layer) => set((state) => ({ layers: [...state.layers, layer] })),
 	removeLayer: (layerId) =>
 		set((state) => ({

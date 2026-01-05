@@ -1,59 +1,16 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
-import { Button, DownloadItem, Image } from "berlin-ui-library";
+import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
 import useStore from "@/store/defaultStore";
-import { useEffect, useRef, useState } from "react";
-import {
-	createPDF,
-	getToday,
-	PDFProps,
-} from "@/components/DownloadPDF/pdfUtilsNew";
-import pdfData from "@/components/DownloadPDF/pdf.json";
 
 export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
-	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
-	const resetAll = useStore((state) => state.resetAll);
-	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
-	const wrapperRef = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		const wrapper = wrapperRef.current;
-		if (!wrapper || !pdfBlob) {
-			return () => {};
-		}
-
-		const handleClick = (e: MouseEvent) => {
-			const target = e.target as HTMLElement;
-			const clickedButton = target.closest("button");
-
-			if (clickedButton && wrapper.contains(clickedButton)) {
-				const url = URL.createObjectURL(pdfBlob);
-				window.open(url, "_blank");
-				/* const a = document.createElement("a");
-				a.href = url;
-				a.download = "Report-HochwasserCheck-Berlin.pdf";
-				a.click();
-				setTimeout(() => {
-					URL.revokeObjectURL(url);
-				}, 4000); */
-			} else {
-				const err = new Error("Button not found");
-				err.name = "ButtonNotFoundOnPDF";
-			}
-		};
-
-		wrapper.addEventListener("click", handleClick);
-
-		return () => {
-			wrapper.removeEventListener("click", handleClick);
-		};
-	}, [pdfBlob]);
+	const { showTestingFeatures, resetAll } = useStore();
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
@@ -74,39 +31,7 @@ export default function Home() {
 					Alles zurücksetzen
 				</Button>
 			)}
-			{showTestingFeatures.includes("newPDFButton") && (
-				<div ref={wrapperRef}>
-					<Button
-						onClick={async () => {
-							const pdfKeys = {
-								"{date}": getToday(),
-							};
-							const pdfBlobCreated = await createPDF(
-								pdfData as PDFProps,
-								pdfKeys,
-							);
-							if (!pdfBlobCreated?.blob) {
-								window.alert("PDF konnte nicht erstellt werden.");
-								return;
-							}
-							setPdfBlob(pdfBlobCreated?.blob);
-						}}
-					>
-						PDF
-					</Button>
-					{pdfBlob && (
-						<DownloadItem
-							buttonText="Runderladen"
-							description="Beschreibung"
-							downloadUrl="#results"
-							fileType="XXX MB"
-							date={getToday()}
-							title="Title"
-						/>
-					)}
-				</div>
-			)}
-			<section className="w-full" id="captureImageTest">
+			<section className="w-full">
 				<TextBlock
 					desktopColSpans={{ col1: 2, col2: 3 }}
 					className="w-full gap-6"

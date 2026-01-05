@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable */
 
 import proj4 from "proj4";
 import type { Geometry } from "./types";
@@ -40,16 +40,16 @@ export class GeoServerClient {
 				latitude,
 			]);
 
-			/* const floodZoneIndex = await this.getFloodZoneIndex(
-				transformedX,
-				transformedY,
-			); */
-
 			const isFlood = await this.getUeberschwemmungsgebieteWFS(
 				transformedX,
 				transformedY,
 			);
 			const floodZoneIndex = typeof isFlood === "boolean" && !!isFlood ? 1 : 0;
+
+			const isInRareHeavyRainZone = await this.getWasserstandSeltenWMS(
+				transformedX,
+				transformedY,
+			);
 
 			const exactMatch = await this.searchExactIntersection(
 				transformedX,
@@ -60,6 +60,7 @@ export class GeoServerClient {
 					found: true,
 					buildingInformation: exactMatch,
 					floodZoneIndex,
+					isInRareHeavyRainZone,
 				};
 			}
 
@@ -72,6 +73,7 @@ export class GeoServerClient {
 					found: true,
 					buildingInformation: bufferResult,
 					floodZoneIndex,
+					isInRareHeavyRainZone,
 				};
 			}
 
@@ -79,12 +81,14 @@ export class GeoServerClient {
 				found: false,
 				buildingInformation: null,
 				floodZoneIndex,
+				isInRareHeavyRainZone,
 			};
 		} catch {
 			return {
 				found: false,
 				buildingInformation: null,
 				floodZoneIndex: null,
+				isInRareHeavyRainZone: null,
 			};
 		}
 	}
@@ -193,6 +197,135 @@ export class GeoServerClient {
 			return isFlood;
 		} catch (err) {
 			console.error("WFS fetch failed:", err);
+			return null;
+		}
+	}
+
+	/**
+	 * Check “overlap” against a WMS layer via GetFeatureInfo (Option A).
+	 *
+	 * Notes:
+	 * - Uses a small buffered BBOX around the point (in EPSG:25833).
+	 * - Renders a virtual map image (WIDTH/HEIGHT) and computes pixel i/j for the point.
+	 * - If the service returns vector features in JSON, we use features.length > 0.
+	 * - If it returns raster info (common), you can still treat a valid value as “hit”.
+	 */
+	async getWasserstandSeltenWMS(
+		x25833: number,
+		y25833: number,
+		buffer = 50, // meters around point
+		width = 256, // virtual image width
+		height = 256, // virtual image height
+	): Promise<boolean | null> {
+		try {
+			// WMS 1.3.0 uses CRS param name "CRS"
+			// BBOX in EPSG:25833 is "minx,miny,maxx,maxy"
+			const minx = x25833 - buffer;
+			const miny = y25833 - buffer;
+			const maxx = x25833 + buffer;
+			const maxy = y25833 + buffer;
+
+			const bbox = [minx, miny, maxx, maxy].join(",");
+
+			// Convert point coordinate to pixel i/j in the virtual image
+			// x increases left->right, y increases bottom->top in EPSG:25833
+			// image j increases top->bottom, so we invert y.
+			const i = Math.floor(((x25833 - minx) / (maxx - minx)) * width);
+			const j = Math.floor(((maxy - y25833) / (maxy - miny)) * height);
+
+			// Clamp to valid pixel range
+			const ii = Math.max(0, Math.min(width - 1, i));
+			const jj = Math.max(0, Math.min(height - 1, j));
+
+			const url = new URL("https://gdi.berlin.de/services/wms/ua_srgk");
+
+			url.searchParams.set("SERVICE", "WMS");
+			url.searchParams.set("VERSION", "1.3.0");
+			url.searchParams.set("REQUEST", "GetFeatureInfo");
+
+			// Layer you care about
+			url.searchParams.set("LAYERS", "ca_wasserstand_selten");
+			url.searchParams.set("QUERY_LAYERS", "ca_wasserstand_selten");
+
+			// Virtual map definition (must match pixel math above)
+			url.searchParams.set("CRS", "EPSG:25833");
+			url.searchParams.set("BBOX", bbox);
+			url.searchParams.set("WIDTH", String(width));
+			url.searchParams.set("HEIGHT", String(height));
+
+			// Pixel coordinate (WMS 1.3.0 uses I/J)
+			url.searchParams.set("I", String(ii));
+			url.searchParams.set("J", String(jj));
+
+			// Ask for JSON like your setup
+			url.searchParams.set("INFO_FORMAT", "application/json");
+			url.searchParams.set("FEATURE_COUNT", "5");
+
+			// Optional but sometimes helps servers
+			url.searchParams.set("STYLES", "");
+			url.searchParams.set("FORMAT", "image/png");
+			url.searchParams.set("TRANSPARENT", "true");
+
+			const response = await fetch(url.toString());
+			if (!response.ok) {
+				console.error(
+					"WMS GetFeatureInfo error:",
+					response.status,
+					response.statusText,
+				);
+				return null;
+			}
+
+			const contentType = response.headers.get("content-type") || "";
+
+			// Some servers may return text/html or text/plain even if you ask for JSON.
+			const text = await response.text();
+
+			// Try to parse as JSON if possible
+			let json: any = null;
+			if (
+				contentType.includes("application/json") ||
+				contentType.includes("json")
+			) {
+				try {
+					json = JSON.parse(text);
+				} catch (e) {
+					console.warn("WMS returned json content-type but JSON parse failed");
+				}
+			} else {
+				// Best-effort parse anyway (some servers mislabel)
+				try {
+					json = JSON.parse(text);
+				} catch {
+					// If it’s not JSON, you can decide how to interpret text responses here.
+					// For now: treat non-empty response as "hit" only if it contains something meaningful.
+					return text.trim().length > 0 ? true : null;
+				}
+			}
+
+			if (!json) return null;
+
+			// Common GeoServer-like patterns:
+			// - json.features (GeoJSON)
+			// - json.featureCollection.features
+			// - json.results / json.layers / etc (varies by server)
+			const features =
+				json.features ??
+				json.featureCollection?.features ??
+				json?.FeatureCollection?.features ??
+				null;
+
+			if (Array.isArray(features)) {
+				return features.length > 0;
+			}
+
+			// Raster-ish GetFeatureInfo responses sometimes return values under different keys.
+			// If you know the expected property name/value rules, adjust here.
+			// Generic fallback: if the JSON has any keys beyond boilerplate, assume "hit".
+			const keys = Object.keys(json);
+			return keys.length > 0 ? true : null;
+		} catch (err) {
+			console.error("WMS GetFeatureInfo fetch failed:", err);
 			return null;
 		}
 	}

@@ -2,39 +2,160 @@
 	"name": "Report-HochwasserCheck-Berlin.pdf",
 	"showPageNumbers": true,
 	"pages": [
-		{
-			"items": [
-				{
-					"imageSRC": "/pdf/Logo-SMVKU.png",
-					"width": "halfPage",
-					"nextElementOnSameLine": true
-				},
-				{
-					"text": "Adresse die überprüft wurde:",
-					"marginLeft": "halfPage",
-					"nextElementOnSameLine": true
-				},
-				{
-					"text": "Datum hier",
-					"textAlign": "right",
-					"fontWeight": "bold",
-					"marginBottom": 30
-				},
-				{
-					"text": "Kurzer Wasserstand vom Team 🚀 🚀🚀Aufbau nach Absprache mit Amba:\nDer Stiftungstag findet im 4. OG statt, die Feier zwei Stunden nach Ende des Stiftungstages im 5. OG",
-					"fontSize": "h2",
-					"fontWeight": "bold"
-				},
-				{
-					"imageSRC": "#captureImageTest",
-					"width": "halfPage",
-					"marginLeft": "halfPage"
-				},
-				{
-					"imageSRC": "/pdf/Logo-SMVKU.png",
-					"width": "halfPage"
-				}
-			]
-		}
+		[
+			{
+				"imageSRC": "/pdf/Logo-SMVKU.png",
+				"width": 60,
+				"marginBottom": 2
+			},
+			{
+				"text": "Hochwasser-Infoportal Berlin",
+				"fontSize": "h1",
+				"marginBottom": 2
+			},
+			{
+				"text": "Report zum Ergebnis HochwasserCheck Berlin",
+				"fontSize": "h2",
+				"marginBottom": 10
+			},
+			{
+				"text": "Report vom {date}",
+				"textAlign": "right",
+				"marginBottom": 5
+			},
+			{
+				"text": "Es wurde die folgende Adresse überprüft:",
+				"marginBottom": 2
+			},
+			{
+				"imageSRC": "/pdf/LocationDot.png",
+				"width": 5,
+				"nextElementOnSameLine": true,
+				"marginBottom": 1
+			},
+			{
+				"text": "{address}",
+				"marginLeft": 7,
+				"marginBottom": 15
+			},
+			{
+				"text": "Einleitung",
+				"fontSize": "h2",
+				"marginBottom": 2
+			},
+			{
+				"text": "Dieser Bericht fasst die Ergebnisse des HochwasserCheck Berlin für die im Titel genannte Adresse zusammen. Der HochwasserCheck Berlin ist ein Online-Werkzeug, mit dem Personen mit berechtigtem Interesse die Hochwassergefährdung ihres Standorts schnell und nachvollziehbar einschätzen können. Grundlage dieser Bewertung sind verschiedene Fachkarten, die aufzeigen, wo in Berlin Wasser infolge von Starkregen (pluviale Hochwasser) oder Flusshochwasser (fluviale Hochwasser) hinfließt und welche Bereiche potenziell hiervon betroffen sind.",
+				"lineHeight": "wide"
+			},
+			{
+				"text": "Für die Gefährdungsabschätzung werden folgende Fachkarten herangezogen, welche Sie auch im Geoportal Berlin einsehen können:",
+				"lineHeight": "wide"
+			},
+			{
+				"text": " • Starkregenhinweis- und Starkregengefahrenkarten für unterschiedliche Niederschlagsereignisse",
+				"lineHeight": "wide"
+			},
+			{
+				"text": " • Hochwassergefahrenkarten für verschiedene Flusshochwasserszenarien",
+				"lineHeight": "wide"
+			},
+			{
+				"text": " • Überschwemmungsgebiete",
+				"lineHeight": "wide",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Dieser Bericht bündelt die relevanten Informationen aus diesen Karten für die geprüfte Adresse und ermöglicht eine erste Einschätzung, wie das jeweilige Objekt im Hochwasserfall betroffen sein könnte. Jede:r ist im Rahmen des Zumutbaren verpflichtet, geeignete Vorsorgemaßnahmen zu treffen, um Schäden durch Überflutungen und Überschwemmungen zu vermindern (Wasserhaushaltsgesetz, §5 (2)). Daher enthält der Bericht Hinweise zu möglichen Anpassungsmaßnahmen. Hintergrundinformationen zu dem Thema Hochwasser und den Karten finden Sie im Hochwasserinfoportal.",
+				"lineHeight": "wide",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Bitte beachten Sie:",
+				"fontWeight": "bold",
+				"lineHeight": "wide"
+			},
+			{
+				"text": "Die Karten enthalten keine Angaben zur tatsächlichen Nutzung einzelner Grundstücke oder Gebäude. Sie erlauben daher keine präzise Aussage darüber, ob ein Hochwasserereignis im konkreten Fall Schäden verursachen wird oder welche Risiken für Menschen, Sachwerte oder die Umwelt bestehen. Ebenso sind lokale Schutzmaßnahmen nicht berücksichtigt. Alle Informationen wurden sorgfältig zusammengetragen, werden jedoch ohne Gewähr bereitgestellt. Eine Haftung für Folgen, die aus der Nutzung der Karten entstehen könnten, ist ausgeschlossen. Ein Abgleich der Informationen mit der Situation vor Ort ist daher immer zwingend erforderlich.",
+				"lineHeight": "wide"
+			},
+			{
+				"text": "In diesem Bericht verlinken wir, z.B. auf aktuell geltende Verordnungen, damit die Informationen immer aktuell sind. Dadurch kann auf alle Inhalte dieses Berichtes nur zugegriffen werden, wenn der Bericht in einer digitalen Form verwendet wird.",
+				"lineHeight": "wide"
+			}
+		],
+		[
+			{
+				"text": "Allgemeine Abschätzung der Gefährdung",
+				"fontSize": "h2",
+				"marginBottom": 5
+			},
+			{
+				"text": "Gefährung durch Starkregen",
+				"fontSize": "h3",
+				"marginBottom": 2
+			},
+			{
+				"text": "Gefährung durch Starkregen an Ihrem Standort: <b>{hazardLevelHeavyRain}</b>",
+				"marginBottom": 5
+			},
+			{
+				"imageSRC": "#heavyRainWidget",
+				"width": 0.4,
+				"nextElementOnSameLine": true
+			},
+			{
+				"imageSRC": "#map-root-sr",
+				"width": 0.58,
+				"marginLeft": 0.42,
+				"marginBottom": 10
+			},
+			{
+				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte rechts ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden."
+			}
+		],
+		[
+			{
+				"text": "Gefährung durch Flusshochwasser",
+				"fontSize": "h3",
+				"marginBottom": 2
+			},
+			{
+				"text": "Gefährung durch Flusshochwasser an Ihrem Standort: <b>{hazardLevelfloodRisk}</b>",
+				"marginBottom": 5
+			},
+			{
+				"imageSRC": "#fluvialFloodWidget",
+				"width": 0.4,
+				"nextElementOnSameLine": true
+			},
+			{
+				"imageSRC": "#map-root-hw",
+				"width": 0.58,
+				"marginLeft": 0.42,
+				"marginBottom": 10
+			},
+			{
+				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte rechts ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden. Keine Färbung bedeutet, dass dort keine Gefährdung durch Flusshochwasser vorliegt."
+			}
+		],
+		[
+			{
+				"text": "Gefährdung durch Starkregen",
+				"fontSize": "h2",
+				"marginBottom": 5
+			},
+			{
+				"text": "Für den Raum Berlin wurden Starkregenhinweiskarten und -gefahrenkarten durch die Senatsverwaltung erstellt, um die Bürger:innen von Berlin über ihre Gefährdung durch  Starkregen aufzuklären. Die Hinweis- und Gegahrenkarten unterscheiden sich hinsichtlich ihrer Datengrundlage, siehe Abbildung.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Bitte beachten Sie, dass Starkregenereignisse von einer Vielzahl teils kleinräumiger Faktoren abhängen, die nicht alle in die Modellierung der Starkregenhinweiskarten und -gefahrenkarten eingehen konnten. Die hier präsentierte Auswertung ist daher als Hinweis zu verstehen, die reale Situtation vor Ort kann ggf. hiervon abweichen.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"imageSRC": "/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg",
+				"width": "halfPage"
+			}
+		]
 	]
 }

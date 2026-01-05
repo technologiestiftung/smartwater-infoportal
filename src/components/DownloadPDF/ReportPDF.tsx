@@ -5,22 +5,23 @@ import { FC, useEffect, useRef, useState } from "react";
 import { DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import PDFContent from "./PDFContent";
-import { createDownloadPDF, getImageFromHTML, getToday } from "./pdfUtils";
+import { getToday } from "./pdfUtilsNew";
 import { useMapStore } from "@/lib/store/mapStore";
 import { useMapLoading } from "@/lib/utils/useMapLoading";
 import useMobile from "@/lib/utils/useMobile";
+import { createPDF, PDFProps, translateHazardLevels } from "./pdfUtilsNew";
+import pdfData from "@/components/DownloadPDF/pdf.json";
 
 interface ReportPDFProps {
 	skip: string | null;
 }
 
-const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
+const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const hazardEntities = getHazardEntities();
-	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const mapSR = useMapStore((s) => s.mapSR);
@@ -29,51 +30,33 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const loadingHW = useMapLoading(mapHW, false);
 	const isMobile = useMobile();
 	const [error, setError] = useState<Error | null>(null);
+	const openPDFInNewTab = true;
 
-	const getScreenshotsFromResultsPage = async () => {
-		try {
-			const collectImages = [];
-			const IDsToCollect = [
-				"heavyRainWidget",
-				"fluvialFloodWidget",
-				"map-root-sr",
-				"map-root-hw",
-			];
-			if (!skip) {
-				IDsToCollect.push("risk-block", "protection-tips");
-			}
-			for (let index = 0; index < IDsToCollect.length; index++) {
-				const id = IDsToCollect[index];
-				const findImage = await getImageFromHTML(id);
-				if (findImage) {
-					collectImages.push(findImage);
-				} else {
-					console.error("Image from getImageFromHTML not found!!!", id);
-				}
-			}
-			const pdf = await createDownloadPDF(
-				t,
-				skip,
-				floodRiskResult,
-				hazardEntities,
-				currentUserAddress,
-				collectImages,
-			);
-			if (!pdf.blob || !pdf.sizeInMB) {
-				throw new Error("!pdf.blob || !pdf.sizeInMB");
-			}
-			setPdfBlob(pdf.blob);
-			setPdfSizeKB(pdf.sizeInMB);
-		} catch (e) {
-			setError(e as Error);
+	const makePDF = async () => {
+		const pdfKeys = {
+			"{date}": getToday(),
+			"{address}": currentUserAddress?.label || "Keine Adresse gefunden",
+			"{hazardLevelHeavyRain}": hazardEntities
+				? translateHazardLevels(hazardEntities[0].hazardLevel)
+				: "Keine Daten",
+			"{hazardLevelfloodRisk}": hazardEntities
+				? translateHazardLevels(hazardEntities[1].hazardLevel)
+				: "Keine Daten",
+		};
+		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
+		if (!pdfBlobCreated?.blob) {
+			window.alert("PDF konnte nicht erstellt werden.");
+			return;
 		}
+		setPdfSizeKB(pdfBlobCreated.sizeInMB);
+		setPdfBlob(pdfBlobCreated?.blob);
 	};
 
 	useEffect(() => {
 		if (!mapSR || !mapHW || loadingSR || loadingHW) {
 			return;
 		}
-		getScreenshotsFromResultsPage();
+		makePDF();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mapSR, mapHW, loadingSR, loadingHW]);
 
@@ -90,7 +73,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			if (clickedButton && wrapper.contains(clickedButton)) {
 				const url = URL.createObjectURL(pdfBlob);
 
-				if (isMobile) {
+				if (isMobile || openPDFInNewTab) {
 					if (!window) {
 						const err = new Error("window is undefined");
 						err.name = "WindowUndefined";

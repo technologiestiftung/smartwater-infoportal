@@ -42,6 +42,7 @@ export interface LocationData {
 	maxGefährdung: number;
 	distance?: number;
 	floodZoneIndex?: number | null;
+	isInRareHeavyRainZone?: boolean | null;
 }
 
 export interface QuestionAnswer {

@@ -76,7 +76,7 @@ const useStore = create<StoreState>()(
 				showTestingFeatures: [
 					"evaluationTesting",
 					"riskWidgetDetails",
-					"newPDFButton",
+					"resetAllButtonOnHomepage",
 				],
 
 				setCurrentUserAddress: (address: AddressResult) =>

@@ -13,28 +13,78 @@ export const getToday = (): string => {
 	return `${day}.${month}.${year}`;
 };
 
+export const translateHazardLevels = (level: string): string => {
+	if (level === "low") {
+		return "Gering";
+	}
+	if (level === "moderate") {
+		return "Mittel";
+	}
+	if (level === "high") {
+		return "Hoch";
+	}
+	if (level === "severe") {
+		return "Sehr Hoch";
+	}
+	return level;
+};
+
 // Utils to create PDF
 const pxToMm = (px: number, dpi = 96) => (px / dpi) * 25.4;
+
+function parseBoldText(input: string) {
+	const chunks = [];
+
+	const regex = /<b>(.*?)<\/b>/g;
+	let lastIndex = 0;
+	let match: RegExpExecArray | null;
+
+	while ((match = regex.exec(input)) !== null) {
+		// normal text before <b>
+		if (match.index > lastIndex) {
+			chunks.push({
+				text: input.slice(lastIndex, match.index),
+				bold: false,
+			});
+		}
+
+		// bold text
+		chunks.push({
+			text: match[1],
+			bold: true,
+		});
+
+		lastIndex = regex.lastIndex;
+	}
+
+	// remaining text
+	if (lastIndex < input.length) {
+		chunks.push({
+			text: input.slice(lastIndex),
+			bold: false,
+		});
+	}
+
+	return chunks;
+}
 
 interface PDFPageItem {
 	// Text Item
 	text?: string;
-	fontSize?: "small" | "normal" | "h1" | "h2" | number;
+	fontSize?: "small" | "normal" | "h1" | "h2" | "h3" | number;
+	lineHeight?: "wide" | number;
 	fontWeight?: "normal" | "bold";
 	textAlign?: "left" | "center" | "right";
-	maxWidthOfText?: "halfPage" | "fullPage";
+	maxWidthOfText?: "halfPage" | "fullPage" | number;
+	textDecoration?: "underline";
 	// Image Item
 	imageSRC?: string;
-	width?: "halfPage" | "fullPage" | number;
+	width?: "halfPage" | "fullPage" | string | number;
 	height?: number;
 	// Both Items
 	nextElementOnSameLine?: boolean;
-	marginBottom?: number;
+	marginBottom?: "paragraph" | number;
 	marginLeft?: "halfPage" | number;
-}
-
-interface PDFPages {
-	items: PDFPageItem[];
 }
 
 export interface PDFProps {
@@ -42,7 +92,7 @@ export interface PDFProps {
 	showPageNumbers?: boolean;
 	pagesPaddingY?: number;
 	pagesPaddingX?: number;
-	pages: PDFPages[];
+	pages: PDFPageItem[][];
 }
 
 export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
@@ -66,6 +116,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 	const pagesPaddingX = paddingX || 12;
 
 	const pageInnerWidth = 210 - 2 * pagesPaddingX;
+	console.log("pageInnerWidth :>> ", pageInnerWidth);
 	const gap = 5;
 	const leftHalfOfThePage = pageInnerWidth / 2 - gap;
 
@@ -77,6 +128,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 		const {
 			text,
 			fontSize,
+			lineHeight,
 			fontWeight,
 			textAlign,
 			y,
@@ -84,6 +136,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			marginBottom,
 			marginLeft,
 			maxWidthOfText,
+			textDecoration,
 		} = props;
 
 		if (!text) {
@@ -97,14 +150,31 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			setSize = 25;
 		} else if (fontSize === "h2") {
 			setSize = 18;
+		} else if (fontSize === "h3") {
+			setSize = 15;
 		}
-		const setLineHeight = pxToMm(setSize * 1.2);
+		let setLineHeight = typeof lineHeight === "number" ? lineHeight : 1.35;
+		if (lineHeight === "wide") {
+			setLineHeight = 1.75;
+		}
+		const getLineHeight = pxToMm(setSize * setLineHeight);
 		const setMaxWidth =
-			maxWidthOfText === "halfPage" ? leftHalfOfThePage : pageInnerWidth;
+			maxWidthOfText === "halfPage"
+				? leftHalfOfThePage
+				: typeof maxWidthOfText === "number"
+					? maxWidthOfText < 1
+						? maxWidthOfText * pageInnerWidth
+						: maxWidthOfText
+					: pageInnerWidth;
 
 		doc.setFontSize(setSize);
 
-		if (fontWeight === "bold") {
+		if (
+			fontWeight === "bold" ||
+			fontSize === "h1" ||
+			fontSize === "h2" ||
+			fontSize === "h3"
+		) {
 			doc.setFont("Arial", "bold");
 		} else {
 			doc.setFont("Arial", "normal");
@@ -112,7 +182,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 		const lines = doc.splitTextToSize(text, setMaxWidth);
 
 		let posY = y ?? vertical;
-		posY += setLineHeight;
+		posY += getLineHeight;
 
 		lines.forEach((line: string, index: number) => {
 			let posX =
@@ -126,17 +196,34 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			} else if (typeof marginLeft === "number") {
 				posX += marginLeft;
 			}
-			doc.text(line, posX, posY + index * setLineHeight, {
-				maxWidth: setMaxWidth,
-			});
+			if (line.includes("<b>")) {
+				console.log("text includes bold", parseBoldText(line));
+				const boldTextChunks = parseBoldText(line);
+				let cursorX = posX;
+				boldTextChunks.forEach((chunk) => {
+					if (chunk.bold) {
+						doc.setFont("Arial", "bold");
+					} else {
+						doc.setFont("Arial", "normal");
+					}
+					doc.text(chunk.text, cursorX, posY + index * getLineHeight);
+					cursorX += doc.getTextWidth(chunk.text);
+				});
+			} else {
+				doc.text(line, posX, posY + index * getLineHeight, {
+					maxWidth: setMaxWidth,
+				});
+			}
 		});
 
 		if (!nextElementOnSameLine) {
-			vertical += lines.length * setLineHeight;
+			vertical += lines.length * getLineHeight;
 		}
 
 		if (typeof marginBottom === "number") {
 			vertical += marginBottom;
+		} else if (marginBottom === "paragraph") {
+			vertical += getLineHeight;
 		}
 	};
 
@@ -149,12 +236,16 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 	// Changing Values
 	let vertical = pagesPaddingY;
 
+	const newPage = () => {
+		doc.addPage();
+		vertical = pagesPaddingY;
+	};
+
 	for (let pageIndex = 0; pageIndex < pages.length; pageIndex++) {
-		const page = pages[pageIndex];
+		const pageItems = pages[pageIndex];
 
 		if (pageIndex > 0) {
-			doc.addPage();
-			vertical = pagesPaddingY;
+			newPage();
 		}
 
 		if (showPageNumbers) {
@@ -167,11 +258,14 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			});
 		}
 
-		if (page.items && page.items.length > 0) {
-			for (let itemIndex = 0; itemIndex < page.items.length; itemIndex++) {
-				const item = page.items[itemIndex];
+		if (pageItems && pageItems.length > 0) {
+			for (let itemIndex = 0; itemIndex < pageItems.length; itemIndex++) {
+				const item = pageItems[itemIndex];
 				console.log("item :>> ", item);
 				console.log("vertical :>> ", vertical);
+				if (vertical > 297 - pagesPaddingY) {
+					newPage();
+				}
 				if (item.text) {
 					let text = item.text;
 					if (pdfKeys) {
@@ -183,12 +277,14 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 					writeTextOnPDF({
 						text,
 						fontSize: item.fontSize,
+						lineHeight: item.lineHeight,
 						fontWeight: item.fontWeight,
 						textAlign: item.textAlign,
 						nextElementOnSameLine: item.nextElementOnSameLine,
 						marginBottom: item.marginBottom,
 						marginLeft: item.marginLeft,
 						maxWidthOfText: item.maxWidthOfText,
+						textDecoration: item.textDecoration,
 					});
 				} else if (item.imageSRC) {
 					const image = await getImage(item.imageSRC);
@@ -198,7 +294,9 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							item.marginLeft === "halfPage"
 								? leftHalfOfThePage + gap
 								: typeof item.marginLeft === "number"
-									? item.marginLeft
+									? item.marginLeft < 1
+										? pageInnerWidth * item.marginLeft + pagesPaddingX
+										: item.marginLeft + pagesPaddingX
 									: (pagesPaddingX ?? 0);
 
 						const hasWidth = typeof item.width === "number";
@@ -208,8 +306,11 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						let drawHeight: number;
 
 						if (hasWidth) {
-							// You know the width, compute height
-							drawWidth = item.width as number;
+							if ((item.width as number) < 1) {
+								drawWidth = pageInnerWidth * (item.width as number);
+							} else {
+								drawWidth = item.width as number;
+							}
 							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅ height/width
 						} else if (hasHeight) {
 							// You know the height, compute width
@@ -227,12 +328,11 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅
 						}
 
-						const posY = vertical;
 						console.log("addImage", {
 							image: image.image,
 							typ: "JPEG",
 							marginLeft,
-							posY,
+							vertical,
 							drawWidth,
 							drawHeight,
 						});
@@ -241,14 +341,13 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							image.image,
 							"JPEG",
 							marginLeft,
-							posY,
+							vertical,
 							drawWidth,
 							drawHeight,
 						);
 
 						if (!item.nextElementOnSameLine) {
 							vertical += drawHeight;
-							vertical += 5;
 						}
 						if (typeof item.marginBottom === "number") {
 							vertical += item.marginBottom;

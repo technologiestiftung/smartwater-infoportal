@@ -24,6 +24,7 @@ export async function getHazardData(
 				),
 				found: true,
 				floodZoneIndex: result.floodZoneIndex,
+				isInRareHeavyRainZone: result.isInRareHeavyRainZone,
 				...(building.distance && { distance: building.distance }),
 			};
 		}
@@ -33,6 +34,7 @@ export async function getHazardData(
 			maxGefährdung: 0,
 			found: false,
 			floodZoneIndex: result.floodZoneIndex,
+			isInRareHeavyRainZone: result.isInRareHeavyRainZone,
 		};
 	} catch {
 		return {
@@ -40,6 +42,7 @@ export async function getHazardData(
 			maxGefährdung: 0,
 			found: false,
 			floodZoneIndex: null,
+			isInRareHeavyRainZone: null,
 		};
 	}
 }
