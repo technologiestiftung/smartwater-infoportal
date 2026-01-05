@@ -48,7 +48,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				if (findImage) {
 					collectImages.push(findImage);
 				} else {
-					throw new Error("Image from getImageFromHTML not found!!!");
+					console.error("Image from getImageFromHTML not found!!!", id);
 				}
 			}
 			const pdf = await createDownloadPDF(

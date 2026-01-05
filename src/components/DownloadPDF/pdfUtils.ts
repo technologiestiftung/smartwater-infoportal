@@ -22,7 +22,6 @@ export const translateHazardLevels = (level: string): string => {
 	}
 	return level;
 };
-
 export const getToday = (): string => {
 	const today = new Date();
 	const day = String(today.getDate()).padStart(2, "0");
@@ -111,9 +110,202 @@ export const getImageFromHTML = async (elementId: string) => {
 	return null;
 };
 
+// Utils to create PDF
 const mm = (px: number): number => {
 	const pixelsToMM = 0.3529411765;
 	return px * pixelsToMM;
+};
+
+interface PDFPageItem {
+	text?: string;
+	imageSRC?: string;
+	fontSize?: "small" | "normal" | "h1" | "h2" | number;
+	fontWeight?: "normal" | "bold";
+	textAlign?: "left" | "center" | "right";
+	noLineBreakAfterText?: boolean;
+	marginBottom?: number;
+	maxWidthOfText?: "halfPage" | "fullPage";
+}
+
+interface PDFPages {
+	items: PDFPageItem[];
+}
+
+interface PDFProps {
+	name: string;
+	showPageNumbers?: boolean;
+	pagesPaddingY: number;
+	pagesPaddingX: number;
+	captureImagesFromHTML?: string[];
+	pages: PDFPages[];
+}
+
+export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
+	if (!pdf || !pdf.pages || pdf.pages.length === 0) {
+		console.error("No PDF data provided");
+		return null;
+	}
+	const doc = new jsPDF({
+		unit: "mm",
+		format: "a4",
+	});
+
+	// PDF utils
+	const {
+		pagesPaddingY: paddingY,
+		pagesPaddingX: paddingX,
+		pages,
+		showPageNumbers,
+	} = pdf;
+	const pagesPaddingY = mm(paddingY || 40);
+	const pagesPaddingX = mm(paddingX || 30);
+
+	const pageInnerWidth = mm(515 - 2 * (paddingX || 30));
+	const pageInnerHeight = mm(782 - 2 * (paddingY || 40));
+	const gap = 20;
+	const leftHalfOfThePage = pageInnerWidth / 2 - mm(gap);
+
+	const writeTextOnPDF = (props: any) => {
+		if (!props) {
+			return;
+		}
+
+		const {
+			text,
+			fontSize,
+			fontWeight,
+			textAlign,
+			y,
+			noLineBreakAfterText,
+			marginBottom,
+			maxWidth,
+		} = props;
+
+		if (!text) {
+			return;
+		}
+
+		let setSize = typeof fontSize === "number" ? fontSize : 12;
+		if (fontSize === "small") {
+			setSize = 9;
+		} else if (fontSize === "h1") {
+			setSize = 25;
+		} else if (fontSize === "h2") {
+			setSize = 18;
+		}
+		const setLineHeight = mm(setSize * 1.1);
+		const setMaxWidth = maxWidth ? leftHalfOfThePage : pageInnerWidth;
+
+		doc.setFontSize(setSize);
+
+		if (fontWeight === "b") {
+			doc.setFont("Arial", "bold");
+		} else {
+			doc.setFont("Arial", "normal");
+		}
+		const lines = doc.splitTextToSize(text, setMaxWidth);
+
+		const posY = y ?? vertical;
+
+		if (lines.length === 1) {
+			const posX =
+				textAlign === "right"
+					? pageInnerWidth + pagesPaddingX - doc.getTextWidth(text)
+					: textAlign === "center"
+						? pagesPaddingX + (pageInnerWidth - doc.getTextWidth(text)) / 2
+						: pagesPaddingX;
+			doc.text(lines[0], posX, posY, {
+				maxWidth: setMaxWidth,
+				lineHeightFactor: 1.5,
+			});
+		} else {
+			lines.forEach((line: string, index: number) => {
+				const posX =
+					textAlign === "right"
+						? pageInnerWidth + pagesPaddingX - doc.getTextWidth(line)
+						: textAlign === "center"
+							? pagesPaddingX + (pageInnerWidth - doc.getTextWidth(line)) / 2
+							: pagesPaddingX;
+				doc.text(line, posX, posY + index * setLineHeight, {
+					maxWidth: setMaxWidth,
+				});
+			});
+		}
+
+		if (!noLineBreakAfterText) {
+			vertical += lines.length * setLineHeight;
+		}
+
+		if (typeof marginBottom === "number") {
+			vertical += mm(marginBottom);
+		}
+	};
+
+	// Add Arial Font
+	doc.addFileToVFS("Arial.ttf", ArialNormal);
+	doc.addFont("Arial.ttf", "Arial", "normal");
+	doc.addFileToVFS("Arial-Bold.ttf", ArialBold);
+	doc.addFont("Arial-Bold.ttf", "Arial", "bold");
+
+	// Changing Values
+	let vertical = pagesPaddingY;
+
+	for (let pageIndex = 0; pageIndex < pages.length; pageIndex++) {
+		const page = pages[pageIndex];
+
+		if (showPageNumbers) {
+			const pageNumber = `Seite ${pageIndex + 1} von ${pages.length}`;
+			writeTextOnPDF({
+				text: pageNumber,
+				fontSize: "small",
+				textAlign: "right",
+				y: pageInnerHeight + pagesPaddingY,
+				noLineBreakAfterText: true,
+			});
+		}
+
+		if (page.items && page.items.length > 0) {
+			for (let itemIndex = 0; itemIndex < page.items.length; itemIndex++) {
+				const item = page.items[itemIndex];
+				if (item.text) {
+					let text = item.text;
+					if (pdfKeys) {
+						Object.keys(pdfKeys).forEach((key) => {
+							const value = pdfKeys[key];
+							text = text.replace(key, value);
+						});
+					}
+					writeTextOnPDF({
+						text,
+						fontSize: item.fontSize,
+						fontWeight: item.fontWeight,
+						textAlign: item.textAlign,
+						noLineBreakAfterText: item.noLineBreakAfterText,
+						marginBottom: item.marginBottom,
+						maxWidthOfText: item.maxWidthOfText,
+					});
+				} else if (item.imageSRC) {
+					// startsWith("#")
+					// get image from fetched
+					//
+					// startsWith("http")
+					// get image from URL
+					//
+					// startsWith("/assets") || startsWith("/public")
+					// get image from local assets
+					//
+				}
+			}
+		}
+	}
+
+	// Return Download Infos
+	const blob = doc.output("blob");
+	const sizeInMB = (blob.size / (1024 * 1024)).toFixed(2) as unknown as number;
+	return {
+		blob,
+		sizeInMB,
+	};
 };
 
 export const createDownloadPDF = async (

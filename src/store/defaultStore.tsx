@@ -21,7 +21,8 @@ type TestingFeatureNames =
 	| "mapsOnResultPage"
 	| "evaluationTesting"
 	| "riskWidgetDetails"
-	| "showWidgetsBelowPDF";
+	| "showWidgetsBelowPDF"
+	| "newPDFButton";
 
 type StoreState = {
 	// Core data
@@ -72,7 +73,11 @@ const useStore = create<StoreState>()(
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
-				showTestingFeatures: ["evaluationTesting", "riskWidgetDetails"],
+				showTestingFeatures: [
+					"evaluationTesting",
+					"riskWidgetDetails",
+					"newPDFButton",
+				],
 
 				setCurrentUserAddress: (address: AddressResult) =>
 					set({ currentUserAddress: address }),

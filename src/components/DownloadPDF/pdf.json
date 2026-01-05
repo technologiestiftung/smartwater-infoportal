@@ -1,0 +1,40 @@
+{
+	"name": "Report-HochwasserCheck-Berlin.pdf",
+	"showPageNumbers": true,
+	"pages": [
+		{
+			"items": [
+				{
+					"imageSRC": "/pdf/Logo-SMVKU.png",
+					"width": "halfPage",
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Adresse die überprüft wurde:",
+					"marginLeft": "halfPage",
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Datum hier",
+					"textAlign": "right",
+					"fontWeight": "bold",
+					"marginBottom": 30
+				},
+				{
+					"text": "Kurzer Wasserstand vom Team 🚀 🚀🚀Aufbau nach Absprache mit Amba:\nDer Stiftungstag findet im 4. OG statt, die Feier zwei Stunden nach Ende des Stiftungstages im 5. OG",
+					"fontSize": "h2",
+					"fontWeight": "bold"
+				},
+				{
+					"imageSRC": "#captureImageTest",
+					"width": "halfPage",
+					"marginLeft": "halfPage"
+				},
+				{
+					"imageSRC": "/pdf/Logo-SMVKU.png",
+					"width": "halfPage"
+				}
+			]
+		}
+	]
+}
