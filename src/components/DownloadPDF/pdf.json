@@ -110,7 +110,8 @@
 				"marginBottom": 10
 			},
 			{
-				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte rechts ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden."
+				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte rechts ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden.",
+				"marginBottom": 10
 			},
 			{
 				"text": "Gefährung durch Flusshochwasser",
