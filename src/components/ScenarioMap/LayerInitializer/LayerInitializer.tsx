@@ -6,6 +6,7 @@ import {
 	LayerElement,
 	LayerService,
 	ManagedLayer,
+	Scenario,
 	SUBJECT_LAYER_BY_SCENARIO,
 } from "@/types/map";
 import { applyStyle } from "ol-mapbox-style";
@@ -16,8 +17,6 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import ImageWMS from "ol/source/ImageWMS";
 import TileWMS from "ol/source/TileWMS";
 import { useCallback, useEffect } from "react";
-
-export type Scenario = "SR" | "HW" | "RARE_HEAVY_RAIN" | "UNCOMMON_HEAVY_RAIN";
 
 interface Props {
 	scenario: Scenario;
