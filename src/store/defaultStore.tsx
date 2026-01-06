@@ -144,6 +144,7 @@ const useStore = create<StoreState>()(
 						locationData: null,
 						floodRiskAnswers: {},
 						floodRiskResult: null,
+						errorLayers: [],
 					}),
 
 				// Selectors

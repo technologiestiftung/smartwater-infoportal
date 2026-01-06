@@ -17,6 +17,7 @@ import VectorLayer from "ol/layer/Vector";
 import OLGeoJSON from "ol/format/GeoJSON";
 import ScaleLine from "ol/control/ScaleLine";
 import { checkNumber } from "@/lib/utils/mapUtils";
+import { Scenario } from "@/types/map";
 
 if (appConfig?.namedProjections?.length) {
 	appConfig.namedProjections.forEach(([name, def]) => {
@@ -27,12 +28,16 @@ if (appConfig?.namedProjections?.length) {
 
 interface OlMapProps {
 	children?: React.ReactNode;
+	scenario: Scenario;
 }
 
-const OlMap: FC<OlMapProps> = ({ children }) => {
-	const setMap = useMapStore((state) => state.populateMapSR);
-	const destroyMap = useMapStore((state) => state.removeMapSR);
-	const config = useMapStore((state) => state.configSR);
+const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
+	const setMap = useMapStore((s) => s.populateScenarioMap);
+	const destroyMap = useMapStore((s) => s.removeScenarioMap);
+	const config = useMapStore((s) => s.scenarioConfig[scenario]);
+	// const setMap = useMapStore((state) => state.populateMapSR);
+	// 	const destroyMap = useMapStore((state) => state.removeMapSR);
+	// 	const config = useMapStore((state) => state.configSR);
 	const mapId = useRef<HTMLDivElement>(null);
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const locationData = useStore((state) => state.locationData);
@@ -81,7 +86,7 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				target: mapId.current,
 				view: new View({
 					center: center,
-					zoom: mapViewConfig.startZoomLevel,
+					zoom: 8,
 					projection: projection,
 					extent: mapViewConfig.extent,
 					resolutions: resolutions,
@@ -124,18 +129,18 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 
 			map.addControl(scaleLineControl);
 
-			setMap(map);
+			setMap(scenario, map);
 
 			return () => {
 				if (map) {
 					map.setTarget(undefined);
 				}
-				destroyMap();
+				destroyMap(scenario);
 			};
 		} catch (error) {
 			console.error("[OlMap] Error initializing map:", error);
 		}
-	}, [config, destroyMap, setMap]);
+	}, [config, destroyMap, setMap, scenario]);
 
 	return (
 		<div ref={mapId} className="map h-full w-full bg-slate-300">

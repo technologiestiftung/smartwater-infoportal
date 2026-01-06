@@ -2,7 +2,12 @@
 "use client";
 
 import { useMapStore } from "@/lib/store/mapStore";
-import { LayerElement, LayerService, ManagedLayer } from "@/types/map";
+import {
+	LayerElement,
+	LayerService,
+	ManagedLayer,
+	SUBJECT_LAYER_BY_SCENARIO,
+} from "@/types/map";
 import { applyStyle } from "ol-mapbox-style";
 import { Layer } from "ol/layer";
 import ImageLayer from "ol/layer/Image";
@@ -12,16 +17,22 @@ import ImageWMS from "ol/source/ImageWMS";
 import TileWMS from "ol/source/TileWMS";
 import { useCallback, useEffect } from "react";
 
+export type Scenario = "SR" | "HW" | "RARE_HEAVY_RAIN" | "UNCOMMON_HEAVY_RAIN";
+
+interface Props {
+	scenario: Scenario;
+}
+
 interface LayerCreationResult {
 	layer: Layer | null;
 	status: ManagedLayer["status"];
 	error?: string;
 }
 
-const LayerInitializer = () => {
-	const config = useMapStore((state) => state.configHW);
-	const map = useMapStore((state) => state.mapHW);
-	const setLayersInStore = useMapStore((state) => state.setLayersHW);
+const LayerInitializer = ({ scenario }: Props) => {
+	const map = useMapStore((s) => s.scenarioMap[scenario]);
+	const config = useMapStore((s) => s.scenarioConfig[scenario]);
+	const setScenarioLayers = useMapStore((s) => s.setScenarioLayers);
 
 	const createWMSLayer = useCallback(
 		(serviceConfig: LayerService): LayerCreationResult => {
@@ -107,7 +118,6 @@ const LayerInitializer = () => {
 		[],
 	);
 
-	// Create a single layer based on service configuration
 	const createLayer = useCallback(
 		(serviceConfig: LayerService): LayerCreationResult => {
 			switch (serviceConfig.typ) {
@@ -126,12 +136,13 @@ const LayerInitializer = () => {
 		[createWMSLayer, createVectorTileLayer],
 	);
 
-	// Process a group of layers (base or subject)
 	const processLayerGroup = useCallback(
 		(
 			layerElements: LayerElement[],
 			layerType: "base" | "subject",
 		): ManagedLayer[] => {
+			if (!map) return [];
+
 			const managedLayers: ManagedLayer[] = [];
 
 			layerElements.forEach((layerConfig, index) => {
@@ -146,34 +157,35 @@ const LayerInitializer = () => {
 
 				const { layer: olLayer, status, error } = createLayer(serviceConfig);
 
-				if (olLayer) {
-					const zIndex = (layerType === "base" ? 0 : 100) + index;
-					olLayer.setZIndex(zIndex);
-					olLayer.setVisible(layerConfig.visibility);
-					olLayer.setOpacity(1);
-					olLayer.set("id", layerConfig.id);
-
-					const managedLayer: ManagedLayer = {
-						id: layerConfig.id,
-						config: layerConfig,
-						olLayer: olLayer,
-						status: status,
-						visibility: layerConfig.visibility,
-						map_group: layerConfig.service.map_group,
-						opacity: 1,
-						zIndex: zIndex,
-						layerType: layerType,
-						error: error,
-					};
-
-					managedLayers.push(managedLayer);
-					map?.addLayer(olLayer);
-				} else {
+				if (!olLayer) {
 					console.error(
 						`[LayerInitializer] Failed to create layer ${layerConfig.id}:`,
 						error,
 					);
+					return;
 				}
+
+				const zIndex = (layerType === "base" ? 0 : 100) + index;
+				olLayer.setZIndex(zIndex);
+				olLayer.setVisible(layerConfig.visibility);
+				olLayer.setOpacity(1);
+				olLayer.set("id", layerConfig.id);
+
+				const managedLayer: ManagedLayer = {
+					id: layerConfig.id,
+					config: layerConfig,
+					olLayer,
+					status,
+					visibility: layerConfig.visibility,
+					map_group: layerConfig.service.map_group,
+					opacity: 1,
+					zIndex,
+					layerType,
+					error,
+				};
+
+				managedLayers.push(managedLayer);
+				map.addLayer(olLayer);
 			});
 
 			return managedLayers;
@@ -181,20 +193,17 @@ const LayerInitializer = () => {
 		[createLayer, map],
 	);
 
-	// Main effect to initialize all layers
 	useEffect(() => {
 		if (!config || !map) return;
 
 		const allManagedLayers: ManagedLayer[] = [];
 
-		// Process base layers
 		const baseLayers = processLayerGroup(
 			config.layerConfig.baselayer.elements,
 			"base",
 		);
 		allManagedLayers.push(...baseLayers);
 
-		// Process subject layers
 		const subjectLayers = processLayerGroup(
 			config.layerConfig.subjectlayer.elements,
 			"subject",
@@ -202,20 +211,17 @@ const LayerInitializer = () => {
 		allManagedLayers.push(
 			...subjectLayers.filter(
 				(subjectLayer) =>
-					subjectLayer.id === "sw_infoportal:hw_gefaehrdung_clip_",
+					subjectLayer.id === SUBJECT_LAYER_BY_SCENARIO[scenario][0],
 			),
 		);
 
-		// Update store with all managed layers
-		setLayersInStore(allManagedLayers);
+		setScenarioLayers(scenario, allManagedLayers);
 
 		return () => {
-			allManagedLayers.forEach((layer) => {
-				map.removeLayer(layer.olLayer);
-			});
-			setLayersInStore([]);
+			allManagedLayers.forEach((l) => map.removeLayer(l.olLayer));
+			setScenarioLayers(scenario, []);
 		};
-	}, [config, map, processLayerGroup, setLayersInStore]);
+	}, [config, map, processLayerGroup, scenario, setScenarioLayers]);
 
 	return null;
 };

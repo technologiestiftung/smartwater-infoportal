@@ -6,11 +6,11 @@ import { DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import PDFContent from "./PDFContent";
 import { getToday } from "./pdfUtilsNew";
-import { useMapStore } from "@/lib/store/mapStore";
-import { useMapLoading } from "@/lib/utils/useMapLoading";
 import useMobile from "@/lib/utils/useMobile";
 import { createPDF, PDFProps, translateHazardLevels } from "./pdfUtilsNew";
 import pdfData from "@/components/DownloadPDF/pdf.json";
+import { ScenarioList } from "@/types/map";
+import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -23,29 +23,32 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
-	const mapSR = useMapStore((s) => s.mapSR);
-	const mapHW = useMapStore((s) => s.mapHW);
-	const mapSeltenSR = useMapStore((s) => s.mapSeltenSR);
-	const loadingSR = useMapLoading(mapSR, false);
-	const loadingHW = useMapLoading(mapHW, false);
-	const loadingSeltenSR = useMapLoading(mapSeltenSR, false);
 	const isMobile = useMobile();
 	const [error, setError] = useState<Error | null>(null);
 	const openPDFInNewTab = true;
 
+	const allMapsLoaded = useScenarioMapsLoading(ScenarioList);
+
+	const pdfKeys = {
+		"{date}": getToday(),
+		"{address}": currentUserAddress?.label || "Keine Adresse gefunden",
+		"{hazardLevelHeavyRain}": hazardEntities
+			? translateHazardLevels(hazardEntities[0].hazardLevel)
+			: "Keine Daten",
+		"{hazardLevelfloodRisk}": hazardEntities
+			? translateHazardLevels(hazardEntities[1].hazardLevel)
+			: "Keine Daten",
+		"{showNoRareHeavyRain}": !locationData?.isInRareHeavyRainZone,
+		"{showRareHeavyRain}": locationData?.isInRareHeavyRainZone,
+		"{waterLevelRareHeavyRain}":
+			locationData?.isInRareHeavyRainZone || "Keine Daten",
+		"{showNoUncommonHeavyRain}": !locationData?.isInUncommonHeavyRainZone,
+		"{showUncommonHeavyRain}": locationData?.isInUncommonHeavyRainZone,
+		"{waterLevelUncommonHeavyRain}":
+			locationData?.isInUncommonHeavyRainZone || "Keine Daten",
+	};
+
 	const makePDF = async () => {
-		const pdfKeys = {
-			"{date}": getToday(),
-			"{address}": currentUserAddress?.label || "Keine Adresse gefunden",
-			"{hazardLevelHeavyRain}": hazardEntities
-				? translateHazardLevels(hazardEntities[0].hazardLevel)
-				: "Keine Daten",
-			"{hazardLevelfloodRisk}": hazardEntities
-				? translateHazardLevels(hazardEntities[1].hazardLevel)
-				: "Keine Daten",
-			"{showNoRareHeavyRain}": !locationData?.isInRareHeavyRainZone,
-			"{showRareHeavyRain}": locationData?.isInRareHeavyRainZone,
-		};
 		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {
 			window.alert("PDF konnte nicht erstellt werden.");
@@ -56,19 +59,12 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 	};
 
 	useEffect(() => {
-		if (
-			!mapSR ||
-			!mapHW ||
-			!mapSeltenSR ||
-			loadingSR ||
-			loadingHW ||
-			loadingSeltenSR
-		) {
+		if (!allMapsLoaded) {
 			return;
 		}
 		makePDF();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mapSR, mapHW, mapSeltenSR, loadingSR, loadingHW, loadingSeltenSR]);
+	}, [allMapsLoaded]);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;

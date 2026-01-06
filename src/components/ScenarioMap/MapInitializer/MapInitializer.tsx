@@ -8,11 +8,17 @@ import {
 	LayerElementBase,
 	LayerStatus,
 	MapConfig,
+	Scenario,
+	SUBJECT_LAYER_BY_SCENARIO,
 } from "@/types/map";
 import { FC, useEffect } from "react";
 
-const MapInitializer: FC = () => {
-	const setConfig = useMapStore((state) => state.setConfigHW);
+type MapInitializerProps = {
+	scenario: Scenario;
+};
+
+const MapInitializer: FC<MapInitializerProps> = ({ scenario }) => {
+	const setScenarioConfig = useMapStore((s) => s.setScenarioConfig);
 
 	useEffect(() => {
 		const servicesMap = new Map(
@@ -29,18 +35,18 @@ const MapInitializer: FC = () => {
 		const enrichedConfig = structuredClone(mapConfig);
 
 		enrichedConfig.layerConfig.baselayer.elements = enrichLayerElements([
-			{
-				id: "basemap",
-				visibility: true,
-			},
+			{ id: "basemap", visibility: true },
 		]);
 
-		enrichedConfig.layerConfig.subjectlayer.elements = enrichLayerElements([
-			{ id: "sw_infoportal:hw_gefaehrdung_clip_", visibility: true },
-		]);
+		// scenario-specific subject layers
+		const subjectLayerIds = SUBJECT_LAYER_BY_SCENARIO[scenario] ?? [];
 
-		setConfig(enrichedConfig as unknown as MapConfig);
-	}, [setConfig]);
+		enrichedConfig.layerConfig.subjectlayer.elements = enrichLayerElements(
+			subjectLayerIds.map((id) => ({ id, visibility: true })),
+		);
+
+		setScenarioConfig(scenario, enrichedConfig as unknown as MapConfig);
+	}, [scenario, setScenarioConfig]);
 
 	return null;
 };

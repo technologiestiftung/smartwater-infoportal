@@ -22,11 +22,9 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import ReportPDF from "./DownloadPDF/ReportPDF";
-import MapSR from "./MapSR/Map";
-import MapHW from "./MapHW/Map";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
-import MapSeltenSR from "./MapSeltenSR/Map";
+import ScenarioMap from "./ScenarioMap/Map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -243,11 +241,11 @@ const Results: React.FC = () => {
 							? ""
 							: "absolute -left-[9999px]"
 					}
-				>
-					<MapSR />
-					<MapHW />
-					<MapSeltenSR />
-				</div>
+				></div>
+				<ScenarioMap scenario={"SR"} />
+				<ScenarioMap scenario={"HW"} />
+				<ScenarioMap scenario={"RARE_HEAVY_RAIN"} />
+				<ScenarioMap scenario={"UNCOMMON_HEAVY_RAIN"} />
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>

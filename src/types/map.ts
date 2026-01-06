@@ -120,29 +120,42 @@ export interface MapConfig {
 	layerConfig: LayerConfig;
 }
 
+export type Scenario = "SR" | "HW" | "RARE_HEAVY_RAIN" | "UNCOMMON_HEAVY_RAIN";
+
+export const ScenarioList: Scenario[] = [
+	"SR",
+	"HW",
+	"RARE_HEAVY_RAIN",
+	"UNCOMMON_HEAVY_RAIN",
+];
+
+type ScenarioMap<T> = Partial<Record<Scenario, T>>;
+
+export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
+	SR: ["sw_infoportal:sr_gefaehrdung_clip_"],
+	HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
+	RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
+	UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
+};
+
 export interface MapStoreState {
+	// Scenario Map Approach
+
+	scenarioConfig: ScenarioMap<MapConfig | null>;
+	setScenarioConfig: (scenario: Scenario, config: MapConfig | null) => void;
+	scenarioMap: ScenarioMap<Map | null>;
+	populateScenarioMap: (scenario: Scenario, map: Map | null) => void;
+	removeScenarioMap: (scenario: Scenario) => void;
+	scenarioLayers: ScenarioMap<LayerElement[]>;
+	setScenarioLayers: (scenario: Scenario, layers: ManagedLayer[]) => void;
+
 	config: MapConfig | null;
-	configSR: MapConfig | null;
-	configHW: MapConfig | null;
-	configSeltenSR: MapConfig | null;
 	setConfig: (config: MapConfig) => void;
-	setConfigSR: (configSR: MapConfig) => void;
-	setConfigHW: (configHW: MapConfig) => void;
-	setConfigSeltenSR: (configSeltenSR: MapConfig) => void;
 
 	// Map
 	map: Map | null;
-	mapSR: Map | null;
-	mapHW: Map | null;
-	mapSeltenSR: Map | null;
 	populateMap: (map: Map) => void;
-	populateMapSR: (mapSR: Map) => void;
-	populateMapHW: (mapHW: Map) => void;
-	populateMapSeltenSR: (mapSeltenSR: Map) => void;
 	removeMap: () => void;
-	removeMapSR: () => void;
-	removeMapHW: () => void;
-	removeMapSeltenSR: () => void;
 
 	// LayerTree
 	isLayerTreeOpen: boolean;
@@ -150,13 +163,7 @@ export interface MapStoreState {
 
 	// Layers
 	layers: ManagedLayer[];
-	layersSR: ManagedLayer[];
-	layersHW: ManagedLayer[];
-	layersSeltenSR: ManagedLayer[];
 	setLayers: (layers: ManagedLayer[]) => void;
-	setLayersSR: (layersSR: ManagedLayer[]) => void;
-	setLayersHW: (layersHW: ManagedLayer[]) => void;
-	setLayersSeltenSR: (layersSeltenSR: ManagedLayer[]) => void;
 	addLayer: (layer: ManagedLayer) => void;
 	removeLayer: (layerId: string) => void;
 	updateLayer: (
