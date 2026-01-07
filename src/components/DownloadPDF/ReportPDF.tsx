@@ -5,9 +5,13 @@ import { FC, useEffect, useRef, useState } from "react";
 import { DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import PDFContent from "./PDFContent";
-import { getToday } from "./pdfUtilsNew";
 import useMobile from "@/lib/utils/useMobile";
-import { createPDF, PDFProps, translateHazardLevels } from "./pdfUtilsNew";
+import {
+	createPDF,
+	PDFProps,
+	translateHazardLevels,
+	getToday,
+} from "./pdfUtils";
 import pdfData from "@/components/DownloadPDF/pdf.json";
 import { ScenarioList } from "@/types/map";
 import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
