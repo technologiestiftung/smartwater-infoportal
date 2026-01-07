@@ -22,12 +22,14 @@ The application uses the [Berlin UI Library](https://github.com/technologiestift
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/technologiestiftung/smartwater-infoportal.git
    cd smartwater-infoportal
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -35,6 +37,7 @@ The application uses the [Berlin UI Library](https://github.com/technologiestift
    ```
 
    **Note:** The Berlin UI Library is installed automatically via the `install-lib` script when running `dev`, `build`, or `start` commands. If you need to install it separately:
+
    ```bash
    npm run install-lib
    ```
@@ -50,10 +53,12 @@ The application uses the [Berlin UI Library](https://github.com/technologiestift
 The application requires a GeoServer instance for map data. You can run GeoServer using Docker Compose:
 
 ### Prerequisites for GeoServer
+
 - Docker and Docker Compose
 - Map data files stored in the `./maps` directory
 
 ### Running GeoServer
+
 ```bash
 docker-compose up geoserver
 ```
@@ -61,6 +66,7 @@ docker-compose up geoserver
 The GeoServer data will be mounted from `./maps:/opt/geoserver_data/data/maps`, so make sure to place your map files in the `./maps` directory before starting the container.
 
 ### Environment Variables for GeoServer
+
 Update your `.env` file with the GeoServer configuration:
 
 ```env
@@ -104,6 +110,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Quick Start Summary
 
 1. **Clone and install:**
+
    ```bash
    git clone https://github.com/technologiestiftung/smartwater-infoportal.git
    cd smartwater-infoportal
@@ -112,12 +119,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
    ```
 
 2. **Set up environment:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 3. **Start GeoServer (optional, for full functionality):**
+
    ```bash
    # Place your map files in ./maps directory
    docker-compose up geoserver
@@ -133,8 +142,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 The application requires several environment variables to be configured. Copy `.env.example` to `.env` and update the values:
 
 ```env
-# Nominatim API Configuration
-NOMINATIM_USER_AGENT=your_application_name
 
 # GeoServer Configuration
 GEOSERVER_BASE_URL=http://localhost:8080/geoserver
@@ -162,19 +169,24 @@ yarn test
 ```
 
 Run tests in watch mode:
+
 ```bash
 npm run test:watch
-# or  
+# or
 yarn test:watch
 ```
 
 ### Test Environment Setup
+
 The tests automatically load environment variables from the `.env` file. Make sure you have:
+
 1. Copied `.env.example` to `.env`
 2. Configured your environment variables properly
 
 ### Test Types
+
 The test suite includes:
+
 - **Unit tests**: Hazard data processing, risk calculations
 - **Integration tests**: GeoServer connectivity (requires running GeoServer instance)
 

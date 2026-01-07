@@ -13,9 +13,8 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
-import { getAddressResults } from "@/server/actions/getAddressResults";
 import LocationButton from "./LocationButton";
-import { addLabelToAddressResults, containsNumber } from "@/lib/utils/mapUtils";
+import { searchAddresses } from "@/lib/serverActions/searchAddresses";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -24,8 +23,6 @@ export default function AddressSearch() {
 	const setCurrentUserAddress = useStore(
 		(state) => state.setCurrentUserAddress,
 	);
-
-	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 
@@ -69,7 +66,7 @@ export default function AddressSearch() {
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isFetching = useRef(false);
 
-	const fetchData = async (search: string) => {
+	const fetchDataNew = async (search: string) => {
 		if (isFetching.current) {
 			return;
 		}
@@ -77,12 +74,7 @@ export default function AddressSearch() {
 		setShowLoading(true);
 
 		try {
-			const data = await getAddressResults(search);
-
-			if (data?.error) {
-				setError(data.error);
-				return;
-			}
+			const data = await searchAddresses(search);
 
 			if (data.length === 0) {
 				setError(
@@ -92,7 +84,7 @@ export default function AddressSearch() {
 				return;
 			}
 
-			setResults(addLabelToAddressResults(data));
+			setResults(data);
 		} catch (e) {
 			throw new Error(`Error fetching data: ${e}`);
 		} finally {
@@ -122,14 +114,14 @@ export default function AddressSearch() {
 			}
 
 			debounceTimeout.current = setTimeout(() => {
-				fetchData(value);
+				fetchDataNew(value);
 			}, 1000);
 		}
 	};
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.label);
+			setValue("addresse", currentUserAddress.name);
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
@@ -147,73 +139,22 @@ export default function AddressSearch() {
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
 								<strong>{t("addressCheck.result")}</strong>
-								{!results.some((result) => result.hasHouseNumber) && (
-									<Label className="text-destructive text-primary">
-										{containsNumber(getValues("addresse") ?? "")
-											? t("addressCheck.probablyNoAddress")
-											: t("addressCheck.pleaseAddHouseNumber")}
-									</Label>
-								)}
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
 											return (
 												<li key={index}>
-													{result.hasHouseNumber ? (
-														<Button
-															onClick={() => {
-																setError("");
-																setValue("addresse", result.label);
-																setCurrentUserAddress(result);
-																setResults([]);
-															}}
-															variant="link"
-														>
-															{result.label}
-														</Button>
-													) : (
-														<span>{result.label}</span>
-													)}
-													{showTestingFeatures.includes(
-														"addressSearchDetails",
-													) && (
-														<>
-															<p className="text-xs">
-																Display name:{" "}
-																<span className="font-bold">
-																	{result.label}
-																</span>
-															</p>
-															<p className="text-xs">
-																Addresstype:{" "}
-																<span className="font-bold">
-																	{result.addresstype}
-																</span>
-															</p>
-															<p className="text-xs">
-																Class:{" "}
-																<span className="font-bold">
-																	{result.class}
-																</span>
-															</p>
-															<p className="text-xs">
-																OSM Type:{" "}
-																<span className="font-bold">
-																	{result.osm_type}
-																</span>
-															</p>
-															<p className="text-xs">
-																Type:{" "}
-																<span className="font-bold">{result.type}</span>
-															</p>
-															<p className="text-xs">
-																Importance:{" "}
-																<span className="font-bold">
-																	{result.importance}
-																</span>
-															</p>
-														</>
-													)}
+													<Button
+														onClick={() => {
+															setError("");
+															setValue("addresse", result.name);
+															setCurrentUserAddress(result);
+															setResults([]);
+														}}
+														variant="link"
+													>
+														{result.name}
+													</Button>
 												</li>
 											);
 										})}
@@ -242,17 +183,19 @@ export default function AddressSearch() {
 								return t("addressCheck.button");
 							})()}
 						</Button>
-						{showTestingFeatures.includes("locationButton") && (
-							<div className="border-1 border-black p-4">
-								<LocationButton
-									resultsLoaded={(resultsFromLocationButton) => {
-										setResults(
-											addLabelToAddressResults(resultsFromLocationButton),
+						<div className="border-1 border-black p-4">
+							<LocationButton
+								resultsLoaded={(resultsFromLocationButton) => {
+									if (!resultsFromLocationButton.length) {
+										setError(
+											"Keine Adresse gefunden. Bitte suchen Sie manuell nach Ihrer Adresse.",
 										);
-									}}
-								/>
-							</div>
-						)}
+										return;
+									}
+									setResults(resultsFromLocationButton);
+								}}
+							/>
+						</div>
 					</div>
 				</form>
 			</Form>

@@ -1,7 +1,7 @@
 // store/defaultStore.tsx
 import { create } from "zustand";
 import {
-	AddressResult,
+	CurrentUserAddress,
 	FloodRiskAnswers,
 	FloodRiskResult,
 	LocationData,
@@ -26,7 +26,7 @@ type TestingFeatureNames =
 
 type StoreState = {
 	// Core data
-	currentUserAddress: AddressResult | null;
+	currentUserAddress: CurrentUserAddress | null;
 	locationData: LocationData | null;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
@@ -38,7 +38,7 @@ type StoreState = {
 	showTestingFeatures: TestingFeatureNames[];
 
 	// Actions
-	setCurrentUserAddress: (address: AddressResult) => void;
+	setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) => void;
 	resetCurrentUserAddress: () => void;
 	setLocationData: (data: LocationData) => void;
 	resetLocationData: () => void;
@@ -79,8 +79,8 @@ const useStore = create<StoreState>()(
 					"resetAllButtonOnHomepage",
 				],
 
-				setCurrentUserAddress: (address: AddressResult) =>
-					set({ currentUserAddress: address }),
+				setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) =>
+					set({ currentUserAddress: currentUserAddress }),
 				resetCurrentUserAddress: () => set({ currentUserAddress: null }),
 
 				setLocationData: (data) =>

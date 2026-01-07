@@ -1,6 +1,6 @@
 "use client";
 
-import { reverseAddressResults } from "@/server/actions/getAddressResults";
+import { searchAddresses } from "@/lib/serverActions/searchAddresses";
 import { Button } from "berlin-ui-library";
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
@@ -59,12 +59,9 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 
 	useEffect(() => {
 		const reverseSearch = async () => {
-			const results = await reverseAddressResults(
-				lat as number,
-				long as number,
-			);
+			const results = await searchAddresses("", lat as number, long as number);
 			if (resultsLoaded) {
-				resultsLoaded(results ? [results] : []);
+				resultsLoaded(results ? results : []);
 			}
 		};
 		if (lat !== null && long !== null) {
