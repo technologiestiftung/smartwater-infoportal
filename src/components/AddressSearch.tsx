@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import useStore from "@/store/defaultStore";
 import LocationButton from "./LocationButton";
 import { searchAddresses } from "@/lib/serverActions/searchAddresses";
+import { CurrentUserAddress } from "@/lib/types";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -119,6 +120,47 @@ export default function AddressSearch() {
 		}
 	};
 
+	const resultsLoaded = (resultsFromLocationButton: CurrentUserAddress[]) => {
+		if (!resultsFromLocationButton.length) {
+			setError(
+				"Keine Adresse gefunden. Bitte suchen Sie manuell nach Ihrer Adresse.",
+			);
+			return;
+		}
+		setResults(resultsFromLocationButton);
+	};
+
+	const ResultsList = () => (
+		<>
+			{results.length > 0 && !showLoading && (
+				<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
+					<strong>{t("addressCheck.result")}</strong>
+					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+						<>
+							{results.map((result, index) => {
+								return (
+									<li key={index}>
+										<Button
+											onClick={() => {
+												setError("");
+												setValue("addresse", result.name);
+												setCurrentUserAddress(result);
+												setResults([]);
+											}}
+											variant="link"
+										>
+											{result.name}
+										</Button>
+									</li>
+								);
+							})}
+						</>
+					</ul>
+				</div>
+			)}
+		</>
+	);
+
 	useEffect(() => {
 		if (currentUserAddress) {
 			setValue("addresse", currentUserAddress.name);
@@ -136,32 +178,8 @@ export default function AddressSearch() {
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
-						{results.length > 0 && !showLoading && (
-							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
-								<strong>{t("addressCheck.result")}</strong>
-								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
-									<>
-										{results.map((result, index) => {
-											return (
-												<li key={index}>
-													<Button
-														onClick={() => {
-															setError("");
-															setValue("addresse", result.name);
-															setCurrentUserAddress(result);
-															setResults([]);
-														}}
-														variant="link"
-													>
-														{result.name}
-													</Button>
-												</li>
-											);
-										})}
-									</>
-								</ul>
-							</div>
-						)}
+						<LocationButton resultsLoaded={resultsLoaded} />
+						<ResultsList />
 					</div>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>
@@ -183,19 +201,6 @@ export default function AddressSearch() {
 								return t("addressCheck.button");
 							})()}
 						</Button>
-						<div className="border-1 border-black p-4">
-							<LocationButton
-								resultsLoaded={(resultsFromLocationButton) => {
-									if (!resultsFromLocationButton.length) {
-										setError(
-											"Keine Adresse gefunden. Bitte suchen Sie manuell nach Ihrer Adresse.",
-										);
-										return;
-									}
-									setResults(resultsFromLocationButton);
-								}}
-							/>
-						</div>
 					</div>
 				</form>
 			</Form>
