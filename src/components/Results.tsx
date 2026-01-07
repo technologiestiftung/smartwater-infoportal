@@ -25,6 +25,7 @@ import ReportPDF from "./DownloadPDF/ReportPDF";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
 import ScenarioMap from "./ScenarioMap/Map";
+import { ScenarioList } from "@/types/map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -152,7 +153,7 @@ const Results: React.FC = () => {
 							icon={faLocationDot}
 							className="text-[18px] text-black"
 						/>
-						<p className="mt-[3px]">{currentUserAddress.label}</p>
+						<p className="mt-[3px]">{currentUserAddress.name}</p>
 					</>
 				)}
 			</section>
@@ -241,11 +242,11 @@ const Results: React.FC = () => {
 							? ""
 							: "absolute -left-[9999px]"
 					}
-				></div>
-				<ScenarioMap scenario={"SR"} />
-				<ScenarioMap scenario={"HW"} />
-				<ScenarioMap scenario={"RARE_HEAVY_RAIN"} />
-				<ScenarioMap scenario={"UNCOMMON_HEAVY_RAIN"} />
+				>
+					{ScenarioList.map((scenario) => (
+						<ScenarioMap key={scenario} scenario={scenario} />
+					))}
+				</div>
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>

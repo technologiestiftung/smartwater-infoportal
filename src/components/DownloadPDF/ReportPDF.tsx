@@ -31,7 +31,7 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 
 	const pdfKeys = {
 		"{date}": getToday(),
-		"{address}": currentUserAddress?.label || "Keine Adresse gefunden",
+		"{address}": currentUserAddress?.name || "Keine Adresse gefunden",
 		"{hazardLevelHeavyRain}": hazardEntities
 			? translateHazardLevels(hazardEntities[0].hazardLevel)
 			: "Keine Daten",
