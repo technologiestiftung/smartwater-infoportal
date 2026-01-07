@@ -50,6 +50,10 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 		"{showUncommonHeavyRain}": locationData?.isInUncommonHeavyRainZone,
 		"{waterLevelUncommonHeavyRain}":
 			locationData?.isInUncommonHeavyRainZone || "Keine Daten",
+		"{showNoExtremeHeavyRain}": !locationData?.isInExtremeHeavyRainZone,
+		"{showExtremeHeavyRain}": locationData?.isInExtremeHeavyRainZone,
+		"{waterLevelExtremeHeavyRain}":
+			locationData?.isInExtremeHeavyRainZone || "Keine Daten",
 	};
 
 	const makePDF = async () => {

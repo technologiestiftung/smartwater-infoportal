@@ -196,6 +196,27 @@
 				"hide": "{showUncommonHeavyRain}",
 				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"außergewöhnliches Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt keine Wasserstände für das untersuchte Szenario zu erwarten sind."
 			}
+		],
+		[
+			{
+				"imageSRC": "#map-root-extreme-heavy-rain",
+				"width": "fullPage",
+				"marginBottom": 5
+			},
+			{
+				"hide": "{showNoExtremeHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{waterLevelExtremeHeavyRain} cm</b> auftreten können."
+			},
+			{
+				"hide": "{showExtremeHeavyRain}",
+				"text": "An Ihrem Wohnort liegt keine Gefährdung durch \"extremen\" Starkregen vor.",
+				"fontWeight": "bold",
+				"marginBottom": "paragraph"
+			},
+			{
+				"hide": "{showExtremeHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt keine Wasserstände für das untersuchte Szenario zu erwarten sind."
+			}
 		]
 	]
 }

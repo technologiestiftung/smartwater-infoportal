@@ -1,4 +1,5 @@
 "use client";
+
 import {
 	Button,
 	Form,
@@ -130,37 +131,6 @@ export default function AddressSearch() {
 		setResults(resultsFromLocationButton);
 	};
 
-	const ResultsList = () => (
-		<>
-			{results.length > 0 && !showLoading && (
-				<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
-					<strong>{t("addressCheck.result")}</strong>
-					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
-						<>
-							{results.map((result, index) => {
-								return (
-									<li key={index}>
-										<Button
-											onClick={() => {
-												setError("");
-												setValue("addresse", result.name);
-												setCurrentUserAddress(result);
-												setResults([]);
-											}}
-											variant="link"
-										>
-											{result.name}
-										</Button>
-									</li>
-								);
-							})}
-						</>
-					</ul>
-				</div>
-			)}
-		</>
-	);
-
 	useEffect(() => {
 		if (currentUserAddress) {
 			setValue("addresse", currentUserAddress.name);
@@ -179,7 +149,32 @@ export default function AddressSearch() {
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
 						<LocationButton resultsLoaded={resultsLoaded} />
-						<ResultsList />
+						{results.length > 0 && !showLoading && (
+							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
+								<strong>{t("addressCheck.result")}</strong>
+								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+									<>
+										{results.map((result, index) => {
+											return (
+												<li key={index}>
+													<Button
+														onClick={() => {
+															setError("");
+															setValue("addresse", result.name);
+															setCurrentUserAddress(result);
+															setResults([]);
+														}}
+														variant="link"
+													>
+														{result.name}
+													</Button>
+												</li>
+											);
+										})}
+									</>
+								</ul>
+							</div>
+						)}
 					</div>
 					{error && (
 						<Label className="text-destructive text-primary">{error}</Label>

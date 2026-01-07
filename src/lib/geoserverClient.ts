@@ -62,6 +62,14 @@ export class GeoServerClient {
 				"Wasserstand_cm",
 			);
 
+			const isInExtremeHeavyRainZone = await this.getWMSFeatureInfo(
+				transformedX,
+				transformedY,
+				"ua_srhk",
+				"ec_wasserstand_extrem_max100mm",
+				"Wasserstand_cm",
+			);
+
 			const exactMatch = await this.searchExactIntersection(
 				transformedX,
 				transformedY,
@@ -73,6 +81,7 @@ export class GeoServerClient {
 					floodZoneIndex,
 					isInRareHeavyRainZone,
 					isInUncommonHeavyRainZone,
+					isInExtremeHeavyRainZone,
 				};
 			}
 
@@ -87,6 +96,7 @@ export class GeoServerClient {
 					floodZoneIndex,
 					isInRareHeavyRainZone,
 					isInUncommonHeavyRainZone,
+					isInExtremeHeavyRainZone,
 				};
 			}
 
@@ -96,6 +106,7 @@ export class GeoServerClient {
 				floodZoneIndex,
 				isInRareHeavyRainZone,
 				isInUncommonHeavyRainZone,
+				isInExtremeHeavyRainZone,
 			};
 		} catch {
 			return {
@@ -104,6 +115,7 @@ export class GeoServerClient {
 				floodZoneIndex: null,
 				isInRareHeavyRainZone: null,
 				isInUncommonHeavyRainZone: null,
+				isInExtremeHeavyRainZone: null,
 			};
 		}
 	}

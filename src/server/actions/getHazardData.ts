@@ -26,6 +26,7 @@ export async function getHazardData(
 				floodZoneIndex: result.floodZoneIndex,
 				isInRareHeavyRainZone: result.isInRareHeavyRainZone,
 				isInUncommonHeavyRainZone: result.isInUncommonHeavyRainZone,
+				isInExtremeHeavyRainZone: result.isInExtremeHeavyRainZone,
 				...(building.distance && { distance: building.distance }),
 			};
 		}
@@ -37,6 +38,7 @@ export async function getHazardData(
 			floodZoneIndex: result.floodZoneIndex,
 			isInRareHeavyRainZone: result.isInRareHeavyRainZone,
 			isInUncommonHeavyRainZone: result.isInUncommonHeavyRainZone,
+			isInExtremeHeavyRainZone: result.isInExtremeHeavyRainZone,
 		};
 	} catch {
 		return {
@@ -46,6 +48,7 @@ export async function getHazardData(
 			floodZoneIndex: null,
 			isInRareHeavyRainZone: null,
 			isInUncommonHeavyRainZone: null,
+			isInExtremeHeavyRainZone: null,
 		};
 	}
 }

@@ -120,13 +120,19 @@ export interface MapConfig {
 	layerConfig: LayerConfig;
 }
 
-export type Scenario = "SR" | "HW" | "RARE_HEAVY_RAIN" | "UNCOMMON_HEAVY_RAIN";
+export type Scenario =
+	| "SR"
+	| "HW"
+	| "RARE_HEAVY_RAIN"
+	| "UNCOMMON_HEAVY_RAIN"
+	| "EXTREME_HEAVY_RAIN";
 
 export const ScenarioList: Scenario[] = [
 	"SR",
 	"HW",
 	"RARE_HEAVY_RAIN",
 	"UNCOMMON_HEAVY_RAIN",
+	"EXTREME_HEAVY_RAIN",
 ];
 
 type ScenarioMap<T> = Partial<Record<Scenario, T>>;
@@ -136,6 +142,7 @@ export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
 	HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
 	RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
 	UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
+	EXTREME_HEAVY_RAIN: ["ua_srhk:ec_wasserstand_extrem_max100mm"],
 };
 
 export interface MapStoreState {

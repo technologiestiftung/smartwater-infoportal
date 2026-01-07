@@ -38,6 +38,7 @@ export interface LocationData {
 	floodZoneIndex?: number | null;
 	isInRareHeavyRainZone?: string | null;
 	isInUncommonHeavyRainZone?: string | null;
+	isInExtremeHeavyRainZone?: string | null;
 }
 
 export interface QuestionAnswer {
