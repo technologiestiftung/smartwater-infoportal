@@ -67,7 +67,7 @@ export default function AddressSearch() {
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isFetching = useRef(false);
 
-	const fetchDataNew = async (search: string) => {
+	const fetchData = async (search: string) => {
 		if (isFetching.current) {
 			return;
 		}
@@ -115,7 +115,7 @@ export default function AddressSearch() {
 			}
 
 			debounceTimeout.current = setTimeout(() => {
-				fetchDataNew(value);
+				fetchData(value);
 			}, 1000);
 		}
 	};
