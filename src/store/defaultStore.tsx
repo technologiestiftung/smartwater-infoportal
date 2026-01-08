@@ -59,6 +59,13 @@ type StoreState = {
 	getHazardEntities: () => HazardEntity[] | null;
 };
 
+const currentFeatures: TestingFeatureNames[] = [
+	"evaluationTesting",
+	"riskWidgetDetails",
+	"resetAllButtonOnHomepage",
+	"mapsOnResultPage",
+];
+
 const useStore = create<StoreState>()(
 	devtools(
 		persist(
@@ -73,11 +80,7 @@ const useStore = create<StoreState>()(
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
-				showTestingFeatures: [
-					"evaluationTesting",
-					"riskWidgetDetails",
-					"resetAllButtonOnHomepage",
-				],
+				showTestingFeatures: currentFeatures,
 
 				setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) =>
 					set({ currentUserAddress: currentUserAddress }),
@@ -145,6 +148,7 @@ const useStore = create<StoreState>()(
 						floodRiskAnswers: {},
 						floodRiskResult: null,
 						errorLayers: [],
+						showTestingFeatures: currentFeatures,
 					}),
 
 				// Selectors

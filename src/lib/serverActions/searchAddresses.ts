@@ -168,7 +168,7 @@ export async function searchAddresses(
 			return true;
 		});
 
-		const slicedFeatures = filteredFeatures.slice(0, 10).map((feature) => {
+		const filteredFeaturesWithDisplayName = filteredFeatures.map((feature) => {
 			const props = feature.properties;
 
 			let displayName = props.name || "";
@@ -196,17 +196,17 @@ export async function searchAddresses(
 			};
 		});
 
-		const sortedFeatures = sortHouseFirst(slicedFeatures);
+		const sortedFeatures = sortHouseFirst(filteredFeaturesWithDisplayName);
 
 		const seen = new Set();
-		const collectResults = sortedFeatures.filter((item: CurrentUserAddress) => {
+		const uniqueFeatures = sortedFeatures.filter((item: CurrentUserAddress) => {
 			if (seen.has(item.name)) {
 				return false;
 			}
 			seen.add(item.name);
 			return true;
 		});
-		return collectResults;
+		return uniqueFeatures;
 	} catch (error) {
 		console.warn("Address search error:", error);
 		return [];

@@ -217,6 +217,17 @@
 				"hide": "{showExtremeHeavyRain}",
 				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt keine Wasserstände für das untersuchte Szenario zu erwarten sind."
 			}
+		],
+		[
+			{
+				"text": "Gefährdung durch Flusshochwasser",
+				"fontSize": "h2",
+				"marginBottom": 5
+			},
+			{
+				"text": "Außergewöhnlich starke oder langanhaltende Regenfälle sowie Schneeschmelze können dazu führen, dass Flüsse über die Ufer treten und umliegende Gebiete überfluten (fluviale Hochwasser). Auch in Berlin ist dies bereits vorgekommen – etwa am 30.07.2011 an der Erpe in Köpenick oder in der Nacht vom 21. auf den 22.08.2012 an der Panke. Für Bereiche mit potenziell signifikantem Hochwasserrisiko – wie Tegeler Fließ, Panke, Erpe, Wuhle, Untere Havel/Untere Spree sowie die Müggelspree mit den Gosener Gewässern und dem Seddinsee – stehen Hochwassergefahrenkarten (HWGK) zur Verfügung. Diese Karten zeigen, wie sich ein Flusshochwasser in drei Szenarien (häufig, mittel, extrem) ausbreiten kann und welche Wassertiefen dabei auftreten können. Die HWGK bilden ausschließlich Überschwemmungen ab, die direkt durch Hochwasser eines Gewässers verursacht werden. Andere Überflutungsursachen – etwa überlastete Abwasseranlagen, ansteigendes Grundwasser, technische Defekte oder Starkregen – sind darin nicht enthalten. Zusätzlich wurden für bestimmte Bereiche Überschwemmungsgebiete festgesetzt. In diesen Gebieten gelten besondere Schutzvorschriften und Einschränkungen, um zu verhindern, dass sich das Schadenspotenzial erhöht, Retentionsräume verloren gehen oder der Wasserabfluss behindert wird. Die jeweils gültigen Regelungen sind in den entsprechenden Verordnungen festgelegt. Für die im Titel genannte Adresse wurde geprüft, welche Wasserstände im Hochwasserfall in den drei Szenarien (häufig, mittel, extrem) zu erwarten sind und ob das Objekt innerhalb eines festgesetzten Überschwemmungsgebiet",
+				"marginBottom": "paragraph"
+			}
 		]
 	]
 }

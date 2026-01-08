@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 import proj4 from "proj4";
-import type { Geometry } from "./types";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point } from "@turf/helpers";
+import { BBox, Geometry } from "./types";
 
 export class GeoServerClient {
 	private readonly baseUrl?: string;
@@ -33,12 +33,99 @@ export class GeoServerClient {
 		}
 	}
 
+	isValidMultiPolygonGeometry(
+		geometry: any,
+	): geometry is { type: "MultiPolygon"; coordinates: number[][][][] } {
+		return (
+			geometry &&
+			geometry.type === "MultiPolygon" &&
+			Array.isArray(geometry.coordinates) &&
+			geometry.coordinates.length > 0 &&
+			Array.isArray(geometry.coordinates[0]) &&
+			geometry.coordinates[0].length > 0 &&
+			Array.isArray(geometry.coordinates[0][0]) &&
+			geometry.coordinates[0][0].length > 0 &&
+			Array.isArray(geometry.coordinates[0][0][0]) &&
+			geometry.coordinates[0][0][0].length >= 2 &&
+			typeof geometry.coordinates[0][0][0][0] === "number" &&
+			typeof geometry.coordinates[0][0][0][1] === "number"
+		);
+	}
+
+	bboxFromRequestGeometry(json: any): BBox | null {
+		// Try common places where the geometry might live
+		const geometry =
+			json?.geometry ??
+			json?.feature?.geometry ??
+			json?.features?.[0]?.geometry ??
+			json?.featureCollection?.features?.[0]?.geometry ??
+			json?.FeatureCollection?.features?.[0]?.geometry ??
+			null;
+
+		if (!this.isValidMultiPolygonGeometry(geometry)) {
+			console.warn(
+				"[bboxFromRequestGeometry] Not a valid MultiPolygon geometry:",
+				geometry,
+			);
+			return null;
+		}
+
+		let minX = Infinity;
+		let minY = Infinity;
+		let maxX = -Infinity;
+		let maxY = -Infinity;
+
+		// MultiPolygon structure: polygons -> rings -> coordinates -> [x,y]
+		for (const polygon of geometry.coordinates) {
+			for (const ring of polygon) {
+				for (const coord of ring) {
+					const x = coord[0];
+					const y = coord[1];
+					if (typeof x !== "number" || typeof y !== "number") continue;
+
+					if (x < minX) minX = x;
+					if (y < minY) minY = y;
+					if (x > maxX) maxX = x;
+					if (y > maxY) maxY = y;
+				}
+			}
+		}
+
+		if (
+			!isFinite(minX) ||
+			!isFinite(minY) ||
+			!isFinite(maxX) ||
+			!isFinite(maxY)
+		) {
+			console.warn(
+				"[bboxFromRequestGeometry] Could not compute bbox from geometry",
+			);
+			return null;
+		}
+
+		return [minX, minY, maxX, maxY];
+	}
+
 	async findBuildingAtPoint(longitude: number, latitude: number) {
 		try {
 			const [transformedX, transformedY] = proj4("EPSG:4326", "EPSG:25833", [
 				longitude,
 				latitude,
 			]);
+
+			const exactMatch = await this.searchExactIntersection(
+				transformedX,
+				transformedY,
+			);
+
+			let bbBoxFromBuilding: BBox | null = null;
+			if (exactMatch && exactMatch.geometry) {
+				bbBoxFromBuilding = this.bboxFromRequestGeometry(exactMatch);
+				console.log(
+					"bbBoxFromBuilding :>> ",
+					JSON.stringify(bbBoxFromBuilding),
+				);
+			}
 
 			const isFlood = await this.getUeberschwemmungsgebieteWFS(
 				transformedX,
@@ -52,6 +139,7 @@ export class GeoServerClient {
 				"ua_srgk",
 				"ca_wasserstand_selten",
 				"Wasserstand_m",
+				bbBoxFromBuilding,
 			);
 
 			const isInUncommonHeavyRainZone = await this.getWMSFeatureInfo(
@@ -60,6 +148,7 @@ export class GeoServerClient {
 				"ua_srhk",
 				"dc_wasserstand_aussergew_kostra",
 				"Wasserstand_cm",
+				bbBoxFromBuilding,
 			);
 
 			const isInExtremeHeavyRainZone = await this.getWMSFeatureInfo(
@@ -68,16 +157,14 @@ export class GeoServerClient {
 				"ua_srhk",
 				"ec_wasserstand_extrem_max100mm",
 				"Wasserstand_cm",
+				bbBoxFromBuilding,
 			);
 
-			const exactMatch = await this.searchExactIntersection(
-				transformedX,
-				transformedY,
-			);
 			if (exactMatch) {
 				return {
 					found: true,
 					buildingInformation: exactMatch,
+					bbBoxFromBuilding,
 					floodZoneIndex,
 					isInRareHeavyRainZone,
 					isInUncommonHeavyRainZone,
@@ -89,10 +176,12 @@ export class GeoServerClient {
 				[transformedX, transformedY],
 				[longitude, latitude],
 			);
+			console.log("bufferResult :>> ", JSON.stringify(bufferResult));
 			if (bufferResult) {
 				return {
 					found: true,
 					buildingInformation: bufferResult,
+					bbBoxFromBuilding: null,
 					floodZoneIndex,
 					isInRareHeavyRainZone,
 					isInUncommonHeavyRainZone,
@@ -103,6 +192,7 @@ export class GeoServerClient {
 			return {
 				found: false,
 				buildingInformation: null,
+				bbBoxFromBuilding: null,
 				floodZoneIndex,
 				isInRareHeavyRainZone,
 				isInUncommonHeavyRainZone,
@@ -112,6 +202,7 @@ export class GeoServerClient {
 			return {
 				found: false,
 				buildingInformation: null,
+				bbBoxFromBuilding: null,
 				floodZoneIndex: null,
 				isInRareHeavyRainZone: null,
 				isInUncommonHeavyRainZone: null,
@@ -179,7 +270,7 @@ export class GeoServerClient {
 	async getUeberschwemmungsgebieteWFS(
 		x25833: number,
 		y25833: number,
-		buffer = 2,
+		buffer = 50,
 	): Promise<any | null> {
 		try {
 			// Buffer BBOX exactly like your GetFeatureInfo logic
@@ -234,17 +325,23 @@ export class GeoServerClient {
 		base: string,
 		layer: string,
 		propertyKey: string,
-		buffer = 2,
+		bbBoxFromBuilding?: BBox | null,
+		buffer = 50,
 		width = 256,
 		height = 256,
 	): Promise<string | null> {
 		try {
 			// WMS 1.3.0 uses CRS param name "CRS"
 			// BBOX in EPSG:25833 is "minx,miny,maxx,maxy"
-			const minx = x25833 - buffer;
-			const miny = y25833 - buffer;
-			const maxx = x25833 + buffer;
-			const maxy = y25833 + buffer;
+			const [rawMinx, rawMiny, rawMaxx, rawMaxy] =
+				bbBoxFromBuilding?.length === 4
+					? bbBoxFromBuilding
+					: [x25833, y25833, x25833, y25833];
+
+			const minx = rawMinx - buffer;
+			const miny = rawMiny - buffer;
+			const maxx = rawMaxx + buffer;
+			const maxy = rawMaxy + buffer;
 
 			const bbox = [minx, miny, maxx, maxy].join(",");
 
@@ -286,8 +383,6 @@ export class GeoServerClient {
 			url.searchParams.set("STYLES", "");
 			url.searchParams.set("FORMAT", "image/png");
 			url.searchParams.set("TRANSPARENT", "true");
-
-			console.log("url.toString() :>> ", url.toString());
 
 			const response = await fetch(url.toString());
 			if (!response.ok) {
@@ -340,6 +435,15 @@ export class GeoServerClient {
 				}
 				if (features[0].properties && propertyKey in features[0].properties) {
 					const propertyValue = features[0].properties[propertyKey];
+					if (
+						propertyValue === null ||
+						propertyValue === undefined ||
+						propertyValue === "0" ||
+						propertyValue === "" ||
+						propertyValue.trim() === ""
+					) {
+						return null;
+					}
 					if (typeof propertyValue === "string") {
 						return propertyValue.trim();
 					}

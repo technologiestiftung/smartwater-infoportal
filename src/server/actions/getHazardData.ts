@@ -18,6 +18,7 @@ export async function getHazardData(
 			const building = result.buildingInformation;
 			return {
 				building,
+				bbBoxFromBuilding: result.bbBoxFromBuilding,
 				maxGefährdung: Math.max(
 					building.starkregenGefährdung || 0,
 					building.hochwasserGefährdung || 0,
@@ -33,6 +34,7 @@ export async function getHazardData(
 
 		return {
 			building: null,
+			bbBoxFromBuilding: null,
 			maxGefährdung: 0,
 			found: false,
 			floodZoneIndex: result.floodZoneIndex,
@@ -43,6 +45,7 @@ export async function getHazardData(
 	} catch {
 		return {
 			building: null,
+			bbBoxFromBuilding: null,
 			maxGefährdung: 0,
 			found: false,
 			floodZoneIndex: null,

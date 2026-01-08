@@ -35,9 +35,6 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 	const setMap = useMapStore((s) => s.populateScenarioMap);
 	const destroyMap = useMapStore((s) => s.removeScenarioMap);
 	const config = useMapStore((s) => s.scenarioConfig[scenario]);
-	// const setMap = useMapStore((state) => state.populateMapSR);
-	// 	const destroyMap = useMapStore((state) => state.removeMapSR);
-	// 	const config = useMapStore((state) => state.configSR);
 	const mapId = useRef<HTMLDivElement>(null);
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const locationData = useStore((state) => state.locationData);
