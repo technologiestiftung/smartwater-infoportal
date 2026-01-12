@@ -260,7 +260,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 		if (pageItems && pageItems.length > 0) {
 			for (let itemIndex = 0; itemIndex < pageItems.length; itemIndex++) {
 				const item = pageItems[itemIndex];
-				console.log("item :>> ", item);
+				// console.log("item :>> ", item);
 				let hide = false;
 				if (pdfKeys) {
 					Object.keys(pdfKeys).forEach((key) => {
@@ -338,14 +338,14 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅
 						}
 
-						console.log("addImage", {
+						/* console.log("addImage", {
 							image: image.image,
 							typ: "JPEG",
 							marginLeft,
 							vertical,
 							drawWidth,
 							drawHeight,
-						});
+						}); */
 
 						doc.addImage(
 							image.image,

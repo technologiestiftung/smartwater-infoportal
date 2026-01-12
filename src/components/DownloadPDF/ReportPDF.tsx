@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -20,10 +21,15 @@ interface ReportPDFProps {
 	skip: string | null;
 }
 
-const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
+const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
-	const { currentUserAddress, getHazardEntities, locationData } = useStore();
+	const {
+		currentUserAddress,
+		getHazardEntities,
+		locationData,
+		floodRiskAnswers,
+	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
@@ -54,9 +60,20 @@ const ReportPDF: FC<ReportPDFProps> = (/* { skip } */) => {
 		"{showExtremeHeavyRain}": locationData?.isInExtremeHeavyRainZone,
 		"{waterLevelExtremeHeavyRain}":
 			locationData?.isInExtremeHeavyRainZone || "Keine Daten",
+		"{didSkip}": !!skip,
+		"{didNotSkip}": !skip,
+		"{isOwner}":
+			!!skip ||
+			(typeof floodRiskAnswers?.q0?.value === "string" &&
+				floodRiskAnswers?.q0?.value?.includes("Owner")),
+		"{isNotOwner}":
+			!!skip ||
+			(typeof floodRiskAnswers?.q0?.value === "string" &&
+				!floodRiskAnswers?.q0?.value?.includes("Owner")),
 	};
 
 	const makePDF = async () => {
+		// console.log("makePDF with these keys", pdfKeys);
 		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {
 			window.alert("PDF konnte nicht erstellt werden.");

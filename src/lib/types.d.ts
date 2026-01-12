@@ -35,7 +35,6 @@ export type BBox = [number, number, number, number];
 export interface LocationData {
 	found: boolean;
 	building: Building | null;
-	bbBoxFromBuilding: BBox | null;
 	maxGefährdung: number;
 	distance?: number;
 	floodZoneIndex?: number | null;

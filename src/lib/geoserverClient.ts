@@ -4,106 +4,34 @@ import proj4 from "proj4";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point } from "@turf/helpers";
 import { BBox, Geometry } from "./types";
+import {
+	bufferedPointsFromBuilding,
+	valuesByCount,
+} from "./utils/geoServerHelpers";
+
+const notFound = {
+	found: false,
+	buildingInformation: null,
+	floodZoneIndex: null,
+	isInRareHeavyRainZone: null,
+	isInUncommonHeavyRainZone: null,
+	isInExtremeHeavyRainZone: null,
+};
 
 export class GeoServerClient {
 	private readonly baseUrl?: string;
 	private readonly workspace?: string;
 	private readonly buildingLayer: string;
-	private readonly floodLayer: string;
 
 	constructor() {
 		this.baseUrl = process.env.GEOSERVER_BASE_URL;
 		this.workspace = process.env.GEOSERVER_WORKSPACE;
 		this.buildingLayer = `${this.workspace}:${process.env.GEOSERVER_BUILDING_LAYER}`;
-		this.floodLayer = `${this.workspace}:${process.env.GEOSERVER_FLOOD_LAYER}`;
 
 		proj4.defs(
 			"EPSG:25833",
 			"+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
 		);
-	}
-
-	async testConnection() {
-		try {
-			const capabilitiesUrl = `${this.baseUrl}/wfs?service=WFS&version=2.0.0&request=GetCapabilities`;
-			const response = await fetch(capabilitiesUrl);
-			return response.ok;
-		} catch (_error) {
-			return false;
-		}
-	}
-
-	isValidMultiPolygonGeometry(
-		geometry: any,
-	): geometry is { type: "MultiPolygon"; coordinates: number[][][][] } {
-		return (
-			geometry &&
-			geometry.type === "MultiPolygon" &&
-			Array.isArray(geometry.coordinates) &&
-			geometry.coordinates.length > 0 &&
-			Array.isArray(geometry.coordinates[0]) &&
-			geometry.coordinates[0].length > 0 &&
-			Array.isArray(geometry.coordinates[0][0]) &&
-			geometry.coordinates[0][0].length > 0 &&
-			Array.isArray(geometry.coordinates[0][0][0]) &&
-			geometry.coordinates[0][0][0].length >= 2 &&
-			typeof geometry.coordinates[0][0][0][0] === "number" &&
-			typeof geometry.coordinates[0][0][0][1] === "number"
-		);
-	}
-
-	bboxFromRequestGeometry(json: any): BBox | null {
-		// Try common places where the geometry might live
-		const geometry =
-			json?.geometry ??
-			json?.feature?.geometry ??
-			json?.features?.[0]?.geometry ??
-			json?.featureCollection?.features?.[0]?.geometry ??
-			json?.FeatureCollection?.features?.[0]?.geometry ??
-			null;
-
-		if (!this.isValidMultiPolygonGeometry(geometry)) {
-			console.warn(
-				"[bboxFromRequestGeometry] Not a valid MultiPolygon geometry:",
-				geometry,
-			);
-			return null;
-		}
-
-		let minX = Infinity;
-		let minY = Infinity;
-		let maxX = -Infinity;
-		let maxY = -Infinity;
-
-		// MultiPolygon structure: polygons -> rings -> coordinates -> [x,y]
-		for (const polygon of geometry.coordinates) {
-			for (const ring of polygon) {
-				for (const coord of ring) {
-					const x = coord[0];
-					const y = coord[1];
-					if (typeof x !== "number" || typeof y !== "number") continue;
-
-					if (x < minX) minX = x;
-					if (y < minY) minY = y;
-					if (x > maxX) maxX = x;
-					if (y > maxY) maxY = y;
-				}
-			}
-		}
-
-		if (
-			!isFinite(minX) ||
-			!isFinite(minY) ||
-			!isFinite(maxX) ||
-			!isFinite(maxY)
-		) {
-			console.warn(
-				"[bboxFromRequestGeometry] Could not compute bbox from geometry",
-			);
-			return null;
-		}
-
-		return [minX, minY, maxX, maxY];
 	}
 
 	async findBuildingAtPoint(longitude: number, latitude: number) {
@@ -118,14 +46,91 @@ export class GeoServerClient {
 				transformedY,
 			);
 
-			let bbBoxFromBuilding: BBox | null = null;
-			if (exactMatch && exactMatch.geometry) {
-				bbBoxFromBuilding = this.bboxFromRequestGeometry(exactMatch);
-				console.log(
-					"bbBoxFromBuilding :>> ",
-					JSON.stringify(bbBoxFromBuilding),
-				);
+			// console.log("exactMatch :>> ", exactMatch);
+
+			const hasHeavyRainHazardMap = await this.getWMSFeatureInfo(
+				transformedX,
+				transformedY,
+				"ua_srgk",
+				"a_modellgebiete",
+			);
+
+			/* Obersee => "isInExtremeRainHazardMap";
+				a_modellgebiete => "isInHeavyRainHazardMap"; */
+
+			console.log("hasHeavyRainHazardMap :>> ", hasHeavyRainHazardMap);
+
+			if (!exactMatch) {
+				return notFound;
 			}
+
+			const testPoints = bufferedPointsFromBuilding(exactMatch.geometry);
+
+			const rareHeavyRainValues: string[] = [];
+			const uncommonHeavyRainValues: string[] = [];
+			const extremeHeavyRainValues: string[] = [];
+
+			for (const [x, y] of testPoints) {
+				const isInRareHeavyRainZonePoints = hasHeavyRainHazardMap
+					? await this.getWMSFeatureInfo(
+							x,
+							y,
+							"ua_srgk",
+							"ca_wasserstand_selten",
+							"Wasserstand_m",
+							// exactMatch?.bbox,
+						)
+					: null;
+				if (isInRareHeavyRainZonePoints) {
+					rareHeavyRainValues.push(isInRareHeavyRainZonePoints);
+				}
+				const isInUncommonHeavyRainZonePoints = await this.getWMSFeatureInfo(
+					x,
+					y,
+					hasHeavyRainHazardMap ? "ua_srgk" : "ua_srhk",
+					hasHeavyRainHazardMap
+						? "cb_wasserstand_aussergewoehnlich"
+						: "dc_wasserstand_aussergew_kostra",
+					hasHeavyRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
+					// exactMatch?.bbox,
+				);
+
+				if (isInUncommonHeavyRainZonePoints) {
+					uncommonHeavyRainValues.push(isInUncommonHeavyRainZonePoints);
+				}
+
+				const isInExtremeHeavyRainZonePoints = await this.getWMSFeatureInfo(
+					x,
+					y,
+					hasHeavyRainHazardMap === "isInExtremeRainHazardMap"
+						? "ua_srgk"
+						: "ua_srhk",
+					hasHeavyRainHazardMap === "isInExtremeRainHazardMap"
+						? "cc_wassersand_extrem"
+						: "ec_wasserstand_extrem_max100mm",
+					hasHeavyRainHazardMap === "isInExtremeRainHazardMap"
+						? "Wasserstand_m"
+						: "Wasserstand_cm",
+					// exactMatch?.bbox,
+				);
+
+				if (isInExtremeHeavyRainZonePoints) {
+					extremeHeavyRainValues.push(isInExtremeHeavyRainZonePoints);
+				}
+			}
+
+			console.log(
+				"rareHeavyRainValues :>> ",
+				valuesByCount(rareHeavyRainValues),
+			);
+			console.log(
+				"uncommonHeavyRainValues :>> ",
+				valuesByCount(uncommonHeavyRainValues),
+			);
+			console.log(
+				"extremeHeavyRainValues :>> ",
+				valuesByCount(extremeHeavyRainValues),
+			);
 
 			const isFlood = await this.getUeberschwemmungsgebieteWFS(
 				transformedX,
@@ -133,38 +138,49 @@ export class GeoServerClient {
 			);
 			const floodZoneIndex = typeof isFlood === "boolean" && !!isFlood ? 1 : 0;
 
-			const isInRareHeavyRainZone = await this.getWMSFeatureInfo(
-				transformedX,
-				transformedY,
-				"ua_srgk",
-				"ca_wasserstand_selten",
-				"Wasserstand_m",
-				bbBoxFromBuilding,
-			);
+			const isInRareHeavyRainZone = hasHeavyRainHazardMap
+				? await this.getWMSFeatureInfo(
+						transformedX,
+						transformedY,
+						"ua_srgk",
+						"ca_wasserstand_selten",
+						"Wasserstand_m",
+						exactMatch?.bbox,
+					)
+				: null;
+
+			console.log("isInRareHeavyRainZone :>> ", isInRareHeavyRainZone);
 
 			const isInUncommonHeavyRainZone = await this.getWMSFeatureInfo(
 				transformedX,
 				transformedY,
-				"ua_srhk",
-				"dc_wasserstand_aussergew_kostra",
-				"Wasserstand_cm",
-				bbBoxFromBuilding,
+				hasHeavyRainHazardMap ? "ua_srgk" : "ua_srhk",
+				hasHeavyRainHazardMap
+					? "cb_wasserstand_aussergewoehnlich"
+					: "dc_wasserstand_aussergew_kostra",
+				hasHeavyRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
+				exactMatch?.bbox,
 			);
+
+			console.log("isInUncommonHeavyRainZone :>> ", isInUncommonHeavyRainZone);
 
 			const isInExtremeHeavyRainZone = await this.getWMSFeatureInfo(
 				transformedX,
 				transformedY,
-				"ua_srhk",
-				"ec_wasserstand_extrem_max100mm",
-				"Wasserstand_cm",
-				bbBoxFromBuilding,
+				hasHeavyRainHazardMap ? "ua_srgk" : "ua_srhk",
+				hasHeavyRainHazardMap
+					? "cc_wassersand_extrem"
+					: "ec_wasserstand_extrem_max100mm",
+				hasHeavyRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
+				exactMatch?.bbox,
 			);
+
+			console.log("isInExtremeHeavyRainZone :>> ", isInExtremeHeavyRainZone);
 
 			if (exactMatch) {
 				return {
 					found: true,
 					buildingInformation: exactMatch,
-					bbBoxFromBuilding,
 					floodZoneIndex,
 					isInRareHeavyRainZone,
 					isInUncommonHeavyRainZone,
@@ -181,7 +197,6 @@ export class GeoServerClient {
 				return {
 					found: true,
 					buildingInformation: bufferResult,
-					bbBoxFromBuilding: null,
 					floodZoneIndex,
 					isInRareHeavyRainZone,
 					isInUncommonHeavyRainZone,
@@ -192,66 +207,13 @@ export class GeoServerClient {
 			return {
 				found: false,
 				buildingInformation: null,
-				bbBoxFromBuilding: null,
 				floodZoneIndex,
 				isInRareHeavyRainZone,
 				isInUncommonHeavyRainZone,
 				isInExtremeHeavyRainZone,
 			};
 		} catch {
-			return {
-				found: false,
-				buildingInformation: null,
-				bbBoxFromBuilding: null,
-				floodZoneIndex: null,
-				isInRareHeavyRainZone: null,
-				isInUncommonHeavyRainZone: null,
-				isInExtremeHeavyRainZone: null,
-			};
-		}
-	}
-
-	async getFloodZoneIndex(
-		transformedX: number,
-		transformedY: number,
-	): Promise<number | null> {
-		try {
-			const bufferSize = 50;
-			const bbox = [
-				transformedX - bufferSize,
-				transformedY - bufferSize,
-				transformedX + bufferSize,
-				transformedY + bufferSize,
-			].join(",");
-
-			const wmsUrl = new URL(`${this.baseUrl}/wms`);
-			wmsUrl.searchParams.set("SERVICE", "WMS");
-			wmsUrl.searchParams.set("VERSION", "1.1.1");
-			wmsUrl.searchParams.set("REQUEST", "GetFeatureInfo");
-			wmsUrl.searchParams.set("LAYERS", this.floodLayer);
-			wmsUrl.searchParams.set("QUERY_LAYERS", this.floodLayer);
-			wmsUrl.searchParams.set("SRS", "EPSG:25833");
-			wmsUrl.searchParams.set("BBOX", bbox);
-			wmsUrl.searchParams.set("WIDTH", "256");
-			wmsUrl.searchParams.set("HEIGHT", "256");
-			wmsUrl.searchParams.set("X", "128");
-			wmsUrl.searchParams.set("Y", "128");
-			wmsUrl.searchParams.set("INFO_FORMAT", "application/json");
-
-			const response = await fetch(wmsUrl.toString());
-			if (!response.ok) {
-				return null;
-			}
-
-			const data = await response.json();
-			if (!data.features?.length) {
-				return null;
-			}
-
-			const grayIndex = data.features[0].properties?.GRAY_INDEX;
-			return typeof grayIndex === "number" ? grayIndex : null;
-		} catch {
-			return null;
+			return notFound;
 		}
 	}
 
@@ -324,9 +286,9 @@ export class GeoServerClient {
 		y25833: number,
 		base: string,
 		layer: string,
-		propertyKey: string,
+		propertyKey?: string,
 		bbBoxFromBuilding?: BBox | null,
-		buffer = 50,
+		buffer = 2,
 		width = 256,
 		height = 256,
 	): Promise<string | null> {
@@ -336,12 +298,17 @@ export class GeoServerClient {
 			const [rawMinx, rawMiny, rawMaxx, rawMaxy] =
 				bbBoxFromBuilding?.length === 4
 					? bbBoxFromBuilding
-					: [x25833, y25833, x25833, y25833];
+					: [
+							x25833 - buffer,
+							y25833 - buffer,
+							x25833 + buffer,
+							y25833 + buffer,
+						];
 
-			const minx = rawMinx - buffer;
-			const miny = rawMiny - buffer;
-			const maxx = rawMaxx + buffer;
-			const maxy = rawMaxy + buffer;
+			const minx = rawMinx; // - buffer;
+			const miny = rawMiny; // - buffer;
+			const maxx = rawMaxx; // + buffer;
+			const maxy = rawMaxy; // + buffer;
 
 			const bbox = [minx, miny, maxx, maxy].join(",");
 
@@ -383,6 +350,14 @@ export class GeoServerClient {
 			url.searchParams.set("STYLES", "");
 			url.searchParams.set("FORMAT", "image/png");
 			url.searchParams.set("TRANSPARENT", "true");
+
+			/* console.log("");
+			console.log("");
+			console.log("");
+			console.log("url.toString() :>> ", url.toString());
+			console.log("");
+			console.log("");
+			console.log(""); */
 
 			const response = await fetch(url.toString());
 			if (!response.ok) {
@@ -427,13 +402,28 @@ export class GeoServerClient {
 				json?.FeatureCollection?.features ??
 				null;
 
-			console.log("WMS GetFeatureInfo JSON:", JSON.stringify(json));
+			if (layer === "a_modellgebiete") {
+				console.log("features :>> ", features[0].properties?.Gebietsname);
+			}
 
 			if (Array.isArray(features)) {
 				if (features.length === 0) {
 					return null;
 				}
-				if (features[0].properties && propertyKey in features[0].properties) {
+				if (
+					layer === "a_modellgebiete" &&
+					features[0].properties &&
+					features[0].properties?.Gebietsname &&
+					features[0].properties?.Gebietsname === "Obersee"
+				) {
+					return "isInExtremeRainHazardMap";
+				} else if (layer === "a_modellgebiete") {
+					return "isInHeavyRainHazardMap";
+				} else if (
+					!!propertyKey &&
+					features[0].properties &&
+					propertyKey in features[0].properties
+				) {
 					const propertyValue = features[0].properties[propertyKey];
 					if (
 						propertyValue === null ||
@@ -445,6 +435,7 @@ export class GeoServerClient {
 						return null;
 					}
 					if (typeof propertyValue === "string") {
+						// console.log("VALUE FOUND:", propertyValue.trim());
 						return propertyValue.trim();
 					}
 				}
@@ -551,6 +542,7 @@ export class GeoServerClient {
 			starkregenGefährdung: (props.GS_SR as number) || 0,
 			hochwasserGefährdung: (props.GS_HW as number) || 0,
 			geometry: building.geometry as Geometry,
+			bbox: building.bbox as BBox,
 			...(distance !== undefined && { distance }),
 		};
 	}

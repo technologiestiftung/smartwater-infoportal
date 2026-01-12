@@ -228,6 +228,28 @@
 				"text": "Außergewöhnlich starke oder langanhaltende Regenfälle sowie Schneeschmelze können dazu führen, dass Flüsse über die Ufer treten und umliegende Gebiete überfluten (fluviale Hochwasser). Auch in Berlin ist dies bereits vorgekommen – etwa am 30.07.2011 an der Erpe in Köpenick oder in der Nacht vom 21. auf den 22.08.2012 an der Panke. Für Bereiche mit potenziell signifikantem Hochwasserrisiko – wie Tegeler Fließ, Panke, Erpe, Wuhle, Untere Havel/Untere Spree sowie die Müggelspree mit den Gosener Gewässern und dem Seddinsee – stehen Hochwassergefahrenkarten (HWGK) zur Verfügung. Diese Karten zeigen, wie sich ein Flusshochwasser in drei Szenarien (häufig, mittel, extrem) ausbreiten kann und welche Wassertiefen dabei auftreten können. Die HWGK bilden ausschließlich Überschwemmungen ab, die direkt durch Hochwasser eines Gewässers verursacht werden. Andere Überflutungsursachen – etwa überlastete Abwasseranlagen, ansteigendes Grundwasser, technische Defekte oder Starkregen – sind darin nicht enthalten. Zusätzlich wurden für bestimmte Bereiche Überschwemmungsgebiete festgesetzt. In diesen Gebieten gelten besondere Schutzvorschriften und Einschränkungen, um zu verhindern, dass sich das Schadenspotenzial erhöht, Retentionsräume verloren gehen oder der Wasserabfluss behindert wird. Die jeweils gültigen Regelungen sind in den entsprechenden Verordnungen festgelegt. Für die im Titel genannte Adresse wurde geprüft, welche Wasserstände im Hochwasserfall in den drei Szenarien (häufig, mittel, extrem) zu erwarten sind und ob das Objekt innerhalb eines festgesetzten Überschwemmungsgebiet",
 				"marginBottom": "paragraph"
 			}
+		],
+		[
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h2",
+				"marginBottom": 5
+			},
+			{
+				"hide": "{didNotSkip}",
+				"text": "Um sich vor den Gefahren durch Starkregen zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen. Wenn sie an Maßnahmen interessiert sind, die auf Ihren individuellen Fall angepasst sind, können Sie im HochwasserCheck Berlin den Fragebogen ausfüllen und sich einen auf Ihre Hochwassersituation zugeschnittenen Bericht erstellen lassen.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"hide": "{isOwner}",
+				"text": "Um sich vor Hochwasser zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen. In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben. Dabei sind bauliche Maßnahmen häufig kaum von Mieter:innen umzusetzen. Trotzdem werden Ihnen hiernach auch solche Maßnahmen präsentiert, sodass Sie über Optionen und Möglichkeiten der Anpassung informiert sind, die eventuell für Ihr Wohnhaus relevant sein können.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"hide": "{isNotOwner}",
+				"text": "Um sich vor Hochwasser zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen. In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben.",
+				"marginBottom": "paragraph"
+			}
 		]
 	]
 }

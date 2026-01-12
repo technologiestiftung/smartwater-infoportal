@@ -125,14 +125,20 @@ export type Scenario =
 	| "HW"
 	| "RARE_HEAVY_RAIN"
 	| "UNCOMMON_HEAVY_RAIN"
-	| "EXTREME_HEAVY_RAIN";
+	| "EXTREME_HEAVY_RAIN"
+	| "FREQUENT_FLOOD"
+	| "AVERAGE_FREQUENT_FLOOD"
+	| "RARE_FREQUENT_FLOOD";
 
 export const ScenarioList: Scenario[] = [
 	"SR",
 	"HW",
 	"RARE_HEAVY_RAIN",
 	"UNCOMMON_HEAVY_RAIN",
-	"EXTREME_HEAVY_RAIN",
+	// "EXTREME_HEAVY_RAIN",
+	"FREQUENT_FLOOD",
+	"AVERAGE_FREQUENT_FLOOD",
+	"RARE_FREQUENT_FLOOD",
 ];
 
 type ScenarioMap<T> = Partial<Record<Scenario, T>>;
@@ -141,8 +147,11 @@ export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
 	SR: ["sw_infoportal:sr_gefaehrdung_clip_"],
 	HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
 	RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
-	UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
-	EXTREME_HEAVY_RAIN: ["ua_srhk:ec_wasserstand_extrem_max100mm"],
+	UNCOMMON_HEAVY_RAIN: ["ua_srgk:cb_wasserstand_aussergewoehnlich"],
+	EXTREME_HEAVY_RAIN: ["ua_srgk:cc_wassersand_extrem"],
+	FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:a_hwgk_hoch"],
+	AVERAGE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:b_hwgk_mittel"],
+	RARE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:c_hwgk_niedrig"],
 };
 
 export interface MapStoreState {

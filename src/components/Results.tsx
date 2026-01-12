@@ -244,7 +244,10 @@ const Results: React.FC = () => {
 					}
 				>
 					{ScenarioList.map((scenario) => (
-						<ScenarioMap key={scenario} scenario={scenario} />
+						<div key={scenario}>
+							<p>{scenario}</p>
+							<ScenarioMap scenario={scenario} />
+						</div>
 					))}
 				</div>
 			</section>
