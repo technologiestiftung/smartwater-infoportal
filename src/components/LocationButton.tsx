@@ -16,8 +16,6 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 	const [lat, setLat] = useState<number | null>(null);
 	const [long, setLong] = useState<number | null>(null);
 
-	const testing = false;
-
 	async function requestLocation() {
 		setStatus("loading");
 
@@ -75,22 +73,6 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 	return (
 		<div className="mt-2">
 			<div className="space-y-4">
-				{/* <h3>Testing: Standort bestimmen</h3>
-				<div
-					className="relative aspect-[293/48] h-[48px] cursor-pointer bg-black"
-					onClick={(e) => {
-						e.preventDefault();
-						requestLocation();
-					}}
-				>
-					<Image
-						src="/LocationButton.svg"
-						alt="Location Button Icon"
-						fill
-						className="object-cover"
-						sizes="100vw"
-					/>
-				</div> */}
 				<Button
 					className="flex cursor-pointer items-center gap-2"
 					variant="link"
@@ -114,64 +96,7 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 						Standort abgelehnt. Bitte Browser-Einstellungen prüfen.
 					</p>
 				)}
-				{testing && status === "granted" && lat !== null && long !== null && (
-					<p className="text-green-700">
-						Latitude: {lat.toFixed(6)}, Longitude: {long.toFixed(6)}
-					</p>
-				)}
 			</div>
-			{testing && (
-				<>
-					<hr className="my-6" />
-					<div className="space-y-4">
-						<h3>Testing: Selber Koordinaten eintragen</h3>
-						<div className="flex">
-							<div>
-								<label className="mb-1 block font-medium">Latitude</label>
-								<input
-									type="number"
-									step="any"
-									placeholder="Latitude"
-									value={lat !== null ? lat : ""}
-									onChange={(e) =>
-										setLat(
-											e.target.value === "" ? null : Number(e.target.value),
-										)
-									}
-									className="mr-2 rounded border p-2"
-								/>
-							</div>
-							<div>
-								<label className="mb-1 block font-medium">Longitude</label>
-								<input
-									type="number"
-									step="any"
-									placeholder="Longitude"
-									value={long !== null ? long : ""}
-									onChange={(e) =>
-										setLong(
-											e.target.value === "" ? null : Number(e.target.value),
-										)
-									}
-									className="rounded border p-2"
-								/>
-							</div>
-						</div>
-						<Button
-							variant="link"
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
-							onClick={(e: any) => {
-								e.preventDefault();
-								setLat(null);
-								setLong(null);
-								setStatus("idle");
-							}}
-						>
-							Koordinaten Löschen
-						</Button>
-					</div>
-				</>
-			)}
 		</div>
 	);
 };
