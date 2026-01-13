@@ -131,7 +131,8 @@ export type Scenario =
 	| "SRHK_EXTREME_HEAVY_RAIN"
 	| "FREQUENT_FLOOD"
 	| "AVERAGE_FREQUENT_FLOOD"
-	| "RARE_FREQUENT_FLOOD";
+	| "RARE_FREQUENT_FLOOD"
+	| "FLOOD_ZONE";
 
 export const ScenarioList: Scenario[] = [
 	"SR",
@@ -144,6 +145,7 @@ export const ScenarioList: Scenario[] = [
 	"FREQUENT_FLOOD",
 	"AVERAGE_FREQUENT_FLOOD",
 	"RARE_FREQUENT_FLOOD",
+	"FLOOD_ZONE",
 ];
 
 type ScenarioMap<T> = Partial<Record<Scenario, T>>;
@@ -159,6 +161,7 @@ export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
 	FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:a_hwgk_hoch"],
 	AVERAGE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:b_hwgk_mittel"],
 	RARE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:c_hwgk_niedrig"],
+	FLOOD_ZONE: ["ua_uesg:c_ueberschwemmungsgebiete"],
 };
 
 export interface MapStoreState {
