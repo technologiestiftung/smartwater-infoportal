@@ -36,7 +36,7 @@
 			{
 				"text": "{address}",
 				"marginLeft": 7,
-				"marginBottom": 15
+				"marginBottom": 10
 			},
 			{
 				"text": "Einleitung",
@@ -90,12 +90,12 @@
 				"marginBottom": 5
 			},
 			{
-				"text": "Gefährung durch Starkregen",
+				"text": "Gefährdung durch Starkregen",
 				"fontSize": "h3",
 				"marginBottom": 2
 			},
 			{
-				"text": "Gefährung durch Starkregen an Ihrem Standort: <b>{hazardLevelHeavyRain}</b>",
+				"text": "Gefährdung durch Starkregen an Ihrem Standort: <b>{hazardLevelHeavyRain}</b>",
 				"marginBottom": 5
 			},
 			{
@@ -107,19 +107,19 @@
 				"imageSRC": "#map-root-sr",
 				"width": 0.58,
 				"marginLeft": 0.42,
+				"marginBottom": 5
+			},
+			{
+				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte oben ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden.",
 				"marginBottom": 10
 			},
 			{
-				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte rechts ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden.",
-				"marginBottom": 10
-			},
-			{
-				"text": "Gefährung durch Flusshochwasser",
+				"text": "Gefährdung durch Flusshochwasser",
 				"fontSize": "h3",
 				"marginBottom": 2
 			},
 			{
-				"text": "Gefährung durch Flusshochwasser an Ihrem Standort: <b>{hazardLevelfloodRisk}</b>",
+				"text": "Gefährdung durch Flusshochwasser an Ihrem Standort: <b>{hazardLevelfloodRisk}</b>",
 				"marginBottom": 5
 			},
 			{
@@ -131,10 +131,10 @@
 				"imageSRC": "#map-root-hw",
 				"width": 0.58,
 				"marginLeft": 0.42,
-				"marginBottom": 10
+				"marginBottom": 5
 			},
 			{
-				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte rechts ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden. Keine Färbung bedeutet, dass dort keine Gefährdung durch Flusshochwasser vorliegt."
+				"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte oben ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden. Keine Färbung bedeutet, dass dort keine Gefährdung durch Flusshochwasser vorliegt."
 			}
 		],
 		[
@@ -144,26 +144,36 @@
 				"marginBottom": 5
 			},
 			{
-				"text": "Für den Raum Berlin wurden Starkregenhinweiskarten und -gefahrenkarten durch die Senatsverwaltung erstellt, um die Bürger:innen von Berlin über ihre Gefährdung durch  Starkregen aufzuklären. Die Hinweis- und Gegahrenkarten unterscheiden sich hinsichtlich ihrer Datengrundlage, siehe Abbildung.",
+				"text": "Für den Raum Berlin wurden Starkregenhinweiskarten und -gefahrenkarten durch die Senatsverwaltung erstellt, um die Bürger:innen von Berlin über ihre Gefährdung durch Starkregen aufzuklären. Die Hinweis- und Gegahrenkarten unterscheiden sich hinsichtlich ihrer Datengrundlage, siehe Abbildung.",
 				"marginBottom": "paragraph"
 			},
 			{
 				"text": "Bitte beachten Sie, dass Starkregenereignisse von einer Vielzahl teils kleinräumiger Faktoren abhängen, die nicht alle in die Modellierung der Starkregenhinweiskarten und -gefahrenkarten eingehen konnten. Die hier präsentierte Auswertung ist daher als Hinweis zu verstehen, die reale Situtation vor Ort kann ggf. hiervon abweichen.",
-				"marginBottom": "paragraph"
-			},
-			{
-				"imageSRC": "/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg",
-				"width": "halfPage",
 				"marginBottom": 10
 			},
 			{
-				"imageSRC": "#map-root-rare-heavy-rain",
+				"imageSRC": "/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg",
+				"caption": "<b>Abbildung:</b> Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten.",
+				"copyright": "© SenMVKU",
+				"width": "fullPage"
+			}
+		],
+		[
+			{
+				"text": "Gefährdung durch Starkregen",
+				"fontSize": "h2",
+				"marginBottom": 5
+			},
+			{
+				"hide": "!{showRareHeavyRain}",
+				"imageSRC": "#map-root-srgk-rare-heavy-rain",
+				"caption": "#map-root-srgk-rare-heavy-rain",
 				"width": "fullPage",
 				"marginBottom": 5
 			},
 			{
-				"hide": "{showNoRareHeavyRain}",
-				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"seltenes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"seltenes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{waterLevelRareHeavyRain}</b> auftreten können."
+				"hide": "!{showRareHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"seltenes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"seltenes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{rareHeavyRain}</b> auftreten können."
 			},
 			{
 				"hide": "{showRareHeavyRain}",
@@ -178,13 +188,27 @@
 		],
 		[
 			{
-				"imageSRC": "#map-root-uncommon-heavy-rain",
+				"text": "Gefährdung durch Starkregen",
+				"fontSize": "h2",
+				"marginBottom": 5
+			},
+			{
+				"hide": "!{hasSrgkHeavyRainMap}",
+				"imageSRC": "#map-root-srgk-uncommon-heavy-rain",
+				"caption": "#map-root-srgk-uncommon-heavy-rain",
 				"width": "fullPage",
 				"marginBottom": 5
 			},
 			{
-				"hide": "{showNoUncommonHeavyRain}",
-				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"außergewöhnliches Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{waterLevelUncommonHeavyRain} cm</b> auftreten können."
+				"hide": "{hasSrgkHeavyRainMap}",
+				"imageSRC": "#map-root-srhk-uncommon-heavy-rain",
+				"caption": "#map-root-srhk-uncommon-heavy-rain",
+				"width": "fullPage",
+				"marginBottom": 5
+			},
+			{
+				"hide": "!{showUncommonHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"außergewöhnliches Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung XY. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{uncommonHeavyRain} cm</b> auftreten können."
 			},
 			{
 				"hide": "{showUncommonHeavyRain}",
@@ -199,13 +223,22 @@
 		],
 		[
 			{
-				"imageSRC": "#map-root-extreme-heavy-rain",
+				"hide": "!{hasSrgkExtremeHeavyRainMap}",
+				"imageSRC": "#map-root-srgk-extreme-heavy-rain",
+				"caption": "#map-root-srgk-extreme-heavy-rain",
 				"width": "fullPage",
 				"marginBottom": 5
 			},
 			{
-				"hide": "{showNoExtremeHeavyRain}",
-				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{waterLevelExtremeHeavyRain} cm</b> auftreten können."
+				"hide": "{hasSrgkExtremeHeavyRainMap}",
+				"imageSRC": "#map-root-srhk-extreme-heavy-rain",
+				"caption": "#map-root-srhk-extreme-heavy-rain",
+				"width": "fullPage",
+				"marginBottom": 5
+			},
+			{
+				"hide": "!{showExtremeHeavyRain}",
+				"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von bis zu <b>{extremeHeavyRain} cm</b> auftreten können."
 			},
 			{
 				"hide": "{showExtremeHeavyRain}",

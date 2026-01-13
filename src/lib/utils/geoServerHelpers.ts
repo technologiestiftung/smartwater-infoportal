@@ -1,20 +1,24 @@
-/* eslint-disable no-nested-ternary */
+/* eslint-disable complexity */
 import { Geometry } from "../types";
 
 type XY = [number, number];
 
-export function bufferedPointsFromBuilding(
+export function bufferedOutlinePointsFromBuilding(
 	geom: Geometry,
 	bufferMeters = 2,
+	stepMeters = 1,
 ): XY[] {
-	if (!geom || !geom.coordinates) {
+	if (!geom || (geom.type !== "Polygon" && geom.type !== "MultiPolygon")) {
 		return [];
 	}
+
+	const polygons =
+		geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
 
 	const points: XY[] = [];
 	const seen = new Set<string>();
 
-	const addPoint = (x: number, y: number) => {
+	const add = (x: number, y: number) => {
 		const key = `${x.toFixed(3)},${y.toFixed(3)}`;
 		if (!seen.has(key)) {
 			seen.add(key);
@@ -22,49 +26,52 @@ export function bufferedPointsFromBuilding(
 		}
 	};
 
-	const offsets: XY[] = [
-		[0, 0],
-		[bufferMeters, 0],
-		[-bufferMeters, 0],
-		[0, bufferMeters],
-		[0, -bufferMeters],
-		[bufferMeters, bufferMeters],
-		[bufferMeters, -bufferMeters],
-		[-bufferMeters, bufferMeters],
-		[-bufferMeters, -bufferMeters],
-	];
-
-	const polygons =
-		geom.type === "Polygon"
-			? [geom.coordinates]
-			: geom.type === "MultiPolygon"
-				? geom.coordinates
-				: [];
-
 	for (const poly of polygons) {
-		if (!Array.isArray(poly)) {
+		if (!Array.isArray(poly) || !Array.isArray(poly[0])) {
 			continue;
 		}
-		for (const ring of poly) {
-			if (!Array.isArray(ring)) {
+		const ring = poly[0];
+		if (!ring || ring.length < 2) {
+			continue;
+		}
+
+		for (let i = 0; i < ring.length - 1; i++) {
+			const coord1 = ring[i];
+			const coord2 = ring[i + 1];
+
+			if (
+				!Array.isArray(coord1) ||
+				coord1.length < 2 ||
+				typeof coord1[0] !== "number" ||
+				typeof coord1[1] !== "number" ||
+				!Array.isArray(coord2) ||
+				coord2.length < 2 ||
+				typeof coord2[0] !== "number" ||
+				typeof coord2[1] !== "number"
+			) {
 				continue;
 			}
-			for (const coord of ring) {
-				if (
-					!Array.isArray(coord) ||
-					coord.length < 2 ||
-					typeof coord[0] !== "number" ||
-					typeof coord[1] !== "number"
-				) {
-					continue;
-				}
 
-				const x = coord[0];
-				const y = coord[1];
+			const [x1, y1] = coord1;
+			const [x2, y2] = coord2;
 
-				for (const [dx, dy] of offsets) {
-					addPoint(x + dx, y + dy);
-				}
+			const dx = x2 - x1;
+			const dy = y2 - y1;
+			const len = Math.hypot(dx, dy);
+			if (len === 0) {
+				continue;
+			}
+
+			const nx = -dy / len;
+			const ny = dx / len;
+
+			const steps = Math.max(1, Math.floor(len / stepMeters));
+			for (let s = 0; s <= steps; s++) {
+				const t = s / steps;
+				const bx = x1 + dx * t;
+				const by = y1 + dy * t;
+
+				add(bx + nx * bufferMeters, by + ny * bufferMeters);
 			}
 		}
 	}
@@ -72,22 +79,26 @@ export function bufferedPointsFromBuilding(
 	return points;
 }
 
-export function valuesByCount(values: string[]): Record<number, string[]> {
-	const counts: Record<string, number> = {};
-	const result: Record<number, string[]> = {};
-
-	// Count occurrences
-	for (const v of values) {
-		counts[v] = (counts[v] ?? 0) + 1;
+function isValidNumberString(value: string): boolean {
+	if (value.trim() === "") {
+		return false;
 	}
+	return !Number.isNaN(Number(value));
+}
 
-	// Group by count
-	for (const [value, count] of Object.entries(counts)) {
-		if (!result[count]) {
-			result[count] = [];
-		}
-		result[count].push(value);
+const heavyRainLevelsMap: Record<string, string> = {
+	"> 0,5 - 1,0 m": "100",
+	"> 0,3 - 0,5 m": "50",
+	"> 0,1 - 0,3 m": "30",
+	"<= 0,1 m (nicht dargestellt)": "10",
+};
+
+export function transformHeavyRainValue(heavyRain: string | null): number {
+	if (!heavyRain) {
+		return 0;
 	}
-
-	return result;
+	if (isValidNumberString(heavyRain)) {
+		return Number(heavyRain);
+	}
+	return Number(heavyRainLevelsMap[heavyRain]) || Number(heavyRain);
 }

@@ -61,7 +61,8 @@
 						"scale": 500,
 						"zoomLevel": 8
 					}
-				]
+				],
+				"padding": [60, 60, 60, 60]
 			}
 		},
 		"portalFooter": {

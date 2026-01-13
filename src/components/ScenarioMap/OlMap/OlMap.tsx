@@ -4,7 +4,6 @@
 import appConfig from "@/config/config";
 import Map from "ol/Map";
 import View from "ol/View";
-import { transform } from "ol/proj";
 import { register } from "ol/proj/proj4";
 import proj4 from "proj4";
 import React, { FC, useEffect, useRef } from "react";
@@ -16,7 +15,6 @@ import { Stroke, Style } from "ol/style";
 import VectorLayer from "ol/layer/Vector";
 import OLGeoJSON from "ol/format/GeoJSON";
 import ScaleLine from "ol/control/ScaleLine";
-import { checkNumber } from "@/lib/utils/mapUtils";
 import { Scenario } from "@/types/map";
 
 if (appConfig?.namedProjections?.length) {
@@ -36,7 +34,6 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 	const destroyMap = useMapStore((s) => s.removeScenarioMap);
 	const config = useMapStore((s) => s.scenarioConfig[scenario]);
 	const mapId = useRef<HTMLDivElement>(null);
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
 	const locationData = useStore((state) => state.locationData);
 
 	useEffect(() => {
@@ -46,28 +43,6 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 
 		const projection = mapViewConfig.epsg;
 		let center = mapViewConfig.startCenter;
-
-		if (
-			currentUserAddress?.lon &&
-			currentUserAddress?.lat &&
-			checkNumber(currentUserAddress.lon) &&
-			checkNumber(currentUserAddress.lat)
-		) {
-			center = [Number(currentUserAddress.lon), Number(currentUserAddress.lat)];
-		}
-
-		if (
-			center.length === 2 &&
-			Math.abs(center[0]) <= 180 &&
-			Math.abs(center[1]) <= 90
-		) {
-			center = transform(center, "EPSG:4326", projection);
-		} else if (projection !== "EPSG:25833") {
-			console.warn(
-				"[OlMap] Unsupported projection :>> projection !== EPSG:25833 :>>",
-				projection,
-			);
-		}
 
 		const resolutions = mapViewConfig.options
 			.sort((a, b) => a.zoomLevel - b.zoomLevel)
@@ -83,15 +58,41 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 				target: mapId.current,
 				view: new View({
 					center: center,
-					zoom: 8,
+					zoom: 9,
 					projection: projection,
 					extent: mapViewConfig.extent,
 					resolutions: resolutions,
 					minZoom: mapViewConfig.minZoomLevel,
-					maxZoom: mapViewConfig.maxZoomLevel,
+					maxZoom: 12,
 				}),
 				controls: [],
 			});
+
+			if (locationData?.building?.geometry) {
+				const feature = new OLGeoJSON().readFeature(
+					{
+						type: "Feature",
+						geometry: locationData.building.geometry,
+						properties: {},
+					},
+					{
+						dataProjection: "EPSG:25833",
+						featureProjection: projection,
+					},
+				);
+
+				const features = Array.isArray(feature) ? feature : [feature];
+
+				if (features.length > 0) {
+					const extent = features[0].getGeometry()?.getExtent();
+					if (extent) {
+						map.getView().fit(extent, {
+							padding: mapViewConfig.padding,
+							maxZoom: 19,
+						});
+					}
+				}
+			}
 
 			if (locationData?.found && locationData?.building?.geometry) {
 				const src = new VectorSource({
@@ -116,6 +117,40 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 				});
 				layer.setZIndex(9999);
 				map.addLayer(layer);
+
+				if (
+					scenario.includes("HEAVY_RAIN") &&
+					!!locationData.building.outlineBufferGeometry?.length
+				) {
+					const outlineBufferSRC = new VectorSource({
+						features: new OLGeoJSON().readFeatures(
+							{
+								type: "Feature",
+								geometry: {
+									type: "LineString",
+									coordinates: locationData.building.outlineBufferGeometry,
+								},
+								properties: {},
+							},
+							{
+								dataProjection: "EPSG:25833",
+								featureProjection: projection,
+							},
+						),
+					});
+
+					const outlineBufferLayer = new VectorLayer({
+						source: outlineBufferSRC,
+						style: new Style({
+							stroke: new Stroke({
+								color: "rgba(0,0,255,1)",
+								width: 2,
+							}),
+						}),
+					});
+					outlineBufferLayer.setZIndex(10000);
+					map.addLayer(outlineBufferLayer);
+				}
 			}
 
 			const scaleLineControl = new ScaleLine({

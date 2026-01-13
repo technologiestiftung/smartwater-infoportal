@@ -21,6 +21,7 @@ export interface MapViewConfig {
 	minZoomLevel: number;
 	maxZoomLevel: number;
 	options: MapViewOptions[];
+	padding: number[];
 }
 
 export interface PortalMapConfig {
@@ -123,9 +124,11 @@ export interface MapConfig {
 export type Scenario =
 	| "SR"
 	| "HW"
-	| "RARE_HEAVY_RAIN"
-	| "UNCOMMON_HEAVY_RAIN"
-	| "EXTREME_HEAVY_RAIN"
+	| "SRGK_RARE_HEAVY_RAIN"
+	| "SRGK_UNCOMMON_HEAVY_RAIN"
+	| "SRGK_EXTREME_HEAVY_RAIN"
+	| "SRHK_UNCOMMON_HEAVY_RAIN"
+	| "SRHK_EXTREME_HEAVY_RAIN"
 	| "FREQUENT_FLOOD"
 	| "AVERAGE_FREQUENT_FLOOD"
 	| "RARE_FREQUENT_FLOOD";
@@ -133,12 +136,14 @@ export type Scenario =
 export const ScenarioList: Scenario[] = [
 	"SR",
 	"HW",
-	"RARE_HEAVY_RAIN",
-	"UNCOMMON_HEAVY_RAIN",
-	// "EXTREME_HEAVY_RAIN",
-	"FREQUENT_FLOOD",
+	"SRGK_RARE_HEAVY_RAIN",
+	"SRGK_UNCOMMON_HEAVY_RAIN",
+	"SRGK_EXTREME_HEAVY_RAIN",
+	"SRHK_UNCOMMON_HEAVY_RAIN",
+	"SRHK_EXTREME_HEAVY_RAIN",
+	/* "FREQUENT_FLOOD",
 	"AVERAGE_FREQUENT_FLOOD",
-	"RARE_FREQUENT_FLOOD",
+	"RARE_FREQUENT_FLOOD", */
 ];
 
 type ScenarioMap<T> = Partial<Record<Scenario, T>>;
@@ -146,9 +151,11 @@ type ScenarioMap<T> = Partial<Record<Scenario, T>>;
 export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
 	SR: ["sw_infoportal:sr_gefaehrdung_clip_"],
 	HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
-	RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
-	UNCOMMON_HEAVY_RAIN: ["ua_srgk:cb_wasserstand_aussergewoehnlich"],
-	EXTREME_HEAVY_RAIN: ["ua_srgk:cc_wassersand_extrem"],
+	SRGK_RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
+	SRGK_UNCOMMON_HEAVY_RAIN: ["ua_srgk:cb_wasserstand_aussergewoehnlich"],
+	SRGK_EXTREME_HEAVY_RAIN: ["ua_srgk:cc_wassersand_extrem"],
+	SRHK_UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
+	SRHK_EXTREME_HEAVY_RAIN: ["ua_srhk:ec_wasserstand_extrem_max100mm"],
 	FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:a_hwgk_hoch"],
 	AVERAGE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:b_hwgk_mittel"],
 	RARE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:c_hwgk_niedrig"],
@@ -156,7 +163,6 @@ export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
 
 export interface MapStoreState {
 	// Scenario Map Approach
-
 	scenarioConfig: ScenarioMap<MapConfig | null>;
 	setScenarioConfig: (scenario: Scenario, config: MapConfig | null) => void;
 	scenarioMap: ScenarioMap<Map | null>;

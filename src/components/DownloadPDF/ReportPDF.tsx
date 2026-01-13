@@ -14,16 +14,19 @@ import {
 	getToday,
 } from "./pdfUtils";
 import pdfData from "@/components/DownloadPDF/pdf.json";
-import { ScenarioList } from "@/types/map";
 import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
+import { GeoServerClient } from "@/lib/geoserverClient";
 
 interface ReportPDFProps {
 	skip: string | null;
 }
 
+const geoServerClient = new GeoServerClient();
+
 const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
+	const makePDFInitializedRef = useRef<boolean>(false);
 	const {
 		currentUserAddress,
 		getHazardEntities,
@@ -37,9 +40,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [error, setError] = useState<Error | null>(null);
 	const openPDFInNewTab = true;
 
-	const allMapsLoaded = useScenarioMapsLoading(ScenarioList);
+	const allMapsLoaded = useScenarioMapsLoading();
 
-	const pdfKeys = {
+	const pdfKeys: Record<string, string | number | boolean> = {
 		"{date}": getToday(),
 		"{address}": currentUserAddress?.name || "Keine Adresse gefunden",
 		"{hazardLevelHeavyRain}": hazardEntities
@@ -48,18 +51,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		"{hazardLevelfloodRisk}": hazardEntities
 			? translateHazardLevels(hazardEntities[1].hazardLevel)
 			: "Keine Daten",
-		"{showNoRareHeavyRain}": !locationData?.isInRareHeavyRainZone,
-		"{showRareHeavyRain}": locationData?.isInRareHeavyRainZone,
-		"{waterLevelRareHeavyRain}":
-			locationData?.isInRareHeavyRainZone || "Keine Daten",
-		"{showNoUncommonHeavyRain}": !locationData?.isInUncommonHeavyRainZone,
-		"{showUncommonHeavyRain}": locationData?.isInUncommonHeavyRainZone,
-		"{waterLevelUncommonHeavyRain}":
-			locationData?.isInUncommonHeavyRainZone || "Keine Daten",
-		"{showNoExtremeHeavyRain}": !locationData?.isInExtremeHeavyRainZone,
-		"{showExtremeHeavyRain}": locationData?.isInExtremeHeavyRainZone,
-		"{waterLevelExtremeHeavyRain}":
-			locationData?.isInExtremeHeavyRainZone || "Keine Daten",
 		"{didSkip}": !!skip,
 		"{didNotSkip}": !skip,
 		"{isOwner}":
@@ -73,7 +64,28 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const makePDF = async () => {
-		// console.log("makePDF with these keys", pdfKeys);
+		// console.log("allMapLoaded locationData :>> ", locationData);
+		if (!locationData?.found || !locationData.building) {
+			return;
+		}
+		// console.log("makePDF");
+		const buildingWMSData = await geoServerClient.getWMS(
+			locationData?.building,
+		);
+		// console.log("buildingWMSData :>> ", buildingWMSData);
+		pdfKeys["{showRareHeavyRain}"] = !!buildingWMSData?.rareHeavyRain;
+		pdfKeys["{rareHeavyRain}"] =
+			buildingWMSData?.rareHeavyRain || "Keine Daten";
+		pdfKeys["{showUncommonHeavyRain}"] = !!buildingWMSData?.uncommonHeavyRain;
+		pdfKeys["{uncommonHeavyRain}"] =
+			buildingWMSData?.uncommonHeavyRain || "Keine Daten";
+		pdfKeys["{showExtremeHeavyRain}"] = !!buildingWMSData?.extremeHeavyRain;
+		pdfKeys["{extremeHeavyRain}"] =
+			buildingWMSData?.extremeHeavyRain || "Keine Daten";
+		pdfKeys["{hasSrgkExtremeHeavyRainMap}"] =
+			buildingWMSData.hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
+		pdfKeys["{hasSrgkHeavyRainMap}"] = !!buildingWMSData.hasHeavyRainHazardMap;
+
 		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {
 			window.alert("PDF konnte nicht erstellt werden.");
@@ -81,12 +93,15 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 		setPdfSizeKB(pdfBlobCreated.sizeInMB);
 		setPdfBlob(pdfBlobCreated?.blob);
+		makePDFInitializedRef.current = false;
 	};
 
 	useEffect(() => {
-		if (!allMapsLoaded) {
+		// console.log("allMapsLoaded :>> ", allMapsLoaded);
+		if (!allMapsLoaded || makePDFInitializedRef.current) {
 			return;
 		}
+		makePDFInitializedRef.current = true;
 		makePDF();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [allMapsLoaded]);

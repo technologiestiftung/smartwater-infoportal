@@ -81,6 +81,8 @@ interface PDFPageItem {
 	imageSRC?: string;
 	width?: "halfPage" | "fullPage" | string | number;
 	height?: number;
+	caption?: string;
+	copyright?: string;
 	// Both Items
 	nextElementOnSameLine?: boolean;
 	marginBottom?: "paragraph" | number;
@@ -136,6 +138,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			marginBottom,
 			marginLeft,
 			maxWidthOfText,
+			color,
 			textDecoration,
 		} = props;
 
@@ -153,7 +156,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 		} else if (fontSize === "h3") {
 			setSize = 15;
 		}
-		let setLineHeight = typeof lineHeight === "number" ? lineHeight : 1.35;
+		let setLineHeight = typeof lineHeight === "number" ? lineHeight : 1.5;
 		if (lineHeight === "wide") {
 			setLineHeight = 1.75;
 		}
@@ -179,6 +182,13 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 		} else {
 			doc.setFont("Arial", "normal");
 		}
+
+		if (color !== undefined) {
+			doc.setTextColor(color);
+		} else {
+			doc.setTextColor(0, 0, 0);
+		}
+
 		const lines = doc.splitTextToSize(text, setMaxWidth);
 
 		let posY = y ?? vertical;
@@ -260,13 +270,20 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 		if (pageItems && pageItems.length > 0) {
 			for (let itemIndex = 0; itemIndex < pageItems.length; itemIndex++) {
 				const item = pageItems[itemIndex];
-				// console.log("item :>> ", item);
 				let hide = false;
 				if (pdfKeys) {
 					Object.keys(pdfKeys).forEach((key) => {
 						const value = pdfKeys[key];
-						if (item.hide === key) {
+						const isNegative = item.hide?.startsWith("!{");
+						let getKey = item.hide;
+						if (isNegative) {
+							getKey = getKey?.replace("!{", "{");
+						}
+						if (getKey === key) {
 							hide = value;
+							if (isNegative) {
+								hide = !value;
+							}
 						}
 					});
 				}
@@ -338,15 +355,6 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅
 						}
 
-						/* console.log("addImage", {
-							image: image.image,
-							typ: "JPEG",
-							marginLeft,
-							vertical,
-							drawWidth,
-							drawHeight,
-						}); */
-
 						doc.addImage(
 							image.image,
 							"JPEG",
@@ -359,6 +367,23 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						if (!item.nextElementOnSameLine) {
 							vertical += drawHeight;
 						}
+
+						if (item.caption) {
+							vertical += 1;
+							writeTextOnPDF({
+								text: item.caption,
+								fontSize: "small",
+							});
+						}
+						if (item.copyright) {
+							vertical += 1;
+							writeTextOnPDF({
+								text: item.copyright,
+								fontSize: "small",
+								color: "#666666",
+							});
+						}
+
 						if (typeof item.marginBottom === "number") {
 							vertical += item.marginBottom;
 						}
