@@ -60,7 +60,7 @@
 			"paragraphs": {
 				"paragraph1": "Der erste Schritt, um Handlungsbedarfe zu identifizieren und das Hochwasserrisiko zu senken, ist die Hochwassergefahr zu schätzen. Die Flächen, die bei Hochwasser unter Wasser stehen, und die jeweiligen Wassertiefen und Fließgeschwindigkeiten werden mit Hilfe von Simulationen berechnet. Dabei werden verschiedene Regenereignisse berücksichtigt – mit unterschiedlicher Stärke, Dauer und Verlauf.",
 				"paragraph2": "Um sich angemessen vorzubereiten, ist es wichtig zu wissen, wie häufig ein Hochwasser zu erwarten ist. Daher werden die Szenarien bestimmten Eintrittswahrscheinlichkeit, zum Beispiel 100-jährlich, zugeordnet. In Berlin sind den Eintrittswahrscheinlichkeiten Begriffe wie „mittleres Ereignis“ oder „außergewöhnliches Ereignis“ zugeordnet. Die Ergebnisse werden als Karten dargestellt. Diese Karten werden hier im <link2>HochwasserCheck Berlin</link2> verwendet und befinden sich zur Einsicht im <link3>Umweltatlas</link3>.",
-				"paragraph3": "<strong>Wichtig ist:</strong> Die Eintrittswahrscheinlichkeiten sind statistische Werte. Das heißt, ein „100-jähriges Ereignis“ tritt im Durchschnitt alle 100 Jahre auf, aber jedes Jahr besteht eine Chance, dass so ein Ereignis eintritt. Stellen Sie sich hierzu ein Glücksrad mit 100 Feldern vor. Nur ein Feld steht für eine Flut. Jedes Jahr drehen Sie das Rad – jedes Jahr können Sie das Flut-Feld treffen. Die Eintrittswahrscheinlichkeit ist also jedes Jahr da, aber gering. Bei Hochwasserereignissen kommt hinzu, dass diese Ereignisse nicht völlig unabhängig voneinander sind. Das bedeutet: Je öfter ein Jahr ohne Flut kam, desto höher ist die Wahrscheinlichkeit, dass ein Jahr mit Flut irgendwann kommt.",
+				"paragraph3": "<strong>Wichtig ist:</strong> Die Eintrittswahrscheinlichkeiten sind statistische Werte. Das heißt, ein „100-jährliches Ereignis“ tritt im Durchschnitt alle 100 Jahre auf, aber jedes Jahr besteht eine Chance, dass so ein Ereignis eintritt. Stellen Sie sich hierzu ein Glücksrad mit 100 Feldern vor. Nur ein Feld steht für eine Flut. Jedes Jahr drehen Sie das Rad – jedes Jahr können Sie das Flut-Feld treffen. Die Eintrittswahrscheinlichkeit ist also jedes Jahr da, aber gering. Bei Hochwasserereignissen kommt hinzu, dass diese Ereignisse nicht völlig unabhängig voneinander sind. Das bedeutet: Je öfter ein Jahr ohne Flut kam, desto höher ist die Wahrscheinlichkeit, dass ein Jahr mit Flut irgendwann kommt.",
 				"paragraph4": "Um sich das Konzept der Eintrittswahrscheinlichkeit von Hochwassern besser vorstellen zu können, vergleicht Abbildung 3 Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse. Die Eintrittswahrscheinlichkeiten der Hochwasser sind in Jährlichkeiten (z. B. 30-jährlich) oder den entsprechenden Begriffen (z. B. häufig) angegeben, wie es im Hochwasserkontext üblich ist. Daneben finden Sie die außerhalb des Hochwasserkontext üblichere Angabe in Prozent [%]."
 			},
 			"image": {
@@ -88,12 +88,12 @@
 					"title": "Starkregen\ngefahrenkarten",
 					"row1": {
 						"entry1": "Seltenes Ereignis",
-						"entry2": "30-jähriges,\n50-jähriges",
+						"entry2": "30-jährliches,\n50-jährliches",
 						"entry3": "---"
 					},
 					"row2": {
 						"entry1": "Außergewöhnliches Ereignis",
-						"entry2": "100-jähriges",
+						"entry2": "100-jährliches",
 						"entry3": "---"
 					},
 					"row3": {
@@ -106,17 +106,17 @@
 					"title": "Flusshochwasser\ngefahrenkarten ",
 					"row1": {
 						"entry1": "Häufiges Ereignis",
-						"entry2": "5-jähriges\n10-jähriges\n20-jähriges",
+						"entry2": "5-jährliches\n10-jährliches\n20-jährliches",
 						"entry3": "---"
 					},
 					"row2": {
 						"entry1": "Mittleres Ereignis",
-						"entry2": "100-jähriges",
+						"entry2": "100-jährliches",
 						"entry3": "---"
 					},
 					"row3": {
 						"entry1": "Seltenes Ereignis",
-						"entry2": "200-jähriges",
+						"entry2": "200-jährliches",
 						"entry3": "---"
 					}
 				}
