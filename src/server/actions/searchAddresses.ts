@@ -165,10 +165,6 @@ export async function searchAddresses(
 				return false;
 			}
 
-			if (!props.housenumber) {
-				return false
-			}
-
 			return true;
 		});
 
@@ -197,6 +193,7 @@ export async function searchAddresses(
 				lon: feature.geometry.coordinates[0].toString(),
 				name: displayName,
 				type: props.osm_value,
+				hasHousenumber: !!props.housenumber
 			};
 		});
 

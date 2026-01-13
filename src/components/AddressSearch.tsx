@@ -155,19 +155,31 @@ export default function AddressSearch() {
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
+											if (
+												results.some((res) => res.hasHousenumber) &&
+												!result.hasHousenumber
+											) {
+												return null;
+											}
 											return (
 												<li key={index}>
-													<Button
-														onClick={() => {
-															setError("");
-															setValue("addresse", result.name);
-															setCurrentUserAddress(result);
-															setResults([]);
-														}}
-														variant="link"
-													>
-														{result.name}
-													</Button>
+													{result.hasHousenumber ? (
+														<Button
+															onClick={() => {
+																setError("");
+																setValue("addresse", result.name);
+																setCurrentUserAddress(result);
+																setResults([]);
+															}}
+															variant="link"
+														>
+															{result.name}
+														</Button>
+													) : (
+														<div className="flex min-h-[43px] items-center">
+															<p>{result.name}</p>
+														</div>
+													)}
 												</li>
 											);
 										})}

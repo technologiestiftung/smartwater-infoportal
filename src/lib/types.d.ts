@@ -6,6 +6,7 @@ export interface CurrentUserAddress {
 	lon: string;
 	name: string;
 	type?: string;
+	hasHousenumber?: boolean;
 }
 
 // GeoJSON geometry types
