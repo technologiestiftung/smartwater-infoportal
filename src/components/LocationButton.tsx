@@ -108,23 +108,6 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 					/>
 					<p>Aktuellen Standort benutzen</p>
 				</Button>
-				{/* <div
-					className="flex cursor-pointer items-center gap-2"
-					onClick={(e) => {
-						e.preventDefault();
-						requestLocation();
-					}}
-				>
-					<Image
-						src="/userLocation.svg"
-						alt={"Benutzerstandort Icon"}
-						width={24}
-						height={24}
-					/>
-					<p className="text-text-link underline">
-						Aktuellen Standort benutzen
-					</p>
-				</div> */}
 				{status === "loading" && <p>Frage Standort ab…</p>}
 				{status === "denied" && (
 					<p className="text-red-600">
