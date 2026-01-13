@@ -1,7 +1,7 @@
 // store/defaultStore.tsx
 import { create } from "zustand";
 import {
-	AddressResult,
+	CurrentUserAddress,
 	FloodRiskAnswers,
 	FloodRiskResult,
 	LocationData,
@@ -21,11 +21,12 @@ type TestingFeatureNames =
 	| "mapsOnResultPage"
 	| "evaluationTesting"
 	| "riskWidgetDetails"
-	| "showWidgetsBelowPDF";
+	| "showWidgetsBelowPDF"
+	| "newPDFButton";
 
 type StoreState = {
 	// Core data
-	currentUserAddress: AddressResult | null;
+	currentUserAddress: CurrentUserAddress | null;
 	locationData: LocationData | null;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
@@ -37,7 +38,7 @@ type StoreState = {
 	showTestingFeatures: TestingFeatureNames[];
 
 	// Actions
-	setCurrentUserAddress: (address: AddressResult) => void;
+	setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) => void;
 	resetCurrentUserAddress: () => void;
 	setLocationData: (data: LocationData) => void;
 	resetLocationData: () => void;
@@ -58,6 +59,9 @@ type StoreState = {
 	getHazardEntities: () => HazardEntity[] | null;
 };
 
+const currentFeatures: TestingFeatureNames[] = [
+];
+
 const useStore = create<StoreState>()(
 	devtools(
 		persist(
@@ -72,10 +76,10 @@ const useStore = create<StoreState>()(
 				isLayerTreeOpen: false,
 				isLegendeOpen: true,
 				errorLayers: [],
-				showTestingFeatures: ["evaluationTesting", "riskWidgetDetails"],
+				showTestingFeatures: currentFeatures,
 
-				setCurrentUserAddress: (address: AddressResult) =>
-					set({ currentUserAddress: address }),
+				setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) =>
+					set({ currentUserAddress: currentUserAddress }),
 				resetCurrentUserAddress: () => set({ currentUserAddress: null }),
 
 				setLocationData: (data) =>
@@ -139,6 +143,8 @@ const useStore = create<StoreState>()(
 						locationData: null,
 						floodRiskAnswers: {},
 						floodRiskResult: null,
+						errorLayers: [],
+						showTestingFeatures: currentFeatures,
 					}),
 
 				// Selectors

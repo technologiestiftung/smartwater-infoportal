@@ -1,17 +1,11 @@
 export type HazardLevel = "low" | "moderate" | "high" | "severe";
 export type RiskLevel = "low" | "moderate" | "high";
 
-// Address result from Nominatim API
-export interface AddressResult {
-	place_id: number;
+export interface CurrentUserAddress {
 	lat: string;
 	lon: string;
-	display_name: string;
-	label: string;
-	address: {
-		[key: string]: string;
-	};
-	[key: string]: unknown;
+	name: string;
+	type?: string;
 }
 
 // GeoJSON geometry types
