@@ -141,9 +141,9 @@ export const ScenarioList: Scenario[] = [
 	"SRGK_EXTREME_HEAVY_RAIN",
 	"SRHK_UNCOMMON_HEAVY_RAIN",
 	"SRHK_EXTREME_HEAVY_RAIN",
-	/* "FREQUENT_FLOOD",
+	"FREQUENT_FLOOD",
 	"AVERAGE_FREQUENT_FLOOD",
-	"RARE_FREQUENT_FLOOD", */
+	"RARE_FREQUENT_FLOOD",
 ];
 
 type ScenarioMap<T> = Partial<Record<Scenario, T>>;
