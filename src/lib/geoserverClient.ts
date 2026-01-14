@@ -5,7 +5,8 @@ import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point } from "@turf/helpers";
 import { BBox, Building, BuildingWMS, Geometry } from "./types";
 import {
-	bufferedOutlinePointsFromBuilding,
+	bufferedOutlineMultiPolygonFromBuilding,
+	countGeometryPoints,
 	transformHeavyRainValue,
 } from "./utils/geoServerHelpers";
 
@@ -13,18 +14,24 @@ const notFound = {
 	found: false,
 	building: null,
 };
+
 const notFoundWMS = {
 	hasHeavyRainHazardMap: null,
-	rareHeavyRain: null,
-	uncommonHeavyRain: null,
-	extremeHeavyRain: null,
+	maxRareHeavyRain: null,
+	maxUncommonHeavyRain: null,
+	maxExtremeHeavyRain: null,
+	averageRareHeavyRain: null,
+	averageUncommonHeavyRain: null,
+	averageExtremeHeavyRain: null,
 };
 
-const extremeHeavyRainAreas = [
+const maxExtremeHeavyRainAreas = [
 	"Obersee",
 	"Niederschönhausen Ost",
 	"Frankentaler Ufer",
 ];
+
+const fetchFloodZones = false;
 
 export class GeoServerClient {
 	private readonly baseUrl?: string;
@@ -58,7 +65,7 @@ export class GeoServerClient {
 				return notFound;
 			}
 
-			const outlineBufferGeometry = bufferedOutlinePointsFromBuilding(
+			const outlineBufferGeometry = bufferedOutlineMultiPolygonFromBuilding(
 				exactMatch.geometry,
 			);
 
@@ -68,47 +75,23 @@ export class GeoServerClient {
 			);
 			const floodZoneIndex = typeof isFlood === "boolean" && !!isFlood ? 1 : 0;
 
-			if (exactMatch) {
-				return {
-					found: true,
-					building: {
-						...exactMatch,
-						transformedX,
-						transformedY,
-						outlineBufferGeometry,
-						floodZoneIndex,
-					},
-				};
-			}
-
-			const bufferResult = await this.searchWithProgressiveBuffers(
-				[transformedX, transformedY],
-				[longitude, latitude],
-			);
-			if (bufferResult && bufferResult?.geometry) {
-				const outlineBufferGeometryProgressiveBuffer =
-					bufferedOutlinePointsFromBuilding(bufferResult?.geometry);
-				return {
-					found: true,
-					building: {
-						...bufferResult,
-						transformedX,
-						transformedY,
-						floodZoneIndex,
-						outlineBufferGeometry: outlineBufferGeometryProgressiveBuffer,
-					},
-				};
-			}
-			if (bufferResult) {
-				return {
-					found: true,
-					building: bufferResult,
+			return {
+				found: true,
+				building: {
+					...exactMatch,
 					transformedX,
 					transformedY,
-				};
-			}
-
-			return notFound;
+					outlineBufferGeometry,
+					floodZoneIndex,
+					numberOfBuildings: exactMatch.geometry.coordinates.length,
+					numberOfCoordinatesOnBuildings: countGeometryPoints(
+						exactMatch.geometry,
+					),
+					numberOfCoordinatesOnOutline: countGeometryPoints(
+						outlineBufferGeometry,
+					),
+				},
+			};
 		} catch {
 			return notFound;
 		}
@@ -137,77 +120,130 @@ export class GeoServerClient {
 			const isInExtremeRainHazardMap =
 				hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
 
-			console.log("hasHeavyRainHazardMap :>> ", hasHeavyRainHazardMap);
+			let maxRareHeavyRain: number = 0;
+			let combinedRareHeavyRain: number = 0;
+			let maxUncommonHeavyRain: number = 0;
+			let combinedUncommonHeavyRain: number = 0;
+			let maxExtremeHeavyRain: number = 0;
+			let combinedExtremeHeavyRain: number = 0;
 
-			console.log(
-				"Number of Points on Outline :>> ",
-				outlineBufferGeometry.length,
-			);
+			const polys =
+				outlineBufferGeometry.type === "Polygon"
+					? [outlineBufferGeometry.coordinates]
+					: outlineBufferGeometry.type === "MultiPolygon"
+						? outlineBufferGeometry.coordinates
+						: [];
 
-			let rareHeavyRain: number = 0;
-			let uncommonHeavyRain: number = 0;
-			let extremeHeavyRain: number = 0;
+			for (const poly of polys) {
+				const ring = Array.isArray(poly) ? poly[0] : null;
+				if (!Array.isArray(ring)) continue;
 
-			for (const [x, y] of outlineBufferGeometry) {
-				const getRareHeavyRain = hasHeavyRainHazardMap
-					? await this.getWMSFeatureInfo(
-							x,
-							y,
-							"ua_srgk",
-							"ca_wasserstand_selten",
-							"Wasserstand_m",
-						)
-					: null;
-				if (getRareHeavyRain) {
-					const rareHeavyRainValue = transformHeavyRainValue(getRareHeavyRain);
-					if (rareHeavyRainValue > rareHeavyRain) {
-						rareHeavyRain = rareHeavyRainValue;
+				for (const coord of ring) {
+					if (
+						!Array.isArray(coord) ||
+						coord.length < 2 ||
+						typeof coord[0] !== "number" ||
+						typeof coord[1] !== "number"
+					) {
+						continue;
 					}
-				}
-				const getUncommonHeavyRain = await this.getWMSFeatureInfo(
-					x,
-					y,
-					hasHeavyRainHazardMap ? "ua_srgk" : "ua_srhk",
-					hasHeavyRainHazardMap
-						? "cb_wasserstand_aussergewoehnlich"
-						: "dc_wasserstand_aussergew_kostra",
-					hasHeavyRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
-				);
-				if (getUncommonHeavyRain) {
-					const uncommonHeavyRainValue =
-						transformHeavyRainValue(getUncommonHeavyRain);
-					if (uncommonHeavyRainValue > uncommonHeavyRain) {
-						uncommonHeavyRain = uncommonHeavyRainValue;
-					}
-				}
 
-				const getExtremeHeavyRain = await this.getWMSFeatureInfo(
-					x,
-					y,
-					isInExtremeRainHazardMap ? "ua_srgk" : "ua_srhk",
-					isInExtremeRainHazardMap
-						? "cc_wassersand_extrem"
-						: "ec_wasserstand_extrem_max100mm",
-					isInExtremeRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
-				);
-				if (getExtremeHeavyRain) {
-					const extremeHeavyRainValue =
-						transformHeavyRainValue(getExtremeHeavyRain);
-					if (extremeHeavyRainValue > extremeHeavyRain) {
-						extremeHeavyRain = extremeHeavyRainValue;
+					const x = coord[0];
+					const y = coord[1];
+
+					/* STARKREGEN */
+
+					const getRareHeavyRain = hasHeavyRainHazardMap
+						? await this.getWMSFeatureInfo(
+								x,
+								y,
+								"ua_srgk",
+								"ca_wasserstand_selten",
+								"Wasserstand_m",
+							)
+						: null;
+					if (getRareHeavyRain) {
+						const maxRareHeavyRainValue =
+							transformHeavyRainValue(getRareHeavyRain);
+						combinedRareHeavyRain += maxRareHeavyRainValue;
+						if (maxRareHeavyRainValue > maxRareHeavyRain) {
+							maxRareHeavyRain = maxRareHeavyRainValue;
+						}
+					}
+					const getUncommonHeavyRain = await this.getWMSFeatureInfo(
+						x,
+						y,
+						hasHeavyRainHazardMap ? "ua_srgk" : "ua_srhk",
+						hasHeavyRainHazardMap
+							? "cb_wasserstand_aussergewoehnlich"
+							: "dc_wasserstand_aussergew_kostra",
+						hasHeavyRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
+					);
+					if (getUncommonHeavyRain) {
+						const maxUncommonHeavyRainValue =
+							transformHeavyRainValue(getUncommonHeavyRain);
+						combinedUncommonHeavyRain += maxUncommonHeavyRainValue;
+						if (maxUncommonHeavyRainValue > maxUncommonHeavyRain) {
+							maxUncommonHeavyRain = maxUncommonHeavyRainValue;
+						}
+					}
+
+					const getExtremeHeavyRain = await this.getWMSFeatureInfo(
+						x,
+						y,
+						isInExtremeRainHazardMap ? "ua_srgk" : "ua_srhk",
+						isInExtremeRainHazardMap
+							? "cc_wassersand_extrem"
+							: "ec_wasserstand_extrem_max100mm",
+						isInExtremeRainHazardMap ? "Wasserstand_m" : "Wasserstand_cm",
+					);
+					if (getExtremeHeavyRain) {
+						const maxExtremeHeavyRainValue =
+							transformHeavyRainValue(getExtremeHeavyRain);
+						combinedExtremeHeavyRain += maxExtremeHeavyRainValue;
+						if (maxExtremeHeavyRainValue > maxExtremeHeavyRain) {
+							maxExtremeHeavyRain = maxExtremeHeavyRainValue;
+						}
+					}
+
+					/* FLUSSHOCHWASSER */
+					if (fetchFloodZones) {
+						/* const getFrequentFlood = await this.getWMSFeatureInfo(
+						x,
+						y,
+						"ua_hochwassergefahrenkarten",
+						"a_hwgk_hoch",
+					);
+					const getAverageFrequentFlood = await this.getWMSFeatureInfo(
+						x,
+						y,
+						"ua_hochwassergefahrenkarten",
+						"b_hwgk_mittel",
+					);
+					const getRareFrequentFlood = await this.getWMSFeatureInfo(
+						x,
+						y,
+						"ua_hochwassergefahrenkarten",
+						"c_hwgk_niedrig",
+					); */
 					}
 				}
 			}
 
-			console.log("rareHeavyRain :>> ", rareHeavyRain);
-			console.log("uncommonHeavyRain :>> ", uncommonHeavyRain);
-			console.log("extremeHeavyRain :>> ", extremeHeavyRain);
-
 			return {
 				hasHeavyRainHazardMap,
-				rareHeavyRain,
-				uncommonHeavyRain,
-				extremeHeavyRain,
+				maxRareHeavyRain,
+				maxUncommonHeavyRain,
+				maxExtremeHeavyRain,
+				averageRareHeavyRain: Math.round(
+					combinedRareHeavyRain / building.numberOfCoordinatesOnOutline!,
+				),
+				averageUncommonHeavyRain: Math.round(
+					combinedUncommonHeavyRain / building.numberOfCoordinatesOnOutline!,
+				),
+				averageExtremeHeavyRain: Math.round(
+					combinedExtremeHeavyRain / building.numberOfCoordinatesOnOutline!,
+				),
 			};
 		} catch {
 			return notFoundWMS;
@@ -366,6 +402,7 @@ export class GeoServerClient {
 				try {
 					json = JSON.parse(text);
 				} catch {
+					console.error("Unable to parse WMS GetFeatureInfo response as JSON:");
 					return null;
 				}
 			}
@@ -386,7 +423,7 @@ export class GeoServerClient {
 					layer === "a_modellgebiete" &&
 					features[0].properties &&
 					features[0].properties?.Gebietsname &&
-					extremeHeavyRainAreas.includes(features[0].properties?.Gebietsname)
+					maxExtremeHeavyRainAreas.includes(features[0].properties?.Gebietsname)
 				) {
 					return "isInExtremeRainHazardMap";
 				} else if (layer === "a_modellgebiete") {
@@ -444,53 +481,6 @@ export class GeoServerClient {
 		return this.buildBuildingResult(building);
 	}
 
-	private async searchWithProgressiveBuffers(
-		transformedCoords: [number, number],
-		originalCoords: [number, number],
-	) {
-		const [transformedX, transformedY] = transformedCoords;
-		const [longitude, latitude] = originalCoords;
-		const bufferDistances = [5, 10, 15, 25, 50, 100, 200, 500];
-
-		for (const distance of bufferDistances) {
-			const result = await this.searchWithBuffer(
-				[transformedX, transformedY],
-				distance,
-				[longitude, latitude],
-			);
-			if (result) {
-				return result;
-			}
-		}
-
-		return null;
-	}
-
-	private async searchWithBuffer(
-		transformedCoords: [number, number],
-		distance: number,
-		originalCoords: [number, number],
-	) {
-		const [transformedX, transformedY] = transformedCoords;
-		const [longitude, latitude] = originalCoords;
-		const spatialUrl = this.createWFSUrl();
-		const bufferFilter = `DWITHIN(the_geom, POINT(${transformedX} ${transformedY}), ${distance}, meters)`;
-		spatialUrl.searchParams.set("CQL_FILTER", bufferFilter);
-		spatialUrl.searchParams.set("maxFeatures", "10");
-
-		const response = await fetch(spatialUrl.toString());
-		if (!response.ok) {
-			return null;
-		}
-
-		const data = await response.json();
-		if (!data.features || data.features.length === 0) {
-			return null;
-		}
-
-		return this.findNearestBuilding(data.features, [longitude, latitude]);
-	}
-
 	private createWFSUrl(): URL {
 		const url = new URL(`${this.baseUrl}/ows`);
 		url.searchParams.set("service", "wfs");
@@ -502,10 +492,7 @@ export class GeoServerClient {
 		return url;
 	}
 
-	private buildBuildingResult(
-		building: Record<string, unknown>,
-		distance?: number,
-	) {
+	private buildBuildingResult(building: Record<string, unknown>) {
 		const props = building.properties as Record<string, unknown>;
 		return {
 			uuid: props.uuid as string,
@@ -514,89 +501,6 @@ export class GeoServerClient {
 			hochwasserGefährdung: (props.GS_HW as number) || 0,
 			geometry: building.geometry as Geometry,
 			bbox: building.bbox as BBox,
-			...(distance !== undefined && { distance }),
 		};
-	}
-
-	private findNearestBuilding(
-		features: Record<string, unknown>[],
-		coords: [number, number],
-	) {
-		const [longitude, latitude] = coords;
-		let nearestBuilding = null;
-		let minDistance = Infinity;
-
-		for (const feature of features) {
-			const centroid = this.calculateCentroid(
-				feature.geometry as Record<string, unknown>,
-			);
-			if (!centroid) {
-				continue;
-			}
-
-			const [centroidX, centroidY] = proj4("EPSG:25833", "EPSG:4326", centroid);
-			const distance = this.calculateDistance(
-				[longitude, latitude],
-				[centroidX, centroidY],
-			);
-
-			if (distance < minDistance) {
-				minDistance = distance;
-				nearestBuilding = feature;
-			}
-		}
-
-		return nearestBuilding
-			? this.buildBuildingResult(nearestBuilding, minDistance)
-			: null;
-	}
-
-	private calculateCentroid(
-		geometry: Record<string, unknown>,
-	): [number, number] | null {
-		if (!geometry || !geometry.coordinates) {
-			return null;
-		}
-
-		let coords = geometry.coordinates as number[][];
-		if (geometry.type === "MultiPolygon") {
-			coords = (geometry.coordinates as number[][][][])[0][0];
-		} else if (geometry.type === "Polygon") {
-			coords = (geometry.coordinates as number[][][])[0];
-		}
-
-		if (!Array.isArray(coords) || coords.length === 0) {
-			return null;
-		}
-
-		const sumX = coords.reduce(
-			(sum: number, coord: number[]) => sum + coord[0],
-			0,
-		);
-		const sumY = coords.reduce(
-			(sum: number, coord: number[]) => sum + coord[1],
-			0,
-		);
-
-		return [sumX / coords.length, sumY / coords.length];
-	}
-
-	private calculateDistance(
-		coords1: [number, number],
-		coords2: [number, number],
-	): number {
-		const [lon1, lat1] = coords1;
-		const [lon2, lat2] = coords2;
-		const R = 6371000; // Earth radius in meters
-		const dLat = ((lat2 - lat1) * Math.PI) / 180;
-		const dLon = ((lon2 - lon1) * Math.PI) / 180;
-		const a =
-			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-			Math.cos((lat1 * Math.PI) / 180) *
-				Math.cos((lat2 * Math.PI) / 180) *
-				Math.sin(dLon / 2) *
-				Math.sin(dLon / 2);
-		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		return R * c;
 	}
 }

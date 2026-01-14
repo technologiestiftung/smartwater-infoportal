@@ -14,22 +14,11 @@ export async function getHazardData(
 			longitude,
 			latitude,
 		);
-		if (result.found && result.building) {
-			const building = result.building;
-			return {
-				building,
-				found: true,
-				...(building.distance && { distance: building.distance }),
-			};
-		}
-		return {
-			building: null,
-			found: false,
-		};
+		return result;
 	} catch {
 		return {
-			building: null,
 			found: false,
+			building: null,
 		};
 	}
 }

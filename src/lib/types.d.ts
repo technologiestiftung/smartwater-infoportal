@@ -26,8 +26,10 @@ export interface Building {
 	starkregenGefährdung?: number;
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;
-	distance?: number;
-	outlineBufferGeometry?: [number, number][];
+	outlineBufferGeometry?: Geometry;
+	numberOfBuildings?: number;
+	numberOfCoordinatesOnBuildings?: number;
+	numberOfCoordinatesOnOutline?: number;
 	transformedX?: number;
 	transformedY?: number;
 	floodZoneIndex?: number;
@@ -36,9 +38,12 @@ export interface Building {
 
 export interface BuildingWMS {
 	hasHeavyRainHazardMap: string | null;
-	rareHeavyRain: number | null;
-	uncommonHeavyRain: number | null;
-	extremeHeavyRain: number | null;
+	maxRareHeavyRain: number | null;
+	maxUncommonHeavyRain: number | null;
+	maxExtremeHeavyRain: number | null;
+	averageRareHeavyRain: number | null;
+	averageUncommonHeavyRain: number | null;
+	averageExtremeHeavyRain: number | null;
 }
 
 export type BBox = [number, number, number, number];
@@ -46,7 +51,6 @@ export type BBox = [number, number, number, number];
 export interface LocationData {
 	found: boolean;
 	building: Building | null;
-	distance?: number;
 }
 
 export interface QuestionAnswer {

@@ -64,24 +64,24 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const makePDF = async () => {
-		// console.log("allMapLoaded locationData :>> ", locationData);
 		if (!locationData?.found || !locationData.building) {
 			return;
 		}
-		// console.log("makePDF");
 		const buildingWMSData = await geoServerClient.getWMS(
 			locationData?.building,
 		);
-		// console.log("buildingWMSData :>> ", buildingWMSData);
-		pdfKeys["{showRareHeavyRain}"] = !!buildingWMSData?.rareHeavyRain;
-		pdfKeys["{rareHeavyRain}"] =
-			buildingWMSData?.rareHeavyRain || "Keine Daten";
-		pdfKeys["{showUncommonHeavyRain}"] = !!buildingWMSData?.uncommonHeavyRain;
-		pdfKeys["{uncommonHeavyRain}"] =
-			buildingWMSData?.uncommonHeavyRain || "Keine Daten";
-		pdfKeys["{showExtremeHeavyRain}"] = !!buildingWMSData?.extremeHeavyRain;
-		pdfKeys["{extremeHeavyRain}"] =
-			buildingWMSData?.extremeHeavyRain || "Keine Daten";
+		// eslint-disable-next-line no-console
+		console.log("buildingWMSData :>> ", buildingWMSData);
+		pdfKeys["{showRareHeavyRain}"] = !!buildingWMSData?.maxRareHeavyRain;
+		pdfKeys["{maxRareHeavyRain}"] =
+			buildingWMSData?.maxRareHeavyRain || "Keine Daten";
+		pdfKeys["{showUncommonHeavyRain}"] =
+			!!buildingWMSData?.maxUncommonHeavyRain;
+		pdfKeys["{maxUncommonHeavyRain}"] =
+			buildingWMSData?.maxUncommonHeavyRain || "Keine Daten";
+		pdfKeys["{showExtremeHeavyRain}"] = !!buildingWMSData?.maxExtremeHeavyRain;
+		pdfKeys["{maxExtremeHeavyRain}"] =
+			buildingWMSData?.maxExtremeHeavyRain || "Keine Daten";
 		pdfKeys["{hasSrgkExtremeHeavyRainMap}"] =
 			buildingWMSData.hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
 		pdfKeys["{hasSrgkHeavyRainMap}"] = !!buildingWMSData.hasHeavyRainHazardMap;
@@ -97,7 +97,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	useEffect(() => {
-		// console.log("allMapsLoaded :>> ", allMapsLoaded);
 		if (!allMapsLoaded || makePDFInitializedRef.current) {
 			return;
 		}

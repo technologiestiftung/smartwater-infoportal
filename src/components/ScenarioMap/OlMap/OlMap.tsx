@@ -120,35 +120,27 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 
 				if (
 					scenario.includes("HEAVY_RAIN") &&
-					!!locationData.building.outlineBufferGeometry?.length
+					!!locationData.building.outlineBufferGeometry
 				) {
 					const outlineBufferSRC = new VectorSource({
 						features: new OLGeoJSON().readFeatures(
 							{
 								type: "Feature",
-								geometry: {
-									type: "LineString",
-									coordinates: locationData.building.outlineBufferGeometry,
-								},
+								geometry: locationData.building.outlineBufferGeometry,
 								properties: {},
 							},
-							{
-								dataProjection: "EPSG:25833",
-								featureProjection: projection,
-							},
+							{ dataProjection: "EPSG:25833", featureProjection: projection },
 						),
 					});
 
 					const outlineBufferLayer = new VectorLayer({
 						source: outlineBufferSRC,
 						style: new Style({
-							stroke: new Stroke({
-								color: "rgba(0,0,255,1)",
-								width: 2,
-							}),
+							stroke: new Stroke({ color: "rgba(0,0,255,1)", width: 2 }),
 						}),
 					});
-					outlineBufferLayer.setZIndex(10000);
+
+					outlineBufferLayer.setZIndex(9998);
 					map.addLayer(outlineBufferLayer);
 				}
 			}

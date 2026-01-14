@@ -1,82 +1,120 @@
-/* eslint-disable complexity */
+/* eslint-disable */
 import { Geometry } from "../types";
 
 type XY = [number, number];
 
-export function bufferedOutlinePointsFromBuilding(
+type GeoJSONMultiPolygon = {
+	type: "MultiPolygon";
+	coordinates: XY[][][];
+};
+
+type Ring = XY[];
+type PolygonCoords = Ring[];
+type MultiPolygonCoords = PolygonCoords[];
+
+const isXY = (v: any): v is XY =>
+	Array.isArray(v) &&
+	v.length >= 2 &&
+	typeof v[0] === "number" &&
+	typeof v[1] === "number";
+
+const isRing = (v: any): v is Ring => Array.isArray(v) && v.every(isXY);
+
+const isPolygonCoords = (v: any): v is PolygonCoords =>
+	Array.isArray(v) && v.length > 0 && v.every(isRing);
+
+const isMultiPolygonCoords = (v: any): v is MultiPolygonCoords =>
+	Array.isArray(v) && v.length > 0 && v.every(isPolygonCoords);
+
+function ensureClosed(ring: XY[]): XY[] {
+	if (ring.length < 2) return ring;
+	const a = ring[0];
+	const b = ring[ring.length - 1];
+	if (a[0] === b[0] && a[1] === b[1]) return ring;
+	return [...ring, [a[0], a[1]]];
+}
+
+function normalize(x: number, y: number): XY {
+	const len = Math.hypot(x, y);
+	if (!len) return [0, 0];
+	return [x / len, y / len];
+}
+
+const leftNormal = (dx: number, dy: number): XY => normalize(-dy, dx);
+
+/**
+ * Returns a buffered outline as MultiPolygon.
+ * - Keeps SAME number of polygons as input.
+ * - Uses only OUTER ring (holes ignored) to keep it simple/stable.
+ * - miterLimit reduces "spikes" at sharp corners.
+ */
+export function bufferedOutlineMultiPolygonFromBuilding(
 	geom: Geometry,
 	bufferMeters = 2,
-	stepMeters = 1,
-): XY[] {
+	miterLimit = 1, // higher = pointier corners; lower = more clipped
+): GeoJSONMultiPolygon {
 	if (!geom || (geom.type !== "Polygon" && geom.type !== "MultiPolygon")) {
-		return [];
+		return { type: "MultiPolygon", coordinates: [] };
 	}
 
-	const polygons =
-		geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
+	const polygons: MultiPolygonCoords =
+		geom.type === "Polygon"
+			? isPolygonCoords(geom.coordinates)
+				? [geom.coordinates]
+				: []
+			: isMultiPolygonCoords(geom.coordinates)
+				? geom.coordinates
+				: [];
 
-	const points: XY[] = [];
-	const seen = new Set<string>();
-
-	const add = (x: number, y: number) => {
-		const key = `${x.toFixed(3)},${y.toFixed(3)}`;
-		if (!seen.has(key)) {
-			seen.add(key);
-			points.push([x, y]);
-		}
-	};
+	const out: XY[][][] = [];
 
 	for (const poly of polygons) {
-		if (!Array.isArray(poly) || !Array.isArray(poly[0])) {
+		if (!Array.isArray(poly) || poly.length === 0 || !Array.isArray(poly[0]))
 			continue;
+
+		let ring = poly[0].filter(isXY);
+		ring = ensureClosed(ring);
+
+		if (ring.length < 4) continue;
+
+		const n = ring.length - 1;
+		const buffered: XY[] = [];
+
+		for (let i = 0; i < n; i++) {
+			const prev = ring[(i - 1 + n) % n];
+			const curr = ring[i];
+			const next = ring[(i + 1) % n];
+
+			const v1x = curr[0] - prev[0];
+			const v1y = curr[1] - prev[1];
+			const v2x = next[0] - curr[0];
+			const v2y = next[1] - curr[1];
+
+			const n1 = leftNormal(v1x, v1y);
+			const n2 = leftNormal(v2x, v2y);
+
+			let ax = n1[0] + n2[0];
+			let ay = n1[1] + n2[1];
+			let a = normalize(ax, ay);
+
+			if (a[0] === 0 && a[1] === 0) a = n2;
+
+			const dot = a[0] * n2[0] + a[1] * n2[1];
+			const denom = Math.max(0.2, dot);
+			let miterLen = bufferMeters / denom;
+
+			const maxMiter = bufferMeters * miterLimit;
+			if (miterLen > maxMiter) miterLen = maxMiter;
+
+			buffered.push([curr[0] + a[0] * miterLen, curr[1] + a[1] * miterLen]);
 		}
-		const ring = poly[0];
-		if (!ring || ring.length < 2) {
-			continue;
-		}
 
-		for (let i = 0; i < ring.length - 1; i++) {
-			const coord1 = ring[i];
-			const coord2 = ring[i + 1];
+		buffered.push([buffered[0][0], buffered[0][1]]);
 
-			if (
-				!Array.isArray(coord1) ||
-				coord1.length < 2 ||
-				typeof coord1[0] !== "number" ||
-				typeof coord1[1] !== "number" ||
-				!Array.isArray(coord2) ||
-				coord2.length < 2 ||
-				typeof coord2[0] !== "number" ||
-				typeof coord2[1] !== "number"
-			) {
-				continue;
-			}
-
-			const [x1, y1] = coord1;
-			const [x2, y2] = coord2;
-
-			const dx = x2 - x1;
-			const dy = y2 - y1;
-			const len = Math.hypot(dx, dy);
-			if (len === 0) {
-				continue;
-			}
-
-			const nx = -dy / len;
-			const ny = dx / len;
-
-			const steps = Math.max(1, Math.floor(len / stepMeters));
-			for (let s = 0; s <= steps; s++) {
-				const t = s / steps;
-				const bx = x1 + dx * t;
-				const by = y1 + dy * t;
-
-				add(bx + nx * bufferMeters, by + ny * bufferMeters);
-			}
-		}
+		out.push([buffered]);
 	}
 
-	return points;
+	return { type: "MultiPolygon", coordinates: out };
 }
 
 function isValidNumberString(value: string): boolean {
@@ -101,4 +139,51 @@ export function transformHeavyRainValue(heavyRain: string | null): number {
 		return Number(heavyRain);
 	}
 	return Number(heavyRainLevelsMap[heavyRain]) || Number(heavyRain);
+}
+
+export function countGeometryPoints(geom: Geometry): number {
+	if (!geom || !geom.coordinates) {
+		return 0;
+	}
+
+	let count = 0;
+
+	if (geom.type === "Polygon") {
+		// Polygon: [ [ [x,y], [x,y], ... ] , [hole], ... ]
+		for (const ring of geom.coordinates) {
+			if (!Array.isArray(ring)) continue;
+			for (const coord of ring) {
+				if (
+					Array.isArray(coord) &&
+					coord.length >= 2 &&
+					typeof coord[0] === "number" &&
+					typeof coord[1] === "number"
+				) {
+					count++;
+				}
+			}
+		}
+	}
+
+	if (geom.type === "MultiPolygon") {
+		// MultiPolygon: [ Polygon, Polygon, ... ]
+		for (const polygon of geom.coordinates) {
+			if (!Array.isArray(polygon)) continue;
+			for (const ring of polygon) {
+				if (!Array.isArray(ring)) continue;
+				for (const coord of ring) {
+					if (
+						Array.isArray(coord) &&
+						coord.length >= 2 &&
+						typeof coord[0] === "number" &&
+						typeof coord[1] === "number"
+					) {
+						count++;
+					}
+				}
+			}
+		}
+	}
+
+	return count;
 }

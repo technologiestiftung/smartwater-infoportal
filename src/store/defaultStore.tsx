@@ -63,7 +63,6 @@ const currentFeatures: TestingFeatureNames[] = [
 	"evaluationTesting",
 	"riskWidgetDetails",
 	"resetAllButtonOnHomepage",
-	"mapsOnResultPage",
 ];
 
 const useStore = create<StoreState>()(
