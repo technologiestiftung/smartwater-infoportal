@@ -1,11 +1,17 @@
 /* eslint-disable */
 
-import html2canvas from "html2canvas-pro";
 import jsPDF from "jspdf";
 import ArialBold from "./assets/arial-bold";
 import ArialNormal from "./assets/arial-normal";
-import LogoSMVKU from "./assets/Logo-SMVKU.png";
-import LocationDot from "./assets/LocationDot.png";
+import { getImage } from "./pdfImageUtils";
+
+export const getToday = (): string => {
+	const today = new Date();
+	const day = String(today.getDate()).padStart(2, "0");
+	const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+	const year = today.getFullYear();
+	return `${day}.${month}.${year}`;
+};
 
 export const translateHazardLevels = (level: string): string => {
 	if (level === "low") {
@@ -23,423 +29,370 @@ export const translateHazardLevels = (level: string): string => {
 	return level;
 };
 
-export const getToday = (): string => {
-	const today = new Date();
-	const day = String(today.getDate()).padStart(2, "0");
-	const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-	const year = today.getFullYear();
-	return `${day}.${month}.${year}`;
-};
+// Utils to create PDF
+const pxToMm = (px: number, dpi = 96) => (px / dpi) * 25.4;
 
-export async function getAspectRatio(
-	imageSrc: string,
-): Promise<{ aspectRatio: number }> {
-	return new Promise((resolve, reject) => {
-		const img = new Image();
-		img.onload = function () {
-			const originalWidth = img.naturalWidth;
-			const originalHeight = img.naturalHeight;
-			const aspectRatio = originalWidth / originalHeight;
+function parseBoldText(input: string) {
+	const chunks = [];
 
-			resolve({ aspectRatio });
-		};
-		img.onerror = function () {
-			reject(new Error(`Failed to load image. URL: ${imageSrc}`));
-		};
-		img.src = imageSrc;
-	});
-}
+	const regex = /<b>(.*?)<\/b>/g;
+	let lastIndex = 0;
+	let match: RegExpExecArray | null;
 
-async function downscaleImage(src: string, maxWidth = 500): Promise<string> {
-	return new Promise((resolve, reject) => {
-		const img = new Image();
-		img.onload = () => {
-			const scale = maxWidth / img.width;
-			const canvas = document.createElement("canvas");
-			canvas.width = maxWidth;
-			canvas.height = img.height * scale;
+	while ((match = regex.exec(input)) !== null) {
+		// normal text before <b>
+		if (match.index > lastIndex) {
+			chunks.push({
+				text: input.slice(lastIndex, match.index),
+				bold: false,
+			});
+		}
 
-			const ctx = canvas.getContext("2d");
-			if (!ctx) return reject("Canvas context error");
+		// bold text
+		chunks.push({
+			text: match[1],
+			bold: true,
+		});
 
-			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-			resolve(canvas.toDataURL("image/jpeg", 0.7)); // compression quality
-		};
-		img.onerror = reject;
-		img.crossOrigin = "anonymous";
-		img.src = src;
-	});
-}
-
-function getBase64ImageSize(dataUrl: string): {
-	bytes: number;
-	kilobytes: number;
-	megabytes: number;
-} {
-	if (!dataUrl.startsWith("data:image")) {
-		throw new Error("Invalid data URL");
+		lastIndex = regex.lastIndex;
 	}
 
-	const base64String = dataUrl.split(",")[1];
-	const byteLength =
-		(base64String.length * 3) / 4 -
-		(base64String.endsWith("==") ? 2 : base64String.endsWith("=") ? 1 : 0);
+	// remaining text
+	if (lastIndex < input.length) {
+		chunks.push({
+			text: input.slice(lastIndex),
+			bold: false,
+		});
+	}
 
-	return {
-		bytes: byteLength,
-		kilobytes: byteLength / 1024,
-		megabytes: byteLength / (1024 * 1024),
-	};
+	return chunks;
 }
 
-export const getImageFromHTML = async (elementId: string) => {
-	const findImage = document.getElementById(elementId);
-	if (findImage) {
-		const html2canvasImage = await html2canvas(findImage, { scale: 1 });
-		const makeImage = html2canvasImage.toDataURL("image/jpeg");
-		const downscaledImage = await downscaleImage(makeImage);
-		const getSizeMakeImage = getBase64ImageSize(makeImage);
-		const getSizeDownscaledImage = getBase64ImageSize(downscaledImage);
-		return {
-			id: elementId,
-			makeImage,
-			downscaledImage,
-			getSizeMakeImage,
-			getSizeDownscaledImage,
-		};
+interface PDFPageItem {
+	// Text Item
+	text?: string;
+	fontSize?: "small" | "normal" | "h1" | "h2" | "h3" | number;
+	lineHeight?: "wide" | number;
+	fontWeight?: "normal" | "bold";
+	textAlign?: "left" | "center" | "right";
+	maxWidthOfText?: "halfPage" | "fullPage" | number;
+	textDecoration?: "underline";
+	// Image Item
+	imageSRC?: string;
+	width?: "halfPage" | "fullPage" | string | number;
+	height?: number;
+	caption?: string;
+	copyright?: string;
+	// Both Items
+	nextElementOnSameLine?: boolean;
+	marginBottom?: "paragraph" | number;
+	marginLeft?: "halfPage" | number;
+	hide?: string;
+}
+
+export interface PDFProps {
+	name: string;
+	showPageNumbers?: boolean;
+	pagesPaddingY?: number;
+	pagesPaddingX?: number;
+	pages: PDFPageItem[][];
+}
+
+export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
+	if (!pdf || !pdf.pages || pdf.pages.length === 0) {
+		console.error("No PDF data provided");
+		return null;
 	}
-	return null;
-};
-
-const mm = (px: number): number => {
-	const pixelsToMM = 0.3529411765;
-	return px * pixelsToMM;
-};
-
-export const createDownloadPDF = async (
-	t: any,
-	skip: string | null,
-	floodRiskResult: any,
-	hazardEntities: any,
-	currentUserAddress: any,
-	collectImages: any,
-) => {
 	const doc = new jsPDF({
 		unit: "mm",
 		format: "a4",
 	});
 
-	const paddingHorizontal = mm(40);
-	const paddingVertical = mm(30);
-	const pageInnerWidth = mm(515);
-	const pageInnerHeight = mm(782);
-	const gap = 20;
-	const leftHalfOfThePage = pageInnerWidth / 2 - mm(gap);
-	const takeImage = "makeImage"; // "downscaledImage" || "makeImage"
-
-	// Changing Values
-	let vertical = paddingVertical;
-	let pageCounter = 0;
-
 	// PDF utils
-	const writeTextOnPDF = (props: any): any => {
+	const {
+		pagesPaddingY: paddingY,
+		pagesPaddingX: paddingX,
+		pages,
+		showPageNumbers,
+	} = pdf;
+	const pagesPaddingY = paddingY || 15;
+	const pagesPaddingX = paddingX || 12;
+
+	const pageInnerWidth = 210 - 2 * pagesPaddingX;
+	const gap = 5;
+	const leftHalfOfThePage = pageInnerWidth / 2 - gap;
+
+	const writeTextOnPDF = (props: any) => {
 		if (!props) {
 			return;
 		}
 
 		const {
 			text,
-			size,
-			weight,
-			x,
+			fontSize,
+			lineHeight,
+			fontWeight,
+			textAlign,
 			y,
-			noLineBreak,
-			extraMarginBottom,
-			maxWidth,
+			nextElementOnSameLine,
+			marginBottom,
+			marginLeft,
+			maxWidthOfText,
+			color,
+			textDecoration,
 		} = props;
 
 		if (!text) {
 			return;
 		}
 
-		let setSize = 12;
-		if (size === "small") {
+		let setSize = typeof fontSize === "number" ? fontSize : 12;
+		if (fontSize === "small") {
 			setSize = 9;
-		} else if (size === "h1") {
+		} else if (fontSize === "h1") {
 			setSize = 25;
-		} else if (size === "h2") {
+		} else if (fontSize === "h2") {
 			setSize = 18;
+		} else if (fontSize === "h3") {
+			setSize = 15;
 		}
-		const setLineHeight = mm(setSize * 1.1);
-		const setMaxWidth = maxWidth ? leftHalfOfThePage : pageInnerWidth;
+		let setLineHeight = typeof lineHeight === "number" ? lineHeight : 1.5;
+		if (lineHeight === "wide") {
+			setLineHeight = 1.75;
+		}
+		const getLineHeight = pxToMm(setSize * setLineHeight);
+		const setMaxWidth =
+			maxWidthOfText === "halfPage"
+				? leftHalfOfThePage
+				: typeof maxWidthOfText === "number"
+					? maxWidthOfText < 1
+						? maxWidthOfText * pageInnerWidth
+						: maxWidthOfText
+					: pageInnerWidth;
 
 		doc.setFontSize(setSize);
 
-		if (weight === "b") {
+		if (
+			fontWeight === "bold" ||
+			fontSize === "h1" ||
+			fontSize === "h2" ||
+			fontSize === "h3"
+		) {
 			doc.setFont("Arial", "bold");
 		} else {
 			doc.setFont("Arial", "normal");
 		}
+
+		if (color !== undefined) {
+			doc.setTextColor(color);
+		} else {
+			doc.setTextColor(0, 0, 0);
+		}
+
 		const lines = doc.splitTextToSize(text, setMaxWidth);
 
-		const posX =
-			x === "right"
-				? pageInnerWidth + paddingHorizontal - doc.getTextWidth(text)
-				: (x ?? paddingHorizontal);
-		const posY = y ?? vertical;
+		let posY = y ?? vertical;
+		posY += getLineHeight;
 
-		if (lines.length === 1) {
-			doc.text(lines[0], posX, posY, {
-				maxWidth: setMaxWidth,
-				lineHeightFactor: 1.5,
-			});
-		} else {
-			lines.forEach((line: string, index: number) => {
-				doc.text(line, posX, posY + index * setLineHeight, {
+		lines.forEach((line: string, index: number) => {
+			let posX =
+				textAlign === "right"
+					? pageInnerWidth + pagesPaddingX - doc.getTextWidth(line)
+					: textAlign === "center"
+						? pagesPaddingX + (pageInnerWidth - doc.getTextWidth(line)) / 2
+						: pagesPaddingX;
+			if (marginLeft === "halfPage") {
+				posX += leftHalfOfThePage + gap;
+			} else if (typeof marginLeft === "number") {
+				posX += marginLeft;
+			}
+			if (line.includes("<b>")) {
+				const boldTextChunks = parseBoldText(line);
+				let cursorX = posX;
+				boldTextChunks.forEach((chunk) => {
+					if (chunk.bold) {
+						doc.setFont("Arial", "bold");
+					} else {
+						doc.setFont("Arial", "normal");
+					}
+					doc.text(chunk.text, cursorX, posY + index * getLineHeight);
+					cursorX += doc.getTextWidth(chunk.text);
+				});
+			} else {
+				doc.text(line, posX, posY + index * getLineHeight, {
 					maxWidth: setMaxWidth,
 				});
-			});
+			}
+		});
+
+		if (!nextElementOnSameLine) {
+			vertical += lines.length * getLineHeight;
 		}
 
-		if (!noLineBreak) {
-			vertical += lines.length * setLineHeight;
-		}
-
-		if (typeof extraMarginBottom === "number") {
-			vertical += mm(extraMarginBottom);
+		if (typeof marginBottom === "number") {
+			vertical += marginBottom;
+		} else if (marginBottom === "paragraph") {
+			vertical += getLineHeight;
 		}
 	};
-	const makeHeader = () => {
-		if (pageCounter > 0) {
-			doc.addPage();
-			vertical = paddingVertical;
-		}
-		const logoWidth = mm(150);
-		const logoHeight = mm(30);
-		doc.addImage(
-			LogoSMVKU.src,
-			"JPEG",
-			paddingHorizontal,
-			vertical,
-			logoWidth,
-			logoHeight,
-		);
-		vertical += logoHeight + mm(30);
-		pageCounter++;
-		const pageNumber = t("floodCheck.reportDownload.pdf.page", {
-			current: pageCounter,
-			total: !skip ? "3" : "1",
-		});
-		writeTextOnPDF({
-			text: t("floodCheck.reportDownload.pdf.pageBottomText"),
-			size: "small",
-			x: paddingHorizontal,
-			y: pageInnerHeight + paddingVertical,
-			noLineBreak: true,
-		});
-		writeTextOnPDF({
-			text: pageNumber,
-			size: "small",
-			x: "right",
-			y: pageInnerHeight + paddingVertical,
-			noLineBreak: true,
-		});
-		writeTextOnPDF({
-			text: t("floodCheck.reportDownload.pdf.title"),
-			size: "h1",
-			weight: "b",
-		});
-		writeTextOnPDF({
-			text: t("floodCheck.reportDownload.pdf.subTitle"),
-			size: "h2",
-			weight: "b",
-			extraMarginBottom: gap,
-		});
-	};
 
+	// Add Arial Font
 	doc.addFileToVFS("Arial.ttf", ArialNormal);
 	doc.addFont("Arial.ttf", "Arial", "normal");
 	doc.addFileToVFS("Arial-Bold.ttf", ArialBold);
 	doc.addFont("Arial-Bold.ttf", "Arial", "bold");
 
-	// Page 1
-	makeHeader();
+	// Changing Values
+	let vertical = pagesPaddingY;
 
-	// Report Date
-	const reportDate = t("floodCheck.reportDownload.pdf.date", {
-		date: getToday(),
-	});
-	writeTextOnPDF({
-		text: reportDate,
-		x: "right",
-		extraMarginBottom: gap,
-	});
-	writeTextOnPDF({
-		text: t("floodCheck.reportDownload.pdf.locationTitle"),
-	});
-	doc.addImage(
-		LocationDot.src,
-		"JPEG",
-		paddingHorizontal,
-		vertical,
-		mm(15 * 0.75),
-		mm(15),
-	);
+	const newPage = () => {
+		doc.addPage();
+		vertical = pagesPaddingY;
+	};
 
-	vertical += mm(12);
+	for (let pageIndex = 0; pageIndex < pages.length; pageIndex++) {
+		const pageItems = pages[pageIndex];
 
-	writeTextOnPDF({
-		text: currentUserAddress?.label,
-		x: paddingHorizontal + mm(20),
-		extraMarginBottom: gap,
-	});
+		if (pageIndex > 0) {
+			newPage();
+		}
 
-	if (hazardEntities) {
-		for (let index = 0; index < hazardEntities.length; index++) {
-			const entity = hazardEntities[index];
-			const getIntroLine = t("floodCheck.reportDownload.pdf.hazardIntro", {
-				hazard: entity.name === "heavyRain" ? "Starkregen" : "Flusshochwasser",
-			});
+		if (showPageNumbers) {
+			const pageNumber = `Seite ${pageIndex + 1} von ${pages.length}`;
 			writeTextOnPDF({
-				text: getIntroLine,
-				noLineBreak: true,
+				text: pageNumber,
+				fontSize: "small",
+				textAlign: "right",
+				y: 297 - pagesPaddingY,
 			});
-			writeTextOnPDF({
-				text: translateHazardLevels(entity.hazardLevel),
-				weight: "b",
-				x: paddingHorizontal + doc.getTextWidth(getIntroLine) + mm(5),
-			});
-			if (collectImages?.length > 0) {
-				const findID =
-					entity.name === "heavyRain"
-						? "heavyRainWidget"
-						: "fluvialFloodWidget";
-				const findEntityImage = collectImages.find(
-					(collectImage: any) => collectImage.id === findID,
-				)[takeImage];
-				const findHeavyRainMap = collectImages.find(
-					(collectImage: any) => collectImage.id === "map-root-sr",
-				)[takeImage];
-				const findFluvialFloodMap = collectImages.find(
-					(collectImage: any) => collectImage.id === "map-root-hw",
-				)[takeImage];
-				const mapImage =
-					entity.name === "heavyRain" ? findHeavyRainMap : findFluvialFloodMap;
-				const imgAspectWidget = await getAspectRatio(findEntityImage);
-				const imgAspectMapImage = await getAspectRatio(mapImage);
-				const availableSpace = pageInnerWidth - mm(gap);
-				const widgetWidth = availableSpace * (2 / 6);
-				const widgetHeight = widgetWidth / imgAspectWidget.aspectRatio;
-				const mapImageWidth = availableSpace * (4 / 6);
-				const mapImageHeight = mapImageWidth / imgAspectMapImage.aspectRatio;
-				doc.addImage(
-					findEntityImage,
-					"JPEG",
-					paddingHorizontal,
-					vertical,
-					widgetWidth,
-					widgetHeight,
-				);
-				doc.addImage(
-					mapImage,
-					"JPEG",
-					paddingHorizontal + widgetWidth + mm(gap),
-					vertical,
-					mapImageWidth,
-					mapImageHeight,
-				);
-				vertical +=
-					widgetHeight > mapImageHeight ? widgetHeight : mapImageHeight;
-				vertical += mm(30);
+		}
+
+		if (pageItems && pageItems.length > 0) {
+			for (let itemIndex = 0; itemIndex < pageItems.length; itemIndex++) {
+				const item = pageItems[itemIndex];
+				let hide = false;
+				if (pdfKeys) {
+					Object.keys(pdfKeys).forEach((key) => {
+						const value = pdfKeys[key];
+						const isNegative = item.hide?.startsWith("!{");
+						let getKey = item.hide;
+						if (isNegative) {
+							getKey = getKey?.replace("!{", "{");
+						}
+						if (getKey === key) {
+							hide = value;
+							if (isNegative) {
+								hide = !value;
+							}
+						}
+					});
+				}
+				if (hide) {
+					continue;
+				}
+				if (vertical > 297 - pagesPaddingY) {
+					newPage();
+				}
+				if (item.text) {
+					let text = item.text;
+					if (pdfKeys) {
+						Object.keys(pdfKeys).forEach((key) => {
+							const value = pdfKeys[key];
+							text = text.replace(key, value);
+						});
+					}
+					writeTextOnPDF({
+						text,
+						fontSize: item.fontSize,
+						lineHeight: item.lineHeight,
+						fontWeight: item.fontWeight,
+						textAlign: item.textAlign,
+						nextElementOnSameLine: item.nextElementOnSameLine,
+						marginBottom: item.marginBottom,
+						marginLeft: item.marginLeft,
+						maxWidthOfText: item.maxWidthOfText,
+						textDecoration: item.textDecoration,
+					});
+				} else if (item.imageSRC) {
+					const image = await getImage(item.imageSRC);
+					// console.info("getImage :>> ", image);
+					if (image) {
+						const marginLeft =
+							item.marginLeft === "halfPage"
+								? leftHalfOfThePage + gap
+								: typeof item.marginLeft === "number"
+									? item.marginLeft < 1
+										? pageInnerWidth * item.marginLeft + pagesPaddingX
+										: item.marginLeft + pagesPaddingX
+									: (pagesPaddingX ?? 0);
+
+						const hasWidth = typeof item.width === "number";
+						const hasHeight = typeof item.height === "number";
+
+						let drawWidth: number;
+						let drawHeight: number;
+
+						if (hasWidth) {
+							if ((item.width as number) < 1) {
+								drawWidth = pageInnerWidth * (item.width as number);
+							} else {
+								drawWidth = item.width as number;
+							}
+							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅ height/width
+						} else if (hasHeight) {
+							// You know the height, compute width
+							drawHeight = item.height as number;
+							drawWidth = drawHeight * image.aspectRatioWidthHeight; // ✅ width/height
+						} else if (item.width === "fullPage") {
+							drawWidth = pageInnerWidth;
+							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅ keep ratio
+						} else if (item.width === "halfPage") {
+							drawWidth = pageInnerWidth / 2;
+							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅
+						} else {
+							// default
+							drawWidth = 50;
+							drawHeight = drawWidth * image.aspectRatioHeightWidth; // ✅
+						}
+
+						doc.addImage(
+							image.image,
+							"JPEG",
+							marginLeft,
+							vertical,
+							drawWidth,
+							drawHeight,
+						);
+
+						if (!item.nextElementOnSameLine) {
+							vertical += drawHeight;
+						}
+
+						if (item.caption) {
+							vertical += 1;
+							writeTextOnPDF({
+								text: item.caption,
+								fontSize: "small",
+							});
+						}
+						if (item.copyright) {
+							vertical += 1;
+							writeTextOnPDF({
+								text: item.copyright,
+								fontSize: "small",
+								color: "#666666",
+							});
+						}
+
+						if (typeof item.marginBottom === "number") {
+							vertical += item.marginBottom;
+						}
+					}
+				}
 			}
 		}
 	}
 
-	writeTextOnPDF({
-		text: t("floodCheck.reportDownload.pdf.calcHintTitle"),
-		weight: "b",
-		size: "small",
-		extraMarginBottom: mm(10),
-	});
-	writeTextOnPDF({
-		text: t("floodCheck.reportDownload.pdf.calcHintText"),
-		size: "small",
-	});
-
-	if (!skip) {
-		makeHeader();
-		writeTextOnPDF({
-			text: t("floodCheck.reportDownload.pdf.riskTitle"),
-			noLineBreak: true,
-		});
-		if (floodRiskResult) {
-			writeTextOnPDF({
-				text: translateHazardLevels(floodRiskResult?.riskLevel),
-				weight: "b",
-				x:
-					paddingHorizontal +
-					doc.getTextWidth(t("floodCheck.reportDownload.pdf.riskTitle")) +
-					mm(5),
-			});
-		}
-		const findRiskBlock = collectImages.find(
-			(collectImage: any) => collectImage.id === "risk-block",
-		)[takeImage];
-		if (findRiskBlock) {
-			let imgAspect = await getAspectRatio(findRiskBlock);
-			let imgWidth = (pageInnerWidth - mm(gap)) / 2;
-			let imgHeight = imgWidth / imgAspect.aspectRatio;
-			doc.addImage(
-				findRiskBlock,
-				"JPEG",
-				paddingHorizontal,
-				vertical,
-				imgWidth,
-				imgHeight,
-			);
-			vertical += imgHeight + mm(gap * 2);
-			writeTextOnPDF({
-				text: t("floodCheck.buildingRiskAssessment.title"),
-				weight: "b",
-				extraMarginBottom: mm(gap),
-				size: "small",
-			});
-			writeTextOnPDF({
-				text: t("floodCheck.buildingRiskAssessment.description2"),
-				size: "small",
-			});
-		}
-		makeHeader();
-		writeTextOnPDF({
-			text: t("floodCheck.reportDownload.pdf.tipTitle"),
-			weight: "b",
-		});
-		const findProtestionTips = collectImages.find(
-			(collectImage: any) => collectImage.id === "protection-tips",
-		)[takeImage];
-		if (findProtestionTips) {
-			const imgAspect = await getAspectRatio(findProtestionTips);
-			let imgWidth: number;
-			let imgHeight: number;
-			if (imgAspect.aspectRatio >= 1) {
-				imgWidth = pageInnerWidth;
-				imgHeight = imgWidth / imgAspect.aspectRatio;
-			} else {
-				imgHeight = pageInnerHeight - vertical;
-				imgWidth = imgHeight * imgAspect.aspectRatio;
-			}
-			doc.addImage(
-				findProtestionTips,
-				"JPEG",
-				paddingHorizontal,
-				vertical,
-				imgWidth,
-				imgHeight,
-			);
-		}
-	}
-
-	// Download
 	const blob = doc.output("blob");
 	const sizeInMB = (blob.size / (1024 * 1024)).toFixed(2) as unknown as number;
 	return {

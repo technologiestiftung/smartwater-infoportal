@@ -6,7 +6,6 @@ export interface CurrentUserAddress {
 	lon: string;
 	name: string;
 	type?: string;
-	hasHousenumber?: boolean;
 }
 
 // GeoJSON geometry types
@@ -28,15 +27,26 @@ export interface Building {
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;
 	distance?: number;
+	outlineBufferGeometry?: [number, number][];
+	transformedX?: number;
+	transformedY?: number;
+	floodZoneIndex?: number;
 	[key: string]: unknown;
 }
+
+export interface BuildingWMS {
+	hasHeavyRainHazardMap: string | null;
+	rareHeavyRain: number | null;
+	uncommonHeavyRain: number | null;
+	extremeHeavyRain: number | null;
+}
+
+export type BBox = [number, number, number, number];
 
 export interface LocationData {
 	found: boolean;
 	building: Building | null;
-	maxGefährdung: number;
 	distance?: number;
-	floodZoneIndex?: number | null;
 }
 
 export interface QuestionAnswer {

@@ -28,7 +28,8 @@ export function getHazardEntities(
 				locationData.building.hochwasserGefährdung || 0,
 			),
 			showSubLabel: true,
-			subHazardLevel: (locationData.floodZoneIndex || 0) > 0 ? "yes" : "no",
+			subHazardLevel:
+				(locationData.building.floodZoneIndex || 0) > 0 ? "yes" : "no",
 		},
 	];
 }

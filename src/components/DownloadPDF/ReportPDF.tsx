@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -5,77 +6,105 @@ import { FC, useEffect, useRef, useState } from "react";
 import { DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import PDFContent from "./PDFContent";
-import { createDownloadPDF, getImageFromHTML, getToday } from "./pdfUtils";
-import { useMapStore } from "@/lib/store/mapStore";
-import { useMapLoading } from "@/lib/utils/useMapLoading";
 import useMobile from "@/lib/utils/useMobile";
+import {
+	createPDF,
+	PDFProps,
+	translateHazardLevels,
+	getToday,
+} from "./pdfUtils";
+import pdfData from "@/components/DownloadPDF/pdf.json";
+import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
+import { GeoServerClient } from "@/lib/geoserverClient";
 
 interface ReportPDFProps {
 	skip: string | null;
 }
 
+const geoServerClient = new GeoServerClient();
+
 const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const getHazardEntities = useStore((state) => state.getHazardEntities);
+	const makePDFInitializedRef = useRef<boolean>(false);
+	const {
+		currentUserAddress,
+		getHazardEntities,
+		locationData,
+		floodRiskAnswers,
+	} = useStore();
 	const hazardEntities = getHazardEntities();
-	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
-	const mapSR = useMapStore((s) => s.mapSR);
-	const mapHW = useMapStore((s) => s.mapHW);
-	const loadingSR = useMapLoading(mapSR, false);
-	const loadingHW = useMapLoading(mapHW, false);
 	const isMobile = useMobile();
 	const [error, setError] = useState<Error | null>(null);
+	const openPDFInNewTab = true;
 
-	const getScreenshotsFromResultsPage = async () => {
-		try {
-			const collectImages = [];
-			const IDsToCollect = [
-				"heavyRainWidget",
-				"fluvialFloodWidget",
-				"map-root-sr",
-				"map-root-hw",
-			];
-			if (!skip) {
-				IDsToCollect.push("risk-block", "protection-tips");
-			}
-			for (let index = 0; index < IDsToCollect.length; index++) {
-				const id = IDsToCollect[index];
-				const findImage = await getImageFromHTML(id);
-				if (findImage) {
-					collectImages.push(findImage);
-				} else {
-					throw new Error("Image from getImageFromHTML not found!!!");
-				}
-			}
-			const pdf = await createDownloadPDF(
-				t,
-				skip,
-				floodRiskResult,
-				hazardEntities,
-				currentUserAddress,
-				collectImages,
-			);
-			if (!pdf.blob || !pdf.sizeInMB) {
-				throw new Error("!pdf.blob || !pdf.sizeInMB");
-			}
-			setPdfBlob(pdf.blob);
-			setPdfSizeKB(pdf.sizeInMB);
-		} catch (e) {
-			setError(e as Error);
+	const allMapsLoaded = useScenarioMapsLoading();
+
+	const pdfKeys: Record<string, string | number | boolean> = {
+		"{date}": getToday(),
+		"{address}": currentUserAddress?.name || "Keine Adresse gefunden",
+		"{hazardLevelHeavyRain}": hazardEntities
+			? translateHazardLevels(hazardEntities[0].hazardLevel)
+			: "Keine Daten",
+		"{hazardLevelfloodRisk}": hazardEntities
+			? translateHazardLevels(hazardEntities[1].hazardLevel)
+			: "Keine Daten",
+		"{didSkip}": !!skip,
+		"{didNotSkip}": !skip,
+		"{isOwner}":
+			!!skip ||
+			(typeof floodRiskAnswers?.q0?.value === "string" &&
+				floodRiskAnswers?.q0?.value?.includes("Owner")),
+		"{isNotOwner}":
+			!!skip ||
+			(typeof floodRiskAnswers?.q0?.value === "string" &&
+				!floodRiskAnswers?.q0?.value?.includes("Owner")),
+	};
+
+	const makePDF = async () => {
+		// console.log("allMapLoaded locationData :>> ", locationData);
+		if (!locationData?.found || !locationData.building) {
+			return;
 		}
+		// console.log("makePDF");
+		const buildingWMSData = await geoServerClient.getWMS(
+			locationData?.building,
+		);
+		// console.log("buildingWMSData :>> ", buildingWMSData);
+		pdfKeys["{showRareHeavyRain}"] = !!buildingWMSData?.rareHeavyRain;
+		pdfKeys["{rareHeavyRain}"] =
+			buildingWMSData?.rareHeavyRain || "Keine Daten";
+		pdfKeys["{showUncommonHeavyRain}"] = !!buildingWMSData?.uncommonHeavyRain;
+		pdfKeys["{uncommonHeavyRain}"] =
+			buildingWMSData?.uncommonHeavyRain || "Keine Daten";
+		pdfKeys["{showExtremeHeavyRain}"] = !!buildingWMSData?.extremeHeavyRain;
+		pdfKeys["{extremeHeavyRain}"] =
+			buildingWMSData?.extremeHeavyRain || "Keine Daten";
+		pdfKeys["{hasSrgkExtremeHeavyRainMap}"] =
+			buildingWMSData.hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
+		pdfKeys["{hasSrgkHeavyRainMap}"] = !!buildingWMSData.hasHeavyRainHazardMap;
+
+		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
+		if (!pdfBlobCreated?.blob) {
+			window.alert("PDF konnte nicht erstellt werden.");
+			return;
+		}
+		setPdfSizeKB(pdfBlobCreated.sizeInMB);
+		setPdfBlob(pdfBlobCreated?.blob);
+		makePDFInitializedRef.current = false;
 	};
 
 	useEffect(() => {
-		if (!mapSR || !mapHW || loadingSR || loadingHW) {
+		// console.log("allMapsLoaded :>> ", allMapsLoaded);
+		if (!allMapsLoaded || makePDFInitializedRef.current) {
 			return;
 		}
-		getScreenshotsFromResultsPage();
+		makePDFInitializedRef.current = true;
+		makePDF();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mapSR, mapHW, loadingSR, loadingHW]);
+	}, [allMapsLoaded]);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;
@@ -90,7 +119,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			if (clickedButton && wrapper.contains(clickedButton)) {
 				const url = URL.createObjectURL(pdfBlob);
 
-				if (isMobile) {
+				if (isMobile || openPDFInNewTab) {
 					if (!window) {
 						const err = new Error("window is undefined");
 						err.name = "WindowUndefined";

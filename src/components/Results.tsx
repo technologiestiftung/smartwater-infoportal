@@ -22,10 +22,10 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import ReportPDF from "./DownloadPDF/ReportPDF";
-import MapSR from "./MapSR/Map";
-import MapHW from "./MapHW/Map";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
+import ScenarioMap from "./ScenarioMap/Map";
+import { ScenarioList } from "@/types/map";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -243,8 +243,12 @@ const Results: React.FC = () => {
 							: "absolute -left-[9999px]"
 					}
 				>
-					<MapSR />
-					<MapHW />
+					{ScenarioList.map((scenario) => (
+						<div key={scenario}>
+							<p>{scenario}</p>
+							<ScenarioMap scenario={scenario} />
+						</div>
+					))}
 				</div>
 			</section>
 			<section className="flex flex-col gap-4">

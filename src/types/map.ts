@@ -21,6 +21,7 @@ export interface MapViewConfig {
 	minZoomLevel: number;
 	maxZoomLevel: number;
 	options: MapViewOptions[];
+	padding: number[];
 }
 
 export interface PortalMapConfig {
@@ -120,24 +121,66 @@ export interface MapConfig {
 	layerConfig: LayerConfig;
 }
 
+export type Scenario =
+	| "SR"
+	| "HW"
+	| "SRGK_RARE_HEAVY_RAIN"
+	| "SRGK_UNCOMMON_HEAVY_RAIN"
+	| "SRGK_EXTREME_HEAVY_RAIN"
+	| "SRHK_UNCOMMON_HEAVY_RAIN"
+	| "SRHK_EXTREME_HEAVY_RAIN"
+	| "FREQUENT_FLOOD"
+	| "AVERAGE_FREQUENT_FLOOD"
+	| "RARE_FREQUENT_FLOOD"
+	| "FLOOD_ZONE";
+
+export const ScenarioList: Scenario[] = [
+	"SR",
+	"HW",
+	"SRGK_RARE_HEAVY_RAIN",
+	"SRGK_UNCOMMON_HEAVY_RAIN",
+	"SRGK_EXTREME_HEAVY_RAIN",
+	"SRHK_UNCOMMON_HEAVY_RAIN",
+	"SRHK_EXTREME_HEAVY_RAIN",
+	"FREQUENT_FLOOD",
+	"AVERAGE_FREQUENT_FLOOD",
+	"RARE_FREQUENT_FLOOD",
+	"FLOOD_ZONE",
+];
+
+type ScenarioMap<T> = Partial<Record<Scenario, T>>;
+
+export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
+	SR: ["sw_infoportal:sr_gefaehrdung_clip_"],
+	HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
+	SRGK_RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
+	SRGK_UNCOMMON_HEAVY_RAIN: ["ua_srgk:cb_wasserstand_aussergewoehnlich"],
+	SRGK_EXTREME_HEAVY_RAIN: ["ua_srgk:cc_wassersand_extrem"],
+	SRHK_UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
+	SRHK_EXTREME_HEAVY_RAIN: ["ua_srhk:ec_wasserstand_extrem_max100mm"],
+	FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:a_hwgk_hoch"],
+	AVERAGE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:b_hwgk_mittel"],
+	RARE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:c_hwgk_niedrig"],
+	FLOOD_ZONE: ["ua_uesg:c_ueberschwemmungsgebiete"],
+};
+
 export interface MapStoreState {
+	// Scenario Map Approach
+	scenarioConfig: ScenarioMap<MapConfig | null>;
+	setScenarioConfig: (scenario: Scenario, config: MapConfig | null) => void;
+	scenarioMap: ScenarioMap<Map | null>;
+	populateScenarioMap: (scenario: Scenario, map: Map | null) => void;
+	removeScenarioMap: (scenario: Scenario) => void;
+	scenarioLayers: ScenarioMap<LayerElement[]>;
+	setScenarioLayers: (scenario: Scenario, layers: ManagedLayer[]) => void;
+
 	config: MapConfig | null;
-	configSR: MapConfig | null;
-	configHW: MapConfig | null;
 	setConfig: (config: MapConfig) => void;
-	setConfigSR: (configSR: MapConfig) => void;
-	setConfigHW: (configHW: MapConfig) => void;
 
 	// Map
 	map: Map | null;
-	mapSR: Map | null;
-	mapHW: Map | null;
 	populateMap: (map: Map) => void;
-	populateMapSR: (mapSR: Map) => void;
-	populateMapHW: (mapHW: Map) => void;
 	removeMap: () => void;
-	removeMapSR: () => void;
-	removeMapHW: () => void;
 
 	// LayerTree
 	isLayerTreeOpen: boolean;
@@ -145,11 +188,7 @@ export interface MapStoreState {
 
 	// Layers
 	layers: ManagedLayer[];
-	layersSR: ManagedLayer[];
-	layersHW: ManagedLayer[];
 	setLayers: (layers: ManagedLayer[]) => void;
-	setLayersSR: (layersSR: ManagedLayer[]) => void;
-	setLayersHW: (layersHW: ManagedLayer[]) => void;
 	addLayer: (layer: ManagedLayer) => void;
 	removeLayer: (layerId: string) => void;
 	updateLayer: (
