@@ -64,7 +64,6 @@
 			"translationKey": "floodCheck.questions.q3",
 			"options": [
 				{ "value": "no", "score": -2, "addToCounter": 1 },
-				{ "value": "dontKnow", "score": -1, "addToCounter": 1 },
 				{ "value": "yesUnknown", "score": 1, "addToCounter": 1 },
 				{ "value": "yesGood", "score": 2, "addToCounter": 1 },
 				{ "value": "noInformation", "score": 0, "addToCounter": 0 }
@@ -90,17 +89,6 @@
 			"type": "radio",
 			"isRequired": true,
 			"translationKey": "floodCheck.questions.q5",
-			"options": [
-				{ "value": "no", "score": -2, "addToCounter": 1 },
-				{ "value": "oneOrMore", "score": 2, "addToCounter": 1 },
-				{ "value": "noInformation", "score": 0, "addToCounter": 0 }
-			]
-		},
-		{
-			"id": "q6",
-			"type": "radio",
-			"isRequired": true,
-			"translationKey": "floodCheck.questions.q6",
 			"options": [
 				{ "value": "yes", "score": -2, "addToCounter": 1 },
 				{ "value": "no", "score": 2, "addToCounter": 1 },
@@ -163,13 +151,8 @@
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.backflowProtection"
 		},
 		{
-			"id": "rainwaterDrains",
-			"questionId": "q5",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.rainwaterDrains"
-		},
-		{
 			"id": "protectionMeasures",
-			"questionId": "q6",
+			"questionId": "q5",
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.protectionMeasures"
 		},
 		{

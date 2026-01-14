@@ -6,7 +6,6 @@ import {
 	AccordionTrigger,
 	AccordionContent,
 	Button,
-	Image,
 	Pill,
 	FilterPillGroup,
 	List,
@@ -59,20 +58,6 @@ const Results: React.FC = () => {
 			title: t("hazardInfo.mapInfo"),
 			content: t("hazardInfo.mapDisclaimer"),
 		},
-	];
-	const inBuildingTipKeys = [
-		"protectionTips.inBuilding.tip1",
-		"protectionTips.inBuilding.tip2",
-		"protectionTips.inBuilding.tip3",
-		"protectionTips.inBuilding.tip4",
-		"protectionTips.inBuilding.tip5",
-	];
-	const trafficTipKeys = [
-		"protectionTips.traffic.tip1",
-		"protectionTips.traffic.tip2",
-		"protectionTips.traffic.tip3",
-		"protectionTips.traffic.tip4",
-		"protectionTips.traffic.tip5",
 	];
 	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
 	const updateActiveMapFilter = useStore(
@@ -341,82 +326,20 @@ const Results: React.FC = () => {
 						<div className="flex flex-col gap-2">
 							<h2 className="">{t("protectionTips.title")}</h2>
 							<p className="">{t("protectionTips.intro1")}</p>
-							<p className="mt-4">{t("protectionTips.intro2")}</p>
 						</div>
-
-						<div className="flex flex-col gap-2">
-							<TextBlock
-								desktopColSpans={{ col1: 1, col2: 1 }}
-								className="w-full gap-6"
-								slotA={
-									<div className="flex h-full w-full flex-col p-6">
-										<h2 className="">{t("protectionTips.inBuilding.title")}</h2>
-										<ul className="list-inside list-disc">
-											{inBuildingTipKeys.map((tipKey) => (
-												<li key={tipKey} className="mt-2">
-													{t(tipKey)}
-												</li>
-											))}
-										</ul>
-									</div>
-								}
-								slotB={
-									<Image
-										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
-										alt={t("protectionTips.inBuilding.image.alt")}
-										caption={t("protectionTips.inBuilding.image.caption")}
-										copyright={t("protectionTips.inBuilding.image.copyright")}
-									/>
-								}
-							/>
-						</div>
+						<Button
+							className="w-full self-start lg:w-fit"
+							onClick={() => {
+								router.push("/handlungsempfehlungen");
+							}}
+						>
+							{t("protectionTips.recommendationsOverview.button")}
+						</Button>
+						<p className="">{t("protectionTips.intro2")}</p>
 					</>
 				)}
-				<div className="flex flex-col gap-2">
-					{!skip && (
-						<>
-							<TextBlock
-								desktopColSpans={{ col1: 1, col2: 1 }}
-								className="w-full gap-6"
-								reverseDesktopColumns={true}
-								slotA={
-									<div className="flex h-full w-full flex-col p-6">
-										<h2 className="">{t("protectionTips.traffic.title")}</h2>
-										<ul className="list-inside list-disc">
-											{trafficTipKeys.map((tipKey) => (
-												<li key={tipKey} className="mt-2">
-													{t(tipKey)}
-												</li>
-											))}
-										</ul>
-									</div>
-								}
-								slotB={
-									<Image
-										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
-										alt={t("protectionTips.traffic.image.alt")}
-										caption={t("protectionTips.traffic.image.caption")}
-										copyright={t("protectionTips.traffic.image.copyright")}
-									/>
-								}
-							/>
-						</>
-					)}
-				</div>
 			</section>
 			<section>
-				{!skip && (
-					<Button
-						className="mb-8 w-full self-start lg:w-fit"
-						onClick={() => {
-							router.push("/handlungsempfehlungen");
-						}}
-					>
-						{t("protectionTips.recommendationsOverview.button")}
-					</Button>
-				)}
 				<div className="divider mt-4" />
 				<ErrorCatcher name="ReportPDF">
 					<ReportPDF skip={skip} />
