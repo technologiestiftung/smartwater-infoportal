@@ -34,7 +34,8 @@
 			},
 			"description1": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet. Das konkrete Risiko Ihres Gebäudes ist von einer Vielzahl baulicher Eigenschaften abhängig, die sich durch den Fragebogen nicht in vollem Umfang bewerten lassen. Bitte beachten Sie, dass die Einstufung des Risikos für Ihr Gebäude auf Basis Ihrer Angaben eine gewisse Unsicherheit birgt und die Auswertung hier lediglich einer Anregung zur Eigenvorsorge dient.",
 			"description2": "Die Berechnung basiert auf bestehenden Angeboten des LAWA-Starkregenportals, des Hochwasser Kompetenz Centrums HKC („Quick-Check“) und des Gesamtverbands der Deutschen Versicherungswirtschaft (GDV).",
-			"title": "Hinweis & Disclaimer"
+			"title": "Auswertung Fragebogen",
+			"disclaimerTitle": "Hinweis & Disclaimer"
 		},
 		"fluvialFlood": {
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
