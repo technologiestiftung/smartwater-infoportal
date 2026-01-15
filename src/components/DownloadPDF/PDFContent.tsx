@@ -7,7 +7,10 @@ const PDFContent = () => {
 	const t = useTranslations();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
-	const testing = showTestingFeatures.includes("showWidgetsBelowPDF");
+	const testing =
+		typeof window !== "undefined" &&
+		window.location.toString().includes("localhost") &&
+		showTestingFeatures.includes("showWidgetsBelowPDF");
 	const hazardEntities = getHazardEntities();
 
 	const heavyRain = hazardEntities?.filter(
