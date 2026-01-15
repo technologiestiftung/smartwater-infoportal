@@ -3,6 +3,7 @@
 import jsPDF from "jspdf";
 import ArialBold from "./assets/arial-bold";
 import ArialNormal from "./assets/arial-normal";
+import ArialItalic from "./assets/arial-italic";
 import { getImage } from "./pdfImageUtils";
 
 export const getToday = (): string => {
@@ -73,7 +74,7 @@ interface PDFPageItem {
 	text?: string;
 	fontSize?: "small" | "normal" | "h1" | "h2" | "h3" | number;
 	lineHeight?: "wide" | number;
-	fontWeight?: "normal" | "bold";
+	fontWeight?: "normal" | "bold" | "italic";
 	textAlign?: "left" | "center" | "right";
 	maxWidthOfText?: "halfPage" | "fullPage" | number;
 	textDecoration?: "underline";
@@ -179,6 +180,8 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			fontSize === "h3"
 		) {
 			doc.setFont("Arial", "bold");
+		} else if (fontWeight === "italic") {
+			doc.setFont("Arial", "italic");
 		} else {
 			doc.setFont("Arial", "normal");
 		}
@@ -210,11 +213,7 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 				const boldTextChunks = parseBoldText(line);
 				let cursorX = posX;
 				boldTextChunks.forEach((chunk) => {
-					if (chunk.bold) {
-						doc.setFont("Arial", "bold");
-					} else {
-						doc.setFont("Arial", "normal");
-					}
+					doc.setFont("Arial", chunk.bold ? "bold" : "normal");
 					doc.text(chunk.text, cursorX, posY + index * getLineHeight);
 					cursorX += doc.getTextWidth(chunk.text);
 				});
@@ -241,6 +240,8 @@ export const createPDF = async (pdf: PDFProps, pdfKeys: any) => {
 	doc.addFont("Arial.ttf", "Arial", "normal");
 	doc.addFileToVFS("Arial-Bold.ttf", ArialBold);
 	doc.addFont("Arial-Bold.ttf", "Arial", "bold");
+	doc.addFileToVFS("Arial-Italic.ttf", ArialItalic);
+	doc.addFont("Arial-Italic.ttf", "Arial", "italic");
 
 	// Changing Values
 	let vertical = pagesPaddingY;

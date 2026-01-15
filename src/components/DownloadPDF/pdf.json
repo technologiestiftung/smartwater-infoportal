@@ -24,6 +24,15 @@
 				"marginBottom": 5
 			},
 			{
+				"text": "Das ist ein kursiver Text",
+				"fontWeight": "italic",
+				"marginBottom": 5
+			},
+			{
+				"text": "Gefährdung: <b>hoch</b> - mehr Infos unter <a href=\"https://sportschau.de\">Hochwasser Check</a>",
+				"marginBottom": 5
+			},
+			{
 				"text": "Es wurde die folgende Adresse überprüft:",
 				"marginBottom": 2
 			},
