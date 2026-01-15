@@ -16,11 +16,9 @@ const RiskBlock = () => {
 	const t = useTranslations("floodCheck");
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
+	const isDev = process.env.NODE_ENV === "development";
 	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
-	const testing =
-		typeof window !== "undefined" &&
-		window.location.toString().includes("localhost") &&
-		showTestingFeatures.includes("riskWidgetDetails");
+	const testing = isDev && showTestingFeatures.includes("riskWidgetDetails");
 	const { min, max } = floodRiskConfig.evaluation;
 	const value = floodRiskResult?.evaluation ?? 0;
 	const arrowPosition = ((value - min) / (max - min)) * 100;
