@@ -34,6 +34,7 @@ const Results: React.FC = () => {
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
+	const isDev = process.env.NODE_ENV === "development";
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -223,9 +224,7 @@ const Results: React.FC = () => {
 				<Map />
 				<div
 					className={
-						typeof window !== "undefined" &&
-						window.location.toString().includes("localhost") &&
-						showTestingFeatures.includes("mapsOnResultPage")
+						isDev && showTestingFeatures.includes("mapsOnResultPage")
 							? ""
 							: "absolute -left-[9999px]"
 					}
@@ -316,9 +315,7 @@ const Results: React.FC = () => {
 							}
 							slotB={<RiskBlock />}
 						/>
-						{typeof window !== "undefined" &&
-							window.location.toString().includes("localhost") /* &&
-							showTestingFeatures.includes("evaluationTesting") */ && <EvaluationTesting />}
+						{isDev && <EvaluationTesting />}
 					</section>
 				</>
 			)}
