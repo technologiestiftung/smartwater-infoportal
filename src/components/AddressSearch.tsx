@@ -54,12 +54,12 @@ export default function AddressSearch() {
 			const addresse = getValues("addresse");
 			if (addresse) {
 				if (!currentUserAddress) {
-					setError("Bitte wählen Sie eine Adresse aus.");
+					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
 					router.push("/hochwasser-check");
 				}
 			} else {
-				setError("Bitte geben Sie eine Adresse ein.");
+				setError(t("addressCheck.errorNoAddress"));
 			}
 			return;
 		});
@@ -79,9 +79,7 @@ export default function AddressSearch() {
 			const data = await searchAddresses(search);
 
 			if (data.length === 0) {
-				setError(
-					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
-				);
+				setError(t("addressCheck.errorNoAddressFound"));
 				setResults([]);
 				return;
 			}
@@ -123,9 +121,7 @@ export default function AddressSearch() {
 
 	const resultsLoaded = (resultsFromLocationButton: CurrentUserAddress[]) => {
 		if (!resultsFromLocationButton.length) {
-			setError(
-				"Keine Adresse gefunden. Bitte suchen Sie manuell nach Ihrer Adresse.",
-			);
+			setError(t("addressCheck.errorNoAddressFound"));
 			return;
 		}
 		setResults(resultsFromLocationButton);

@@ -47,11 +47,11 @@ export async function searchAddresses(
 	const isReverseSearch = !query || query.trim() === "";
 
 	try {
+		const baseURL = "https://photon.komoot.io";
 		const bboxString =
-			process.env.MAP_BOUNDING_BOX ||
 			"13.091992716067702,52.33488609760638,13.742786470433,52.67626223889507";
-		const filterCountry = process.env.SEARCH_FILTER_COUNTRY || "DE";
-		const filterCity = process.env.SEARCH_FILTER_CITY || "Berlin";
+		const filterCountry = "DE";
+		const filterCity = "Berlin";
 
 		let parsedBbox: number[] | null = null;
 
@@ -81,7 +81,7 @@ export async function searchAddresses(
 				lang: "de",
 			});
 
-			url = `https://photon.komoot.io/reverse?${params.toString()}`;
+			url = `${baseURL}/reverse?${params.toString()}`;
 		} else {
 			const sanitizedQuery = sanitizeAddressInput(query);
 			if (sanitizedQuery.trim().length < 2) {
@@ -104,7 +104,7 @@ export async function searchAddresses(
 				params.append("lon", DEFAULT_LON);
 			}
 
-			url = `https://photon.komoot.io/api/?${params.toString()}`;
+			url = `${baseURL}/api/?${params.toString()}`;
 		}
 
 		if (!url) {
@@ -145,19 +145,10 @@ export async function searchAddresses(
 			}
 
 			if (filterCity) {
-				const isInCity =
-					props.city === filterCity || props.state?.includes(filterCity);
+				const isInCity = props.city === filterCity;
 
 				if (!isInCity) {
-					if (parsedBbox) {
-						const [minLon, minLat, maxLon, maxLat] = parsedBbox;
-						const [lon, lat] = feature.geometry.coordinates;
-						if (lon < minLon || lon > maxLon || lat < minLat || lat > maxLat) {
-							return false;
-						}
-					} else {
-						return false;
-					}
+					return false;
 				}
 			}
 			const excludeTypes = ["city", "country", "state"];
@@ -193,7 +184,7 @@ export async function searchAddresses(
 				lon: feature.geometry.coordinates[0].toString(),
 				name: displayName,
 				type: props.osm_value,
-				hasHousenumber: !!props.housenumber
+				hasHousenumber: !!props.housenumber,
 			};
 		});
 

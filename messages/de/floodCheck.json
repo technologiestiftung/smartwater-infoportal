@@ -284,7 +284,6 @@
 		},
 		"start": {
 			"addressLabel": "Adresse*",
-			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
 			"description": "Jetzt schauen ob Sie sich Sorgen machen müssen. Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
 			"locationTitle": "Es wird die folgende Adresse überprüft:",
 			"question": "Wollen Sie auch das Risiko für Ihr Wohngebäude überprüfen?",

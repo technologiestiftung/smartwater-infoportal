@@ -11,11 +11,28 @@ interface LocationButtonProps {
 }
 const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 	const [status, setStatus] = useState<
-		"idle" | "loading" | "granted" | "denied"
+		"idle" | "loading" | "granted" | "denied" | "outside-bbox"
 	>("idle");
 	const [lat, setLat] = useState<number | null>(null);
 	const [long, setLong] = useState<number | null>(null);
 	const isDev = process.env.NODE_ENV === "development";
+
+	const bbox: [number, number, number, number] = [
+		13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
+	];
+
+	function isPointInBBox(lonArg: number, latArg: number): boolean {
+		const [minLon, minLat, maxLon, maxLat] = bbox;
+
+		return (
+			typeof lonArg === "number" &&
+			typeof latArg === "number" &&
+			lonArg >= minLon &&
+			lonArg <= maxLon &&
+			latArg >= minLat &&
+			latArg <= maxLat
+		);
+	}
 
 	async function requestLocation() {
 		setStatus("loading");
@@ -60,6 +77,11 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 
 	useEffect(() => {
 		const reverseSearch = async () => {
+			const inside = isPointInBBox(long as number, lat as number);
+			if (!inside) {
+				setStatus("outside-bbox");
+				return;
+			}
 			const results = await searchAddresses("", lat as number, long as number);
 			if (resultsLoaded) {
 				resultsLoaded(results ? results : []);
@@ -97,11 +119,16 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 						Standort abgelehnt. Bitte Browser-Einstellungen prüfen.
 					</p>
 				)}
+				{status === "outside-bbox" && (
+					<p className="text-red-600">
+						Ihre Adresse liegt außerhalb von Berlin. Bitte geben Sie eine
+						Berliner Adresse ein, um den WasserCheck Berlin zu starten.
+					</p>
+				)}
 				{isDev && (
 					<>
 						<hr className="my-6" />
 						<div className="space-y-4">
-							<h3>Testing: Selber Koordinaten eintragen</h3>
 							<div className="flex">
 								<div>
 									<label className="mb-1 block font-medium">Latitude</label>
