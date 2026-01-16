@@ -5,17 +5,14 @@ import { useTranslations } from "next-intl";
 import { FC, useEffect, useRef, useState } from "react";
 import { DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
-import PDFContent from "./PDFContent";
 import useMobile from "@/lib/utils/useMobile";
-import {
-	createPDF,
-	PDFProps,
-	translateHazardLevels,
-	getToday,
-} from "./pdfUtils";
-import pdfData from "@/components/DownloadPDF/pdf.json";
+import { translateHazardLevels, getToday } from "../utils";
+import pdfData from "@/components/Report/pdf.json";
 import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
 import { GeoServerClient } from "@/lib/geoserverClient";
+import PDFContent from "./PDFContent";
+import { drawPDF } from "../pdf";
+import { PDFProps } from "../types";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -86,7 +83,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			buildingWMSData.hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
 		pdfKeys["{hasSrgkHeavyRainMap}"] = !!buildingWMSData.hasHeavyRainHazardMap;
 
-		const pdfBlobCreated = await createPDF(pdfData as PDFProps, pdfKeys);
+		const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {
 			window.alert("PDF konnte nicht erstellt werden.");
 			return;
@@ -178,7 +175,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					</div>
 				)}
 			</div>
-			{/* PDFContent */}
 			<PDFContent />
 		</>
 	);

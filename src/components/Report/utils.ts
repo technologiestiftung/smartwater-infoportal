@@ -1,0 +1,135 @@
+import jsPDF from "jspdf";
+
+type TextChunk = {
+	text: string;
+	bold?: boolean;
+	italic?: boolean;
+	href?: string;
+};
+
+export function parseRichTextToChunks(input: string): TextChunk[] {
+	const chunks: TextChunk[] = [];
+	const re =
+		/<b>([\s\S]*?)<\/b>|<i>([\s\S]*?)<\/i>|<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi;
+
+	let lastIndex = 0;
+	let match: RegExpExecArray | null;
+
+	while ((match = re.exec(input)) !== null) {
+		if (match.index > lastIndex) {
+			chunks.push({ text: input.slice(lastIndex, match.index) });
+		}
+
+		if (match[1] !== undefined) {
+			chunks.push({ text: match[1], bold: true });
+		} else if (match[2] !== undefined) {
+			chunks.push({ text: match[2], italic: true });
+		} else if (match[3] !== undefined && match[4] !== undefined) {
+			chunks.push({ text: match[4], href: match[3] });
+		}
+
+		lastIndex = re.lastIndex;
+	}
+
+	if (lastIndex < input.length) {
+		chunks.push({ text: input.slice(lastIndex) });
+	}
+
+	return chunks.filter((c) => c.text.length > 0);
+}
+
+type WrappedLine = TextChunk[];
+
+export function wrapChunksToLines(
+	doc: jsPDF,
+	chunks: TextChunk[],
+	maxWidth: number,
+): WrappedLine[] {
+	const lines: WrappedLine[] = [];
+	let currentLine: TextChunk[] = [];
+	let currentWidth = 0;
+
+	const pushLine = () => {
+		lines.push(currentLine);
+		currentLine = [];
+		currentWidth = 0;
+	};
+
+	for (const chunk of chunks) {
+		// const tokens = chunk.text.split(/(\s+)/).filter((t) => t.length > 0);
+		const tokens = chunk.text
+			.split(/(<br\s*\/?>|\s+)/i)
+			.filter((t) => t && t.length > 0);
+
+		for (const token of tokens) {
+			if (/^<br\s*\/?>$/i.test(token)) {
+				// finish current line (if any)
+				if (currentLine.length) {
+					pushLine();
+				}
+
+				// add an empty line (this is the “second break”)
+				lines.push([]);
+
+				// start fresh line after the breaks
+				currentLine = [];
+				currentWidth = 0;
+				continue;
+			}
+			// measure token width in correct font
+			if (chunk.bold) {
+				doc.setFont("Arial", "bold");
+			} else if (chunk.italic) {
+				doc.setFont("Arial", "italic");
+			} else {
+				doc.setFont("Arial", "normal");
+			}
+			const tokenWidth = doc.getTextWidth(token);
+
+			if (currentWidth > 0 && currentWidth + tokenWidth > maxWidth) {
+				// new line
+				pushLine();
+			}
+
+			currentLine.push({ ...chunk, text: token });
+			currentWidth += tokenWidth;
+		}
+	}
+
+	if (currentLine.length) {
+		pushLine();
+	}
+	return lines;
+}
+
+export const getToday = (): string => {
+	const today = new Date();
+	const day = String(today.getDate()).padStart(2, "0");
+	const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+	const year = today.getFullYear();
+	return `${day}.${month}.${year}`;
+};
+
+export function pxToPt(px: number, dpi = 96): number {
+	return px * (72 / dpi);
+}
+
+export function ptToMm(pt: number): number {
+	return (pt * 25.4) / 72;
+}
+
+export const translateHazardLevels = (level: string): string => {
+	if (level === "low") {
+		return "Gering";
+	}
+	if (level === "moderate") {
+		return "Mittel";
+	}
+	if (level === "high") {
+		return "Hoch";
+	}
+	if (level === "severe") {
+		return "Sehr Hoch";
+	}
+	return level;
+};

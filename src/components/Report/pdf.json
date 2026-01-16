@@ -1,0 +1,586 @@
+{
+	"name": "Report-HochwasserCheck-Berlin.pdf",
+	"pagesPaddingTop": 9,
+	"header": [
+		{
+			"imageSRC": "/Logo-SMVKU.png",
+			"height": 12,
+			"marginBottom": 9
+		},
+		{
+			"text": "Report vom {date}",
+			"textAlign": "right",
+			"marginBottom": 9
+		}
+	],
+	"footer": [
+		{
+			"spacing": 10.5
+		},
+		{
+			"text": "<b>Herausgeber:</b> Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt Berlin",
+			"fontSize": "small",
+			"nextElementOnSameLine": true
+		},
+		{
+			"text": "{pageNumber}",
+			"fontSize": "small",
+			"textAlign": "right"
+		}
+	],
+	"pages": [
+		{
+			"title": "Handlungsempfehlungen",
+			"hide": "{skip}",
+			"items": [
+				{
+					"text": "Handlungsempfehlungen",
+					"fontSize": "h1",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für Mieter:innen",
+					"fontSize": "h2",
+					"marginBottom": 3
+				},
+				{
+					"text": "Um sich vor Hochwasser zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen. In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben.",
+					"marginBottom": 11
+				},
+				{
+					"text": "<b>Hinweis & Disclaimer</b> <br> Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet. Das konkrete Risiko Ihres Gebäudes ist von einer Vielzahl baulicher Eigenschaften abhängig, die sich durch den Fragebogen nicht in vollem Umfang bewerten lassen. Bitte beachten Sie, dass die Einstufung des Risikos für Ihr Gebäude auf Basis Ihrer Angaben eine gewisse Unsicherheit birgt und die Auswertung hier lediglich einer Anregung zur Eigenvorsorge dient. <br> Die Berechnung basiert auf bestehenden Angeboten des LAWA-Starkregenportals, des Hochwasser Kompetenz Centrums HKC („Quick-Check“) und des Gesamtverbands der Deutschen Versicherungswirtschaft (GDV).",
+					"nextElementOnSameLine": true,
+					"lineHeight": "narrow",
+					"backgroundColor": "#F5F5F5",
+					"marginLeft": "halfPage",
+					"maxWidth": "halfPage"
+				},
+				{
+					"imageSRC": "/testing/riskBlock.png",
+					"width": "halfPage",
+					"caption": "<b>Abbildung:</b> Individuelles Gebäuderisiko",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/Red.png",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Keller als Gefährdung",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Rot, da Ihr Haus einen Keller hat und dieser Fenster besitzt. Im Falle eines Starkregens kann Wasser z.B. durch undichte Fenster in den Keller gelangen und zu Schäden führen.",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "/Orange.png",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Keller als Gefährdung",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Gelb, da Ihr Haus zwar einen Keller hat, dieser aber keine Fenster besitzt. Im Falle eines Starkregens kann Wasser daher nicht über Fenster in den Keller gelangen, was das Risiko für Schäden reduziert.",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "/Green.png",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Keller als Gefährdung",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Grün, weil Sie auch während eines Starkregenereignisses keine Schäden in Kellerräumen befürchten müssen.",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "/Red.png",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Kellernutzung",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Rot, weil Sie Ihre Kellerräume höherwertig nutzen. Das erhöht das Risiko für Schäden.",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "/Orange.png",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Kellernutzung",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				}
+			]
+		},
+		{
+			"title": "Einleitung",
+			"items": [
+				{
+					"text": "Report zum HochwasserCheck Berlin",
+					"fontSize": "h1",
+					"marginBottom": 11
+				},
+				{
+					"text": "Es wurde die folgende Adresse überprüft:",
+					"marginBottom": 3
+				},
+				{
+					"imageSRC": "/LocationDot.png",
+					"width": 5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "{address}",
+					"fontWeight": "bold",
+					"marginLeft": 8,
+					"marginBottom": 11
+				},
+				{
+					"text": "Einleitung",
+					"fontSize": "h2",
+					"marginBottom": 3
+				},
+				{
+					"text": "Dieser Bericht fasst die Ergebnisse des HochwasserCheck Berlin für die im Titel genannte Adresse zusammen. Der HochwasserCheck Berlin ist ein Online-Werkzeug, mit dem Personen mit berechtigtem Interesse die Hochwassergefährdung ihres Standorts schnell und nachvollziehbar einschätzen können. Grundlage dieser Bewertung sind verschiedene Fachkarten, die aufzeigen, wo in Berlin Wasser infolge von Starkregen (pluviale Hochwasser) oder Flusshochwasser (fluviale Hochwasser) hinfließt und welche Bereiche potenziell hiervon betroffen sind.",
+					"marginBottom": 3
+				},
+				{
+					"text": "Für die Gefährdungsabschätzung werden folgende Fachkarten herangezogen, welche Sie auch im Geoportal Berlin einsehen können:"
+				},
+				{
+					"text": "• Starkregenhinweis- und Starkregengefahrenkarten für unterschiedliche Niederschlagsereignisse"
+				},
+				{
+					"text": "• Hochwassergefahrenkarten für verschiedene Flusshochwasserszenarien"
+				},
+				{
+					"text": "• Überschwemmungsgebiete",
+					"marginBottom": 3
+				},
+				{
+					"text": "Dieser Bericht bündelt die relevanten Informationen aus diesen Karten für die geprüfte Adresse und ermöglicht eine erste Einschätzung, wie das jeweilige Objekt im Hochwasserfall betroffen sein könnte. Jede:r ist im Rahmen des Zumutbaren verpflichtet, geeignete Vorsorgemaßnahmen zu treffen, um Schäden durch Überflutungen und Überschwemmungen zu vermindern <a href=\"https://www.gesetze-im-internet.de/whg_2009/__5.html\">(Wasserhaushaltsgesetz, §5 (2))</a>. Daher enthält der Bericht Hinweise zu möglichen Anpassungsmaßnahmen. Hintergrundinformationen zu dem Thema Hochwasser und den Karten finden Sie im Hochwasserinfoportal.",
+					"marginBottom": 11
+				},
+				{
+					"text": "Bitte beachten Sie:",
+					"fontWeight": "bold",
+					"marginBottom": 3
+				},
+				{
+					"text": "Die Karten enthalten keine Angaben zur tatsächlichen Nutzung einzelner Grundstücke oder Gebäude. Sie erlauben daher keine präzise Aussage darüber, ob ein Hochwasserereignis im konkreten Fall Schäden verursachen wird oder welche Risiken für Menschen, Sachwerte oder die Umwelt bestehen. Ebenso sind lokale Schutzmaßnahmen nicht berücksichtigt. Alle Informationen wurden sorgfältig zusammengetragen, werden jedoch ohne Gewähr bereitgestellt. Eine Haftung für Folgen, die aus der Nutzung der Karten entstehen könnten, ist ausgeschlossen. Ein Abgleich der Informationen mit der Situation vor Ort ist daher immer zwingend erforderlich.",
+					"marginBottom": 3
+				},
+				{
+					"text": "In diesem Bericht verlinken wir, z.B. auf aktuell geltende Verordnungen, damit die Informationen immer aktuell sind. Dadurch kann auf alle Inhalte dieses Berichtes nur zugegriffen werden, wenn der Bericht in einer digitalen Form verwendet wird.",
+					"marginBottom": 3
+				}
+			]
+		},
+		{
+			"title": "Allgemeine Abschätzung der Gefährdung",
+			"items": [
+				{
+					"text": "Allgemeine Abschätzung der Gefährdung",
+					"fontSize": "h1",
+					"marginBottom": 11
+				},
+				{
+					"text": "Gefährdung durch Starkregen",
+					"fontSize": "h2",
+					"marginBottom": 3
+				},
+				{
+					"text": "Gefährdung durch Starkregen an Ihrem Standort: <b>{hazardLevelHeavyRain}</b>",
+					"marginBottom": 4
+				},
+				{
+					"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte unten ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden.",
+					"nextElementOnSameLine": true,
+					"marginLeft": "halfPage",
+					"maxWidth": "halfPage"
+				},
+				{
+					"imageSRC": "/testing/heavyRainWidget.png",
+					"width": "halfPage",
+					"marginBottom": 3
+				},
+				{
+					"imageSRC": "/testing/SR.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Gefährdung durch Starkregen",
+					"copyright": "© XXX"
+				}
+			]
+		},
+		{
+			"title": "Allgemeine Abschätzung der Gefährdung",
+			"items": [
+				{
+					"text": "Allgemeine Abschätzung der Gefährdung",
+					"fontSize": "h1",
+					"marginBottom": 11
+				},
+				{
+					"text": "Gefährdung durch Flusshochwasser",
+					"fontSize": "h2",
+					"marginBottom": 3
+				},
+				{
+					"text": "Gefährdung durch Flusshochwasser an Ihrem Standort: <b>{hazardLevelfloodRisk}</b>",
+					"marginBottom": 4
+				},
+				{
+					"text": "Es wurde die im Titel genannte Adresse geprüft. In der Karte unten ist das geprüfte Objekt rot umrandet. Die Bedeutung der Farben können der Farbskale oben entnommen werden. Keine Färbung bedeutet, dass dort keine Gefährdung durch Flusshochwasser vorliegt.",
+					"nextElementOnSameLine": true,
+					"marginLeft": "halfPage",
+					"maxWidth": "halfPage"
+				},
+				{
+					"imageSRC": "/testing/fluvialFloodWidget.png",
+					"width": "halfPage",
+					"marginBottom": 3
+				},
+				{
+					"imageSRC": "/testing/HW.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Gefährdung durch Flusshochwasser",
+					"copyright": "© XXX"
+				}
+			]
+		},
+		{
+			"title": "Starkregengefahrenkarte seltenes Ereignis",
+			"hide": "!{showRareHeavyRain}",
+			"items": [
+				{
+					"text": "Gefährdung durch Starkregen",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/rareHeavyRain.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Starkregengefahrenkarte \"seltenes Ereignis\"",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"seltenes Ereignis\" vor. Diese Starkregengefahrenkarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"seltenes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxRareHeavyRain}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Starkregengefahrenkarte außergewöhnliches Ereignis",
+			"hide": "!{hasSrgkUncommonHeavyRainMap}",
+			"items": [
+				{
+					"text": "Gefährdung durch Starkregen",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/extremeHeavyRain.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Starkregengefahrenkarte \"außergewöhnliches Ereignis\"",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"außergewöhnliches Ereignis\" vor. Diese Starkregengefahrenkarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxUncommonHeavyRain}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Starkregengefahrenkarte extremes Ereignis",
+			"hide": "!{hasSrgkExtremeHeavyRainMap}",
+			"items": [
+				{
+					"text": "Gefährdung durch Starkregen",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/extremeHeavyRain.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Starkregengefahrenkarte \"extremes Ereignis\"",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregengefahrenkarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxExtremeHeavyRain}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Starkregenhinweiskarte außergewöhnliches Ereignis",
+			"hide": "{hasSrgkUncommonHeavyRainMap}",
+			"items": [
+				{
+					"text": "Gefährdung durch Starkregen",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/extremeHeavyRain.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Starkregenhinweiskarte \"außergewöhnliches Ereignis\"",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für die geprüfte Adresse liegt eine Starkregenhinweiskarte \"außergewöhnliches Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregenhinweiskarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxUncommonHeavyRain}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Starkregenhinweiskarte extremes Ereignis",
+			"hide": "{hasSrgkExtremeHeavyRainMap}",
+			"items": [
+				{
+					"text": "Gefährdung durch Starkregen",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/extremeHeavyRain.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Starkregenhinweiskarte \"extremes Ereignis\"",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für die geprüfte Adresse liegt eine Starkregenhinweiskarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregenhinweiskarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxExtremeHeavyRain}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Gefährdung durch Flusshochwasser",
+			"items": [
+				{
+					"text": "Gefährdung durch Flusshochwasser",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"text": "Außergewöhnlich starke oder langanhaltende Regenfälle sowie Schneeschmelze können dazu führen, dass Flüsse über die Ufer treten und umliegende Gebiete überfluten (fluviale Hochwasser). Auch in Berlin ist dies bereits vorgekommen - etwa am 30.07.2011 an der Erpe in Köpenick oder in der Nacht vom 21. auf den 22.08.2012 an der Panke. Für Bereiche mit potenziell signifikantem Hochwasserrisiko - wie Tegeler Fließ, Panke, Erpe, Wuhle, Untere Havel/Untere Spree sowie die Müggelspree mit den Gosener Gewässern und dem Seddinsee - stehen Hochwassergefahrenkarten (HWGK) zur Verfügung. Diese Karten zeigen, wie sich ein Flusshochwasser in drei Szenarien (häufig, mittel, extrem) ausbreiten kann und welche Wassertiefen dabei auftreten können. Die HWGK bilden ausschließlich Überschwemmungen ab, die direkt durch Hochwasser eines Gewässers verursacht werden. Andere Überflutungsursachen - etwa überlastete Abwasseranlagen, ansteigendes Grundwasser, technische Defekte oder Starkregen - sind darin nicht enthalten. Zusätzlich wurden für bestimmte Bereiche Überschwemmungsgebiete festgesetzt. In diesen Gebieten gelten besondere Schutzvorschriften und Einschränkungen, um zu verhindern, dass sich das Schadenspotenzial erhöht, Retentionsräume verloren gehen oder der Wasserabfluss behindert wird. Die jeweils gültigen Regelungen sind in den entsprechenden Verordnungen festgelegt. Für die im Titel genannte Adresse wurde geprüft, welche Wasserstände im Hochwasserfall in den drei Szenarien (häufig, mittel, extrem) zu erwarten sind und ob das Objekt innerhalb eines festgesetzten Überschwemmungsgebiet.",
+					"lineHeight": "narrow",
+					"marginBottom": 11
+				},
+				{
+					"text": "Gefährdung durch \"Häufiges\" Ereignis",
+					"fontSize": "h3",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 3
+				},
+				{
+					"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt <b>keine Wasserstände</b> für das untersuchte Szenario zu erwarten sind.",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 11
+				},
+				{
+					"text": "Gefährdung durch \"Mittleres\" Ereignis",
+					"fontSize": "h3",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 3
+				},
+				{
+					"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt <b>keine Wasserstände</b> für das untersuchte Szenario zu erwarten sind.",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 11
+				},
+				{
+					"text": "Gefährdung durch \"Seltenes\" Ereignis",
+					"fontSize": "h3",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 3
+				},
+				{
+					"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Seltenes Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt <b>keine Wasserstände</b> für das untersuchte Szenario zu erwarten sind.",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 11
+				},
+				{
+					"text": "Gefährdung durch Überschwemmungsgebiet",
+					"fontSize": "h3",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 3
+				},
+				{
+					"text": "Für die abgefragte Adresse wurden die Karten der festgesetzten Überschwemmungsgebiete geprüft. Das geprüfte <b>Objekt befindet sich nicht in einem Überschwemmungsgebiet.</b>",
+					"hide": "{hasFloodHazardData}",
+					"marginBottom": 11
+				}
+			]
+		},
+		{
+			"title": "Gefährdung durch Häufiges Ereignis - Flusshochwasser",
+			"hide": "!{hasFloodHazardData}",
+			"items": [
+				{
+					"text": "Gefährdung durch \"Häufiges\" Ereignis",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/frequentFlood.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Häufiges Ereignis",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Die Abbildung zeigt einen Ausschnitt der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\". Ein \"Häufiges Flusshochwasser\" tritt statistisch gesehen alle 5-20 Jahre auf.",
+					"marginBottom": "paragraph"
+				},
+				{
+					"text": "Die Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxFrequentFlood}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Gefährdung durch Mittleres Ereignis - Flusshochwasser",
+			"hide": "!{hasFloodHazardData}",
+			"items": [
+				{
+					"text": "Gefährdung durch \"Mittleres\" Ereignis",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/averageFlood.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Mittleres Ereignis",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Die Abbildung zeigt einen Ausschnitt der Hochwassergefahrenkarte \"Mittleres Flusshochwasser\". Ein \"Mittleres Flusshochwasser\" tritt statistisch gesehen alle 100 Jahre auf. Das bedeutet, das jedes Jahr eine Wahrscheinlichkeit von 1 zu 100 besteht, dass ein solches Ereignis eintreten kann.",
+					"marginBottom": "paragraph"
+				},
+				{
+					"text": "Die Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxAverageFlood}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Gefährdung durch Seltenes Ereignis - Flusshochwasser",
+			"hide": "!{hasFloodHazardData}",
+			"items": [
+				{
+					"text": "Gefährdung durch \"Seltenes\" Ereignis",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/rareFlood.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Seltenes Ereignis",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Die Abbildung zeigt einen Ausschnitt der Hochwassergefahrenkarte \"Seltenes Ereignis\". Ein \"Seltenes Ereignis\" tritt statistisch gesehen alle 200 Jahre auf. Das bedeutet, das jedes Jahr eine Wahrscheinlichkeit von 1 zu 200 besteht, dass ein solches Ereignis eintreten kann.",
+					"marginBottom": "paragraph"
+				},
+				{
+					"text": "Die Hochwassergefahrenkarte \"Seltenes Ereignis\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxRareFlood}</b> auftreten können."
+				}
+			]
+		},
+		{
+			"title": "Gefährdung durch Überschwemmungsgebiet - Flusshochwasser",
+			"hide": "!{hasFloodHazardData}",
+			"items": [
+				{
+					"text": "Gefährdung Überschwemmungsgebiet",
+					"fontSize": "h2",
+					"marginBottom": 11
+				},
+				{
+					"imageSRC": "/testing/ueberschwemmungsGebiet.png",
+					"width": "fullPage",
+					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Überschwemmungsgebiet",
+					"copyright": "© XXX",
+					"marginBottom": 11
+				},
+				{
+					"text": "Für die abgefragte Adresse wurden die Karten der festgesetzten Überschwemmungsgebiete ausgewertet, siehe Abbildung. Das Objekt befindet sich in einem Überschwemmungsgebiet oder höchstens 2 m davon entfernt.",
+					"marginBottom": "paragraph"
+				},
+				{
+					"text": "Grundsätzlich gelten dort die Verordnung <a href=\"https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2018/ausgabe-nr-28-vom-27-11-2018-s-657-672.pdf\">Gesetz- und Verordnungsblatt</a> sowie die Schutzvorschriften des Wasserhaushaltsgesetzes für festgesetzte Überschwemmungsgebiete (§ 78 ff. WHG). Diese Vorschriften greifen jedoch nur, wenn sich das Objekt beziehungsweise die geplante Maßnahme tatsächlich innerhalb des festgesetzten Überschwemmungsgebiets befindet."
+				}
+			]
+		},
+		{
+			"title": "Handlungsempfehlungen",
+			"hide": "!{skip}",
+			"items": [
+				{
+					"text": "Handlungsempfehlungen",
+					"fontSize": "h1",
+					"marginBottom": 11
+				},
+				{
+					"text": "Allgemeiner Bericht",
+					"fontSize": "h2",
+					"marginBottom": 3
+				},
+				{
+					"text": "Um sich vor den Gefahren durch Starkregen zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen.",
+					"marginBottom": "paragraph"
+				},
+				{
+					"text": "Wenn sie an Maßnahmen interessiert sind, die auf Ihren individuellen Fall angepasst sind, können Sie im HochwasserCheck Berlin den Fragebogen ausfüllen und sich einen auf Ihre Hochwassersituation zugeschnittenen Bericht erstellen lassen."
+				}
+			]
+		}
+	]
+}

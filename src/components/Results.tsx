@@ -15,17 +15,17 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
-import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./DownloadPDF/ReportPDF";
+import ReportPDF from "./Report/components/ReportPDF";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
 import ScenarioMap from "./ScenarioMap/Map";
 import { ScenarioList } from "@/types/map";
+import ResultBlock from "./ResultBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
