@@ -2,7 +2,7 @@
 
 import { sanitizeAddressInput } from "@/lib/helpers/sanitizer";
 import { CurrentUserAddress } from "@/lib/types";
-import { looksLikeAGermanStreet } from "@/lib/utils/mapUtils";
+// import { looksLikeAGermanStreet } from "@/lib/utils/mapUtils";
 
 interface PhotonProperties {
 	osm_type?: string;
@@ -65,19 +65,47 @@ export async function searchAddresses(
 		const sanitizedQuery = sanitizeAddressInput(query);
 		if (sanitizedQuery.trim().length < 2) {
 			throw new Error("");
-		} else if (!looksLikeAGermanStreet(sanitizedQuery)) {
+		} /* else if (!looksLikeAGermanStreet(sanitizedQuery)) {
 			throw new Error("invalidAddress");
-		}
+		} */
 
 		params = new URLSearchParams({
 			q: sanitizedQuery,
 		});
+
+		let parsedBbox: number[] | null = null;
+
+		if (bboxString) {
+			const bboxArray = bboxString.split(",").map(Number);
+			if (
+				bboxArray.length === 4 &&
+				bboxArray.every((val) => !isNaN(val) && isFinite(val))
+			) {
+				parsedBbox = bboxArray;
+			} else {
+				/* console.warn(
+					Invalid MAP_BOUNDING_BOX format: "${bboxString}". Expected 4 comma-separated numbers.,
+				); */
+			}
+		}
+
+		if (parsedBbox) {
+			const [minLon, minLat, maxLon, maxLat] = parsedBbox;
+			const centerLon = ((minLon + maxLon) / 2).toString();
+			const centerLat = ((minLat + maxLat) / 2).toString();
+			params.append("lat", centerLat);
+			params.append("lon", centerLon);
+		} /* else {
+				params.append("lat", DEFAULT_LAT);
+				params.append("lon", DEFAULT_LON);
+			} */
 		params.append("layer", "house");
 		params.append("layer", "street");
 		params.append("layer", "locality");
 		params.append("bbox", bboxString);
 		params.append("limit", "40");
 		params.append("lang", "de");
+		params.append("location_bias_scale", "0.0");
 	}
 
 	const url = isReverseSearch
