@@ -16,9 +16,7 @@ export async function searchAddresses(
 	const apiKey = process.env.MAPTILER_API_KEY;
 	if (!apiKey) throw new Error("missingMapTilerKey");
 
-	const isReverse = lat != null && lon != null;
-
-	if (!isReverse && (!query || query.trim().length < 3)) return [];
+	const isReverse = !!lat && !!lon;
 
 	const params = new URLSearchParams({
 		key: apiKey,
@@ -30,7 +28,7 @@ export async function searchAddresses(
 		params.append("bbox", berlinBbox.join(","));
 		params.append("fuzzyMatch", "false");
 		params.append("autocomplete", "false");
-		params.append("limit", "20");
+		params.append("limit", "10");
 	} else {
 		params.set("limit", "1");
 		params.set("types", "address");
@@ -47,7 +45,7 @@ export async function searchAddresses(
 
 	const data = await res.json();
 
-	return (data.features ?? [])
+	const filteredResults: CurrentUserAddress[] = data.features
 		.filter(
 			(f: any) =>
 				(f.relevance ?? 0) >= 0.7 ||
@@ -65,4 +63,10 @@ export async function searchAddresses(
 			hasHousenumber:
 				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),
 		}));
+
+	if (filteredResults.length === 0) {
+		throw new Error("noResult");
+	}
+
+	return filteredResults;
 }
