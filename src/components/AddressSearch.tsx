@@ -78,6 +78,8 @@ export default function AddressSearch() {
 		try {
 			const data = await searchAddresses(search);
 
+			// console.log("data :>> ", data);
+
 			if (data.length === 0) {
 				setError(
 					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
