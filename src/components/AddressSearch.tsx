@@ -161,6 +161,12 @@ export default function AddressSearch() {
 												result.name ||
 												result.place_name ||
 												result.place_name_de;
+											if (
+												results.some((res) => res.hasHousenumber) &&
+												!result.hasHousenumber
+											) {
+												return null;
+											}
 											return (
 												<li key={index}>
 													{result.hasHousenumber ? (
