@@ -30,8 +30,7 @@ export default function AddressSearch() {
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [results, setResults] = useState<any[]>([]);
+	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const methods = useForm({
@@ -77,16 +76,24 @@ export default function AddressSearch() {
 
 		try {
 			const data = await searchAddresses(search);
-
-			if (data.length === 0) {
-				setError(t("addressCheck.errorNoAddressFound"));
-				setResults([]);
-				return;
-			}
-
+			// console.log("data :>> ", data);
 			setResults(data);
 		} catch (e) {
-			throw new Error(`Error fetching data: ${e}`);
+			const code = e instanceof Error ? e.message : String(e);
+
+			let errorMSG = t("addressCheck.defaultError");
+			switch (code) {
+				case "noResult":
+					errorMSG = t("addressCheck.errorNoAddressFound");
+					break;
+				case "noHouseNumber":
+					errorMSG = t("addressCheck.pleaseAddHouseNumber");
+					break;
+				default:
+					break;
+			}
+			setError(errorMSG);
+			setResults([]);
 		} finally {
 			isFetching.current = false;
 			setShowLoading(false);
@@ -151,12 +158,6 @@ export default function AddressSearch() {
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
-											if (
-												results.some((res) => res.hasHousenumber) &&
-												!result.hasHousenumber
-											) {
-												return null;
-											}
 											return (
 												<li key={index}>
 													{result.hasHousenumber ? (

@@ -26,7 +26,8 @@
 			"probablyNoAddress": "Die eingegebene Adresse scheint keinen Treffer zu ergeben. Bitte überprüfen Sie die Eingabe.",
 			"errorNoResultSelected": "Bitte wählen Sie eine Adresse aus.",
 			"errorNoAddress": "Bitte geben Sie eine Adresse ein.",
-			"errorNoAddressFound": "Keine Ergebnisse gefunden. Bitte geben Sie eine Berliner Adresse inklusive Hausnummer ein, um den WasserCheck Berlin zu starten."
+			"errorNoAddressFound": "Keine Ergebnisse gefunden. Bitte geben Sie eine Berliner Adresse inklusive Hausnummer ein, um den WasserCheck Berlin zu starten.",
+			"defaultError": "Beim Abrufen der Adressdaten ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
