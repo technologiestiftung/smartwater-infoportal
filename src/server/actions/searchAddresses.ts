@@ -83,9 +83,9 @@ export async function searchAddresses(
 			) {
 				parsedBbox = bboxArray;
 			} else {
-				/* console.warn(
-					Invalid MAP_BOUNDING_BOX format: "${bboxString}". Expected 4 comma-separated numbers.,
-				); */
+				console.warn(
+					`Invalid MAP_BOUNDING_BOX format: "${bboxString}". Expected 4 comma-separated numbers.`,
+				);
 			}
 		}
 
@@ -105,19 +105,19 @@ export async function searchAddresses(
 		params.append("bbox", bboxString);
 		params.append("limit", "40");
 		params.append("lang", "de");
-		params.append("location_bias_scale", "0.0");
+		params.append("location_bias_scale", "1.0");
 	}
 
 	const url = isReverseSearch
 		? `${baseURL}/reverse?${params.toString()}`
 		: `${baseURL}/api?${params.toString()}`;
 
-	const controller = new AbortController();
-	const timeoutId = setTimeout(() => controller.abort(), 5000);
+	// const controller = new AbortController();
+	// const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-	let response: Response;
+	const response: Response = await fetch(url);
+	/* response = 
 	try {
-		response = await fetch(url, { signal: controller.signal });
 		clearTimeout(timeoutId);
 		if (!response.ok) {
 			console.warn(`Address search failed with status: ${response.status}`);
@@ -131,7 +131,7 @@ export async function searchAddresses(
 			console.warn("Address search fetch error:", fetchError);
 		}
 		throw new Error("");
-	}
+	} */
 
 	const data: PhotonResponse = await response.json();
 
