@@ -157,12 +157,10 @@ export default function AddressSearch() {
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
-											if (
-												results.some((res) => res.hasHousenumber) &&
-												!result.hasHousenumber
-											) {
-												return null;
-											}
+											const getName =
+												result.name ||
+												result.place_name ||
+												result.place_name_de;
 											return (
 												<li key={index}>
 													{result.hasHousenumber ? (
@@ -175,11 +173,11 @@ export default function AddressSearch() {
 															}}
 															variant="link"
 														>
-															{result.name}
+															{getName}
 														</Button>
 													) : (
 														<div className="flex min-h-[43px] items-center">
-															<p>{result.name}</p>
+															<p>{getName}</p>
 														</div>
 													)}
 												</li>
