@@ -67,20 +67,24 @@ export default function AddressSearch() {
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isFetching = useRef(false);
 
-	const fetchData = async (search: string) => {
+	const fetchData = async (
+		search: string,
+		lat: number | undefined,
+		lon: number | undefined,
+	) => {
 		if (isFetching.current) {
 			return;
 		}
 		isFetching.current = true;
 		setShowLoading(true);
+		setError("");
 
 		try {
-			const data = await searchAddresses(search);
+			const data = await searchAddresses(search, lat, lon);
 			// console.log("data :>> ", data);
 			setResults(data);
 		} catch (e) {
 			const code = e instanceof Error ? e.message : String(e);
-
 			let errorMSG = t("addressCheck.defaultError");
 			switch (code) {
 				case "noResult":
@@ -88,6 +92,9 @@ export default function AddressSearch() {
 					break;
 				case "noHouseNumber":
 					errorMSG = t("addressCheck.pleaseAddHouseNumber");
+					break;
+				case "invalidAddress":
+					errorMSG = t("addressCheck.invalidAddress");
 					break;
 				default:
 					break;
@@ -121,17 +128,9 @@ export default function AddressSearch() {
 			}
 
 			debounceTimeout.current = setTimeout(() => {
-				fetchData(value);
+				fetchData(value, undefined, undefined);
 			}, 1000);
 		}
-	};
-
-	const resultsLoaded = (resultsFromLocationButton: CurrentUserAddress[]) => {
-		if (!resultsFromLocationButton.length) {
-			setError(t("addressCheck.errorNoAddressFound"));
-			return;
-		}
-		setResults(resultsFromLocationButton);
 	};
 
 	useEffect(() => {
@@ -151,7 +150,9 @@ export default function AddressSearch() {
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
-						<LocationButton resultsLoaded={resultsLoaded} />
+						<LocationButton
+							coordinatesChanged={(lat, lon) => fetchData("", lat, lon)}
+						/>
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
 								<strong>{t("addressCheck.result")}</strong>

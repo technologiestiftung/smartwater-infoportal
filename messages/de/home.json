@@ -27,6 +27,7 @@
 			"errorNoResultSelected": "Bitte wählen Sie eine Adresse aus.",
 			"errorNoAddress": "Bitte geben Sie eine Adresse ein.",
 			"errorNoAddressFound": "Keine Ergebnisse gefunden. Bitte geben Sie eine Berliner Adresse inklusive Hausnummer ein, um den WasserCheck Berlin zu starten.",
+			"invalidAddress": "Die eingegebene Adresse scheint ungültig zu sein. Bitte überprüfen Sie die Eingabe.",
 			"defaultError": "Beim Abrufen der Adressdaten ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
 		},
 		"howToProtect": {

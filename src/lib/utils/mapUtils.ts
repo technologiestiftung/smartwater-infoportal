@@ -40,29 +40,24 @@ export const checkNumber = (str: string): boolean => {
 	return !isNaN(Number(str)) && str.trim() !== "";
 };
 
-export const containsNumber = (str: string): boolean => {
-	if (!str) {
+const STREET_HINT =
+	/\b(strasse|straße|str\.|weg|allee|platz|ring|damm|gasse|ufer|chaussee|promenade|boulevard|zeile|hof|steig|pfad)\b/i;
+
+export function looksLikeAGermanStreet(input: string): boolean {
+	const q = input.trim();
+
+	// must contain a housenumber
+	if (!/\b\d+[a-zA-Z]?\b/.test(q)) {
 		return false;
 	}
-	return /\d/.test(str);
-};
-
-export function looksLikeStreetWithHouseNumber(input: string): boolean {
-	const normalized = input.trim();
 
 	// must contain letters
-	if (!/[a-zA-ZäöüÄÖÜß]/.test(normalized)) {
+	if (!/[a-zA-ZäöüÄÖÜß]/.test(q)) {
 		return false;
 	}
 
-	// must contain a house number
-	if (!/\b\d+[a-zA-Z]?\b/.test(normalized)) {
-		return false;
-	}
-
-	// must contain at least one word longer than 2 chars
-	const words = normalized.split(/\s+/);
-	if (!words.some((w) => w.length >= 3 && /[a-zA-ZäöüÄÖÜß]/.test(w))) {
+	// must contain at least one street hint
+	if (!STREET_HINT.test(q)) {
 		return false;
 	}
 

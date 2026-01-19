@@ -2,10 +2,7 @@
 
 import { sanitizeAddressInput } from "@/lib/helpers/sanitizer";
 import { CurrentUserAddress } from "@/lib/types";
-import {
-	containsNumber,
-	looksLikeStreetWithHouseNumber,
-} from "@/lib/utils/mapUtils";
+import { looksLikeAGermanStreet } from "@/lib/utils/mapUtils";
 
 interface PhotonProperties {
 	osm_type?: string;
@@ -53,52 +50,39 @@ export async function searchAddresses(
 	const filterCountry = "DE";
 	const filterCity = "Berlin";
 
-	let url;
 	let params: URLSearchParams;
-	let queryStreet: string | undefined;
 	if (isReverseSearch) {
-		if (latArg === undefined || lonArg === undefined) {
+		if (!latArg || !lonArg) {
 			throw new Error("");
 		}
 		params = new URLSearchParams({
 			lat: String(latArg),
 			lon: String(lonArg),
+			limit: "5",
+			lang: "de",
 		});
 	} else {
 		const sanitizedQuery = sanitizeAddressInput(query);
 		if (sanitizedQuery.trim().length < 2) {
 			throw new Error("");
-		} else if (
-			looksLikeStreetWithHouseNumber(sanitizedQuery) &&
-			!containsNumber(sanitizedQuery)
-		) {
-			throw new Error("noHouseNumber");
+		} else if (!looksLikeAGermanStreet(sanitizedQuery)) {
+			throw new Error("invalidAddress");
 		}
-		queryStreet = sanitizedQuery
-			.replace(/\b\d+[a-zA-Z]?\b/g, "")
-			.trim()
-			.toLowerCase();
+
 		params = new URLSearchParams({
 			q: sanitizedQuery,
 		});
+		params.append("layer", "house");
+		params.append("layer", "street");
+		params.append("layer", "locality");
+		params.append("bbox", bboxString);
+		params.append("limit", "40");
+		params.append("lang", "de");
 	}
 
-	params.append("bbox", bboxString);
-	params.append("limit", "40");
-	params.append("lang", "de");
-	params.append("layer", "house");
-	params.append("layer", "street");
-	params.append("layer", "locality");
-
-	if (isReverseSearch) {
-		url = `${baseURL}/reverse?${params.toString()}`;
-	} else {
-		url = `${baseURL}/api?${params.toString()}`;
-	}
-
-	if (!url) {
-		throw new Error("");
-	}
+	const url = isReverseSearch
+		? `${baseURL}/reverse?${params.toString()}`
+		: `${baseURL}/api?${params.toString()}`;
 
 	const controller = new AbortController();
 	const timeoutId = setTimeout(() => controller.abort(), 5000);
@@ -123,6 +107,11 @@ export async function searchAddresses(
 
 	const data: PhotonResponse = await response.json();
 
+	/* data.features.forEach((feature) => {
+		const props = feature.properties;
+		console.log("props :>> ", props);
+	}); */
+
 	const filteredFeatures = data.features.filter((feature) => {
 		const props = feature.properties;
 		if (
@@ -134,7 +123,6 @@ export async function searchAddresses(
 
 		if (filterCity) {
 			const isInCity = props.city === filterCity;
-
 			if (!isInCity) {
 				return false;
 			}
@@ -142,13 +130,6 @@ export async function searchAddresses(
 		const excludeTypes = ["city", "country", "state"];
 		if (excludeTypes.includes(props.osm_value || "")) {
 			return false;
-		}
-
-		if (queryStreet && props.street) {
-			const propStreet = props.street.toLowerCase();
-			if (!propStreet.includes(queryStreet)) {
-				return false;
-			}
 		}
 
 		return true;
@@ -159,18 +140,11 @@ export async function searchAddresses(
 
 		let displayName = props.name || "";
 		if (props.street) {
-			if (displayName === "") {
-				displayName = props.street;
-			} else {
-				displayName += `, ${props.street}`;
-			}
+			displayName = props.street;
 			if (props.housenumber) {
 				displayName += ` ${props.housenumber}`;
 			}
 		}
-		/* if (props.locality) {
-			displayName += displayName ? `, ${props.locality}` : props.locality;
-		} */
 		if (props.postcode) {
 			displayName += displayName ? `, ${props.postcode}` : props.postcode;
 		}
@@ -187,19 +161,28 @@ export async function searchAddresses(
 			name: displayName,
 			type: props.osm_value,
 			hasHousenumber: !!props.housenumber,
+			housenumber: props.housenumber ? Number(props.housenumber) : 0,
 		};
 	});
 
 	const seen = new Set();
-	const uniqueFeatures = filteredFeaturesWithDisplayName.filter(
-		(item: CurrentUserAddress) => {
+	const uniqueFeatures = filteredFeaturesWithDisplayName
+		.filter((item: CurrentUserAddress) => {
 			if (seen.has(item.name)) {
 				return false;
 			}
 			seen.add(item.name);
 			return true;
-		},
-	);
+		})
+		.sort((a, b) => {
+			if (a.housenumber === 0 && b.housenumber !== 0) {
+				return 1;
+			}
+			if (b.housenumber === 0 && a.housenumber !== 0) {
+				return -1;
+			}
+			return 0;
+		});
 	if (uniqueFeatures.length === 0) {
 		throw new Error("noResult");
 	}
