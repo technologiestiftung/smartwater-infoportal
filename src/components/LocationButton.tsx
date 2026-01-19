@@ -1,21 +1,36 @@
 "use client";
 
-import { searchAddresses } from "@/server/actions/searchAddresses";
 import { Button } from "berlin-ui-library";
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 
 interface LocationButtonProps {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	resultsLoaded?: (results: any[]) => void;
+	coordinatesChanged?: (lat: number, lon: number) => void;
 }
-const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
+const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 	const [status, setStatus] = useState<
-		"idle" | "loading" | "granted" | "denied"
+		"idle" | "loading" | "granted" | "denied" | "outside-bbox"
 	>("idle");
 	const [lat, setLat] = useState<number | null>(null);
 	const [long, setLong] = useState<number | null>(null);
-	const isDev = process.env.NODE_ENV === "development";
+	const isDev = false; //process.env.NODE_ENV === "development";
+
+	const bbox: [number, number, number, number] = [
+		13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
+	];
+
+	function isPointInBBox(lonArg: number, latArg: number): boolean {
+		const [minLon, minLat, maxLon, maxLat] = bbox;
+
+		return (
+			typeof lonArg === "number" &&
+			typeof latArg === "number" &&
+			lonArg >= minLon &&
+			lonArg <= maxLon &&
+			latArg >= minLat &&
+			latArg <= maxLat
+		);
+	}
 
 	async function requestLocation() {
 		setStatus("loading");
@@ -59,14 +74,15 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 	}
 
 	useEffect(() => {
-		const reverseSearch = async () => {
-			const results = await searchAddresses("", lat as number, long as number);
-			if (resultsLoaded) {
-				resultsLoaded(results ? results : []);
-			}
-		};
 		if (lat !== null && long !== null) {
-			reverseSearch();
+			const inside = isPointInBBox(long as number, lat as number);
+			if (!inside) {
+				setStatus("outside-bbox");
+				return;
+			}
+			if (coordinatesChanged) {
+				coordinatesChanged(lat as number, long as number);
+			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lat, long]);
@@ -95,6 +111,12 @@ const LocationButton: FC<LocationButtonProps> = ({ resultsLoaded }) => {
 				{status === "denied" && (
 					<p className="text-red-600">
 						Standort abgelehnt. Bitte Browser-Einstellungen prüfen.
+					</p>
+				)}
+				{status === "outside-bbox" && (
+					<p className="text-red-600">
+						Ihre Adresse liegt außerhalb von Berlin. Bitte geben Sie eine
+						Berliner Adresse ein, um den WasserCheck Berlin zu starten.
 					</p>
 				)}
 				{isDev && (

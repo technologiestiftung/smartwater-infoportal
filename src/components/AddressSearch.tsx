@@ -30,8 +30,7 @@ export default function AddressSearch() {
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [results, setResults] = useState<any[]>([]);
+	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const methods = useForm({
@@ -54,12 +53,12 @@ export default function AddressSearch() {
 			const addresse = getValues("addresse");
 			if (addresse) {
 				if (!currentUserAddress) {
-					setError("Bitte wählen Sie eine Adresse aus.");
+					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
 					router.push("/hochwasser-check");
 				}
 			} else {
-				setError("Bitte geben Sie eine Adresse ein.");
+				setError(t("addressCheck.errorNoAddress"));
 			}
 			return;
 		});
@@ -68,29 +67,40 @@ export default function AddressSearch() {
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isFetching = useRef(false);
 
-	const fetchData = async (search: string) => {
+	const fetchData = async (
+		search: string,
+		lat: number | undefined,
+		lon: number | undefined,
+	) => {
 		if (isFetching.current) {
 			return;
 		}
 		isFetching.current = true;
 		setShowLoading(true);
+		setError("");
 
 		try {
-			const data = await searchAddresses(search);
-
+			const data = await searchAddresses(search, lat, lon);
 			// console.log("data :>> ", data);
-
-			if (data.length === 0) {
-				setError(
-					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
-				);
-				setResults([]);
-				return;
-			}
-
 			setResults(data);
 		} catch (e) {
-			throw new Error(`Error fetching data: ${e}`);
+			const code = e instanceof Error ? e.message : String(e);
+			let errorMSG = t("addressCheck.defaultError");
+			switch (code) {
+				case "noResult":
+					errorMSG = t("addressCheck.errorNoAddressFound");
+					break;
+				case "noHouseNumber":
+					errorMSG = t("addressCheck.pleaseAddHouseNumber");
+					break;
+				case "invalidAddress":
+					errorMSG = t("addressCheck.invalidAddress");
+					break;
+				default:
+					break;
+			}
+			setError(errorMSG);
+			setResults([]);
 		} finally {
 			isFetching.current = false;
 			setShowLoading(false);
@@ -118,19 +128,9 @@ export default function AddressSearch() {
 			}
 
 			debounceTimeout.current = setTimeout(() => {
-				fetchData(value);
+				fetchData(value, undefined, undefined);
 			}, 1000);
 		}
-	};
-
-	const resultsLoaded = (resultsFromLocationButton: CurrentUserAddress[]) => {
-		if (!resultsFromLocationButton.length) {
-			setError(
-				"Keine Adresse gefunden. Bitte suchen Sie manuell nach Ihrer Adresse.",
-			);
-			return;
-		}
-		setResults(resultsFromLocationButton);
 	};
 
 	useEffect(() => {
@@ -150,17 +150,15 @@ export default function AddressSearch() {
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
-						<LocationButton resultsLoaded={resultsLoaded} />
+						<LocationButton
+							coordinatesChanged={(lat, lon) => fetchData("", lat, lon)}
+						/>
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
 								<strong>{t("addressCheck.result")}</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
-											const getName =
-												result.name ||
-												result.place_name ||
-												result.place_name_de;
 											if (
 												results.some((res) => res.hasHousenumber) &&
 												!result.hasHousenumber
@@ -179,11 +177,11 @@ export default function AddressSearch() {
 															}}
 															variant="link"
 														>
-															{getName}
+															{result.name}
 														</Button>
 													) : (
 														<div className="flex min-h-[43px] items-center">
-															<p>{getName}</p>
+															<p>{result.name}</p>
 														</div>
 													)}
 												</li>
