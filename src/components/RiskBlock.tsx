@@ -80,13 +80,21 @@ const RiskBlock = () => {
 		return "border-risk";
 	};
 
-	const defaultRiskFactors: RiskFactor[] = floodRiskConfig.riskFactors.map(
-		(factor) => ({
+	const defaultRiskFactors: RiskFactor[] = floodRiskConfig.riskFactors
+		.map((factor) => ({
 			id: factor.id,
 			riskLevel: calculateRiskLevel(factor.questionId),
 			translationKey: factor.translationKey,
-		}),
-	);
+		}))
+		.filter((factor) => {
+			const isThereABasement = !floodRiskAnswers["q1"]?.value
+				.toString()
+				.startsWith("no");
+			if (factor.id === "basementUsage" && !isThereABasement) {
+				return false;
+			}
+			return true;
+		});
 
 	return (
 		<div

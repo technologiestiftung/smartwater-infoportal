@@ -10,15 +10,14 @@
 					"riskIndicator": "{factor}: {riskLevel}"
 				},
 				"factors": {
+					"basement": "Keller als Gefährdung",
+					"basementUsage": "Kellernutzung",
 					"backflowProtection": "Rückstausicherung",
-					"basement": "Keller",
-					"basementUsage": "Untergeschoss",
-					"pastDamages": "Bekannte Schäden",
-					"protectionMeasures": "Ergriffene Schutzmaßnahmen",
-					"rainwaterDrains": "Regenwasser",
+					"propertyDrainage": "Grundstücksentwässerung",
+					"pastDamages": "Vergangene Schadensereignisse",
 					"floodplain": "Überschwemmungsgebiet",
-					"riverFloodHazardLevel": "Flusshochwasser-Gefährdungsgrad",
-					"heavyRainHazardLevel": "Starkregen-Gefährdungsgrad"
+					"riverFloodHazardLevel": "Flusshochwasser",
+					"heavyRainHazardLevel": "Starkregen"
 				},
 				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
 				"levelInsufficientData": "Das Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",

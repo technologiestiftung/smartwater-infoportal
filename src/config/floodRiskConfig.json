@@ -37,7 +37,12 @@
 			"options": [
 				{ "value": "yesWithWindow", "score": -2, "addToCounter": 1 },
 				{ "value": "yesWithoutWindow", "score": -1, "addToCounter": 1 },
-				{ "value": "no", "score": 2, "addToCounter": 1 },
+				{
+					"value": "no",
+					"score": 2,
+					"addToCounter": 1,
+					"skipNextQuestion": true
+				},
 				{
 					"value": "noInformation",
 					"score": 0,
@@ -141,19 +146,19 @@
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basementUsage"
 		},
 		{
-			"id": "pastDamages",
-			"questionId": "q3",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
-		},
-		{
 			"id": "backflowProtection",
-			"questionId": "q4",
+			"questionId": "q3",
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.backflowProtection"
 		},
 		{
-			"id": "protectionMeasures",
+			"id": "propertyDrainage",
+			"questionId": "q4",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.propertyDrainage"
+		},
+		{
+			"id": "pastDamages",
 			"questionId": "q5",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.protectionMeasures"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
 		},
 		{
 			"id": "floodplain",
