@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 interface RiskFactor {
 	id: string;
-	riskLevel: RiskLevel | "unknown";
+	riskLevel: RiskLevel;
 	translationKey: string;
 }
 
@@ -24,10 +24,7 @@ const RiskBlock = () => {
 	const arrowPosition = ((value - min) / (max - min)) * 100;
 
 	// Get aria label for risk level using i18n
-	const getRiskAriaLabel = (
-		riskLevel: RiskLevel | "unknown",
-		factorName: string,
-	) => {
+	const getRiskAriaLabel = (riskLevel: RiskLevel, factorName: string) => {
 		const riskLevelText = t(
 			`buildingRiskAssessment.buildingRisk.riskLevels.${riskLevel}`,
 		);
@@ -37,7 +34,7 @@ const RiskBlock = () => {
 		});
 	};
 	// Get risk class for styling
-	const getRiskClass = (riskLevel: RiskLevel | "unknown") => {
+	const getRiskClass = (riskLevel: RiskLevel) => {
 		switch (riskLevel) {
 			case "low":
 				return "bg-risk-low";
@@ -50,22 +47,26 @@ const RiskBlock = () => {
 		}
 	};
 	// Simple risk level calculation based on individual answer scores
-	const calculateRiskLevel = (questionId: string): RiskLevel | "unknown" => {
+	const calculateRiskLevel = (questionId: string): RiskLevel => {
 		if (!floodRiskAnswers || !floodRiskAnswers[questionId]) {
 			return "unknown";
 		}
 
 		const answer = floodRiskAnswers[questionId];
 		const score = answer.score || 0;
-
-		// Simple score-based risk levels: positive = low risk (green), negative = high risk (red)
+		if (answer?.value === "noInformation") {
+			return "dontKnow";
+		}
+		if (questionId === "qB" && answer?.value === 0) {
+			return "low";
+		}
 		if (score >= 2) {
-			return "low"; // Green
+			return "low";
 		}
 		if (score >= 0) {
-			return "moderate"; // Yellow
+			return "moderate";
 		}
-		return "high"; // Red
+		return "high";
 	};
 
 	const getBorder = () => {
@@ -143,7 +144,7 @@ const RiskBlock = () => {
 									"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
 									{
 										level: t(
-											`buildingRiskAssessment.buildingRisk.riskLevels.${floodRiskResult?.riskLevel || "unknown"}`,
+											`buildingRiskAssessment.buildingRisk.riskLevels.${floodRiskResult?.riskLevel}`,
 										),
 									},
 								)}
@@ -170,7 +171,8 @@ const RiskBlock = () => {
 									role="status"
 									aria-label={getRiskAriaLabel(factor.riskLevel, factorName)}
 								>
-									{factor.riskLevel === "unknown" && (
+									{(factor.riskLevel === "unknown" ||
+										factor.riskLevel === "dontKnow") && (
 										<span className="text-xs font-bold text-white">?</span>
 									)}
 								</div>

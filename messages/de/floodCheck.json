@@ -28,7 +28,8 @@
 					"high": "Hohes Risiko",
 					"low": "Geringes Risiko",
 					"moderate": "Mittleres Risiko",
-					"unknown": "Keine Angabe"
+					"unknown": "Keine Angabe",
+					"dontKnow": "Weiß nicht / Keine Angabe"
 				},
 				"title": "Individuelles Gebäuderisiko"
 			},
