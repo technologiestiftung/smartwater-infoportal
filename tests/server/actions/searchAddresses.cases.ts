@@ -85,6 +85,18 @@ export const searchAddressCases: SearchTestCase[] = [
 		expectedErrorCode: "noResult",
 	},
 	{
+		kind: "forward",
+		name: "brandenbrudgische straße",
+		query: "brandenbrudgische straße",
+		expectedErrorCode: "noResult",
+	},
+	{
+		kind: "forward",
+		name: "brandenbrudgische straße 21",
+		query: "brandenbrudgische straße 21",
+		expectedErrorCode: "noResult",
+	},
+	{
 		kind: "reverse",
 		name: "Helmstraße 3",
 		lat: 52.48852579852866,
