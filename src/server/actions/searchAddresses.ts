@@ -68,7 +68,15 @@ export async function searchAddresses(
 			name: f.place_name.replace(", Deutschland", ""),
 			hasHousenumber:
 				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),
-		}));
+		}))
+		.filter((addr: CurrentUserAddress) => {
+			if (isReverse) return true;
+			const firstWordOfQuery = query.trim().split(" ")[0].toLowerCase();
+			if (addr.name.toLowerCase().startsWith(firstWordOfQuery)) {
+				return true;
+			}
+			return false;
+		});
 
 	if (filteredResults.length === 0) {
 		return { ok: false, code: "noResult" };
