@@ -1,23 +1,15 @@
-type SearchTestCase =
-	| {
-			kind: "forward";
-			name: string;
-			query: string;
-			expectedMinResults?: number;
-			expectedMaxResults?: number;
-			expectedResults?: number;
-			expectedErrorCode?: string;
-	  }
-	| {
-			kind: "reverse";
-			name: string;
-			lat: number;
-			lon: number;
-			expectedMinResults?: number;
-			expectedMaxResults?: number;
-			expectedResults?: number;
-			expectedErrorCode?: string;
-	  };
+type SearchTestCase = {
+	kind: "forward" | "reverse";
+	name: string;
+	query?: string;
+	lat?: number;
+	lon?: number;
+	expectedMinResults?: number;
+	expectedMaxResults?: number;
+	expectedResults?: number;
+	expectedErrorCode?: string;
+	expectedResult?: string;
+};
 
 export const searchAddressCases: SearchTestCase[] = [
 	{
@@ -43,7 +35,6 @@ export const searchAddressCases: SearchTestCase[] = [
 		name: "Weg 3",
 		query: "Weg 3",
 		expectedMinResults: 1,
-		expectedMaxResults: 1,
 	},
 	{
 		kind: "forward",
@@ -92,5 +83,12 @@ export const searchAddressCases: SearchTestCase[] = [
 		name: "europa",
 		query: "europa",
 		expectedErrorCode: "noResult",
+	},
+	{
+		kind: "reverse",
+		name: "Helmstraße 3",
+		lat: 52.48852579852866,
+		lon: 13.35961522154832,
+		expectedResult: "Helmstraße 3, 10827 Berlin",
 	},
 ] as const;

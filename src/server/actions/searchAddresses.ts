@@ -8,13 +8,20 @@ const berlinBbox: number[] = [
 	13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
 ];
 
+type AddressResult =
+	| { ok: true; data: CurrentUserAddress[] }
+	| {
+			ok: false;
+			code: "noResult" | "maptilerError";
+	  };
+
 export async function searchAddresses(
 	query: string,
 	lat?: number,
 	lon?: number,
-): Promise<CurrentUserAddress[]> {
+): Promise<AddressResult> {
 	const apiKey = process.env.MAPTILER_API_KEY;
-	if (!apiKey) throw new Error("missingMapTilerKey");
+	if (!apiKey) return { ok: false, code: "maptilerError" };
 
 	const isReverse = !!lat && !!lon;
 
@@ -39,8 +46,7 @@ export async function searchAddresses(
 	const url = `https://api.maptiler.com/geocoding/${path}.json?${params.toString()}`;
 
 	const res = await fetch(url);
-	if (!res.ok) throw new Error(`maptiler_${res.status}`);
-
+	if (!res.ok) return { ok: false, code: "maptilerError" };
 	const germanZIPCode = extractGermanZipCode(query);
 
 	const data = await res.json();
@@ -65,8 +71,8 @@ export async function searchAddresses(
 		}));
 
 	if (filteredResults.length === 0) {
-		throw new Error("noResult");
+		return { ok: false, code: "noResult" };
 	}
 
-	return filteredResults;
+	return { ok: true, data: filteredResults };
 }

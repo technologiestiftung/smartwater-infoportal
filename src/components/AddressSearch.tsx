@@ -65,46 +65,31 @@ export default function AddressSearch() {
 	};
 
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const isFetching = useRef(false);
 
 	const fetchData = async (
 		search: string,
 		lat: number | undefined,
 		lon: number | undefined,
 	) => {
-		if (isFetching.current) {
-			return;
-		}
-		isFetching.current = true;
 		setShowLoading(true);
 		setError("");
 
-		try {
-			const data = await searchAddresses(search, lat, lon);
-			// console.log("data :>> ", data);
-			setResults(data);
-		} catch (e) {
-			const code = e instanceof Error ? e.message : String(e);
-			let errorMSG = t("addressCheck.defaultError");
-			switch (code) {
+		const result = await searchAddresses(search, lat, lon);
+
+		if (!result.ok) {
+			let msg = t("addressCheck.defaultError");
+			switch (result.code) {
 				case "noResult":
-					errorMSG = t("addressCheck.errorNoAddressFound");
-					break;
-				case "noHouseNumber":
-					errorMSG = t("addressCheck.pleaseAddHouseNumber");
-					break;
-				case "invalidAddress":
-					errorMSG = t("addressCheck.invalidAddress");
+					msg = t("addressCheck.errorNoAddressFound");
 					break;
 				default:
 					break;
 			}
-			setError(errorMSG);
+			setError(msg);
 			setResults([]);
-		} finally {
-			isFetching.current = false;
-			setShowLoading(false);
+			return;
 		}
+		setResults(result.data);
 	};
 
 	const handleChange = (e: FormEvent<HTMLFormElement>) => {
@@ -139,6 +124,8 @@ export default function AddressSearch() {
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
+
+	useEffect(() => setShowLoading(false), [results]);
 
 	return (
 		<FormWrapper>

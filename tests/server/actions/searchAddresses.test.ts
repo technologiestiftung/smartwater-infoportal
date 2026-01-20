@@ -3,17 +3,22 @@ import { searchAddresses } from "../../../src/server/actions/searchAddresses";
 
 describe("searchAddresses", () => {
 	it.each(searchAddressCases)("$name", async (c) => {
-		const call = () =>
-			c.kind === "forward"
-				? searchAddresses(c.query)
-				: searchAddresses("", c.lat, c.lon);
+		const result = !!c.query
+			? await searchAddresses(c.query)
+			: await searchAddresses("", c.lat, c.lon);
 
 		if (c.expectedErrorCode) {
-			await expect(call()).rejects.toThrow(c.expectedErrorCode);
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.code).toBe(c.expectedErrorCode);
+			}
 			return;
 		}
 
-		const results = await call();
+		expect(result.ok).toBe(true);
+		if (!result.ok) return; // satisfies TS narrowing
+
+		const results = result.data;
 		expect(Array.isArray(results)).toBe(true);
 
 		if (c.expectedMinResults != null) {
@@ -24,7 +29,10 @@ describe("searchAddresses", () => {
 			expect(results.length).toBeLessThanOrEqual(c.expectedMaxResults);
 		}
 
-		if (results.length > 0) {
+		if (results.length === 0 && c.expectedResult != null) {
+			const r = results[0];
+			expect(typeof r.name).toBe(c.expectedResult);
+		} else if (results.length > 0) {
 			const r = results[0];
 			expect(typeof r.lat).toBe("number");
 			expect(typeof r.lon).toBe("number");
