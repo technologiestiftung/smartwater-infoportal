@@ -59,11 +59,10 @@
 					"imageSRC": "/testing/riskBlock.png",
 					"width": "halfPage",
 					"caption": "<b>Abbildung:</b> Individuelles Gebäuderisiko",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
-					"imageSRC": "/Red.png",
+					"imageSRC": "{basementHazardTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
@@ -76,85 +75,275 @@
 				},
 				{
 					"text": "Ihre Ampel steht auf Rot, da Ihr Haus einen Keller hat und dieser Fenster besitzt. Im Falle eines Starkregens kann Wasser z.B. durch undichte Fenster in den Keller gelangen und zu Schäden führen.",
+					"hide": "!{highBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 5,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "/Orange.png",
-					"width": 4,
-					"marginBottom": -1.5,
-					"nextElementOnSameLine": true
-				},
-				{
-					"text": "Keller als Gefährdung",
-					"fontWeight": "bold",
-					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
 					"text": "Ihre Ampel steht auf Gelb, da Ihr Haus zwar einen Keller hat, dieser aber keine Fenster besitzt. Im Falle eines Starkregens kann Wasser daher nicht über Fenster in den Keller gelangen, was das Risiko für Schäden reduziert.",
+					"hide": "!{midBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 5,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "/Green.png",
-					"width": 4,
-					"marginBottom": -1.5,
-					"nextElementOnSameLine": true
-				},
-				{
-					"text": "Keller als Gefährdung",
-					"fontWeight": "bold",
-					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
 					"text": "Ihre Ampel steht auf Grün, weil Sie auch während eines Starkregenereignisses keine Schäden in Kellerräumen befürchten müssen.",
+					"hide": "!{lowBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 5,
 					"marginLeft": 6
 				},
 				{
-					"imageSRC": "/Red.png",
+					"text": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht/keine Angabe\" angegeben haben.",
+					"hide": "!{dontKnowBasementHazard}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{basementUsageTag}",
+					"hide": "{noBasementUsageHazard}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
 					"text": "Kellernutzung",
+					"hide": "{noBasementUsageHazard}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
 					"text": "Ihre Ampel steht auf Rot, weil Sie Ihre Kellerräume höherwertig nutzen. Das erhöht das Risiko für Schäden.",
+					"hide": "!{highBasementUsageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 5,
 					"marginLeft": 6
 				},
 				{
-					"imageSRC": "/Orange.png",
+					"text": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
+					"hide": "!{midBasementUsageHazard}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{backflowPreventionTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Kellernutzung",
+					"text": "Rückstausicherung",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
+					"text": "Ihre Ampel steht auf Rot, weil Ihr Haus bisher keine Rückstausicherung besitzt.",
+					"hide": "!{highBackflowPrevention}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Gelb, weil Ihr Haus zwar eine Rückstausicherung besitzt, Sie aber nicht den Zustand der Rückstausicherung kennen.",
+					"hide": "!{midBackflowPrevention}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Grün, weil Ihr Haus eine Rückstausicherung in gutem Zustand besitzt.",
+					"hide": "!{lowBackflowPrevention}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+					"hide": "!{dontKnowBackflowPrevention}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{propertyDrainageTag}",
+					"hide": "{noPropertyDrainageHazard}",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Grundstücksentwässerung",
+					"hide": "{noPropertyDrainageHazard}",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+					"hide": "!{highPropertyDrainageHazard}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
+					"hide": "!{lowPropertyDrainageHazard}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{pastDamagesTag}",
+					"hide": "{noPastDamages}",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Vergangene Schadensereignisse",
+					"hide": "{noPastDamages}",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+					"hide": "!{highPastDamages}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
+					"hide": "!{lowPastDamages}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{floodZoneTag}",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Überschwemmungsgebiete",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Rot, weil sich Ihr Haus in einem ausgeschriebenen Überschwemmungsgebiet befindet.",
+					"hide": "!{highFloodZone}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"text": "Ihre Ampel steht auf Grün, weil Ihr Wohnhaus nicht in einem ausgewiesenen Überschwemmungsgebiet liegt.",
+					"hide": "!{lowFloodZone}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"text": "<i>Hinweis: Überschwemmungsgebiete sind Gebiete, die ein erhöhtes Risiko für Hochwasser haben. Überschwemmungsgebiete sind im Wasserhaushaltsgesetzt (WHG, §76) beschrieben. In diesen Gebieten gelten besondere Regeln, z.B. für den Einbau von Ölheizungen.</i>",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 5,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{fluvialFloodTag}",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Flusshochwasser",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Flusshochwasser besteht.",
+					"hide": "!{highFluvialFlood}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Gelb, weil eine mittlere Gefährdung durch Flusshochwasser besteht.",
+					"hide": "!{midFluvialFlood}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Grün, weil an Ihrem Haus keine Gefährdung durch Flusshochwasser besteht.",
+					"hide": "!{lowFluvialFlood}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"imageSRC": "{heavyRainTag}",
+					"width": 4,
+					"marginBottom": -1.5,
+					"nextElementOnSameLine": true
+				},
+				{
+					"text": "Starkregen",
+					"fontWeight": "bold",
+					"marginBottom": 1,
+					"marginLeft": 6
+				},
+				{
+					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Starkregen besteht.",
+					"hide": "!{highHeavyRain}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine mittlere Gefährdung durch Starkregen besteht.",
+					"hide": "!{midHeavyRain}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
+					"marginLeft": 6
+				},
+				{
+					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine geringe Gefährdung durch Starkregen besteht. Jedoch kann eine Gefährdung durch Starkregen nicht ausgeschlossen werden.",
+					"hide": "!{lowHeavyRain}",
+					"fontSize": "small",
+					"lineHeight": "narrow",
+					"marginBottom": 3,
 					"marginLeft": 6
 				}
 			]
@@ -254,8 +443,7 @@
 				{
 					"imageSRC": "/testing/SR.png",
 					"width": "fullPage",
-					"caption": "<b>Abbildung:</b> Gefährdung durch Starkregen",
-					"copyright": "© XXX"
+					"caption": "<b>Abbildung:</b> Gefährdung durch Starkregen"
 				}
 			]
 		},
@@ -290,17 +478,16 @@
 				{
 					"imageSRC": "/testing/HW.png",
 					"width": "fullPage",
-					"caption": "<b>Abbildung:</b> Gefährdung durch Flusshochwasser",
-					"copyright": "© XXX"
+					"caption": "<b>Abbildung:</b> Gefährdung durch Flusshochwasser"
 				}
 			]
 		},
 		{
-			"title": "Starkregengefahrenkarte seltenes Ereignis",
+			"title": "Gefährdung durch Starkregen",
 			"hide": "!{showRareHeavyRain}",
 			"items": [
 				{
-					"text": "Gefährdung durch Starkregen",
+					"text": "Gefährdung durch \"Seltenes\" Ereignis",
 					"fontSize": "h2",
 					"marginBottom": 11
 				},
@@ -308,7 +495,6 @@
 					"imageSRC": "/testing/rareHeavyRain.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Starkregengefahrenkarte \"seltenes Ereignis\"",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -317,11 +503,11 @@
 			]
 		},
 		{
-			"title": "Starkregengefahrenkarte außergewöhnliches Ereignis",
+			"title": "Gefährdung durch Starkregen",
 			"hide": "!{hasSrgkUncommonHeavyRainMap}",
 			"items": [
 				{
-					"text": "Gefährdung durch Starkregen",
+					"text": "Gefährdung durch \"Außergewöhnliches\" Ereignis",
 					"fontSize": "h2",
 					"marginBottom": 11
 				},
@@ -329,7 +515,6 @@
 					"imageSRC": "/testing/extremeHeavyRain.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Starkregengefahrenkarte \"außergewöhnliches Ereignis\"",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -350,7 +535,6 @@
 					"imageSRC": "/testing/extremeHeavyRain.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Starkregengefahrenkarte \"extremes Ereignis\"",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -371,7 +555,6 @@
 					"imageSRC": "/testing/extremeHeavyRain.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Starkregenhinweiskarte \"außergewöhnliches Ereignis\"",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -380,11 +563,11 @@
 			]
 		},
 		{
-			"title": "Starkregenhinweiskarte extremes Ereignis",
+			"title": "Gefährdung durch Starkregen",
 			"hide": "{hasSrgkExtremeHeavyRainMap}",
 			"items": [
 				{
-					"text": "Gefährdung durch Starkregen",
+					"text": "Gefährdung durch \"Extremes\" Ereignis",
 					"fontSize": "h2",
 					"marginBottom": 11
 				},
@@ -392,7 +575,6 @@
 					"imageSRC": "/testing/extremeHeavyRain.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Starkregenhinweiskarte \"extremes Ereignis\"",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -472,7 +654,6 @@
 					"imageSRC": "/testing/frequentFlood.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Häufiges Ereignis",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -497,7 +678,6 @@
 					"imageSRC": "/testing/averageFlood.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Mittleres Ereignis",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -522,7 +702,6 @@
 					"imageSRC": "/testing/rareFlood.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Seltenes Ereignis",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -547,7 +726,6 @@
 					"imageSRC": "/testing/ueberschwemmungsGebiet.png",
 					"width": "fullPage",
 					"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Überschwemmungsgebiet",
-					"copyright": "© XXX",
 					"marginBottom": 11
 				},
 				{
@@ -563,11 +741,6 @@
 			"title": "Handlungsempfehlungen",
 			"hide": "!{skip}",
 			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
-					"marginBottom": 11
-				},
 				{
 					"text": "Allgemeiner Bericht",
 					"fontSize": "h2",

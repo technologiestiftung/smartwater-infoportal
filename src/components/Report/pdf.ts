@@ -272,7 +272,14 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 				});
 				return;
 			} else if (item.imageSRC) {
-				const image = await getImage(item.imageSRC);
+				let getImageSRC = item.imageSRC;
+				if (pdfKeys && getImageSRC.startsWith("{")) {
+					Object.keys(pdfKeys).forEach((key) => {
+						const value = pdfKeys[key];
+						getImageSRC = getImageSRC.replace(key, value);
+					});
+				}
+				const image = await getImage(getImageSRC);
 				if (image) {
 					const marginLeft =
 						item.marginLeft === "halfPage"
