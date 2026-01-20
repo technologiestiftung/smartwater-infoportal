@@ -13,7 +13,7 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 	>("idle");
 	const [lat, setLat] = useState<number | null>(null);
 	const [long, setLong] = useState<number | null>(null);
-	const isDev = false; // process.env.NODE_ENV === "development";
+	const isDev = process.env.NODE_ENV === "development";
 
 	const bbox: [number, number, number, number] = [
 		13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,

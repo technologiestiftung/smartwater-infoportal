@@ -79,6 +79,7 @@ export const searchAddressCases: SearchTestCase[] = [
 		expectedMinResults: 1,
 	},
 	{
+		query: "Helmstraße 3, 10827 Berlin",
 		lat: 52.48852579852866,
 		lon: 13.35961522154832,
 		expectedResult: "Helmstraße 3, 10827 Berlin",

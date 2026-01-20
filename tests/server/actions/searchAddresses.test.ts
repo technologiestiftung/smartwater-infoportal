@@ -3,9 +3,10 @@ import { searchAddresses } from "../../../src/server/actions/searchAddresses";
 
 describe("searchAddresses", () => {
 	it.each(searchAddressCases)("$query", async (c) => {
-		const result = !!c.query
-			? await searchAddresses(c.query)
-			: await searchAddresses("", c.lat, c.lon);
+		const result =
+			!!c.lat && !!c.lon
+				? await searchAddresses("", c.lat, c.lon)
+				: await searchAddresses(c.query ?? "");
 
 		if (c.expectedErrorCode) {
 			expect(result.ok).toBe(false);

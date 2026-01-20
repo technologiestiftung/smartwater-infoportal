@@ -37,7 +37,7 @@ export async function searchAddresses(
 		params.append("autocomplete", "false");
 		params.append("limit", "10");
 	} else {
-		params.set("limit", "1");
+		params.set("limit", "3");
 		params.set("types", "address");
 	}
 
