@@ -2,7 +2,7 @@ import { searchAddressCases } from "./searchAddresses.cases";
 import { searchAddresses } from "../../../src/server/actions/searchAddresses";
 
 describe("searchAddresses", () => {
-	it.each(searchAddressCases)("$name", async (c) => {
+	it.each(searchAddressCases)("$query", async (c) => {
 		const result = !!c.query
 			? await searchAddresses(c.query)
 			: await searchAddresses("", c.lat, c.lon);
@@ -20,6 +20,11 @@ describe("searchAddresses", () => {
 
 		const results = result.data;
 		expect(Array.isArray(results)).toBe(true);
+
+		if (results.length > 0) {
+			const hasHouseNumber = results.some((r) => r.hasHousenumber === true);
+			expect(hasHouseNumber).toBe(true);
+		}
 
 		if (c.expectedMinResults != null) {
 			expect(results.length).toBeGreaterThanOrEqual(c.expectedMinResults);
