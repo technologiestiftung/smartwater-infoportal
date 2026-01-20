@@ -33,8 +33,8 @@ export async function searchAddresses(
 
 	if (!isReverse) {
 		params.append("bbox", berlinBbox.join(","));
-		params.append("fuzzyMatch", "false");
-		params.append("autocomplete", "false");
+		params.append("fuzzyMatch", "true");
+		params.append("autocomplete", "true");
 		params.append("limit", "10");
 	} else {
 		params.set("limit", "3");
@@ -58,10 +58,6 @@ export async function searchAddresses(
 				!f.geometry.coordinates[1] ||
 				!f.geometry.coordinates[0],
 		)
-		.filter((f: any) => {
-			if (!germanZIPCode) return true;
-			return f.place_name.includes(germanZIPCode);
-		})
 		.map((f: any) => ({
 			lat: f.geometry.coordinates[1],
 			lon: f.geometry.coordinates[0],
@@ -69,13 +65,9 @@ export async function searchAddresses(
 			hasHousenumber:
 				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),
 		}))
-		.filter((addr: CurrentUserAddress) => {
-			if (isReverse) return true;
-			const firstWordOfQuery = query.trim().split(" ")[0].toLowerCase();
-			if (addr.name.toLowerCase().startsWith(firstWordOfQuery)) {
-				return true;
-			}
-			return false;
+		.filter((f: any) => {
+			if (!germanZIPCode) return true;
+			return f.name.includes(germanZIPCode);
 		});
 
 	if (filteredResults.length === 0) {
