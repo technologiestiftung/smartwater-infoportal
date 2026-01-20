@@ -136,7 +136,7 @@ const Legende = () => {
 								}
 								return singleLayer.id.includes(singleLegende.IDneedsToInclude);
 							});
-						if (checkForVisibility) {
+						if (checkForVisibility || isAdresse) {
 							if (singleLegende.items || isAdresse) {
 								return (
 									<div key={index}>
