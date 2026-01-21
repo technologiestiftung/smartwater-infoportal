@@ -22,7 +22,7 @@ export default function Home() {
 		"{address}": "Musterstraße 1, 10115 Berlin",
 		"{hazardLevelHeavyRain}": "Keine Daten",
 		"{hazardLevelfloodRisk}": "Keine Daten",
-		"{showRareHeavyRain}": false, // !!buildingWMSData?.maxRareHeavyRain;
+		"{showRareHeavyRain}": true, // !!buildingWMSData?.maxRareHeavyRain;
 		"{maxRareHeavyRain}": "Keine Daten", // buildingWMSData?.maxRareHeavyRain
 		"{hasSrgkUncommonHeavyRainMap}": false, // !!buildingWMSData.hasHeavyRainHazardMap
 		"{maxUncommonHeavyRain}": "Keine Daten", // buildingWMSData?.maxUncommonHeavyRain
@@ -66,6 +66,8 @@ export default function Home() {
 		"{highHeavyRain}": false,
 		"{midHeavyRain}": true,
 		"{lowHeavyRain}": false,
+		"{basementWithWindows}": true,
+		"{basementWithoutWindows}": true,
 	};
 
 	return (

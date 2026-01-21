@@ -8,6 +8,7 @@ export interface PDFPageItem {
 	maxWidth?: "halfPage" | "fullPage" | number;
 	textDecoration?: "underline";
 	backgroundColor?: string;
+	isListItem?: boolean;
 	// Image Item
 	imageSRC?: string;
 	width?: "halfPage" | "fullPage" | string | number;
@@ -21,6 +22,8 @@ export interface PDFPageItem {
 	hide?: string;
 	// Spacing
 	spacing?: number;
+	// Break to a new page
+	pageBreak?: boolean;
 }
 
 export interface WritePDFPageItem extends PDFPageItem {

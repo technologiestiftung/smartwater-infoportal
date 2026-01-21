@@ -163,7 +163,14 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			if (marginLeft === "halfPage") {
 				posX += halfOfThePage + horizontalGap;
 			} else if (typeof marginLeft === "number") {
-				posX += marginLeft;
+				if (marginLeft < 1) {
+					posX =
+						(pageInnerWidth - horizontalGap) * marginLeft +
+						pagesPaddingX +
+						horizontalGap;
+				} else {
+					posX += marginLeft;
+				}
 			}
 
 			const drawY = posY + index * getLineHeight + paddingOnBackgroundColor;
@@ -266,9 +273,19 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						text = text.replace(key, value);
 					});
 				}
+				if (item.isListItem) {
+					writeText({
+						...item,
+						text: "• ",
+						nextElementOnSameLine: true,
+						marginLeft: undefined,
+						marginBottom: undefined,
+					});
+				}
 				writeText({
 					...item,
 					text,
+					marginLeft: item.isListItem ? 3 : item.marginLeft,
 				});
 				return;
 			} else if (item.imageSRC) {
@@ -286,7 +303,9 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							? halfOfThePage + horizontalGap + pagesPaddingX
 							: typeof item.marginLeft === "number"
 								? item.marginLeft < 1
-									? pageInnerWidth * item.marginLeft + pagesPaddingX
+									? (pageInnerWidth - horizontalGap) * item.marginLeft +
+										pagesPaddingX +
+										horizontalGap
 									: item.marginLeft + pagesPaddingX
 								: (pagesPaddingX ?? 0);
 
@@ -298,7 +317,8 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 
 					if (hasWidth) {
 						if ((item.width as number) < 1) {
-							drawWidth = pageInnerWidth * (item.width as number);
+							drawWidth =
+								(pageInnerWidth - horizontalGap) * (item.width as number);
 						} else {
 							drawWidth = item.width as number;
 						}
@@ -326,7 +346,15 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						drawHeight,
 					);
 
-					if (!item.nextElementOnSameLine) {
+					const verticalBeforeImage = vertical;
+
+					if (item.caption || item.copyright) {
+						vertical += drawHeight;
+					} else if (
+						!item.caption &&
+						!item.copyright &&
+						!item.nextElementOnSameLine
+					) {
 						vertical += drawHeight;
 					}
 
@@ -335,6 +363,8 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						writeText({
 							text: item.caption,
 							fontSize: "small",
+							maxWidth: drawWidth,
+							marginLeft: item.marginLeft,
 						});
 					}
 					if (item.copyright) {
@@ -343,7 +373,13 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 							text: item.copyright,
 							fontSize: "small",
 							color: "#666666",
+							maxWidth: drawWidth,
+							marginLeft: item.marginLeft,
 						});
+					}
+
+					if (item.nextElementOnSameLine) {
+						vertical = verticalBeforeImage;
 					}
 
 					if (typeof item.marginBottom === "number") {
@@ -353,6 +389,8 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 				}
 			} else if (item.spacing) {
 				vertical += item.spacing;
+			} else if (item.pageBreak) {
+				await newPage(true);
 			}
 			return;
 		};
@@ -378,10 +416,13 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 			}
 			return;
 		};
-		const newPage = async () => {
+		const newPage = async (drawHeaderAfterNewPage: boolean = false) => {
 			doc.addPage();
 			await drawFooter();
 			vertical = pagesPaddingTop;
+			if (drawHeaderAfterNewPage) {
+				await drawHeader();
+			}
 		};
 
 		const pageItems = filteredPages[pageIndex].items;
@@ -401,8 +442,7 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 					continue;
 				}
 				if (vertical > 297 - pagesPaddingBottom - 10) {
-					await newPage();
-					await drawHeader();
+					await newPage(true);
 				}
 				await drawItem(item);
 			}
