@@ -1,0 +1,964 @@
+[
+	{
+		"title": "Gefährdung durch Flusshochwasser",
+		"items": [
+			{
+				"text": "Gefährdung durch Flusshochwasser",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Außergewöhnlich starke oder langanhaltende Regenfälle sowie Schneeschmelze können dazu führen, dass Flüsse über die Ufer treten und umliegende Gebiete überfluten (fluviale Hochwasser). Auch in Berlin ist dies bereits vorgekommen - etwa am 30.07.2011 an der Erpe in Köpenick oder in der Nacht vom 21. auf den 22.08.2012 an der Panke. Für Bereiche mit potenziell signifikantem Hochwasserrisiko - wie Tegeler Fließ, Panke, Erpe, Wuhle, Untere Havel/Untere Spree sowie die Müggelspree mit den Gosener Gewässern und dem Seddinsee - stehen Hochwassergefahrenkarten (HWGK) zur Verfügung. Diese Karten zeigen, wie sich ein Flusshochwasser in drei Szenarien (häufig, mittel, extrem) ausbreiten kann und welche Wassertiefen dabei auftreten können. Die HWGK bilden ausschließlich Überschwemmungen ab, die direkt durch Hochwasser eines Gewässers verursacht werden. Andere Überflutungsursachen - etwa überlastete Abwasseranlagen, ansteigendes Grundwasser, technische Defekte oder Starkregen - sind darin nicht enthalten. Zusätzlich wurden für bestimmte Bereiche Überschwemmungsgebiete festgesetzt. In diesen Gebieten gelten besondere Schutzvorschriften und Einschränkungen, um zu verhindern, dass sich das Schadenspotenzial erhöht, Retentionsräume verloren gehen oder der Wasserabfluss behindert wird. Die jeweils gültigen Regelungen sind in den entsprechenden Verordnungen festgelegt. Für die im Titel genannte Adresse wurde geprüft, welche Wasserstände im Hochwasserfall in den drei Szenarien (häufig, mittel, extrem) zu erwarten sind und ob das Objekt innerhalb eines festgesetzten Überschwemmungsgebiet.",
+				"lineHeight": "narrow",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch \"Häufiges\" Ereignis",
+				"fontSize": "h3",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 3
+			},
+			{
+				"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt <b>keine Wasserstände</b> für das untersuchte Szenario zu erwarten sind.",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch \"Mittleres\" Ereignis",
+				"fontSize": "h3",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 3
+			},
+			{
+				"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt <b>keine Wasserstände</b> für das untersuchte Szenario zu erwarten sind.",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch \"Seltenes\" Ereignis",
+				"fontSize": "h3",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 3
+			},
+			{
+				"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Seltenes Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt <b>keine Wasserstände</b> für das untersuchte Szenario zu erwarten sind.",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch Überschwemmungsgebiet",
+				"fontSize": "h3",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 3
+			},
+			{
+				"text": "Für die abgefragte Adresse wurden die Karten der festgesetzten Überschwemmungsgebiete geprüft. Das geprüfte <b>Objekt befindet sich nicht in einem Überschwemmungsgebiet.</b>",
+				"hide": "{hasFloodHazardData}",
+				"marginBottom": 11
+			}
+		]
+	},
+	{
+		"title": "Gefährdung durch Häufiges Ereignis - Flusshochwasser",
+		"hide": "!{hasFloodHazardData}",
+		"items": [
+			{
+				"text": "Gefährdung durch Flusshochwasser",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch \"Häufiges\" Ereignis",
+				"fontSize": "h2",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/frequentFlood.png",
+				"width": "fullPage",
+				"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Häufiges Ereignis",
+				"marginBottom": 11
+			},
+			{
+				"text": "Die Abbildung zeigt einen Ausschnitt der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\". Ein \"Häufiges Flusshochwasser\" tritt statistisch gesehen alle 5-20 Jahre auf.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Die Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxFrequentFlood}</b> auftreten können."
+			}
+		]
+	},
+	{
+		"title": "Gefährdung durch Mittleres Ereignis - Flusshochwasser",
+		"hide": "!{hasFloodHazardData}",
+		"items": [
+			{
+				"text": "Gefährdung durch Flusshochwasser",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch \"Mittleres\" Ereignis",
+				"fontSize": "h2",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/averageFlood.png",
+				"width": "fullPage",
+				"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Mittleres Ereignis",
+				"marginBottom": 11
+			},
+			{
+				"text": "Die Abbildung zeigt einen Ausschnitt der Hochwassergefahrenkarte \"Mittleres Flusshochwasser\". Ein \"Mittleres Flusshochwasser\" tritt statistisch gesehen alle 100 Jahre auf. Das bedeutet, das jedes Jahr eine Wahrscheinlichkeit von 1 zu 100 besteht, dass ein solches Ereignis eintreten kann.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Die Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxAverageFrequentFlood}</b> auftreten können."
+			}
+		]
+	},
+	{
+		"title": "Gefährdung durch Seltenes Ereignis - Flusshochwasser",
+		"hide": "!{hasFloodHazardData}",
+		"items": [
+			{
+				"text": "Gefährdung durch Flusshochwasser",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung durch \"Seltenes\" Ereignis",
+				"fontSize": "h2",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/rareFlood.png",
+				"width": "fullPage",
+				"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Seltenes Ereignis",
+				"marginBottom": 11
+			},
+			{
+				"text": "Die Abbildung zeigt einen Ausschnitt der Hochwassergefahrenkarte \"Seltenes Ereignis\". Ein \"Seltenes Ereignis\" tritt statistisch gesehen alle 200 Jahre auf. Das bedeutet, das jedes Jahr eine Wahrscheinlichkeit von 1 zu 200 besteht, dass ein solches Ereignis eintreten kann.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Die Hochwassergefahrenkarte \"Seltenes Ereignis\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxRareFrequentFlood}</b> auftreten können."
+			}
+		]
+	},
+	{
+		"title": "Gefährdung durch Überschwemmungsgebiet - Flusshochwasser",
+		"hide": "!{hasFloodHazardData}",
+		"items": [
+			{
+				"text": "Gefährdung durch Flusshochwasser",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Gefährdung Überschwemmungsgebiet",
+				"fontSize": "h2",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/ueberschwemmungsGebiet.png",
+				"width": "fullPage",
+				"caption": "<b>Abbildung:</b> Hochwassergefahrenkarte Überschwemmungsgebiet",
+				"marginBottom": 11
+			},
+			{
+				"text": "Für die abgefragte Adresse wurden die Karten der festgesetzten Überschwemmungsgebiete ausgewertet, siehe Abbildung. Das Objekt befindet sich in einem Überschwemmungsgebiet oder höchstens 2 m davon entfernt.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Grundsätzlich gelten dort die Verordnung <a href=\"https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2018/ausgabe-nr-28-vom-27-11-2018-s-657-672.pdf\">Gesetz- und Verordnungsblatt</a> sowie die Schutzvorschriften des Wasserhaushaltsgesetzes für festgesetzte Überschwemmungsgebiete (§ 78 ff. WHG). Diese Vorschriften greifen jedoch nur, wenn sich das Objekt beziehungsweise die geplante Maßnahme tatsächlich innerhalb des festgesetzten Überschwemmungsgebiets befindet."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "!{skip}",
+		"items": [
+			{
+				"text": "Allgemeiner Bericht",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Um sich vor den Gefahren durch Starkregen zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Wenn sie an Maßnahmen interessiert sind, die auf Ihren individuellen Fall angepasst sind, können Sie im HochwasserCheck Berlin den Fragebogen ausfüllen und sich einen auf Ihre Hochwassersituation zugeschnittenen Bericht erstellen lassen."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "{skip}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Für Mieter:innen",
+				"hide": "{isOwner}",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Für Eigentümer:innen",
+				"hide": "!{isOwner}",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Um sich vor Hochwasser zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen. In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben.",
+				"hide": "{isOwner}",
+				"marginBottom": 11
+			},
+			{
+				"text": "Um sich vor Hochwasser zu schützen, gibt es eine Vielzahl von Maßnahmen, die vor dem Eintreten eines solchen Ereignisses umgesetzt werden können. Diese Maßnahmen decken ein weites Spektrum von Wirkweisen und Umsetzungskosten ab. Eine umfängliche Liste von Maßnahmen sowie weiterführende Informationen hierzu finden sie im Hochwasserinfoportal unter Handlungsempfehlungen.",
+				"hide": "!{isOwner}",
+				"marginBottom": 11
+			},
+			{
+				"text": "In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben. Dabei sind bauliche Maßnahmen häufig kaum von Mieter:innen umzusetzen. Trotzdem werden Ihnen hiernach auch solche Maßnahmen präsentiert, sodass Sie über Optionen und Möglichkeiten der Anpassung informiert sind, die eventuell für Ihr Wohnhaus relevant sein können.",
+				"hide": "!{isOwner}",
+				"marginBottom": 11
+			},
+			{
+				"text": "<b>Hinweis & Disclaimer</b> <br> Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet. Das konkrete Risiko Ihres Gebäudes ist von einer Vielzahl baulicher Eigenschaften abhängig, die sich durch den Fragebogen nicht in vollem Umfang bewerten lassen. Bitte beachten Sie, dass die Einstufung des Risikos für Ihr Gebäude auf Basis Ihrer Angaben eine gewisse Unsicherheit birgt und die Auswertung hier lediglich einer Anregung zur Eigenvorsorge dient. <br> Die Berechnung basiert auf bestehenden Angeboten des LAWA-Starkregenportals, des Hochwasser Kompetenz Centrums HKC („Quick-Check“) und des Gesamtverbands der Deutschen Versicherungswirtschaft (GDV).",
+				"nextElementOnSameLine": true,
+				"lineHeight": "narrow",
+				"backgroundColor": "#F5F5F5",
+				"marginLeft": "halfPage",
+				"maxWidth": "halfPage"
+			},
+			{
+				"imageSRC": "/testing/riskBlock.png",
+				"width": "halfPage",
+				"caption": "<b>Abbildung:</b> Individuelles Gebäuderisiko",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "{basementHazardTag}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Keller als Gefährdung",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, da Ihr Haus einen Keller hat und dieser Fenster besitzt. Im Falle eines Starkregens kann Wasser z.B. durch undichte Fenster in den Keller gelangen und zu Schäden führen.",
+				"hide": "!{highBasementHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Gelb, da Ihr Haus zwar einen Keller hat, dieser aber keine Fenster besitzt. Im Falle eines Starkregens kann Wasser daher nicht über Fenster in den Keller gelangen, was das Risiko für Schäden reduziert.",
+				"hide": "!{midBasementHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Grün, weil Sie auch während eines Starkregenereignisses keine Schäden in Kellerräumen befürchten müssen.",
+				"hide": "!{lowBasementHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht/keine Angabe\" angegeben haben.",
+				"hide": "!{dontKnowBasementHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"imageSRC": "{basementUsageTag}",
+				"hide": "{noBasementUsageHazard}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Kellernutzung",
+				"hide": "{noBasementUsageHazard}",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, weil Sie Ihre Kellerräume höherwertig nutzen. Das erhöht das Risiko für Schäden.",
+				"hide": "!{highBasementUsageHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
+				"hide": "!{midBasementUsageHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"imageSRC": "{backflowPreventionTag}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Rückstausicherung",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, weil Ihr Haus bisher keine Rückstausicherung besitzt.",
+				"hide": "!{highBackflowPrevention}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Gelb, weil Ihr Haus zwar eine Rückstausicherung besitzt, Sie aber nicht den Zustand der Rückstausicherung kennen.",
+				"hide": "!{midBackflowPrevention}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Grün, weil Ihr Haus eine Rückstausicherung in gutem Zustand besitzt.",
+				"hide": "!{lowBackflowPrevention}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+				"hide": "!{dontKnowBackflowPrevention}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"pageBreak": true
+			},
+			{
+				"imageSRC": "{propertyDrainageTag}",
+				"hide": "{noPropertyDrainageHazard}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Grundstücksentwässerung",
+				"hide": "{noPropertyDrainageHazard}",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+				"hide": "!{highPropertyDrainageHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
+				"hide": "!{lowPropertyDrainageHazard}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"imageSRC": "{pastDamagesTag}",
+				"hide": "{noPastDamages}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Vergangene Schadensereignisse",
+				"hide": "{noPastDamages}",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+				"hide": "!{highPastDamages}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
+				"hide": "!{lowPastDamages}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"imageSRC": "{floodZoneTag}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Überschwemmungsgebiete",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Rot, weil sich Ihr Haus in einem ausgeschriebenen Überschwemmungsgebiet befindet.",
+				"hide": "!{highFloodZone}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"text": "Ihre Ampel steht auf Grün, weil Ihr Wohnhaus nicht in einem ausgewiesenen Überschwemmungsgebiet liegt.",
+				"hide": "!{lowFloodZone}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"text": "<i>Hinweis: Überschwemmungsgebiete sind Gebiete, die ein erhöhtes Risiko für Hochwasser haben. Überschwemmungsgebiete sind im Wasserhaushaltsgesetzt (WHG, §76) beschrieben. In diesen Gebieten gelten besondere Regeln, z.B. für den Einbau von Ölheizungen.</i>",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 5,
+				"marginLeft": 6
+			},
+			{
+				"imageSRC": "{fluvialFloodTag}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Flusshochwasser",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Flusshochwasser besteht.",
+				"hide": "!{highFluvialFlood}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Gelb, weil eine mittlere Gefährdung durch Flusshochwasser besteht.",
+				"hide": "!{midFluvialFlood}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Grün, weil an Ihrem Haus keine Gefährdung durch Flusshochwasser besteht.",
+				"hide": "!{lowFluvialFlood}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"imageSRC": "{heavyRainTag}",
+				"width": 4,
+				"marginBottom": -1.5,
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "Starkregen",
+				"fontWeight": "bold",
+				"marginBottom": 1,
+				"marginLeft": 6
+			},
+			{
+				"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Starkregen besteht.",
+				"hide": "!{highHeavyRain}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine mittlere Gefährdung durch Starkregen besteht.",
+				"hide": "!{midHeavyRain}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			},
+			{
+				"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine geringe Gefährdung durch Starkregen besteht. Jedoch kann eine Gefährdung durch Starkregen nicht ausgeschlossen werden.",
+				"hide": "!{lowHeavyRain}",
+				"fontSize": "small",
+				"lineHeight": "narrow",
+				"marginBottom": 3,
+				"marginLeft": 6
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "!{basementWithWindows}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Keller als Gefährdung - Mit Fenstern",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Diese Information wird Ihnen angezeigt, da Sie im Fragebogen angegeben haben, dass Ihr Gebäude einen Keller mit Fenstern hat. Ein Keller stellt im Falle eines Hochwassers eine besondere Gefährdung da. Überprüfen Sie auf den Starkregen- bzw. Hochwasserkarten in dieses Berichtes, wo ggf. Wasser an Ihrem Gebäude ansteht und ob das Wasser an diesen Stellen in Ihr Gebäude gelangen kann. Sollte das der Fall sein, prüfen Sie, ob Sie das Gelände so umgestalten können, dass Wasser vom Gebäude wegfließt, z.B. durch das Anlegen von Abflussrinnen.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "<b>Bauliche Maßnahmen:</b>"
+			},
+			{
+				"isListItem": true,
+				"text": "Es gibt eine Reihe von baulichen Maßnahmen, die Keller vor dem eindringen von Hochwasser schützen können. Hierzu zählen z.B. der Einbau von Wasser- und Druckfesten Fenstern und Türen oder das Abdichten der Kellerwände. Kellerfenster sowie Zugänge sollten zudem überdacht sein."
+			},
+			{
+				"isListItem": true,
+				"text": "Sollte sich im Keller eine Heizungsanlage oder elektrische Anschlüsse befinden: Achten Sie darauf, dass diese angemessen geschützt sind.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "<b>Weitere Maßnahmen:</b>"
+			},
+			{
+				"isListItem": true,
+				"text": "Doch auch ohne einen Umbau können Schäden wirkungsvoll vorgebäugt werden."
+			},
+			{
+				"isListItem": true,
+				"text": "Schauen Sie sich an, was Sie wie im Keller gelagert haben. Berücksichtigen Sie die Hinweise in der Checkliste \"Lagerung im Keller\"."
+			},
+			{
+				"isListItem": true,
+				"text": "Ein Pumpe kann genutzt werden, um das Wasser wieder aus den Kellerräumen zu entfernen. Achten Sie ggf. darauf, eine solche Pumpe eher nicht im Keller zu lagern, damit diese im Hochwasserfall gut zugänglich ist.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "<b>Verhaltensvorsorge & Verhalten im Ernstfall</b>"
+			},
+			{
+				"isListItem": true,
+				"text": "Wenn Wasser im Keller steht, ist es zu spät für die Umsetzung von Maßnahmen. Verzichten Sie darauf, in Überflutungsflächen zu treten: <b>Es besteht ggf. Lebensgefahr durch Stromschlag!</b> Beachten Sie dann bitte die Hinweise zu Verhalten im Ernstfall unter Handlungsempfehlungen im Hochwasserinfoportal.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Weiterführende Informationen z.B. zur konkreten Umsetzung der hier vorgeschlagen Maßnahmen finden Sie am Ende dieses Berichtes."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "!{basementWithoutWindows}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Keller als Gefährdung - Ohne Fenstern",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Diese Information wird Ihnen angezeigt, da Sie im Fragebogen angegeben haben, dass Ihr Gebäude einen Keller ohne Fenstern hat. Ein Keller stellt im Falle einer Überflutung am Haus eine besondere Gefährdung da. Sie haben angegeben, das der Keller des geprüften Gebäudes keine Fenster hat. Das reduziert die Wahrscheinlichkeit, dass Wasser in den Keller eindringen kann. Überprüfen Sie auf den Starkregen- bzw. Hochwasserkarten in dieses Berichtes, wo ggf. Wasser an Ihrem Gebäude ansteht und ob das Wasser an diesen Stellen in Ihr Gebäude gelangen kann. Sollte das der Fall sein, prüfen Sie, ob Sie das Gelände so umgestalten können, dass Wasser vom Gebäude wegfließt, z.B. durch das Anlegen von Abflussrinnen.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "<b>Bauliche Maßnahmen:</b>"
+			},
+			{
+				"isListItem": true,
+				"text": "das Abdichten der Kellerwände kann ggf. sinnvoll sein, um Feuchtigkeit aus den Kellerräumen fernzuhalten."
+			},
+			{
+				"isListItem": true,
+				"text": "Zugänge zum Keller sollten überdacht sein."
+			},
+			{
+				"isListItem": true,
+				"text": "Sollte sich im Keller eine Heizungsanlage oder elektrische Anschlüsse befinden: Achten Sie darauf, dass diese angemessen geschützt sind.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "<b>Weitere Maßnahmen:</b>"
+			},
+			{
+				"isListItem": true,
+				"text": "Doch auch ohne einen Umbau können Schäden wirkungsvoll vorgebäugt werden."
+			},
+			{
+				"isListItem": true,
+				"text": "Schauen Sie sich an, was Sie wie im Keller gelagert haben: Lagern Sie möglichst keine wertvollen oder feuchtigkeits- und wasserempfindliche Gegenstände im Keller."
+			},
+			{
+				"isListItem": true,
+				"text": "Achten Sie darauf, keine Gefahrenstoffe wie Farben oder Gifte im Keller zu lagern. Wenn es sich nicht vermeiden lässt, Lagern Sie diese Stoffe erhöht, sodass sie im Falle einer Überflutung nicht im Wasser stehen."
+			},
+			{
+				"isListItem": true,
+				"text": "Ein Pumpe kann genutzt werden, um das Wasser wieder aus den Kellerräumen zu entfernen. Achten Sie ggf. darauf, eine solche Pumpe eher nicht im Keller zu lagern, damit diese im Hochwasserfall gut zugänglich ist.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "<b>Verhaltensvorsorge & Verhalten im Ernstfall</b>"
+			},
+			{
+				"isListItem": true,
+				"text": "Wenn Wasser im Keller steht, ist es zu spät für die Umsetzung von Maßnahmen. Verzichten Sie darauf, in Überflutungsflächen zu treten: <b>Es besteht ggf. Lebensgefahr durch Stromschlag!</b> Beachten Sie dann bitte die Hinweise zu Verhalten im Ernstfall unter Handlungsempfehlungen im Hochwasserinfoportal.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Weiterführende Informationen z.B. zur konkreten Umsetzung der hier vorgeschlagen Maßnahmen finden Sie am Ende dieses Berichtes."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "{skip}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Keller als Gefährdung",
+				"fontSize": "h2",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/waschmaschine.png",
+				"width": "halfPage",
+				"caption": "<b>Abbildung:</b> Waschmaschine und Trockner auf einem Podest, aus der Hochwasserschutzfibel, Seite 67",
+				"nextElementOnSameLine": true
+			},
+			{
+				"imageSRC": "/testing/fenster.png",
+				"width": "halfPage",
+				"marginLeft": "halfPage",
+				"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63"
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "{skip}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Checkliste: Lagerung im Keller",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"isListItem": true,
+				"text": "Sind wasserempfindliche Gegenstände im Keller gelagert?"
+			},
+			{
+				"isListItem": true,
+				"text": "Sind Gefahrenstoffe wie Farben und Lacke so gelagert, dass sie bei einem Hochwasser nicht auslaufen können?"
+			},
+			{
+				"isListItem": true,
+				"text": "Sind Heizölanalgen gesichert?"
+			},
+			{
+				"isListItem": true,
+				"text": "Befinden sich Abflüsse unterhalb der Rückstauebene?"
+			},
+			{
+				"isListItem": true,
+				"text": "Können elektrische Anlagen u.U. geflutet werden?",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/oel.png",
+				"width": "halfPage",
+				"caption": "<b>Abbildung:</b> Verschmutzung durch Öl, Abbildung aus der Hochwasserschutzfibel, Seite 70.",
+				"nextElementOnSameLine": true
+			},
+			{
+				"imageSRC": "/testing/regal.png",
+				"width": "halfPage",
+				"marginLeft": "halfPage",
+				"caption": "<b>Abbildung:</b> Abbildung von uns, ausgeschnitten, Lagerung von Gefahrenstoffen."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "{skip}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Rückstausicherungen",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Diese Informationen werden  Ihnen angezeigt, weil Sie im Fragebogen angegeben haben, dass Sie keine Rückstausicherung haben, hierzu keine Angaben machen möchten, es nicht nicht wissen oder Ihre Rückstausicherung in einem schlechten Zustand ist."
+			},
+			{
+				"text": "Häufig entstehen Schäden während und kurz nach eines Starkregenereignisses durch Rückstau aus der Kanalisation. Dieser entsteht, wenn die Kanalisation durch ein Starkregenereignis überlastet ist, weil die Wassermengen die Kapazität der Kanäle überschreiten oder die Kanalisation verstopft ist. Die Rückstauebene ist die höchste Ebene, bis zu der das Wasser aus der Kanalisation ansteigen kann. In der Regel ist das die Straßenebene, siehe Abbildung."
+			},
+			{
+				"text": "In solchen Fällen kann sich das Wasser aus der Kanalisation in die Entwässerungsleitungen bis in die Gebäude, vorwiegend das Kellergeschoss oder Souterrain, zurück stauen. Über z.B. Toiletten oder Abflüsse kann das Abwasser aus der Kanalisation dann unter Umständen bis in das Gebäudeinnere gelangen."
+			},
+			{
+				"text": "Eine Rückstausicherung ist eine technische Einrichtung, die bei einem Hochwasserereignis den Rückstau von Abwasser in das Gebäude verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert und ist Voraussetzung für den Versicherungsschutz vor Schäden durch Rückstau. Bei einem Neubau kann eine Abwasserhebeanlage eingebaut werden, die Rückstau ebenfalls verlässlich vorbeugt.",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/klo.png",
+				"width": 0.4,
+				"caption": "<b>Abbildung:</b> Überlaufende Toilette, Abbildung aus der Hochwasserschutzfibel, Seite 35.",
+				"nextElementOnSameLine": true
+			},
+			{
+				"imageSRC": "/testing/rueck.png",
+				"width": 0.6,
+				"marginLeft": 0.4,
+				"caption": "<b>Abbildung:</b> Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "{skip}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Regenwasserabläufe",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"text": "Wenn Regenwasser nicht vollständig über Abläufe abgeführt werden kann, kann es zu lokalen Überflutungen kommen.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Achten Sie daher darauf, dass...",
+				"fontWeight": "bold"
+			},
+			{
+				"isListItem": true,
+				"text": "Regenrinnen gereinigt sind und regelmäßig überprüft werden."
+			},
+			{
+				"isListItem": true,
+				"text": "Abwasserrohre funktionstüchtig sind regelmäßig gewartet werden."
+			},
+			{
+				"isListItem": true,
+				"text": "Abläufe und Gullys frei von Laub und anderem Material sind, sodass Wasser gut ablaufen kann.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Aber was, wenn die Kanalisation die Regenmengen nicht mehr abführen kann?",
+				"fontWeight": "bold",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Es ist davon auszugehen, dass Starkregenereignisse in Berlin zunehmen werden <a href=\"https://www.berlin.de/sen/uvk/_assets/klimaschutz/anpassung-an-den-klimawandel/programm-zur-anpassung-an-die-folgen-des-klimawandels/afok_zusammenfassung.pdf\">(AFOK)</a>. Die Kanalisation in Berlin kann nicht darauf ausgerichtet werden, bei einem Starkregenereignis die gesamten Regenmengen aufzunehmen. Um diesen Problem zu begegnen, gibt es eine zunehmende Zahl von <a href=\"https://www.berlin.de/sen/stadtentwicklung/quartiersentwicklung/staedtebaufoerderung/nachhaltige-erneuerung/aktuell/schwammstadt-rummelsburger-bucht-1440707.php\">Projekten</a> in Berlin, die dezentrale Regenwasserbewirtschaftung umsetzten und Berlin hin zu einer Schwammstadt entwickeln.",
+
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Eigentümer:innen können ebenfalls an der <a href=\"https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/\">Schwammstadt</a> mitwirken - vor allem in ihrem eigenen Interesse. Dezentrale Regenwasserbewirtschaftung auf dem eigenen Grundstück kann Überflutungen an Ihrem Eigentum verringern oder gar verhindern! Die Regenwasserargentur Berlin informiert sie umfänglich über die vielen Möglichkeiten der dezentralen Regenwasserbewirtschaftung.",
+				"marginBottom": 11
+			},
+			{
+				"text": "<b>Regenwasserabläufe</b><br>Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
+				"nextElementOnSameLine": true,
+				"lineHeight": "narrow",
+				"backgroundColor": "#F5F5F5",
+				"marginLeft": "halfPage",
+				"maxWidth": "halfPage"
+			},
+			{
+				"imageSRC": "/testing/regen.png",
+				"width": "halfPage",
+				"caption": "<b>Abbildung:</b> Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann."
+			}
+		]
+	},
+	{
+		"title": "Handlungsempfehlungen",
+		"hide": "{skip}",
+		"items": [
+			{
+				"text": "Handlungsempfehlungen",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Versickerung",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"isListItem": true,
+				"text": "Was bringt Versickerung?"
+			},
+			{
+				"isListItem": true,
+				"text": "Worauf ist zu achten?"
+			},
+			{
+				"isListItem": true,
+				"text": "Welche Maßnahme(n) könnte man hier mit Bild Vorstellen?"
+			},
+			{
+				"isListItem": true,
+				"text": "Mit aufnehmen: Wartung und Reinigung von Regenwasserabläufen (siehe Bild)",
+				"marginBottom": 11
+			},
+			{
+				"imageSRC": "/testing/rinne.png",
+				"width": "halfPage",
+				"caption": "<b>Abbildung:</b> Dezentrale Rückhaltung von Niederschlagswasser, Abbildung aus der Hochwasserschutzfibel, Seite 25."
+			}
+		]
+	},
+	{
+		"title": "Weiterführende Informationen",
+		"items": [
+			{
+				"text": "Allgemeine Maßnahmen - Checkliste",
+				"fontSize": "h1",
+				"marginBottom": 11
+			},
+			{
+				"text": "Checkliste \"Bin ich auf ein Hochwasser vorbereitet?\":",
+				"fontSize": "h2",
+				"marginBottom": 3
+			},
+			{
+				"isListItem": true,
+				"text": "Überprüfen Sie vor Ort die Gefährdung Ihres Wohnhaus: Nutzen Sie den HochwasserCheck Berlin um zu identifizieren, wo an Ihrem Haus Hochwasser anstehen könnte. Überprüfen Sie, ob es von dort in das Gebäude gelangen kann.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"isListItem": true,
+				"text": "Wenn eine Gefährdung vorliegt: Überprüfen Sie Ihren Versicherungsschutz.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"isListItem": true,
+				"text": "Tauschen Sie sich mit Ihrem Umfeld aus: Sprechen Sie über Ihre eigenen Gefährdungen und Ihren Umgang damit und kommen Sie ins Gespräch mit Nachbarn, Bekannten, Familie und Freunden.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"isListItem": true,
+				"text": "Besuchen Sie Informationsveranstaltungen zum Thema Hochwasser, z.B. in der <a href=\"https://www.kompetenz-wasser.de/de\">Wasserwerkstatt des KWB</a> oder der <a href=\"https://regenwasseragentur.berlin/\">Regenwasseragentur</a> um sich weiter zu informieren und sich zu vernetzten.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"isListItem": true,
+				"text": "<b>Auch wenn Ihr Wohnhaus nicht betroffen ist:</b> Beachten Sie die Verhaltenshinweise während eines Starkregenereignisses und kurz danach, um sich nicht in Gefahr zu bringen.",
+				"marginBottom": "paragraph"
+			}
+		]
+	},
+	{
+		"title": "Weiterführende Informationen",
+		"items": [
+			{
+				"text": "Weiterführende Informationen",
+				"fontSize": "h1",
+				"marginBottom": 3
+			},
+			{
+				"text": "Vielen Dank, dass Sie das Hochwasserinfoportal genutzt haben, um sich über ihr individuelles Hochwasserrisiko zu informieren. Damit sind Sie den ersten Schritt gegangen, um sich angemessen auf potenzielle Extremwetterereignisse vorzubereiten.",
+				"marginBottom": 11
+			},
+			{
+				"text": "Notruf- und Servicenummern:<br>Entstörungsnummer des BWB:<br>Sie möchten eine Störung melden?<br>Den Entstörungsdienst des BWB erreichen Sie rund um die Uhr unter 0800-292 75 87<br><b>Im Notfall: Berliner Feuerwehr 112</b>",
+				"marginLeft": "halfPage",
+				"maxWidth": "halfPage",
+				"nextElementOnSameLine": true
+			},
+			{
+				"text": "<b>Ansprechpartner:</b><br>Bei Fragen zum Hochwasserinfoportal, dem HochwasserCheck Berlin oder fachlichen Fragen zum Starkregenrisikomanagement in Berlin, schreiben Sie uns gerne an.<br><a href=\"mailto:Hochwasser@SenMVKU.berlin.de\">Hochwasser@SenMVKU.berlin.de</a><br>Wenn Sie Fragen zum dezentralen Regenwassermanagement haben, wenden Sie sich an die Regenwasserargentur Berlin.",
+				"maxWidth": "halfPage",
+				"marginBottom": 11
+			},
+			{
+				"text": "Weiterführende Informationen:",
+				"fontWeight": "bold",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Wenn Sie sich konkret zur Umsetzung von Hochwasservorsorgemaßnahmen informieren möchten, schauen Sie gerne in die <a href=\"https://www.fib-bund.de/inhalt/themen/hochwasser/\">Hochwasserschutzfibel</a>.",
+				"marginBottom": "paragraph"
+			},
+			{
+				"text": "Wenn Sie sich weiter über Hochwasservorsorge informieren wollen oder eine fachliche Vorort Bewertung ihres Hauses anstreben, wenden Sie sich an das <a href=\"https://www.hkc-online.de/de\">Hochwasserkompetenz Centrum (HKC)</a>.",
+				"marginBottom": 11
+			},
+			{
+				"text": "<b>Haftungshinweis</b><br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen.<br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt mit.",
+				"fontSize": "small",
+				"lineHeight": "narrow"
+			}
+		]
+	}
+]

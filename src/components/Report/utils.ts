@@ -119,6 +119,9 @@ export function ptToMm(pt: number): number {
 }
 
 export const translateHazardLevels = (level: string): string => {
+	if (!level) {
+		return "";
+	}
 	if (level === "low") {
 		return "Gering";
 	}
@@ -132,4 +135,28 @@ export const translateHazardLevels = (level: string): string => {
 		return "Sehr Hoch";
 	}
 	return level;
+};
+
+export const translateHazardTags = (level: string): string => {
+	if (level === "noHazard") {
+		return "/Red.png";
+	}
+	if (level === "possibleHazard") {
+		return "/Orange.png";
+	}
+	if (level === "likelyHazard") {
+		return "/Green.png";
+	}
+	return "/Grey.png";
+};
+
+export const translateWMSValue = (
+	value: string | number | null | undefined,
+	helper: string = "bis zu ",
+	unit: string = "cm",
+): string => {
+	if (!value) {
+		return "Keine Daten";
+	}
+	return `${helper}${value}${unit}`;
 };

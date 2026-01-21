@@ -119,7 +119,7 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 				map.addLayer(layer);
 
 				if (
-					scenario.includes("HEAVY_RAIN") &&
+					(scenario.includes("HEAVY_RAIN") || scenario.includes("FLOOD")) &&
 					!!locationData.building.outlineBufferGeometry
 				) {
 					const outlineBufferSRC = new VectorSource({

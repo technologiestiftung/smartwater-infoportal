@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -6,7 +5,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import useMobile from "@/lib/utils/useMobile";
-import { translateHazardLevels, getToday } from "../utils";
+import { translateHazardLevels, getToday, translateWMSValue } from "../utils";
 import pdfData from "@/components/Report/pdf.json";
 import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
 import { GeoServerClient } from "@/lib/geoserverClient";
@@ -48,40 +47,119 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		"{hazardLevelfloodRisk}": hazardEntities
 			? translateHazardLevels(hazardEntities[1].hazardLevel)
 			: "Keine Daten",
-		"{didSkip}": !!skip,
-		"{didNotSkip}": !skip,
+		"{skip}": !!skip,
 		"{isOwner}":
 			!!skip ||
 			(typeof floodRiskAnswers?.q0?.value === "string" &&
 				floodRiskAnswers?.q0?.value?.includes("Owner")),
-		"{isNotOwner}":
-			!!skip ||
-			(typeof floodRiskAnswers?.q0?.value === "string" &&
-				!floodRiskAnswers?.q0?.value?.includes("Owner")),
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		// Refactored
+		"{basementHazardTag}": "/Red.png",
+		"{highBasementHazard}": true,
+		"{midBasementHazard}": false,
+		"{lowBasementHazard}": false,
+		"{dontKnowBasementHazard}": false,
+		"{basementUsageTag}": "/Grey.png",
+		"{noBasementUsageHazard}": false,
+		"{highBasementUsageHazard}": false,
+		"{midBasementUsageHazard}": true,
+		"{backflowPreventionTag}": "/Green.png",
+		"{highBackflowPrevention}": false,
+		"{midBackflowPrevention}": false,
+		"{lowBackflowPrevention}": false,
+		"{dontKnowBackflowPrevention}": true,
+		"{propertyDrainageTag}": "/Orange.png",
+		"{noPropertyDrainageHazard}": false,
+		"{highPropertyDrainageHazard}": false,
+		"{lowPropertyDrainageHazard}": true,
+		"{pastDamagesTag}": "/Orange.png",
+		"{noPastDamages}": false,
+		"{highPastDamages}": false,
+		"{lowPastDamages}": true,
+		"{floodZoneTag}": "/Green.png",
+		"{highFloodZone}": false,
+		"{lowFloodZone}": true,
+		"{fluvialFloodTag}": "/Green.png",
+		"{highFluvialFlood}": false,
+		"{midFluvialFlood}": false,
+		"{lowFluvialFlood}": true,
+		"{heavyRainTag}": "/Green.png",
+		"{highHeavyRain}": false,
+		"{midHeavyRain}": true,
+		"{lowHeavyRain}": false,
+		"{basementWithWindows}": true,
+		"{basementWithoutWindows}": true,
 	};
 
 	const makePDF = async () => {
 		if (!locationData?.found || !locationData.building) {
 			return;
 		}
-		const buildingWMSData = await geoServerClient.getWMS(
+		const buildingWMSData = await geoServerClient.getBuildingWMS(
 			locationData?.building,
 		);
 		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
-		pdfKeys["{showRareHeavyRain}"] = !!buildingWMSData?.maxRareHeavyRain;
-		pdfKeys["{maxRareHeavyRain}"] =
-			buildingWMSData?.maxRareHeavyRain || "Keine Daten";
-		pdfKeys["{showUncommonHeavyRain}"] =
-			!!buildingWMSData?.maxUncommonHeavyRain;
-		pdfKeys["{maxUncommonHeavyRain}"] =
-			buildingWMSData?.maxUncommonHeavyRain || "Keine Daten";
-		pdfKeys["{showExtremeHeavyRain}"] = !!buildingWMSData?.maxExtremeHeavyRain;
-		pdfKeys["{maxExtremeHeavyRain}"] =
-			buildingWMSData?.maxExtremeHeavyRain || "Keine Daten";
+
+		const {
+			maxRareHeavyRain,
+			hasHeavyRainHazardMap,
+			maxUncommonHeavyRain,
+			maxExtremeHeavyRain,
+			maxFrequentFlood,
+			maxAverageFrequentFlood,
+			maxRareFrequentFlood,
+			averageRareHeavyRain,
+			averageUncommonHeavyRain,
+			averageExtremeHeavyRain,
+		} = buildingWMSData;
+
+		// Starkregen
+		pdfKeys["{showRareHeavyRain}"] = !!maxRareHeavyRain;
+		pdfKeys["{maxRareHeavyRain}"] = translateWMSValue(maxRareHeavyRain);
+		pdfKeys["{averageRareHeavyRain}"] = translateWMSValue(
+			averageRareHeavyRain,
+			"",
+		);
+		pdfKeys["{hasSrgkUncommonHeavyRainMap}"] = !!hasHeavyRainHazardMap;
+		pdfKeys["{maxUncommonHeavyRain}"] = translateWMSValue(maxUncommonHeavyRain);
+		pdfKeys["{averageUncommonHeavyRain}"] = translateWMSValue(
+			averageUncommonHeavyRain,
+			"",
+		);
 		pdfKeys["{hasSrgkExtremeHeavyRainMap}"] =
-			buildingWMSData.hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
-		pdfKeys["{hasSrgkHeavyRainMap}"] = !!buildingWMSData.hasHeavyRainHazardMap;
+			hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
+		pdfKeys["{maxExtremeHeavyRain}"] = translateWMSValue(maxExtremeHeavyRain);
+		pdfKeys["{averageExtremeHeavyRain}"] = translateWMSValue(
+			averageExtremeHeavyRain,
+			"",
+		);
+		// Flusshochwasser
+		pdfKeys["{hasFloodHazardData}"] =
+			!!maxFrequentFlood && !!maxAverageFrequentFlood && !!maxRareFrequentFlood;
+		pdfKeys["{maxFrequentFlood}"] = translateWMSValue(maxFrequentFlood);
+		pdfKeys["{maxAverageFrequentFlood}"] = translateWMSValue(
+			maxAverageFrequentFlood,
+		);
+		pdfKeys["{maxRareFrequentFlood}"] = translateWMSValue(maxRareFrequentFlood);
 
 		const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {

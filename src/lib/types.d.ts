@@ -44,6 +44,13 @@ export interface BuildingWMS {
 	averageRareHeavyRain: number | null;
 	averageUncommonHeavyRain: number | null;
 	averageExtremeHeavyRain: number | null;
+	maxFrequentFlood: number | null;
+	maxAverageFrequentFlood: number | null;
+	maxRareFrequentFlood: number | null;
+	averageFrequentFlood: number | null;
+	averageAverageFrequentFlood: number | null;
+	averageRareFrequentFlood: number | null;
+	errors?: WMSError[];
 }
 
 export type BBox = [number, number, number, number];
@@ -74,4 +81,10 @@ export interface LegendeItem {
 	title?: string;
 	subTitle?: string;
 	sub_items?: { background: string; title: string }[] | undefined;
+}
+
+export interface WMSError {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	error: any;
+	layerError: string;
 }

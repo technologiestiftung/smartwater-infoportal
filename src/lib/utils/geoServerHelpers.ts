@@ -126,19 +126,23 @@ function isValidNumberString(value: string): boolean {
 
 const heavyRainLevelsMap: Record<string, string> = {
 	"> 0,5 - 1,0 m": "100",
+	"> 0,5 - 1 m": "100",
+	"> 1 - 2 m": "200",
+	"> 2 - 4 m": "400",
 	"> 0,3 - 0,5 m": "50",
+	"0,0 - 0,5 m": "50",
 	"> 0,1 - 0,3 m": "30",
 	"<= 0,1 m (nicht dargestellt)": "10",
 };
 
-export function transformHeavyRainValue(heavyRain: string | null): number {
-	if (!heavyRain) {
+export function transformWMSValue(value: string | null): number {
+	if (!value) {
 		return 0;
 	}
-	if (isValidNumberString(heavyRain)) {
-		return Number(heavyRain);
+	if (isValidNumberString(value)) {
+		return Number(value);
 	}
-	return Number(heavyRainLevelsMap[heavyRain]) || Number(heavyRain);
+	return Number(heavyRainLevelsMap[value]) || Number(value);
 }
 
 export function countGeometryPoints(geom: Geometry): number {
