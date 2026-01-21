@@ -6,69 +6,12 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
 import useStore from "@/store/defaultStore";
-import pdfData from "@/components/Report/pdf.json";
-import { drawPDF } from "@/components/Report/pdf";
-import { PDFProps } from "@/components/Report/types";
-import { getToday } from "@/components/Report/utils";
 
 export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
 	const resetAll = useStore((state) => state.resetAll);
 	const isDev = process.env.NODE_ENV === "development";
-
-	const pdfKeys: Record<string, string | number | boolean> = {
-		"{date}": getToday(),
-		"{address}": "Musterstraße 1, 10115 Berlin",
-		"{hazardLevelHeavyRain}": "Keine Daten",
-		"{hazardLevelfloodRisk}": "Keine Daten",
-		"{showRareHeavyRain}": true, // !!buildingWMSData?.maxRareHeavyRain;
-		"{maxRareHeavyRain}": "Keine Daten", // buildingWMSData?.maxRareHeavyRain
-		"{hasSrgkUncommonHeavyRainMap}": false, // !!buildingWMSData.hasHeavyRainHazardMap
-		"{maxUncommonHeavyRain}": "Keine Daten", // buildingWMSData?.maxUncommonHeavyRain
-		"{hasSrgkExtremeHeavyRainMap}": false, // buildingWMSData.hasHeavyRainHazardMap === "isInExtremeRainHazardMap"
-		"{maxExtremeHeavyRain}": "Keine Daten", // !!buildingWMSData.maxExtremeHeavyRain
-		"{hasFloodHazardData}": false, // one of the flood map data exists && no Überschwemmungsgebiet
-		"{maxFrequentFlood}": "Keine Daten",
-		"{maxAverageFlood}": "Keine Daten",
-		"{maxRareFlood}": "Keine Daten",
-		"{skip}": false, // !!skip
-		"{basementHazardTag}": "/Red.png",
-		"{highBasementHazard}": true,
-		"{midBasementHazard}": false,
-		"{lowBasementHazard}": false,
-		"{dontKnowBasementHazard}": false,
-		"{basementUsageTag}": "/Grey.png",
-		"{noBasementUsageHazard}": false,
-		"{highBasementUsageHazard}": false,
-		"{midBasementUsageHazard}": true,
-		"{backflowPreventionTag}": "/Green.png",
-		"{highBackflowPrevention}": false,
-		"{midBackflowPrevention}": false,
-		"{lowBackflowPrevention}": false,
-		"{dontKnowBackflowPrevention}": true,
-		"{propertyDrainageTag}": "/Orange.png",
-		"{noPropertyDrainageHazard}": false,
-		"{highPropertyDrainageHazard}": false,
-		"{lowPropertyDrainageHazard}": true,
-		"{pastDamagesTag}": "/Orange.png",
-		"{noPastDamages}": false,
-		"{highPastDamages}": false,
-		"{lowPastDamages}": true,
-		"{floodZoneTag}": "/Green.png",
-		"{highFloodZone}": false,
-		"{lowFloodZone}": true,
-		"{fluvialFloodTag}": "/Green.png",
-		"{highFluvialFlood}": false,
-		"{midFluvialFlood}": false,
-		"{lowFluvialFlood}": true,
-		"{heavyRainTag}": "/Green.png",
-		"{highHeavyRain}": false,
-		"{midHeavyRain}": true,
-		"{lowHeavyRain}": false,
-		"{basementWithWindows}": true,
-		"{basementWithoutWindows}": true,
-	};
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
@@ -79,25 +22,6 @@ export default function Home() {
 			</section>
 			{isDev && (
 				<div className="flex flex-col gap-4">
-					<Button
-						onClick={async () => {
-							const pdfBlobCreated = await drawPDF(
-								pdfData as PDFProps,
-								pdfKeys,
-							);
-							if (!pdfBlobCreated?.blob) {
-								window.alert("PDF konnte nicht erstellt werden.");
-								return;
-							}
-							const url = URL.createObjectURL(pdfBlobCreated.blob);
-							window.open(url, "_blank");
-							setTimeout(() => {
-								URL.revokeObjectURL(url);
-							}, 2000);
-						}}
-					>
-						Test PDF
-					</Button>
 					<Button
 						onClick={() => {
 							resetAll();
