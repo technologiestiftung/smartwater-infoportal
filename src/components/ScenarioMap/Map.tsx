@@ -27,6 +27,11 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 				<LazyOlMap scenario={scenario}>
 					<LayerInitializer scenario={scenario} />
 				</LazyOlMap>
+				<div className="absolute bottom-4 left-4 bg-white/45 p-1">
+					<p className="text-xs italic">
+						Basemap: Bundesamt für Kartographie und Geodäsie (BKG)
+					</p>
+				</div>
 			</div>
 		</div>
 	);
