@@ -20,6 +20,7 @@ const RiskAnalysis = () => {
 	const router = useRouter();
 	const [currentStep, setCurrentStep] = useState(0);
 	const [questionSkipped, setQuestionsSkipped] = useState<boolean>(false);
+	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const {
 		floodRiskAnswers,
 		updateFloodRiskAnswer,
@@ -126,6 +127,7 @@ const RiskAnalysis = () => {
 			setCurrentStep(nextStep);
 		} else {
 			// Final step - calculate score and submit
+			setShowLoading(true);
 			calculateAndSetResult();
 			router.push("/hochwasser-check#results");
 		}
@@ -186,6 +188,7 @@ const RiskAnalysis = () => {
 									className="w-full self-start lg:w-fit"
 									onClick={handleNext}
 									type="button"
+									loading={showLoading}
 								>
 									{currentStep === properties.length - 1
 										? t("floodCheck.navigation.submit")

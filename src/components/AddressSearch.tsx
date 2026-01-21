@@ -27,6 +27,7 @@ export default function AddressSearch() {
 	);
 
 	const [showLoading, setShowLoading] = useState<boolean>(false);
+	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
@@ -51,6 +52,7 @@ export default function AddressSearch() {
 
 	const handleSubmit = () => {
 		return methods.handleSubmit(() => {
+			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
 				if (!currentUserAddress) {
@@ -138,6 +140,12 @@ export default function AddressSearch() {
 		}
 	}, [currentUserAddress, setValue]);
 
+	useEffect(() => {
+		if (error) {
+			setShowSubmitLoading(false);
+		}
+	}, [error]);
+
 	return (
 		<FormWrapper>
 			<Form {...methods}>
@@ -200,6 +208,7 @@ export default function AddressSearch() {
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
 							type="submit"
+							loading={showSubmitLoading}
 						>
 							{(() => {
 								if (showLoading) {
