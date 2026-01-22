@@ -39,7 +39,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const isMobile = useMobile();
-	const [error, setError] = useState<Error | null>(null);
 	const openPDFInNewTab = true;
 
 	const allMapsLoaded = useScenarioMapsLoading();
@@ -270,11 +269,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				const url = URL.createObjectURL(pdfBlob);
 
 				if (isMobile || openPDFInNewTab) {
-					if (!window) {
-						const err = new Error("window is undefined");
-						err.name = "WindowUndefined";
-						setError(err);
-					}
 					window.open(url, "_blank");
 				} else {
 					const a = document.createElement("a");
@@ -285,10 +279,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				setTimeout(() => {
 					URL.revokeObjectURL(url);
 				}, 4000);
-			} else {
-				const err = new Error("Button not found");
-				err.name = "ButtonNotFoundOnPDF";
-				setError(err);
 			}
 		};
 
@@ -299,10 +289,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pdfBlob]);
-
-	if (error) {
-		throw error;
-	}
 
 	return (
 		<>
