@@ -1,9 +1,7 @@
 /* eslint-disable */
 
 import proj4 from "proj4";
-import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
-import { point } from "@turf/helpers";
-import { BBox, Building, BuildingWMS, Geometry, WMSError } from "./types";
+import { BBox, Building, BuildingWMS, Geometry } from "./types";
 import {
 	bufferedOutlineMultiPolygonFromBuilding,
 	countGeometryPoints,
@@ -17,21 +15,21 @@ const notFound = {
 
 const notFoundWMS = {
 	hasHeavyRainHazardMap: null,
-	maxRareHeavyRain: null,
-	maxUncommonHeavyRain: null,
-	maxExtremeHeavyRain: null,
-	averageRareHeavyRain: null,
-	averageUncommonHeavyRain: null,
-	averageExtremeHeavyRain: null,
-	maxFrequentFlood: null,
-	maxAverageFrequentFlood: null,
-	maxRareFrequentFlood: null,
-	averageFrequentFlood: null,
-	averageAverageFrequentFlood: null,
-	averageRareFrequentFlood: null,
+	rareHeavyRainMax: null,
+	uncommonHeavyRainMax: null,
+	extremeHeavyRainMax: null,
+	rareHeavyRainAverage: null,
+	uncommonHeavyRainAverage: null,
+	extremeHeavyRainAverage: null,
+	frequentFloodMax: null,
+	averageFloodMax: null,
+	rareFloodMax: null,
+	frequentFloodAverage: null,
+	averageFloodAverage: null,
+	rareFloodAverage: null,
 };
 
-const maxExtremeHeavyRainAreas = [
+const extremeHeavyRainMaxAreas = [
 	"Obersee",
 	"Niederschönhausen Ost",
 	"Frankentaler Ufer",
@@ -42,7 +40,7 @@ export class GeoServerClient {
 	private readonly workspace?: string;
 	private readonly buildingLayer: string;
 
-	private collectErrors: WMSError[] = [];
+	private collectErrors: string[] = [];
 
 	constructor() {
 		this.baseUrl = process.env.GEOSERVER_BASE_URL;
@@ -75,11 +73,9 @@ export class GeoServerClient {
 				exactMatch.geometry,
 			);
 
-			const isFlood = await this.getUeberschwemmungsgebieteWFS(
-				transformedX,
-				transformedY,
+			const floodZoneIndex = await this.getFloodZoneIndex(
+				outlineBufferGeometry,
 			);
-			const floodZoneIndex = typeof isFlood === "boolean" && !!isFlood ? 1 : 0;
 
 			return {
 				found: true,
@@ -88,7 +84,7 @@ export class GeoServerClient {
 					transformedX,
 					transformedY,
 					outlineBufferGeometry,
-					floodZoneIndex,
+					floodZoneIndex: !this.collectErrors.length ? floodZoneIndex : null,
 					numberOfBuildings: exactMatch.geometry.coordinates.length,
 					numberOfCoordinatesOnBuildings: countGeometryPoints(
 						exactMatch.geometry,
@@ -96,6 +92,7 @@ export class GeoServerClient {
 					numberOfCoordinatesOnOutline: countGeometryPoints(
 						outlineBufferGeometry,
 					),
+					errors: this.collectErrors,
 				},
 			};
 		} catch {
@@ -109,21 +106,19 @@ export class GeoServerClient {
 		opts: {
 			service: string;
 			layer: string;
+			errorString: string;
 			property?: string;
 		},
 		metric: { max: number; sum: number },
 	) {
-		const res = await this.getBuildingWMSFeatureInfo(
+		const res = await this.getWMSFeatureInfo(
 			x,
 			y,
 			opts.service,
 			opts.layer,
+			opts.errorString,
 			opts.property,
 		);
-
-		if (opts.service === "ua_hochwassergefahrenkarten") {
-			console.log("res ua_hochwassergefahrenkarten :>> ", opts.layer, res);
-		}
 
 		if (typeof res === "string") {
 			const v = transformWMSValue(res);
@@ -147,11 +142,16 @@ export class GeoServerClient {
 				return notFoundWMS;
 			}
 
-			const hasHeavyRainHazardMap = await this.getBuildingWMSFeatureInfo(
+			if (building.errors && building.errors.length > 0) {
+				this.collectErrors.push(...building.errors);
+			}
+
+			const hasHeavyRainHazardMap = await this.getWMSFeatureInfo(
 				transformedX,
 				transformedY,
 				"ua_srgk",
 				"a_modellgebiete",
+				"hasHeavyRainHazardMap",
 			);
 
 			const isInExtremeRainHazardMap =
@@ -199,6 +199,7 @@ export class GeoServerClient {
 								service: "ua_srgk",
 								layer: "ca_wasserstand_selten",
 								property: "Wasserstand_m",
+								errorString: "rareHeavyRain",
 							},
 							rareHeavyRain,
 						);
@@ -214,6 +215,7 @@ export class GeoServerClient {
 							property: hasHeavyRainHazardMap
 								? "Wasserstand_m"
 								: "Wasserstand_cm",
+							errorString: "uncommonHeavyRain",
 						},
 						uncommonHeavyRain,
 					);
@@ -228,6 +230,7 @@ export class GeoServerClient {
 							property: isInExtremeRainHazardMap
 								? "Wasserstand_m"
 								: "Wasserstand_cm",
+							errorString: "extremeHeavyRain",
 						},
 						extremeHeavyRain,
 					);
@@ -240,6 +243,7 @@ export class GeoServerClient {
 							service: "ua_hochwassergefahrenkarten",
 							layer: "a_hwgk_hoch",
 							property: "Wassertiefe",
+							errorString: "frequentFlood",
 						},
 						frequentFlood,
 					);
@@ -250,6 +254,7 @@ export class GeoServerClient {
 							service: "ua_hochwassergefahrenkarten",
 							layer: "b_hwgk_mittel",
 							property: "Wassertiefe",
+							errorString: "averageFlood",
 						},
 						averageFlood,
 					);
@@ -260,6 +265,7 @@ export class GeoServerClient {
 							service: "ua_hochwassergefahrenkarten",
 							layer: "c_hwgk_niedrig",
 							property: "Wassertiefe",
+							errorString: "rareFlood",
 						},
 						rareFlood,
 					);
@@ -270,30 +276,30 @@ export class GeoServerClient {
 				hasHeavyRainHazardMap,
 
 				// Starkregen
-				maxRareHeavyRain: rareHeavyRain.max,
-				maxUncommonHeavyRain: uncommonHeavyRain.max,
-				maxExtremeHeavyRain: extremeHeavyRain.max,
-				averageRareHeavyRain: Math.round(
+				rareHeavyRainMax: rareHeavyRain.max,
+				uncommonHeavyRainMax: uncommonHeavyRain.max,
+				extremeHeavyRainMax: extremeHeavyRain.max,
+				rareHeavyRainAverage: Math.round(
 					rareHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
 				),
-				averageUncommonHeavyRain: Math.round(
+				uncommonHeavyRainAverage: Math.round(
 					uncommonHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
 				),
-				averageExtremeHeavyRain: Math.round(
+				extremeHeavyRainAverage: Math.round(
 					extremeHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
 				),
 
 				// Flusshochwasser
-				maxFrequentFlood: frequentFlood.max,
-				maxAverageFrequentFlood: averageFlood.max,
-				maxRareFrequentFlood: rareFlood.max,
-				averageFrequentFlood: Math.round(
+				frequentFloodMax: frequentFlood.max,
+				averageFloodMax: averageFlood.max,
+				rareFloodMax: rareFlood.max,
+				frequentFloodAverage: Math.round(
 					frequentFlood.sum / building.numberOfCoordinatesOnOutline!,
 				),
-				averageAverageFrequentFlood: Math.round(
+				averageFloodAverage: Math.round(
 					averageFlood.sum / building.numberOfCoordinatesOnOutline!,
 				),
-				averageRareFrequentFlood: Math.round(
+				rareFloodAverage: Math.round(
 					rareFlood.sum / building.numberOfCoordinatesOnOutline!,
 				),
 
@@ -305,137 +311,71 @@ export class GeoServerClient {
 		}
 	}
 
-	isInsideFloodZone(x25833: number, y25833: number, features: any) {
-		const p = point([x25833, y25833]);
-
-		for (const f of features) {
-			if (booleanPointInPolygon(p, f as any)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	async getUeberschwemmungsgebieteWFS(
-		x25833: number,
-		y25833: number,
-		buffer = 50,
-	): Promise<any | null> {
-		try {
-			// Buffer BBOX exactly like your GetFeatureInfo logic
-			const bbox = [
-				x25833 - buffer,
-				y25833 - buffer,
-				x25833 + buffer,
-				y25833 + buffer,
-			].join(",");
-
-			const url = new URL("https://gdi.berlin.de/services/wfs/ua_uesg");
-
-			url.searchParams.set("SERVICE", "WFS");
-			url.searchParams.set("VERSION", "2.0.0");
-			url.searchParams.set("REQUEST", "GetFeature");
-			url.searchParams.set("TYPENAMES", "ua_uesg:c_ueberschwemmungsgebiete");
-
-			// IMPORTANT: Berlin WFS supports JSON!
-			url.searchParams.set("OUTPUTFORMAT", "application/json");
-
-			// coordinate system
-			url.searchParams.set("SRSNAME", "EPSG:25833");
-
-			// your dynamic bounding box
-			url.searchParams.set("BBOX", bbox);
-
-			const response = await fetch(url.toString());
-			if (!response.ok) {
-				console.error("WFS error:", response.status, response.statusText);
-				return null;
-			}
-
-			const json = await response.json();
-
-			if (!json.features || json.features.length === 0) {
-				return null;
-			}
-
-			const isFlood =
-				json.features && this.isInsideFloodZone(x25833, y25833, json.features);
-
-			return isFlood;
-		} catch (err) {
-			console.error("WFS fetch failed:", err);
-			return null;
+	addError(errorString: string) {
+		if (!this.collectErrors.some((e) => e === errorString)) {
+			this.collectErrors.push(errorString);
 		}
 	}
 
-	async getBuildingWMSFeatureInfo(
+	async getWMSFeatureInfo(
 		x25833: number,
 		y25833: number,
 		base: string,
 		layer: string,
+		errorString: string,
 		propertyKey?: string,
-		buffer = 0.5,
-		width = 256,
-		height = 256,
 	): Promise<string | null> {
-		const layerError = `${base}_${layer}`;
+		const buffer = 0.5;
+		const width = 256;
+		const height = 256;
 
-		if (this.collectErrors.some((e) => e.layerError === layerError)) {
-			/* const resWFSonError = await this.getWFSFeatureInfo(
-				x25833,
-				y25833,
-				base,
-				layer,
-			);
-			console.log("resWFSonError :>> ", layerError, resWFSonError); */
-			console.error("layerError :>> ", layerError);
+		if (this.collectErrors.some((e) => e === errorString)) {
 			return null;
 		}
 
+		const minx = x25833 - buffer;
+		const miny = y25833 - buffer;
+		const maxx = x25833 + buffer;
+		const maxy = y25833 + buffer;
+
+		const bbox = [minx, miny, maxx, maxy].join(",");
+
+		const i = Math.floor(((x25833 - minx) / (maxx - minx)) * width);
+		const j = Math.floor(((maxy - y25833) / (maxy - miny)) * height);
+
+		const ii = Math.max(0, Math.min(width - 1, i));
+		const jj = Math.max(0, Math.min(height - 1, j));
+
+		const url = new URL(`https://gdi.berlin.de/services/wms/${base}`);
+
+		url.searchParams.set("SERVICE", "WMS");
+		url.searchParams.set("VERSION", "1.3.0");
+		url.searchParams.set("REQUEST", "GetFeatureInfo");
+
+		// Layer you care about
+		url.searchParams.set("LAYERS", layer);
+		url.searchParams.set("QUERY_LAYERS", layer);
+
+		// Virtual map definition (must match pixel math above)
+		url.searchParams.set("CRS", "EPSG:25833");
+		url.searchParams.set("BBOX", bbox);
+		url.searchParams.set("WIDTH", String(width));
+		url.searchParams.set("HEIGHT", String(height));
+
+		// Pixel coordinate (WMS 1.3.0 uses I/J)
+		url.searchParams.set("I", String(ii));
+		url.searchParams.set("J", String(jj));
+
+		// Ask for JSON like your setup
+		url.searchParams.set("INFO_FORMAT", "application/json");
+		url.searchParams.set("FEATURE_COUNT", "5");
+
+		// Optional but sometimes helps servers
+		url.searchParams.set("STYLES", "");
+		url.searchParams.set("FORMAT", "image/png");
+		url.searchParams.set("TRANSPARENT", "true");
+
 		try {
-			const minx = x25833 - buffer;
-			const miny = y25833 - buffer;
-			const maxx = x25833 + buffer;
-			const maxy = y25833 + buffer;
-
-			const bbox = [minx, miny, maxx, maxy].join(",");
-
-			const i = Math.floor(((x25833 - minx) / (maxx - minx)) * width);
-			const j = Math.floor(((maxy - y25833) / (maxy - miny)) * height);
-
-			const ii = Math.max(0, Math.min(width - 1, i));
-			const jj = Math.max(0, Math.min(height - 1, j));
-
-			const url = new URL(`https://gdi.berlin.de/services/wms/${base}`);
-
-			url.searchParams.set("SERVICE", "WMS");
-			url.searchParams.set("VERSION", "1.3.0");
-			url.searchParams.set("REQUEST", "GetFeatureInfo");
-
-			// Layer you care about
-			url.searchParams.set("LAYERS", layer);
-			url.searchParams.set("QUERY_LAYERS", layer);
-
-			// Virtual map definition (must match pixel math above)
-			url.searchParams.set("CRS", "EPSG:25833");
-			url.searchParams.set("BBOX", bbox);
-			url.searchParams.set("WIDTH", String(width));
-			url.searchParams.set("HEIGHT", String(height));
-
-			// Pixel coordinate (WMS 1.3.0 uses I/J)
-			url.searchParams.set("I", String(ii));
-			url.searchParams.set("J", String(jj));
-
-			// Ask for JSON like your setup
-			url.searchParams.set("INFO_FORMAT", "application/json");
-			url.searchParams.set("FEATURE_COUNT", "5");
-
-			// Optional but sometimes helps servers
-			url.searchParams.set("STYLES", "");
-			url.searchParams.set("FORMAT", "image/png");
-			url.searchParams.set("TRANSPARENT", "true");
-
 			const response = await fetch(url.toString());
 			if (!response.ok) {
 				console.error(
@@ -460,6 +400,7 @@ export class GeoServerClient {
 				try {
 					json = JSON.parse(text);
 				} catch (e) {
+					this.addError(errorString);
 					console.warn("WMS returned json content-type but JSON parse failed");
 					return null;
 				}
@@ -467,7 +408,11 @@ export class GeoServerClient {
 				try {
 					json = JSON.parse(text);
 				} catch {
-					console.error("Unable to parse WMS GetFeatureInfo response as JSON:");
+					this.addError(errorString);
+					console.error(
+						"Unable to parse WMS GetFeatureInfo response as JSON:",
+						text,
+					);
 					return null;
 				}
 			}
@@ -480,23 +425,17 @@ export class GeoServerClient {
 				json?.FeatureCollection?.features ??
 				null;
 
-			if (base === "ua_hochwassergefahrenkarten") {
-				console.log(
-					"features ua_hochwassergefahrenkarten :>> ",
-					layerError,
-					features,
-				);
-			}
-
 			if (Array.isArray(features)) {
 				if (features.length === 0) {
 					return null;
 				}
-				if (
+				if (layer === "c_ueberschwemmungsgebiete") {
+					return "floodZoneIndex";
+				} else if (
 					layer === "a_modellgebiete" &&
 					features[0].properties &&
 					features[0].properties?.Gebietsname &&
-					maxExtremeHeavyRainAreas.includes(features[0].properties?.Gebietsname)
+					extremeHeavyRainMaxAreas.includes(features[0].properties?.Gebietsname)
 				) {
 					return "isInExtremeRainHazardMap";
 				} else if (layer === "a_modellgebiete") {
@@ -526,61 +465,56 @@ export class GeoServerClient {
 			console.warn("WMS GetFeatureInfo JSON has no features array.");
 			return null;
 		} catch (err) {
-			console.error("WMS GetFeatureInfo fetch failed:", layerError);
-			if (!this.collectErrors.some((e) => e.layerError === layerError)) {
-				this.collectErrors.push({ error: err, layerError });
-			}
+			this.addError(errorString);
 			return null;
 		}
 	}
 
-	async getWFSFeatureInfo(
-		x25833: number,
-		y25833: number,
-		base: string,
-		layer: string,
-		propertyKey?: string,
-		buffer = 0.5,
-	): Promise<any | null> {
-		try {
-			const bbox = [
-				x25833 - buffer,
-				y25833 - buffer,
-				x25833 + buffer,
-				y25833 + buffer,
-			].join(",");
-
-			const url = new URL(`https://gdi.berlin.de/services/wfs/${base}`);
-
-			url.searchParams.set("SERVICE", "WFS");
-			url.searchParams.set("VERSION", "2.0.0");
-			url.searchParams.set("REQUEST", "GetFeature");
-			url.searchParams.set("TYPENAMES", layer);
-			url.searchParams.set("OUTPUTFORMAT", "application/json");
-			url.searchParams.set("COUNT", "1");
-			url.searchParams.set("MAXFEATURES", "1");
-			url.searchParams.set("SRSNAME", "EPSG:25833");
-			url.searchParams.set("BBOX", bbox);
-
-			const response = await fetch(url.toString());
-			if (!response.ok) return null;
-
-			const json = await response.json();
-			if (!json?.features?.length) return null;
-
-			const feature = json.features[0];
-
-			// ✅ if a propertyKey is given → return that property
-			if (propertyKey) {
-				return feature.properties?.[propertyKey] ?? null;
-			}
-
-			// ✅ otherwise return the feature value itself
-			return feature.properties ?? feature;
-		} catch (err) {
-			console.error("WFS fetch failed:", err);
-			return null;
+	async getFloodZoneIndex(geometry: Geometry): Promise<number> {
+		if (!geometry) {
+			return 0;
 		}
+		const polys =
+			geometry.type === "Polygon"
+				? [geometry.coordinates]
+				: geometry.type === "MultiPolygon"
+					? geometry.coordinates
+					: [];
+		if (!polys.length) {
+			return 0;
+		}
+
+		for (const poly of polys) {
+			const ring = Array.isArray(poly) ? poly[0] : null;
+			if (!Array.isArray(ring)) continue;
+
+			for (const coord of ring) {
+				if (
+					!Array.isArray(coord) ||
+					coord.length < 2 ||
+					typeof coord[0] !== "number" ||
+					typeof coord[1] !== "number"
+				) {
+					continue;
+				}
+
+				const x = coord[0];
+				const y = coord[1];
+
+				const res = await this.getWMSFeatureInfo(
+					x,
+					y,
+					"ua_uesg",
+					"c_ueberschwemmungsgebiete",
+					"floodZoneIndex",
+				);
+				if (!!res) {
+					return 1;
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	private async searchExactIntersection(

@@ -120,46 +120,47 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		console.log("buildingWMSData :>> ", buildingWMSData);
 
 		const {
-			maxRareHeavyRain,
+			rareHeavyRainMax,
 			hasHeavyRainHazardMap,
-			maxUncommonHeavyRain,
-			maxExtremeHeavyRain,
-			maxFrequentFlood,
-			maxAverageFrequentFlood,
-			maxRareFrequentFlood,
-			averageRareHeavyRain,
-			averageUncommonHeavyRain,
-			averageExtremeHeavyRain,
+			uncommonHeavyRainMax,
+			extremeHeavyRainMax,
+			frequentFloodMax,
+			averageFloodMax,
+			rareFloodMax,
+			rareHeavyRainAverage,
+			uncommonHeavyRainAverage,
+			extremeHeavyRainAverage,
+			errors,
 		} = buildingWMSData;
 
 		// Starkregen
-		pdfKeys["{showRareHeavyRain}"] = !!maxRareHeavyRain;
-		pdfKeys["{maxRareHeavyRain}"] = translateWMSValue(maxRareHeavyRain);
-		pdfKeys["{averageRareHeavyRain}"] = translateWMSValue(
-			averageRareHeavyRain,
+		pdfKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
+		pdfKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
+		pdfKeys["{rareHeavyRainAverage}"] = translateWMSValue(
+			rareHeavyRainAverage,
 			"",
 		);
+		pdfKeys["{errorRareHeavyRain}"] =
+			errors?.includes("rareHeavyRain") || false;
 		pdfKeys["{hasSrgkUncommonHeavyRainMap}"] = !!hasHeavyRainHazardMap;
-		pdfKeys["{maxUncommonHeavyRain}"] = translateWMSValue(maxUncommonHeavyRain);
-		pdfKeys["{averageUncommonHeavyRain}"] = translateWMSValue(
-			averageUncommonHeavyRain,
+		pdfKeys["{uncommonHeavyRainMax}"] = translateWMSValue(uncommonHeavyRainMax);
+		pdfKeys["{uncommonHeavyRainAverage}"] = translateWMSValue(
+			uncommonHeavyRainAverage,
 			"",
 		);
 		pdfKeys["{hasSrgkExtremeHeavyRainMap}"] =
 			hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
-		pdfKeys["{maxExtremeHeavyRain}"] = translateWMSValue(maxExtremeHeavyRain);
-		pdfKeys["{averageExtremeHeavyRain}"] = translateWMSValue(
-			averageExtremeHeavyRain,
+		pdfKeys["{extremeHeavyRainMax}"] = translateWMSValue(extremeHeavyRainMax);
+		pdfKeys["{extremeHeavyRainAverage}"] = translateWMSValue(
+			extremeHeavyRainAverage,
 			"",
 		);
 		// Flusshochwasser
 		pdfKeys["{hasFloodHazardData}"] =
-			!!maxFrequentFlood && !!maxAverageFrequentFlood && !!maxRareFrequentFlood;
-		pdfKeys["{maxFrequentFlood}"] = translateWMSValue(maxFrequentFlood);
-		pdfKeys["{maxAverageFrequentFlood}"] = translateWMSValue(
-			maxAverageFrequentFlood,
-		);
-		pdfKeys["{maxRareFrequentFlood}"] = translateWMSValue(maxRareFrequentFlood);
+			!!frequentFloodMax && !!averageFloodMax && !!rareFloodMax;
+		pdfKeys["{frequentFloodMax}"] = translateWMSValue(frequentFloodMax);
+		pdfKeys["{averageFloodMax}"] = translateWMSValue(averageFloodMax);
+		pdfKeys["{rareFloodMax}"] = translateWMSValue(rareFloodMax);
 
 		const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
 		if (!pdfBlobCreated?.blob) {

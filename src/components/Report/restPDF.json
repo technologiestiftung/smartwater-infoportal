@@ -83,7 +83,7 @@
 				"marginBottom": "paragraph"
 			},
 			{
-				"text": "Die Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxFrequentFlood}</b> auftreten können."
+				"text": "Die Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {frequentFloodMax}</b> auftreten können."
 			}
 		]
 	},
@@ -112,7 +112,7 @@
 				"marginBottom": "paragraph"
 			},
 			{
-				"text": "Die Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxAverageFrequentFlood}</b> auftreten können."
+				"text": "Die Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {averageFloodMax}</b> auftreten können."
 			}
 		]
 	},
@@ -141,7 +141,7 @@
 				"marginBottom": "paragraph"
 			},
 			{
-				"text": "Die Hochwassergefahrenkarte \"Seltenes Ereignis\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {maxRareFrequentFlood}</b> auftreten können."
+				"text": "Die Hochwassergefahrenkarte \"Seltenes Ereignis\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>bis zu {rareFloodMax}</b> auftreten können."
 			}
 		]
 	},

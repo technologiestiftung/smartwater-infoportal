@@ -47,7 +47,8 @@
 			"subLabel": "Überschwemmungsgebiet",
 			"title": "Flusshochwasser",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"yes": "Ja"
+			"yes": "Ja",
+			"floodZoneIndexError": "Fehler bei der Bestimmung der Überschwemmungsgebietzugehörigkeit"
 		},
 		"hazardDisplay": {
 			"descriptionPlaceholder": "Lorem Ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",

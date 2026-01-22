@@ -32,25 +32,25 @@ export interface Building {
 	numberOfCoordinatesOnOutline?: number;
 	transformedX?: number;
 	transformedY?: number;
-	floodZoneIndex?: number;
-	[key: string]: unknown;
+	floodZoneIndex?: number | null;
+	errors?: string[];
 }
 
 export interface BuildingWMS {
 	hasHeavyRainHazardMap: string | null;
-	maxRareHeavyRain: number | null;
-	maxUncommonHeavyRain: number | null;
-	maxExtremeHeavyRain: number | null;
-	averageRareHeavyRain: number | null;
-	averageUncommonHeavyRain: number | null;
-	averageExtremeHeavyRain: number | null;
-	maxFrequentFlood: number | null;
-	maxAverageFrequentFlood: number | null;
-	maxRareFrequentFlood: number | null;
-	averageFrequentFlood: number | null;
-	averageAverageFrequentFlood: number | null;
-	averageRareFrequentFlood: number | null;
-	errors?: WMSError[];
+	rareHeavyRainMax: number | null;
+	uncommonHeavyRainMax: number | null;
+	extremeHeavyRainMax: number | null;
+	rareHeavyRainAverage: number | null;
+	uncommonHeavyRainAverage: number | null;
+	extremeHeavyRainAverage: number | null;
+	frequentFloodMax: number | null;
+	averageFloodMax: number | null;
+	rareFloodMax: number | null;
+	frequentFloodAverage: number | null;
+	averageFloodAverage: number | null;
+	rareFloodAverage: number | null;
+	errors?: string[];
 }
 
 export type BBox = [number, number, number, number];
@@ -81,10 +81,4 @@ export interface LegendeItem {
 	title?: string;
 	subTitle?: string;
 	sub_items?: { background: string; title: string }[] | undefined;
-}
-
-export interface WMSError {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	error: any;
-	layerError: string;
 }
