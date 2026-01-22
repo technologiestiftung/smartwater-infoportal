@@ -36,8 +36,11 @@ export const getWidthClass = (fullScreenMap: boolean) => {
 	return "w-[370px]";
 };
 
-export const checkNumber = (str: string): boolean => {
-	return !isNaN(Number(str)) && str.trim() !== "";
+export const checkNumber = (value: unknown): boolean => {
+	if (typeof value !== "string") {
+		return false;
+	}
+	return value.trim() !== "" && !isNaN(Number(value));
 };
 
 export const containsNumber = (str: string): boolean => {
