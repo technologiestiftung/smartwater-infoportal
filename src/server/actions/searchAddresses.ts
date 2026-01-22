@@ -64,7 +64,16 @@ export async function searchAddresses(
 			return f.name.includes(germanZIPCode);
 		});
 
-	if (!filteredResults.some((addr) => addr.hasHousenumber) && !isReverse) {
+	const seen = new Set();
+	const uniqueFeatures = filteredResults.filter((item: CurrentUserAddress) => {
+		if (seen.has(item.name)) {
+			return false;
+		}
+		seen.add(item.name);
+		return true;
+	});
+
+	if (!uniqueFeatures.some((addr) => addr.hasHousenumber) && !isReverse) {
 		const getPhoneAPIResult = await searchAddressesPhotonAPI(query);
 		if (getPhoneAPIResult.ok) {
 			const firstWordOfQuery = query.split(" ")[0].toLowerCase();
@@ -76,15 +85,15 @@ export async function searchAddresses(
 			if (findPhotonHit.length > 0) {
 				return {
 					ok: true,
-					data: [...findPhotonHit, ...filteredResults],
+					data: [...findPhotonHit, ...uniqueFeatures],
 				};
 			}
 		}
 	}
 
-	if (filteredResults.length === 0) {
+	if (uniqueFeatures.length === 0) {
 		return { ok: false, code: "noResult" };
 	}
 
-	return { ok: true, data: filteredResults };
+	return { ok: true, data: uniqueFeatures };
 }

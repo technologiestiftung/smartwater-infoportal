@@ -2,7 +2,7 @@
 "use server";
 
 import { sanitizeAddressInput } from "@/lib/helpers/sanitizer";
-import { AddressResult } from "@/lib/types";
+import { AddressResult, CurrentUserAddress } from "@/lib/types";
 
 export async function searchAddressesPhotonAPI(
 	query: string,
@@ -30,7 +30,7 @@ export async function searchAddressesPhotonAPI(
 	params.append("layer", "street");
 	params.append("layer", "locality");
 	params.append("bbox", bboxString);
-	params.append("limit", "40");
+	params.append("limit", "10");
 	params.append("lang", "de");
 	params.append("location_bias_scale", "1.0");
 
@@ -93,8 +93,19 @@ export async function searchAddressesPhotonAPI(
 		},
 	);
 
-	if (filteredFeaturesWithDisplayName.length === 0) {
+	const seen = new Set();
+	const uniqueFeatures = filteredFeaturesWithDisplayName.filter(
+		(item: CurrentUserAddress) => {
+			if (seen.has(item.name)) {
+				return false;
+			}
+			seen.add(item.name);
+			return true;
+		},
+	);
+
+	if (uniqueFeatures.length === 0) {
 		return { ok: false, code: "noResult" };
 	}
-	return { ok: true, data: filteredFeaturesWithDisplayName };
+	return { ok: true, data: uniqueFeatures };
 }
