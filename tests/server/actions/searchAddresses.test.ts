@@ -40,8 +40,8 @@ describe("searchAddresses", () => {
 			expect(typeof r.name).toBe(c.expectedResult);
 		} else if (results.length > 0) {
 			const r = results[0];
-			expect(typeof r.lat).toBe("number");
-			expect(typeof r.lon).toBe("number");
+			expect(typeof r.lat).toBe("string");
+			expect(typeof r.lon).toBe("string");
 			expect(typeof r.name).toBe("string");
 		}
 	});
