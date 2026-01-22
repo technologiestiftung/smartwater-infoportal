@@ -12,7 +12,7 @@
 		"test:watch": "jest --watch",
 		"install-lib": "npm install github:technologiestiftung/berlin-ui-library",
 		"prepare": "husky",
-		"reset": "rm -rf node_modules .next package-lock.json && npm install",
+		"reset": "rm -rf node_modules .next package-lock.json && npm install && npm run dev",
 		"test:two": "jest getBuildingWMS"
 	},
 	"dependencies": {
