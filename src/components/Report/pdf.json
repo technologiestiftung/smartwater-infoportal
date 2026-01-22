@@ -510,6 +510,11 @@
 			"hide": "!{skip}",
 			"items": [
 				{
+					"text": "Handlungsempfehlungen",
+					"fontSize": "h1",
+					"marginBottom": 11
+				},
+				{
 					"text": "Allgemeiner Bericht",
 					"fontSize": "h2",
 					"marginBottom": 3
@@ -519,7 +524,7 @@
 					"marginBottom": "paragraph"
 				},
 				{
-					"text": "Wenn sie an Maßnahmen interessiert sind, die auf Ihren individuellen Fall angepasst sind, können Sie im HochwasserCheck Berlin den Fragebogen ausfüllen und sich einen auf Ihre Hochwassersituation zugeschnittenen Bericht erstellen lassen."
+					"text": "Wenn sie an Maßnahmen interessiert sind, die auf Ihren individuellen Fall angepasst sind, können Sie im <b>HochwasserCheck Berlin</b> den Fragebogen ausfüllen und sich einen auf Ihre Hochwassersituation zugeschnittenen Bericht erstellen lassen."
 				}
 			]
 		},

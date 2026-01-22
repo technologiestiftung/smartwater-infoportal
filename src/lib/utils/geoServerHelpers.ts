@@ -228,7 +228,6 @@ export async function getWFSFeatureInfo(
 		if (!response.ok) return null;
 
 		const json = await response.json();
-		console.log("json :>> ", JSON.stringify(json));
 		if (!json?.features?.length) return null;
 
 		const feature = json.features[0];
