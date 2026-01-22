@@ -50,7 +50,7 @@
 				}
 			},
 			"image": {
-				"alt": "???",
+				"alt": "Grafik, die zeigt, wie ein Starkregenereignis entsteht und wie ein durch Starkregen ausgelöstes Hochwasser in der Stadt aussieht.",
 				"caption": "Abbildung 3: oben: Wie entsteht ein Starkregenereignis; unten: Wie gestaltet sich ein durch Starkregen ausgelöstes Hochwasser in der Stadt.",
 				"copyright": "© SenMVKU"
 			}
@@ -64,7 +64,7 @@
 				"paragraph4": "Um sich das Konzept der Eintrittswahrscheinlichkeit von Hochwassern besser vorstellen zu können, vergleicht Abbildung 3 Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse. Die Eintrittswahrscheinlichkeiten der Hochwasser sind in Jährlichkeiten (z. B. 30-jährlich) oder den entsprechenden Begriffen (z. B. häufig) angegeben, wie es im Hochwasserkontext üblich ist. Daneben finden Sie die außerhalb des Hochwasserkontext üblichere Angabe in Prozent [%]."
 			},
 			"image": {
-				"alt": "???",
+				"alt": "Grafik, die Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse vergleicht.",
 				"caption": "Abbildung 4: Vergleich von Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse.",
 				"copyright": "© SenMVKU"
 			}
@@ -73,7 +73,7 @@
 			"title": "Was für Hochwasserkarten gibt es für Berlin?",
 			"description": "Bei Hochwassern ist neben dem Was? (Wasserstand, Fließgeschwindigkeit, Eintrittswahrscheinlichkeit) immer auch das Wo? entscheidend. Verknüpfen wir eine Information mit einem Ort entstehen „Geodaten“. Deren häufigste Darstellung ist die Karte. Berlin stellt den Bürger*innen eine Vielzahl von Karten im <link1>Geoportal</link1> zur Verfügung.\n\nEine Gruppe von Karten auf dem Geoportal befasst sich mit Hochwassern. Diese wurden erstellt für Starkregen und Flusshochwasser. Für Starkregen gibt es Starkregenhinweis- und Starkregengefahrenkarten. Diese unterscheiden sich hinsichtlich ihrer Datengrundlage, siehe Abbildung 6. Neben den Starkregenkarten gibt es im Geoportal Flusshochwasserkarten.\n\nHinweis- bzw. Gefahrenkarten werden für unterschiedliche Szenarien erstellt, siehe Tabelle 1.  Jedes Szenario beschreibt ein simuliertes Hochwasserereignis mit bestimmten Eigenschaften, z.B. der <link2>Eintrittswahrscheinlichkeit</link2> oder einer bestimmte Regenmenge in einem bestimmten Zeitraum. Regenmengen werden hierbei in „mm“ angegeben, womit die Regenmenge in Litern gemeint ist, die auf einem Quadratmeter Fläche fällt.",
 			"image": {
-				"alt": "???",
+				"alt": "Grafik, die die Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten veranschaulicht.",
 				"caption": "Abbildung 5: Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten.",
 				"copyright": "© SenMVKU"
 			},
@@ -130,7 +130,7 @@
 				"paragraph3": "Was können die Berliner*innen tun? Auch Sie als Bürger*innen dieser Stadt tragen Verantwortung: Laut <link2>Wasserhaushaltsgesetz §5 (2)</link2> muss sich jede*r vor Hochwasserschäden schützen. Es gibt viele Maßnahmen, die unterschiedlich viel kosten und unterschiedlich aufwendig sind. Fangen Sie an: Nutzen Sie den <link3>HochwasserCheck Berlin</link3> um sich über Ihr individuelles Risiko zu informieren, lernen Sie richtiges Verhalten im Ernstfall und lagern Sie z.B. Dinge im Keller höher, um Schäden zu vermeiden. Diese und weitere Hinweise zur Vorsorge finden sie hier in den <link4>Handlungsempfehlungen</link4>."
 			},
 			"image": {
-				"alt": "???",
+				"alt": "Grafik, die den Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser darstellt.",
 				"caption": "Abbildung 6: Darstellung des Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser.",
 				"copyright": "© SenMVKU"
 			}
