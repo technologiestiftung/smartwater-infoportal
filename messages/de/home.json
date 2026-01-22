@@ -20,7 +20,6 @@
 				"title": "Hinweis",
 				"description": "Mit dem Gefährdungscheck erhalten Sie eine erste Einschätzung der Gesamtgefährdung um Ihr Gebäude. Der zusätzliche Risikocheck ist ein Fragebogen von 6 Fragen und bietet eine detailliertere Analyse der Gefahren und Risiken um und in Ihrem Gebäude. Darauf aufbauend werden individuelle Handlungsempfehlungen erstellt."
 			},
-			"loading": "Überprüfe Adresse...",
 			"result": "Ergebnisse",
 			"pleaseAddHouseNumber": "Bitte ergänzen Sie eine Hausnummer zur Adresse",
 			"probablyNoAddress": "Die eingegebene Adresse scheint keinen Treffer zu ergeben. Bitte überprüfen Sie die Eingabe.",

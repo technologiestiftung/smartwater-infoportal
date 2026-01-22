@@ -195,12 +195,7 @@ export default function AddressSearch() {
 							type="submit"
 							loading={showSubmitLoading}
 						>
-							{(() => {
-								if (showLoading) {
-									return t("addressCheck.loading");
-								}
-								return t("addressCheck.button");
-							})()}
+							{t("addressCheck.button")}
 						</Button>
 					</div>
 				</form>
