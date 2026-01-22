@@ -1,19 +1,13 @@
 /* eslint-disable */
 "use server";
 
-import { CurrentUserAddress } from "@/lib/types";
+import { AddressResult, CurrentUserAddress } from "@/lib/types";
 import { containsNumber, extractGermanZipCode } from "@/lib/utils/mapUtils";
+import { searchAddressesPhotonAPI } from "./searchAddressesPhotonAPI";
 
 const berlinBbox: number[] = [
 	13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
 ];
-
-type AddressResult =
-	| { ok: true; data: CurrentUserAddress[] }
-	| {
-			ok: false;
-			code: "noResult" | "maptilerError";
-	  };
 
 export async function searchAddresses(
 	query: string,
@@ -34,7 +28,7 @@ export async function searchAddresses(
 	if (!isReverse) {
 		params.append("bbox", berlinBbox.join(","));
 		params.append("fuzzyMatch", "true");
-		params.append("autocomplete", "false");
+		params.append("autocomplete", "true");
 		params.append("limit", "10");
 	} else {
 		params.set("limit", "3");
@@ -70,8 +64,20 @@ export async function searchAddresses(
 			return f.name.includes(germanZIPCode);
 		});
 
-	if (filteredResults.length === 0) {
-		return { ok: false, code: "noResult" };
+	if (!filteredResults.some((addr) => addr.hasHousenumber) && !isReverse) {
+		const getPhoneAPIResult = await searchAddressesPhotonAPI(query);
+		if (getPhoneAPIResult.ok) {
+			const firstWordOfQuery = query.split(" ")[0];
+			const findPhotonHit = getPhoneAPIResult.data.filter(
+				(addr) => addr.name.includes(firstWordOfQuery) && addr.hasHousenumber,
+			);
+			if (findPhotonHit.length > 0) {
+				return {
+					ok: true,
+					data: [...findPhotonHit, ...filteredResults],
+				};
+			}
+		}
 	}
 
 	return { ok: true, data: filteredResults };

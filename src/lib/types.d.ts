@@ -60,3 +60,7 @@ export interface LegendeItem {
 	subTitle?: string;
 	sub_items?: { background: string; title: string }[] | undefined;
 }
+
+export type AddressResult =
+	| { ok: true; data: CurrentUserAddress[] }
+	| { ok: false; code: "noResult" | "maptilerError" };
