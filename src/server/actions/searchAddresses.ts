@@ -1,215 +1,99 @@
+/* eslint-disable */
 "use server";
 
-import { sanitizeAddressInput } from "@/lib/helpers/sanitizer";
-import { sortHouseFirst } from "@/lib/helpers/addressSearch";
-import { CurrentUserAddress } from "@/lib/types";
+import { AddressResult, CurrentUserAddress } from "@/lib/types";
+import { containsNumber, extractGermanZipCode } from "@/lib/utils/mapUtils";
+import { searchAddressesPhotonAPI } from "./searchAddressesPhotonAPI";
 
-const DEFAULT_LAT = "52.5";
-const DEFAULT_LON = "13.4";
-
-interface PhotonProperties {
-	osm_type?: string;
-	osm_id?: number;
-	osm_key?: string;
-	osm_value?: string;
-	name?: string;
-	street?: string;
-	housenumber?: string;
-	postcode?: string;
-	city?: string;
-	district?: string;
-	county?: string;
-	state?: string;
-	country?: string;
-	countrycode?: string;
-	extent?: number[];
-}
-
-interface PhotonFeature {
-	type: "Feature";
-	properties: PhotonProperties;
-	geometry: {
-		type: "Point";
-		coordinates: [number, number];
-	};
-}
-
-interface PhotonResponse {
-	type: "FeatureCollection";
-	features: PhotonFeature[];
-}
+const berlinBbox: number[] = [
+	13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
+];
 
 export async function searchAddresses(
-	query?: string,
-	latArg?: number,
-	lonArg?: number,
-): Promise<CurrentUserAddress[]> {
-	const isReverseSearch = !query || query.trim() === "";
+	query: string,
+	lat?: number,
+	lon?: number,
+): Promise<AddressResult> {
+	const apiKey = process.env.MAPTILER_API_KEY;
+	if (!apiKey) return { ok: false, code: "maptilerError" };
 
-	try {
-		const bboxString =
-			process.env.MAP_BOUNDING_BOX ||
-			"13.091992716067702,52.33488609760638,13.742786470433,52.67626223889507";
-		const filterCountry = process.env.SEARCH_FILTER_COUNTRY || "DE";
-		const filterCity = process.env.SEARCH_FILTER_CITY || "Berlin";
+	const isReverse = !!lat && !!lon;
 
-		let parsedBbox: number[] | null = null;
+	const params = new URLSearchParams({
+		key: apiKey,
+		language: "de",
+		country: "de",
+	});
 
-		if (bboxString) {
-			const bboxArray = bboxString.split(",").map(Number);
-			if (
-				bboxArray.length === 4 &&
-				bboxArray.every((val) => !isNaN(val) && isFinite(val))
-			) {
-				parsedBbox = bboxArray;
-			} else {
-				console.warn(
-					`Invalid MAP_BOUNDING_BOX format: "${bboxString}". Expected 4 comma-separated numbers.`,
-				);
-			}
-		}
-
-		let url;
-		if (isReverseSearch) {
-			if (latArg === undefined || lonArg === undefined) {
-				return [];
-			}
-			const params = new URLSearchParams({
-				lat: String(latArg),
-				lon: String(lonArg),
-				limit: "5",
-				lang: "de",
-			});
-
-			url = `https://photon.komoot.io/reverse?${params.toString()}`;
-		} else {
-			const sanitizedQuery = sanitizeAddressInput(query);
-			if (sanitizedQuery.trim().length < 2) {
-				return [];
-			}
-			const params = new URLSearchParams({
-				q: sanitizedQuery,
-				limit: "20",
-				lang: "de",
-			});
-
-			if (parsedBbox) {
-				const [minLon, minLat, maxLon, maxLat] = parsedBbox;
-				const centerLon = ((minLon + maxLon) / 2).toString();
-				const centerLat = ((minLat + maxLat) / 2).toString();
-				params.append("lat", centerLat);
-				params.append("lon", centerLon);
-			} else {
-				params.append("lat", DEFAULT_LAT);
-				params.append("lon", DEFAULT_LON);
-			}
-
-			url = `https://photon.komoot.io/api/?${params.toString()}`;
-		}
-
-		if (!url) {
-			return [];
-		}
-
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-		let response: Response;
-		try {
-			response = await fetch(url, { signal: controller.signal });
-			clearTimeout(timeoutId);
-
-			if (!response.ok) {
-				console.warn(`Address search failed with status: ${response.status}`);
-				return [];
-			}
-		} catch (fetchError) {
-			clearTimeout(timeoutId);
-			if (fetchError instanceof Error && fetchError.name === "AbortError") {
-				console.warn("Address search request timed out");
-			} else {
-				console.warn("Address search fetch error:", fetchError);
-			}
-			return [];
-		}
-
-		const data: PhotonResponse = await response.json();
-
-		const filteredFeatures = data.features.filter((feature) => {
-			const props = feature.properties;
-			if (
-				filterCountry &&
-				props.countrycode?.toUpperCase() !== filterCountry.toUpperCase()
-			) {
-				return false;
-			}
-
-			if (filterCity) {
-				const isInCity =
-					props.city === filterCity || props.state?.includes(filterCity);
-
-				if (!isInCity) {
-					if (parsedBbox) {
-						const [minLon, minLat, maxLon, maxLat] = parsedBbox;
-						const [lon, lat] = feature.geometry.coordinates;
-						if (lon < minLon || lon > maxLon || lat < minLat || lat > maxLat) {
-							return false;
-						}
-					} else {
-						return false;
-					}
-				}
-			}
-			const excludeTypes = ["city", "country", "state"];
-			if (excludeTypes.includes(props.osm_value || "")) {
-				return false;
-			}
-
-			return true;
-		});
-
-		const filteredFeaturesWithDisplayName = filteredFeatures.map((feature) => {
-			const props = feature.properties;
-
-			let displayName = props.name || "";
-			if (props.street) {
-				displayName = props.street;
-				if (props.housenumber) {
-					displayName += ` ${props.housenumber}`;
-				}
-			}
-			if (props.postcode) {
-				displayName += displayName ? `, ${props.postcode}` : props.postcode;
-			}
-			if (props.city && displayName !== props.city) {
-				displayName += displayName ? ` ${props.city}` : props.city;
-			}
-			if (!displayName) {
-				displayName = props.city || props.district || props.county || "Unknown";
-			}
-
-			return {
-				lat: feature.geometry.coordinates[1].toString(),
-				lon: feature.geometry.coordinates[0].toString(),
-				name: displayName,
-				type: props.osm_value,
-				hasHousenumber: !!props.housenumber
-			};
-		});
-
-		const sortedFeatures = sortHouseFirst(filteredFeaturesWithDisplayName);
-
-		const seen = new Set();
-		const uniqueFeatures = sortedFeatures.filter((item: CurrentUserAddress) => {
-			if (seen.has(item.name)) {
-				return false;
-			}
-			seen.add(item.name);
-			return true;
-		});
-		return uniqueFeatures;
-	} catch (error) {
-		console.warn("Address search error:", error);
-		return [];
+	if (!isReverse) {
+		params.append("bbox", berlinBbox.join(","));
+		params.append("fuzzyMatch", "true");
+		params.append("autocomplete", "true");
+		params.append("limit", "10");
+	} else {
+		params.set("limit", "3");
+		params.set("types", "address");
 	}
+
+	const path = isReverse ? `${lon},${lat}` : encodeURIComponent(query);
+
+	const url = `https://api.maptiler.com/geocoding/${path}.json?${params.toString()}`;
+
+	const res = await fetch(url);
+	if (!res.ok) return { ok: false, code: "maptilerError" };
+	const germanZIPCode = extractGermanZipCode(query);
+
+	const data = await res.json();
+
+	const filteredResults: CurrentUserAddress[] = data.features
+		.filter(
+			(f: any) =>
+				(f.relevance ?? 0) >= 0.7 ||
+				!f.geometry.coordinates[1] ||
+				!f.geometry.coordinates[0],
+		)
+		.map((f: any) => ({
+			lat: f.geometry.coordinates[1].toString(),
+			lon: f.geometry.coordinates[0].toString(),
+			name: f.place_name.replace(", Deutschland", ""),
+			hasHousenumber:
+				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),
+		}))
+		.filter((f: any) => {
+			if (!germanZIPCode) return true;
+			return f.name.includes(germanZIPCode);
+		});
+
+	const seen = new Set();
+	const uniqueFeatures = filteredResults.filter((item: CurrentUserAddress) => {
+		if (seen.has(item.name)) {
+			return false;
+		}
+		seen.add(item.name);
+		return true;
+	});
+
+	if (!uniqueFeatures.some((addr) => addr.hasHousenumber) && !isReverse) {
+		const getPhoneAPIResult = await searchAddressesPhotonAPI(query);
+		if (getPhoneAPIResult.ok) {
+			const firstWordOfQuery = query.split(" ")[0].toLowerCase();
+			const findPhotonHit = getPhoneAPIResult.data.filter(
+				(addr) =>
+					addr.name.toLowerCase().startsWith(firstWordOfQuery) &&
+					addr.hasHousenumber,
+			);
+			if (findPhotonHit.length > 0) {
+				return {
+					ok: true,
+					data: [...findPhotonHit, ...uniqueFeatures],
+				};
+			}
+		}
+	}
+
+	if (uniqueFeatures.length === 0) {
+		return { ok: false, code: "noResult" };
+	}
+
+	return { ok: true, data: uniqueFeatures };
 }

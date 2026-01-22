@@ -35,3 +35,22 @@ export const getWidthClass = (fullScreenMap: boolean) => {
 	}
 	return "w-[370px]";
 };
+
+export const checkNumber = (value: unknown): boolean => {
+	if (typeof value !== "string") {
+		return false;
+	}
+	return value.trim() !== "" && !isNaN(Number(value));
+};
+
+export const containsNumber = (str: string): boolean => {
+	if (!str) {
+		return false;
+	}
+	return /\d/.test(str);
+};
+
+export function extractGermanZipCode(query: string): string | null {
+	const match = query.match(/\b\d{5}\b/);
+	return match ? match[0] : null;
+}
