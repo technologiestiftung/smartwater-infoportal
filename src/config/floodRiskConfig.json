@@ -1,21 +1,21 @@
 {
 	"riskThresholds": {
 		"low": {
-			"max": 1.75,
-			"min": 0.5
+			"max": 1.7143,
+			"min": 0.4762
 		},
 		"moderate": {
-			"max": 0.5,
-			"min": -0.75
+			"max": 0.4762,
+			"min": -0.7619
 		},
 		"high": {
-			"max": -0.75,
+			"max": -0.7619,
 			"min": -2
 		}
 	},
 	"evaluation": {
 		"min": -2,
-		"max": 1.75
+		"max": 1.7143
 	},
 	"questions": [
 		{
@@ -37,7 +37,12 @@
 			"options": [
 				{ "value": "yesWithWindow", "score": -2, "addToCounter": 1 },
 				{ "value": "yesWithoutWindow", "score": -1, "addToCounter": 1 },
-				{ "value": "no", "score": 2, "addToCounter": 1 },
+				{
+					"value": "no",
+					"score": 2,
+					"addToCounter": 1,
+					"skipNextQuestion": true
+				},
 				{
 					"value": "noInformation",
 					"score": 0,
@@ -64,7 +69,6 @@
 			"translationKey": "floodCheck.questions.q3",
 			"options": [
 				{ "value": "no", "score": -2, "addToCounter": 1 },
-				{ "value": "dontKnow", "score": -1, "addToCounter": 1 },
 				{ "value": "yesUnknown", "score": 1, "addToCounter": 1 },
 				{ "value": "yesGood", "score": 2, "addToCounter": 1 },
 				{ "value": "noInformation", "score": 0, "addToCounter": 0 }
@@ -90,17 +94,6 @@
 			"type": "radio",
 			"isRequired": true,
 			"translationKey": "floodCheck.questions.q5",
-			"options": [
-				{ "value": "no", "score": -2, "addToCounter": 1 },
-				{ "value": "oneOrMore", "score": 2, "addToCounter": 1 },
-				{ "value": "noInformation", "score": 0, "addToCounter": 0 }
-			]
-		},
-		{
-			"id": "q6",
-			"type": "radio",
-			"isRequired": true,
-			"translationKey": "floodCheck.questions.q6",
 			"options": [
 				{ "value": "yes", "score": -2, "addToCounter": 1 },
 				{ "value": "no", "score": 2, "addToCounter": 1 },
@@ -153,24 +146,19 @@
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basementUsage"
 		},
 		{
-			"id": "pastDamages",
-			"questionId": "q3",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
-		},
-		{
 			"id": "backflowProtection",
-			"questionId": "q4",
+			"questionId": "q3",
 			"translationKey": "buildingRiskAssessment.buildingRisk.factors.backflowProtection"
 		},
 		{
-			"id": "rainwaterDrains",
-			"questionId": "q5",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.rainwaterDrains"
+			"id": "propertyDrainage",
+			"questionId": "q4",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.propertyDrainage"
 		},
 		{
-			"id": "protectionMeasures",
-			"questionId": "q6",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.protectionMeasures"
+			"id": "pastDamages",
+			"questionId": "q5",
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
 		},
 		{
 			"id": "floodplain",

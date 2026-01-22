@@ -10,15 +10,14 @@
 					"riskIndicator": "{factor}: {riskLevel}"
 				},
 				"factors": {
+					"basement": "Keller als Gefährdung",
+					"basementUsage": "Kellernutzung",
 					"backflowProtection": "Rückstausicherung",
-					"basement": "Keller",
-					"basementUsage": "Untergeschoss",
-					"pastDamages": "Bekannte Schäden",
-					"protectionMeasures": "Ergriffene Schutzmaßnahmen",
-					"rainwaterDrains": "Regenwasser",
+					"propertyDrainage": "Grundstücksentwässerung",
+					"pastDamages": "Vergangene Schadensereignisse",
 					"floodplain": "Überschwemmungsgebiet",
-					"riverFloodHazardLevel": "Flusshochwasser-Gefährdungsgrad",
-					"heavyRainHazardLevel": "Starkregen-Gefährdungsgrad"
+					"riverFloodHazardLevel": "Flusshochwasser",
+					"heavyRainHazardLevel": "Starkregen"
 				},
 				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
 				"levelInsufficientData": "Das Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
@@ -28,7 +27,8 @@
 					"high": "Hohes Risiko",
 					"low": "Geringes Risiko",
 					"moderate": "Mittleres Risiko",
-					"unknown": "Keine Angabe"
+					"unknown": "Keine Angabe",
+					"dontKnow": "Weiß nicht / Keine Angabe"
 				},
 				"title": "Individuelles Gebäuderisiko"
 			},
@@ -51,7 +51,7 @@
 			"floodZoneIndexError": "Fehler bei der Bestimmung der Überschwemmungsgebietzugehörigkeit"
 		},
 		"hazardDisplay": {
-			"descriptionPlaceholder": "Lorem Ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+			"descriptionPlaceholder": "Die vereinfachte Darstellung einer Gefährdung in vier Klassen dient allein der Motivation potenziell Betroffener zur Auseinandersetzung mit der Gefahr und möglicher Anpassungsmaßnahmen. Die Gefährdungsklassen leiten sich von den Fließgeschwindigkeiten und Überflutungstiefen der Starkregenhinweiskarten \"Extremes Ereignis\" sowie \"Seltenes Ereignis\" für Berlin ab. Die Klassifizierung dieser Werte in die vier Klassen erfolgt in Anlehnung an die Methodik des NGP. Für jeden Ort wird die höchste Gefährdung beider Szenarien ausgegeben. Welcher Gefährdungsklasse ein Haus zugeordnet wird, bezieht sich auf die Umgebung des Gebäudes bis zu einem Abstand von zwei Metern. Wieviel Prozent dieser Fläche in welche Gefährdungsklasse fallen entscheidet über die letztendliche Zuordnung. Die Methodik wurde von BUKEA Hamburg übernommen.",
 			"fluvialFloodTab": "Flusshochwasser",
 			"frequency": {
 				"extreme": "Extrem",
@@ -95,7 +95,7 @@
 			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:"
 		},
 		"hazardInfo": {
-			"calculation": "Wie wurde die Gefährdung berechnet?",
+			"calculation": "Warum und wie wurde die Gefährdung geschätzt?",
 			"disclaimerTitle": "Disclaimer zur Berechnung",
 			"disclaimerText": "Alle Informationen erfolgen ohne Gewähr für ihre Richtigkeit. In keinem Fall wird für Schäden, die sich aus der Verwendung abgerufener Informationen ergeben, Haftung übernommen. Bitte beachten Sie, dass die Ergebnisse der Karte sowie die Einschätzung der Hochwassergefährdung eine gewisse Unsicherheit bergen. Die Datengrundlage entbindet nicht von der Pflicht für einzelne Projekte, die hydraulischen Standortvoraussetzungen vor Ort zu erkunden und nachzuweisen. Ein Abgleich des Modells ist mit der Situation vor Ort erforderlich.",
 			"mapDisclaimer": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie folgenden Links benutzen:",
@@ -139,40 +139,14 @@
 		"noHazardData": "Es liegen keine Daten zu Gefährdungen an Ihrem Standort vor.",
 		"pageTitle": "HochwasserCheck Berlin",
 		"protectionTips": {
-			"inBuilding": {
-				"image": {
-					"alt": "Eine Grafik zeigt ein Haus mit Keller, bei dem Zutritt zum Keller und zur Garage vermieden werden soll.",
-					"caption": "Im Falle einer Überflutung sind der Keller und Garagen zu meiden.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				},
-				"tip1": "Schalten Sie rechtzeitig Strom, Gas und wenn möglich Heizung ab. Ist dies nicht mehr möglich, gefährdete Räume mit Steckdosen und elektrischen Geräten verlassen und nicht mehr betreten.",
-				"tip2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen, z.B. in ein höher gelegenes Stockwerk.",
-				"tip3": "Betreten Sie keine überfluteten oder durchnässten Räume. Die Türen können bereits bei einem niedrigen Wasserstand nicht mehr geöffnet werden und Ihren Fluchtweg blockieren. Wenn das Betreten eines überschwemmten Raumes unvermeidlich ist, müssen die Türen unbedingt offengehalten und fest verkeilt werden.",
-				"tip4": "Versuchen Sie in keinem Fall Gegenstände oder Fahrzeuge in letzter Minute aus Kellern, Garagen oder Tiefgaragen zu retten. Es besteht Lebensgefahr!",
-				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
-				"title": "Im Gebäude"
-			},
-			"intro1": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs 2).",
-			"intro2": "Schon mit einfachen Mittel können Sie sich vor größeren Schäden schützen. Diese untenstehende Sammlung an Handlungsempfehlungen soll Ihnen bei Ihrem persönlichen Hochwasserschutz unterstützen",
+			"intro1": "Es gibt eine Vielzahl von Maßnahmen, die Sie umsetzten können, um Ihr individuelles Hochwasserrisiko zu senken. Eine umfangreiche Liste von Maßnahmen finden Sie in der Übersicht zu allen Handlungsempfehlungen.",
+			"intro2": "Wenn Sie den Fragebogen ausgefüllt haben, erhalten Sie zudem individualisierte Handlungsempfehlungen in dem HochwasserCheck Berlin Report, der am Ende dieser Seite heruntergeladen kann.",
 			"recommendationsOverview": {
 				"button": "Übersicht Handlungsempfehlungen",
 				"linkText": " Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
 				"textPlaceholder": " @copyright ungeklärt"
 			},
-			"title": "Wie kann ich mich schützen?",
-			"traffic": {
-				"image": {
-					"alt": "Eine Grafik zeigt ein Auto, welches aus der Senke auf eine Anhöhe gefahren wird.",
-					"caption": "Während des eines Starkregenereignisses sollten keine Fahrzeuge in Senken abgestellt werden. Parken Sie ihr Fahrzeug am Anfang des Ereignisses um.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				},
-				"tip1": "Bereits überschwemmte Gebiete sind keinesfalls zu betreten, auch nicht mit Fahrzeugen.",
-				"tip2": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgaragen, unter der Erde gelegene Bahnstationen und die Nähe von Fließgewässern, auch wenn Sie mit dem Auto unterwegs sind.",
-				"tip3": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern über den Nachhauseweg. Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
-				"tip4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser",
-				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
-				"title": "Verkehr"
-			}
+			"title": "Wie kann ich mich schützen?"
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
@@ -208,15 +182,14 @@
 				"description": "Eine Rückstausicherung ist eine technische Einrichtung, die bei einem Hochwasserereignis den Rückstau von Wasser in die Abwasserleitungen verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert und sorgt dafür, dass das Abwasser nicht zurückfließen kann.",
 				"image": {
 					"alt": "Rückstauklappen",
-					"caption": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"caption": "Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau.",
 					"copyright": "© SenMVKU"
 				},
 				"options": {
 					"no": "Nein",
-					"dontKnow": "Weiß nicht",
 					"yesUnknown": "Ja, in unbekanntem Zustand",
 					"yesGood": "Ja, in gutem Zustand (gewartet entsprechend der Herstellerangaben)",
-					"noInformation": "Keine Angabe"
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
 				"text": "Gibt es eine Rückstausicherung für sanitäre Anlagen und Abläufe?",
 				"title": "Rückstausicherung",
@@ -226,13 +199,13 @@
 				"description": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
 				"image": {
 					"alt": "Abläufe",
-					"caption": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"caption": "Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann.",
 					"copyright": "© SenMVKU"
 				},
 				"options": {
 					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
 					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
-					"noInformation": "Weiß nicht / Keine Angabe "
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
 				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
 				"title": "Abläufe",
@@ -240,18 +213,9 @@
 			},
 			"q5": {
 				"options": {
-					"no": "Keine (weiteren) Maßnahme(n)",
-					"oneOrMore": "Ja, ich habe eine oder mehrere weitere Maßnahme(n) umgesetzt.",
-					"noInformation": "Weiß nicht / Keine Angabe "
-				},
-				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?",
-				"helperText": ""
-			},
-			"q6": {
-				"options": {
 					"yes": "Ja",
 					"no": "Nein",
-					"noInformation": "Weiß nicht / Keine Angabe "
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
 				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?",
 				"helperText": ""
