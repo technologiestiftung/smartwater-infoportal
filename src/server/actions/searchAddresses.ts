@@ -70,7 +70,7 @@ export async function searchAddresses(
 			const firstWordOfQuery = query.split(" ")[0].toLowerCase();
 			const findPhotonHit = getPhoneAPIResult.data.filter(
 				(addr) =>
-					addr.name.toLowerCase().includes(firstWordOfQuery) &&
+					addr.name.toLowerCase().startsWith(firstWordOfQuery) &&
 					addr.hasHousenumber,
 			);
 			if (findPhotonHit.length > 0) {
