@@ -34,7 +34,7 @@ export async function searchAddresses(
 	if (!isReverse) {
 		params.append("bbox", berlinBbox.join(","));
 		params.append("fuzzyMatch", "true");
-		params.append("autocomplete", "true");
+		params.append("autocomplete", "false");
 		params.append("limit", "10");
 	} else {
 		params.set("limit", "3");
