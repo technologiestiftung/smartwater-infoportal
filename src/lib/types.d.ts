@@ -1,5 +1,5 @@
 export type HazardLevel = "low" | "moderate" | "high" | "severe";
-export type RiskLevel = "low" | "moderate" | "high";
+export type RiskLevel = "low" | "moderate" | "high" | "dontKnow" | "unknown";
 
 export interface CurrentUserAddress {
 	lat: string;

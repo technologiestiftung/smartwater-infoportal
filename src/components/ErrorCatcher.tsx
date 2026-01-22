@@ -9,21 +9,30 @@ interface ErrorCatcherProps {
 const ErrorCatcher: React.FC<ErrorCatcherProps> = ({ children, name }) => {
 	return (
 		<ErrorBoundary
-			fallbackRender={({ error }) => (
-				<div className="bg-red overflow-hidden whitespace-pre-wrap p-12 text-white">
-					<h1>--- Error in Component ---</h1>
-					<p>
-						<strong>Component:</strong> {name}
-					</p>
-					<p>
-						<strong>Message:</strong> {error.message}
-					</p>
-					<p>
-						<strong>Stack:</strong>
-					</p>
-					<pre>{error.stack}</pre>
-				</div>
-			)}
+			fallbackRender={({ error }) => {
+				const message = error instanceof Error ? error.message : String(error);
+				const stack = error instanceof Error ? error.stack : undefined;
+
+				return (
+					<div className="bg-red overflow-hidden whitespace-pre-wrap p-12 text-white">
+						<h1>--- Error in Component ---</h1>
+						<p>
+							<strong>Component:</strong> {name}
+						</p>
+						<p>
+							<strong>Message:</strong> {message}
+						</p>
+						{stack && (
+							<>
+								<p>
+									<strong>Stack:</strong>
+								</p>
+								<pre>{stack}</pre>
+							</>
+						)}
+					</div>
+				);
+			}}
 		>
 			{children}
 		</ErrorBoundary>

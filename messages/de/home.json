@@ -3,7 +3,7 @@
 		"pageTitle": "Über das Hochwasser-Infoportal",
 		"whatIsIt": {
 			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
-			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck Berlin, Handlungsempfehlungen, Warnungen vor Hochwasser und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
+			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck Berlin, Handlungsempfehlungen und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
 		},
 		"amIAffected": {
 			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck Berlin",
@@ -34,7 +34,7 @@
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
 			"ownerInfo": "Jede:r Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen. So können Sie als Eigentümer:in Ihre Gebäude z.B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen.",
 			"titleImage": {
-				"alt": "???",
+				"alt": "Illustration eines Wassertanks auf einem Dach als Sinnbild für das Smart-Water-Umsetzungsprojekt der Digitalstrategie des Landes Berlin.“",
 				"caption": "Sinnbild für das Smart Water Umsetzungsprojekt der Digitalstrategie des Landes Berlins",
 				"copyright": "© Senatskanzlei Berlin"
 			},
