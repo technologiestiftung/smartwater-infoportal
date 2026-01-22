@@ -52,6 +52,9 @@ export async function searchAddresses(
 				!f.geometry.coordinates[1] ||
 				!f.geometry.coordinates[0],
 		)
+		.filter((f: any) =>
+			f.context.some((c: any) => c.text_de.toLowerCase().includes("berlin")),
+		)
 		.map((f: any) => ({
 			lat: f.geometry.coordinates[1].toString(),
 			lon: f.geometry.coordinates[0].toString(),

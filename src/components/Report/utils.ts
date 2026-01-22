@@ -153,7 +153,7 @@ export const translateHazardTags = (
 	}
 	if (questionID === "q2") {
 		if (value === "lowValue") {
-			return "/Green.png";
+			return "/Orange.png";
 		}
 		return "/Red.png";
 	}

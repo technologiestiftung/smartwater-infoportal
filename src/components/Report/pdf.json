@@ -577,7 +577,13 @@
 					"width": "halfPage",
 					"caption": "<b>Abbildung:</b> Individuelles Gebäuderisiko",
 					"marginBottom": 11
-				},
+				}
+			]
+		},
+		{
+			"title": "Handlungsempfehlungen => Individueller Bericht",
+			"hide": "{skip}",
+			"items": [
 				{
 					"imageSRC": "{basementHazardTag}",
 					"width": 4,
@@ -595,7 +601,7 @@
 					"hide": "!{highBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -603,7 +609,7 @@
 					"hide": "!{midBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -611,7 +617,7 @@
 					"hide": "!{lowBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -619,7 +625,7 @@
 					"hide": "!{dontKnowBasementHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -641,7 +647,7 @@
 					"hide": "!{highBasementUsageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -649,7 +655,7 @@
 					"hide": "!{midBasementUsageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -669,7 +675,7 @@
 					"hide": "!{highBackflowPrevention}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -677,7 +683,7 @@
 					"hide": "!{midBackflowPrevention}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -685,7 +691,7 @@
 					"hide": "!{lowBackflowPrevention}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -693,7 +699,7 @@
 					"hide": "!{dontKnowBackflowPrevention}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -715,7 +721,7 @@
 					"hide": "!{highPropertyDrainageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -723,7 +729,7 @@
 					"hide": "!{lowPropertyDrainageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -745,7 +751,7 @@
 					"hide": "!{highPastDamages}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -753,7 +759,7 @@
 					"hide": "!{lowPastDamages}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -788,7 +794,7 @@
 					"text": "<i>Hinweis: Überschwemmungsgebiete sind Gebiete, die ein erhöhtes Risiko für Hochwasser haben. Überschwemmungsgebiete sind im Wasserhaushaltsgesetzt (WHG, §76) beschrieben. In diesen Gebieten gelten besondere Regeln, z.B. für den Einbau von Ölheizungen.</i>",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 5,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -816,7 +822,7 @@
 					"hide": "!{midFluvialFlood}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 3,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
@@ -824,7 +830,7 @@
 					"hide": "!{lowFluvialFlood}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
-					"marginBottom": 3,
+					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{

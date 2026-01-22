@@ -147,11 +147,22 @@ export function prePopulateFromLocationData(
 				question.id,
 				value as string | string[] | number,
 			);
-			answers[question.id] = {
-				value: value as string | string[] | number,
-				score: getCalc.score,
-				addToCounter: getCalc.addToCounter,
-			};
+			if (
+				question.id === "qA" &&
+				typeof locationData.building?.floodZoneIndex === "number"
+			) {
+				answers[question.id] = {
+					value: locationData.building?.floodZoneIndex > 0 ? "yes" : "no",
+					score: getCalc.score,
+					addToCounter: getCalc.addToCounter,
+				};
+			} else {
+				answers[question.id] = {
+					value: value as string | string[] | number,
+					score: getCalc.score,
+					addToCounter: getCalc.addToCounter,
+				};
+			}
 		}
 	});
 

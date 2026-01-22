@@ -16,6 +16,8 @@ const RiskBlock = () => {
 	const t = useTranslations("floodCheck");
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
+	const getHazardEntities = useStore((state) => state.getHazardEntities);
+	const hazardEntities = getHazardEntities();
 	const isDev = false; //process.env.NODE_ENV === "development";
 	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const testing = isDev && showTestingFeatures.includes("riskWidgetDetails");
@@ -54,11 +56,27 @@ const RiskBlock = () => {
 
 		const answer = floodRiskAnswers[questionId];
 		const score = answer.score || 0;
+		if (questionId === "qA") {
+			const fluvialFloodEntity = hazardEntities?.find(
+				(entity) => entity.name === "fluvialFlood",
+			)?.subHazardLevel;
+			if (fluvialFloodEntity === "yes") {
+				return "high";
+			}
+			return "low";
+		}
 		if (answer?.value === "noInformation") {
 			return "dontKnow";
 		}
 		if (questionId === "qB" && answer?.value === 0) {
 			return "low";
+		}
+		if (questionId === "q2") {
+			if (answer?.value === "highValue") {
+				return "high";
+			} else if (answer?.value === "lowValue") {
+				return "moderate";
+			}
 		}
 		if (score >= 2) {
 			return "low";
