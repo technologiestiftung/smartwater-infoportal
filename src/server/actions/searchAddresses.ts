@@ -53,8 +53,8 @@ export async function searchAddresses(
 				!f.geometry.coordinates[0],
 		)
 		.map((f: any) => ({
-			lat: f.geometry.coordinates[1],
-			lon: f.geometry.coordinates[0],
+			lat: f.geometry.coordinates[1].toString(),
+			lon: f.geometry.coordinates[0].toString(),
 			name: f.place_name.replace(", Deutschland", ""),
 			hasHousenumber:
 				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),

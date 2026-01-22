@@ -85,8 +85,8 @@ export async function searchAddressesPhotonAPI(
 			}
 
 			return {
-				lat: Number(feature.geometry.coordinates[1]),
-				lon: Number(feature.geometry.coordinates[0]),
+				lat: feature.geometry.coordinates[1].toString(),
+				lon: feature.geometry.coordinates[0].toString(),
 				name: displayName,
 				hasHousenumber: !!props.housenumber,
 			};
