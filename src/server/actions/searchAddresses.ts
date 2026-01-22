@@ -82,5 +82,9 @@ export async function searchAddresses(
 		}
 	}
 
+	if (filteredResults.length === 0) {
+		return { ok: false, code: "noResult" };
+	}
+
 	return { ok: true, data: filteredResults };
 }
