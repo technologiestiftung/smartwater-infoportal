@@ -31,8 +31,7 @@ export default function AddressSearch() {
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [results, setResults] = useState<any[]>([]);
+	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const methods = useForm({
@@ -56,45 +55,43 @@ export default function AddressSearch() {
 			const addresse = getValues("addresse");
 			if (addresse) {
 				if (!currentUserAddress) {
-					setError("Bitte wählen Sie eine Adresse aus.");
+					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
 					router.push("/hochwasser-check");
 				}
 			} else {
-				setError("Bitte geben Sie eine Adresse ein.");
+				setError(t("addressCheck.errorNoAddress"));
 			}
 			return;
 		});
 	};
 
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const isFetching = useRef(false);
 
-	const fetchData = async (search: string) => {
-		if (isFetching.current) {
+	const fetchData = async (
+		search: string,
+		lat: number | undefined,
+		lon: number | undefined,
+	) => {
+		setShowLoading(true);
+		setError("");
+
+		const result = await searchAddresses(search, lat, lon);
+
+		if (!result.ok) {
+			let msg = t("addressCheck.defaultError");
+			switch (result.code) {
+				case "noResult":
+					msg = t("addressCheck.errorNoAddressFound");
+					break;
+				default:
+					break;
+			}
+			setError(msg);
+			setResults([]);
 			return;
 		}
-		isFetching.current = true;
-		setShowLoading(true);
-
-		try {
-			const data = await searchAddresses(search);
-
-			if (data.length === 0) {
-				setError(
-					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
-				);
-				setResults([]);
-				return;
-			}
-
-			setResults(data);
-		} catch (e) {
-			throw new Error(`Error fetching data: ${e}`);
-		} finally {
-			isFetching.current = false;
-			setShowLoading(false);
-		}
+		setResults(result.data);
 	};
 
 	const handleChange = (e: FormEvent<HTMLFormElement>) => {
@@ -118,19 +115,9 @@ export default function AddressSearch() {
 			}
 
 			debounceTimeout.current = setTimeout(() => {
-				fetchData(value);
+				fetchData(value, undefined, undefined);
 			}, 1000);
 		}
-	};
-
-	const resultsLoaded = (resultsFromLocationButton: CurrentUserAddress[]) => {
-		if (!resultsFromLocationButton.length) {
-			setError(
-				"Keine Adresse gefunden. Bitte suchen Sie manuell nach Ihrer Adresse.",
-			);
-			return;
-		}
-		setResults(resultsFromLocationButton);
 	};
 
 	useEffect(() => {
@@ -140,8 +127,11 @@ export default function AddressSearch() {
 		}
 	}, [currentUserAddress, setValue]);
 
+	useEffect(() => setShowLoading(false), [results]);
+
 	useEffect(() => {
 		if (error) {
+			setShowLoading(false);
 			setShowSubmitLoading(false);
 		}
 	}, [error]);
@@ -156,19 +146,15 @@ export default function AddressSearch() {
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
-						<LocationButton resultsLoaded={resultsLoaded} />
+						<LocationButton
+							coordinatesChanged={(lat, lon) => fetchData("", lat, lon)}
+						/>
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
 								<strong>{t("addressCheck.result")}</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
-											if (
-												results.some((res) => res.hasHousenumber) &&
-												!result.hasHousenumber
-											) {
-												return null;
-											}
 											return (
 												<li key={index}>
 													{result.hasHousenumber ? (
@@ -197,7 +183,9 @@ export default function AddressSearch() {
 						)}
 					</div>
 					{error && (
-						<Label className="text-destructive text-primary">{error}</Label>
+						<div className="max-w-[50%]">
+							<Label className="text-destructive text-primary">{error}</Label>
+						</div>
 					)}
 					{showLoading && (
 						<div className="align-start flex">
@@ -210,12 +198,7 @@ export default function AddressSearch() {
 							type="submit"
 							loading={showSubmitLoading}
 						>
-							{(() => {
-								if (showLoading) {
-									return t("addressCheck.loading");
-								}
-								return t("addressCheck.button");
-							})()}
+							{t("addressCheck.button")}
 						</Button>
 					</div>
 				</form>
