@@ -67,9 +67,11 @@ export async function searchAddresses(
 	if (!filteredResults.some((addr) => addr.hasHousenumber) && !isReverse) {
 		const getPhoneAPIResult = await searchAddressesPhotonAPI(query);
 		if (getPhoneAPIResult.ok) {
-			const firstWordOfQuery = query.split(" ")[0];
+			const firstWordOfQuery = query.split(" ")[0].toLowerCase();
 			const findPhotonHit = getPhoneAPIResult.data.filter(
-				(addr) => addr.name.includes(firstWordOfQuery) && addr.hasHousenumber,
+				(addr) =>
+					addr.name.toLowerCase().includes(firstWordOfQuery) &&
+					addr.hasHousenumber,
 			);
 			if (findPhotonHit.length > 0) {
 				return {
