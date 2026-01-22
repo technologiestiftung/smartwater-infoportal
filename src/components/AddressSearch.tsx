@@ -154,12 +154,6 @@ export default function AddressSearch() {
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
-											if (
-												results.some((res) => res.hasHousenumber) &&
-												!result.hasHousenumber
-											) {
-												return null;
-											}
 											return (
 												<li key={index}>
 													{result.hasHousenumber ? (
