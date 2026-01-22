@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import jsPDF from "jspdf";
 
 type TextChunk = {
@@ -137,15 +138,59 @@ export const translateHazardLevels = (level: string): string => {
 	return level;
 };
 
-export const translateHazardTags = (level: string): string => {
-	if (level === "noHazard") {
+export const translateHazardTags = (
+	value: string | number,
+	questionID: string,
+): string => {
+	if (questionID === "q1") {
+		if (value === "yesWithWindow") {
+			return "/Red.png";
+		} else if (value === "yesWithoutWindow") {
+			return "/Orange.png";
+		} else if (value === "no") {
+			return "/Green.png";
+		}
+	}
+	if (questionID === "q2") {
+		if (value === "lowValue") {
+			return "/Green.png";
+		}
 		return "/Red.png";
 	}
-	if (level === "possibleHazard") {
-		return "/Orange.png";
+	if (questionID === "q3") {
+		if (typeof value === "string" && value.startsWith("no")) {
+			return "/Red.png";
+		} else if (value === "yesUnknown") {
+			return "/Orange.png";
+		} else if (value === "yesGood") {
+			return "/Green.png";
+		}
 	}
-	if (level === "likelyHazard") {
+	if (questionID === "q4") {
+		if (value === "bad") {
+			return "/Red.png";
+		}
 		return "/Green.png";
+	}
+	if (questionID === "q5" || questionID === "qA") {
+		if (value === "yes") {
+			return "/Red.png";
+		}
+		return "/Green.png";
+	}
+	if (questionID === "qB" || questionID === "qC") {
+		if (typeof value === "number") {
+			if (value > 1) {
+				return "/Red.png";
+			} else if (value === 1) {
+				return "/Orange.png";
+			} else if (value === 0) {
+				if (questionID === "qB") {
+					return "/Green.png";
+				}
+				return "/Orange.png";
+			}
+		}
 	}
 	return "/Grey.png";
 };

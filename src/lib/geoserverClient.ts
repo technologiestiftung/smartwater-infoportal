@@ -35,6 +35,8 @@ const extremeHeavyRainMaxAreas = [
 	"Frankentaler Ufer",
 ];
 
+const testingMapErrors: string[] = ["extremeHeavyRain"];
+
 export class GeoServerClient {
 	private readonly baseUrl?: string;
 	private readonly workspace?: string;
@@ -133,6 +135,7 @@ export class GeoServerClient {
 			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
 				building;
 
+			return notFoundWMS;
 			if (
 				!geometry ||
 				!outlineBufferGeometry ||
@@ -304,7 +307,7 @@ export class GeoServerClient {
 				),
 
 				// Errors
-				errors: this.collectErrors,
+				errors: this.collectErrors, //.concat(testingMapErrors),
 			};
 		} catch {
 			return notFoundWMS;

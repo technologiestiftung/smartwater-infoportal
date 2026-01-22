@@ -35,7 +35,7 @@ const Results: React.FC = () => {
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = process.env.NODE_ENV === "development";
+	const isDev = false; // process.env.NODE_ENV === "development";
 
 	// Define filter keys for translation
 	const filterKeys = [

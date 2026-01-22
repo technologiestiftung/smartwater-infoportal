@@ -16,7 +16,7 @@ const RiskBlock = () => {
 	const t = useTranslations("floodCheck");
 	const floodRiskResult = useStore((state) => state.floodRiskResult);
 	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
-	const isDev = process.env.NODE_ENV === "development";
+	const isDev = false; //process.env.NODE_ENV === "development";
 	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const testing = isDev && showTestingFeatures.includes("riskWidgetDetails");
 	const { min, max } = floodRiskConfig.evaluation;
