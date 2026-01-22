@@ -1,36 +1,58 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable */
 
 import proj4 from "proj4";
-import type { Geometry } from "./types";
-import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
-import { point } from "@turf/helpers";
+import { BBox, Building, BuildingWMS, Geometry } from "./types";
+import {
+	bufferedOutlineMultiPolygonFromBuilding,
+	countGeometryPoints,
+	transformWMSValue,
+} from "./utils/geoServerHelpers";
+
+const notFound = {
+	found: false,
+	building: null,
+};
+
+const notFoundWMS = {
+	hasHeavyRainHazardMap: null,
+	rareHeavyRainMax: null,
+	uncommonHeavyRainMax: null,
+	extremeHeavyRainMax: null,
+	rareHeavyRainAverage: null,
+	uncommonHeavyRainAverage: null,
+	extremeHeavyRainAverage: null,
+	frequentFloodMax: null,
+	averageFloodMax: null,
+	rareFloodMax: null,
+	frequentFloodAverage: null,
+	averageFloodAverage: null,
+	rareFloodAverage: null,
+};
+
+const extremeHeavyRainMaxAreas = [
+	"Obersee",
+	"Niederschönhausen Ost",
+	"Frankentaler Ufer",
+];
+
+const testingMapErrors: string[] = ["extremeHeavyRain"];
 
 export class GeoServerClient {
 	private readonly baseUrl?: string;
 	private readonly workspace?: string;
 	private readonly buildingLayer: string;
-	private readonly floodLayer: string;
+
+	private collectErrors: string[] = [];
 
 	constructor() {
 		this.baseUrl = process.env.GEOSERVER_BASE_URL;
 		this.workspace = process.env.GEOSERVER_WORKSPACE;
 		this.buildingLayer = `${this.workspace}:${process.env.GEOSERVER_BUILDING_LAYER}`;
-		this.floodLayer = `${this.workspace}:${process.env.GEOSERVER_FLOOD_LAYER}`;
 
 		proj4.defs(
 			"EPSG:25833",
 			"+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
 		);
-	}
-
-	async testConnection() {
-		try {
-			const capabilitiesUrl = `${this.baseUrl}/wfs?service=WFS&version=2.0.0&request=GetCapabilities`;
-			const response = await fetch(capabilitiesUrl);
-			return response.ok;
-		} catch (_error) {
-			return false;
-		}
 	}
 
 	async findBuildingAtPoint(longitude: number, latitude: number) {
@@ -40,161 +62,461 @@ export class GeoServerClient {
 				latitude,
 			]);
 
-			/* const floodZoneIndex = await this.getFloodZoneIndex(
-				transformedX,
-				transformedY,
-			); */
-
-			const isFlood = await this.getUeberschwemmungsgebieteWFS(
-				transformedX,
-				transformedY,
-			);
-			const floodZoneIndex = typeof isFlood === "boolean" && !!isFlood ? 1 : 0;
-
 			const exactMatch = await this.searchExactIntersection(
 				transformedX,
 				transformedY,
 			);
-			if (exactMatch) {
-				return {
-					found: true,
-					buildingInformation: exactMatch,
-					floodZoneIndex,
-				};
+
+			if (!exactMatch) {
+				return notFound;
 			}
 
-			const bufferResult = await this.searchWithProgressiveBuffers(
-				[transformedX, transformedY],
-				[longitude, latitude],
+			const outlineBufferGeometry = bufferedOutlineMultiPolygonFromBuilding(
+				exactMatch.geometry,
 			);
-			if (bufferResult) {
-				return {
-					found: true,
-					buildingInformation: bufferResult,
-					floodZoneIndex,
-				};
-			}
+
+			const floodZoneIndex = await this.getFloodZoneIndex(
+				outlineBufferGeometry,
+			);
 
 			return {
-				found: false,
-				buildingInformation: null,
-				floodZoneIndex,
+				found: true,
+				building: {
+					...exactMatch,
+					transformedX,
+					transformedY,
+					outlineBufferGeometry,
+					floodZoneIndex: !this.collectErrors.length ? floodZoneIndex : null,
+					numberOfBuildings: exactMatch.geometry.coordinates.length,
+					numberOfCoordinatesOnBuildings: countGeometryPoints(
+						exactMatch.geometry,
+					),
+					numberOfCoordinatesOnOutline: countGeometryPoints(
+						outlineBufferGeometry,
+					),
+					errors: this.collectErrors,
+				},
 			};
 		} catch {
-			return {
-				found: false,
-				buildingInformation: null,
-				floodZoneIndex: null,
-			};
+			return notFound;
 		}
 	}
 
-	async getFloodZoneIndex(
-		transformedX: number,
-		transformedY: number,
-	): Promise<number | null> {
+	async updateMetric(
+		x: number,
+		y: number,
+		opts: {
+			service: string;
+			layer: string;
+			errorString: string;
+			property?: string;
+		},
+		metric: { max: number; sum: number },
+	) {
+		const res = await this.getWMSFeatureInfo(
+			x,
+			y,
+			opts.service,
+			opts.layer,
+			opts.errorString,
+			opts.property,
+		);
+
+		if (typeof res === "string") {
+			const v = transformWMSValue(res);
+			metric.sum += v;
+			if (v > metric.max) metric.max = v;
+			return;
+		}
+	}
+
+	async getBuildingWMS(building: Building): Promise<BuildingWMS> {
 		try {
-			const bufferSize = 50;
-			const bbox = [
-				transformedX - bufferSize,
-				transformedY - bufferSize,
-				transformedX + bufferSize,
-				transformedY + bufferSize,
-			].join(",");
+			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
+				building;
 
-			const wmsUrl = new URL(`${this.baseUrl}/wms`);
-			wmsUrl.searchParams.set("SERVICE", "WMS");
-			wmsUrl.searchParams.set("VERSION", "1.1.1");
-			wmsUrl.searchParams.set("REQUEST", "GetFeatureInfo");
-			wmsUrl.searchParams.set("LAYERS", this.floodLayer);
-			wmsUrl.searchParams.set("QUERY_LAYERS", this.floodLayer);
-			wmsUrl.searchParams.set("SRS", "EPSG:25833");
-			wmsUrl.searchParams.set("BBOX", bbox);
-			wmsUrl.searchParams.set("WIDTH", "256");
-			wmsUrl.searchParams.set("HEIGHT", "256");
-			wmsUrl.searchParams.set("X", "128");
-			wmsUrl.searchParams.set("Y", "128");
-			wmsUrl.searchParams.set("INFO_FORMAT", "application/json");
-
-			const response = await fetch(wmsUrl.toString());
-			if (!response.ok) {
-				return null;
+			if (
+				!geometry ||
+				!outlineBufferGeometry ||
+				!transformedX ||
+				!transformedY
+			) {
+				return notFoundWMS;
 			}
 
-			const data = await response.json();
-			if (!data.features?.length) {
-				return null;
+			if (building.errors && building.errors.length > 0) {
+				this.collectErrors.push(...building.errors);
 			}
 
-			const grayIndex = data.features[0].properties?.GRAY_INDEX;
-			return typeof grayIndex === "number" ? grayIndex : null;
+			const hasHeavyRainHazardMap = await this.getWMSFeatureInfo(
+				transformedX,
+				transformedY,
+				"ua_srgk",
+				"a_modellgebiete",
+				"hasHeavyRainHazardMap",
+			);
+
+			const isInExtremeRainHazardMap =
+				hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
+
+			const rareHeavyRain = { max: 0, sum: 0 };
+			const uncommonHeavyRain = { max: 0, sum: 0 };
+			const extremeHeavyRain = { max: 0, sum: 0 };
+
+			const frequentFlood = { max: 0, sum: 0 };
+			const averageFlood = { max: 0, sum: 0 };
+			const rareFlood = { max: 0, sum: 0 };
+
+			const polys =
+				outlineBufferGeometry.type === "Polygon"
+					? [outlineBufferGeometry.coordinates]
+					: outlineBufferGeometry.type === "MultiPolygon"
+						? outlineBufferGeometry.coordinates
+						: [];
+
+			for (const poly of polys) {
+				const ring = Array.isArray(poly) ? poly[0] : null;
+				if (!Array.isArray(ring)) continue;
+
+				for (const coord of ring) {
+					if (
+						!Array.isArray(coord) ||
+						coord.length < 2 ||
+						typeof coord[0] !== "number" ||
+						typeof coord[1] !== "number"
+					) {
+						continue;
+					}
+
+					const x = coord[0];
+					const y = coord[1];
+
+					/* STARKREGEN */
+
+					if (hasHeavyRainHazardMap) {
+						await this.updateMetric(
+							x,
+							y,
+							{
+								service: "ua_srgk",
+								layer: "ca_wasserstand_selten",
+								property: "Wasserstand_m",
+								errorString: "rareHeavyRain",
+							},
+							rareHeavyRain,
+						);
+					}
+					await this.updateMetric(
+						x,
+						y,
+						{
+							service: hasHeavyRainHazardMap ? "ua_srgk" : "ua_srhk",
+							layer: hasHeavyRainHazardMap
+								? "cb_wasserstand_aussergewoehnlich"
+								: "dc_wasserstand_aussergew_kostra",
+							property: hasHeavyRainHazardMap
+								? "Wasserstand_m"
+								: "Wasserstand_cm",
+							errorString: "uncommonHeavyRain",
+						},
+						uncommonHeavyRain,
+					);
+					await this.updateMetric(
+						x,
+						y,
+						{
+							service: isInExtremeRainHazardMap ? "ua_srgk" : "ua_srhk",
+							layer: isInExtremeRainHazardMap
+								? "cc_wassersand_extrem"
+								: "ec_wasserstand_extrem_max100mm",
+							property: isInExtremeRainHazardMap
+								? "Wasserstand_m"
+								: "Wasserstand_cm",
+							errorString: "extremeHeavyRain",
+						},
+						extremeHeavyRain,
+					);
+
+					/* FLUSSHOCHWASSER */
+					await this.updateMetric(
+						x,
+						y,
+						{
+							service: "ua_hochwassergefahrenkarten",
+							layer: "a_hwgk_hoch",
+							property: "Wassertiefe",
+							errorString: "frequentFlood",
+						},
+						frequentFlood,
+					);
+					await this.updateMetric(
+						x,
+						y,
+						{
+							service: "ua_hochwassergefahrenkarten",
+							layer: "b_hwgk_mittel",
+							property: "Wassertiefe",
+							errorString: "averageFlood",
+						},
+						averageFlood,
+					);
+					await this.updateMetric(
+						x,
+						y,
+						{
+							service: "ua_hochwassergefahrenkarten",
+							layer: "c_hwgk_niedrig",
+							property: "Wassertiefe",
+							errorString: "rareFlood",
+						},
+						rareFlood,
+					);
+				}
+			}
+
+			return {
+				hasHeavyRainHazardMap,
+
+				// Starkregen
+				rareHeavyRainMax: rareHeavyRain.max,
+				uncommonHeavyRainMax: uncommonHeavyRain.max,
+				extremeHeavyRainMax: extremeHeavyRain.max,
+				rareHeavyRainAverage: Math.round(
+					rareHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
+				),
+				uncommonHeavyRainAverage: Math.round(
+					uncommonHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
+				),
+				extremeHeavyRainAverage: Math.round(
+					extremeHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
+				),
+
+				// Flusshochwasser
+				frequentFloodMax: frequentFlood.max,
+				averageFloodMax: averageFlood.max,
+				rareFloodMax: rareFlood.max,
+				frequentFloodAverage: Math.round(
+					frequentFlood.sum / building.numberOfCoordinatesOnOutline!,
+				),
+				averageFloodAverage: Math.round(
+					averageFlood.sum / building.numberOfCoordinatesOnOutline!,
+				),
+				rareFloodAverage: Math.round(
+					rareFlood.sum / building.numberOfCoordinatesOnOutline!,
+				),
+
+				// Errors
+				errors: this.collectErrors, //.concat(testingMapErrors),
+			};
 		} catch {
-			return null;
+			return notFoundWMS;
 		}
 	}
 
-	isInsideFloodZone(x25833: number, y25833: number, features: any) {
-		const p = point([x25833, y25833]);
-
-		for (const f of features) {
-			if (booleanPointInPolygon(p, f as any)) {
-				return true;
-			}
+	addError(errorString: string) {
+		if (!this.collectErrors.some((e) => e === errorString)) {
+			this.collectErrors.push(errorString);
 		}
-
-		return false;
 	}
 
-	async getUeberschwemmungsgebieteWFS(
+	async getWMSFeatureInfo(
 		x25833: number,
 		y25833: number,
-		buffer = 50,
-	): Promise<any | null> {
-		try {
-			// Buffer BBOX exactly like your GetFeatureInfo logic
-			const bbox = [
-				x25833 - buffer,
-				y25833 - buffer,
-				x25833 + buffer,
-				y25833 + buffer,
-			].join(",");
+		base: string,
+		layer: string,
+		errorString: string,
+		propertyKey?: string,
+	): Promise<string | null> {
+		const buffer = 0.5;
+		const width = 256;
+		const height = 256;
 
-			const url = new URL("https://gdi.berlin.de/services/wfs/ua_uesg");
-
-			url.searchParams.set("SERVICE", "WFS");
-			url.searchParams.set("VERSION", "2.0.0");
-			url.searchParams.set("REQUEST", "GetFeature");
-			url.searchParams.set("TYPENAMES", "ua_uesg:c_ueberschwemmungsgebiete");
-
-			// IMPORTANT: Berlin WFS supports JSON!
-			url.searchParams.set("OUTPUTFORMAT", "application/json");
-
-			// coordinate system
-			url.searchParams.set("SRSNAME", "EPSG:25833");
-
-			// your dynamic bounding box
-			url.searchParams.set("BBOX", bbox);
-
-			const response = await fetch(url.toString());
-			if (!response.ok) {
-				console.error("WFS error:", response.status, response.statusText);
-				return null;
-			}
-
-			const json = await response.json();
-
-			if (!json.features || json.features.length === 0) {
-				return null;
-			}
-
-			const isFlood =
-				json.features && this.isInsideFloodZone(x25833, y25833, json.features);
-
-			return isFlood;
-		} catch (err) {
-			console.error("WFS fetch failed:", err);
+		if (this.collectErrors.some((e) => e === errorString)) {
 			return null;
 		}
+
+		const minx = x25833 - buffer;
+		const miny = y25833 - buffer;
+		const maxx = x25833 + buffer;
+		const maxy = y25833 + buffer;
+
+		const bbox = [minx, miny, maxx, maxy].join(",");
+
+		const i = Math.floor(((x25833 - minx) / (maxx - minx)) * width);
+		const j = Math.floor(((maxy - y25833) / (maxy - miny)) * height);
+
+		const ii = Math.max(0, Math.min(width - 1, i));
+		const jj = Math.max(0, Math.min(height - 1, j));
+
+		const url = new URL(`https://gdi.berlin.de/services/wms/${base}`);
+
+		url.searchParams.set("SERVICE", "WMS");
+		url.searchParams.set("VERSION", "1.3.0");
+		url.searchParams.set("REQUEST", "GetFeatureInfo");
+
+		// Layer you care about
+		url.searchParams.set("LAYERS", layer);
+		url.searchParams.set("QUERY_LAYERS", layer);
+
+		// Virtual map definition (must match pixel math above)
+		url.searchParams.set("CRS", "EPSG:25833");
+		url.searchParams.set("BBOX", bbox);
+		url.searchParams.set("WIDTH", String(width));
+		url.searchParams.set("HEIGHT", String(height));
+
+		// Pixel coordinate (WMS 1.3.0 uses I/J)
+		url.searchParams.set("I", String(ii));
+		url.searchParams.set("J", String(jj));
+
+		// Ask for JSON like your setup
+		url.searchParams.set("INFO_FORMAT", "application/json");
+		url.searchParams.set("FEATURE_COUNT", "5");
+
+		// Optional but sometimes helps servers
+		url.searchParams.set("STYLES", "");
+		url.searchParams.set("FORMAT", "image/png");
+		url.searchParams.set("TRANSPARENT", "true");
+
+		try {
+			const response = await fetch(url.toString());
+			if (!response.ok) {
+				console.error(
+					"WMS GetFeatureInfo error:",
+					response.status,
+					response.statusText,
+				);
+				return null;
+			}
+
+			const contentType = response.headers.get("content-type") || "";
+
+			// Some servers may return text/html or text/plain even if you ask for JSON.
+			const text = await response.text();
+
+			// Try to parse as JSON if possible
+			let json: any = null;
+			if (
+				contentType.includes("application/json") ||
+				contentType.includes("json")
+			) {
+				try {
+					json = JSON.parse(text);
+				} catch (e) {
+					this.addError(errorString);
+					console.warn("WMS returned json content-type but JSON parse failed");
+					return null;
+				}
+			} else {
+				try {
+					json = JSON.parse(text);
+				} catch {
+					this.addError(errorString);
+					console.error(
+						"Unable to parse WMS GetFeatureInfo response as JSON:",
+						text,
+					);
+					return null;
+				}
+			}
+
+			if (!json) return null;
+
+			const features =
+				json.features ??
+				json.featureCollection?.features ??
+				json?.FeatureCollection?.features ??
+				null;
+
+			if (Array.isArray(features)) {
+				if (features.length === 0) {
+					return null;
+				}
+				if (layer === "c_ueberschwemmungsgebiete") {
+					return "floodZoneIndex";
+				} else if (
+					layer === "a_modellgebiete" &&
+					features[0].properties &&
+					features[0].properties?.Gebietsname &&
+					extremeHeavyRainMaxAreas.includes(features[0].properties?.Gebietsname)
+				) {
+					return "isInExtremeRainHazardMap";
+				} else if (layer === "a_modellgebiete") {
+					return "isInHeavyRainHazardMap";
+				} else if (
+					!!propertyKey &&
+					features[0].properties &&
+					propertyKey in features[0].properties
+				) {
+					const propertyValue = features[0].properties[propertyKey];
+					if (
+						propertyValue === null ||
+						propertyValue === undefined ||
+						propertyValue === "0" ||
+						propertyValue === "" ||
+						propertyValue.trim() === ""
+					) {
+						return null;
+					}
+					if (typeof propertyValue === "string") {
+						return propertyValue.trim();
+					}
+				}
+				return null;
+			}
+
+			console.warn("WMS GetFeatureInfo JSON has no features array.");
+			return null;
+		} catch (err) {
+			this.addError(errorString);
+			return null;
+		}
+	}
+
+	async getFloodZoneIndex(geometry: Geometry): Promise<number> {
+		if (!geometry) {
+			return 0;
+		}
+		const polys =
+			geometry.type === "Polygon"
+				? [geometry.coordinates]
+				: geometry.type === "MultiPolygon"
+					? geometry.coordinates
+					: [];
+		if (!polys.length) {
+			return 0;
+		}
+
+		for (const poly of polys) {
+			const ring = Array.isArray(poly) ? poly[0] : null;
+			if (!Array.isArray(ring)) continue;
+
+			for (const coord of ring) {
+				if (
+					!Array.isArray(coord) ||
+					coord.length < 2 ||
+					typeof coord[0] !== "number" ||
+					typeof coord[1] !== "number"
+				) {
+					continue;
+				}
+
+				const x = coord[0];
+				const y = coord[1];
+
+				const res = await this.getWMSFeatureInfo(
+					x,
+					y,
+					"ua_uesg",
+					"c_ueberschwemmungsgebiete",
+					"floodZoneIndex",
+				);
+				if (!!res) {
+					return 1;
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	private async searchExactIntersection(
@@ -220,53 +542,6 @@ export class GeoServerClient {
 		return this.buildBuildingResult(building);
 	}
 
-	private async searchWithProgressiveBuffers(
-		transformedCoords: [number, number],
-		originalCoords: [number, number],
-	) {
-		const [transformedX, transformedY] = transformedCoords;
-		const [longitude, latitude] = originalCoords;
-		const bufferDistances = [5, 10, 15, 25, 50, 100, 200, 500];
-
-		for (const distance of bufferDistances) {
-			const result = await this.searchWithBuffer(
-				[transformedX, transformedY],
-				distance,
-				[longitude, latitude],
-			);
-			if (result) {
-				return result;
-			}
-		}
-
-		return null;
-	}
-
-	private async searchWithBuffer(
-		transformedCoords: [number, number],
-		distance: number,
-		originalCoords: [number, number],
-	) {
-		const [transformedX, transformedY] = transformedCoords;
-		const [longitude, latitude] = originalCoords;
-		const spatialUrl = this.createWFSUrl();
-		const bufferFilter = `DWITHIN(the_geom, POINT(${transformedX} ${transformedY}), ${distance}, meters)`;
-		spatialUrl.searchParams.set("CQL_FILTER", bufferFilter);
-		spatialUrl.searchParams.set("maxFeatures", "10");
-
-		const response = await fetch(spatialUrl.toString());
-		if (!response.ok) {
-			return null;
-		}
-
-		const data = await response.json();
-		if (!data.features || data.features.length === 0) {
-			return null;
-		}
-
-		return this.findNearestBuilding(data.features, [longitude, latitude]);
-	}
-
 	private createWFSUrl(): URL {
 		const url = new URL(`${this.baseUrl}/ows`);
 		url.searchParams.set("service", "wfs");
@@ -278,10 +553,7 @@ export class GeoServerClient {
 		return url;
 	}
 
-	private buildBuildingResult(
-		building: Record<string, unknown>,
-		distance?: number,
-	) {
+	private buildBuildingResult(building: Record<string, unknown>) {
 		const props = building.properties as Record<string, unknown>;
 		return {
 			uuid: props.uuid as string,
@@ -289,89 +561,7 @@ export class GeoServerClient {
 			starkregenGefährdung: (props.GS_SR as number) || 0,
 			hochwasserGefährdung: (props.GS_HW as number) || 0,
 			geometry: building.geometry as Geometry,
-			...(distance !== undefined && { distance }),
+			bbox: building.bbox as BBox,
 		};
-	}
-
-	private findNearestBuilding(
-		features: Record<string, unknown>[],
-		coords: [number, number],
-	) {
-		const [longitude, latitude] = coords;
-		let nearestBuilding = null;
-		let minDistance = Infinity;
-
-		for (const feature of features) {
-			const centroid = this.calculateCentroid(
-				feature.geometry as Record<string, unknown>,
-			);
-			if (!centroid) {
-				continue;
-			}
-
-			const [centroidX, centroidY] = proj4("EPSG:25833", "EPSG:4326", centroid);
-			const distance = this.calculateDistance(
-				[longitude, latitude],
-				[centroidX, centroidY],
-			);
-
-			if (distance < minDistance) {
-				minDistance = distance;
-				nearestBuilding = feature;
-			}
-		}
-
-		return nearestBuilding
-			? this.buildBuildingResult(nearestBuilding, minDistance)
-			: null;
-	}
-
-	private calculateCentroid(
-		geometry: Record<string, unknown>,
-	): [number, number] | null {
-		if (!geometry || !geometry.coordinates) {
-			return null;
-		}
-
-		let coords = geometry.coordinates as number[][];
-		if (geometry.type === "MultiPolygon") {
-			coords = (geometry.coordinates as number[][][][])[0][0];
-		} else if (geometry.type === "Polygon") {
-			coords = (geometry.coordinates as number[][][])[0];
-		}
-
-		if (!Array.isArray(coords) || coords.length === 0) {
-			return null;
-		}
-
-		const sumX = coords.reduce(
-			(sum: number, coord: number[]) => sum + coord[0],
-			0,
-		);
-		const sumY = coords.reduce(
-			(sum: number, coord: number[]) => sum + coord[1],
-			0,
-		);
-
-		return [sumX / coords.length, sumY / coords.length];
-	}
-
-	private calculateDistance(
-		coords1: [number, number],
-		coords2: [number, number],
-	): number {
-		const [lon1, lat1] = coords1;
-		const [lon2, lat2] = coords2;
-		const R = 6371000; // Earth radius in meters
-		const dLat = ((lat2 - lat1) * Math.PI) / 180;
-		const dLon = ((lon2 - lon1) * Math.PI) / 180;
-		const a =
-			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-			Math.cos((lat1 * Math.PI) / 180) *
-				Math.cos((lat2 * Math.PI) / 180) *
-				Math.sin(dLon / 2) *
-				Math.sin(dLon / 2);
-		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		return R * c;
 	}
 }

@@ -47,7 +47,8 @@
 			"subLabel": "Überschwemmungsgebiet",
 			"title": "Flusshochwasser",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"yes": "Ja"
+			"yes": "Ja",
+			"floodZoneIndexError": "Fehler bei der Bestimmung der Überschwemmungsgebietzugehörigkeit"
 		},
 		"hazardDisplay": {
 			"descriptionPlaceholder": "Die vereinfachte Darstellung einer Gefährdung in vier Klassen dient allein der Motivation potenziell Betroffener zur Auseinandersetzung mit der Gefahr und möglicher Anpassungsmaßnahmen. Die Gefährdungsklassen leiten sich von den Fließgeschwindigkeiten und Überflutungstiefen der Starkregenhinweiskarten \"Extremes Ereignis\" sowie \"Seltenes Ereignis\" für Berlin ab. Die Klassifizierung dieser Werte in die vier Klassen erfolgt in Anlehnung an die Methodik des NGP. Für jeden Ort wird die höchste Gefährdung beider Szenarien ausgegeben. Welcher Gefährdungsklasse ein Haus zugeordnet wird, bezieht sich auf die Umgebung des Gebäudes bis zu einem Abstand von zwei Metern. Wieviel Prozent dieser Fläche in welche Gefährdungsklasse fallen entscheidet über die letztendliche Zuordnung. Die Methodik wurde von BUKEA Hamburg übernommen.",

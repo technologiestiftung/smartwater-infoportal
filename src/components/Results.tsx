@@ -14,17 +14,17 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
-import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
 import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./DownloadPDF/ReportPDF";
-import MapSR from "./MapSR/Map";
-import MapHW from "./MapHW/Map";
+import ReportPDF from "./Report/components/ReportPDF";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
+import ScenarioMap from "./ScenarioMap/Map";
+import { ScenarioList } from "@/types/map";
+import ResultBlock from "./ResultBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -34,7 +34,7 @@ const Results: React.FC = () => {
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = process.env.NODE_ENV === "development";
+	const isDev = false; // process.env.NODE_ENV === "development";
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -229,8 +229,12 @@ const Results: React.FC = () => {
 							: "absolute -left-[9999px]"
 					}
 				>
-					<MapSR />
-					<MapHW />
+					{ScenarioList.map((scenario) => (
+						<div key={scenario}>
+							<p>{scenario}</p>
+							<ScenarioMap scenario={scenario} />
+						</div>
+					))}
 				</div>
 			</section>
 			<section className="flex flex-col gap-4">

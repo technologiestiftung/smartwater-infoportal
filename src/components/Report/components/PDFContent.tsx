@@ -1,7 +1,7 @@
 import React from "react";
 import useStore from "@/store/defaultStore";
 import { useTranslations } from "next-intl";
-import ResultBlock from "../ResultBlock";
+import ResultBlock from "@/components/ResultBlock";
 
 const PDFContent = () => {
 	const t = useTranslations();

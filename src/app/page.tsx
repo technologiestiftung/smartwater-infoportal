@@ -21,16 +21,18 @@ export default function Home() {
 				</div>
 			</section>
 			{isDev && (
-				<Button
-					onClick={() => {
-						resetAll();
-						setTimeout(() => {
-							window.location.reload();
-						}, 500);
-					}}
-				>
-					Alles zurücksetzen
-				</Button>
+				<div className="flex flex-col gap-4">
+					<Button
+						onClick={() => {
+							resetAll();
+							setTimeout(() => {
+								window.location.reload();
+							}, 500);
+						}}
+					>
+						Alles zurücksetzen
+					</Button>
+				</div>
 			)}
 			<section className="w-full">
 				<TextBlock

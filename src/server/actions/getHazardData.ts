@@ -14,32 +14,11 @@ export async function getHazardData(
 			longitude,
 			latitude,
 		);
-		if (result.found && result.buildingInformation) {
-			const building = result.buildingInformation;
-			return {
-				building,
-				maxGefährdung: Math.max(
-					building.starkregenGefährdung || 0,
-					building.hochwasserGefährdung || 0,
-				),
-				found: true,
-				floodZoneIndex: result.floodZoneIndex,
-				...(building.distance && { distance: building.distance }),
-			};
-		}
-
-		return {
-			building: null,
-			maxGefährdung: 0,
-			found: false,
-			floodZoneIndex: result.floodZoneIndex,
-		};
+		return result;
 	} catch {
 		return {
-			building: null,
-			maxGefährdung: 0,
 			found: false,
-			floodZoneIndex: null,
+			building: null,
 		};
 	}
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { HazardLevel } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface ResultBlockProps {
 	entity: string;
@@ -98,7 +99,13 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 				{showSubLabel && (
 					<div className="flex flex-col gap-2">
 						<span className="font-bold">{t(`${entity}.subLabel`)}</span>
-						<p className="">{t(`${entity}.${subHazardLevel}`)}</p>
+						<p
+							className={cn(
+								subHazardLevel === "floodZoneIndexError" ? "text-red-600" : "",
+							)}
+						>
+							{t(`${entity}.${subHazardLevel}`)}
+						</p>
 					</div>
 				)}
 			</div>
