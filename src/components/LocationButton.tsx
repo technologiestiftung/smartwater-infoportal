@@ -116,7 +116,7 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 				{status === "outside-bbox" && (
 					<p className="text-red-600">
 						Ihre Adresse liegt außerhalb von Berlin. Bitte geben Sie eine
-						Berliner Adresse ein, um den WasserCheck Berlin zu starten.
+						Berliner Adresse ein, um den HochwasserCheck Berlin zu starten.
 					</p>
 				)}
 				{isDev && (

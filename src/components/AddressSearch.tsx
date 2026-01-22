@@ -182,7 +182,9 @@ export default function AddressSearch() {
 						)}
 					</div>
 					{error && (
-						<Label className="text-destructive text-primary">{error}</Label>
+						<div className="max-w-[50%]">
+							<Label className="text-destructive text-primary">{error}</Label>
+						</div>
 					)}
 					{showLoading && (
 						<div className="align-start flex">
