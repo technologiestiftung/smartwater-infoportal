@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
@@ -18,6 +18,7 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 }: CheckBlockProps) => {
 	const t = useTranslations();
 	const { currentUserAddress } = useStore();
+	const [showLoading, setShowLoading] = useState<boolean>(false);
 
 	const properties: FormProperty[] = [
 		{
@@ -78,9 +79,13 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 						<div className="mt-4 flex w-full flex-col items-center space-y-4 lg:flex-row lg:justify-end lg:space-y-0">
 							<Button
 								className="w-full self-start lg:w-fit"
-								onClick={() => onSubmit(question)}
+								onClick={() => {
+									setShowLoading(true);
+									onSubmit(question);
+								}}
 								type="button"
 								disabled={!question}
+								loading={showLoading}
 							>
 								{question === "yes" ? (
 									<> {t("floodCheck.start.formButtons.toQuestionnaire")}</>
