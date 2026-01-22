@@ -131,6 +131,7 @@ export default function AddressSearch() {
 
 	useEffect(() => {
 		if (error) {
+			setShowLoading(false);
 			setShowSubmitLoading(false);
 		}
 	}, [error]);
