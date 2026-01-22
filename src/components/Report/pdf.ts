@@ -450,6 +450,9 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 	}
 
 	// Finalize PDF
+	doc.setProperties({
+		title: pdf.name,
+	});
 	const blob = doc.output("blob");
 	const sizeInMB = (blob.size / (1024 * 1024)).toFixed(2) as unknown as number;
 	return {

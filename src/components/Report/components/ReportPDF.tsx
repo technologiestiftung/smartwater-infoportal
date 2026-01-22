@@ -1,4 +1,5 @@
 /* eslint-disable complexity */
+/* eslint-disable consistent-return */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -29,6 +30,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
+	const pdfUrlRef = useRef<string | null>(null);
 	const {
 		currentUserAddress,
 		getHazardEntities,
@@ -266,19 +268,18 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			const clickedButton = target.closest("button");
 
 			if (clickedButton && wrapper.contains(clickedButton)) {
-				const url = URL.createObjectURL(pdfBlob);
-
+				const url = pdfUrlRef.current;
+				if (!url) {
+					return;
+				}
 				if (isMobile || openPDFInNewTab) {
-					window.open(url, "_blank");
+					window.open(url, "_blank", "noopener,noreferrer");
 				} else {
 					const a = document.createElement("a");
 					a.href = url;
-					a.download = "Report-HochwasserCheck-Berlin.pdf";
+					a.download = pdfData.name as string;
 					a.click();
 				}
-				setTimeout(() => {
-					URL.revokeObjectURL(url);
-				}, 4000);
 			}
 		};
 
@@ -288,6 +289,29 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			wrapper.removeEventListener("click", handleClick);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pdfBlob]);
+
+	useEffect(() => {
+		// cleanup previous url
+		if (pdfUrlRef.current) {
+			URL.revokeObjectURL(pdfUrlRef.current);
+			pdfUrlRef.current = null;
+		}
+
+		if (!pdfBlob) {
+			return;
+		}
+
+		// create a stable url for this blob
+		pdfUrlRef.current = URL.createObjectURL(pdfBlob);
+
+		// revoke only when blob changes or component unmounts
+		return () => {
+			if (pdfUrlRef.current) {
+				URL.revokeObjectURL(pdfUrlRef.current);
+				pdfUrlRef.current = null;
+			}
+		};
 	}, [pdfBlob]);
 
 	return (
