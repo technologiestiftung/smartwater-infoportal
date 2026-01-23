@@ -28,6 +28,7 @@ export default function AddressSearch() {
 
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
+	const isDev = process.env.NODE_ENV === "development";
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
@@ -149,6 +150,32 @@ export default function AddressSearch() {
 						<LocationButton
 							coordinatesChanged={(lat, lon) => fetchData("", lat, lon)}
 						/>
+						{isDev && (
+							<div className="flex flex-col gap-2">
+								<div
+									className="bg-black/20 p-6"
+									onClick={() => {
+										handleChange({
+											target: { name: "addresse", value: "Majakowskiring 9" },
+											// eslint-disable-next-line @typescript-eslint/no-explicit-any
+										} as any);
+									}}
+								>
+									<p>Majakowskiring 9</p>
+								</div>
+								<div
+									className="bg-black/20 p-6"
+									onClick={() => {
+										handleChange({
+											target: { name: "addresse", value: "Rüsternallee 24" },
+											// eslint-disable-next-line @typescript-eslint/no-explicit-any
+										} as any);
+									}}
+								>
+									<p>Rüsternallee 24</p>
+								</div>
+							</div>
+						)}
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
 								<strong>{t("addressCheck.result")}</strong>

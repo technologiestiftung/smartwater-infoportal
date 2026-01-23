@@ -296,7 +296,7 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						getImageSRC = getImageSRC.replace(key, value);
 					});
 				}
-				const image = await getImage(getImageSRC);
+				const image = await getImage(getImageSRC, pdfKeys);
 				if (image) {
 					const marginLeft =
 						item.marginLeft === "halfPage"
