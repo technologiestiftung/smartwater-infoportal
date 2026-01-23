@@ -27,7 +27,7 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 			<div
 				className={cn(
 					"relative",
-					"h-[calc(120vw*0.614)] w-[120vw]",
+					"h-[calc(90vw*0.614)] w-[90vw]",
 					"md:h-[700px] md:w-[1140px]",
 				)}
 				id={mapRootId}
