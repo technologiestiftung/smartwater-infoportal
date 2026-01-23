@@ -4,7 +4,7 @@
 
 import { useTranslations } from "next-intl";
 import { FC, useEffect, useRef, useState } from "react";
-import { DownloadItem, Spinner } from "berlin-ui-library";
+import { Button, DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import useMobile from "@/lib/utils/useMobile";
 import {
@@ -18,7 +18,8 @@ import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
 import { GeoServerClient } from "@/lib/geoserverClient";
 import PDFContent from "./PDFContent";
 import { drawPDF } from "../pdf";
-import { PDFProps } from "../types";
+import { PDFKeys, PDFProps } from "../types";
+import { captureElementToBlob } from "../pdfImageUtils";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -40,12 +41,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
+	const [error, setError] = useState<string | null>(null);
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
 
 	const allMapsLoaded = useScenarioMapsLoading();
 
-	const pdfKeys: Record<string, string | number | boolean> = {
+	const pdfKeys: PDFKeys = {
 		"{date}": getToday(),
 		"{address}": currentUserAddress?.name || "Keine Adresse gefunden",
 		"{hazardLevelHeavyRain}": hazardEntities
@@ -140,6 +142,50 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (!locationData?.found || !locationData.building) {
 			return;
 		}
+
+		if (error) {
+			setError(null);
+		}
+
+		const imageIds = [
+			"heavyRainWidget",
+			"fluvialFloodWidget",
+			"map-root-sr",
+			"map-root-hw",
+			"map-root-srgk-rare-heavy-rain",
+			"map-root-srgk-uncommon-heavy-rain",
+			"map-root-srhk-uncommon-heavy-rain",
+			"map-root-srgk-extreme-heavy-rain",
+			"map-root-srhk-extreme-heavy-rain",
+			"map-root-frequent-flood",
+			"map-root-average-frequent-flood",
+			"map-root-rare-frequent-flood",
+			"map-root-flood-zone",
+		];
+
+		if (!skip) {
+			imageIds.push("risk-block");
+		}
+
+		try {
+			for (const elementId of imageIds) {
+				const blob = await captureElementToBlob(elementId);
+				if (!blob) {
+					continue;
+				}
+
+				pdfKeys[`#${elementId}`] = blob;
+
+				await new Promise((r) => requestAnimationFrame(() => r(null)));
+			}
+		} catch (captureError) {
+			setError("Error capturing map images: " + captureError);
+			return;
+		}
+
+		// eslint-disable-next-line no-console
+		console.log("pdfKeys :>> ", pdfKeys);
+
 		const buildingWMSData = await geoServerClient.getBuildingWMS(
 			locationData?.building,
 		);
@@ -238,18 +284,35 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			!errorFloodZone && !!locationData.building.floodZoneIndex;
 
 		// Draw PDF
-		const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
-		if (!pdfBlobCreated?.blob) {
-			window.alert("PDF konnte nicht erstellt werden.");
-			return;
+		try {
+			const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
+			if (!pdfBlobCreated?.blob) {
+				throw new Error("Failed to create PDF blob.");
+			}
+			setPdfSizeKB(pdfBlobCreated.sizeInMB);
+			setPdfBlob(pdfBlobCreated?.blob);
+		} catch (catchError) {
+			setError("Error creating PDF: " + catchError);
 		}
-		setPdfSizeKB(pdfBlobCreated.sizeInMB);
-		setPdfBlob(pdfBlobCreated?.blob);
 		makePDFInitializedRef.current = false;
 	};
 
 	useEffect(() => {
-		if (!allMapsLoaded || makePDFInitializedRef.current) {
+		const getIsMobile =
+			typeof window !== "undefined" && window.innerWidth <= 768;
+		if (makePDFInitializedRef.current || !getIsMobile) {
+			return;
+		}
+		makePDFInitializedRef.current = true;
+		setTimeout(() => {
+			makePDF();
+		}, 10000);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	useEffect(() => {
+		const getIsMobile =
+			typeof window !== "undefined" && window.innerWidth <= 768;
+		if (!allMapsLoaded || makePDFInitializedRef.current || getIsMobile) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
@@ -316,29 +379,49 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 	return (
 		<>
-			{/* DownloadItem */}
-			<div ref={wrapperRef}>
-				{pdfBlob ? (
-					<DownloadItem
-						buttonText={t("floodCheck.reportDownload.button")}
-						description={t("floodCheck.reportDownload.description")}
-						downloadUrl="#results"
-						fileType={t("floodCheck.reportDownload.fileInfo", {
-							size: `${pdfSizeKB} MB`,
-						})}
-						date={getToday()}
-						title={t("floodCheck.reportDownload.title")}
-					/>
-				) : (
-					<div className="flex min-h-[150px] items-center justify-end">
-						<Spinner
-							text="Download PDF wird vorbereitet"
-							position="right"
-							size="small"
-						/>
+			{error ? (
+				<div className="flex flex-col gap-8 py-8">
+					<p className="text-red-600">
+						Beim Erstellen des PDFs ist ein Fehler aufgetreten: <br />
+						<b>{error}</b>
+					</p>
+					<Button onClick={() => makePDF()}>Erneut probieren</Button>
+					<div className="divider" />
+				</div>
+			) : (
+				<>
+					<div ref={wrapperRef}>
+						{pdfBlob ? (
+							<DownloadItem
+								buttonText={t("floodCheck.reportDownload.button")}
+								description={t("floodCheck.reportDownload.description")}
+								downloadUrl="#results"
+								fileType={t("floodCheck.reportDownload.fileInfo", {
+									size: `${pdfSizeKB} MB`,
+								})}
+								date={getToday()}
+								title={t("floodCheck.reportDownload.title")}
+							/>
+						) : (
+							<>
+								<div className="flex min-h-[150px] items-center justify-end">
+									<div className="flex flex-col gap-2">
+										<Spinner
+											text="HochwasserCheck Report wird erstellt..."
+											position="right"
+											size="small"
+										/>
+										<p className="ml-10 italic">
+											*Dies kann einen Moment dauern
+										</p>
+									</div>
+								</div>
+								<div className="divider" />
+							</>
+						)}
 					</div>
-				)}
-			</div>
+				</>
+			)}
 			<PDFContent />
 		</>
 	);

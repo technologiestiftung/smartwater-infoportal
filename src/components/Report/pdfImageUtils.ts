@@ -1,46 +1,14 @@
 /* eslint-disable */
 
 import html2canvas from "html2canvas-pro";
+import { PDFKeys } from "./types";
 
-function getBase64ImageSize(dataUrl: string): {
-	bytes: number;
-	kilobytes: number;
-	megabytes: number;
-} {
-	if (!dataUrl.startsWith("data:image")) {
-		throw new Error("Invalid data URL");
-	}
-
-	const base64String = dataUrl.split(",")[1];
-	const byteLength =
-		(base64String.length * 3) / 4 -
-		(base64String.endsWith("==") ? 2 : base64String.endsWith("=") ? 1 : 0);
-
-	return {
-		bytes: byteLength,
-		kilobytes: byteLength / 1024,
-		megabytes: byteLength / (1024 * 1024),
-	};
-}
-
-async function downscaleImage(src: string, maxWidth = 500): Promise<string> {
-	return new Promise((resolve, reject) => {
-		const img = new Image();
-		img.onload = () => {
-			const scale = maxWidth / img.width;
-			const canvas = document.createElement("canvas");
-			canvas.width = maxWidth;
-			canvas.height = img.height * scale;
-
-			const ctx = canvas.getContext("2d");
-			if (!ctx) return reject("Canvas context error");
-
-			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-			resolve(canvas.toDataURL("image/jpeg", 0.7));
-		};
-		img.onerror = reject;
-		img.crossOrigin = "anonymous";
-		img.src = src;
+async function blobToDataUrl(blob: Blob): Promise<string> {
+	return await new Promise((resolve, reject) => {
+		const r = new FileReader();
+		r.onload = () => resolve(String(r.result));
+		r.onerror = () => reject(r.error);
+		r.readAsDataURL(blob);
 	});
 }
 
@@ -50,8 +18,7 @@ async function loadImageAsBase64(url: string): Promise<string | null> {
 
 		// If fetch failed (CORS, network error, etc.)
 		if (!res || !res.ok) {
-			console.warn("Image fetch failed or blocked by CORS:", url);
-			return null;
+			throw new Error("Image fetch failed or blocked by CORS:" + url);
 		}
 
 		const blob = await res.blob();
@@ -68,9 +35,7 @@ async function loadImageAsBase64(url: string): Promise<string | null> {
 			reader.readAsDataURL(blob);
 		});
 	} catch (err) {
-		// Any unexpected error
-		console.warn("loadImageAsBase64 failed:", err);
-		return null;
+		throw new Error("Error loading image: " + err);
 	}
 }
 
@@ -94,29 +59,54 @@ async function getAspectRatio(
 	});
 }
 
-export const getImage = async (imageSRC: string) => {
-	if (!imageSRC) return null;
-	let image;
-	if (imageSRC.startsWith("#")) {
-		image = document.getElementById(imageSRC.replace("#", ""));
-		if (!image) return null;
-		const html2canvasImage = await html2canvas(image, { scale: 1 });
-		image = html2canvasImage.toDataURL("image/jpeg");
-	} else {
-		image = await loadImageAsBase64(imageSRC);
+export async function captureElementToBlob(
+	selectorOrId: string,
+): Promise<Blob | null> {
+	const id = selectorOrId.startsWith("#")
+		? selectorOrId.slice(1)
+		: selectorOrId;
+	const el = document.getElementById(id);
+	if (!el) throw new Error(`Element with id #${id} not found.`);
+	try {
+		const canvas = await html2canvas(el, {
+			scale: 1,
+			useCORS: true,
+			backgroundColor: "white",
+			logging: false,
+			removeContainer: true,
+		});
+
+		return await new Promise<Blob | null>((resolve) =>
+			canvas.toBlob((b) => resolve(b), "image/jpeg", 1),
+		);
+	} catch (e) {
+		throw new Error(`captureElementToBlob failed for #${id}: ${e}`);
 	}
-	if (!image) return null;
-	const downscaledImage = await downscaleImage(image);
-	const getSizeMakeImage = getBase64ImageSize(image);
-	const getImageAspectRatio = await getAspectRatio(image);
-	const getSizeDownscaledImage = getBase64ImageSize(downscaledImage);
+}
+
+export const getImage = async (imageSRC: string, pdfKeys: PDFKeys) => {
+	if (!imageSRC || !pdfKeys)
+		throw new Error("imageSRC and pdfKeys are required.");
+
+	let imageData: string | null = null;
+
+	if (imageSRC.startsWith("#")) {
+		const blob = pdfKeys?.[imageSRC];
+		if (!(blob instanceof Blob)) {
+			throw new Error(`No blob found in pdfKeys for ${imageSRC}.`);
+		}
+		imageData = await blobToDataUrl(blob);
+	} else {
+		imageData = await loadImageAsBase64(imageSRC);
+	}
+
+	if (!imageData) throw new Error(`Failed to load image data for ${imageSRC}.`);
+
+	const ratio = await getAspectRatio(imageData);
+
 	return {
-		id: imageSRC,
-		image,
-		downscaledImage,
-		getSizeMakeImage,
-		getSizeDownscaledImage,
-		aspectRatioWidthHeight: getImageAspectRatio.aspectRatioWidthHeight,
-		aspectRatioHeightWidth: getImageAspectRatio.aspectRatioHeightWidth,
+		image: imageData,
+		aspectRatioWidthHeight: ratio.aspectRatioWidthHeight,
+		aspectRatioHeightWidth: ratio.aspectRatioHeightWidth,
 	};
 };

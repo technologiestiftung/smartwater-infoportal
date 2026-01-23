@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import MapInitializer from "./MapInitializer/MapInitializer";
 import LayerInitializer from "./LayerInitializer/LayerInitializer";
 import { Scenario } from "@/types/map";
+import { cn } from "@/lib/utils";
 
 const LazyOlMap = dynamic(() => import("./OlMap/OlMap"), {
 	ssr: false,
@@ -23,12 +24,19 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 	return (
 		<div className="relative">
 			<MapInitializer scenario={scenario} />
-			<div className="relative h-[700px] w-[1140px]" id={mapRootId}>
+			<div
+				className={cn(
+					"relative",
+					"h-[calc(120vw*0.614)] w-[120vw]",
+					"md:h-[700px] md:w-[1140px]",
+				)}
+				id={mapRootId}
+			>
 				<LazyOlMap scenario={scenario}>
 					<LayerInitializer scenario={scenario} />
 				</LazyOlMap>
 				<div className="absolute bottom-4 left-4 bg-white/45 p-1">
-					<p className="text-xs italic">
+					<p className="text-[6px] text-[8px] italic leading-none">
 						Basemap: Bundesamt für Kartographie und Geodäsie (BKG)
 					</p>
 				</div>
