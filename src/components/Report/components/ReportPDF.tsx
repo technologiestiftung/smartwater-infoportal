@@ -183,8 +183,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			return;
 		}
 
-		window.alert("Step 1");
-
 		// eslint-disable-next-line no-console
 		console.log("pdfKeys :>> ", pdfKeys);
 
@@ -193,8 +191,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		);
 		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
-
-		window.alert("Step 2");
 
 		const {
 			hasHeavyRainHazardMap,
@@ -287,15 +283,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		pdfKeys["{hasFloodZoneData}"] =
 			!errorFloodZone && !!locationData.building.floodZoneIndex;
 
-		window.alert("Step 3");
-
 		// Draw PDF
 		try {
 			const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
 			if (!pdfBlobCreated?.blob) {
 				throw new Error("Failed to create PDF blob.");
 			}
-			window.alert("Step 4");
 			setPdfSizeKB(pdfBlobCreated.sizeInMB);
 			setPdfBlob(pdfBlobCreated?.blob);
 		} catch (catchError) {
