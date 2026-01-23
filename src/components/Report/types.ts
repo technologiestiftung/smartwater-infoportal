@@ -46,3 +46,5 @@ export interface PDFProps {
 	footer?: PDFPageItem[];
 	pages: PDFPage[];
 }
+
+export type PDFKeys = Record<string, string | number | boolean | Blob>;
