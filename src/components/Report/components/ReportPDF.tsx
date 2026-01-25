@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 /* eslint-disable consistent-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -315,6 +316,19 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	useEffect(() => {
+		if (isDP) {
+			window.alert(
+				"effect ran" +
+					JSON.stringify({
+						isMobile: window.innerWidth <= 768,
+						width: window.innerWidth,
+						already: makePDFInitializedRef.current,
+					}),
+			);
+		}
+	}, []);
+
+	/* useEffect(() => {
 		const getIsMobile =
 			typeof window !== "undefined" && window.innerWidth <= 768;
 		if (makePDFInitializedRef.current || !getIsMobile) {
@@ -324,8 +338,23 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		setTimeout(() => {
 			makePDF();
 		}, 10000);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, []); */
+
+	useEffect(() => {
+		const getIsMobile = window.innerWidth <= 768;
+		if (makePDFInitializedRef.current || !getIsMobile) {
+			return;
+		}
+
+		makePDFInitializedRef.current = true;
+
+		const to = window.setTimeout(() => {
+			makePDF();
+		}, 10_000);
+
+		return () => window.clearTimeout(to);
+	}, [makePDF]);
+
 	useEffect(() => {
 		const getIsMobile =
 			typeof window !== "undefined" && window.innerWidth <= 768;
@@ -334,7 +363,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 		makePDFInitializedRef.current = true;
 		makePDF();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [allMapsLoaded]);
 
 	useEffect(() => {
@@ -368,7 +396,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		return () => {
 			wrapper.removeEventListener("click", handleClick);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pdfBlob]);
 
 	useEffect(() => {
