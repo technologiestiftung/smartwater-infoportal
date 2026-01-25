@@ -173,6 +173,17 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			imageIds.push("risk-block");
 		}
 
+		const buildingWMSData = await geoServerClient.getBuildingWMS(
+			locationData?.building,
+		);
+
+		if (isDP) {
+			window.alert("All WMS data fetched for PDF");
+		}
+
+		// eslint-disable-next-line no-console
+		console.log("buildingWMSData :>> ", buildingWMSData);
+
 		try {
 			for (const elementId of imageIds) {
 				const blob = await captureElementToBlob(elementId);
@@ -195,17 +206,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 		// eslint-disable-next-line no-console
 		console.log("pdfKeys :>> ", pdfKeys);
-
-		const buildingWMSData = await geoServerClient.getBuildingWMS(
-			locationData?.building,
-		);
-
-		if (isDP) {
-			window.alert("All WMS data fetched for PDF");
-		}
-
-		// eslint-disable-next-line no-console
-		console.log("buildingWMSData :>> ", buildingWMSData);
 
 		const {
 			hasHeavyRainHazardMap,
@@ -328,9 +328,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			return;
 		}
 		makePDFInitializedRef.current = true;
-		setTimeout(() => {
-			makePDF();
-		}, 10000);
+		if (isDP) {
+			window.alert("Making PDF on mobile");
+		}
+		makePDF();
 	}, [isMobile]);
 
 	useEffect(() => {
