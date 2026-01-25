@@ -188,12 +188,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			for (const elementId of imageIds) {
 				const blob = await captureElementToBlob(elementId);
 				if (!blob) {
-					continue;
+					throw new Error(`Failed to capture element with ID: ${elementId}`);
 				}
 
 				pdfKeys[`#${elementId}`] = blob;
 
-				// await new Promise((r) => requestAnimationFrame(() => r(null)));
+				await new Promise((r) => requestAnimationFrame(() => r(null)));
 			}
 		} catch (captureError) {
 			setError("Error capturing map images: " + captureError);
