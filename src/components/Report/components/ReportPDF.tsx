@@ -316,44 +316,22 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	useEffect(() => {
+		if (isMobile === null) {
+			return;
+		}
 		if (isDP) {
 			window.alert(
-				"effect ran" +
-					JSON.stringify({
-						isMobile: window.innerWidth <= 768,
-						width: window.innerWidth,
-						already: makePDFInitializedRef.current,
-					}),
+				`useEffect on mount - initialized ${makePDFInitializedRef.current} - isMobile: ${isMobile}`,
 			);
 		}
-	}, []);
-
-	/* useEffect(() => {
-		const getIsMobile =
-			typeof window !== "undefined" && window.innerWidth <= 768;
-		if (makePDFInitializedRef.current || !getIsMobile) {
+		if (makePDFInitializedRef.current || !isMobile) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
 		setTimeout(() => {
 			makePDF();
 		}, 10000);
-	}, []); */
-
-	useEffect(() => {
-		const getIsMobile = window.innerWidth <= 768;
-		if (makePDFInitializedRef.current || !getIsMobile) {
-			return;
-		}
-
-		makePDFInitializedRef.current = true;
-
-		const to = window.setTimeout(() => {
-			makePDF();
-		}, 10_000);
-
-		return () => window.clearTimeout(to);
-	}, [makePDF]);
+	}, [isMobile]);
 
 	useEffect(() => {
 		const getIsMobile =
