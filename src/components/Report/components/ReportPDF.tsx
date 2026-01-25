@@ -44,6 +44,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [error, setError] = useState<string | null>(null);
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
+	const isDP =
+		typeof window !== "undefined" &&
+		window.location.toString().includes("deploy-preview-59");
 
 	const allMapsLoaded = useScenarioMapsLoading();
 
@@ -140,7 +143,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 	const makePDF = async () => {
 		if (!locationData?.found || !locationData.building) {
-			return;
+			return setError(
+				"Es wurden leider keine Gebäudedaten gefunden. Also kann das PDF nicht erstellt werden.",
+			);
 		}
 
 		if (error) {
@@ -176,11 +181,15 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 				pdfKeys[`#${elementId}`] = blob;
 
-				await new Promise((r) => requestAnimationFrame(() => r(null)));
+				// await new Promise((r) => requestAnimationFrame(() => r(null)));
 			}
 		} catch (captureError) {
 			setError("Error capturing map images: " + captureError);
 			return;
+		}
+
+		if (isDP) {
+			window.alert("All images captured for PDF");
 		}
 
 		// eslint-disable-next-line no-console
@@ -189,6 +198,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		const buildingWMSData = await geoServerClient.getBuildingWMS(
 			locationData?.building,
 		);
+
+		if (isDP) {
+			window.alert("All WMS data fetched for PDF");
+		}
+
 		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
 
@@ -288,6 +302,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
 			if (!pdfBlobCreated?.blob) {
 				throw new Error("Failed to create PDF blob.");
+			}
+			if (isDP) {
+				window.alert("PDF created successfully");
 			}
 			setPdfSizeKB(pdfBlobCreated.sizeInMB);
 			setPdfBlob(pdfBlobCreated?.blob);
