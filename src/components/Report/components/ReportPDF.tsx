@@ -334,9 +334,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	}, [isMobile]);
 
 	useEffect(() => {
-		const getIsMobile =
-			typeof window !== "undefined" && window.innerWidth <= 768;
-		if (!allMapsLoaded || makePDFInitializedRef.current || getIsMobile) {
+		if (!allMapsLoaded || makePDFInitializedRef.current || isMobile) {
 			return;
 		}
 		makePDFInitializedRef.current = true;

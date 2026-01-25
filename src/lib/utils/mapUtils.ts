@@ -19,7 +19,10 @@ export const getScale = (map: any) => {
 	return (resolution * metersPerUnit) / 0.00028;
 };
 
-export const getHeightClass = (isMobile: boolean, fullScreenMap: boolean) => {
+export const getHeightClass = (
+	isMobile: boolean | null,
+	fullScreenMap: boolean,
+) => {
 	if (!isMobile && !fullScreenMap) {
 		return "max-h-[calc((65vh-60px-46px-46px)/2)]";
 	}
