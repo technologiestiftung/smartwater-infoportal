@@ -8,6 +8,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Button, DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import useMobile from "@/lib/utils/useMobile";
+import { ScenarioList } from "@/types/map";
 import {
 	translateHazardLevels,
 	getToday,
@@ -15,12 +16,12 @@ import {
 	translateHazardTags,
 } from "../utils";
 import pdfData from "@/components/Report/pdf.json";
-import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
 import { GeoServerClient } from "@/lib/geoserverClient";
 import PDFContent from "./PDFContent";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
 import { captureElementToBlob } from "../pdfImageUtils";
+import { getScenarioDomId } from "@/lib/utils/mapUtils";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -45,8 +46,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [error, setError] = useState<string | null>(null);
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
-
-	const allMapsLoaded = useScenarioMapsLoading();
 
 	const pdfKeys: PDFKeys = {
 		"{date}": getToday(),
@@ -153,7 +152,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		const imageIds = [
 			"heavyRainWidget",
 			"fluvialFloodWidget",
-			"map-root-sr",
+			/* "map-root-sr",
 			"map-root-hw",
 			"map-root-srgk-rare-heavy-rain",
 			"map-root-srgk-uncommon-heavy-rain",
@@ -163,7 +162,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			"map-root-frequent-flood",
 			"map-root-average-frequent-flood",
 			"map-root-rare-frequent-flood",
-			"map-root-flood-zone",
+			"map-root-flood-zone", */
 		];
 
 		if (!skip) {
@@ -186,6 +185,41 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 				pdfKeys[`#${elementId}`] = blob;
 
+				await new Promise((r) => requestAnimationFrame(() => r(null)));
+			}
+		} catch (captureError) {
+			setError("Error capturing map images: " + captureError);
+			return;
+		}
+
+		// eslint-disable-next-line no-console
+		console.log("pdfKeys :>> ", pdfKeys);
+
+		try {
+			for (const scenario of ScenarioList) {
+				const url = `${window.location.origin}/scenario-map?scenario=${scenario}`;
+				const res = await fetch("/api/scenario-map-screenshot", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						url,
+						buildingGeometry: locationData?.building?.geometry,
+						outlineBufferGeometry:
+							locationData?.building?.outlineBufferGeometry,
+					}),
+				});
+
+				const text = await res.text();
+
+				if (!res.ok) {
+					throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+				}
+
+				const data = JSON.parse(text);
+				const { imageBase64 } = data;
+				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+				const blob = await fetch(dataUrl).then((r) => r.blob());
+				pdfKeys[`#${getScenarioDomId(scenario)}`] = blob;
 				await new Promise((r) => requestAnimationFrame(() => r(null)));
 			}
 		} catch (captureError) {
@@ -302,23 +336,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	useEffect(() => {
-		if (isMobile === null) {
-			return;
-		}
-		if (makePDFInitializedRef.current || !isMobile) {
+		if (makePDFInitializedRef.current) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
 		makePDF();
-	}, [isMobile]);
-
-	useEffect(() => {
-		if (!allMapsLoaded || makePDFInitializedRef.current || isMobile) {
-			return;
-		}
-		makePDFInitializedRef.current = true;
-		makePDF();
-	}, [allMapsLoaded]);
+	}, []);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;

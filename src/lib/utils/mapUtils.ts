@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Scenario } from "@/types/map";
 
 export function getEpsgFromCrs(crs: string) {
 	const epsgMatch = crs.match(/EPSG[:/](\d+)/i);
@@ -57,3 +58,6 @@ export function extractGermanZipCode(query: string): string | null {
 	const match = query.match(/\b\d{5}\b/);
 	return match ? match[0] : null;
 }
+
+export const getScenarioDomId = (scenario: Scenario) =>
+	`map-root-${scenario.toLowerCase().replace(/_/g, "-")}`;

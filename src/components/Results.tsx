@@ -31,7 +31,7 @@ const Results: React.FC = () => {
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = false; //process.env.NODE_ENV === "development";
+	const isDev = process.env.NODE_ENV === "development";
 	const locationData = useStore((state) => state.locationData);
 
 	const [loading, setLoading] = useState(false);
@@ -133,50 +133,55 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
-			<Button
-				onClick={async () => {
-					setLoading(true);
-					const url = `${window.location.origin}/scenario-map?scenario=SR`;
-					const res = await fetch("/api/scenario-map-screenshot", {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							url,
-							buildingGeometry: locationData?.building?.geometry,
-							outlineBufferGeometry:
-								locationData?.building?.outlineBufferGeometry,
-						}),
-					});
+			{isDev && (
+				<>
+					<Button
+						onClick={async () => {
+							setLoading(true);
+							const scenario = "AVERAGE_FREQUENT_FLOOD";
+							const url = `${window.location.origin}/scenario-map?scenario=${scenario}`;
+							const res = await fetch("/api/scenario-map-screenshot", {
+								method: "POST",
+								headers: { "Content-Type": "application/json" },
+								body: JSON.stringify({
+									url,
+									buildingGeometry: locationData?.building?.geometry,
+									outlineBufferGeometry:
+										locationData?.building?.outlineBufferGeometry,
+								}),
+							});
 
-					const text = await res.text();
+							const text = await res.text();
 
-					if (!res.ok) {
-						return window.alert(
-							`Screenshot API failed (${res.status}): ${text}`,
-						);
-						// throw new Error(`Screenshot API failed (${res.status}): ${text}`);
-					}
+							if (!res.ok) {
+								return window.alert(
+									`Screenshot API failed (${res.status}): ${text}`,
+								);
+								// throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+							}
 
-					const data = JSON.parse(text);
-					const { imageBase64 } = data;
-					const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-					const blob = await fetch(dataUrl).then((r) => r.blob());
-					const urlMG = URL.createObjectURL(blob);
-					setPreview(urlMG);
-					setLoading(false);
-					return data;
-				}}
-			>
-				{loading
-					? "Screenshot wird erstellt…"
-					: "Screenshot des Szenario-Maps erstellen"}
-			</Button>
-			{preview && (
-				<img
-					src={preview}
-					alt="Preview"
-					style={{ maxWidth: "100%", height: "auto" }}
-				/>
+							const data = JSON.parse(text);
+							const { imageBase64 } = data;
+							const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+							const blob = await fetch(dataUrl).then((r) => r.blob());
+							const urlMG = URL.createObjectURL(blob);
+							setPreview(urlMG);
+							setLoading(false);
+							return data;
+						}}
+					>
+						{loading
+							? "Screenshot wird erstellt…"
+							: "Screenshot des Szenario-Maps erstellen"}
+					</Button>
+					{preview && (
+						<img
+							src={preview}
+							alt="Preview"
+							style={{ maxWidth: "100%", height: "auto" }}
+						/>
+					)}
+				</>
 			)}
 			<section className="flex items-center gap-2">
 				{currentUserAddress && (

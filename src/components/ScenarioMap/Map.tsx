@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable consistent-return */
 "use client";
 
 import dynamic from "next/dynamic";
@@ -6,7 +8,8 @@ import LayerInitializer from "./LayerInitializer/LayerInitializer";
 import { Scenario } from "@/types/map";
 import { cn } from "@/lib/utils";
 import { useMapStore } from "@/lib/store/mapStore";
-import { useMapLoading } from "@/lib/utils/useMapLoading";
+import { getScenarioDomId } from "@/lib/utils/mapUtils";
+import { useEffect } from "react";
 
 const LazyOlMap = dynamic(() => import("./OlMap/OlMap"), {
 	ssr: false,
@@ -17,21 +20,34 @@ type ScenarioMapProps = {
 	scenario: Scenario;
 };
 
-const getScenarioDomId = (scenario: Scenario) =>
-	`map-root-${scenario.toLowerCase().replace(/_/g, "-")}`;
-
 const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 	const mapRootId = getScenarioDomId(scenario);
 	const scenarioMap = useMapStore((s) => s.scenarioMap);
 	const map = scenarioMap[scenario] ?? null;
-	const loading = useMapLoading(map, false);
+
+	useEffect(() => {
+		(window as any).__SCREENSHOT_READY__ = false;
+	}, [scenario]);
+	useEffect(() => {
+		if (!map) {
+			return;
+		}
+
+		const markReady = () => {
+			setTimeout(() => {
+				(window as any).__SCREENSHOT_READY__ = true;
+			}, 2000);
+		};
+
+		map.once("rendercomplete", markReady);
+
+		return () => {
+			map.un("rendercomplete", markReady);
+		};
+	}, [map]);
 
 	return (
-		<div
-			className="relative"
-			id="scenario-ready"
-			data-ready={loading ? "0" : "1"}
-		>
+		<div className="relative">
 			<MapInitializer scenario={scenario} />
 			<div className={cn("relative", "h-[700px] w-[1140px]")} id={mapRootId}>
 				<LazyOlMap scenario={scenario}>
