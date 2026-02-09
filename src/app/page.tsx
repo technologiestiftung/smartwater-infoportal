@@ -13,6 +13,8 @@ export default function Home() {
 	const router = useRouter();
 	const resetAll = useStore((state) => state.resetAll);
 	const [loading, setLoading] = useState(false);
+	const [preview, setPreview] = useState<string | null>(null);
+
 	// const isDev = process.env.NODE_ENV === "development";
 
 	return (
@@ -58,7 +60,7 @@ export default function Home() {
 						const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
 						const blob = await fetch(dataUrl).then((r) => r.blob());
 						const urlMG = URL.createObjectURL(blob);
-						window.open(urlMG, "_blank");
+						setPreview(urlMG);
 						setLoading(false);
 						return data;
 					}}
@@ -68,6 +70,13 @@ export default function Home() {
 						: "Screenshot des Szenario-Maps erstellen"}
 				</Button>
 			</div>
+			{preview && (
+				<img
+					src={preview}
+					alt="Preview"
+					style={{ maxWidth: "100%", height: "auto" }}
+				/>
+			)}
 			{/* )} */}
 			<section className="w-full">
 				<TextBlock
