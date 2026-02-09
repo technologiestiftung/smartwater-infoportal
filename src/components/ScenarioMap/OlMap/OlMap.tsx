@@ -153,17 +153,6 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 
 			map.addControl(scaleLineControl);
 
-			(window as any).__SCENARIOMAP_READY__ = false;
-
-			const markReady = () => {
-				clearTimeout((markReady as any)._t);
-				(markReady as any)._t = setTimeout(() => {
-					(window as any).__SCENARIOMAP_READY__ = true;
-				}, 300); // wait for layers + tiles to start
-			};
-
-			map.on("rendercomplete", markReady);
-
 			setMap(scenario, map);
 
 			return () => {
