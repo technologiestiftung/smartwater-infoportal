@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 type Body = {
 	url: string;
 	buildingGeometry: any; // GeoJSON geometry
-	outlineBufferGeometry?: any; // GeoJSON geometry
+	outlineBufferGeometry: any; // GeoJSON geometry
 };
 
 export async function POST(req: Request) {
@@ -22,7 +22,6 @@ export async function POST(req: Request) {
 		const isProd = process.env.NODE_ENV === "development" ? false : true;
 
 		if (isProd) {
-			// ✅ Netlify/serverless
 			const puppeteer = (await import("puppeteer-core")).default;
 			const chromium = (await import("@sparticuz/chromium")).default;
 
@@ -41,9 +40,6 @@ export async function POST(req: Request) {
 		}
 
 		const page = await browser.newPage();
-
-		// console.log("buildingGeometry :>> ", buildingGeometry);
-		// console.log("outlineBufferGeometry :>> ", outlineBufferGeometry);
 
 		await page.evaluateOnNewDocument(
 			(payload: any) => {
@@ -67,12 +63,6 @@ export async function POST(req: Request) {
 			},
 			{ timeout: 120_000 },
 		);
-
-		/* await page.goto(url, { waitUntil: "networkidle2", timeout: 120_000 });
-
-		await page.waitForFunction("window.__SCENARIOMAP_READY__ === true", {
-			timeout: 120_000,
-		}); */
 
 		await new Promise((r) => setTimeout(r, 5000));
 
