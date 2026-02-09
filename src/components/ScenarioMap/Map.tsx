@@ -24,7 +24,7 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 	const mapRootId = getScenarioDomId(scenario);
 	const scenarioMap = useMapStore((s) => s.scenarioMap);
 	const map = scenarioMap[scenario] ?? null;
-	const loading = useMapLoading(map, true);
+	const loading = useMapLoading(map, false);
 
 	return (
 		<div
