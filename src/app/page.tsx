@@ -14,8 +14,11 @@ export default function Home() {
 	const resetAll = useStore((state) => state.resetAll);
 	const [loading, setLoading] = useState(false);
 	const [preview, setPreview] = useState<string | null>(null);
-
-	// const isDev = process.env.NODE_ENV === "development";
+	const locationData = useStore((state) => state.locationData);
+	const isDev = process.env.NODE_ENV === "development";
+	const isDP =
+		typeof window !== "undefined" &&
+		window.location.toString().includes("deploy-preview-59");
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
@@ -24,60 +27,67 @@ export default function Home() {
 					<h1 className="">{t("pageTitle")}</h1>
 				</div>
 			</section>
-			{/* {isDev && ( */}
-			<div className="flex flex-col gap-4">
-				<Button
-					onClick={() => {
-						resetAll();
-						setTimeout(() => {
-							window.location.reload();
-						}, 500);
-					}}
-				>
-					Alles zurücksetzen
-				</Button>
-				<Button
-					onClick={async () => {
-						setLoading(true);
-						const url = `${window.location.origin}/scenario-map?scenario=SR`;
-						const res = await fetch("/api/scenario-map-screenshot", {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({ url }),
-						});
+			{(isDev || isDP) && (
+				<>
+					<div className="flex flex-col gap-4">
+						<Button
+							onClick={() => {
+								resetAll();
+								setTimeout(() => {
+									window.location.reload();
+								}, 500);
+							}}
+						>
+							Alles zurücksetzen
+						</Button>
+						<Button
+							onClick={async () => {
+								setLoading(true);
+								const url = `${window.location.origin}/scenario-map?scenario=SR&lat=52.574631486656095&lon=13.40516359545076`;
+								const res = await fetch("/api/scenario-map-screenshot", {
+									method: "POST",
+									headers: { "Content-Type": "application/json" },
+									body: JSON.stringify({
+										url,
+										buildingGeometry: locationData?.building?.geometry,
+										outlineBufferGeometry:
+											locationData?.building?.outlineBufferGeometry,
+									}),
+								});
 
-						const text = await res.text();
+								const text = await res.text();
 
-						if (!res.ok) {
-							return window.alert(
-								`Screenshot API failed (${res.status}): ${text}`,
-							);
-							// throw new Error(`Screenshot API failed (${res.status}): ${text}`);
-						}
+								if (!res.ok) {
+									return window.alert(
+										`Screenshot API failed (${res.status}): ${text}`,
+									);
+									// throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+								}
 
-						const data = JSON.parse(text);
-						const { imageBase64 } = data;
-						const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-						const blob = await fetch(dataUrl).then((r) => r.blob());
-						const urlMG = URL.createObjectURL(blob);
-						setPreview(urlMG);
-						setLoading(false);
-						return data;
-					}}
-				>
-					{loading
-						? "Screenshot wird erstellt…"
-						: "Screenshot des Szenario-Maps erstellen"}
-				</Button>
-			</div>
-			{preview && (
-				<img
-					src={preview}
-					alt="Preview"
-					style={{ maxWidth: "100%", height: "auto" }}
-				/>
+								const data = JSON.parse(text);
+								const { imageBase64 } = data;
+								const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+								const blob = await fetch(dataUrl).then((r) => r.blob());
+								const urlMG = URL.createObjectURL(blob);
+								setPreview(urlMG);
+								setLoading(false);
+								return data;
+							}}
+						>
+							{loading
+								? "Screenshot wird erstellt…"
+								: "Screenshot des Szenario-Maps erstellen"}
+						</Button>
+					</div>
+					{preview && (
+						<img
+							src={preview}
+							alt="Preview"
+							style={{ maxWidth: "100%", height: "auto" }}
+						/>
+					)}
+				</>
 			)}
-			{/* )} */}
 			<section className="w-full">
 				<TextBlock
 					desktopColSpans={{ col1: 2, col2: 3 }}

@@ -4,13 +4,18 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-type Body = { url: string };
+type Body = {
+	url: string;
+	buildingGeometry: any; // GeoJSON geometry
+	outlineBufferGeometry?: any; // GeoJSON geometry
+};
 
 export async function POST(req: Request) {
 	let browser: any = null;
 
 	try {
-		const { url } = (await req.json()) as Body;
+		const { url, buildingGeometry, outlineBufferGeometry } =
+			(await req.json()) as Body;
 		if (!url)
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
 
@@ -36,6 +41,20 @@ export async function POST(req: Request) {
 		}
 
 		const page = await browser.newPage();
+
+		// console.log("buildingGeometry :>> ", buildingGeometry);
+		// console.log("outlineBufferGeometry :>> ", outlineBufferGeometry);
+
+		await page.evaluateOnNewDocument(
+			(payload: any) => {
+				// @ts-ignore
+				window.__SCENARIO_INPUT__ = payload;
+			},
+			{
+				buildingGeometry,
+				outlineBufferGeometry,
+			},
+		);
 
 		await page.goto(url, { waitUntil: "networkidle2" });
 

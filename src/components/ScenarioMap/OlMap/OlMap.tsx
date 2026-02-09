@@ -9,7 +9,6 @@ import proj4 from "proj4";
 import React, { FC, useEffect, useRef } from "react";
 import "../../../../node_modules/ol/ol.css";
 import { useMapStore } from "../../../lib/store/mapStore";
-import useStore from "@/store/defaultStore";
 import VectorSource from "ol/source/Vector";
 import { Stroke, Style } from "ol/style";
 import VectorLayer from "ol/layer/Vector";
@@ -34,10 +33,18 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 	const destroyMap = useMapStore((s) => s.removeScenarioMap);
 	const config = useMapStore((s) => s.scenarioConfig[scenario]);
 	const mapId = useRef<HTMLDivElement>(null);
-	const locationData = useStore((state) => state.locationData);
 
 	useEffect(() => {
 		if (!config) return;
+
+		const injected =
+			typeof window !== "undefined"
+				? // @ts-ignore
+					(window.__SCENARIO_INPUT__ ?? null)
+				: null;
+
+		const buildingGeometry = injected?.buildingGeometry;
+		const outlineBufferGeometry = injected?.outlineBufferGeometry;
 
 		const mapViewConfig = config.portalConfig.map.mapView;
 
@@ -68,11 +75,11 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 				controls: [],
 			});
 
-			if (locationData?.building?.geometry) {
+			if (buildingGeometry) {
 				const feature = new OLGeoJSON().readFeature(
 					{
 						type: "Feature",
-						geometry: locationData.building.geometry,
+						geometry: buildingGeometry,
 						properties: {},
 					},
 					{
@@ -94,12 +101,12 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 				}
 			}
 
-			if (locationData?.found && locationData?.building?.geometry) {
+			if (buildingGeometry) {
 				const src = new VectorSource({
 					features: new OLGeoJSON().readFeatures(
 						{
 							type: "Feature",
-							geometry: locationData.building.geometry,
+							geometry: buildingGeometry,
 							properties: {},
 						},
 						{
@@ -120,13 +127,13 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 
 				if (
 					(scenario.includes("HEAVY_RAIN") || scenario.includes("FLOOD")) &&
-					!!locationData.building.outlineBufferGeometry
+					!!outlineBufferGeometry
 				) {
 					const outlineBufferSRC = new VectorSource({
 						features: new OLGeoJSON().readFeatures(
 							{
 								type: "Feature",
-								geometry: locationData.building.outlineBufferGeometry,
+								geometry: outlineBufferGeometry,
 								properties: {},
 							},
 							{ dataProjection: "EPSG:25833", featureProjection: projection },

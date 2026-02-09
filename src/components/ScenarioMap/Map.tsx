@@ -1,6 +1,5 @@
 "use client";
 
-// import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import MapInitializer from "./MapInitializer/MapInitializer";
 import LayerInitializer from "./LayerInitializer/LayerInitializer";
@@ -27,18 +26,6 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 	const map = scenarioMap[scenario] ?? null;
 	const loading = useMapLoading(map, true);
 
-	/* useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(window as any).__SCENARIOMAP_READY__ = false;
-	}, [scenario]);
-
-	useEffect(() => {
-		if (!loading) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(window as any).__SCENARIOMAP_READY__ = true;
-		}
-	}, [loading]); */
-
 	return (
 		<div
 			className="relative"
@@ -60,9 +47,6 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 				<div className="absolute bottom-4 left-4 bg-white/45 p-1">
 					<p className="text-[6px] text-[8px] italic leading-none">
 						Basemap: Bundesamt für Kartographie und Geodäsie (BKG)
-					</p>
-					<p className="text-[6px] text-[8px] italic leading-none">
-						{loading ? "Karte lädt…" : "Karte vollständig geladen"}
 					</p>
 				</div>
 			</div>

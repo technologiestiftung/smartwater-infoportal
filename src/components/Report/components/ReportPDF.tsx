@@ -45,9 +45,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [error, setError] = useState<string | null>(null);
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
-	const isDP =
-		typeof window !== "undefined" &&
-		window.location.toString().includes("deploy-preview-59");
 
 	const allMapsLoaded = useScenarioMapsLoading();
 
@@ -177,10 +174,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			locationData?.building,
 		);
 
-		if (isDP) {
-			window.alert("All WMS data fetched for PDF");
-		}
-
 		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
 
@@ -198,10 +191,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		} catch (captureError) {
 			setError("Error capturing map images: " + captureError);
 			return;
-		}
-
-		if (isDP) {
-			window.alert("All images captured for PDF");
 		}
 
 		// eslint-disable-next-line no-console
@@ -304,9 +293,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			if (!pdfBlobCreated?.blob) {
 				throw new Error("Failed to create PDF blob.");
 			}
-			if (isDP) {
-				window.alert("PDF created successfully");
-			}
 			setPdfSizeKB(pdfBlobCreated.sizeInMB);
 			setPdfBlob(pdfBlobCreated?.blob);
 		} catch (catchError) {
@@ -319,18 +305,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (isMobile === null) {
 			return;
 		}
-		if (isDP) {
-			window.alert(
-				`useEffect on mount - initialized ${makePDFInitializedRef.current} - isMobile: ${isMobile}`,
-			);
-		}
 		if (makePDFInitializedRef.current || !isMobile) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
-		if (isDP) {
-			window.alert("Making PDF on mobile");
-		}
 		makePDF();
 	}, [isMobile]);
 
