@@ -22,6 +22,9 @@ import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
 import { captureElementToBlob } from "../pdfImageUtils";
 import { getScenarioDomId } from "@/lib/utils/mapUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { cn } from "@/lib/utils";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -44,8 +47,28 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const [error, setError] = useState<string | null>(null);
+	const [done, setDone] = useState<string[]>([]);
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
+
+	const checks = [
+		{
+			id: "wms",
+			text: "Alle Geoportal Daten errechnet",
+		},
+		{
+			id: "widgets",
+			text: "Alle Widget-Bilder erstellt",
+		},
+		{
+			id: "maps",
+			text: "Alle Karten-Bilder erstellt",
+		},
+		{
+			id: "pdf",
+			text: "PDF erstellt",
+		},
+	];
 
 	const pdfKeys: PDFKeys = {
 		"{date}": getToday(),
@@ -149,32 +172,20 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			setError(null);
 		}
 
-		const imageIds = [
-			"heavyRainWidget",
-			"fluvialFloodWidget",
-			/* "map-root-sr",
-			"map-root-hw",
-			"map-root-srgk-rare-heavy-rain",
-			"map-root-srgk-uncommon-heavy-rain",
-			"map-root-srhk-uncommon-heavy-rain",
-			"map-root-srgk-extreme-heavy-rain",
-			"map-root-srhk-extreme-heavy-rain",
-			"map-root-frequent-flood",
-			"map-root-average-frequent-flood",
-			"map-root-rare-frequent-flood",
-			"map-root-flood-zone", */
-		];
-
-		if (!skip) {
-			imageIds.push("risk-block");
-		}
-
 		const buildingWMSData = await geoServerClient.getBuildingWMS(
 			locationData?.building,
 		);
 
+		setDone((prev) => [...prev, "wms"]);
+
 		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
+
+		const imageIds = ["heavyRainWidget", "fluvialFloodWidget"];
+
+		if (!skip) {
+			imageIds.push("risk-block");
+		}
 
 		try {
 			for (const elementId of imageIds) {
@@ -191,6 +202,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			setError("Error capturing map images: " + captureError);
 			return;
 		}
+
+		setDone((prev) => [...prev, "widgets"]);
 
 		// eslint-disable-next-line no-console
 		console.log("pdfKeys :>> ", pdfKeys);
@@ -220,12 +233,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
 				const blob = await fetch(dataUrl).then((r) => r.blob());
 				pdfKeys[`#${getScenarioDomId(scenario)}`] = blob;
-				await new Promise((r) => requestAnimationFrame(() => r(null)));
 			}
 		} catch (captureError) {
 			setError("Error capturing map images: " + captureError);
 			return;
 		}
+
+		setDone((prev) => [...prev, "maps"]);
 
 		// eslint-disable-next-line no-console
 		console.log("pdfKeys :>> ", pdfKeys);
@@ -327,6 +341,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			if (!pdfBlobCreated?.blob) {
 				throw new Error("Failed to create PDF blob.");
 			}
+			setDone((prev) => [...prev, "pdf"]);
+			await new Promise((r) => setTimeout(r, 1500));
 			setPdfSizeKB(pdfBlobCreated.sizeInMB);
 			setPdfBlob(pdfBlobCreated?.blob);
 		} catch (catchError) {
@@ -426,7 +442,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 							/>
 						) : (
 							<>
-								<div className="flex min-h-[150px] items-center justify-end">
+								<div className="flex min-h-[150px] items-center justify-end py-8">
 									<div className="flex flex-col gap-2">
 										<Spinner
 											text="HochwasserCheck Report wird erstellt..."
@@ -436,6 +452,20 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 										<p className="ml-10 italic">
 											*Dies kann einen Moment dauern
 										</p>
+										<div className="ml-10 flex flex-col gap-2 pt-2">
+											{checks.map((check) => (
+												<div className="flex items-center gap-2" key={check.id}>
+													<FontAwesomeIcon
+														icon={faCheck}
+														className={cn(
+															"flex-shrink-0 text-[18px] text-[#22c55e]",
+															!done.includes(check.id) && "invisible",
+														)}
+													/>
+													<p>{check.text}</p>
+												</div>
+											))}
+										</div>
 									</div>
 								</div>
 								<div className="divider" />
