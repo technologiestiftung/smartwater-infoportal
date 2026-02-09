@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
 import { Button, Image } from "berlin-ui-library";
@@ -11,6 +12,7 @@ export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
 	const resetAll = useStore((state) => state.resetAll);
+	const [loading, setLoading] = useState(false);
 	// const isDev = process.env.NODE_ENV === "development";
 
 	return (
@@ -34,6 +36,7 @@ export default function Home() {
 				</Button>
 				<Button
 					onClick={async () => {
+						setLoading(true);
 						const url = `${window.location.origin}/scenario-map?scenario=SR`;
 						const res = await fetch("/api/scenario-map-screenshot", {
 							method: "POST",
@@ -56,10 +59,13 @@ export default function Home() {
 						const blob = await fetch(dataUrl).then((r) => r.blob());
 						const urlMG = URL.createObjectURL(blob);
 						window.open(urlMG, "_blank");
+						setLoading(false);
 						return data;
 					}}
 				>
-					Testing Scenario Map Screenshot
+					{loading
+						? "Screenshot wird erstellt…"
+						: "Screenshot des Szenario-Maps erstellen"}
 				</Button>
 			</div>
 			{/* )} */}
