@@ -33,15 +33,7 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 			data-ready={loading ? "0" : "1"}
 		>
 			<MapInitializer scenario={scenario} />
-			<div
-				className={cn(
-					"relative",
-					// "h-[calc(90vw*0.614)] w-[90vw]",
-					// "md:h-[700px] md:w-[1140px]",
-					"h-[700px] w-[1140px]",
-				)}
-				id={mapRootId}
-			>
+			<div className={cn("relative", "h-[700px] w-[1140px]")} id={mapRootId}>
 				<LazyOlMap scenario={scenario}>
 					<LayerInitializer scenario={scenario} />
 				</LazyOlMap>

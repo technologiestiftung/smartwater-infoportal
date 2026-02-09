@@ -30,6 +30,9 @@ export default function AddressSearch() {
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
+	const isDP =
+		typeof window !== "undefined" &&
+		window.location.toString().includes("deploy-preview-59");
 
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
@@ -149,7 +152,7 @@ export default function AddressSearch() {
 						<LocationButton
 							coordinatesChanged={(lat, lon) => fetchData("", lat, lon)}
 						/>
-						{isDev && (
+						{(isDev || isDP) && (
 							<div className="flex flex-col gap-2">
 								<div
 									className="bg-black/20 p-6"

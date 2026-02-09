@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 
 		await page.goto(url, { waitUntil: "networkidle2" });
 
-		/* await page.waitForSelector("#scenario-ready", { timeout: 120_000 });
+		await page.waitForSelector("#scenario-ready", { timeout: 120_000 });
 
 		await page.waitForFunction(
 			() => {
@@ -62,9 +62,9 @@ export async function POST(req: Request) {
 				return el?.getAttribute("data-ready") === "1";
 			},
 			{ timeout: 120_000 },
-		); */
+		);
 
-		await new Promise((r) => setTimeout(r, 5000));
+		await new Promise((r) => setTimeout(r, 2000));
 
 		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
 
