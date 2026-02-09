@@ -2,7 +2,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -204,7 +204,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JonathanHaudenschild-TsB"><img src="https://avatars.githubusercontent.com/u/201598680?v=4?s=64" width="64px;" alt="Jonathan Haudenschild"/><br /><sub><b>Jonathan Haudenschild</b></sub></a><br /><a href="https://github.com/technologiestiftung/template-default/commits?author=JonathanHaudenschild-TsB" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JonathanHaudenschild-TsB"><img src="https://avatars.githubusercontent.com/u/201598680?v=4?s=64" width="64px;" alt="Jonathan Haudenschild"/><br /><sub><b>Jonathan Haudenschild</b></sub></a><br /><a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JonathanHaudenschild-TsB" title="Documentation">📖</a> <a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JonathanHaudenschild-TsB" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JS-TSB"><img src="https://avatars.githubusercontent.com/u/185074060?s=64" width="64px;" alt="Jakob Sawal"/><br /><sub><b>Jakob Sawal</b></sub></a><br /><a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JS-TSB" title="Documentation">📖</a> <a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JS-TSB" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https:/github.com/LuiseBrandenburger"><img src="https://avatars.githubusercontent.com/u/61413319?s=?s=64" width="64px;" alt="Luise Brandenburger"/><br /><sub><b>Luise Brandenburger</b></sub></a><br /><a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=LuiseBrandenburger" title="Documentation">📖</a> <a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=LuiseBrandenburger" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
