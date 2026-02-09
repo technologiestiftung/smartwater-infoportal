@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import MapInitializer from "./MapInitializer/MapInitializer";
 import LayerInitializer from "./LayerInitializer/LayerInitializer";
@@ -20,6 +21,11 @@ const getScenarioDomId = (scenario: Scenario) =>
 
 const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 	const mapRootId = getScenarioDomId(scenario);
+
+	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		(window as any).__SCENARIOMAP_READY__ = false;
+	}, [scenario]);
 
 	return (
 		<div className="relative">

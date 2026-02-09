@@ -19,6 +19,7 @@ const filterOutSegments = [
 	".well-known",
 	"appspecific",
 	"com.chrome.devtools.json",
+	"scenario-map",
 ];
 
 export default function LayoutClient({
@@ -59,6 +60,10 @@ export default function LayoutClient({
 		},
 	];
 	const breadcrumbs = [...rootBreadcrumb, ...pathNames];
+	const isRenderingScenarioMap = paths.startsWith("/scenario-map");
+	if (isRenderingScenarioMap) {
+		return <>{children}</>;
+	}
 	return (
 		<div className="flex min-h-screen flex-col">
 			<Header
