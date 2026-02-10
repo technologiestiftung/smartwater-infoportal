@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
 import { Button, Image } from "berlin-ui-library";
@@ -11,6 +13,8 @@ export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
 	const resetAll = useStore((state) => state.resetAll);
+	const locationData = useStore((state) => state.locationData);
+
 	const isDev = process.env.NODE_ENV === "development";
 
 	return (
@@ -22,6 +26,38 @@ export default function Home() {
 			</section>
 			{isDev && (
 				<div className="flex flex-col gap-4">
+					<Button
+						onClick={async () => {
+							const body: {
+								url: string;
+								buildingGeometry?: any;
+								outlineBufferGeometry?: any;
+							} = { url: "" };
+							body.buildingGeometry = locationData?.building?.geometry;
+							body.outlineBufferGeometry =
+								locationData?.building?.outlineBufferGeometry;
+							body.url = `${window.location.origin}/scenario-map-runner`;
+							// console.log("body :>> ", body);
+							const res = await fetch("/api/screenshot", {
+								method: "POST",
+								headers: { "Content-Type": "application/json" },
+								body: JSON.stringify(body),
+							});
+
+							const text = await res.text();
+
+							if (!res.ok) {
+								throw new Error(
+									`Screenshot API failed (${res.status}): ${text}`,
+								);
+							}
+
+							// const data = JSON.parse(text);
+							// console.log("data :>> ", data);
+						}}
+					>
+						Scneario Runner Map
+					</Button>
 					<Button
 						onClick={() => {
 							resetAll();

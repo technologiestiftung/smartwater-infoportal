@@ -39,8 +39,7 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 
 		const injected =
 			typeof window !== "undefined"
-				? // @ts-expect-error
-					(window.__SCENARIO_INPUT__ ?? null)
+				? (window.__SCENARIO_INPUT__ ?? null)
 				: null;
 
 		const buildingGeometry = injected?.buildingGeometry;
@@ -96,6 +95,7 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 						map.getView().fit(extent, {
 							padding: mapViewConfig.padding,
 							maxZoom: 19,
+							duration: 0,
 						});
 					}
 				}

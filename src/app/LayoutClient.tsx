@@ -22,6 +22,7 @@ const filterOutSegments = [
 	"scenario-map",
 	"widget-screenshot",
 	"riskblock-screenshot",
+	"scenario-map-runner",
 ];
 
 export default function LayoutClient({
