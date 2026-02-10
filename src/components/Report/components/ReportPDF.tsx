@@ -222,7 +222,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					body.buildingGeometry = locationData?.building?.geometry;
 					body.outlineBufferGeometry =
 						locationData?.building?.outlineBufferGeometry;
-					path = `/scenario-map?scenario=${scenario}`;
+					path = `/scenario-maps`;
 				}
 				body.url = `${window.location.origin}${path}`;
 				const res = await fetch("/api/screenshot", {

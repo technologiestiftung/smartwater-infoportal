@@ -19,7 +19,6 @@ const filterOutSegments = [
 	".well-known",
 	"appspecific",
 	"com.chrome.devtools.json",
-	"scenario-map",
 	"widget-screenshot",
 	"riskblock-screenshot",
 	"scenario-maps",
@@ -64,7 +63,7 @@ export default function LayoutClient({
 	];
 	const breadcrumbs = [...rootBreadcrumb, ...pathNames];
 	const isRenderingScreenshot =
-		paths.startsWith("/scenario-map") ||
+		paths.startsWith("/scenario-maps") ||
 		paths.startsWith("/widget-screenshot") ||
 		paths.startsWith("/riskblock-screenshot");
 	if (isRenderingScreenshot) {
