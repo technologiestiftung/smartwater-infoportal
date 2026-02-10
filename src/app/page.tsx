@@ -36,7 +36,7 @@ export default function Home() {
 							body.buildingGeometry = locationData?.building?.geometry;
 							body.outlineBufferGeometry =
 								locationData?.building?.outlineBufferGeometry;
-							body.url = `${window.location.origin}/scenario-map-runner`;
+							body.url = `${window.location.origin}/scenario-maps`;
 							// console.log("body :>> ", body);
 							const res = await fetch("/api/screenshot", {
 								method: "POST",

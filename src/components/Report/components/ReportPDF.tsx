@@ -183,7 +183,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 
 		try {
-			for (const scenario of [...ScenarioList, ...imageIds]) {
+			for (const scenario of ["scenario", ...imageIds]) {
 				let path = "";
 				const key: string =
 					scenario.includes("Widget") || scenario === "risk-block"
@@ -238,11 +238,30 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				}
 
 				const data = JSON.parse(text);
-				const { imageBase64 } = data;
-				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-				const blob = await fetch(dataUrl).then((r) => r.blob());
-				pdfKeys[`#${key}`] = blob;
-				setDone((prev) => [...prev, "images"]);
+
+				if (!!data.images) {
+					for (
+						let imageIndex = 0;
+						imageIndex < data.images.length;
+						imageIndex++
+					) {
+						const scenarioScreenshot = data.images[imageIndex];
+						const blob = await fetch(scenarioScreenshot.dataUrl).then((r) =>
+							r.blob(),
+						);
+						const scenarioKey = getScenarioDomId(
+							scenarioScreenshot.scenario as Scenario,
+						);
+						pdfKeys[`#${scenarioKey}`] = blob;
+						setDone((prev) => [...prev, "images"]);
+					}
+				} else {
+					const { imageBase64 } = data;
+					const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+					const blob = await fetch(dataUrl).then((r) => r.blob());
+					pdfKeys[`#${key}`] = blob;
+					setDone((prev) => [...prev, "images"]);
+				}
 			}
 		} catch (captureError) {
 			setError("Error capturing map images: " + captureError);

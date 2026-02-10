@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { NextResponse } from "next/server";
+import { ScenarioList, Scenario } from "@/types/map";
 
 export const runtime = "nodejs";
 
@@ -66,7 +67,6 @@ export async function POST(req: Request) {
 		if (buildingGeometry && outlineBufferGeometry) {
 			await page.evaluateOnNewDocument(
 				(payload: any) => {
-					// @ts-expect-error
 					window.__SCENARIO_INPUT__ = payload;
 				},
 				{
@@ -74,6 +74,38 @@ export async function POST(req: Request) {
 					outlineBufferGeometry,
 				},
 			);
+			const { origin } = new URL(req.url);
+			await page.goto(`${origin}/scenario-maps`, {
+				waitUntil: "domcontentloaded",
+			});
+
+			const results: { scenario: string; dataUrl: string }[] = [];
+
+			for (const s of ScenarioList) {
+				await page.evaluate((scenario: Scenario) => {
+					// @ts-ignore
+					window.__SET_SCENARIO__?.(scenario);
+				}, s);
+
+				await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
+					timeout: 120_000,
+				});
+
+				await new Promise((r) => setTimeout(r, 250));
+
+				const el = await page.$("#map-host");
+				const buf = await el!.screenshot({ type: "jpeg", quality: 100 });
+
+				const bufferBase64 = Buffer.from(buf).toString("base64");
+				const dataUrl = `data:image/jpeg;base64,${bufferBase64}`;
+
+				results.push({
+					scenario: s,
+					dataUrl: dataUrl,
+				});
+			}
+
+			return NextResponse.json({ images: results });
 		}
 
 		if (floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown) {
