@@ -86,7 +86,7 @@ export async function POST(req: Request) {
 				timeout: 120_000,
 			}); */
 
-			await page.goto(url, { waitUntil: "networkidle2" });
+			await page.goto(url, { waitUntil: "domcontentloaded", timeout: 120_000 });
 
 			const results: { scenario: string; dataUrl: string }[] = [];
 

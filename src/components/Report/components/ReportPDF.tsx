@@ -183,7 +183,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 
 		try {
-			for (const scenario of ["scenario", ...imageIds]) {
+			for (const scenario of [...imageIds, "scenario"]) {
 				let path = "";
 				const key: string =
 					scenario.includes("Widget") || scenario === "risk-block"
