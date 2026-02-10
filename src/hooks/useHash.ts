@@ -9,6 +9,7 @@ export function useHash() {
 
 	useEffect(() => {
 		const fromLocation = () => window.location.hash.replace(/^#/, "");
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setHash(fromLocation());
 
 		const onHash = () => setHash(fromLocation());

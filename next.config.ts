@@ -3,7 +3,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
 	images: {
-		domains: ["gdi.berlin.de"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "gdi.berlin.de",
+			},
+		],
 	},
 };
 

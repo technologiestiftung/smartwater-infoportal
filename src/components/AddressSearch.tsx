@@ -1,5 +1,8 @@
 "use client";
 
+import { CurrentUserAddress } from "@/lib/types";
+import { searchAddresses } from "@/server/actions/searchAddresses";
+import useStore from "@/store/defaultStore";
 import {
 	Button,
 	Form,
@@ -13,10 +16,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import useStore from "@/store/defaultStore";
 import LocationButton from "./LocationButton";
-import { CurrentUserAddress } from "@/lib/types";
-import { searchAddresses } from "@/server/actions/searchAddresses";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -124,14 +124,17 @@ export default function AddressSearch() {
 	useEffect(() => {
 		if (currentUserAddress) {
 			setValue("addresse", currentUserAddress.name);
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
 
+	// eslint-disable-next-line react-hooks/set-state-in-effect
 	useEffect(() => setShowLoading(false), [results]);
 
 	useEffect(() => {
 		if (error) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setShowLoading(false);
 			setShowSubmitLoading(false);
 		}

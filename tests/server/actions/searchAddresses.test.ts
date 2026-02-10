@@ -1,5 +1,5 @@
-import { searchAddressCases } from "./searchAddresses.cases";
 import { searchAddresses } from "../../../src/server/actions/searchAddresses";
+import { searchAddressCases } from "./searchAddresses.cases";
 
 describe("searchAddresses", () => {
 	it.each(searchAddressCases)("$query", async (c) => {
@@ -27,15 +27,15 @@ describe("searchAddresses", () => {
 			expect(hasHouseNumber).toBe(true);
 		}
 
-		if (c.expectedMinResults != null) {
+		if (c.expectedMinResults !== null && c.expectedMinResults !== undefined) {
 			expect(results.length).toBeGreaterThanOrEqual(c.expectedMinResults);
 		}
 
-		if (c.expectedMaxResults != null) {
+		if (c.expectedMaxResults !== null && c.expectedMaxResults !== undefined) {
 			expect(results.length).toBeLessThanOrEqual(c.expectedMaxResults);
 		}
 
-		if (results.length === 0 && c.expectedResult != null) {
+		if (results.length === 0 && c.expectedResult !== null) {
 			const r = results[0];
 			expect(typeof r.name).toBe(c.expectedResult);
 		} else if (results.length > 0) {

@@ -1,11 +1,29 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
-import Link from "next/link";
 import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
+
+const TableCell = ({ text, title }: { text: ReactNode; title?: boolean }) => {
+	if (title) {
+		return (
+			<td
+				rowSpan={3}
+				className="w-0 whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold lg:p-[1em_0.65em]"
+			>
+				{text}
+			</td>
+		);
+	}
+	return (
+		<td className="whitespace-pre-line border border-[#dddddd] p-1 lg:p-[1em_0.65em]">
+			{text}
+		</td>
+	);
+};
 
 export default function GeneralInformation() {
 	const t = useTranslations();
@@ -69,23 +87,6 @@ export default function GeneralInformation() {
 			<th className="whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]">
 				{text}
 			</th>
-		);
-	};
-	const TableCell = ({ text, title }: { text: ReactNode; title?: boolean }) => {
-		if (title) {
-			return (
-				<td
-					rowSpan={3}
-					className="w-0 whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold lg:p-[1em_0.65em]"
-				>
-					{text}
-				</td>
-			);
-		}
-		return (
-			<td className="whitespace-pre-line border border-[#dddddd] p-1 lg:p-[1em_0.65em]">
-				{text}
-			</td>
 		);
 	};
 
