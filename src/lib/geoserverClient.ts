@@ -135,14 +135,6 @@ export class GeoServerClient {
 			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
 				building;
 
-			const isDP =
-				typeof window !== "undefined" &&
-				window.location.toString().includes("deploy-preview-59");
-
-			if (isDP) {
-				return notFoundWMS;
-			}
-
 			if (
 				!geometry ||
 				!outlineBufferGeometry ||

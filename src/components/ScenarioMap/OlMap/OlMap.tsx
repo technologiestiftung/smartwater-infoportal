@@ -39,7 +39,7 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 
 		const injected =
 			typeof window !== "undefined"
-				? // @ts-ignore
+				? // @ts-expect-error
 					(window.__SCENARIO_INPUT__ ?? null)
 				: null;
 

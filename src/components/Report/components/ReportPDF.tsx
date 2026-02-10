@@ -1,6 +1,4 @@
-/* eslint-disable complexity */
-/* eslint-disable consistent-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -8,7 +6,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Button, DownloadItem, Spinner } from "berlin-ui-library";
 import useStore from "@/store/defaultStore";
 import useMobile from "@/lib/utils/useMobile";
-import { ScenarioList } from "@/types/map";
+import { ScenarioList, Scenario } from "@/types/map";
 import {
 	translateHazardLevels,
 	getToday,
@@ -17,10 +15,8 @@ import {
 } from "../utils";
 import pdfData from "@/components/Report/pdf.json";
 import { GeoServerClient } from "@/lib/geoserverClient";
-import PDFContent from "./PDFContent";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
-import { captureElementToBlob } from "../pdfImageUtils";
 import { getScenarioDomId } from "@/lib/utils/mapUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -42,6 +38,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		getHazardEntities,
 		locationData,
 		floodRiskAnswers,
+		floodRiskResult,
 	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -54,15 +51,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const checks = [
 		{
 			id: "wms",
-			text: "Alle Geoportal Daten errechnet",
+			text: "Alle Daten errechnet",
 		},
 		{
-			id: "widgets",
-			text: "Alle Widget-Bilder erstellt",
-		},
-		{
-			id: "maps",
-			text: "Alle Karten-Bilder erstellt",
+			id: "images",
 		},
 		{
 			id: "pdf",
@@ -172,13 +164,16 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			setError(null);
 		}
 
+		if (done.length > 0) {
+			setDone([]);
+		}
+
 		const buildingWMSData = await geoServerClient.getBuildingWMS(
 			locationData?.building,
 		);
 
 		setDone((prev) => [...prev, "wms"]);
 
-		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
 
 		const imageIds = ["heavyRainWidget", "fluvialFloodWidget"];
@@ -188,38 +183,52 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 
 		try {
-			for (const elementId of imageIds) {
-				const blob = await captureElementToBlob(elementId);
-				if (!blob) {
-					throw new Error(`Failed to capture element with ID: ${elementId}`);
+			for (const scenario of [...ScenarioList, ...imageIds]) {
+				let path = "";
+				const key: string =
+					scenario.includes("Widget") || scenario === "risk-block"
+						? scenario
+						: getScenarioDomId(scenario as Scenario);
+
+				const body: {
+					url: string;
+					buildingGeometry?: any;
+					outlineBufferGeometry?: any;
+					floodRiskResultDown?: any;
+					floodRiskAnswersDown?: any;
+					hazardEntitiesDown?: any;
+				} = { url: "" };
+
+				if (scenario === "risk-block") {
+					path = `/riskblock-screenshot`;
+					body.floodRiskResultDown = floodRiskResult;
+					body.floodRiskAnswersDown = floodRiskAnswers;
+					body.hazardEntitiesDown = hazardEntities;
+				} else if (scenario === "heavyRainWidget") {
+					const heavyRain = hazardEntities?.filter(
+						(entity) => entity.name === "heavyRain",
+					)[0];
+					if (heavyRain) {
+						path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
+					}
+				} else if (scenario === "fluvialFloodWidget") {
+					const fluvialFlood = hazardEntities?.filter(
+						(entity) => entity.name === "fluvialFlood",
+					)[0];
+					if (fluvialFlood) {
+						path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
+					}
+				} else {
+					body.buildingGeometry = locationData?.building?.geometry;
+					body.outlineBufferGeometry =
+						locationData?.building?.outlineBufferGeometry;
+					path = `/scenario-map?scenario=${scenario}`;
 				}
-
-				pdfKeys[`#${elementId}`] = blob;
-
-				await new Promise((r) => requestAnimationFrame(() => r(null)));
-			}
-		} catch (captureError) {
-			setError("Error capturing map images: " + captureError);
-			return;
-		}
-
-		setDone((prev) => [...prev, "widgets"]);
-
-		// eslint-disable-next-line no-console
-		console.log("pdfKeys :>> ", pdfKeys);
-
-		try {
-			for (const scenario of ScenarioList) {
-				const url = `${window.location.origin}/scenario-map?scenario=${scenario}`;
-				const res = await fetch("/api/scenario-map-screenshot", {
+				body.url = `${window.location.origin}${path}`;
+				const res = await fetch("/api/screenshot", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						url,
-						buildingGeometry: locationData?.building?.geometry,
-						outlineBufferGeometry:
-							locationData?.building?.outlineBufferGeometry,
-					}),
+					body: JSON.stringify(body),
 				});
 
 				const text = await res.text();
@@ -232,16 +241,14 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				const { imageBase64 } = data;
 				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
 				const blob = await fetch(dataUrl).then((r) => r.blob());
-				pdfKeys[`#${getScenarioDomId(scenario)}`] = blob;
+				pdfKeys[`#${key}`] = blob;
+				setDone((prev) => [...prev, "images"]);
 			}
 		} catch (captureError) {
 			setError("Error capturing map images: " + captureError);
 			return;
 		}
 
-		setDone((prev) => [...prev, "maps"]);
-
-		// eslint-disable-next-line no-console
 		console.log("pdfKeys :>> ", pdfKeys);
 
 		const {
@@ -453,18 +460,38 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 											*Dies kann einen Moment dauern
 										</p>
 										<div className="ml-10 flex flex-col gap-2 pt-2">
-											{checks.map((check) => (
-												<div className="flex items-center gap-2" key={check.id}>
-													<FontAwesomeIcon
-														icon={faCheck}
-														className={cn(
-															"flex-shrink-0 text-[18px] text-[#22c55e]",
-															!done.includes(check.id) && "invisible",
-														)}
-													/>
-													<p>{check.text}</p>
-												</div>
-											))}
+											{checks.map((check) => {
+												const getImagesCount = done.filter(
+													(c) => c === "images",
+												).length;
+												const isDone =
+													check.id === "images"
+														? !skip
+															? getImagesCount === 14
+															: getImagesCount === 13
+														: done.includes(check.id);
+												const checkText =
+													check.id === "images"
+														? `${done.filter((c) => c === "images").length} von ${!skip ? 14 : 13} Bildern erstellt`
+														: check.text;
+												return (
+													<div
+														className="flex items-center gap-2"
+														key={check.id}
+													>
+														<FontAwesomeIcon
+															icon={faCheck}
+															className={cn(
+																"flex-shrink-0 text-[18px] text-[#22c55e]",
+																!isDone && "invisible",
+															)}
+														/>
+														<span className={cn(isDone && "font-bold")}>
+															{checkText}
+														</span>
+													</div>
+												);
+											})}
 										</div>
 									</div>
 								</div>
@@ -474,7 +501,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					</div>
 				</>
 			)}
-			<PDFContent />
 		</>
 	);
 };

@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-import html2canvas from "html2canvas-pro";
 import { PDFKeys } from "./types";
 
 async function blobToDataUrl(blob: Blob): Promise<string> {
@@ -57,61 +56,6 @@ async function getAspectRatio(
 		};
 		img.src = imageSrc;
 	});
-}
-
-export async function captureElementToBlob(
-	selectorOrId: string,
-	timeoutMs = 5000,
-): Promise<Blob> {
-	const id = selectorOrId.startsWith("#")
-		? selectorOrId.slice(1)
-		: selectorOrId;
-
-	const el = document.getElementById(id);
-	if (!el) {
-		throw new Error(`Element with id #${id} not found.`);
-	}
-
-	const timeoutPromise = new Promise<never>((_, reject) => {
-		const t = setTimeout(() => {
-			clearTimeout(t);
-			reject(new Error(`html2canvas timeout after ${timeoutMs}ms for #${id}`));
-		}, timeoutMs);
-	});
-
-	const capturePromise = (async () => {
-		const canvas = await html2canvas(el, {
-			scale: 1,
-			useCORS: true,
-			backgroundColor: "white",
-			logging: false,
-			removeContainer: true,
-		});
-
-		const blob = await new Promise<Blob>((resolve, reject) => {
-			canvas.toBlob(
-				(b) => {
-					if (!b) {
-						reject(new Error(`canvas.toBlob returned null for #${id}`));
-					} else {
-						resolve(b);
-					}
-				},
-				"image/jpeg",
-				1,
-			);
-		});
-
-		return blob;
-	})();
-
-	try {
-		return await Promise.race([capturePromise, timeoutPromise]);
-	} catch (err) {
-		const message = err instanceof Error ? err.message : String(err);
-
-		throw new Error(`captureElementToBlob failed for #${id}: ${message}`);
-	}
 }
 
 export const getImage = async (imageSRC: string, pdfKeys: PDFKeys) => {
