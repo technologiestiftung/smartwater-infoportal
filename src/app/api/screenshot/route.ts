@@ -80,10 +80,13 @@ export async function POST(req: Request) {
 					outlineBufferGeometry,
 				},
 			);
-			const { origin } = new URL(req.url);
-			await page.goto(`${origin}/scenario-maps`, {
+			// const { origin } = new URL(req.url);
+			/* await page.goto(url, {
 				waitUntil: "domcontentloaded",
-			});
+				timeout: 120_000,
+			}); */
+
+			await page.goto(url, { waitUntil: "networkidle2" });
 
 			const results: { scenario: string; dataUrl: string }[] = [];
 
