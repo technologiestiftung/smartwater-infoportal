@@ -102,7 +102,7 @@ export async function POST(req: Request) {
 				await new Promise((r) => setTimeout(r, 250));
 
 				const el = await page.$("#map-host");
-				const buf = await el!.screenshot({ type: "jpeg", quality: 100 });
+				const buf = await el!.screenshot({ type: "jpeg", quality: 70 });
 
 				const bufferBase64 = Buffer.from(buf).toString("base64");
 				const dataUrl = `data:image/jpeg;base64,${bufferBase64}`;

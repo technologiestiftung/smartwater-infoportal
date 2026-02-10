@@ -185,11 +185,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		try {
 			for (const scenario of [...imageIds, "scenario"]) {
 				let path = "";
-				const key: string =
-					scenario.includes("Widget") || scenario === "risk-block"
-						? scenario
-						: getScenarioDomId(scenario as Scenario);
-
 				const body: {
 					url: string;
 					buildingGeometry?: any;
@@ -259,7 +254,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					const { imageBase64 } = data;
 					const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
 					const blob = await fetch(dataUrl).then((r) => r.blob());
-					pdfKeys[`#${key}`] = blob;
+					pdfKeys[`#${scenario}`] = blob;
 					setDone((prev) => [...prev, "images"]);
 				}
 			}
