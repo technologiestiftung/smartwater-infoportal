@@ -128,8 +128,8 @@ export function useMapLoading(map: OLMap | null) {
 			const onSrcChange = () => {
 				bindSource((layer as any).getSource?.());
 			};
-			layer.on?.("change:source", onSrcChange);
-			unsubs.push(() => layer.un?.("change", onSrcChange));
+			(layer as any).on?.("change:source", onSrcChange);
+			unsubs.push(() => (layer as any).un?.("change:source", onSrcChange));
 
 			// If it's a group, watch its collection
 			if (layer instanceof LayerGroup) {
