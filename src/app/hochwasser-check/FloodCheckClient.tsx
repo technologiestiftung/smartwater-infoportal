@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
@@ -6,36 +7,70 @@ import { useHash } from "@/hooks/useHash";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useStore from "@/store/defaultStore";
 import { getHazardData } from "@/server/actions/getHazardData";
 import CheckBlock from "@/components/CheckBlock";
+import { ScenarioList, Scenario } from "@/types/map";
+import { getScenarioDomId } from "@/lib/utils/mapUtils";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const setLocationData = useStore((state) => state.setLocationData);
+	const { currentUserAddress, setLocationData, setImage, clearPDFImages } =
+		useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
+	const makePDFImagesInitializedRef = useRef<boolean>(false);
 
-	const checkHazard = async (skip?: boolean) => {
+	const getLocationDataAndStartPDFImageFetch = async () => {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
 		try {
+			clearPDFImages();
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
 			const result = await getHazardData(longitude, latitude);
 			setLocationData(result);
-			if (skip) {
-				router.push("/hochwasser-check?skip=true#results");
-			} else {
-				router.push("/hochwasser-check#questionnaire");
+			if (!result.found) {
+				return;
+			}
+			const locationData = result;
+			for (const scenario of ScenarioList) {
+				const path = `/scenario-map?scenario=${scenario}`;
+				const key: string = getScenarioDomId(scenario as Scenario);
+				const body: {
+					url: string;
+					buildingGeometry?: any;
+					outlineBufferGeometry?: any;
+				} = {
+					url: `${window.location.origin}${path}`,
+					buildingGeometry: locationData?.building?.geometry,
+					outlineBufferGeometry: locationData?.building?.outlineBufferGeometry,
+				};
+
+				const res = await fetch("/api/screenshot", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(body),
+				});
+
+				const text = await res.text();
+
+				if (!res.ok) {
+					throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+				}
+
+				const data = JSON.parse(text);
+				const { imageBase64 } = data;
+				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+				const blob = await fetch(dataUrl).then((r) => r.blob());
+				setImage(`${key}`, blob);
 			}
 		} catch (error) {
-			console.error("Error in checkHazard function:", error);
+			console.error("Error capturing scenario map screenshot:", error);
 		}
 	};
 
@@ -55,6 +90,15 @@ export default function FloodCheckClient() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [hash]);
+
+	useEffect(() => {
+		if (makePDFImagesInitializedRef.current) {
+			return;
+		}
+		makePDFImagesInitializedRef.current = true;
+		getLocationDataAndStartPDFImageFetch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
@@ -115,7 +159,12 @@ export default function FloodCheckClient() {
 						<p className="">{t("floodCheck.start.description")}</p>
 						<CheckBlock
 							onSubmit={(goTo) => {
-								checkHazard(goTo === "no");
+								const skip = goTo === "no";
+								if (skip) {
+									router.push("/hochwasser-check?skip=true#results");
+								} else {
+									router.push("/hochwasser-check#questionnaire");
+								}
 							}}
 						/>
 					</div>

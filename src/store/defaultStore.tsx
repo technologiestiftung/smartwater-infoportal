@@ -57,6 +57,11 @@ type StoreState = {
 
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
+
+	// PDF Images
+	pdfImages: Record<string, Blob>;
+	setImage: (key: string, blob: Blob) => void;
+	clearPDFImages: () => void;
 };
 
 const currentFeatures: TestingFeatureNames[] = [
@@ -149,6 +154,7 @@ const useStore = create<StoreState>()(
 						floodRiskResult: null,
 						errorLayers: [],
 						showTestingFeatures: currentFeatures,
+						pdfImages: {},
 					}),
 
 				// Selectors
@@ -156,6 +162,14 @@ const useStore = create<StoreState>()(
 					const state = get();
 					return getHazardEntities(state.locationData);
 				},
+
+				// PDF Images
+				pdfImages: {},
+				setImage: (key, blob) =>
+					set((state) => ({
+						pdfImages: { ...state.pdfImages, [key]: blob },
+					})),
+				clearPDFImages: () => set({ pdfImages: {} }),
 			}),
 			{
 				name: "flood-risk-store",

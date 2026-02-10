@@ -32,6 +32,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
+	const widgetScreenshotsInitializedRef = useRef<boolean>(false);
 	const pdfUrlRef = useRef<string | null>(null);
 	const {
 		currentUserAddress,
@@ -39,22 +40,29 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		locationData,
 		floodRiskAnswers,
 		floodRiskResult,
+		pdfImages,
 	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [done, setDone] = useState<string[]>([]);
+	const [widgetScreenshots, setWidgetScreenshots] = useState<
+		Record<string, Blob>
+	>({});
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
+	const numberOfImagesToFetch = skip ? 13 : 14;
+	const numberOfFetchedImages =
+		Object.keys(pdfImages).length + Object.keys(widgetScreenshots).length;
 
 	const checks = [
 		{
-			id: "wms",
-			text: "Alle Daten errechnet",
+			id: "images",
 		},
 		{
-			id: "images",
+			id: "wms",
+			text: "Alle Daten errechnet",
 		},
 		{
 			id: "pdf",
@@ -176,77 +184,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 		console.log("buildingWMSData :>> ", buildingWMSData);
 
-		const imageIds = ["heavyRainWidget", "fluvialFloodWidget"];
-
-		if (!skip) {
-			imageIds.push("risk-block");
+		for (const key in pdfImages) {
+			pdfKeys[`#${key}`] = pdfImages[key];
 		}
-
-		try {
-			for (const scenario of [...ScenarioList, ...imageIds]) {
-				let path = "";
-				const key: string =
-					scenario.includes("Widget") || scenario === "risk-block"
-						? scenario
-						: getScenarioDomId(scenario as Scenario);
-
-				const body: {
-					url: string;
-					buildingGeometry?: any;
-					outlineBufferGeometry?: any;
-					floodRiskResultDown?: any;
-					floodRiskAnswersDown?: any;
-					hazardEntitiesDown?: any;
-				} = { url: "" };
-
-				if (scenario === "risk-block") {
-					path = `/riskblock-screenshot`;
-					body.floodRiskResultDown = floodRiskResult;
-					body.floodRiskAnswersDown = floodRiskAnswers;
-					body.hazardEntitiesDown = hazardEntities;
-				} else if (scenario === "heavyRainWidget") {
-					const heavyRain = hazardEntities?.filter(
-						(entity) => entity.name === "heavyRain",
-					)[0];
-					if (heavyRain) {
-						path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
-					}
-				} else if (scenario === "fluvialFloodWidget") {
-					const fluvialFlood = hazardEntities?.filter(
-						(entity) => entity.name === "fluvialFlood",
-					)[0];
-					if (fluvialFlood) {
-						path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
-					}
-				} else {
-					body.buildingGeometry = locationData?.building?.geometry;
-					body.outlineBufferGeometry =
-						locationData?.building?.outlineBufferGeometry;
-					path = `/scenario-map?scenario=${scenario}`;
-				}
-				body.url = `${window.location.origin}${path}`;
-				const res = await fetch("/api/screenshot", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(body),
-				});
-
-				const text = await res.text();
-
-				if (!res.ok) {
-					throw new Error(`Screenshot API failed (${res.status}): ${text}`);
-				}
-
-				const data = JSON.parse(text);
-				const { imageBase64 } = data;
-				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-				const blob = await fetch(dataUrl).then((r) => r.blob());
-				pdfKeys[`#${key}`] = blob;
-				setDone((prev) => [...prev, "images"]);
-			}
-		} catch (captureError) {
-			setError("Error capturing map images: " + captureError);
-			return;
+		for (const key in widgetScreenshots) {
+			pdfKeys[`#${key}`] = widgetScreenshots[key];
 		}
 
 		console.log("pdfKeys :>> ", pdfKeys);
@@ -358,12 +300,97 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		makePDFInitializedRef.current = false;
 	};
 
+	const getWidgetScreenshots = async () => {
+		const imageIds = ["heavyRainWidget", "fluvialFloodWidget"];
+
+		if (!skip) {
+			imageIds.push("risk-block");
+		}
+
+		const getPDFImages: Record<string, Blob> = {};
+
+		try {
+			for (const scenario of imageIds) {
+				let path = "";
+				let key: string = "";
+
+				const body: {
+					url: string;
+					buildingGeometry?: any;
+					outlineBufferGeometry?: any;
+					floodRiskResultDown?: any;
+					floodRiskAnswersDown?: any;
+					hazardEntitiesDown?: any;
+				} = { url: "" };
+
+				if (scenario === "risk-block") {
+					key = "risk-block";
+					path = `/riskblock-screenshot`;
+					body.floodRiskResultDown = floodRiskResult;
+					body.floodRiskAnswersDown = floodRiskAnswers;
+					body.hazardEntitiesDown = hazardEntities;
+				} else if (scenario === "heavyRainWidget") {
+					key = "heavyRainWidget";
+					const heavyRain = hazardEntities?.filter(
+						(entity) => entity.name === "heavyRain",
+					)[0];
+					if (heavyRain) {
+						path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
+					}
+				} else if (scenario === "fluvialFloodWidget") {
+					key = "fluvialFloodWidget";
+					const fluvialFlood = hazardEntities?.filter(
+						(entity) => entity.name === "fluvialFlood",
+					)[0];
+					if (fluvialFlood) {
+						path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
+					}
+				}
+				body.url = `${window.location.origin}${path}`;
+				const res = await fetch("/api/screenshot", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(body),
+				});
+
+				const text = await res.text();
+
+				if (!res.ok) {
+					throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+				}
+
+				const data = JSON.parse(text);
+				const { imageBase64 } = data;
+				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+				const blob = await fetch(dataUrl).then((r) => r.blob());
+				getPDFImages[key] = blob;
+			}
+			setWidgetScreenshots(getPDFImages);
+		} catch (captureError) {
+			setError("Error capturing map images: " + captureError);
+			return;
+		}
+
+		widgetScreenshotsInitializedRef.current = false;
+	};
+
 	useEffect(() => {
-		if (makePDFInitializedRef.current) {
+		console.log("numberOfFetchedImages :>> ", numberOfFetchedImages);
+		if (
+			makePDFInitializedRef.current ||
+			numberOfFetchedImages < numberOfImagesToFetch
+		) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
 		makePDF();
+	}, [pdfImages, widgetScreenshots]);
+	useEffect(() => {
+		if (widgetScreenshotsInitializedRef.current) {
+			return;
+		}
+		widgetScreenshotsInitializedRef.current = true;
+		getWidgetScreenshots();
 	}, []);
 
 	useEffect(() => {
@@ -461,18 +488,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 										</p>
 										<div className="ml-10 flex flex-col gap-2 pt-2">
 											{checks.map((check) => {
-												const getImagesCount = done.filter(
-													(c) => c === "images",
-												).length;
 												const isDone =
 													check.id === "images"
-														? !skip
-															? getImagesCount === 14
-															: getImagesCount === 13
+														? numberOfFetchedImages === numberOfImagesToFetch
 														: done.includes(check.id);
 												const checkText =
 													check.id === "images"
-														? `${done.filter((c) => c === "images").length} von ${!skip ? 14 : 13} Bildern erstellt`
+														? `${numberOfFetchedImages} von ${numberOfImagesToFetch} Bildern erstellt`
 														: check.text;
 												return (
 													<div
