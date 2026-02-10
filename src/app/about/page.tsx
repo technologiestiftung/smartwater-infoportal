@@ -23,16 +23,6 @@ export default function About() {
 						li: (chunks) => <li className="">{chunks}</li>,
 					})}
 				</div>
-				<div className="">
-					{t.rich("about.content.paragraph3", {
-						strong: (chunks) => <strong>{chunks}</strong>,
-						ul: (chunks) => (
-							<ul className="ml-2 mt-1 list-inside list-disc">{chunks}</ul>
-						),
-						li: (chunks) => <li className="">{chunks}</li>,
-						br: () => <br />,
-					})}
-				</div>
 				<p className="">
 					{t.rich("about.content.paragraph4", {
 						link: (chunks) => (

@@ -35,6 +35,7 @@
 	--color-message-info: var(--message-info);
 	--color-message-error: var(--message-error);
 	--color-message-no-warning: var(--message-no-warning);
+	--color-message-warning-error: var(--message-warning-error);
 	--color-border: var(--border);
 	--color-hr: var(--hr);
 
@@ -82,6 +83,7 @@
 	--message-info: #ebf1f7;
 	--message-error: #fdecee;
 	--message-no-warning: #ecf8f5;
+	--message-warning-error: #fcf9e8;
 	--border: #dddddd;
 	--hr: #dddddd;
 }
@@ -137,16 +139,21 @@
 	}
 
 	@media screen and (max-width: 767px) {
-		.ol-scale-line {
+		.Map-root .ol-scale-line {
 			@apply duration-600 transform ease-in-out;
 		}
 	}
 	@media screen and (min-width: 768px) {
-		.ol-scale-line {
+		.Map-root .ol-scale-line {
 			bottom: 16px !important;
 			left: auto !important;
 			right: 16px !important;
 		}
+	}
+	#scenario-maps .ol-scale-line {
+		bottom: 16px !important;
+		left: auto !important;
+		right: 16px !important;
 	}
 }
 

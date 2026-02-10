@@ -9,7 +9,7 @@ import "../lib/fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export const metadata: Metadata = {
-	title: "Berlin Smartwater Info-Planner",
+	title: "HochwasserCheck Berlin",
 	description: "created by Ts.Berlin",
 };
 

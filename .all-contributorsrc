@@ -1,26 +1,35 @@
 {
-  "projectName": "template-default",
-  "projectOwner": "technologiestiftung",
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "files": [
-    "README.md"
-  ],
-  "imageSize": 64,
-  "commit": true,
-  "commitConvention": "angular",
-  "contributors": [
-    {
-      "login": "JonathanHaudenschild-TsB",
-      "name": "Jonathan Haudenschild",
-      "avatar_url": "https://avatars.githubusercontent.com/u/201598680?v=4",
-      "profile": "https://github.com/JonathanHaudenschild-TsB",
-      "contributions": [
-        "doc",
-        "code"
-      ]
-    }
-  ],
-  "contributorsPerLine": 7,
-  "skipCi": true
+	"projectName": "smartwater-infoportal",
+	"projectOwner": "technologiestiftung",
+	"repoType": "github",
+	"repoHost": "https://github.com",
+	"files": ["README.md"],
+	"imageSize": 64,
+	"commit": true,
+	"commitConvention": "angular",
+	"contributors": [
+		{
+			"login": "JonathanHaudenschild-TsB",
+			"name": "Jonathan Haudenschild",
+			"avatar_url": "https://avatars.githubusercontent.com/u/201598680?v=4",
+			"profile": "https://github.com/JonathanHaudenschild-TsB",
+			"contributions": ["doc", "code"]
+		},
+		{
+			"login": "JS-TSB",
+			"name": "Jakob Sawal",
+			"avatar_url": "https://avatars.githubusercontent.com/u/185074060",
+			"profile": "https://github.com/JS-TSB",
+			"contributions": ["doc", "code"]
+		},
+		{
+			"login": "LuiseBrandenburger",
+			"name": "Luise Brandenburger",
+			"avatar_url": "https://avatars.githubusercontent.com/u/61413319?s=",
+			"profile": "https:/github.com/LuiseBrandenburger",
+			"contributions": ["doc", "code"]
+		}
+	],
+	"contributorsPerLine": 7,
+	"skipCi": true
 }

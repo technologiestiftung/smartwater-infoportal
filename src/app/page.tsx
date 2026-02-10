@@ -5,27 +5,68 @@ import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
+import useStore from "@/store/defaultStore";
 
 export default function Home() {
 	const t = useTranslations("home");
 	const router = useRouter();
+	const resetAll = useStore((state) => state.resetAll);
+	const isDev = process.env.NODE_ENV === "development";
 
 	return (
 		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
 			<section>
 				<div className="flex flex-col gap-6">
 					<h1 className="">{t("pageTitle")}</h1>
-					<p className="">{t("whatIsIt.description1")}</p>
-					<p className="">{t("whatIsIt.description2")}</p>
 				</div>
 			</section>
-			<div className="divider px-5" />
+			{isDev && (
+				<div className="flex flex-col gap-4">
+					<Button
+						onClick={() => {
+							resetAll();
+							setTimeout(() => {
+								window.location.reload();
+							}, 500);
+						}}
+					>
+						Alles zurücksetzen
+					</Button>
+				</div>
+			)}
+			<section className="w-full">
+				<TextBlock
+					desktopColSpans={{ col1: 2, col2: 3 }}
+					className="w-full gap-6"
+					reverseDesktopColumns={true}
+					slotA={
+						<div className="flex flex-col gap-6">
+							<p className="">{t("whatIsIt.description1")}</p>
+							<p className="">{t("whatIsIt.description2")}</p>
+						</div>
+					}
+					slotB={
+						<Image
+							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
+							src="/title.png"
+							alt={t("howToProtect.titleImage.alt")}
+							caption={t("howToProtect.titleImage.caption")}
+							copyright={t("howToProtect.titleImage.copyright")}
+						/>
+					}
+				/>
+			</section>
+			<div
+				className="divider scroll-mt-[62px] px-5 lg:scroll-mt-[85px]"
+				id="hochwasser-check"
+			/>
 			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<p className="">{t("amIAffected.description")}</p>
 				<p className="">{t("amIAffected.cta")}</p>
-				<AddressSearch onLandingPage />
+				<AddressSearch />
 			</section>
+			<div className="divider px-5" />
 			<section className="w-full">
 				<TextBlock
 					desktopColSpans={{ col1: 2, col2: 3 }}
@@ -109,7 +150,7 @@ export default function Home() {
 							<Button
 								className="w-full self-start lg:w-fit"
 								onClick={() => {
-									router.push("/allgemeine-informationen");
+									router.push("/hintergrund-informationen");
 								}}
 							>
 								{t("backgroundInfo.button")}

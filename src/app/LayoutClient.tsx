@@ -15,6 +15,12 @@ const Footer = dynamic(
 	{ ssr: false },
 );
 
+const filterOutSegments = [
+	".well-known",
+	"appspecific",
+	"com.chrome.devtools.json",
+];
+
 export default function LayoutClient({
 	children,
 }: {
@@ -24,7 +30,7 @@ export default function LayoutClient({
 	const paths = usePathname();
 	const pathNames = paths
 		.split("/")
-		.filter((segment) => segment)
+		.filter((segment) => !!segment && !filterOutSegments.includes(segment))
 		.map((segment, index, arr) => ({
 			href: "/" + arr.slice(0, index + 1).join("/"), // Construct the breadcrumb path
 			label: t(`common.breadcrumb.${segment}`, { defaultValue: segment }), // Use translation key with fallback
@@ -101,11 +107,11 @@ export default function LayoutClient({
 						label: t("common.menu.about"),
 					},
 					{
-						href: "/allgemeine-informationen",
+						href: "/hintergrund-informationen",
 						label: t("common.menu.generalInfo"),
 					},
 					{
-						href: "/wasser-check",
+						href: "/hochwasser-check",
 						label: t("common.menu.floodCheck"),
 					},
 					{

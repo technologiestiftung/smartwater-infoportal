@@ -6,7 +6,6 @@ import {
 	AccordionTrigger,
 	AccordionContent,
 	Button,
-	Image,
 	Pill,
 	FilterPillGroup,
 	List,
@@ -15,31 +14,27 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import TextBlock from "./TextBlock";
 import RiskBlock from "./RiskBlock";
-import ResultBlock from "./ResultBlock";
 import useStore from "@/store/defaultStore";
-import floodRiskConfig from "@/config/floodRiskConfig.json";
 import Map from "./Map/Map";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./DownloadPDF/ReportPDF";
-import MapSR from "./MapSR/Map";
-import MapHW from "./MapHW/Map";
+import ReportPDF from "./Report/components/ReportPDF";
 import ErrorCatcher from "./ErrorCatcher";
-import useMobile from "@/lib/utils/useMobile";
+import EvaluationTesting from "./EvaluationTesting";
+import ScenarioMap from "./ScenarioMap/Map";
+import { ScenarioList } from "@/types/map";
+import ResultBlock from "./ResultBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
-	const floodRiskResult = useStore((state) => state.floodRiskResult);
-	const resetOnPageLoad = useStore((state) => state.resetOnPageLoad);
+	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isMobile = useMobile();
-	const testing = process.env.NODE_ENV === "development" && !isMobile;
+	const isDev = false; //process.env.NODE_ENV === "development";
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -64,20 +59,6 @@ const Results: React.FC = () => {
 			title: t("hazardInfo.mapInfo"),
 			content: t("hazardInfo.mapDisclaimer"),
 		},
-	];
-	const inBuildingTipKeys = [
-		"protectionTips.inBuilding.tip1",
-		"protectionTips.inBuilding.tip2",
-		"protectionTips.inBuilding.tip3",
-		"protectionTips.inBuilding.tip4",
-		"protectionTips.inBuilding.tip5",
-	];
-	const trafficTipKeys = [
-		"protectionTips.traffic.tip1",
-		"protectionTips.traffic.tip2",
-		"protectionTips.traffic.tip3",
-		"protectionTips.traffic.tip4",
-		"protectionTips.traffic.tip5",
 	];
 	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
 	const updateActiveMapFilter = useStore(
@@ -151,7 +132,6 @@ const Results: React.FC = () => {
 
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
-			{testing && <Button onClick={resetOnPageLoad}>Reset State</Button>}
 			<section className="flex items-center gap-2">
 				{currentUserAddress && (
 					<>
@@ -159,14 +139,13 @@ const Results: React.FC = () => {
 							icon={faLocationDot}
 							className="text-[18px] text-black"
 						/>
-						<p className="mt-[3px]">{currentUserAddress.display_name}</p>
+						<p className="mt-[3px]">{currentUserAddress.name}</p>
 					</>
 				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<h3 className="">{t("hazardDisplay.title")}</h3>
-					{/* <p className="">{t("hazardDisplay.descriptionPlaceholder")}</p> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
@@ -243,9 +222,20 @@ const Results: React.FC = () => {
 				<h3 className="mt-2">{t("map.title")}</h3>
 				<p className="">{t("map.description")}</p>
 				<Map />
-				<div className={testing ? "" : "absolute -left-[9999px]"}>
-					<MapSR />
-					<MapHW />
+				<div
+					id="scenario-maps"
+					className={
+						isDev && showTestingFeatures.includes("mapsOnResultPage")
+							? ""
+							: "absolute -left-[9999px]"
+					}
+				>
+					{ScenarioList.map((scenario) => (
+						<div key={scenario}>
+							<p>{scenario}</p>
+							<ScenarioMap scenario={scenario} />
+						</div>
+					))}
 				</div>
 			</section>
 			<section className="flex flex-col gap-4">
@@ -312,10 +302,8 @@ const Results: React.FC = () => {
 				<>
 					<div className="divider" />
 					<section className="flex flex-col gap-4">
-						<div className="flex w-full flex-col gap-6">
+						<div className="mb-6 flex w-full flex-col">
 							<h2 className="">{t("buildingRiskAssessment.title")}</h2>
-							<p className="">{t("buildingRiskAssessment.description1")}</p>
-							<p className="">{t("buildingRiskAssessment.description2")}</p>
 						</div>
 						<TextBlock
 							desktopColSpans={{ col1: 1, col2: 1 }}
@@ -323,20 +311,16 @@ const Results: React.FC = () => {
 							reverseDesktopColumns={true}
 							slotA={
 								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
-									<h3 className="">{t("buildingRiskAssessment.title")}</h3>
+									<h3 className="">
+										{t("buildingRiskAssessment.disclaimerTitle")}
+									</h3>
 									<p className="">{t("buildingRiskAssessment.description1")}</p>
 									<p className="">{t("buildingRiskAssessment.description2")}</p>
 								</div>
 							}
-							slotB={
-								<RiskBlock
-									floodRiskAnswers={floodRiskAnswers}
-									value={floodRiskResult?.totalScore}
-									min={floodRiskConfig.riskThresholds.low.max}
-									max={floodRiskConfig.riskThresholds.high.min}
-								/>
-							}
+							slotB={<RiskBlock />}
 						/>
+						{isDev && <EvaluationTesting />}
 					</section>
 				</>
 			)}
@@ -346,82 +330,20 @@ const Results: React.FC = () => {
 						<div className="flex flex-col gap-2">
 							<h2 className="">{t("protectionTips.title")}</h2>
 							<p className="">{t("protectionTips.intro1")}</p>
-							<p className="mt-4">{t("protectionTips.intro2")}</p>
 						</div>
-
-						<div className="flex flex-col gap-2">
-							<TextBlock
-								desktopColSpans={{ col1: 1, col2: 1 }}
-								className="w-full gap-6"
-								slotA={
-									<div className="flex h-full w-full flex-col p-6">
-										<h2 className="">{t("protectionTips.inBuilding.title")}</h2>
-										<ul className="list-inside list-disc">
-											{inBuildingTipKeys.map((tipKey) => (
-												<li key={tipKey} className="mt-2">
-													{t(tipKey)}
-												</li>
-											))}
-										</ul>
-									</div>
-								}
-								slotB={
-									<Image
-										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_3.png"
-										alt={t("protectionTips.inBuilding.image.alt")}
-										caption={t("protectionTips.inBuilding.image.caption")}
-										copyright={t("protectionTips.inBuilding.image.copyright")}
-									/>
-								}
-							/>
-						</div>
+						<Button
+							className="w-full self-start lg:w-fit"
+							onClick={() => {
+								router.push("/handlungsempfehlungen");
+							}}
+						>
+							{t("protectionTips.recommendationsOverview.button")}
+						</Button>
+						<p className="">{t("protectionTips.intro2")}</p>
 					</>
 				)}
-				<div className="flex flex-col gap-2">
-					{!skip && (
-						<>
-							<TextBlock
-								desktopColSpans={{ col1: 1, col2: 1 }}
-								className="w-full gap-6"
-								reverseDesktopColumns={true}
-								slotA={
-									<div className="flex h-full w-full flex-col p-6">
-										<h2 className="">{t("protectionTips.traffic.title")}</h2>
-										<ul className="list-inside list-disc">
-											{trafficTipKeys.map((tipKey) => (
-												<li key={tipKey} className="mt-2">
-													{t(tipKey)}
-												</li>
-											))}
-										</ul>
-									</div>
-								}
-								slotB={
-									<Image
-										className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-										src="/A3_Schutzmaßnahmen_Schutzmaßnahmen_8.png"
-										alt={t("protectionTips.traffic.image.alt")}
-										caption={t("protectionTips.traffic.image.caption")}
-										copyright={t("protectionTips.traffic.image.copyright")}
-									/>
-								}
-							/>
-						</>
-					)}
-				</div>
 			</section>
 			<section>
-				{!skip && (
-					<Button
-						className="mb-8 w-full self-start lg:w-fit"
-						onClick={() => {
-							router.push("/handlungsempfehlungen");
-						}}
-					>
-						{t("protectionTips.recommendationsOverview.button")}
-					</Button>
-				)}
 				<div className="divider mt-4" />
 				<ErrorCatcher name="ReportPDF">
 					<ReportPDF skip={skip} />

@@ -15,6 +15,13 @@ export function getHazardEntities(
 		return null;
 	}
 
+	let subHazardLevel = "no";
+	if (locationData.building.floodZoneIndex === null) {
+		subHazardLevel = "floodZoneIndexError";
+	} else if ((locationData.building.floodZoneIndex || 0) > 0) {
+		subHazardLevel = "yes";
+	}
+
 	return [
 		{
 			name: "heavyRain",
@@ -28,7 +35,7 @@ export function getHazardEntities(
 				locationData.building.hochwasserGefährdung || 0,
 			),
 			showSubLabel: true,
-			subHazardLevel: (locationData.floodZoneIndex || 0) > 0 ? "yes" : "no",
+			subHazardLevel,
 		},
 	];
 }

@@ -3,29 +3,40 @@
 		"pageTitle": "Über das Hochwasser-Infoportal",
 		"whatIsIt": {
 			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
-			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck, Handlungsempfehlungen, Warnungen vor Hochwasser und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
+			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck Berlin, Handlungsempfehlungen und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
 		},
 		"amIAffected": {
-			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck",
-			"description": "Der HochwasserCheck gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 6 Fragen, eine Gefährdungs- und Risikoeinschätzung an Ihrer persönlichen Adresse, sowie individuelle Handlungsempfehlungen zur Minimierung des Risikos. Die Ergebnisse können Sie als Bericht (PDF) herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den HochwasserCheck!",
+			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck Berlin",
+			"description": "Der HochwasserCheck Berlin gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 6 Fragen, eine Gefährdungs- und Risikoeinschätzung an Ihrer persönlichen Adresse, sowie individuelle Handlungsempfehlungen zur Minimierung des Risikos. Die Ergebnisse können Sie als Bericht (PDF) herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den HochwasserCheck Berlin!",
 			"cta": ""
 		},
 		"addressCheck": {
 			"label": "Adresse",
 			"description": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
 			"placeholder": "Landstraße 1, 12345 Berlin",
-			"button": "HochwasserCheck starten",
-			"buttonConfirm": "Weiter mit Risikocheck",
+			"button": "HochwasserCheck Berlin starten",
 			"secondaryButton": "Gefährdung berechnen",
 			"hint": {
 				"title": "Hinweis",
 				"description": "Mit dem Gefährdungscheck erhalten Sie eine erste Einschätzung der Gesamtgefährdung um Ihr Gebäude. Der zusätzliche Risikocheck ist ein Fragebogen von 6 Fragen und bietet eine detailliertere Analyse der Gefahren und Risiken um und in Ihrem Gebäude. Darauf aufbauend werden individuelle Handlungsempfehlungen erstellt."
 			},
-			"loading": "Überprüfe Adresse..."
+			"result": "Ergebnisse",
+			"pleaseAddHouseNumber": "Bitte ergänzen Sie eine Hausnummer zur Adresse",
+			"probablyNoAddress": "Die eingegebene Adresse scheint keinen Treffer zu ergeben. Bitte überprüfen Sie die Eingabe.",
+			"errorNoResultSelected": "Bitte wählen Sie eine Adresse aus.",
+			"errorNoAddress": "Bitte geben Sie eine Adresse ein.",
+			"errorNoAddressFound": "Keine Ergebnisse gefunden. Bitte geben Sie eine Berliner Adresse inklusive Hausnummer ein, um den HochwasserCheck Berlin zu starten.",
+			"invalidAddress": "Die eingegebene Adresse scheint ungültig zu sein. Bitte überprüfen Sie die Eingabe.",
+			"defaultError": "Beim Abrufen der Adressdaten ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
 			"ownerInfo": "Jede:r Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen. So können Sie als Eigentümer:in Ihre Gebäude z.B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen.",
+			"titleImage": {
+				"alt": "Illustration eines Wassertanks auf einem Dach als Sinnbild für das Smart-Water-Umsetzungsprojekt der Digitalstrategie des Landes Berlin.“",
+				"caption": "Sinnbild für das Smart Water Umsetzungsprojekt der Digitalstrategie des Landes Berlins",
+				"copyright": "© Senatskanzlei Berlin"
+			},
 			"tenantInfo": "Auch als Mieter:in können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
 			"recommendations": {
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
@@ -51,9 +62,9 @@
 		},
 		"backgroundInfo": {
 			"title": "Hintergrundinformation zum Thema Hochwasser",
-			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
-			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Allgemeinen Informationen.",
-			"button": "Allgemeine Informationen"
+			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"button": "Hintergrundinformationen"
 		}
 	}
 }

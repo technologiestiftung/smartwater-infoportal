@@ -468,7 +468,7 @@
 		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
 		"typ": "WMS",
 		"gfiAttributes": "showAll",
-		"layers": "cc_wasserstand_extrem",
+		"layers": "cc_wassersand_extrem",
 		"legend": true,
 		"datasets": [
 			{

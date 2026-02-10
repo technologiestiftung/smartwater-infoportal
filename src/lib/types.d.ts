@@ -1,16 +1,11 @@
 export type HazardLevel = "low" | "moderate" | "high" | "severe";
-export type RiskLevel = "low" | "moderate" | "high";
+export type RiskLevel = "low" | "moderate" | "high" | "dontKnow" | "unknown";
 
-// Address result from Nominatim API
-export interface AddressResult {
-	place_id: number;
+export interface CurrentUserAddress {
 	lat: string;
 	lon: string;
-	display_name: string;
-	address: {
-		[key: string]: string;
-	};
-	[key: string]: unknown;
+	name: string;
+	hasHousenumber: boolean;
 }
 
 // GeoJSON geometry types
@@ -31,28 +26,53 @@ export interface Building {
 	starkregenGefährdung?: number;
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;
-	distance?: number;
-	[key: string]: unknown;
+	outlineBufferGeometry?: Geometry;
+	numberOfBuildings?: number;
+	numberOfCoordinatesOnBuildings?: number;
+	numberOfCoordinatesOnOutline?: number;
+	transformedX?: number;
+	transformedY?: number;
+	floodZoneIndex?: number | null;
+	errors?: string[];
 }
+
+export interface BuildingWMS {
+	hasHeavyRainHazardMap: string | null;
+	rareHeavyRainMax: number | null;
+	uncommonHeavyRainMax: number | null;
+	extremeHeavyRainMax: number | null;
+	rareHeavyRainAverage: number | null;
+	uncommonHeavyRainAverage: number | null;
+	extremeHeavyRainAverage: number | null;
+	frequentFloodMax: number | null;
+	averageFloodMax: number | null;
+	rareFloodMax: number | null;
+	frequentFloodAverage: number | null;
+	averageFloodAverage: number | null;
+	rareFloodAverage: number | null;
+	errors?: string[];
+}
+
+export type BBox = [number, number, number, number];
 
 export interface LocationData {
 	found: boolean;
 	building: Building | null;
-	maxGefährdung: number;
-	distance?: number;
-	floodZoneIndex?: number | null;
 }
 
 export interface QuestionAnswer {
 	value: string | string[] | number;
-	score?: number;
-	weight?: number;
+	score: number;
+	addToCounter: number;
+	skipNextQuestion?: boolean;
 }
 
 export type FloodRiskAnswers = Record<string, QuestionAnswer>;
 
 export interface FloodRiskResult {
 	totalScore: number;
+	counter: number;
+	evaluation: number;
 	riskLevel: "low" | "moderate" | "high" | "insufficient-data";
 }
 
@@ -62,3 +82,7 @@ export interface LegendeItem {
 	subTitle?: string;
 	sub_items?: { background: string; title: string }[] | undefined;
 }
+
+export type AddressResult =
+	| { ok: true; data: CurrentUserAddress[] }
+	| { ok: false; code: "noResult" | "maptilerError" };

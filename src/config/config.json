@@ -61,7 +61,8 @@
 						"scale": 500,
 						"zoomLevel": 8
 					}
-				]
+				],
+				"padding": [60, 60, 60, 60]
 			}
 		},
 		"portalFooter": {
@@ -89,70 +90,6 @@
 			"elements": [
 				{
 					"id": "ua_uesg:c_ueberschwemmungsgebiete",
-					"visibility": false
-				},
-				{
-					"id": "ua_hochwassergefahrenkarten:d_hwgk_gewaesser",
-					"visibility": false
-				},
-				{
-					"id": "ua_hochwassergefahrenkarten:a_hwgk_hoch",
-					"visibility": false
-				},
-				{
-					"id": "ua_hochwassergefahrenkarten:b_hwgk_mittel",
-					"visibility": false
-				},
-				{
-					"id": "ua_hochwassergefahrenkarten:c_hwgk_niedrig",
-					"visibility": false
-				},
-				{
-					"id": "ua_srgk:cc_wassersand_extrem",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:ec_wasserstand_extrem_max100mm",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:dc_wasserstand_aussergew_kostra",
-					"visibility": false
-				},
-				{
-					"id": "ua_srgk:cb_wasserstand_aussergewoehnlich",
-					"visibility": false
-				},
-				{
-					"id": "ua_srgk:ca_wasserstand_selten",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:ea_fr_extrem_max100mm",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:da_fr_aussergewoehnlich",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:eb_fliessgeschw_extrem_max100mm",
-					"visibility": false
-				},
-				{
-					"id": "ua_srhk:db_fliessgeschw_aussergew_kostra",
-					"visibility": false
-				},
-				{
-					"id": "ua_srgk:bc_fliessgeschwindigkeit_extrem",
-					"visibility": false
-				},
-				{
-					"id": "ua_srgk:bb_fliessgeschwindigkeit_aussergewoehnlich",
-					"visibility": false
-				},
-				{
-					"id": "ua_srgk:ba_fliessgeschwindigkeit_selten",
 					"visibility": false
 				},
 				{

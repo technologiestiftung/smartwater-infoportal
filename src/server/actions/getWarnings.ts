@@ -7,6 +7,17 @@ export async function getWarnings() {
 	const url2 =
 		"https://api.hochwasserzentralen.de/public/v1/data/stations?states=BE";
 
+	const timeStamp = new Date()
+		.toLocaleString("de-DE", {
+			day: "2-digit",
+			month: "2-digit",
+			year: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+			timeZone: "Europe/Berlin",
+		})
+		.replace(",", " -");
+
 	try {
 		const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
 
@@ -24,12 +35,15 @@ export async function getWarnings() {
 		return {
 			dwdWarnings: data1?.features,
 			lhpWarnings,
+			timeStamp,
+			error: null,
 		};
 	} catch (err) {
 		console.error("Failed to fetch warnings:", err);
 		return {
 			dwdWarnings: [],
 			lhpWarnings: [],
+			timeStamp,
 			error: "Failed to fetch warnings",
 		};
 	}

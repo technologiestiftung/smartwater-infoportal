@@ -1,0 +1,48 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import MapInitializer from "./MapInitializer/MapInitializer";
+import LayerInitializer from "./LayerInitializer/LayerInitializer";
+import { Scenario } from "@/types/map";
+import { cn } from "@/lib/utils";
+
+const LazyOlMap = dynamic(() => import("./OlMap/OlMap"), {
+	ssr: false,
+	loading: () => <div>Karte wird geladen …</div>,
+});
+
+type ScenarioMapProps = {
+	scenario: Scenario;
+};
+
+const getScenarioDomId = (scenario: Scenario) =>
+	`map-root-${scenario.toLowerCase().replace(/_/g, "-")}`;
+
+const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
+	const mapRootId = getScenarioDomId(scenario);
+
+	return (
+		<div className="relative">
+			<MapInitializer scenario={scenario} />
+			<div
+				className={cn(
+					"relative",
+					"h-[calc(90vw*0.614)] w-[90vw]",
+					"md:h-[700px] md:w-[1140px]",
+				)}
+				id={mapRootId}
+			>
+				<LazyOlMap scenario={scenario}>
+					<LayerInitializer scenario={scenario} />
+				</LazyOlMap>
+				<div className="absolute bottom-4 left-4 bg-white/45 p-1">
+					<p className="text-[6px] text-[8px] italic leading-none">
+						Basemap: Bundesamt für Kartographie und Geodäsie (BKG)
+					</p>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default ScenarioMap;

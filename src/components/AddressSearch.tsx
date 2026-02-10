@@ -1,11 +1,14 @@
 "use client";
+
+import { CurrentUserAddress } from "@/lib/types";
+import { searchAddresses } from "@/server/actions/searchAddresses";
+import useStore from "@/store/defaultStore";
 import {
 	Button,
 	Form,
 	FormFieldWrapper,
 	FormWrapper,
 	Label,
-	Panel,
 	Spinner,
 } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
@@ -13,18 +16,9 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import useStore from "@/store/defaultStore";
-import { getAddressResults } from "@/server/actions/getAddressResults";
+import LocationButton from "./LocationButton";
 
-interface AddressSearchProps {
-	onLandingPage?: boolean;
-	onAddressConfirmed?: (skip?: boolean) => void;
-}
-
-export default function AddressSearch({
-	onLandingPage,
-	onAddressConfirmed,
-}: AddressSearchProps) {
+export default function AddressSearch() {
 	const t = useTranslations("home");
 	const router = useRouter();
 
@@ -33,14 +27,12 @@ export default function AddressSearch({
 	);
 
 	const [showLoading, setShowLoading] = useState<boolean>(false);
+	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
+	const isDev = process.env.NODE_ENV === "development";
 
 	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const isLoadingLocationData = useStore(
-		(state) => state.isLoadingLocationData,
-	);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const [results, setResults] = useState<any[]>([]);
+	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const methods = useForm({
@@ -58,83 +50,49 @@ export default function AddressSearch({
 		isRequired: true,
 	};
 
-	const handleSubmit = (skip?: boolean) => {
+	const handleSubmit = () => {
 		return methods.handleSubmit(() => {
+			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
-				const selectedResult = results.find(
-					(result) => result.display_name === addresse,
-				);
-				if (selectedResult) {
-					setCurrentUserAddress(selectedResult);
-				}
-				if (onLandingPage) {
-					router.push("/wasser-check");
-				} else if (onAddressConfirmed) {
-					onAddressConfirmed(skip);
+				if (!currentUserAddress) {
+					setError(t("addressCheck.errorNoResultSelected"));
+				} else {
+					router.push("/hochwasser-check");
 				}
 			} else {
-				setError("Bitte geben Sie eine Adresse ein.");
+				setError(t("addressCheck.errorNoAddress"));
 			}
 			return;
 		});
 	};
 
 	const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const isFetching = useRef(false);
 
-	const fetchData = async (search: string) => {
-		if (isFetching.current) {
+	const fetchData = async (
+		search: string,
+		lat: number | undefined,
+		lon: number | undefined,
+	) => {
+		setShowLoading(true);
+		setError("");
+
+		const result = await searchAddresses(search, lat, lon);
+
+		if (!result.ok) {
+			let msg = t("addressCheck.defaultError");
+			switch (result.code) {
+				case "noResult":
+					msg = t("addressCheck.errorNoAddressFound");
+					break;
+				default:
+					break;
+			}
+			setError(msg);
+			setResults([]);
 			return;
 		}
-		isFetching.current = true;
-		setShowLoading(true);
-
-		try {
-			const data = await getAddressResults(search);
-
-			if (data?.error) {
-				setError(data.error);
-				return;
-			}
-
-			const withFilter = false;
-
-			const buildingResults = withFilter
-				? data.filter(
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						(item: any) =>
-							item.class === "building" ||
-							item.addresstype === "building" ||
-							item.type === "house",
-					)
-				: data;
-
-			if (buildingResults.length === 0) {
-				setError(
-					"Keine Ergebnisse gefunden. Bitte geben Sie Ihre exakte Adresse inklusive Hausnummer ein.",
-				);
-				setResults([]);
-				return;
-			}
-
-			const seen = new Set();
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const collectResults = buildingResults.filter((item: any) => {
-				if (seen.has(item.display_name)) {
-					return false;
-				}
-				seen.add(item.display_name);
-				return true;
-			});
-
-			setResults(collectResults);
-		} catch (e) {
-			throw new Error(`Error fetching data: ${e}`);
-		} finally {
-			isFetching.current = false;
-			setShowLoading(false);
-		}
+		setResults(result.data);
 	};
 
 	const handleChange = (e: FormEvent<HTMLFormElement>) => {
@@ -158,59 +116,94 @@ export default function AddressSearch({
 			}
 
 			debounceTimeout.current = setTimeout(() => {
-				fetchData(value);
+				fetchData(value, undefined, undefined);
 			}, 1000);
 		}
 	};
 
 	useEffect(() => {
 		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.display_name);
+			setValue("addresse", currentUserAddress.name);
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultClicked(true);
 		}
 	}, [currentUserAddress, setValue]);
+
+	// eslint-disable-next-line react-hooks/set-state-in-effect
+	useEffect(() => setShowLoading(false), [results]);
+
+	useEffect(() => {
+		if (error) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
+			setShowLoading(false);
+			setShowSubmitLoading(false);
+		}
+	}, [error]);
 
 	return (
 		<FormWrapper>
 			<Form {...methods}>
 				<form
 					className="flex flex-col gap-8"
-					onSubmit={handleSubmit(false)}
+					onSubmit={handleSubmit()}
 					onChange={handleChange}
 				>
 					<div className="">
 						<FormFieldWrapper formProperty={property} form={methods} />
+						<LocationButton
+							coordinatesChanged={(lat, lon) => fetchData("", lat, lon)}
+						/>
+						{isDev && (
+							<div className="flex flex-col gap-2">
+								<div
+									className="bg-black/20 p-6"
+									onClick={() => {
+										handleChange({
+											target: { name: "addresse", value: "Majakowskiring 9" },
+											// eslint-disable-next-line @typescript-eslint/no-explicit-any
+										} as any);
+									}}
+								>
+									<p>Majakowskiring 9</p>
+								</div>
+								<div
+									className="bg-black/20 p-6"
+									onClick={() => {
+										handleChange({
+											target: { name: "addresse", value: "Rüsternallee 24" },
+											// eslint-disable-next-line @typescript-eslint/no-explicit-any
+										} as any);
+									}}
+								>
+									<p>Rüsternallee 24</p>
+								</div>
+							</div>
+						)}
 						{results.length > 0 && !showLoading && (
-							<div className="flex flex-col gap-2 p-4">
-								<strong>Ergebnisse</strong>
+							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
+								<strong>{t("addressCheck.result")}</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
 										{results.map((result, index) => {
-											if (
-												result.class === "building" ||
-												result.addresstype === "building" ||
-												result.type === "house"
-											) {
-												return (
-													<li key={index}>
+											return (
+												<li key={index}>
+													{result.hasHousenumber ? (
 														<Button
 															onClick={() => {
-																setValue("addresse", result.display_name);
+																setError("");
+																setValue("addresse", result.name);
 																setCurrentUserAddress(result);
 																setResults([]);
 															}}
 															variant="link"
 														>
-															{result?.display_name}
+															{result.name}
 														</Button>
-													</li>
-												);
-											}
-											return (
-												<li key={index}>
-													<div className="flex min-h-[43px] flex-col justify-center">
-														<p>{result?.display_name}</p>
-													</div>
+													) : (
+														<div className="flex min-h-[43px] items-center">
+															<p>{result.name}</p>
+														</div>
+													)}
 												</li>
 											);
 										})}
@@ -220,7 +213,9 @@ export default function AddressSearch({
 						)}
 					</div>
 					{error && (
-						<Label className="text-destructive text-primary">{error}</Label>
+						<div className="max-w-[50%]">
+							<Label className="text-destructive text-primary">{error}</Label>
+						</div>
 					)}
 					{showLoading && (
 						<div className="align-start flex">
@@ -231,49 +226,11 @@ export default function AddressSearch({
 						<Button
 							className="w-full justify-end self-start lg:w-fit"
 							type="submit"
-							disabled={
-								isLoadingLocationData || (!onLandingPage && !resultClicked)
-							}
+							loading={showSubmitLoading}
 						>
-							{(() => {
-								if (isLoadingLocationData) {
-									return t("addressCheck.loading");
-								}
-								if (onLandingPage) {
-									return t("addressCheck.button");
-								}
-								return t("addressCheck.buttonConfirm");
-							})()}
+							{t("addressCheck.button")}
 						</Button>
-						{!onLandingPage && (
-							<Button
-								variant="light"
-								disabled={isLoadingLocationData || !resultClicked}
-								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								onClick={(e: any) => {
-									e.preventDefault();
-									const addresse = getValues("addresse");
-									if (addresse) {
-										handleSubmit(true)();
-									} else {
-										setError("Bitte geben Sie eine Adresse ein.");
-									}
-								}}
-							>
-								{t("addressCheck.secondaryButton")}
-							</Button>
-						)}
 					</div>
-					{!onLandingPage && (
-						<div>
-							<div>
-								<Panel variant="hint">
-									<h4 className="">{t("addressCheck.hint.title")}</h4>
-								</Panel>
-							</div>
-							<p className="">{t("addressCheck.hint.description")}</p>
-						</div>
-					)}
 				</form>
 			</Form>
 		</FormWrapper>

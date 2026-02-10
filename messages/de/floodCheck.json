@@ -10,12 +10,14 @@
 					"riskIndicator": "{factor}: {riskLevel}"
 				},
 				"factors": {
+					"basement": "Keller als Gefährdung",
+					"basementUsage": "Kellernutzung",
 					"backflowProtection": "Rückstausicherung",
-					"basement": "Keller",
-					"basementUsage": "Untergeschoss",
-					"pastDamages": "Bekannte Schäden",
-					"protectionMeasures": "Ergriffene Schutzmaßnahmen",
-					"rainwaterDrains": "Regenwasser"
+					"propertyDrainage": "Grundstücksentwässerung",
+					"pastDamages": "Vergangene Schadensereignisse",
+					"floodplain": "Überschwemmungsgebiet",
+					"riverFloodHazardLevel": "Flusshochwasser",
+					"heavyRainHazardLevel": "Starkregen"
 				},
 				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
 				"levelInsufficientData": "Das Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
@@ -25,32 +27,31 @@
 					"high": "Hohes Risiko",
 					"low": "Geringes Risiko",
 					"moderate": "Mittleres Risiko",
-					"unknown": "Keine Angabe"
+					"unknown": "Keine Angabe",
+					"dontKnow": "Weiß nicht / Keine Angabe"
 				},
 				"title": "Individuelles Gebäuderisiko"
 			},
 			"description1": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet. Das konkrete Risiko Ihres Gebäudes ist von einer Vielzahl baulicher Eigenschaften abhängig, die sich durch den Fragebogen nicht in vollem Umfang bewerten lassen. Bitte beachten Sie, dass die Einstufung des Risikos für Ihr Gebäude auf Basis Ihrer Angaben eine gewisse Unsicherheit birgt und die Auswertung hier lediglich einer Anregung zur Eigenvorsorge dient.",
 			"description2": "Die Berechnung basiert auf bestehenden Angeboten des LAWA-Starkregenportals, des Hochwasser Kompetenz Centrums HKC („Quick-Check“) und des Gesamtverbands der Deutschen Versicherungswirtschaft (GDV).",
-			"title": "Hinweis & Disclaimer"
+			"title": "Auswertung Fragebogen",
+			"disclaimerTitle": "Hinweis & Disclaimer"
 		},
-		"checkBuildingRiskButton": "Nun Gebäuderisiko prüfen",
-		"dataSourceInfo": "Die Ermittlung der Hochwassergefährdung basiert auf den vorhandenen Ressourcen, u.a.: Starkregenhinweiskarte (SRHK), Starkregengefahrenkarte (SRGK), Hochwassergefahrenkarte (HWGK), Hochwasserrisikokarte (HWRK), Überschwemmungsgebiet (ÜSG) und der Gewässerkarte.",
-		"eventRarityInfo": "Das Zwischenergebnis geht von einem seltenem Ereignis aus.",
 		"fluvialFlood": {
 			"high": "Der überprüfte Standort ist bei Flusshochwasser einer hohen Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Flusshochwasser einer geringen Gefährdung ausgesetzt.",
 			"moderate": "Der überprüfte Standort ist bei Flusshochwasser einer mittleren Gefährdung ausgesetzt.",
-			"no": "nein",
+			"no": "Nein",
 			"none": "Der überprüfte Standort ist bei Flusshochwasser keiner Gefährdung ausgesetzt.",
 			"severe": "Der überprüfte Standort ist bei Flusshochwasser einer sehr hohen Gefährdung ausgesetzt.",
 			"subLabel": "Überschwemmungsgebiet",
 			"title": "Flusshochwasser",
 			"waterLevelLabel": "möglicher Wasserstand",
-			"yes": "ja"
+			"yes": "Ja",
+			"floodZoneIndexError": "Fehler bei der Bestimmung der Überschwemmungsgebietzugehörigkeit"
 		},
-		"hazardAtLocation": "Gefährdung an ihrem Standort:",
 		"hazardDisplay": {
-			"descriptionPlaceholder": "Lorem Ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.",
+			"descriptionPlaceholder": "Die vereinfachte Darstellung einer Gefährdung in vier Klassen dient allein der Motivation potenziell Betroffener zur Auseinandersetzung mit der Gefahr und möglicher Anpassungsmaßnahmen. Die Gefährdungsklassen leiten sich von den Fließgeschwindigkeiten und Überflutungstiefen der Starkregenhinweiskarten \"Extremes Ereignis\" sowie \"Seltenes Ereignis\" für Berlin ab. Die Klassifizierung dieser Werte in die vier Klassen erfolgt in Anlehnung an die Methodik des NGP. Für jeden Ort wird die höchste Gefährdung beider Szenarien ausgegeben. Welcher Gefährdungsklasse ein Haus zugeordnet wird, bezieht sich auf die Umgebung des Gebäudes bis zu einem Abstand von zwei Metern. Wieviel Prozent dieser Fläche in welche Gefährdungsklasse fallen entscheidet über die letztendliche Zuordnung. Die Methodik wurde von BUKEA Hamburg übernommen.",
 			"fluvialFloodTab": "Flusshochwasser",
 			"frequency": {
 				"extreme": "Extrem",
@@ -94,7 +95,7 @@
 			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:"
 		},
 		"hazardInfo": {
-			"calculation": "Wie wurde die Gefährdung berechnet?",
+			"calculation": "Warum und wie wurde die Gefährdung geschätzt?",
 			"disclaimerTitle": "Disclaimer zur Berechnung",
 			"disclaimerText": "Alle Informationen erfolgen ohne Gewähr für ihre Richtigkeit. In keinem Fall wird für Schäden, die sich aus der Verwendung abgerufener Informationen ergeben, Haftung übernommen. Bitte beachten Sie, dass die Ergebnisse der Karte sowie die Einschätzung der Hochwassergefährdung eine gewisse Unsicherheit bergen. Die Datengrundlage entbindet nicht von der Pflicht für einzelne Projekte, die hydraulischen Standortvoraussetzungen vor Ort zu erkunden und nachzuweisen. Ein Abgleich des Modells ist mit der Situation vor Ort erforderlich.",
 			"mapDisclaimer": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie folgenden Links benutzen:",
@@ -115,16 +116,6 @@
 			"none": "Keine Gefährdung",
 			"severe": "Sehr Hoch"
 		},
-		"hazardSummary": {
-			"high": "An Ihrem Standort liegt eine hohe Gefährdung vor.",
-			"highFluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Flusshochwasser vor.",
-			"highPluvial": "An Ihrem Standort liegt eine sehr hohe Gefährdung durch Starkregen vor.",
-			"low": "An Ihrem Standort liegt eine geringe Gefährdung vor.",
-			"moderate": "An Ihrem Standort liegt eine mittlere Gefährdung vor.",
-			"multiple": "An Ihrem Standort liegen mehrere Gefährdungen vor.",
-			"none": "An Ihrem Standort liegt keine Gefährdung vor.",
-			"severe": "An Ihrem Standort liegt eine sehr hohe Gefährdung vor."
-		},
 		"heavyRain": {
 			"high": "Der überprüfte Standort ist bei Starkregen einer hohen Gefährdung ausgesetzt.",
 			"low": "Der überprüfte Standort ist bei Starkregen einer geringen Gefährdung ausgesetzt.",
@@ -135,206 +126,129 @@
 			"title": "Starkregen",
 			"waterLevelLabel": "möglicher Wasserstand"
 		},
-		"hint": {
-			"description": "Neben Flusshochwasser und Starkregen gibt es auch andere Ereignisse, wie bspw. Rohrbrüche die zu Wasserschäden führen können. Daher empfehlen wir Ihnen Ihr individuelles Gebäuderisiko zu prüfen.",
-			"title": "Hinweis"
-		},
-		"interimResults": {
-			"navigation": {
-				"back": "Zurück zum Zwischenergebnis"
-			},
-			"title": "- Zwischenergebnis"
-		},
-		"intermediateResult": {
-			"description": "Ausgearbeitete Screens, siehe weiter rechts unter eigener Überschrift",
-			"title": "Hier käme das Zwischenergebnis"
-		},
 		"map": {
 			"description": "Für die Berechnung der Gefährdungskarten nutzen wir Karten des Geoportals Berlin, veröffentlicht durch die SenMVKU.",
 			"openLegend": "Legende öffnen",
 			"title": "Karte an Ihrem Standort"
 		},
 		"navigation": {
-			"back": "Zurück zum Zwischenergebnis",
+			"back": "Zurück zum Start",
 			"next": "Nächste Frage",
 			"submit": "Zur Auswertung"
 		},
 		"noHazardData": "Es liegen keine Daten zu Gefährdungen an Ihrem Standort vor.",
-		"pageTitle": "HochwasserCheck",
+		"pageTitle": "HochwasserCheck Berlin",
 		"protectionTips": {
-			"inBuilding": {
-				"image": {
-					"alt": "Eine Grafik zeigt ein Haus mit Keller, bei dem Zutritt zum Keller und zur Garage vermieden werden soll.",
-					"caption": "Im Falle einer Überflutung sind der Keller und Garagen zu meiden.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				},
-				"tip1": "Schalten Sie rechtzeitig Strom, Gas und wenn möglich Heizung ab. Ist dies nicht mehr möglich, gefährdete Räume mit Steckdosen und elektrischen Geräten verlassen und nicht mehr betreten.",
-				"tip2": "Bringen Sie sich, Kinder und andere schutzbedürftige Personen aus gefährdeten Bereichen, z.B. in ein höher gelegenes Stockwerk.",
-				"tip3": "Betreten Sie keine überfluteten oder durchnässten Räume. Die Türen können bereits bei einem niedrigen Wasserstand nicht mehr geöffnet werden und Ihren Fluchtweg blockieren. Wenn das Betreten eines überschwemmten Raumes unvermeidlich ist, müssen die Türen unbedingt offengehalten und fest verkeilt werden.",
-				"tip4": "Versuchen Sie in keinem Fall Gegenstände oder Fahrzeuge in letzter Minute aus Kellern, Garagen oder Tiefgaragen zu retten. Es besteht Lebensgefahr!",
-				"tip5": "Vermeiden Sie direkten Kontakt mit dem Hochwasser! Schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser.",
-				"title": "Im Gebäude"
-			},
-			"intro1": "Hochwasser kann erhebliche Schäden verursachen, dabei muss jede Bürgerin und jeder Bürger im Rahmen ihrer Möglichkeiten verschiedene Maßnahmen ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (WHG §5 Abs 2).",
-			"intro2": "Schon mit einfachen Mittel können Sie sich vor größeren Schäden schützen. Diese untenstehende Sammlung an Handlungsempfehlungen soll Ihnen bei Ihrem persönlichen Hochwasserschutz unterstützen",
+			"intro1": "Es gibt eine Vielzahl von Maßnahmen, die Sie umsetzten können, um Ihr individuelles Hochwasserrisiko zu senken. Eine umfangreiche Liste von Maßnahmen finden Sie in der Übersicht zu allen Handlungsempfehlungen.",
+			"intro2": "Wenn Sie den Fragebogen ausgefüllt haben, erhalten Sie zudem individualisierte Handlungsempfehlungen in dem HochwasserCheck Berlin Report, der am Ende dieser Seite heruntergeladen kann.",
 			"recommendationsOverview": {
 				"button": "Übersicht Handlungsempfehlungen",
 				"linkText": " Eine Gesamtübersicht aller Handlungsempfehlungen können Sie hier finden.",
 				"textPlaceholder": " @copyright ungeklärt"
 			},
 			"title": "Wie kann ich mich schützen?",
-			"traffic": {
-				"image": {
-					"alt": "Eine Grafik zeigt ein Auto, welches aus der Senke auf eine Anhöhe gefahren wird.",
-					"caption": "Während des eines Starkregenereignisses sollten keine Fahrzeuge in Senken abgestellt werden. Parken Sie ihr Fahrzeug am Anfang des Ereignisses um.",
-					"copyright": "© Kompetenzzentrum Wasser Berlin"
-				},
-				"tip1": "Bereits überschwemmte Gebiete sind keinesfalls zu betreten, auch nicht mit Fahrzeugen.",
-				"tip2": "Suchen Sie bei Hochwassergefahr höher gelegene Orte auf. Meiden Sie Unterführungen, Tiefgaragen, unter der Erde gelegene Bahnstationen und die Nähe von Fließgewässern, auch wenn Sie mit dem Auto unterwegs sind.",
-				"tip3": "Wenn möglich, sprechen Sie mit Ihren Familienmitgliedern über den Nachhauseweg. Bitten Sie sie, sich an einen sicheren Ort zu begeben. Warnen Sie sie davor, überflutete Bereiche zu betreten.",
-				"tip4": "Vermeiden Sie direkten Kontakt mit Hochwasser. Wenn möglich, schützen Sie sich mit Schutzkleidung (z.B. Gummistiefel, wasserfeste Handschuhe). Desinfizieren Sie Ihre Hände nach Berührung mit Hochwasser",
-				"tip5": "Halten Sie dabei Rettungs- und Fluchtwege frei.",
-				"title": "Verkehr"
+			"report": {
+				"title": "HochwasserCheck Berlin Report",
+				"description": "Hier können Sie ..."
 			}
 		},
 		"questionLabel": "Frage {current} von {total}",
 		"questions": {
-			"a": {
+			"q0": {
 				"options": {
-					"no": "Nein",
-					"yes": "Ja"
+					"rent": "Ich wohne zur Miete.",
+					"flatOwner": "Ich bin Eigentümer der Wohnung.",
+					"houseOwner": "Ich bin Eigentümer des Hauses."
 				},
-				"text": "Liegt das Gebäude im Überschwemmungsgebiet?"
-			},
-			"b": {
-				"options": {
-					"1": "1",
-					"2": "2",
-					"3": "3",
-					"4": "4"
-				},
-				"text": "Liegt das Gebäude in einem Gebiet, das von Flusshochwasser betroffen sein könnte?"
-			},
-			"c": {
-				"options": {
-					"1": "1",
-					"2": "2",
-					"3": "3",
-					"4": "4"
-				},
-				"text": "Starkregen-Gefährdungsgrad des Gebäudes"
+				"text": "Wohnen Sie zur Miete oder gehört Ihnen das Haus oder die Wohnung?",
+				"helperText": "Teileigentümer gelten als Eigentümer, z.B. gemeinsames Eigentum mit Ehepartner, Eigentümergemeinschaft."
 			},
 			"q1": {
 				"options": {
-					"no": "Nein",
-					"noInformation": "Keine Angabe",
 					"yesWithWindow": "Ja, es gibt auch Fenster",
-					"yesWithoutWindow": "Ja, es gibt aber kein Fenster"
+					"yesWithoutWindow": "Ja, es gibt aber kein Fenster",
+					"no": "Nein",
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?"
+				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?",
+				"helperText": ""
 			},
 			"q2": {
 				"options": {
-					"living": "Als Wohnraum",
-					"noInformation": "Keine Angabe",
-					"none": "Es gibt kein Untergeschoss.",
-					"storageHighValue": "Als Lagerraum mit wertvollen Sachen",
-					"storageLowValue": "Als Lagerraum für Sachen, die nicht viel wert sind",
-					"utility": "Als Technikraum für Elektrik, Wärmepumpe, etc."
+					"highValue": "Höherwertige Nutzung (z.B. Technikraum, Wohnraum oder Lagerraum für wertvolle Gegenstände).",
+					"lowValue": "Geringwertige Nutzung (z.B. ein Lagerraum für Dinge, die nicht viel wert sind).",
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Sofern Ihr Gebäude über ein Untergeschoss verfügt, welche Nutzung erfolgt dort vorwiegend?"
+				"text": "Welche Nutzung erfolgt im Untergeschoß vorwiegend?",
+				"helperText": "Wenn die Nutzung des Kellers sowohl hochwertig als auch geringwertig ist, gilt die gesamte Nutzung des Kellers als hochwertig."
 			},
 			"q3": {
-				"options": {
-					"no": "Nein",
-					"noInformation": "Keine Angabe",
-					"one": "Ja, bei einem Ereignis",
-					"threeOrMore": "Ja, bei drei oder mehr Ereignissen",
-					"two": "Ja, bei zwei Ereignissen"
-				},
-				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?"
-			},
-			"q4": {
 				"description": "Eine Rückstausicherung ist eine technische Einrichtung, die bei einem Hochwasserereignis den Rückstau von Wasser in die Abwasserleitungen verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert und sorgt dafür, dass das Abwasser nicht zurückfließen kann.",
 				"image": {
 					"alt": "Rückstauklappen",
-					"caption": "Eine Rückstausicherung dient dazu..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"caption": "Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau.",
 					"copyright": "© SenMVKU"
 				},
 				"options": {
 					"no": "Nein",
-					"noInformation": "Keine Angabe",
+					"yesUnknown": "Ja, in unbekanntem Zustand",
 					"yesGood": "Ja, in gutem Zustand (gewartet entsprechend der Herstellerangaben)",
-					"yesUnknown": "Ja, in unbekanntem Zustand"
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
 				"text": "Gibt es eine Rückstausicherung für sanitäre Anlagen und Abläufe?",
-				"title": "Rückstausicherung"
+				"title": "Rückstausicherung",
+				"helperText": ""
 			},
-			"q5": {
+			"q4": {
 				"description": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
 				"image": {
 					"alt": "Abläufe",
-					"caption": "Alle Abläufe..., consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+					"caption": "Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann.",
 					"copyright": "© SenMVKU"
 				},
 				"options": {
 					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
 					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
-					"noInformation": "Keine Angabe",
-					"unknown": "In unbekanntem Zustand"
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
 				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
-				"title": "Abläufe"
+				"title": "Abläufe",
+				"helperText": ""
 			},
-			"q6": {
+			"q5": {
 				"options": {
-					"no": "Keine Maßnahme(n)",
-					"noInformation": "Keine Angabe",
-					"one": "Ja, eine Maßnahme",
-					"twoOrMore": "Ja, zwei oder mehr Maßnahmen"
+					"yes": "Ja",
+					"no": "Nein",
+					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Wie viele andere Schutzmaßnahmen gegen Hochwasserschäden wurden bereits umgesetzt?"
+				"text": "Gab es am oder im Gebäude in den letzten 10 Jahren Schäden durch Starkregen bzw. Hochwasser?",
+				"helperText": ""
 			}
 		},
 		"reportDownload": {
-			"button": "Bericht herunterladen",
+			"button": "Report herunterladen",
 			"description": "Hier können Sie sich die errechneten Ergebnisse für Gefährdung und Risiko auf Basis Ihrer Angaben als PDF-Datei herunterladen.",
 			"fileInfo": "Doctype: PDF-Dokument ({size})",
-			"title": "Download HochwasserCheck Report",
-			"pdf": {
-				"title": "Hochwasser-Infoportal Berlin",
-				"subTitle": "Report zum Gesamtergebnis HochwasserCheck",
-				"date": "Report vom {date}",
-				"page": "Seite {current} von {total}",
-				"pageBottomText": "Herausgeber: Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt Berlin",
-				"locationTitle": "Es wurde die folgende Adresse überprüft:",
-				"hazardIntro": "Gefährdung durch {hazard} an Ihrem Standort:",
-				"calcHintTitle": "Für die Berechnung der Gefährdungskarten nutzen wir Karten des Geoportals Berlin, veröffentlicht durch die SenMVKU",
-				"calcHintText": "Bitte beachten Sie, dass die Ergebnisse der Karte sowie die Einschätzung der Hochwassergefährdung eine gewisse Unsicherheit bergen. Die Datengrundlage entbindet nicht von der Pflicht für einzelne Projekte, die hydraulischen Standortvoraussetzungen vor Ort zu erkunden und nachzuweisen. Ein Abgleich des Modells ist mit der Situation vor Ort erforderlich.",
-				"riskTitle": "Risiko an Ihrem Standort:",
-				"tipTitle": "Handlungsempfehlungen"
-			}
+			"title": "HochwasserCheck Berlin Report herunterladen"
 		},
 		"results": {
 			"navigation": {
-				"back": "Zurück zum HochwasserCheck"
+				"back": "Zurück zum HochwasserCheck Berlin",
+				"backQuestionnaire": "Zurück zum Fragebogen"
 			},
-			"title": "- Gesamtergebnis"
-		},
-		"riskCalculation": {
-			"insufficientAnswers": "Bitte beantworten Sie mindestens 2 Fragen, um eine Bewertung zu erhalten.",
-			"insufficientData": "Risiko kann wegen der fehlenden Antworten nicht eingeschätzt werden.",
-			"riskLevels": {
-				"high": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
-				"low": "Ihr Gebäude weist ein geringes Hochwasserrisiko auf.",
-				"moderate": "Ihr Gebäude unterliegt einem Risiko im mittleren Bereich."
-			}
+			"title": "- Ergebnis"
 		},
 		"start": {
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
-			"description": "Der HochwasserCheck kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
-			"title": "Jetzt schauen ob Sie sich Sorgen machen müssen"
+			"description": "Jetzt schauen ob Sie sich Sorgen machen müssen. Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"locationTitle": "Es wird die folgende Adresse überprüft:",
+			"question": "Wollen Sie auch das Risiko für Ihr Wohngebäude überprüfen?",
+			"questionDescription": "Zur Berechnung des Risikos werden Sie durch einen Fragebogen von sechs Fragen zu ihrem Wohngebäude geleitet.",
+			"formButtons": {
+				"toResult": "Zum Ergebnis",
+				"toQuestionnaire": "Zum Fragebogen"
+			}
 		}
 	}
 }

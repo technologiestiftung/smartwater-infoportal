@@ -2,7 +2,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -22,12 +22,14 @@ The application uses the [Berlin UI Library](https://github.com/technologiestift
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/technologiestiftung/smartwater-infoportal.git
    cd smartwater-infoportal
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -35,6 +37,7 @@ The application uses the [Berlin UI Library](https://github.com/technologiestift
    ```
 
    **Note:** The Berlin UI Library is installed automatically via the `install-lib` script when running `dev`, `build`, or `start` commands. If you need to install it separately:
+
    ```bash
    npm run install-lib
    ```
@@ -50,10 +53,12 @@ The application uses the [Berlin UI Library](https://github.com/technologiestift
 The application requires a GeoServer instance for map data. You can run GeoServer using Docker Compose:
 
 ### Prerequisites for GeoServer
+
 - Docker and Docker Compose
 - Map data files stored in the `./maps` directory
 
 ### Running GeoServer
+
 ```bash
 docker-compose up geoserver
 ```
@@ -61,6 +66,7 @@ docker-compose up geoserver
 The GeoServer data will be mounted from `./maps:/opt/geoserver_data/data/maps`, so make sure to place your map files in the `./maps` directory before starting the container.
 
 ### Environment Variables for GeoServer
+
 Update your `.env` file with the GeoServer configuration:
 
 ```env
@@ -104,6 +110,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Quick Start Summary
 
 1. **Clone and install:**
+
    ```bash
    git clone https://github.com/technologiestiftung/smartwater-infoportal.git
    cd smartwater-infoportal
@@ -112,12 +119,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
    ```
 
 2. **Set up environment:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 3. **Start GeoServer (optional, for full functionality):**
+
    ```bash
    # Place your map files in ./maps directory
    docker-compose up geoserver
@@ -133,9 +142,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 The application requires several environment variables to be configured. Copy `.env.example` to `.env` and update the values:
 
 ```env
-# Nominatim API Configuration
-NOMINATIM_USER_AGENT=your_application_name
-
 # GeoServer Configuration
 GEOSERVER_BASE_URL=http://localhost:8080/geoserver
 GEOSERVER_WORKSPACE=smartwater-infoportal
@@ -145,7 +151,6 @@ GEOSERVER_FLOOD_LAYER=HW_Gefaehrdung_clip_
 
 ### Environment Variable Descriptions
 
-- `NOMINATIM_USER_AGENT`: Used for geocoding address searches
 - `GEOSERVER_BASE_URL`: Base URL of your GeoServer instance
 - `GEOSERVER_WORKSPACE`: GeoServer workspace containing your layers
 - `GEOSERVER_BUILDING_LAYER`: Layer name for building hazard data
@@ -162,19 +167,24 @@ yarn test
 ```
 
 Run tests in watch mode:
+
 ```bash
 npm run test:watch
-# or  
+# or
 yarn test:watch
 ```
 
 ### Test Environment Setup
+
 The tests automatically load environment variables from the `.env` file. Make sure you have:
+
 1. Copied `.env.example` to `.env`
 2. Configured your environment variables properly
 
 ### Test Types
+
 The test suite includes:
+
 - **Unit tests**: Hazard data processing, risk calculations
 - **Integration tests**: GeoServer connectivity (requires running GeoServer instance)
 
@@ -194,7 +204,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JonathanHaudenschild-TsB"><img src="https://avatars.githubusercontent.com/u/201598680?v=4?s=64" width="64px;" alt="Jonathan Haudenschild"/><br /><sub><b>Jonathan Haudenschild</b></sub></a><br /><a href="https://github.com/technologiestiftung/template-default/commits?author=JonathanHaudenschild-TsB" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JonathanHaudenschild-TsB"><img src="https://avatars.githubusercontent.com/u/201598680?v=4?s=64" width="64px;" alt="Jonathan Haudenschild"/><br /><sub><b>Jonathan Haudenschild</b></sub></a><br /><a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JonathanHaudenschild-TsB" title="Documentation">📖</a> <a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JonathanHaudenschild-TsB" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JS-TSB"><img src="https://avatars.githubusercontent.com/u/185074060?s=64" width="64px;" alt="Jakob Sawal"/><br /><sub><b>Jakob Sawal</b></sub></a><br /><a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JS-TSB" title="Documentation">📖</a> <a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=JS-TSB" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https:/github.com/LuiseBrandenburger"><img src="https://avatars.githubusercontent.com/u/61413319?s=?s=64" width="64px;" alt="Luise Brandenburger"/><br /><sub><b>Luise Brandenburger</b></sub></a><br /><a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=LuiseBrandenburger" title="Documentation">📖</a> <a href="https://github.com/technologiestiftung/smartwater-infoportal/commits?author=LuiseBrandenburger" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

@@ -281,13 +281,13 @@ const LayerItem = memo<{
 					{serviceName}
 				</p>
 				{disabled || isNotAvailable ? (
-					<p className="translate-y-[-2px] overflow-hidden truncate whitespace-nowrap text-xs text-[var(--text-error)]">
+					<p className="translate-y-[-2px] select-none overflow-hidden truncate whitespace-nowrap text-xs text-[var(--text-error)]">
 						{isNotAvailable
 							? "Karte konnte nicht geladen werden"
 							: "Karte wird im aktuellen Maßstab nicht angezeigt"}
 					</p>
 				) : (
-					<p className="translate-y-[-2px] overflow-hidden truncate whitespace-nowrap text-xs">
+					<p className="translate-y-[-2px] select-none overflow-hidden truncate whitespace-nowrap text-xs">
 						{mapGroup}
 					</p>
 				)}
