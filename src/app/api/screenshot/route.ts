@@ -14,6 +14,14 @@ type Body = {
 	hazardEntitiesDown?: any;
 };
 
+declare global {
+	interface Window {
+		__SCENARIO_INPUT__?: unknown;
+		__RISKBLOCK_INPUT__?: unknown;
+		__SCREENSHOT_READY__?: boolean;
+	}
+}
+
 export async function POST(req: Request) {
 	let browser: any = null;
 
