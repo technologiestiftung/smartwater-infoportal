@@ -10,6 +10,7 @@ export default function RiskblockClient() {
 	useEffect(() => {
 		// @ts-expect-error puppeteer injects this global at runtime
 		const p = window.__RISKBLOCK_INPUT__ ?? null;
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setPayload(p);
 
 		// @ts-expect-error puppeteer readiness flag set dynamically
