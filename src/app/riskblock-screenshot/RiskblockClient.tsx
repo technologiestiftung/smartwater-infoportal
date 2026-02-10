@@ -8,11 +8,8 @@ export default function RiskblockClient() {
 	const [payload, setPayload] = useState<any>(null);
 
 	useEffect(() => {
-		// @ts-expect-error puppeteer injects this global at runtime
 		const p = window.__RISKBLOCK_INPUT__ ?? null;
 		setPayload(p);
-
-		// @ts-expect-error puppeteer readiness flag set dynamically
 		window.__SCREENSHOT_READY__ = Boolean(p);
 	}, []);
 

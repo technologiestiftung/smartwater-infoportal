@@ -83,7 +83,6 @@ export async function POST(req: Request) {
 
 			for (const s of ScenarioList) {
 				await page.evaluate((scenario: Scenario) => {
-					// @ts-ignore
 					window.__SET_SCENARIO__?.(scenario);
 				}, s);
 
@@ -111,7 +110,6 @@ export async function POST(req: Request) {
 		if (floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown) {
 			await page.evaluateOnNewDocument(
 				(payload: any) => {
-					// @ts-expect-error
 					window.__RISKBLOCK_INPUT__ = payload;
 				},
 				{

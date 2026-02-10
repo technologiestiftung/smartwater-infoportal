@@ -128,7 +128,6 @@ export function useMapLoading(map: OLMap | null) {
 			const onSrcChange = () => {
 				bindSource((layer as any).getSource?.());
 			};
-			// @ts-expect-error event name exists at runtime
 			layer.on?.("change:source", onSrcChange);
 			unsubs.push(() => layer.un?.("change", onSrcChange));
 
