@@ -32,6 +32,7 @@ const Results: React.FC = () => {
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
 	const isDev = process.env.NODE_ENV === "development";
+	const showMap = true;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -216,9 +217,13 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
-				<h3 className="mt-2">{t("map.title")}</h3>
-				<p className="">{t("map.description")}</p>
-				<Map />
+				{showMap && (
+					<>
+						<h3 className="mt-2">{t("map.title")}</h3>
+						<p className="">{t("map.description")}</p>
+						<Map />
+					</>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -292,7 +297,7 @@ const Results: React.FC = () => {
 							className="w-full gap-6"
 							reverseDesktopColumns={true}
 							slotA={
-								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+								<div className="flex w-full flex-col gap-6 bg-panel-heavy p-6">
 									<h3 className="">
 										{t("buildingRiskAssessment.disclaimerTitle")}
 									</h3>

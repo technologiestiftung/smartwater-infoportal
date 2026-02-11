@@ -90,23 +90,6 @@ export default function GeneralInformation() {
 		);
 	};
 
-	const scrollToWithOffset = (id: string, offset = 128) => {
-		console.log("id :>> ", id);
-		const el = document.getElementById(id);
-		if (!el) {
-			return;
-		}
-
-		console.log(
-			"el.getBoundingClientRect().top :>> ",
-			el.getBoundingClientRect().top,
-		);
-
-		const y = el.getBoundingClientRect().top + 86;
-		console.log("y :>> ", y);
-		window.scrollTo({ top: y, behavior: "smooth" });
-	};
-
 	return (
 		<>
 			<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
@@ -116,14 +99,7 @@ export default function GeneralInformation() {
 					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 						{Object.entries(tableOfContentsItems).map(([key, label]) => (
 							<li key={key}>
-								<a
-									href={`#${key}`}
-									className="text-text-link"
-									/* onClick={(e) => {
-										e.preventDefault();
-										scrollToWithOffset(key);
-									}} */
-								>
+								<a href={`#${key}`} className="text-text-link">
 									{label}
 								</a>
 							</li>

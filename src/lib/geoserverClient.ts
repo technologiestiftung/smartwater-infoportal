@@ -15,6 +15,7 @@ const notFound = {
 
 const notFoundWMS = {
 	hasHeavyRainHazardMap: null,
+	isInExtremeRainHazardMap: null,
 	rareHeavyRainMax: null,
 	uncommonHeavyRainMax: null,
 	extremeHeavyRainMax: null,
@@ -276,6 +277,8 @@ export class GeoServerClient {
 
 			return {
 				hasHeavyRainHazardMap,
+
+				isInExtremeRainHazardMap,
 
 				// Starkregen
 				rareHeavyRainMax: rareHeavyRain.max,

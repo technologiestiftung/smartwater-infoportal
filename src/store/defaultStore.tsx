@@ -13,6 +13,7 @@ import {
 	calculateQuestionScore,
 } from "@/utils/floodRiskCalculator";
 import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
+import { PDFKeys } from "@/components/Report/types";
 
 type TestingFeatureNames =
 	| "resetAllButtonOnHomepage"
@@ -58,10 +59,10 @@ type StoreState = {
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
 
-	// PDF Images
-	pdfImages: Record<string, Blob>;
-	setImage: (key: string, blob: Blob) => void;
-	clearPDFImages: () => void;
+	// PDFKeys
+	pdfKeys: PDFKeys;
+	setPDFKeys: (pdfKeys: PDFKeys) => void;
+	clearPDFKeys: () => void;
 };
 
 const currentFeatures: TestingFeatureNames[] = [
@@ -154,7 +155,7 @@ const useStore = create<StoreState>()(
 						floodRiskResult: null,
 						errorLayers: [],
 						showTestingFeatures: currentFeatures,
-						pdfImages: {},
+						pdfKeys: {},
 					}),
 
 				// Selectors
@@ -163,13 +164,10 @@ const useStore = create<StoreState>()(
 					return getHazardEntities(state.locationData);
 				},
 
-				// PDF Images
-				pdfImages: {},
-				setImage: (key, blob) =>
-					set((state) => ({
-						pdfImages: { ...state.pdfImages, [key]: blob },
-					})),
-				clearPDFImages: () => set({ pdfImages: {} }),
+				// PDF Keys
+				pdfKeys: {},
+				setPDFKeys: (pdfKeys: PDFKeys) => set({ pdfKeys }),
+				clearPDFKeys: () => set({ pdfKeys: {} }),
 			}),
 			{
 				name: "flood-risk-store",

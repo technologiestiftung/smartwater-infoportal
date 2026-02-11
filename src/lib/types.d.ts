@@ -38,6 +38,7 @@ export interface Building {
 
 export interface BuildingWMS {
 	hasHeavyRainHazardMap: string | null;
+	isInExtremeRainHazardMap: boolean | null;
 	rareHeavyRainMax: number | null;
 	uncommonHeavyRainMax: number | null;
 	extremeHeavyRainMax: number | null;

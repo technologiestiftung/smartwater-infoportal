@@ -9,16 +9,22 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import useStore from "@/store/defaultStore";
-import { getHazardData } from "@/server/actions/getHazardData";
+import {
+	getHazardData,
+	getWMSForBuilding,
+} from "@/server/actions/getHazardData";
 import CheckBlock from "@/components/CheckBlock";
-import { ScenarioList, Scenario } from "@/types/map";
-import { getScenarioDomId } from "@/lib/utils/mapUtils";
+import { PDFKeys } from "@/components/Report/types";
+import {
+	getScreenshotForScenario,
+	translateWMSValue,
+} from "@/components/Report/utils";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const { currentUserAddress, setLocationData, setImage, clearPDFImages } =
+	const { currentUserAddress, setLocationData, setPDFKeys, clearPDFKeys } =
 		useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
@@ -28,47 +34,177 @@ export default function FloodCheckClient() {
 		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
 			return;
 		}
+		clearPDFKeys();
 		try {
-			clearPDFImages();
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
-			const result = await getHazardData(longitude, latitude);
-			setLocationData(result);
-			if (!result.found) {
+			const locationData = await getHazardData(longitude, latitude);
+			setLocationData(locationData);
+			if (!locationData.found || !locationData.building) {
 				return;
 			}
-			const locationData = result;
-			for (const scenario of ScenarioList) {
-				const path = `/scenario-map?scenario=${scenario}`;
-				const key: string = getScenarioDomId(scenario as Scenario);
-				const body: {
-					url: string;
-					buildingGeometry?: any;
-					outlineBufferGeometry?: any;
-				} = {
-					url: `${window.location.origin}${path}`,
-					buildingGeometry: locationData?.building?.geometry,
-					outlineBufferGeometry: locationData?.building?.outlineBufferGeometry,
-				};
+			const buildingWMSData = await getWMSForBuilding(locationData);
 
-				const res = await fetch("/api/screenshot", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(body),
-				});
-
-				const text = await res.text();
-
-				if (!res.ok) {
-					throw new Error(`Screenshot API failed (${res.status}): ${text}`);
-				}
-
-				const data = JSON.parse(text);
-				const { imageBase64 } = data;
-				const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-				const blob = await fetch(dataUrl).then((r) => r.blob());
-				setImage(`${key}`, blob);
+			if (!buildingWMSData) {
+				return console.error(
+					"No WMS data found for building, cannot fetch PDF images",
+				);
 			}
+
+			const addToPDFKeys: PDFKeys = {};
+
+			const {
+				hasHeavyRainHazardMap,
+				rareHeavyRainMax,
+				rareHeavyRainAverage,
+				uncommonHeavyRainMax,
+				uncommonHeavyRainAverage,
+				extremeHeavyRainMax,
+				extremeHeavyRainAverage,
+				frequentFloodMax,
+				frequentFloodAverage,
+				averageFloodMax,
+				averageFloodAverage,
+				rareFloodMax,
+				rareFloodAverage,
+				errors,
+				isInExtremeRainHazardMap,
+			} = buildingWMSData;
+
+			const scenarios = ["SR", "HW"];
+
+			if (
+				!!locationData?.building?.floodZoneIndex &&
+				locationData?.building?.floodZoneIndex > 0
+			) {
+				// scenarios.push("HW");
+				scenarios.push("FLOOD_ZONE");
+			}
+			if (!!hasHeavyRainHazardMap) {
+				scenarios.push("SRGK_RARE_HEAVY_RAIN");
+				scenarios.push("SRGK_UNCOMMON_HEAVY_RAIN");
+			} else if (!hasHeavyRainHazardMap) {
+				scenarios.push("SRHK_UNCOMMON_HEAVY_RAIN");
+			}
+			if (isInExtremeRainHazardMap) {
+				scenarios.push("SRGK_EXTREME_HEAVY_RAIN");
+			} else {
+				scenarios.push("SRHK_EXTREME_HEAVY_RAIN");
+			}
+			if (!!frequentFloodMax) {
+				scenarios.push("FREQUENT_FLOOD");
+			}
+			if (!!averageFloodMax) {
+				scenarios.push("AVERAGE_FREQUENT_FLOOD");
+			}
+			if (!!rareFloodMax) {
+				scenarios.push("RARE_FREQUENT_FLOOD");
+			}
+
+			setPDFKeys({
+				wmsDataLoaded: true,
+			});
+
+			try {
+				for (const scenario of scenarios) {
+					const { key, blob } = await getScreenshotForScenario(
+						scenario,
+						locationData,
+					);
+					addToPDFKeys[`#${key}`] = blob;
+				}
+			} catch (captureError) {
+				console.error("Error capturing screenshots: " + captureError);
+				return;
+			}
+
+			// Rare Heavy Rain
+			const errorRareHeavyRain = errors?.includes("rareHeavyRain") || false;
+			addToPDFKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
+			addToPDFKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
+			addToPDFKeys["{rareHeavyRainAverage}"] = translateWMSValue(
+				rareHeavyRainAverage,
+				"",
+			);
+			addToPDFKeys["{errorRareHeavyRain}"] = errorRareHeavyRain;
+
+			// Uncommon Heavy Rain
+			const errorUncommonHeavyRain =
+				errors?.includes("uncommonHeavyRain") || false;
+			addToPDFKeys["{hasSrgkUncommonHeavyRainMap}"] =
+				!errorUncommonHeavyRain && !!hasHeavyRainHazardMap;
+			addToPDFKeys["{hasSrhkUncommonHeavyRainMap}"] =
+				!errorUncommonHeavyRain && !hasHeavyRainHazardMap;
+			addToPDFKeys["{uncommonHeavyRainMax}"] =
+				translateWMSValue(uncommonHeavyRainMax);
+			addToPDFKeys["{uncommonHeavyRainAverage}"] = translateWMSValue(
+				uncommonHeavyRainAverage,
+				"",
+			);
+			addToPDFKeys["{errorUncommonHeavyRain}"] =
+				errors?.includes("uncommonHeavyRain") || false;
+
+			// Extreme Heavy Rain
+			const errorExtremeHeavyRain =
+				errors?.includes("extremeHeavyRain") || false;
+			addToPDFKeys["{hasSrgkExtremeHeavyRainMap}"] =
+				!errorExtremeHeavyRain &&
+				hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
+			addToPDFKeys["{hasSrhkExtremeHeavyRainMap}"] =
+				!errorExtremeHeavyRain &&
+				hasHeavyRainHazardMap !== "isInExtremeRainHazardMap";
+			addToPDFKeys["{extremeHeavyRainMax}"] =
+				translateWMSValue(extremeHeavyRainMax);
+			addToPDFKeys["{extremeHeavyRainAverage}"] = translateWMSValue(
+				extremeHeavyRainAverage,
+				"",
+			);
+			addToPDFKeys["{errorExtremeHeavyRain}"] = errorExtremeHeavyRain;
+
+			// Frequent Flood
+			const errorFrequentFlood = errors?.includes("frequentFlood") || false;
+			addToPDFKeys["{errorFrequentFlood}"] = errorFrequentFlood;
+			addToPDFKeys["{hasNoFrequentFloodData}"] =
+				!errorFrequentFlood && !frequentFloodMax;
+			addToPDFKeys["{hasFrequentFloodData}"] =
+				!errorFrequentFlood && !!frequentFloodMax;
+			addToPDFKeys["{frequentFloodMax}"] = translateWMSValue(frequentFloodMax);
+			addToPDFKeys["{frequentFloodAverage}"] =
+				translateWMSValue(frequentFloodAverage);
+
+			// Average Flood
+			const errorAverageFlood = errors?.includes("averageFlood") || false;
+			addToPDFKeys["{errorAverageFlood}"] = errorAverageFlood;
+			addToPDFKeys["{hasNoAverageFloodData}"] =
+				!errorAverageFlood && !averageFloodMax;
+			addToPDFKeys["{hasAverageFloodData}"] =
+				!errorAverageFlood && !!averageFloodMax;
+			addToPDFKeys["{averageFloodMax}"] = translateWMSValue(averageFloodMax);
+			addToPDFKeys["{averageFloodAverage}"] =
+				translateWMSValue(averageFloodAverage);
+
+			// Rare Flood
+			const errorRareFlood = errors?.includes("rareFlood") || false;
+			addToPDFKeys["{errorRareFlood}"] = errorRareFlood;
+			addToPDFKeys["{hasNoRareFloodData}"] = !errorRareFlood && !rareFloodMax;
+			addToPDFKeys["{hasRareFloodData}"] = !errorRareFlood && !!rareFloodMax;
+			addToPDFKeys["{rareFloodMax}"] = translateWMSValue(rareFloodMax);
+			addToPDFKeys["{rareFloodAverage}"] = translateWMSValue(rareFloodAverage);
+
+			// Flood Zone
+			const errorFloodZone = errors?.includes("floodZoneIndex") || false;
+			addToPDFKeys["{errorFloodZone}"] = errorFloodZone;
+			addToPDFKeys["{hasNoFloodZoneData}"] =
+				!errorFloodZone && !locationData.building.floodZoneIndex;
+			addToPDFKeys["{hasFloodZoneData}"] =
+				!errorFloodZone && !!locationData.building.floodZoneIndex;
+
+			addToPDFKeys["{finishedFirstFetch}"] = true;
+
+			setPDFKeys({
+				wmsDataLoaded: true,
+				...addToPDFKeys,
+			});
 		} catch (error) {
 			console.error("Error capturing scenario map screenshot:", error);
 		}
@@ -77,7 +213,7 @@ export default function FloodCheckClient() {
 	useEffect(() => {
 		// eslint-disable-next-line no-extra-boolean-cast
 		if (!!hash) {
-			window.scrollTo(0, 0);
+			setTimeout(() => window.scrollTo(0, 0), 100);
 		}
 	}, [hash]);
 
