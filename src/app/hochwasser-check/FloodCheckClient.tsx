@@ -15,40 +15,31 @@ import {
 	getScreenshotForScenario,
 	translateWMSValue,
 } from "@/components/Report/utils";
-import { getBuilding } from "@/server/actions/getHazardData";
+import { getWMSForBuilding } from "@/server/actions/getHazardData";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const { currentUserAddress, setLocationData, setPDFKeys, clearPDFKeys } =
-		useStore();
+	const { locationData, setPDFKeys, clearPDFKeys } = useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
 	const makePDFImagesInitializedRef = useRef<boolean>(false);
 
 	const getLocationDataAndStartPDFImageFetch = async () => {
-		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
-			return;
-		}
 		clearPDFKeys();
 		try {
-			const longitude = parseFloat(currentUserAddress.lon);
-			const latitude = parseFloat(currentUserAddress.lat);
-			const { buildingWMSData, locationData } = await getBuilding(
-				longitude,
-				latitude,
-			);
-			if (!locationData || !locationData.building || !buildingWMSData) {
+			if (!locationData || !locationData.building) {
 				return console.error(
-					"No location or WMS data found for building, cannot fetch PDF images",
+					"No location data found, cannot proceed with PDF image fetch",
 				);
 			}
-			console.log("geoServerClient.getBuilding ✅✅✅", {
-				buildingWMSData,
-				locationData,
-			});
-			setLocationData(locationData);
+			const buildingWMSData = await getWMSForBuilding(locationData);
+			if (!buildingWMSData) {
+				return console.error(
+					"No building WMS data found, cannot proceed with PDF image fetch",
+				);
+			}
 
 			const addToPDFKeys: PDFKeys = {};
 

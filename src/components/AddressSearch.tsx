@@ -17,27 +17,16 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
+import { getHazardData } from "@/server/actions/getHazardData";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
 	const router = useRouter();
-
-	const setCurrentUserAddress = useStore(
-		(state) => state.setCurrentUserAddress,
-	);
-
-	const testingAddresses = [
-		"Majakowskiring 9",
-		"Rüsternallee 24",
-		"Forckenbeckstraße 20, 14199 Berlin",
-		"Hainstraße 7, 12439 Berlin",
-	];
-
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-
+	const { currentUserAddress, setCurrentUserAddress, setLocationData } =
+		useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -56,16 +45,31 @@ export default function AddressSearch() {
 		isRequired: true,
 	};
 
+	const testingAddresses = [
+		"Majakowskiring 9",
+		"Rüsternallee 24",
+		"Forckenbeckstraße 20, 14199 Berlin",
+		"Hainstraße 7, 12439 Berlin",
+	];
+
 	const handleSubmit = () => {
-		return methods.handleSubmit(() => {
+		return methods.handleSubmit(async () => {
 			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
-				if (!currentUserAddress) {
-					setError(t("addressCheck.errorNoResultSelected"));
-				} else {
-					router.push("/hochwasser-check");
+				if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
+					return setError(t("addressCheck.errorNoResultSelected"));
 				}
+				const longitude = parseFloat(currentUserAddress.lon);
+				const latitude = parseFloat(currentUserAddress.lat);
+				const locationData = await getHazardData(longitude, latitude);
+				if (!locationData || !locationData.building) {
+					return setError(
+						"Beim Abrufen der Gebäudedaten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+					);
+				}
+				setLocationData(locationData);
+				router.push("/hochwasser-check");
 			} else {
 				setError(t("addressCheck.errorNoAddress"));
 			}
