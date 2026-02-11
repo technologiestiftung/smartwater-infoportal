@@ -100,13 +100,15 @@ export default function FloodCheckClient() {
 				wmsDataLoaded: true,
 			});
 
+			addToNumberOfFetchedPDFImages(scenarios.length);
+
 			try {
 				for (const scenario of scenarios) {
 					const { key, blob } = await getScreenshotForScenario(
 						scenario,
 						locationData,
 					);
-					addToNumberOfFetchedPDFImages(scenarios.length);
+					addToNumberOfFetchedPDFImages(undefined);
 					addToPDFKeys[`#${key}`] = blob;
 				}
 			} catch (captureError) {

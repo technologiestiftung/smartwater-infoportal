@@ -52,6 +52,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		{
 			id: "wms",
 			text: "Alle Daten errechnet",
+			loading: "Daten werden errechnet...",
 		},
 		{
 			id: "images",
@@ -59,6 +60,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		{
 			id: "pdf",
 			text: "PDF erstellt",
+			loading: "PDF wird erstellt...",
 		},
 	];
 
@@ -338,9 +340,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 														/>
 														<span className={cn(isDone && "font-bold")}>
 															{check.id !== "images"
-																? check.text
+																? isDone
+																	? check.text
+																	: check.loading
 																: numberOfPDFImagesToFetch === 0
-																	? "Warten auf Bilder"
+																	? "Warten auf Bilder..."
 																	: `${numberOfFetchedPDFImages} von ${numberOfPDFImagesToFetch + addToImages} Bildern erstellt`}
 														</span>
 													</div>

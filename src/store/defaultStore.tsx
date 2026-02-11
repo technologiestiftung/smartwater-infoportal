@@ -182,7 +182,6 @@ const useStore = create<StoreState>()(
 						if (typeof num === "number") {
 							return {
 								numberOfPDFImagesToFetch: num,
-								numberOfFetchedPDFImages: state.numberOfFetchedPDFImages + 1,
 							};
 						}
 						return {
