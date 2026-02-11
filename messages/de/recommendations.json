@@ -10,7 +10,7 @@
 		"introImage": {
 			"alt": "Grafik, die zeigt, wie Maßnahmen gegen Hochwasserschäden in Bezug auf den Zeitpunkt ihrer Umsetzung eingeteilt werden können.",
 			"caption": "Abbildung 1: Einteilung von Anpassungsmaßnahmen gegen Hochwasserschäden ausgehend vom Zeitpunkt ihrer Umsetzung.",
-			"copyright": "© SenMVKU"
+			"copyright": "Bild: SenMVKU"
 		},
 		"intro2": "Maßnahmen gegen Hochwasser können unterschieden werden in Vorsorgemaßnahmen, welche zum Zeitpunkt des Hochwassers bereits umgesetzt sein müssen, und Notfallmaßnahmen, welche kurz vor oder während des Hochwassers umgesetzt werden. Ist das Hochwasser bereits da, kommt es auf das richtige Verhalten im Ernstfall und kurz nach dem Hochwasser an. Da Hochwasser <link1>wiederkehrende Ereignisse</link1> sind, gilt es, sich nach dem Hochwasser auf ein potenzielles nächstes Hochwasser vorzubereiten - siehe Abbildung 1.\n\nDiese Seite bietet Ihnen einen Überblick über Handlungsempfehlungen und soll Ihnen dabei helfen, sich, ihr Eigentum und die Personen in Ihrem Umfeld besser zu schützen. Bitte beachten Sie, dass dieser Überblick im Bereich „Vorsorgemaßnahmen“ auch bauliche Maßnahmen enthält, die ggf. nicht für Mieter*innen und damit ggf. nicht für ihren individuellen Fall geeignet sein könnten. Einen individuelleren Überblick über Vorsorgemaßnahmen erhalten Sie, wenn Sie den <link2>Hochwasser-Check Berlin</link2> für Ihren Wohnraum durchführen und sich diesen als Bericht (PDF) ausgeben lassen.",
 		"timeline": {
@@ -46,7 +46,7 @@
 			"list2Image": {
 				"alt": "Grafik, die verschiedene Vorsorgemaßnahmen darstellt.",
 				"caption": "Abbildung 2: Darstellung verschiedener Vorsorgemaßnahmen.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			},
 			"list3Intro": "<strong>Trockenvorsorge:</strong>",
 			"list3Paragraph": "Maßnahmen, die das Eindringen von Wasser in den Innenraum verhindern (Abbildung 2, Maßnahmen 1 – 6). Bauliche Maßnahmen und Wartungsarbeiten richten sich vorrangig an die Eigentümer des Hauses bzw. der Wohnung.",
@@ -111,7 +111,7 @@
 			"list4Image": {
 				"alt": "Grafik, die zeigt, wie ein Auto in einem höher gelegenen Bereich geparkt wird, um es vor Hochwasserschäden zu schützen.",
 				"caption": "Parken Sie Ihr Auto rechtzeitig in höher gelegenen Bereichen. Ist der Bereich in dem Ihr Auto parkt bereits überflutet: Verzichten Sie auf das umparken. Gehen Sie nicht in überflutete Flächen.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			},
 			"list5Intro": "<strong>Notfallmaßnahmen am und im Haus</strong>",
 			"list5": {
@@ -151,7 +151,7 @@
 			"list3Image": {
 				"alt": "Grafik, die zeigt, dass man nicht in überflutete Flächen laufen oder fahren soll.",
 				"caption": "Laufen oder fahren Sie nicht in überflutete Flächen.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			},
 			"list4Intro": "<strong>Fahren Sie nicht in überflutete Flächen oder tieferliegende Bereiche.</strong>",
 			"list4": {
@@ -164,7 +164,7 @@
 			"list4Image": {
 				"alt": "Grafik, die zeigt, dass man nicht in geflutete Flächen fahren soll und Unterführungen und Tiefgaragen meiden soll.",
 				"caption": "Fahren Sie nicht in geflutete Flächen und meiden Sie Unterführungen und Tiefgaragen.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			},
 			"list5Intro": "<strong>Seien Sie ggf. auf eine Evakuierung vorbereitet.</strong>",
 			"list5": {

@@ -19,7 +19,7 @@
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Überflutungen (pluviales Hochwasser) und Überschwemmungen (fluviales Hochwasser)",
 				"caption": "Abbildung 1: Hochwasser können unterschieden werden in Überflutungen (pluviales Hochwasser, oben) und Überschwemmungen (fluviales Hochwasser, unten)",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			}
 		},
 		"hazardVsRisk": {
@@ -52,7 +52,7 @@
 			"image": {
 				"alt": "Grafik, die zeigt, wie ein Starkregenereignis entsteht und wie ein durch Starkregen ausgelöstes Hochwasser in der Stadt aussieht.",
 				"caption": "Abbildung 3: oben: Wie entsteht ein Starkregenereignis; unten: Wie gestaltet sich ein durch Starkregen ausgelöstes Hochwasser in der Stadt.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			}
 		},
 		"assessment": {
@@ -66,7 +66,7 @@
 			"image": {
 				"alt": "Grafik, die Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse vergleicht.",
 				"caption": "Abbildung 4: Vergleich von Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			}
 		},
 		"types": {
@@ -75,7 +75,7 @@
 			"image": {
 				"alt": "Grafik, die die Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten veranschaulicht.",
 				"caption": "Abbildung 5: Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			},
 			"table": {
 				"head": {
@@ -132,7 +132,7 @@
 			"image": {
 				"alt": "Grafik, die den Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser darstellt.",
 				"caption": "Abbildung 6: Darstellung des Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser.",
-				"copyright": "© SenMVKU"
+				"copyright": "Bild: SenMVKU"
 			}
 		},
 		"furtherInformation": {
