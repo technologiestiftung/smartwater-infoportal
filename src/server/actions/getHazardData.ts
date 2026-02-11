@@ -5,32 +5,16 @@ import type { BuildingWMS, LocationData } from "../../lib/types";
 
 const geoServerClient = new GeoServerClient();
 
-export async function getHazardData(
+export async function getBuilding(
 	longitude: number,
 	latitude: number,
-): Promise<LocationData> {
+): Promise<{
+	locationData: LocationData | null;
+	buildingWMSData: BuildingWMS | null;
+}> {
 	try {
-		const result = await geoServerClient.findBuildingAtPoint(
-			longitude,
-			latitude,
-		);
-		return result;
+		return await geoServerClient.getBuilding(longitude, latitude);
 	} catch {
-		return {
-			found: false,
-			building: null,
-		};
+		return { locationData: null, buildingWMSData: null };
 	}
-}
-
-export async function getWMSForBuilding(
-	locationData: LocationData,
-): Promise<BuildingWMS | null> {
-	if (!locationData?.building) {
-		return null;
-	}
-	const buildingWMSData = await geoServerClient.getBuildingWMS(
-		locationData?.building,
-	);
-	return buildingWMSData;
 }

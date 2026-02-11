@@ -9,16 +9,13 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import useStore from "@/store/defaultStore";
-import {
-	getHazardData,
-	getWMSForBuilding,
-} from "@/server/actions/getHazardData";
 import CheckBlock from "@/components/CheckBlock";
 import { PDFKeys } from "@/components/Report/types";
 import {
 	getScreenshotForScenario,
 	translateWMSValue,
 } from "@/components/Report/utils";
+import { getBuilding } from "@/server/actions/getHazardData";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
@@ -38,18 +35,20 @@ export default function FloodCheckClient() {
 		try {
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
-			const locationData = await getHazardData(longitude, latitude);
-			setLocationData(locationData);
-			if (!locationData.found || !locationData.building) {
-				return;
-			}
-			const buildingWMSData = await getWMSForBuilding(locationData);
-
-			if (!buildingWMSData) {
+			const { buildingWMSData, locationData } = await getBuilding(
+				longitude,
+				latitude,
+			);
+			if (!locationData || !locationData.building || !buildingWMSData) {
 				return console.error(
-					"No WMS data found for building, cannot fetch PDF images",
+					"No location or WMS data found for building, cannot fetch PDF images",
 				);
 			}
+			console.log("geoServerClient.getBuilding ✅✅✅", {
+				buildingWMSData,
+				locationData,
+			});
+			setLocationData(locationData);
 
 			const addToPDFKeys: PDFKeys = {};
 

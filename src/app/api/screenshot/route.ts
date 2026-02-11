@@ -30,15 +30,6 @@ export async function POST(req: Request) {
 
 		const isProd = process.env.NODE_ENV === "development" ? false : true;
 
-		if (!isProd) {
-			return NextResponse.json(
-				{
-					error: "Screenshot generation is only available in production",
-				},
-				{ status: 400 },
-			);
-		}
-
 		let width = 1140;
 		let height = 700;
 		if (url.includes("name=heavyRain")) {
@@ -52,23 +43,23 @@ export async function POST(req: Request) {
 			height = 486;
 		}
 
-		const puppeteer = (await import("puppeteer-core")).default;
-		const chromium = (await import("@sparticuz/chromium")).default;
+		if (isProd) {
+			const puppeteer = (await import("puppeteer-core")).default;
+			const chromium = (await import("@sparticuz/chromium")).default;
 
-		browser = await puppeteer.launch({
-			args: chromium.args,
-			executablePath: await chromium.executablePath(),
-			headless: true,
-			defaultViewport: { width, height },
-		});
-		// if (isProd) {
-		/* } */ /* else {
+			browser = await puppeteer.launch({
+				args: chromium.args,
+				executablePath: await chromium.executablePath(),
+				headless: true,
+				defaultViewport: { width, height },
+			});
+		} else {
 			const puppeteer = (await import("puppeteer")).default;
 			browser = await puppeteer.launch({
 				headless: true,
 				defaultViewport: { width, height },
 			});
-		} */
+		}
 
 		const page = await browser.newPage();
 

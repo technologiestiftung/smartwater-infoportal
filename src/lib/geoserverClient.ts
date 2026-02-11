@@ -56,6 +56,21 @@ export class GeoServerClient {
 		);
 	}
 
+	async getBuilding(longitude: number, latitude: number) {
+		const locationData = await this.findBuildingAtPoint(longitude, latitude);
+		if (!locationData.found || !locationData.building) {
+			return {
+				locationData,
+				buildingWMSData: null,
+			};
+		}
+		const buildingWMSData = await this.getBuildingWMS(locationData.building);
+		return {
+			locationData,
+			buildingWMSData,
+		};
+	}
+
 	async findBuildingAtPoint(longitude: number, latitude: number) {
 		try {
 			const [transformedX, transformedY] = proj4("EPSG:4326", "EPSG:25833", [

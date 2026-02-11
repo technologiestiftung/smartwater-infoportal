@@ -30,6 +30,7 @@ export default function AddressSearch() {
 		"Majakowskiring 9",
 		"Rüsternallee 24",
 		"Forckenbeckstraße 20, 14199 Berlin",
+		"Hainstraße 7, 12439 Berlin",
 	];
 
 	const [showLoading, setShowLoading] = useState<boolean>(false);
@@ -163,7 +164,7 @@ export default function AddressSearch() {
 								{testingAddresses.map((address) => (
 									<div
 										key={address}
-										className="bg-black/20 p-6"
+										className="cursor-pointer bg-black/20 p-2"
 										onClick={() => {
 											handleChange({
 												target: { name: "addresse", value: address },
