@@ -37,8 +37,7 @@ export async function POST(req: Request) {
 			height = 292;
 		} else if (url.includes("name=fluvialFlood")) {
 			width = 400;
-			height =
-				typeof window !== "undefined" && window.innerWidth < 768 ? 380 : 356;
+			height = 380 // 356;
 		} else if (url.includes("riskblock-screenshot")) {
 			width = 400;
 			height = 486;
