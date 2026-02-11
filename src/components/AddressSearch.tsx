@@ -210,7 +210,7 @@ export default function AddressSearch() {
 						)}
 					</div>
 					{error && (
-						<div className="max-w-[50%]">
+						<div className="lg:max-w-[50%]">
 							<Label className="text-destructive text-primary">{error}</Label>
 						</div>
 					)}
