@@ -35,7 +35,7 @@
 			"titleImage": {
 				"alt": "Illustration eines Wassertanks auf einem Dach als Sinnbild für das Smart-Water-Umsetzungsprojekt der Digitalstrategie des Landes Berlin.“",
 				"caption": "Sinnbild für das Smart Water Umsetzungsprojekt der Digitalstrategie des Landes Berlins",
-				"copyright": "© Senatskanzlei Berlin"
+				"copyright": "Bild: Senatskanzlei Berlin"
 			},
 			"tenantInfo": "Auch als Mieter:in können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
 			"recommendations": {
@@ -45,12 +45,12 @@
 			"image_A1": {
 				"alt": "Eine überflutete Garageneinfahrt. Das Wasser ist in die Garage geflossen.",
 				"caption": "Für viele Bereiche Berlins wie bspw.für Tiefgaragen besteht Gefahr bei Hochwasser. Informieren Sie sich über die Handlungsempfehlungen und schütze Sie sich selbst und Ihr Gebäude.",
-				"copyright": "© Berliner Feuerwehr"
+				"copyright": "Bild: Berliner Feuerwehr"
 			},
 			"image_A2": {
 				"alt": "Ein Feuerwehrmann steht auf einer überfluteten Straße.",
 				"caption": "Hochwasser erfordert schnelles Handeln. Hintergrundwissen kann dabei unterstützen.",
-				"copyright": "© Berliner Feuerwehr"
+				"copyright": "Bild: Berliner Feuerwehr"
 			}
 		},
 		"floodRadar": {
