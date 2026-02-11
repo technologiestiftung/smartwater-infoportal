@@ -15,6 +15,7 @@ import VectorLayer from "ol/layer/Vector";
 import OLGeoJSON from "ol/format/GeoJSON";
 import ScaleLine from "ol/control/ScaleLine";
 import { Scenario } from "@/types/map";
+import { transform } from "ol/proj";
 
 if (appConfig?.namedProjections?.length) {
 	appConfig.namedProjections.forEach(([name, def]) => {
@@ -98,6 +99,15 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 							maxZoom: 19,
 						});
 					}
+				}
+			} else if (scenario === "SRHK_UNCOMMON_HEAVY_RAIN") {
+				{
+					const lon = 13.342964712531607;
+					const lat = 52.525293291622035;
+
+					const center = transform([lon, lat], "EPSG:4326", projection);
+
+					map.getView().setCenter(center);
 				}
 			}
 
