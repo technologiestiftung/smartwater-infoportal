@@ -40,7 +40,7 @@ export default function Recommendations() {
 					),
 					link2: (chunks) => (
 						<Link
-							className="text-text-link"
+							className="text-text-link underline"
 							href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
 							target="_blank"
 							rel="noopener noreferrer"
