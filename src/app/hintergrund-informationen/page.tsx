@@ -12,14 +12,14 @@ const TableCell = ({ text, title }: { text: ReactNode; title?: boolean }) => {
 		return (
 			<td
 				rowSpan={3}
-				className="w-0 whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold lg:p-[1em_0.65em]"
+				className="w-0 border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold whitespace-pre-line lg:p-[1em_0.65em]"
 			>
 				{text}
 			</td>
 		);
 	}
 	return (
-		<td className="whitespace-pre-line border border-[#dddddd] p-1 lg:p-[1em_0.65em]">
+		<td className="border border-[#dddddd] p-1 whitespace-pre-line lg:p-[1em_0.65em]">
 			{text}
 		</td>
 	);
@@ -80,24 +80,30 @@ export default function GeneralInformation() {
 	const TableHead = ({ text }: { text?: string }) => {
 		if (!text) {
 			return (
-				<th className="w-0 whitespace-nowrap border border-[#dddddd] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]"></th>
+				<th className="w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em]"></th>
 			);
 		}
 		return (
-			<th className="whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]">
+			<th className="border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em]">
 				{text}
 			</th>
 		);
 	};
 
 	const scrollToWithOffset = (id: string, offset = 128) => {
+		console.log("id :>> ", id);
 		const el = document.getElementById(id);
 		if (!el) {
 			return;
 		}
 
-		const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+		console.log(
+			"el.getBoundingClientRect().top :>> ",
+			el.getBoundingClientRect().top,
+		);
 
+		const y = el.getBoundingClientRect().top + 86;
+		console.log("y :>> ", y);
 		window.scrollTo({ top: y, behavior: "smooth" });
 	};
 
@@ -113,10 +119,10 @@ export default function GeneralInformation() {
 								<a
 									href={`#${key}`}
 									className="text-text-link"
-									onClick={(e) => {
+									/* onClick={(e) => {
 										e.preventDefault();
 										scrollToWithOffset(key);
-									}}
+									}} */
 								>
 									{label}
 								</a>
@@ -124,7 +130,10 @@ export default function GeneralInformation() {
 						))}
 					</ul>
 				</section>
-				<div className="divider" id="anker1" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker1"
+				/>
 				<section className="">
 					<TextBlock
 						desktopColSpans={{ col1: 2, col2: 3 }}
@@ -150,7 +159,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker2" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker2"
+				/>
 				<section className="">
 					<TextBlock
 						desktopColSpans={{ col1: 3, col2: 2 }}
@@ -314,7 +326,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker5" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker5"
+				/>
 				<section className="relative mb-12 w-full lg:mb-0">
 					<TextBlock
 						desktopColSpans={{ col1: 2, col2: 3 }}
@@ -410,12 +425,15 @@ export default function GeneralInformation() {
 							</tbody>
 						</table>
 					</div>
-					<p className="mt-1 break-words px-4 text-sm font-normal leading-tight text-black lg:px-0">
+					<p className="mt-1 px-4 text-sm leading-tight font-normal break-words text-black lg:px-0">
 						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
 						Hochwasser erstellt wurden.
 					</p>
 				</section>
-				<div className="divider" id="anker6" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker6"
+				/>
 				<section className="">
 					<TextBlock
 						desktopColSpans={{ col1: 3, col2: 2 }}
@@ -481,7 +499,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker7" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker7"
+				/>
 				<section className="">
 					<div className="flex w-full flex-col gap-6">
 						<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
