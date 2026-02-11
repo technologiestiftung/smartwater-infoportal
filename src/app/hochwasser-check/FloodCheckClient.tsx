@@ -21,7 +21,12 @@ export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const { locationData, setPDFKeys, clearPDFKeys } = useStore();
+	const {
+		locationData,
+		setPDFKeys,
+		clearPDFKeys,
+		addToNumberOfFetchedPDFImages,
+	} = useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
 	const makePDFImagesInitializedRef = useRef<boolean>(false);
@@ -101,6 +106,7 @@ export default function FloodCheckClient() {
 						scenario,
 						locationData,
 					);
+					addToNumberOfFetchedPDFImages(scenarios.length);
 					addToPDFKeys[`#${key}`] = blob;
 				}
 			} catch (captureError) {

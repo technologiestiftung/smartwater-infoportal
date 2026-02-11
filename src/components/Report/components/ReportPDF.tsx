@@ -35,6 +35,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		floodRiskAnswers,
 		floodRiskResult,
 		pdfKeys,
+		numberOfFetchedPDFImages,
+		numberOfPDFImagesToFetch,
+		addToNumberOfFetchedPDFImages,
 	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -42,6 +45,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [error, setError] = useState<string | null>(null);
 	const [done, setDone] = useState<string[]>([]);
 	const isMobile = useMobile();
+	const addToImages = !skip ? 3 : 2;
 	const openPDFInNewTab = true;
 
 	const checks = [
@@ -51,7 +55,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		},
 		{
 			id: "images",
-			text: `Alle Bilder erstellt`,
 		},
 		{
 			id: "pdf",
@@ -179,6 +182,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					floodRiskResult,
 					floodRiskAnswers,
 				);
+				addToNumberOfFetchedPDFImages(undefined);
 				addToPDFKeys[`#${key}`] = blob;
 			}
 		} catch (captureError) {
@@ -216,7 +220,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			return;
 		}
 		makePDFInitializedRef.current = true;
-		console.log("checkFirstFetchCompleted :>> makePDF");
 		makePDF();
 	};
 
@@ -334,7 +337,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 															)}
 														/>
 														<span className={cn(isDone && "font-bold")}>
-															{check.text}
+															{check.id !== "images"
+																? check.text
+																: numberOfPDFImagesToFetch === 0
+																	? "Warten auf Bilder"
+																	: `${numberOfFetchedPDFImages} von ${numberOfPDFImagesToFetch + addToImages} Bildern erstellt`}
 														</span>
 													</div>
 												);

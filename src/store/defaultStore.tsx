@@ -63,6 +63,10 @@ type StoreState = {
 	pdfKeys: PDFKeys;
 	setPDFKeys: (pdfKeys: PDFKeys) => void;
 	clearPDFKeys: () => void;
+
+	numberOfFetchedPDFImages: number;
+	numberOfPDFImagesToFetch: number;
+	addToNumberOfFetchedPDFImages: (num: number | undefined) => void;
 };
 
 const currentFeatures: TestingFeatureNames[] = [
@@ -156,6 +160,8 @@ const useStore = create<StoreState>()(
 						errorLayers: [],
 						showTestingFeatures: currentFeatures,
 						pdfKeys: {},
+						numberOfFetchedPDFImages: 0,
+						numberOfPDFImagesToFetch: 0,
 					}),
 
 				// Selectors
@@ -168,6 +174,21 @@ const useStore = create<StoreState>()(
 				pdfKeys: {},
 				setPDFKeys: (pdfKeys: PDFKeys) => set({ pdfKeys }),
 				clearPDFKeys: () => set({ pdfKeys: {} }),
+
+				numberOfFetchedPDFImages: 0,
+				numberOfPDFImagesToFetch: 0,
+				addToNumberOfFetchedPDFImages: (num: number | undefined) =>
+					set((state) => {
+						if (typeof num === "number") {
+							return {
+								numberOfPDFImagesToFetch: num,
+								numberOfFetchedPDFImages: state.numberOfFetchedPDFImages + 1,
+							};
+						}
+						return {
+							numberOfFetchedPDFImages: state.numberOfFetchedPDFImages + 1,
+						};
+					}),
 			}),
 			{
 				name: "flood-risk-store",
