@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 		};
 
 		if (buildingGeometry && outlineBufferGeometry) {
-			urlConfig.waitUntil = "domcontentloaded";
+			// urlConfig.waitUntil = "domcontentloaded";
 			await page.evaluateOnNewDocument(
 				(payload: any) => {
 					// @ts-expect-error

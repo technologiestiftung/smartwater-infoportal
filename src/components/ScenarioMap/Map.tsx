@@ -44,12 +44,6 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 		};
 	}, [map]);
 
-	useEffect(() => {
-		setTimeout(() => {
-			(window as any).__SCREENSHOT_READY__ = true;
-		}, 11_000);
-	}, []);
-
 	return (
 		<div className="relative">
 			<MapInitializer scenario={scenario} />
