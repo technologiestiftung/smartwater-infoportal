@@ -35,17 +35,11 @@ export async function POST(req: Request) {
 
 		const isProd = process.env.NODE_ENV === "development" ? false : true;
 
-		let width = 1140;
-		let height = 700;
-		if (url.includes("name=heavyRain")) {
-			width = 400;
-			height = 316; // 292;
-		} else if (url.includes("name=fluvialFlood")) {
-			width = 400;
-			height = 380; // 356;
-		} else if (url.includes("riskblock-screenshot")) {
-			width = 400;
-			height = 486;
+		let width = 400;
+		let height = 450;
+		if (url.includes("scenario")) {
+			width = 1140;
+			height = 700;
 		}
 
 		if (isProd) {
