@@ -38,6 +38,7 @@
 		"ol": "^10.6.1",
 		"ol-mapbox-style": "^13.0.1",
 		"proj4": "^2.19.10",
+		"puppeteer": "^24.37.2",
 		"puppeteer-core": "^24.37.2",
 		"react": "19.2.4",
 		"react-dom": "19.2.4",
@@ -61,7 +62,6 @@
 		"jest": "^30.0.5",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.7.0",
-		"puppeteer": "^24.37.2",
 		"tailwindcss": "^4",
 		"ts-jest": "^29.4.1",
 		"typescript": "^5"
