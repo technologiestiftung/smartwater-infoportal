@@ -13,7 +13,6 @@ import {
 	calculateQuestionScore,
 } from "@/utils/floodRiskCalculator";
 import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
-import { PDFKeys } from "@/components/Report/types";
 
 type TestingFeatureNames =
 	| "resetAllButtonOnHomepage"
@@ -82,7 +81,6 @@ const useStore = create<StoreState>()(
 				isLegendeOpen: true,
 				errorLayers: [],
 				showTestingFeatures: currentFeatures,
-				pdfError: null,
 
 				setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) =>
 					set({ currentUserAddress: currentUserAddress }),
