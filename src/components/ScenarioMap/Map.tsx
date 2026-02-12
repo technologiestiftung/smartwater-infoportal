@@ -33,10 +33,6 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 			return;
 		}
 
-		setTimeout(() => {
-			(window as any).__SCREENSHOT_READY__ = true;
-		}, 11_000);
-
 		const markReady = () => {
 			(window as any).__SCREENSHOT_READY__ = true;
 		};
@@ -47,6 +43,12 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 			map.un("rendercomplete", markReady);
 		};
 	}, [map]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			(window as any).__SCREENSHOT_READY__ = true;
+		}, 11_000);
+	}, []);
 
 	return (
 		<div className="relative">
