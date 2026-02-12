@@ -64,14 +64,14 @@ export default function FloodCheckClient() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [hash]);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		if (makePDFImagesInitializedRef.current) {
 			return;
 		}
 		makePDFImagesInitializedRef.current = true;
 		triggerWMSAndPDFImageFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, []); */
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">

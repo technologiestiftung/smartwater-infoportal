@@ -1,8 +1,9 @@
 /* eslint-disable */
 
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 type Body = {
 	url: string;
@@ -96,12 +97,39 @@ export async function POST(req: Request) {
 			(buildingGeometry && outlineBufferGeometry) ||
 			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
 		) {
+			await page.setUserAgent(
+				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+			);
+			await page.setExtraHTTPHeaders({ "Accept-Language": "en-US,en;q=0.9" });
+			await page.setRequestInterception(true);
+			page.on("request", (req: any) => {
+				const u = req.url();
+				if (u.includes("/api/screenshot")) return req.abort(); // prevent deadlock
+				req.continue();
+			});
 			await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
 				timeout: 120_000,
 			});
 		}
 
 		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
+
+		if (
+			(buildingGeometry && outlineBufferGeometry) ||
+			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
+		) {
+			after(async () => {
+				try {
+					await Promise.race([
+						browser.close(),
+						new Promise((r) => setTimeout(r, 1500)),
+					]);
+				} catch {}
+				try {
+					browser.process?.()?.kill("SIGKILL");
+				} catch {}
+			});
+		}
 
 		return NextResponse.json({
 			imageBase64: Buffer.from(buffer).toString("base64"),

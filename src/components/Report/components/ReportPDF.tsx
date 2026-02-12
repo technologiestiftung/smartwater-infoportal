@@ -224,17 +224,42 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 	const checkMakePDF = () => {
 		const checkFirstFetchCompleted = pdfKeys["{finishedFirstFetch}"];
-		if (makePDFInitializedRef.current || !checkFirstFetchCompleted) {
+		if (/* makePDFInitializedRef.current ||  */ !checkFirstFetchCompleted) {
 			return;
 		}
-		makePDFInitializedRef.current = true;
+		// makePDFInitializedRef.current = true;
 		makePDF();
+	};
+
+	const triggerWMSAndPDFImageFetch = async () => {
+		console.log("triggerWMSAndPDFImageFetch ✅✅✅", locationData);
+		clearPDFKeys();
+		try {
+			if (!!locationData) {
+				await getWMSForBuildingAndStartPDFImageFetch(
+					locationData,
+					setPDFKeys,
+					addToNumberOfFetchedPDFImages,
+				);
+			} else {
+				throw new Error("No location Data found in triggerWMSAndPDFImageFetch");
+			}
+		} catch (error) {
+			setPDFError(error as string);
+		}
 	};
 
 	useEffect(() => {
 		checkMakePDF();
 		checkWMSLoaded();
 	}, [pdfKeys]);
+	useEffect(() => {
+		if (makePDFInitializedRef.current) {
+			return;
+		}
+		makePDFInitializedRef.current = true;
+		triggerWMSAndPDFImageFetch();
+	}, []);
 
 	useEffect(() => {
 		if (!!pdfError) {
@@ -310,6 +335,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					<Button
 						onClick={async () => {
 							setError(null);
+							setDone([]);
 							if (pdfError) {
 								console.log(
 									"retrigger getWMSForBuildingAndStartPDFImageFetch 🚀🚀🚀",
