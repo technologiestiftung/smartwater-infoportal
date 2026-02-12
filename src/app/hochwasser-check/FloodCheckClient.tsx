@@ -78,7 +78,7 @@ export default function FloodCheckClient() {
 			const errorRareFlood = errors?.includes("rareFlood") || false;
 			const errorFloodZone = errors?.includes("floodZoneIndex") || false;
 
-			const scenarios = ["SR", "HW"];
+			const scenarios: string[] = []; // ["SR", "HW"];
 
 			if (
 				!!locationData?.building?.floodZoneIndex &&
