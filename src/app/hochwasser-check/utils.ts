@@ -27,10 +27,6 @@ const getWMSForBuildingAndStartPDFImageFetch = async (
 			"No location data found, cannot proceed with PDF image fetch",
 		);
 	}
-	console.log(
-		"locationData?.building for getWMSForBuilding :>> ",
-		locationData?.building,
-	);
 	const buildingWMSData = await getWMSForBuilding(locationData);
 	if (!buildingWMSData) {
 		throw new Error(

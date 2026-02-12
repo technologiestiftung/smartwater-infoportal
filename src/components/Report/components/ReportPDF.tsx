@@ -305,7 +305,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					<p className="text-red-600">
 						<b>Beim Erstellen des PDFs ist ein Fehler aufgetreten:</b>
 						<br />
-						{error}
+						{String(error)}
 					</p>
 					<Button
 						onClick={async () => {
