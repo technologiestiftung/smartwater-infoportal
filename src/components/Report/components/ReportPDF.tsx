@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
 import { getWMSForBuilding } from "@/server/actions/getHazardData";
+import { BuildingWMS } from "@/lib/types";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -169,11 +170,17 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			setError(null);
 		}
 
-		const buildingWMSData = await getWMSForBuilding(locationData);
-		if (!buildingWMSData) {
-			return setError(
-				"No building WMS data found, cannot proceed with PDF image fetch",
-			);
+		let buildingWMSData: BuildingWMS | null = null;
+
+		try {
+			buildingWMSData = await getWMSForBuilding(locationData);
+			if (!buildingWMSData) {
+				return setError(
+					"No building WMS data found, cannot proceed with PDF image fetch",
+				);
+			}
+		} catch (wmsError) {
+			return setError("Error fetching WMS data: " + wmsError);
 		}
 
 		setDone((prev) => [...prev, "wms"]);
