@@ -50,6 +50,7 @@ export default function AddressSearch() {
 		"Rüsternallee 24",
 		"Forckenbeckstraße 20, 14199 Berlin",
 		"Hainstraße 7, 12439 Berlin",
+		"Havelberger Straße 15, 10559 Berlin",
 	];
 
 	const handleSubmit = () => {
@@ -68,6 +69,7 @@ export default function AddressSearch() {
 						"Beim Abrufen der Gebäudedaten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
 					);
 				}
+				console.log("setLocationData ✅✅✅");
 				setLocationData(locationData);
 				router.push("/hochwasser-check");
 			} else {

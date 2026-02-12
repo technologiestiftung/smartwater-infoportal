@@ -31,7 +31,7 @@ export default function FloodCheckClient() {
 	const getCheckFromURL = searchParams.get("skip") === "true";
 	const makePDFImagesInitializedRef = useRef<boolean>(false);
 
-	const getLocationDataAndStartPDFImageFetch = async () => {
+	const getWMSForBuildingAndStartPDFImageFetch = async () => {
 		clearPDFKeys();
 		try {
 			if (!locationData || !locationData.building) {
@@ -45,6 +45,8 @@ export default function FloodCheckClient() {
 					"No building WMS data found, cannot proceed with PDF image fetch",
 				);
 			}
+
+			console.log("buildingWMSData :>> ", buildingWMSData);
 
 			const addToPDFKeys: PDFKeys = {};
 
@@ -66,35 +68,56 @@ export default function FloodCheckClient() {
 				isInExtremeRainHazardMap,
 			} = buildingWMSData;
 
+			const errorRareHeavyRain = errors?.includes("rareHeavyRain") || false;
+			const errorUncommonHeavyRain =
+				errors?.includes("uncommonHeavyRain") || false;
+			const errorExtremeHeavyRain =
+				errors?.includes("extremeHeavyRain") || false;
+			const errorFrequentFlood = errors?.includes("frequentFlood") || false;
+			const errorAverageFlood = errors?.includes("averageFlood") || false;
+			const errorRareFlood = errors?.includes("rareFlood") || false;
+			const errorFloodZone = errors?.includes("floodZoneIndex") || false;
+
 			const scenarios = ["SR", "HW"];
 
 			if (
 				!!locationData?.building?.floodZoneIndex &&
 				locationData?.building?.floodZoneIndex > 0
 			) {
-				// scenarios.push("HW");
-				scenarios.push("FLOOD_ZONE");
+				if (!errorFloodZone) {
+					scenarios.push("FLOOD_ZONE");
+				}
 			}
 			if (!!hasHeavyRainHazardMap) {
-				scenarios.push("SRGK_RARE_HEAVY_RAIN");
-				scenarios.push("SRGK_UNCOMMON_HEAVY_RAIN");
+				if (!errorRareHeavyRain) {
+					scenarios.push("SRGK_RARE_HEAVY_RAIN");
+				}
+				if (!errorUncommonHeavyRain) {
+					scenarios.push("SRGK_UNCOMMON_HEAVY_RAIN");
+				}
 			} else if (!hasHeavyRainHazardMap) {
-				scenarios.push("SRHK_UNCOMMON_HEAVY_RAIN");
+				if (!errorUncommonHeavyRain) {
+					scenarios.push("SRHK_UNCOMMON_HEAVY_RAIN");
+				}
 			}
-			if (isInExtremeRainHazardMap) {
-				scenarios.push("SRGK_EXTREME_HEAVY_RAIN");
-			} else {
-				scenarios.push("SRHK_EXTREME_HEAVY_RAIN");
+			if (!errorExtremeHeavyRain) {
+				if (isInExtremeRainHazardMap) {
+					scenarios.push("SRGK_EXTREME_HEAVY_RAIN");
+				} else {
+					scenarios.push("SRHK_EXTREME_HEAVY_RAIN");
+				}
 			}
-			if (!!frequentFloodMax) {
+			if (!!frequentFloodMax && !errorFrequentFlood) {
 				scenarios.push("FREQUENT_FLOOD");
 			}
-			if (!!averageFloodMax) {
+			if (!!averageFloodMax && !errorAverageFlood) {
 				scenarios.push("AVERAGE_FREQUENT_FLOOD");
 			}
-			if (!!rareFloodMax) {
+			if (!!rareFloodMax && !errorRareFlood) {
 				scenarios.push("RARE_FREQUENT_FLOOD");
 			}
+
+			console.log("scenarios :>> ", scenarios);
 
 			setPDFKeys({
 				wmsDataLoaded: true,
@@ -117,7 +140,6 @@ export default function FloodCheckClient() {
 			}
 
 			// Rare Heavy Rain
-			const errorRareHeavyRain = errors?.includes("rareHeavyRain") || false;
 			addToPDFKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
 			addToPDFKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
 			addToPDFKeys["{rareHeavyRainAverage}"] = translateWMSValue(
@@ -127,8 +149,6 @@ export default function FloodCheckClient() {
 			addToPDFKeys["{errorRareHeavyRain}"] = errorRareHeavyRain;
 
 			// Uncommon Heavy Rain
-			const errorUncommonHeavyRain =
-				errors?.includes("uncommonHeavyRain") || false;
 			addToPDFKeys["{hasSrgkUncommonHeavyRainMap}"] =
 				!errorUncommonHeavyRain && !!hasHeavyRainHazardMap;
 			addToPDFKeys["{hasSrhkUncommonHeavyRainMap}"] =
@@ -139,12 +159,9 @@ export default function FloodCheckClient() {
 				uncommonHeavyRainAverage,
 				"",
 			);
-			addToPDFKeys["{errorUncommonHeavyRain}"] =
-				errors?.includes("uncommonHeavyRain") || false;
+			addToPDFKeys["{errorUncommonHeavyRain}"] = errorUncommonHeavyRain;
 
 			// Extreme Heavy Rain
-			const errorExtremeHeavyRain =
-				errors?.includes("extremeHeavyRain") || false;
 			addToPDFKeys["{hasSrgkExtremeHeavyRainMap}"] =
 				!errorExtremeHeavyRain &&
 				hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
@@ -160,7 +177,6 @@ export default function FloodCheckClient() {
 			addToPDFKeys["{errorExtremeHeavyRain}"] = errorExtremeHeavyRain;
 
 			// Frequent Flood
-			const errorFrequentFlood = errors?.includes("frequentFlood") || false;
 			addToPDFKeys["{errorFrequentFlood}"] = errorFrequentFlood;
 			addToPDFKeys["{hasNoFrequentFloodData}"] =
 				!errorFrequentFlood && !frequentFloodMax;
@@ -171,7 +187,6 @@ export default function FloodCheckClient() {
 				translateWMSValue(frequentFloodAverage);
 
 			// Average Flood
-			const errorAverageFlood = errors?.includes("averageFlood") || false;
 			addToPDFKeys["{errorAverageFlood}"] = errorAverageFlood;
 			addToPDFKeys["{hasNoAverageFloodData}"] =
 				!errorAverageFlood && !averageFloodMax;
@@ -182,7 +197,6 @@ export default function FloodCheckClient() {
 				translateWMSValue(averageFloodAverage);
 
 			// Rare Flood
-			const errorRareFlood = errors?.includes("rareFlood") || false;
 			addToPDFKeys["{errorRareFlood}"] = errorRareFlood;
 			addToPDFKeys["{hasNoRareFloodData}"] = !errorRareFlood && !rareFloodMax;
 			addToPDFKeys["{hasRareFloodData}"] = !errorRareFlood && !!rareFloodMax;
@@ -190,7 +204,6 @@ export default function FloodCheckClient() {
 			addToPDFKeys["{rareFloodAverage}"] = translateWMSValue(rareFloodAverage);
 
 			// Flood Zone
-			const errorFloodZone = errors?.includes("floodZoneIndex") || false;
 			addToPDFKeys["{errorFloodZone}"] = errorFloodZone;
 			addToPDFKeys["{hasNoFloodZoneData}"] =
 				!errorFloodZone && !locationData.building.floodZoneIndex;
@@ -230,7 +243,8 @@ export default function FloodCheckClient() {
 			return;
 		}
 		makePDFImagesInitializedRef.current = true;
-		getLocationDataAndStartPDFImageFetch();
+		console.log("getWMSForBuildingAndStartPDFImageFetch started ✅✅✅");
+		getWMSForBuildingAndStartPDFImageFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

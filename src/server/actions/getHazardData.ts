@@ -1,7 +1,7 @@
 "use server";
 
 import { GeoServerClient } from "../../lib/geoserverClient";
-import type { Building, BuildingWMS, LocationData } from "../../lib/types";
+import type { BuildingWMS, LocationData } from "../../lib/types";
 
 const geoServerClient = new GeoServerClient();
 

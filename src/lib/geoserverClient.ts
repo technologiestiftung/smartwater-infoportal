@@ -36,7 +36,15 @@ const extremeHeavyRainMaxAreas = [
 	"Frankentaler Ufer",
 ];
 
-const testingMapErrors: string[] = ["extremeHeavyRain"];
+const testingMapErrors: string[] = [
+	"rareHeavyRain",
+	"uncommonHeavyRain",
+	"extremeHeavyRain",
+	"frequentFlood",
+	"averageFlood",
+	"rareFlood",
+	"floodZoneIndex",
+];
 
 export class GeoServerClient {
 	private readonly baseUrl?: string;
