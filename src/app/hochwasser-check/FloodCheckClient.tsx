@@ -43,7 +43,7 @@ export default function FloodCheckClient() {
 				throw new Error("No location Data found in triggerWMSAndPDFImageFetch");
 			}
 		} catch (error) {
-			setPDFError("Error in triggerWMSAndPDFImageFetch:" + error);
+			setPDFError(error as string);
 		}
 	};
 

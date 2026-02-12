@@ -311,14 +311,23 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 						onClick={async () => {
 							setError(null);
 							if (pdfError) {
+								console.log(
+									"retrigger getWMSForBuildingAndStartPDFImageFetch 🚀🚀🚀",
+								);
 								setPDFError(null);
 								clearPDFKeys();
-								if (!!locationData) {
-									await getWMSForBuildingAndStartPDFImageFetch(
-										locationData,
-										setPDFKeys,
-										addToNumberOfFetchedPDFImages,
-									);
+								try {
+									if (!!locationData) {
+										await getWMSForBuildingAndStartPDFImageFetch(
+											locationData,
+											setPDFKeys,
+											addToNumberOfFetchedPDFImages,
+										);
+									} else {
+										throw new Error("No locationData provided");
+									}
+								} catch (err) {
+									setError(err as string);
 								}
 							} else {
 								makePDF();
