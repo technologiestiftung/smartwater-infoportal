@@ -1,5 +1,5 @@
 "use client";
-import TextBlock from "@/components/TextBlock";
+import WrappingTextBlock from "@/components/WrappingTextBlock";
 import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import Link from "next/link";
@@ -12,14 +12,14 @@ const TableCell = ({ text, title }: { text: ReactNode; title?: boolean }) => {
 		return (
 			<td
 				rowSpan={3}
-				className="w-0 whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold lg:p-[1em_0.65em]"
+				className="w-0 border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold whitespace-pre-line lg:p-[1em_0.65em]"
 			>
 				{text}
 			</td>
 		);
 	}
 	return (
-		<td className="whitespace-pre-line border border-[#dddddd] p-1 lg:p-[1em_0.65em]">
+		<td className="border border-[#dddddd] p-1 whitespace-pre-line lg:p-[1em_0.65em]">
 			{text}
 		</td>
 	);
@@ -80,11 +80,11 @@ export default function GeneralInformation() {
 	const TableHead = ({ text }: { text?: string }) => {
 		if (!text) {
 			return (
-				<th className="w-0 whitespace-nowrap border border-[#dddddd] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]"></th>
+				<th className="w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em]"></th>
 			);
 		}
 		return (
-			<th className="whitespace-pre-line border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold text-black lg:p-[1em_0.65em]">
+			<th className="border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em]">
 				{text}
 			</th>
 		);
@@ -126,21 +126,12 @@ export default function GeneralInformation() {
 				</section>
 				<div className="divider" id="anker1" />
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 2, col2: 3 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex w-full flex-col gap-6">
-								<h2 className="">{t("generalInfo.definition.title")}</h2>
-								<p className="whitespace-pre-line">
-									{t("generalInfo.definition.description")}
-								</p>
-							</div>
-						}
-						slotB={
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="left"
+						image={
 							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
 								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
 								alt={t("generalInfo.definition.image.alt")}
 								caption={t("generalInfo.definition.image.caption")}
@@ -148,15 +139,33 @@ export default function GeneralInformation() {
 								withZoomBox
 							/>
 						}
+						text={
+							<div className="[&>*+*]:mt-6">
+								<h2 className="">{t("generalInfo.definition.title")}</h2>
+								<p className="whitespace-pre-line">
+									{t("generalInfo.definition.description")}
+								</p>
+							</div>
+						}
 					/>
 				</section>
 				<div className="divider" id="anker2" />
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 3, col2: 2 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="right"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
+								alt={t("generalInfo.hazardVsRisk.image.alt")}
+								caption={t("generalInfo.hazardVsRisk.image.caption")}
+								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.hazardVsRisk.title")}</h2>
 								<p className="">{t("generalInfo.hazardVsRisk.description")}</p>
 								<h3 className="">
@@ -171,7 +180,6 @@ export default function GeneralInformation() {
 										link1: (chunks) => (
 											<Link
 												href="/handlungsempfehlungen"
-												rel="noopener noreferrer"
 												className="text-text-link underline"
 											>
 												{chunks}
@@ -181,16 +189,6 @@ export default function GeneralInformation() {
 								</p>
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
-								alt={t("generalInfo.hazardVsRisk.image.alt")}
-								caption={t("generalInfo.hazardVsRisk.image.caption")}
-								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 				</section>
 				<div
@@ -198,12 +196,21 @@ export default function GeneralInformation() {
 					id="anker3"
 				/>
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 2, col2: 3 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="left"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Enstehung_Starkregenereignis.png"
+								alt={t("generalInfo.floodThroughRain.image.alt")}
+								caption={t("generalInfo.floodThroughRain.image.caption")}
+								copyright={t("generalInfo.floodThroughRain.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.floodThroughRain.title")}</h2>
 								<p className="whitespace-pre-line">
 									{t.rich("generalInfo.floodThroughRain.description", {
@@ -242,28 +249,30 @@ export default function GeneralInformation() {
 								</ul>
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Enstehung_Starkregenereignis.png"
-								alt={t("generalInfo.floodThroughRain.image.alt")}
-								caption={t("generalInfo.floodThroughRain.image.caption")}
-								copyright={t("generalInfo.floodThroughRain.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 				</section>
+
 				<div
 					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
 					id="anker4"
 				/>
-				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 3, col2: 2 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+
+				<section>
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="right"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Wahrscheinlichkeiten.png"
+								alt={t("generalInfo.assessment.image.alt")}
+								caption={t("generalInfo.assessment.image.caption")}
+								copyright={t("generalInfo.assessment.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.assessment.title")}</h2>
 								{Object.entries(assessmentItems).map(([key]) => (
 									<p key={key} className="">
@@ -302,26 +311,25 @@ export default function GeneralInformation() {
 								))}
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Wahrscheinlichkeiten.png"
-								alt={t("generalInfo.assessment.image.alt")}
-								caption={t("generalInfo.assessment.image.caption")}
-								copyright={t("generalInfo.assessment.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 				</section>
 				<div className="divider" id="anker5" />
 				<section className="relative mb-12 w-full lg:mb-0">
-					<TextBlock
-						desktopColSpans={{ col1: 2, col2: 3 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="left"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
+								alt={t("generalInfo.types.image.alt")}
+								caption={t("generalInfo.types.image.caption")}
+								copyright={t("generalInfo.types.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.types.title")}</h2>
 								<p className="whitespace-pre-line">
 									{t.rich("generalInfo.types.description", {
@@ -347,16 +355,6 @@ export default function GeneralInformation() {
 									})}
 								</p>
 							</div>
-						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
-								alt={t("generalInfo.types.image.alt")}
-								caption={t("generalInfo.types.image.caption")}
-								copyright={t("generalInfo.types.image.copyright")}
-								withZoomBox
-							/>
 						}
 					/>
 					<div className="max-w-[calc(100vw-2.5rem)] overflow-x-scroll">
@@ -410,18 +408,29 @@ export default function GeneralInformation() {
 							</tbody>
 						</table>
 					</div>
-					<p className="mt-1 break-words px-4 text-sm font-normal leading-tight text-black lg:px-0">
+					<p className="mt-1 px-4 text-sm leading-tight font-normal break-words text-black lg:px-0">
 						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
 						Hochwasser erstellt wurden.
 					</p>
 				</section>
 				<div className="divider" id="anker6" />
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 3, col2: 2 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="right"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Abbildung5.png"
+								alt={t("generalInfo.handling.image.alt")}
+								caption={t("generalInfo.handling.image.caption")}
+								copyright={t("generalInfo.handling.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
+								{" "}
 								<h2 className="">{t("generalInfo.handling.title")}</h2>
 								{Object.entries(handlingItems).map(([key]) => (
 									<p key={key} className="">
@@ -468,16 +477,6 @@ export default function GeneralInformation() {
 									</p>
 								))}
 							</div>
-						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Abbildung5.png"
-								alt={t("generalInfo.handling.image.alt")}
-								caption={t("generalInfo.handling.image.caption")}
-								copyright={t("generalInfo.handling.image.copyright")}
-								withZoomBox
-							/>
 						}
 					/>
 				</section>
