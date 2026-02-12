@@ -140,11 +140,12 @@ export class GeoServerClient {
 	}
 
 	async getBuildingWMS(building: Building): Promise<BuildingWMS> {
+		return notFoundWMS;
+	}
+	async getBuildingWMSOld(building: Building): Promise<BuildingWMS> {
 		try {
 			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
 				building;
-
-			return notFoundWMS;
 
 			if (
 				!geometry ||
