@@ -266,6 +266,7 @@ export const getScreenshotForScenario = async (
 		body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
 	}
 	body.url = `${window.location.origin}${path}`;
+	console.log("url :>> ", body.url);
 	const res = await fetch("/api/screenshot", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
