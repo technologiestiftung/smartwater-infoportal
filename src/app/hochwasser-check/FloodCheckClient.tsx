@@ -29,7 +29,7 @@ export default function FloodCheckClient() {
 	const isDev = process.env.NODE_ENV === "development";
 
 	const triggerWMSAndPDFImageFetch = async () => {
-		console.log("triggerWMSAndPDFImageFetch ✅✅✅");
+		console.log("triggerWMSAndPDFImageFetch ✅✅✅", locationData);
 		clearPDFKeys();
 		try {
 			if (!!locationData) {
