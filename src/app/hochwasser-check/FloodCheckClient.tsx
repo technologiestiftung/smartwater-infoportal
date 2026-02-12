@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
@@ -7,50 +6,42 @@ import { useHash } from "@/hooks/useHash";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import useStore from "@/store/defaultStore";
 import CheckBlock from "@/components/CheckBlock";
-import getWMSForBuildingAndStartPDFImageFetch from "./utils";
+import { getHazardData } from "@/server/actions/getHazardData";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const {
-		locationData,
-		setPDFKeys,
-		clearPDFKeys,
-		addToNumberOfFetchedPDFImages,
-		setPDFError,
-	} = useStore();
+	const { currentUserAddress, setLocationData } = useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
-	const makePDFImagesInitializedRef = useRef<boolean>(false);
-	const isDev = process.env.NODE_ENV === "development";
 
-	const triggerWMSAndPDFImageFetch = async () => {
-		console.log("triggerWMSAndPDFImageFetch ✅✅✅", locationData);
-		clearPDFKeys();
+	const checkHazard = async (skip?: boolean) => {
+		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
+			return;
+		}
 		try {
-			if (!!locationData) {
-				await getWMSForBuildingAndStartPDFImageFetch(
-					locationData,
-					setPDFKeys,
-					addToNumberOfFetchedPDFImages,
-					isDev,
-				);
+			const longitude = parseFloat(currentUserAddress.lon);
+			const latitude = parseFloat(currentUserAddress.lat);
+			const result = await getHazardData(longitude, latitude);
+			setLocationData(result);
+			if (skip) {
+				router.push("/hochwasser-check?skip=true#results");
 			} else {
-				throw new Error("No location Data found in triggerWMSAndPDFImageFetch");
+				router.push("/hochwasser-check#questionnaire");
 			}
 		} catch (error) {
-			setPDFError(error as string);
+			console.error("Error in checkHazard function:", error);
 		}
 	};
 
 	useEffect(() => {
 		// eslint-disable-next-line no-extra-boolean-cast
 		if (!!hash) {
-			setTimeout(() => window.scrollTo(0, 0), 100);
+			window.scrollTo(0, 0);
 		}
 	}, [hash]);
 
@@ -63,15 +54,6 @@ export default function FloodCheckClient() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [hash]);
-
-	/* useEffect(() => {
-		if (makePDFImagesInitializedRef.current) {
-			return;
-		}
-		makePDFImagesInitializedRef.current = true;
-		triggerWMSAndPDFImageFetch();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []); */
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
@@ -132,12 +114,7 @@ export default function FloodCheckClient() {
 						<p className="">{t("floodCheck.start.description")}</p>
 						<CheckBlock
 							onSubmit={(goTo) => {
-								const skip = goTo === "no";
-								if (skip) {
-									router.push("/hochwasser-check?skip=true#results");
-								} else {
-									router.push("/hochwasser-check#questionnaire");
-								}
+								checkHazard(goTo === "no");
 							}}
 						/>
 					</div>

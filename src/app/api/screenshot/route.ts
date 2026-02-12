@@ -35,8 +35,6 @@ export async function POST(req: Request) {
 
 		const isProd = process.env.NODE_ENV === "development" ? false : true;
 
-		console.log("isProd :>> ", isProd);
-
 		let width = 1140;
 		let height = 700;
 		if (url.includes("name=heavyRain")) {
@@ -50,7 +48,7 @@ export async function POST(req: Request) {
 			height = 486;
 		}
 
-		if (false) {
+		if (isProd) {
 			const puppeteer = (await import("puppeteer-core")).default;
 			const chromium = (await import("@sparticuz/chromium")).default;
 
@@ -80,8 +78,6 @@ export async function POST(req: Request) {
 
 		const page = await browser.newPage();
 
-		console.log("page :>> ", page);
-
 		if (buildingGeometry && outlineBufferGeometry) {
 			await page.evaluateOnNewDocument(
 				(payload: any) => {
@@ -109,15 +105,12 @@ export async function POST(req: Request) {
 			);
 		}
 
-		console.log("page.goto :>> ");
-
 		await page.goto(url, { waitUntil: "networkidle2" });
 
 		if (
 			(buildingGeometry && outlineBufferGeometry) ||
 			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
 		) {
-			console.log("page.waitForFunction");
 			await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
 				timeout: 20_000,
 			});
@@ -126,8 +119,6 @@ export async function POST(req: Request) {
 		}
 
 		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
-
-		console.log("buffer");
 
 		return NextResponse.json({
 			imageBase64: Buffer.from(buffer).toString("base64"),

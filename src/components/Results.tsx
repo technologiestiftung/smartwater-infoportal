@@ -32,7 +32,7 @@ const Results: React.FC = () => {
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
 	const isDev = process.env.NODE_ENV === "development";
-	const showMap = true;
+	const showMap = !isDev;
 
 	// Define filter keys for translation
 	const filterKeys = [

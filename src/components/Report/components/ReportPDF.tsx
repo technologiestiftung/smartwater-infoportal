@@ -11,6 +11,7 @@ import {
 	getToday,
 	translateHazardTags,
 	getScreenshotForScenario,
+	translateWMSValue,
 } from "../utils";
 import pdfData from "@/components/Report/pdf.json";
 import { drawPDF } from "../pdf";
@@ -18,7 +19,7 @@ import { PDFKeys, PDFProps } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
-import getWMSForBuildingAndStartPDFImageFetch from "@/app/hochwasser-check/utils";
+import { getWMSForBuilding } from "@/server/actions/getHazardData";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -35,22 +36,17 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		locationData,
 		floodRiskAnswers,
 		floodRiskResult,
-		pdfKeys,
-		numberOfFetchedPDFImages,
-		numberOfPDFImagesToFetch,
-		pdfError,
-		setPDFError,
-		setPDFKeys,
-		addToNumberOfFetchedPDFImages,
-		clearPDFKeys,
 	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [done, setDone] = useState<string[]>([]);
+	const [numberOfPDFImagesToFetch, setNumberOfPDFImagesToFetch] =
+		useState<number>(0);
+	const [numberOfFetchedPDFImages, setNumberOfFetchedPDFImages] =
+		useState<number>(0);
 	const isMobile = useMobile();
-	const addToImages = !skip ? 3 : 2;
 	const openPDFInNewTab = true;
 
 	const checks = [
@@ -162,6 +158,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const makePDF = async () => {
+		console.log("makePDF 🚀🚀🚀");
 		if (!locationData?.found || !locationData.building) {
 			return setError(
 				"Es wurden leider keine Gebäudedaten gefunden. Also kann das PDF nicht erstellt werden.",
@@ -172,14 +169,95 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			setError(null);
 		}
 
-		// add PDFKeys from Questionnaire
-		Object.assign(addToPDFKeys, pdfKeys);
+		const buildingWMSData = await getWMSForBuilding(locationData);
+		if (!buildingWMSData) {
+			return setError(
+				"No building WMS data found, cannot proceed with PDF image fetch",
+			);
+		}
 
-		const scenarios = ["heavyRainWidget", "fluvialFloodWidget"];
+		setDone((prev) => [...prev, "wms"]);
+
+		console.log("buildingWMSData :>> ", buildingWMSData);
+
+		const {
+			hasHeavyRainHazardMap,
+			rareHeavyRainMax,
+			rareHeavyRainAverage,
+			uncommonHeavyRainMax,
+			uncommonHeavyRainAverage,
+			extremeHeavyRainMax,
+			extremeHeavyRainAverage,
+			frequentFloodMax,
+			frequentFloodAverage,
+			averageFloodMax,
+			averageFloodAverage,
+			rareFloodMax,
+			rareFloodAverage,
+			errors,
+			isInExtremeRainHazardMap,
+		} = buildingWMSData;
+
+		const errorRareHeavyRain = errors?.includes("rareHeavyRain") || false;
+		const errorUncommonHeavyRain =
+			errors?.includes("uncommonHeavyRain") || false;
+		const errorExtremeHeavyRain = errors?.includes("extremeHeavyRain") || false;
+		const errorFrequentFlood = errors?.includes("frequentFlood") || false;
+		const errorAverageFlood = errors?.includes("averageFlood") || false;
+		const errorRareFlood = errors?.includes("rareFlood") || false;
+		const errorFloodZone = errors?.includes("floodZoneIndex") || false;
+
+		const scenarios: string[] = [
+			"SR",
+			"HW",
+			"heavyRainWidget",
+			"fluvialFloodWidget",
+		];
 
 		if (!skip) {
 			scenarios.push("risk-block");
 		}
+
+		if (
+			!!locationData?.building?.floodZoneIndex &&
+			locationData?.building?.floodZoneIndex > 0
+		) {
+			if (!errorFloodZone) {
+				scenarios.push("FLOOD_ZONE");
+			}
+		}
+		if (!!hasHeavyRainHazardMap) {
+			if (!errorRareHeavyRain) {
+				scenarios.push("SRGK_RARE_HEAVY_RAIN");
+			}
+			if (!errorUncommonHeavyRain) {
+				scenarios.push("SRGK_UNCOMMON_HEAVY_RAIN");
+			}
+		} else if (!hasHeavyRainHazardMap) {
+			if (!errorUncommonHeavyRain) {
+				scenarios.push("SRHK_UNCOMMON_HEAVY_RAIN");
+			}
+		}
+		if (!errorExtremeHeavyRain) {
+			if (isInExtremeRainHazardMap) {
+				scenarios.push("SRGK_EXTREME_HEAVY_RAIN");
+			} else {
+				scenarios.push("SRHK_EXTREME_HEAVY_RAIN");
+			}
+		}
+		if (!!frequentFloodMax && !errorFrequentFlood) {
+			scenarios.push("FREQUENT_FLOOD");
+		}
+		if (!!averageFloodMax && !errorAverageFlood) {
+			scenarios.push("AVERAGE_FREQUENT_FLOOD");
+		}
+		if (!!rareFloodMax && !errorRareFlood) {
+			scenarios.push("RARE_FREQUENT_FLOOD");
+		}
+
+		console.log("scenarios :>> ", scenarios);
+
+		setNumberOfPDFImagesToFetch(scenarios.length);
 
 		try {
 			for (const scenario of scenarios) {
@@ -190,7 +268,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					floodRiskResult,
 					floodRiskAnswers,
 				);
-				addToNumberOfFetchedPDFImages(undefined);
+				setNumberOfFetchedPDFImages((prev) => prev + 1);
 				addToPDFKeys[`#${key}`] = blob;
 			}
 		} catch (captureError) {
@@ -198,6 +276,77 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 
 		setDone((prev) => [...prev, "images"]);
+
+		// Rare Heavy Rain
+		addToPDFKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
+		addToPDFKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
+		addToPDFKeys["{rareHeavyRainAverage}"] = translateWMSValue(
+			rareHeavyRainAverage,
+			"",
+		);
+		addToPDFKeys["{errorRareHeavyRain}"] = errorRareHeavyRain;
+
+		// Uncommon Heavy Rain
+		addToPDFKeys["{hasSrgkUncommonHeavyRainMap}"] =
+			!errorUncommonHeavyRain && !!hasHeavyRainHazardMap;
+		addToPDFKeys["{hasSrhkUncommonHeavyRainMap}"] =
+			!errorUncommonHeavyRain && !hasHeavyRainHazardMap;
+		addToPDFKeys["{uncommonHeavyRainMax}"] =
+			translateWMSValue(uncommonHeavyRainMax);
+		addToPDFKeys["{uncommonHeavyRainAverage}"] = translateWMSValue(
+			uncommonHeavyRainAverage,
+			"",
+		);
+		addToPDFKeys["{errorUncommonHeavyRain}"] = errorUncommonHeavyRain;
+
+		// Extreme Heavy Rain
+		addToPDFKeys["{hasSrgkExtremeHeavyRainMap}"] =
+			!errorExtremeHeavyRain &&
+			hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
+		addToPDFKeys["{hasSrhkExtremeHeavyRainMap}"] =
+			!errorExtremeHeavyRain &&
+			hasHeavyRainHazardMap !== "isInExtremeRainHazardMap";
+		addToPDFKeys["{extremeHeavyRainMax}"] =
+			translateWMSValue(extremeHeavyRainMax);
+		addToPDFKeys["{extremeHeavyRainAverage}"] = translateWMSValue(
+			extremeHeavyRainAverage,
+			"",
+		);
+		addToPDFKeys["{errorExtremeHeavyRain}"] = errorExtremeHeavyRain;
+
+		// Frequent Flood
+		addToPDFKeys["{errorFrequentFlood}"] = errorFrequentFlood;
+		addToPDFKeys["{hasNoFrequentFloodData}"] =
+			!errorFrequentFlood && !frequentFloodMax;
+		addToPDFKeys["{hasFrequentFloodData}"] =
+			!errorFrequentFlood && !!frequentFloodMax;
+		addToPDFKeys["{frequentFloodMax}"] = translateWMSValue(frequentFloodMax);
+		addToPDFKeys["{frequentFloodAverage}"] =
+			translateWMSValue(frequentFloodAverage);
+
+		// Average Flood
+		addToPDFKeys["{errorAverageFlood}"] = errorAverageFlood;
+		addToPDFKeys["{hasNoAverageFloodData}"] =
+			!errorAverageFlood && !averageFloodMax;
+		addToPDFKeys["{hasAverageFloodData}"] =
+			!errorAverageFlood && !!averageFloodMax;
+		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(averageFloodMax);
+		addToPDFKeys["{averageFloodAverage}"] =
+			translateWMSValue(averageFloodAverage);
+
+		// Rare Flood
+		addToPDFKeys["{errorRareFlood}"] = errorRareFlood;
+		addToPDFKeys["{hasNoRareFloodData}"] = !errorRareFlood && !rareFloodMax;
+		addToPDFKeys["{hasRareFloodData}"] = !errorRareFlood && !!rareFloodMax;
+		addToPDFKeys["{rareFloodMax}"] = translateWMSValue(rareFloodMax);
+		addToPDFKeys["{rareFloodAverage}"] = translateWMSValue(rareFloodAverage);
+
+		// Flood Zone
+		addToPDFKeys["{errorFloodZone}"] = errorFloodZone;
+		addToPDFKeys["{hasNoFloodZoneData}"] =
+			!errorFloodZone && !locationData.building.floodZoneIndex;
+		addToPDFKeys["{hasFloodZoneData}"] =
+			!errorFloodZone && !!locationData.building.floodZoneIndex;
 
 		// Draw PDF
 		try {
@@ -215,57 +364,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		makePDFInitializedRef.current = false;
 	};
 
-	const checkWMSLoaded = () => {
-		const checkWMSLoaded = pdfKeys["wmsDataLoaded"];
-		if (checkWMSLoaded) {
-			setDone((prev) => [...prev, "wms"]);
-		}
-	};
-
-	const checkMakePDF = () => {
-		const checkFirstFetchCompleted = pdfKeys["{finishedFirstFetch}"];
-		if (/* makePDFInitializedRef.current ||  */ !checkFirstFetchCompleted) {
-			return;
-		}
-		// makePDFInitializedRef.current = true;
-		makePDF();
-	};
-
-	const triggerWMSAndPDFImageFetch = async () => {
-		console.log("triggerWMSAndPDFImageFetch ✅✅✅", locationData);
-		clearPDFKeys();
-		try {
-			if (!!locationData) {
-				await getWMSForBuildingAndStartPDFImageFetch(
-					locationData,
-					setPDFKeys,
-					addToNumberOfFetchedPDFImages,
-				);
-			} else {
-				throw new Error("No location Data found in triggerWMSAndPDFImageFetch");
-			}
-		} catch (error) {
-			setPDFError(error as string);
-		}
-	};
-
-	useEffect(() => {
-		checkMakePDF();
-		checkWMSLoaded();
-	}, [pdfKeys]);
 	useEffect(() => {
 		if (makePDFInitializedRef.current) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
-		triggerWMSAndPDFImageFetch();
+		makePDF();
 	}, []);
-
-	useEffect(() => {
-		if (!!pdfError) {
-			setError(pdfError);
-		}
-	}, [pdfError]);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;
@@ -333,31 +438,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 						{String(error)}
 					</p>
 					<Button
-						onClick={async () => {
+						onClick={() => {
 							setError(null);
 							setDone([]);
-							if (pdfError) {
-								console.log(
-									"retrigger getWMSForBuildingAndStartPDFImageFetch 🚀🚀🚀",
-								);
-								setPDFError(null);
-								clearPDFKeys();
-								try {
-									if (!!locationData) {
-										await getWMSForBuildingAndStartPDFImageFetch(
-											locationData,
-											setPDFKeys,
-											addToNumberOfFetchedPDFImages,
-										);
-									} else {
-										throw new Error("No locationData provided");
-									}
-								} catch (err) {
-									setError(err as string);
-								}
-							} else {
-								makePDF();
-							}
+							makePDF();
 						}}
 					>
 						Erneut probieren
@@ -412,7 +496,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 																	: check.loading
 																: numberOfPDFImagesToFetch === 0
 																	? check.loading
-																	: `${numberOfFetchedPDFImages} von ${numberOfPDFImagesToFetch + addToImages} Bildern erstellt`}
+																	: `${numberOfFetchedPDFImages} von ${numberOfPDFImagesToFetch} Bildern erstellt`}
 														</span>
 													</div>
 												);

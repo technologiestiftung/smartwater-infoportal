@@ -58,18 +58,6 @@ type StoreState = {
 
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
-
-	// PDFKeys
-	pdfKeys: PDFKeys;
-	setPDFKeys: (pdfKeys: PDFKeys) => void;
-	clearPDFKeys: () => void;
-
-	numberOfFetchedPDFImages: number;
-	numberOfPDFImagesToFetch: number;
-	addToNumberOfFetchedPDFImages: (num: number | undefined) => void;
-
-	pdfError: string | null;
-	setPDFError: (error: string | null) => void;
 };
 
 const currentFeatures: TestingFeatureNames[] = [
@@ -163,10 +151,6 @@ const useStore = create<StoreState>()(
 						floodRiskResult: null,
 						errorLayers: [],
 						showTestingFeatures: currentFeatures,
-						pdfKeys: {},
-						numberOfFetchedPDFImages: 0,
-						numberOfPDFImagesToFetch: 0,
-						pdfError: null,
 					}),
 
 				// Selectors
@@ -174,27 +158,6 @@ const useStore = create<StoreState>()(
 					const state = get();
 					return getHazardEntities(state.locationData);
 				},
-
-				// PDF Keys
-				pdfKeys: {},
-				setPDFKeys: (pdfKeys: PDFKeys) => set({ pdfKeys }),
-				clearPDFKeys: () => set({ pdfKeys: {} }),
-
-				numberOfFetchedPDFImages: 0,
-				numberOfPDFImagesToFetch: 0,
-				addToNumberOfFetchedPDFImages: (num: number | undefined) =>
-					set((state) => {
-						if (typeof num === "number") {
-							return {
-								numberOfPDFImagesToFetch: num,
-							};
-						}
-						return {
-							numberOfFetchedPDFImages: state.numberOfFetchedPDFImages + 1,
-						};
-					}),
-
-				setPDFError: (error: string | null) => set({ pdfError: error }),
 			}),
 			{
 				name: "flood-risk-store",

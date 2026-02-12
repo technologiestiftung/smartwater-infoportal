@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
-import { getHazardData } from "@/server/actions/getHazardData";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -25,8 +24,7 @@ export default function AddressSearch() {
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-	const { currentUserAddress, setCurrentUserAddress, setLocationData } =
-		useStore();
+	const { currentUserAddress, setCurrentUserAddress } = useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -58,20 +56,11 @@ export default function AddressSearch() {
 			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
-				if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
-					return setError(t("addressCheck.errorNoResultSelected"));
+				if (!currentUserAddress) {
+					setError(t("addressCheck.errorNoResultSelected"));
+				} else {
+					router.push("/hochwasser-check");
 				}
-				const longitude = parseFloat(currentUserAddress.lon);
-				const latitude = parseFloat(currentUserAddress.lat);
-				const locationData = await getHazardData(longitude, latitude);
-				if (!locationData || !locationData.building) {
-					return setError(
-						"Beim Abrufen der Gebäudedaten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-					);
-				}
-				console.log("setLocationData ✅✅✅");
-				setLocationData(locationData);
-				router.push("/hochwasser-check");
 			} else {
 				setError(t("addressCheck.errorNoAddress"));
 			}
