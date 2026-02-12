@@ -78,7 +78,7 @@ export default function FloodCheckClient() {
 			const errorRareFlood = errors?.includes("rareFlood") || false;
 			const errorFloodZone = errors?.includes("floodZoneIndex") || false;
 
-			/* const scenarios = ["SR", "HW"];
+			const scenarios = ["SR", "HW"];
 
 			if (
 				!!locationData?.building?.floodZoneIndex &&
@@ -115,9 +115,7 @@ export default function FloodCheckClient() {
 			}
 			if (!!rareFloodMax && !errorRareFlood) {
 				scenarios.push("RARE_FREQUENT_FLOOD");
-			} */
-
-			const scenarios: string[] = [];
+			}
 
 			console.log("scenarios :>> ", scenarios);
 
