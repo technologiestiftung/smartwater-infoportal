@@ -28,6 +28,7 @@ const notFoundWMS = {
 	frequentFloodAverage: null,
 	averageFloodAverage: null,
 	rareFloodAverage: null,
+	pointRequestsCount: null,
 };
 
 const extremeHeavyRainMaxAreas = [
@@ -183,6 +184,10 @@ export class GeoServerClient {
 						? outlineBufferGeometry.coordinates
 						: [];
 
+			let pointRequestsCount = 0;
+
+			// max request count?
+
 			for (const poly of polys) {
 				const ring = Array.isArray(poly) ? poly[0] : null;
 				if (!Array.isArray(ring)) continue;
@@ -201,7 +206,6 @@ export class GeoServerClient {
 					const y = coord[1];
 
 					/* STARKREGEN */
-
 					if (hasHeavyRainHazardMap) {
 						await this.updateMetric(
 							x,
@@ -214,6 +218,7 @@ export class GeoServerClient {
 							},
 							rareHeavyRain,
 						);
+						pointRequestsCount++;
 					}
 					await this.updateMetric(
 						x,
@@ -230,6 +235,7 @@ export class GeoServerClient {
 						},
 						uncommonHeavyRain,
 					);
+					pointRequestsCount++;
 					await this.updateMetric(
 						x,
 						y,
@@ -245,6 +251,7 @@ export class GeoServerClient {
 						},
 						extremeHeavyRain,
 					);
+					pointRequestsCount++;
 
 					/* FLUSSHOCHWASSER */
 					await this.updateMetric(
@@ -258,6 +265,7 @@ export class GeoServerClient {
 						},
 						frequentFlood,
 					);
+					pointRequestsCount++;
 					await this.updateMetric(
 						x,
 						y,
@@ -269,6 +277,7 @@ export class GeoServerClient {
 						},
 						averageFlood,
 					);
+					pointRequestsCount++;
 					await this.updateMetric(
 						x,
 						y,
@@ -280,6 +289,8 @@ export class GeoServerClient {
 						},
 						rareFlood,
 					);
+					pointRequestsCount++;
+					console.log("pointRequestsCount :>> ", pointRequestsCount);
 				}
 			}
 
@@ -287,6 +298,8 @@ export class GeoServerClient {
 				hasHeavyRainHazardMap,
 
 				isInExtremeRainHazardMap,
+
+				pointRequestsCount,
 
 				// Starkregen
 				rareHeavyRainMax: rareHeavyRain.max,
@@ -339,8 +352,8 @@ export class GeoServerClient {
 		propertyKey?: string,
 	): Promise<string | null> {
 		const buffer = 0.5;
-		const width = 256;
-		const height = 256;
+		const width = 128;
+		const height = 128;
 
 		if (this.collectErrors.some((e) => e === errorString)) {
 			return null;
@@ -381,7 +394,7 @@ export class GeoServerClient {
 
 		// Ask for JSON like your setup
 		url.searchParams.set("INFO_FORMAT", "application/json");
-		url.searchParams.set("FEATURE_COUNT", "5");
+		url.searchParams.set("FEATURE_COUNT", "1");
 
 		// Optional but sometimes helps servers
 		url.searchParams.set("STYLES", "");

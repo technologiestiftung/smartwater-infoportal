@@ -27,6 +27,7 @@ export default function FloodCheckClient() {
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
 			const result = await getHazardData(longitude, latitude);
+			console.log("setLocationData ✅✅✅");
 			setLocationData(result);
 			if (skip) {
 				router.push("/hochwasser-check?skip=true#results");

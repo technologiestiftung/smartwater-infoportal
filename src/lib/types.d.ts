@@ -52,6 +52,7 @@ export interface BuildingWMS {
 	averageFloodAverage: number | null;
 	rareFloodAverage: number | null;
 	errors?: string[];
+	pointRequestsCount: number | null;
 }
 
 export type BBox = [number, number, number, number];

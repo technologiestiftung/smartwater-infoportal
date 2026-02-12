@@ -215,8 +215,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		const errorFloodZone = errors?.includes("floodZoneIndex") || false;
 
 		const scenarios: string[] = [
-			"SR",
-			"HW",
+			/* "SR",
+			"HW", */
 			"heavyRainWidget",
 			"fluvialFloodWidget",
 		];
