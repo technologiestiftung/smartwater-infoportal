@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 			height = 486;
 		}
 
-		if (true) {
+		if (false) {
 			const puppeteer = (await import("puppeteer-core")).default;
 			const chromium = (await import("@sparticuz/chromium")).default;
 
