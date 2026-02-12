@@ -148,7 +148,6 @@ export default function Home() {
 						<div className="flex w-full flex-col gap-6">
 							<h2 className="">{t("backgroundInfo.title")}</h2>
 							<p className="">{t("backgroundInfo.questions")}</p>
-							<p className="">{t("backgroundInfo.answer")}</p>
 						</div>
 					}
 					slotB={

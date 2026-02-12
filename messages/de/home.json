@@ -32,13 +32,13 @@
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
-			"ownerInfo": "Jede und jeder Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen. So können Sie als Eigentümerinnen und Eigentümer Ihre Gebäude z.B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen.",
+			"ownerInfo": "Jede und jeder Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen.",
 			"titleImage": {
 				"alt": "Illustration eines Wassertanks auf einem Dach als Sinnbild für das Smart-Water-Umsetzungsprojekt der Digitalstrategie des Landes Berlin.“",
 				"caption": "Sinnbild für das Smart Water Umsetzungsprojekt der Digitalstrategie des Landes Berlins",
 				"copyright": "Bild: Senatskanzlei Berlin"
 			},
-			"tenantInfo": "Auch als Mietende können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
+			"tenantInfo": "Eigentümerinnen und Eigentümer können ihre Gebäude z. B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen. Mieterinnen und Mieter können Schäden z. B. durch eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
 			"recommendations": {
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
 				"button": "Übersicht Handlungsempfehlungen"
@@ -63,8 +63,8 @@
 		},
 		"backgroundInfo": {
 			"title": "Hintergrundinformation zum Thema Hochwasser",
-			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
-			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"answer": "",
 			"button": "Hintergrundinformationen"
 		}
 	}
