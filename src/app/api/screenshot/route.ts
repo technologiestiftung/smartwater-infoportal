@@ -120,8 +120,16 @@ export async function POST(req: Request) {
 			{ status: 500 },
 		);
 	} finally {
-		try {
-			await browser?.close();
-		} catch {}
+		if (browser) {
+			await Promise.race([
+				browser.close(),
+				new Promise((r) => setTimeout(r, 1500)),
+			]);
+
+			// last resort
+			try {
+				browser.process()?.kill("SIGKILL");
+			} catch {}
+		}
 	}
 }
