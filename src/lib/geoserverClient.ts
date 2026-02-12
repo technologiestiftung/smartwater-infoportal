@@ -144,6 +144,8 @@ export class GeoServerClient {
 			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
 				building;
 
+			return notFoundWMS;
+
 			if (
 				!geometry ||
 				!outlineBufferGeometry ||
