@@ -18,6 +18,7 @@ import { PDFKeys, PDFProps } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
+import getWMSForBuildingAndStartPDFImageFetch from "@/app/hochwasser-check/utils";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -37,7 +38,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		pdfKeys,
 		numberOfFetchedPDFImages,
 		numberOfPDFImagesToFetch,
+		pdfError,
+		setPDFError,
+		setPDFKeys,
 		addToNumberOfFetchedPDFImages,
+		clearPDFKeys,
 	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -232,6 +237,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	}, [pdfKeys]);
 
 	useEffect(() => {
+		if (!!pdfError) {
+			setError(pdfError);
+		}
+	}, [pdfError]);
+
+	useEffect(() => {
 		const wrapper = wrapperRef.current;
 		if (!wrapper || !pdfBlob) {
 			return () => {};
@@ -292,10 +303,30 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			{error ? (
 				<div className="flex flex-col gap-8 py-8">
 					<p className="text-red-600">
-						Beim Erstellen des PDFs ist ein Fehler aufgetreten: <br />
-						<b>{error}</b>
+						<b>Beim Erstellen des PDFs ist ein Fehler aufgetreten:</b>
+						<br />
+						{error}
 					</p>
-					<Button onClick={() => makePDF()}>Erneut probieren</Button>
+					<Button
+						onClick={async () => {
+							setError(null);
+							if (pdfError) {
+								setPDFError(null);
+								clearPDFKeys();
+								if (!!locationData) {
+									await getWMSForBuildingAndStartPDFImageFetch(
+										locationData,
+										setPDFKeys,
+										addToNumberOfFetchedPDFImages,
+									);
+								}
+							} else {
+								makePDF();
+							}
+						}}
+					>
+						Erneut probieren
+					</Button>
 					<div className="divider" />
 				</div>
 			) : (
