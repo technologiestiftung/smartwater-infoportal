@@ -97,7 +97,7 @@ export async function POST(req: Request) {
 			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
 		) {
 			await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
-				timeout: 60_000,
+				timeout: 120_000,
 			});
 		}
 

@@ -33,6 +33,10 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 			return;
 		}
 
+		setTimeout(() => {
+			(window as any).__SCREENSHOT_READY__ = true;
+		}, 11_000);
+
 		const markReady = () => {
 			(window as any).__SCREENSHOT_READY__ = true;
 		};
