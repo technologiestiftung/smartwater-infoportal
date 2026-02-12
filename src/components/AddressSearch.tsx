@@ -69,7 +69,7 @@ export default function AddressSearch() {
 						"Beim Abrufen der Gebäudedaten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
 					);
 				}
-				console.log("setLocationData ✅✅✅");
+				console.log("setLocationData ✅✅✅", locationData);
 				setLocationData(locationData);
 				router.push("/hochwasser-check");
 			} else {
