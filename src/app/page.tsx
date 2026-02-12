@@ -1,11 +1,11 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
+import useStore from "@/store/defaultStore";
 import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
-import useStore from "@/store/defaultStore";
 
 export default function Home() {
 	const t = useTranslations("home");
@@ -62,7 +62,22 @@ export default function Home() {
 			/>
 			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
-				<p className="">{t("amIAffected.description")}</p>
+				<div>
+					<p className="">
+						{t.rich("amIAffected.description1", {
+							strong: (chunks) => (
+								<strong className="font-bold">{chunks}</strong>
+							),
+						})}
+					</p>
+					<p className="">
+						{t.rich("amIAffected.description2", {
+							strong: (chunks) => (
+								<strong className="font-bold">{chunks}</strong>
+							),
+						})}
+					</p>
+				</div>
 				<p className="">{t("amIAffected.cta")}</p>
 				<AddressSearch />
 			</section>
