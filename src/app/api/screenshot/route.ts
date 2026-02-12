@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 		let height = 700;
 		if (url.includes("name=heavyRain")) {
 			width = 400;
-			height = 292;
+			height = 316; // 292;
 		} else if (url.includes("name=fluvialFlood")) {
 			width = 400;
 			height = 380; // 356;
@@ -97,7 +97,7 @@ export async function POST(req: Request) {
 			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
 		) {
 			await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
-				timeout: 120_000,
+				timeout: 60_000,
 			});
 		}
 

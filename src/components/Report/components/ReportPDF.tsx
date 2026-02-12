@@ -189,7 +189,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				addToPDFKeys[`#${key}`] = blob;
 			}
 		} catch (captureError) {
-			console.error("Error capturing screenshots: " + captureError);
+			return setError("Error capturing screenshots: " + captureError);
 		}
 
 		setDone((prev) => [...prev, "images"]);

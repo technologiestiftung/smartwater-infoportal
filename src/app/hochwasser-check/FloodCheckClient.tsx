@@ -78,7 +78,7 @@ export default function FloodCheckClient() {
 			const errorRareFlood = errors?.includes("rareFlood") || false;
 			const errorFloodZone = errors?.includes("floodZoneIndex") || false;
 
-			const scenarios = ["SR", "HW"];
+			/* const scenarios = ["SR", "HW"];
 
 			if (
 				!!locationData?.building?.floodZoneIndex &&
@@ -115,7 +115,9 @@ export default function FloodCheckClient() {
 			}
 			if (!!rareFloodMax && !errorRareFlood) {
 				scenarios.push("RARE_FREQUENT_FLOOD");
-			}
+			} */
+
+			const scenarios: string[] = [];
 
 			console.log("scenarios :>> ", scenarios);
 
@@ -125,20 +127,21 @@ export default function FloodCheckClient() {
 
 			addToNumberOfFetchedPDFImages(scenarios.length);
 
-			try {
-				for (const scenario of scenarios) {
-					const { key, blob } = await getScreenshotForScenario(
-						scenario,
-						locationData,
-					);
-					addToNumberOfFetchedPDFImages(undefined);
-					addToPDFKeys[`#${key}`] = blob;
+			if (scenarios.length > 0) {
+				try {
+					for (const scenario of scenarios) {
+						const { key, blob } = await getScreenshotForScenario(
+							scenario,
+							locationData,
+						);
+						addToNumberOfFetchedPDFImages(undefined);
+						addToPDFKeys[`#${key}`] = blob;
+					}
+				} catch (captureError) {
+					console.error("Error capturing screenshots: " + captureError);
+					return;
 				}
-			} catch (captureError) {
-				console.error("Error capturing screenshots: " + captureError);
-				return;
 			}
-
 			// Rare Heavy Rain
 			addToPDFKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
 			addToPDFKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
