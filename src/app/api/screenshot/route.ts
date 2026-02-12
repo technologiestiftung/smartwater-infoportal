@@ -63,13 +63,7 @@ export async function POST(req: Request) {
 
 		const page = await browser.newPage();
 
-		const urlConfig: { waitUntil: string; timeout: number } = {
-			waitUntil: "networkidle2",
-			timeout: 30_000,
-		};
-
 		if (buildingGeometry && outlineBufferGeometry) {
-			// urlConfig.waitUntil = "domcontentloaded";
 			await page.evaluateOnNewDocument(
 				(payload: any) => {
 					// @ts-expect-error
@@ -96,7 +90,7 @@ export async function POST(req: Request) {
 			);
 		}
 
-		await page.goto(url, urlConfig);
+		await page.goto(url, { waitUntil: "networkidle2" });
 
 		if (
 			(buildingGeometry && outlineBufferGeometry) ||
@@ -120,16 +114,8 @@ export async function POST(req: Request) {
 			{ status: 500 },
 		);
 	} finally {
-		if (browser) {
-			await Promise.race([
-				browser.close(),
-				new Promise((r) => setTimeout(r, 1500)),
-			]);
-
-			// last resort
-			try {
-				browser.process()?.kill("SIGKILL");
-			} catch {}
-		}
+		try {
+			await browser?.close();
+		} catch {}
 	}
 }
