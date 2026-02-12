@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
 			},
 		],
 	},
+
+	outputFileTracingIncludes: {
+		"/**/*": ["node_modules/@sparticuz/chromium/bin/**"],
+	},
 };
 
 const withNextIntl = createNextIntlPlugin();

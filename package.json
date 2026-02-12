@@ -14,7 +14,8 @@
 		"test:two": "jest getBuildingWMS",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"test:one": "jest searchAddresses"
+		"test:one": "jest searchAddresses",
+		"m:staging": "git fetch origin staging && git merge origin/staging"
 	},
 	"dependencies": {
 		"@dnd-kit/core": "^6.3.1",
