@@ -122,7 +122,7 @@ export async function POST(req: Request) {
 				timeout: 20_000,
 			});
 		} else {
-			await page.waitForTimeout(300);
+			await sleep(300);
 		}
 
 		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
