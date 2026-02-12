@@ -47,7 +47,7 @@ export default function AddressSearch() {
 		type: "text",
 		description: t("addressCheck.description"),
 		placeholder: t("addressCheck.placeholder"),
-		isRequired: true,
+		isRequired: false,
 	};
 
 	const handleSubmit = () => {
@@ -160,7 +160,6 @@ export default function AddressSearch() {
 									onClick={() => {
 										handleChange({
 											target: { name: "addresse", value: "Majakowskiring 9" },
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
 										} as any);
 									}}
 								>
@@ -171,7 +170,6 @@ export default function AddressSearch() {
 									onClick={() => {
 										handleChange({
 											target: { name: "addresse", value: "Rüsternallee 24" },
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
 										} as any);
 									}}
 								>
@@ -180,7 +178,7 @@ export default function AddressSearch() {
 							</div>
 						)}
 						{results.length > 0 && !showLoading && (
-							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
+							<div className="flex flex-col gap-2 px-4 pt-8 pb-4">
 								<strong>{t("addressCheck.result")}</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
