@@ -65,7 +65,7 @@
 		{
 			"id": "q3",
 			"type": "radio",
-			"isRequired": true,
+			"isRequired": false,
 			"translationKey": "floodCheck.questions.q3",
 			"options": [
 				{ "value": "no", "score": -2, "addToCounter": 1 },

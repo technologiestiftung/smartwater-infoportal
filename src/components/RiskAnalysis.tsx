@@ -1,19 +1,19 @@
 "use client";
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
 import {
 	Button,
 	Form,
-	FormWrapper,
 	FormFieldWrapper,
+	FormWrapper,
 	Image,
 } from "berlin-ui-library";
-import { useForm } from "react-hook-form";
-import TextBlock from "./TextBlock";
-import useStore from "../store/defaultStore";
-import riskConfig from "../config/floodRiskConfig.json";
+import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import riskConfig from "../config/floodRiskConfig.json";
+import useStore from "../store/defaultStore";
+import TextBlock from "./TextBlock";
 
 const RiskAnalysis = () => {
 	const t = useTranslations();
@@ -216,13 +216,25 @@ const RiskAnalysis = () => {
 							/>
 						}
 						slotB={
-							<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+							<div className="flex w-full flex-col gap-6 bg-panel-heavy p-6">
 								<h3 className="">
 									{t(`${currentQuestion.translationKey}.title`)}
 								</h3>
-								<p className="">
-									{t(`${currentQuestion.translationKey}.description`)}
-								</p>
+								{/* Handle both single description and multiple descriptions */}
+								{currentQuestion.translationKey.includes("q3") ? (
+									<>
+										<p className="">
+											{t(`${currentQuestion.translationKey}.description1`)}
+										</p>
+										<p className="">
+											{t(`${currentQuestion.translationKey}.description2`)}
+										</p>
+									</>
+								) : (
+									<p className="">
+										{t(`${currentQuestion.translationKey}.description`)}
+									</p>
+								)}
 							</div>
 						}
 					/>

@@ -170,7 +170,7 @@
 					"no": "Nein",
 					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?",
+				"text": "Besitzt das Gebäude einen Keller, eine Tiefgarage oder ein Stockwerk im Tiefparterre?",
 				"helperText": ""
 			},
 			"q2": {
@@ -183,7 +183,8 @@
 				"helperText": "Wenn die Nutzung des Kellers sowohl hochwertig als auch geringwertig ist, gilt die gesamte Nutzung des Kellers als hochwertig."
 			},
 			"q3": {
-				"description": "Eine Rückstausicherung ist eine technische Einrichtung, die bei einem Hochwasserereignis den Rückstau von Wasser in die Abwasserleitungen verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert und sorgt dafür, dass das Abwasser nicht zurückfließen kann.",
+				"description1": "Eine Rückstausicherung ist eine technische Einrichtung, die den Rückstau von Abwasser aus dem Kanal in die Abwasserleitungen des Hauses verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert.",
+				"description2": "Sowohl Rückstauklappen (siehe Abbildung), also auch Abwasserhebeanlagen zählen als Rückstausicherungen.",
 				"image": {
 					"alt": "Rückstauklappen",
 					"caption": "Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau.",
