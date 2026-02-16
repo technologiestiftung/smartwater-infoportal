@@ -221,7 +221,8 @@ const RiskAnalysis = () => {
 									{t(`${currentQuestion.translationKey}.title`)}
 								</h3>
 								{/* Handle both single description and multiple descriptions */}
-								{currentQuestion.translationKey.includes("q3") ? (
+								{currentQuestion.translationKey.includes("q3") ||
+								currentQuestion.translationKey.includes("q4") ? (
 									<>
 										<p className="">
 											{t(`${currentQuestion.translationKey}.description1`)}

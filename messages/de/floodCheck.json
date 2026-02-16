@@ -201,7 +201,8 @@
 				"helperText": ""
 			},
 			"q4": {
-				"description": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
+				"description1": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
+				"description2": "Im Herbst werden Abläufe häufig durch Laub blockiert. Achten Sie darauf, Laub auf und ggf. vor dem eigenen Grundstück von den Abläufen zu entfernen.",
 				"image": {
 					"alt": "Abläufe",
 					"caption": "Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann.",
@@ -209,10 +210,10 @@
 				},
 				"options": {
 					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
-					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
+					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe regelmäßig gereinigt)",
 					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
+				"text": "Wie ist der Zustand von Regenwasserabläufen und Abwasserrohren auf dem Grundstück?",
 				"title": "Abläufe",
 				"helperText": ""
 			},
