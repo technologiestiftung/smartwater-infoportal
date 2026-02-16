@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Scenario } from "@/types/map";
 
 export function getEpsgFromCrs(crs: string) {
 	const epsgMatch = crs.match(/EPSG[:/](\d+)/i);
@@ -19,7 +20,10 @@ export const getScale = (map: any) => {
 	return (resolution * metersPerUnit) / 0.00028;
 };
 
-export const getHeightClass = (isMobile: boolean, fullScreenMap: boolean) => {
+export const getHeightClass = (
+	isMobile: boolean | null,
+	fullScreenMap: boolean,
+) => {
 	if (!isMobile && !fullScreenMap) {
 		return "max-h-[calc((65vh-60px-46px-46px)/2)]";
 	}
@@ -54,3 +58,6 @@ export function extractGermanZipCode(query: string): string | null {
 	const match = query.match(/\b\d{5}\b/);
 	return match ? match[0] : null;
 }
+
+export const getScenarioDomId = (scenario: Scenario) =>
+	`map-root-${scenario.toLowerCase().replace(/_/g, "-")}`;

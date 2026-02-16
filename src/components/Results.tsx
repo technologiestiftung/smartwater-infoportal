@@ -22,19 +22,17 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import ReportPDF from "./Report/components/ReportPDF";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
-import ScenarioMap from "./ScenarioMap/Map";
-import { ScenarioList } from "@/types/map";
 import ResultBlock from "./ResultBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = false; //process.env.NODE_ENV === "development";
+	const isDev = process.env.NODE_ENV === "development";
+	const showMap = !isDev;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -219,24 +217,13 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
-				<h3 className="mt-2">{t("map.title")}</h3>
-				<p className="">{t("map.description")}</p>
-				<Map />
-				<div
-					id="scenario-maps"
-					className={
-						isDev && showTestingFeatures.includes("mapsOnResultPage")
-							? ""
-							: "absolute -left-[9999px]"
-					}
-				>
-					{ScenarioList.map((scenario) => (
-						<div key={scenario}>
-							<p>{scenario}</p>
-							<ScenarioMap scenario={scenario} />
-						</div>
-					))}
-				</div>
+				{showMap && (
+					<>
+						<h3 className="mt-2">{t("map.title")}</h3>
+						<p className="">{t("map.description")}</p>
+						<Map />
+					</>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -310,7 +297,7 @@ const Results: React.FC = () => {
 							className="w-full gap-6"
 							reverseDesktopColumns={true}
 							slotA={
-								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+								<div className="flex w-full flex-col gap-6 bg-panel-heavy p-6">
 									<h3 className="">
 										{t("buildingRiskAssessment.disclaimerTitle")}
 									</h3>

@@ -21,17 +21,10 @@ import LocationButton from "./LocationButton";
 export default function AddressSearch() {
 	const t = useTranslations("home");
 	const router = useRouter();
-
-	const setCurrentUserAddress = useStore(
-		(state) => state.setCurrentUserAddress,
-	);
-
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-
+	const { currentUserAddress, setCurrentUserAddress } = useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -50,8 +43,16 @@ export default function AddressSearch() {
 		isRequired: true,
 	};
 
+	const testingAddresses = [
+		"Majakowskiring 9",
+		"Rüsternallee 24",
+		"Forckenbeckstraße 20, 14199 Berlin",
+		"Hainstraße 7, 12439 Berlin",
+		"Havelberger Straße 15, 10559 Berlin",
+	];
+
 	const handleSubmit = () => {
-		return methods.handleSubmit(() => {
+		return methods.handleSubmit(async () => {
 			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
@@ -155,32 +156,24 @@ export default function AddressSearch() {
 						/>
 						{isDev && (
 							<div className="flex flex-col gap-2">
-								<div
-									className="bg-black/20 p-6"
-									onClick={() => {
-										handleChange({
-											target: { name: "addresse", value: "Majakowskiring 9" },
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										} as any);
-									}}
-								>
-									<p>Majakowskiring 9</p>
-								</div>
-								<div
-									className="bg-black/20 p-6"
-									onClick={() => {
-										handleChange({
-											target: { name: "addresse", value: "Rüsternallee 24" },
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										} as any);
-									}}
-								>
-									<p>Rüsternallee 24</p>
-								</div>
+								{testingAddresses.map((address) => (
+									<div
+										key={address}
+										className="cursor-pointer bg-black/20 p-2"
+										onClick={() => {
+											handleChange({
+												target: { name: "addresse", value: address },
+												// eslint-disable-next-line @typescript-eslint/no-explicit-any
+											} as any);
+										}}
+									>
+										<p>{address}</p>
+									</div>
+								))}
 							</div>
 						)}
 						{results.length > 0 && !showLoading && (
-							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
+							<div className="flex flex-col gap-2 px-4 pt-8 pb-4">
 								<strong>{t("addressCheck.result")}</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
@@ -213,7 +206,7 @@ export default function AddressSearch() {
 						)}
 					</div>
 					{error && (
-						<div className="max-w-[50%]">
+						<div className="lg:max-w-[50%]">
 							<Label className="text-destructive text-primary">{error}</Label>
 						</div>
 					)}

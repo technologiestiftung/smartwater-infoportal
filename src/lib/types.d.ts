@@ -38,6 +38,7 @@ export interface Building {
 
 export interface BuildingWMS {
 	hasHeavyRainHazardMap: string | null;
+	isInExtremeRainHazardMap: boolean | null;
 	rareHeavyRainMax: number | null;
 	uncommonHeavyRainMax: number | null;
 	extremeHeavyRainMax: number | null;
@@ -51,6 +52,7 @@ export interface BuildingWMS {
 	averageFloodAverage: number | null;
 	rareFloodAverage: number | null;
 	errors?: string[];
+	pointRequestsCount: number | null;
 }
 
 export type BBox = [number, number, number, number];

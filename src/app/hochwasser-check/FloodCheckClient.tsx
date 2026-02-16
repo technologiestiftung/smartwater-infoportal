@@ -8,15 +8,14 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import useStore from "@/store/defaultStore";
-import { getHazardData } from "@/server/actions/getHazardData";
 import CheckBlock from "@/components/CheckBlock";
+import { getHazardData } from "@/server/actions/getHazardData";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-	const setLocationData = useStore((state) => state.setLocationData);
+	const { currentUserAddress, setLocationData } = useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
 
@@ -28,6 +27,7 @@ export default function FloodCheckClient() {
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
 			const result = await getHazardData(longitude, latitude);
+			console.log("setLocationData ✅✅✅");
 			setLocationData(result);
 			if (skip) {
 				router.push("/hochwasser-check?skip=true#results");

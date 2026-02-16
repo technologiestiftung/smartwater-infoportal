@@ -452,6 +452,10 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 	// Finalize PDF
 	doc.setProperties({
 		title: pdf.name,
+		author: "Senatsverwaltung für Umwelt, Verkehr und Klimaschutz",
+		creator: "Senatsverwaltung für Umwelt, Verkehr und Klimaschutz",
+		subject: "HochwasserCheck Berlin",
+		keywords: "HochwasserCheck Berlin",
 	});
 	const blob = doc.output("blob");
 	const sizeInMB = (blob.size / (1024 * 1024)).toFixed(2) as unknown as number;

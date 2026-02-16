@@ -9,6 +9,7 @@ const eslintConfig = [
 			"out/**",
 			"build/**",
 			"next-env.d.ts",
+			"src/components/Report/assets/arial-*.js"
 		],
 	},
 	...nextCoreWebVitals,
