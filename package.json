@@ -27,7 +27,7 @@
 		"@sparticuz/chromium": "^143.0.4",
 		"@sparticuz/chromium-min": "^143.0.4",
 		"@tailwindcss/postcss": "^4",
-		"@turf/turf": "^7.2.0",
+		"@turf/turf": "^7.3.4",
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"dotenv": "^17.2.1",
 		"html2canvas": "^1.4.1",

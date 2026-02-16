@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
 import useStore from "@/store/defaultStore";
+import TestingIntersectButton from "@/components/Report/TestingIntersectButton";
 
 export default function Home() {
 	const t = useTranslations("home");
@@ -22,6 +23,7 @@ export default function Home() {
 			</section>
 			{isDev && (
 				<div className="flex flex-col gap-4">
+					<TestingIntersectButton />
 					<Button
 						onClick={() => {
 							resetAll();
