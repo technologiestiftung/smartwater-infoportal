@@ -241,9 +241,10 @@
 		"start": {
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
-			"description": "Jetzt schauen ob Sie sich Sorgen machen müssen. Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"description": "Ihre Daten bleiben sicher und vertraulich: Bei der Nutzung des HochwasserCheck werden Ihre Eingaben und Daten ausschließlich in Ihrem Browser verarbeitet und gespeichert. Wir garantieren Ihnen, dass keine Daten an Dritte weitergegeben oder auf dem Hochwasserinfoportal oder außerhalb Ihres Browsers gespeichert werden.",
+			"backgroundInfo": "In den <link>Hintergrundinformationen</link> finden sie Informationen zu den Begriffen \"Gefährdung\", \"Risiko\" und vieles Mehr.",
 			"locationTitle": "Es wird die folgende Adresse überprüft:",
-			"question": "Wollen Sie auch das Risiko für Ihr Wohngebäude überprüfen?",
+			"question": "Um zusätzlich eine Risikoanalyse zu erstellen, die die Eigenschaften Ihres Gebäudes berücksichtigt und Ihnen zusätzlich individuelle Handlungsempfehlungen ausgibt, können Sie einen kurzen Fragebogen mit sechs Fragen ausfüllen. Möchten Sie diesen Fragebogen beantworten?",
 			"questionDescription": "Zur Berechnung des Risikos werden Sie durch einen Fragebogen von sechs Fragen zu ihrem Wohngebäude geleitet.",
 			"formButtons": {
 				"toResult": "Zum Ergebnis",

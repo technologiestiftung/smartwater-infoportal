@@ -1,15 +1,16 @@
 /* eslint-disable no-nested-ternary */
 "use client";
+import CheckBlock from "@/components/CheckBlock";
 import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
+import { getHazardData } from "@/server/actions/getHazardData";
+import useStore from "@/store/defaultStore";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import useStore from "@/store/defaultStore";
-import { getHazardData } from "@/server/actions/getHazardData";
-import CheckBlock from "@/components/CheckBlock";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
@@ -40,7 +41,6 @@ export default function FloodCheckClient() {
 	};
 
 	useEffect(() => {
-		// eslint-disable-next-line no-extra-boolean-cast
 		if (!!hash) {
 			window.scrollTo(0, 0);
 		}
@@ -113,6 +113,19 @@ export default function FloodCheckClient() {
 					<div className="flex w-full flex-col gap-4">
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<p className="">{t("floodCheck.start.description")}</p>
+						<p className="">
+							{t.rich("floodCheck.start.backgroundInfo", {
+								link: (chunks) => (
+									<Link
+										href="/hintergrund-informationen"
+										className="text-text-link underline"
+									>
+										{chunks}
+									</Link>
+								),
+							})}
+						</p>
+
 						<CheckBlock
 							onSubmit={(goTo) => {
 								checkHazard(goTo === "no");
