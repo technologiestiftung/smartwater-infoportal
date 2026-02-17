@@ -1,10 +1,10 @@
-import React, { ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Image } from "berlin-ui-library";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import Link from "next/link";
+import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
