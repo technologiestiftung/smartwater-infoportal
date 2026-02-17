@@ -96,7 +96,7 @@ export default function GeneralInformation() {
 				<section className="flex flex-col gap-6">
 					<h1 className="">{t("generalInfo.pageTitle")}</h1>
 					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
-					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+					<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 						{Object.entries(tableOfContentsItems).map(([key, label]) => (
 							<li key={key}>
 								<a href={`#${key}`} className="text-text-link">
@@ -266,15 +266,6 @@ export default function GeneralInformation() {
 									<p key={key} className="">
 										{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
 											strong: (chunks) => <strong>{chunks}</strong>,
-											/* link1: (chunks) => (
-												<Link
-													href="#anker3"
-													rel="noopener noreferrer"
-													className="text-text-link underline"
-												>
-													{chunks}
-												</Link>
-											), */
 											link2: (chunks) => (
 												<Link
 													href="/#hochwasser-check"
@@ -481,7 +472,7 @@ export default function GeneralInformation() {
 				<section className="">
 					<div className="flex w-full flex-col gap-6">
 						<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
-						<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+						<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 							{Object.entries(furtherInformationItems).map(([key]) => (
 								<li key={key}>
 									{t.rich(`generalInfo.furtherInformation.list.${key}`, {

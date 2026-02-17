@@ -143,7 +143,6 @@ const Results: React.FC = () => {
 			</section>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
-					{/* <h3 className="">{t("hazardDisplay.title")}</h3> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
@@ -219,8 +218,6 @@ const Results: React.FC = () => {
 				/>
 				{showMap && (
 					<>
-						{/* <h3 className="mt-2">{t("map.title")}</h3> */}
-						{/* <p className="">{t("map.description")}</p> */}
 						<Map />
 					</>
 				)}
@@ -302,7 +299,6 @@ const Results: React.FC = () => {
 										{t("buildingRiskAssessment.disclaimerTitle")}
 									</h3>
 									<p className="">{t("buildingRiskAssessment.description1")}</p>
-									{/* <p className="">{t("buildingRiskAssessment.description2")}</p> */}
 								</div>
 							}
 							slotB={<RiskBlock />}
