@@ -36,10 +36,14 @@ export async function POST(req: Request) {
 		const isProd = process.env.NODE_ENV === "development" ? false : true;
 
 		let width = 400;
-		let height = 450;
+		let height = 380;
 		if (url.includes("scenario")) {
 			width = 1140;
 			height = 700;
+		} else if (url.includes("risk")) {
+			height = 500;
+		} else if (url.includes("heavyRain")) {
+			height = 300;
 		}
 
 		if (isProd) {

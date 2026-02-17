@@ -1,7 +1,7 @@
 "use server";
 
 import { GeoServerClient } from "../../lib/geoserverClient";
-import type { BuildingWMS, LocationData } from "../../lib/types";
+import type { LocationData } from "../../lib/types";
 
 const geoServerClient = new GeoServerClient();
 
@@ -16,18 +16,5 @@ export async function getHazardData(
 			found: false,
 			building: null,
 		};
-	}
-}
-
-export async function getWMSForBuilding(
-	locationData: LocationData,
-): Promise<BuildingWMS | null> {
-	if (!locationData?.building) {
-		return null;
-	}
-	try {
-		return await geoServerClient.getBuildingWMS(locationData?.building);
-	} catch {
-		return null;
 	}
 }
