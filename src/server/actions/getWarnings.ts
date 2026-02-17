@@ -22,7 +22,12 @@ export async function getWarnings() {
 		const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
 
 		if (!res1.ok || !res2.ok) {
-			throw new Error("One or both API requests failed");
+			return {
+				dwdWarnings: [],
+				lhpWarnings: [],
+				timeStamp,
+				error: "One or both API requests failed",
+			};
 		}
 
 		const [data1, data2] = await Promise.all([res1.json(), res2.json()]);

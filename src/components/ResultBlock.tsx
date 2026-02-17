@@ -60,7 +60,7 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 				<div className="flex items-center gap-2">
 					<Image
 						className="w-6"
-						src={`/${entity}.svg`}
+						src={`/${entity === "heavyRain" ? "heavyrain" : "fluvialFlood"}.svg`}
 						alt={`${entity} Icon`}
 						width={24}
 						height={24}

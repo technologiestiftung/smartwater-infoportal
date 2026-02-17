@@ -19,6 +19,9 @@ const filterOutSegments = [
 	".well-known",
 	"appspecific",
 	"com.chrome.devtools.json",
+	"scenario-map",
+	"widget-screenshot",
+	"riskblock-screenshot",
 ];
 
 export default function LayoutClient({
@@ -59,6 +62,13 @@ export default function LayoutClient({
 		},
 	];
 	const breadcrumbs = [...rootBreadcrumb, ...pathNames];
+	const isRenderingScreenshot =
+		paths.startsWith("/scenario-map") ||
+		paths.startsWith("/widget-screenshot") ||
+		paths.startsWith("/riskblock-screenshot");
+	if (isRenderingScreenshot) {
+		return <>{children}</>;
+	}
 	return (
 		<div className="flex min-h-screen flex-col">
 			<Header

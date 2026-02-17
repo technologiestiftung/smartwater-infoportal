@@ -1,5 +1,4 @@
 import useStore from "@/store/defaultStore";
-import { ScenarioList } from "@/types/map";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,18 +22,17 @@ import Map from "./Map/Map";
 import ReportPDF from "./Report/components/ReportPDF";
 import ResultBlock from "./ResultBlock";
 import RiskBlock from "./RiskBlock";
-import ScenarioMap from "./ScenarioMap/Map";
 import TextBlock from "./TextBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = false; //process.env.NODE_ENV === "development";
+	const isDev = process.env.NODE_ENV === "development";
+	const showMap = !isDev;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -219,26 +217,13 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
-				<div className="mt-6">
-					<Map />
-				</div>
-				{/* <h3 className="mt-2">{t("map.title")}</h3> */}
-				{/* <p className="">{t("map.description")}</p> */}
-				<div
-					id="scenario-maps"
-					className={
-						isDev && showTestingFeatures.includes("mapsOnResultPage")
-							? ""
-							: "absolute -left-[9999px]"
-					}
-				>
-					{ScenarioList.map((scenario) => (
-						<div key={scenario}>
-							<p>{scenario}</p>
-							<ScenarioMap scenario={scenario} />
-						</div>
-					))}
-				</div>
+				{showMap && (
+					<>
+						{/* <h3 className="mt-2">{t("map.title")}</h3> */}
+						{/* <p className="">{t("map.description")}</p> */}
+						<Map />
+					</>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
