@@ -7,20 +7,6 @@ import { searchAddresses } from "@/server/actions/searchAddresses";
 
 interface IntersectButtonProps {}
 
-/* export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
-    SR: ["sw_infoportal:sr_gefaehrdung_clip_"],
-    HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
-    SRGK_RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
-    SRGK_UNCOMMON_HEAVY_RAIN: ["ua_srgk:cb_wasserstand_aussergewoehnlich"],
-    SRGK_EXTREME_HEAVY_RAIN: ["ua_srgk:cc_wassersand_extrem"],
-    SRHK_UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
-    SRHK_EXTREME_HEAVY_RAIN: ["ua_srhk:ec_wasserstand_extrem_max100mm"],
-    FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:a_hwgk_hoch"],
-    AVERAGE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:b_hwgk_mittel"],
-    RARE_FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:c_hwgk_niedrig"],
-    FLOOD_ZONE: ["ua_uesg:c_ueberschwemmungsgebiete"],
-}; */
-
 const testingAddresses = [
 	"Majakowskiring 9",
 	"Grunewaldstraße 61-62",
