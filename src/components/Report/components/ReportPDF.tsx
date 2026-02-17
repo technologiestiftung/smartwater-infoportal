@@ -199,6 +199,21 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		makePDFInitializedRef.current = false;
 	};
 
+	const openPDF = () => {
+		const url = pdfUrlRef.current;
+		if (!url) {
+			return;
+		}
+		if (isMobile || openPDFInNewTab) {
+			window.open(url, "_blank", "noopener,noreferrer");
+		} else {
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = pdfData.name as string;
+			a.click();
+		}
+	};
+
 	useEffect(() => {
 		if (makePDFInitializedRef.current) {
 			return;
@@ -290,12 +305,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 							<DownloadItem
 								buttonText={t("floodCheck.reportDownload.button")}
 								description={t("floodCheck.reportDownload.description")}
-								downloadUrl="#results"
 								fileType={t("floodCheck.reportDownload.fileInfo", {
 									size: `${pdfSizeKB} MB`,
 								})}
 								date={getToday()}
 								title={t("floodCheck.reportDownload.title")}
+								onClickDownloadItem={openPDF}
 							/>
 						) : (
 							<>
