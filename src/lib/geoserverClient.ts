@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import proj4 from "proj4";
-import { BBox, Geometry } from "./types";
+import { Geometry } from "./types";
 import { bufferedOutlineMultiPolygonFromBuilding } from "./utils/geoServerHelpers";
 
 const notFound = {
@@ -27,17 +27,65 @@ export class GeoServerClient {
 		);
 	}
 
+	async findBuilding(longitude: number, latitude: number) {
+		try {
+			const [transformedX, transformedY] = proj4("EPSG:4326", "EPSG:25833", [
+				longitude,
+				latitude,
+			]);
+			const exactMatch = await this.searchExactIntersection(
+				transformedX,
+				transformedY,
+			);
+			console.log("exactMatch :>> ", exactMatch);
+			if (exactMatch) {
+				return {
+					found: true,
+					buildingInformation: exactMatch,
+				};
+			}
+
+			const bufferResult = await this.searchWithProgressiveBuffers(
+				[transformedX, transformedY],
+				[longitude, latitude],
+			);
+			console.log("bufferResult :>> ", bufferResult);
+			if (bufferResult) {
+				return {
+					found: true,
+					buildingInformation: bufferResult,
+				};
+			}
+
+			return {
+				found: false,
+				buildingInformation: null,
+			};
+		} catch {
+			return {
+				found: false,
+				buildingInformation: null,
+			};
+		}
+	}
+
 	async findBuildingAtPoint(longitude: number, latitude: number) {
+		console.log("findBuildingAtPoint called with :>> ", longitude, latitude);
 		try {
 			const [transformedX, transformedY] = proj4("EPSG:4326", "EPSG:25833", [
 				longitude,
 				latitude,
 			]);
 
+			console.log("transformedX :>> ", transformedX);
+			console.log("transformedY :>> ", transformedY);
+
 			const exactMatch = await this.searchExactIntersection(
 				transformedX,
 				transformedY,
 			);
+
+			console.log("exactMatch :>> ", exactMatch);
 
 			if (!exactMatch) {
 				return notFound;
@@ -97,7 +145,10 @@ export class GeoServerClient {
 		return url;
 	}
 
-	private buildBuildingResult(building: Record<string, unknown>) {
+	private buildBuildingResult(
+		building: Record<string, unknown>,
+		distance?: number,
+	) {
 		const props = building.properties as Record<string, unknown>;
 		return {
 			uuid: props.uuid as string,
@@ -105,7 +156,135 @@ export class GeoServerClient {
 			starkregenGefährdung: (props.GS_SR as number) || 0,
 			hochwasserGefährdung: (props.GS_HW as number) || 0,
 			geometry: building.geometry as Geometry,
-			bbox: building.bbox as BBox,
+			...(distance !== undefined && { distance }),
 		};
+	}
+
+	private async searchWithProgressiveBuffers(
+		transformedCoords: [number, number],
+		originalCoords: [number, number],
+	) {
+		const [transformedX, transformedY] = transformedCoords;
+		const [longitude, latitude] = originalCoords;
+		const bufferDistances = [5, 10, 15, 25, 50, 100, 200, 500];
+
+		for (const distance of bufferDistances) {
+			const result = await this.searchWithBuffer(
+				[transformedX, transformedY],
+				distance,
+				[longitude, latitude],
+			);
+			if (result) {
+				return result;
+			}
+		}
+
+		return null;
+	}
+	private async searchWithBuffer(
+		transformedCoords: [number, number],
+		distance: number,
+		originalCoords: [number, number],
+	) {
+		const [transformedX, transformedY] = transformedCoords;
+		const [longitude, latitude] = originalCoords;
+		const spatialUrl = this.createWFSUrl();
+		const bufferFilter = `DWITHIN(the_geom, POINT(${transformedX} ${transformedY}), ${distance}, meters)`;
+		spatialUrl.searchParams.set("CQL_FILTER", bufferFilter);
+		spatialUrl.searchParams.set("maxFeatures", "10");
+
+		const response = await fetch(spatialUrl.toString());
+		if (!response.ok) {
+			return null;
+		}
+
+		const data = await response.json();
+		if (!data.features || data.features.length === 0) {
+			return null;
+		}
+
+		return this.findNearestBuilding(data.features, [longitude, latitude]);
+	}
+
+	private findNearestBuilding(
+		features: Record<string, unknown>[],
+		coords: [number, number],
+	) {
+		const [longitude, latitude] = coords;
+		let nearestBuilding = null;
+		let minDistance = Infinity;
+
+		for (const feature of features) {
+			const centroid = this.calculateCentroid(
+				feature.geometry as Record<string, unknown>,
+			);
+			if (!centroid) {
+				continue;
+			}
+
+			const [centroidX, centroidY] = proj4("EPSG:25833", "EPSG:4326", centroid);
+			const distance = this.calculateDistance(
+				[longitude, latitude],
+				[centroidX, centroidY],
+			);
+
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearestBuilding = feature;
+			}
+		}
+
+		return nearestBuilding
+			? this.buildBuildingResult(nearestBuilding, minDistance)
+			: null;
+	}
+
+	private calculateCentroid(
+		geometry: Record<string, unknown>,
+	): [number, number] | null {
+		if (!geometry || !geometry.coordinates) {
+			return null;
+		}
+
+		let coords = geometry.coordinates as number[][];
+		if (geometry.type === "MultiPolygon") {
+			coords = (geometry.coordinates as number[][][][])[0][0];
+		} else if (geometry.type === "Polygon") {
+			coords = (geometry.coordinates as number[][][])[0];
+		}
+
+		if (!Array.isArray(coords) || coords.length === 0) {
+			return null;
+		}
+
+		const sumX = coords.reduce(
+			(sum: number, coord: number[]) => sum + coord[0],
+			0,
+		);
+		const sumY = coords.reduce(
+			(sum: number, coord: number[]) => sum + coord[1],
+			0,
+		);
+
+		return [sumX / coords.length, sumY / coords.length];
+	}
+
+	private calculateDistance(
+		coords1: [number, number],
+		coords2: [number, number],
+	): number {
+		const [lon1, lat1] = coords1;
+		const [lon2, lat2] = coords2;
+		const R = 6371000; // Earth radius in meters
+		const dLat = ((lat2 - lat1) * Math.PI) / 180;
+		const dLon = ((lon2 - lon1) * Math.PI) / 180;
+		const a =
+			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			Math.cos((lat1 * Math.PI) / 180) *
+				Math.cos((lat2 * Math.PI) / 180) *
+				Math.sin(dLon / 2) *
+				Math.sin(dLon / 2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		return R * c;
 	}
 }

@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import useStore from "@/store/defaultStore";
 import CheckBlock from "@/components/CheckBlock";
-import { getHazardData } from "@/server/actions/getHazardData";
+import { findAlkisBuilding } from "@/server/actions/findAlkisBuilding";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
@@ -26,8 +26,8 @@ export default function FloodCheckClient() {
 		try {
 			const longitude = parseFloat(currentUserAddress.lon);
 			const latitude = parseFloat(currentUserAddress.lat);
-			const result = await getHazardData(longitude, latitude);
-			console.log("setLocationData ✅✅✅");
+			const result = await findAlkisBuilding(longitude, latitude);
+			console.log("setLocationData ✅✅✅", result);
 			setLocationData(result);
 			if (skip) {
 				router.push("/hochwasser-check?skip=true#results");

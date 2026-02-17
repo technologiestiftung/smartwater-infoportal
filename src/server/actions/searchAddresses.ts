@@ -4,10 +4,36 @@
 import { AddressResult, CurrentUserAddress } from "@/lib/types";
 import { containsNumber, extractGermanZipCode } from "@/lib/utils/mapUtils";
 import { searchAddressesPhotonAPI } from "./searchAddressesPhotonAPI";
+import { findAlkisBuilding } from "./findAlkisBuilding";
 
 const berlinBbox: number[] = [
 	13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
 ];
+
+const getAlkisResults = async (uniqueFeatures: CurrentUserAddress[]) => {
+	const uniqueFeaturesWithHousenumber = uniqueFeatures.filter(
+		(f) => f.hasHousenumber,
+	);
+
+	const alkisResults: CurrentUserAddress[] = [];
+
+	for (const feature of uniqueFeaturesWithHousenumber) {
+		const { lat, lon } = feature;
+		if (!lat || !lon) continue;
+
+		const longitude = parseFloat(lon);
+		const latitude = parseFloat(lat);
+		const result = await findAlkisBuilding(longitude, latitude);
+		if (result.found && result.building) {
+			alkisResults.push({
+				...feature,
+				alkisName: result.building.address,
+				building: result.building,
+			});
+		}
+	}
+	return alkisResults;
+};
 
 export async function searchAddresses(
 	query: string,

@@ -43,13 +43,7 @@ export default function AddressSearch() {
 		isRequired: true,
 	};
 
-	const testingAddresses = [
-		"Majakowskiring 9",
-		"Rüsternallee 24",
-		"Forckenbeckstraße 20, 14199 Berlin",
-		"Hainstraße 7, 12439 Berlin",
-		"Havelberger Straße 15, 10559 Berlin",
-	];
+	const testingAddresses = ["Grunewaldstraße 61", "Grunewaldstraße 62"];
 
 	const handleSubmit = () => {
 		return methods.handleSubmit(async () => {
@@ -93,6 +87,7 @@ export default function AddressSearch() {
 			setResults([]);
 			return;
 		}
+		console.log("result.data :>> ", result.data);
 		setResults(result.data);
 	};
 
