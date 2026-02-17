@@ -1,18 +1,19 @@
 {
 	"recommendations": {
 		"pageTitle": "Handlungsempfehlungen – Wie gehe ich mit Überflutungen und Überschwemmungen um?",
-		"intro": "Berlin war z.B. <link1>2017 und 2019</link1> von schweren Hochwassern nach Starkregenereignissen betroffen. Solche Hochwasser können erhebliche Personen- und Sachschäden verursachen. Von Hochwasser betroffene Gebiete wie Berlin sind nicht einmalig, sondern immer wieder betroffen. Gleichzeitig ist es gesetzlich verankert, dass jede und jeder Einzelne im Rahmen ihrer und seiner Möglichkeiten dafür verantwortlich ist, Maßnahmen zu ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (<link2>WHG §5 Abs.2</link2>). Deswegen gilt:",
+		"intro": "Berlin war z.B. <link1>2017 und 2019</link1> von schweren Hochwasser betroffen und kann auch in Zukunft erneut betroffen sein. Solche Hochwasserereignisse können erhebliche Personen- und Sachschäden verursachen. Es ist gesetzlich verankert, dass Bürgerinnen und Bürger im Rahmen ihrer Möglichkeiten dafür verantwortlich sind, Maßnahmen zu ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (<link2>WHG §5 Abs.2</link2>). Deswegen gilt:",
 		"introList": {
 			"entry1": "Sorgen Sie rechtzeitig vor, um Schäden und Risiken zu minimieren.",
-			"entry2": "Maßnahmen gegen Hochwasser müssen nicht teuer sein!  Es gibt eine Vielzahl von Maßnahmen, die ein weites Spektrum von Kosten und Wirkweisen abdecken.",
-			"entry3": "Hier sind Sie richtig: Diese Seite informiert Sie umfänglich über Optionen der Anpassung."
+			"entry2": "Maßnahmen zum Schutz vor Starkregen und Hochwasser müssen nicht teuer sein: Es gibt eine Vielzahl von Maßnahmen, die ein weites Spektrum von Kosten und Wirkweisen abdecken.",
+			"entry3": "Hier sind Sie richtig: Diese Seite informiert Sie über Optionen der Anpassung."
 		},
 		"introImage": {
 			"alt": "Grafik, die zeigt, wie Maßnahmen gegen Hochwasserschäden in Bezug auf den Zeitpunkt ihrer Umsetzung eingeteilt werden können.",
 			"caption": "Abbildung 1: Einteilung von Anpassungsmaßnahmen gegen Hochwasserschäden ausgehend vom Zeitpunkt ihrer Umsetzung.",
 			"copyright": "Bild: SenMVKU"
 		},
-		"intro2": "Maßnahmen gegen Hochwasser können unterschieden werden in Vorsorgemaßnahmen, welche zum Zeitpunkt des Hochwassers bereits umgesetzt sein müssen, und Notfallmaßnahmen, welche kurz vor oder während des Hochwassers umgesetzt werden. Ist das Hochwasser bereits da, kommt es auf das richtige Verhalten im Ernstfall und kurz nach dem Hochwasser an. Da Hochwasser <link1>wiederkehrende Ereignisse</link1> sind, gilt es, sich nach dem Hochwasser auf ein potenzielles nächstes Hochwasser vorzubereiten - siehe Abbildung 1.\n\nDiese Seite bietet Ihnen einen Überblick über Handlungsempfehlungen und soll Ihnen dabei helfen, sich, ihr Eigentum und die Personen in Ihrem Umfeld besser zu schützen. Bitte beachten Sie, dass dieser Überblick im Bereich „Vorsorgemaßnahmen“ auch bauliche Maßnahmen enthält, die ggf. nicht für Mietende und damit ggf. nicht für ihren individuellen Fall geeignet sein könnten. Einen individuelleren Überblick über Vorsorgemaßnahmen erhalten Sie, wenn Sie den <link2>Hochwasser-Check Berlin</link2> für Ihren Wohnraum durchführen und sich diesen als Bericht (PDF) ausgeben lassen.",
+		"intro2": "Welche Maßnahmen umgesetzt werden sollten, hängt von dem Zeitpunkt der Umsetzung ab: <strong>Vorsorgemaßnahmen</strong> werden vor dem Hochwasser umgesetzt und sind beim Eintritt eines Starkregen oder Hochwassers bereits einsatzbereit. <strong>Notfallmaßnahmen</strong> können noch nach dem Erhalt einer Warnung und kurz vor dem Starkregen bzw. Hochwassers umgesetzt werden. Ist das Hochwasser bereits da, kommt es auf das <strong>richtige Verhalten im Ernstfall</strong> und nach dem Hochwasser auf die <strong>richtige Nachsorge</strong> an. Einen individuelleren Überblick über Vorsorgemaßnahmen erhalten Sie, wenn Sie den <link1>Hochwasser-Check Berlin</link1> für Ihren Wohnraum durchführen und sich diesen als Bericht (PDF) herunterladen.",
+		"note": "Hinweis: Der präsentierte Überblick enthält im Bereich Vorsorgemaßnahmen auch bauliche Maßnahmen, deren Umsetzung eher im Verantwortungsbereich des Eigentümers liegt und welche sich dadurch ggf. nicht vorrangig an Mieterinnen und Mieter richten.",
 		"timeline": {
 			"before": "Vorher",
 			"emergency": "Notfall",
@@ -24,17 +25,20 @@
 			"list1Intro": "<strong>Verhaltensvorsorge:</strong>",
 			"list1Paragraph": "Planen und Anpassen des eigenen Verhaltens, um im Ernstfall Schäden zu minimieren.",
 			"list1": {
-				"entry1": "Nutzen Sie den <link>HochwasserCheck Berlin</link> oder das <link>länderübergreifende Hochwasser</link> Portal um sich über Ihre Gefahrenlage zu informieren.",
-				"entry2": "Identifizieren Sie sichere und nicht-sichere Orte, sodass Sie sich und ggf. hilfebedürftige Angehörige bei Hochwasser in Sicherheit bringen können. Sichere Orte sind solche, die nicht in hochwassergefährdeten Gebieten liegen und gleichzeitig ein Mindestmaß an Versorgung gewährleisten. Das können z.B. die Wohnungen von Verwandten & Bekannten oder Einkaufszentren sein, die nicht in Überflutungsflächen liegen. <link>Die Starkregengefahren- und hinweiskarte</link> sowie <link>Hochwassergefahrenkarten und -risikokarten</link> können Ihnen bei der Identifizierung solcher Orte helfen.",
-				"entry3": "Identifizieren Sie ggf. auch Orte, an denen Sie Ihren PKW im Falle eines Hochwassers sicher parken können.",
-				"entry4": "Nutzen Sie den <link>bundesweiten jährlichen Warntag</link> im September um zu überprüfen, ob Sie eine Warnung erreichen kann.",
-				"entry5": "Installieren Sie eine kostenfreie Warnapp (<link>NINA</link>, <link>WarnWetter-App</link>).",
-				"entry6": "Informieren Sie sich über die Bedeutung von Unwetter-Warnstufen des <link>DWD</link>.",
-				"entry7": "Informieren Sie sich über <link>Sirenenalarm</link>.",
-				"entry8": "Informieren Sie sich über die <link>Katastrophenschutz-Leuchttürme</link> ihres Bezirkes.",
-				"entry9": "Erstellen Sie einen <link>Notfallplan</link> und sprechen Sie diesen mit Ihrer Familie bzw. Ihren Mitbewohnern ab.",
-				"entry10": "Packen Sie einen <link>Notfallrucksack</link> und legen diesen bereit.",
-				"entry11": "Schaffen Sie sich ein <link>batteriebetriebenes Radio oder Kurbelradio</link> an, damit Sie auch im Falle eines Stromausfalles informiert bleiben können."
+				"entry1": "Überprüfen Sie, ob an Ihrer Wohnadresse eine Gefährdung vorliegt mit dem <link>HochwasserCheck Berlin</link>",
+				"entry2": "Identifizieren Sie sichere und nicht-sichere Orte mit dem, sodass Sie sich und ggf. hilfebedürftige Angehörige bei Hochwasser in Sicherheit bringen können. Sichere Orte sind solche, die nicht in hochwassergefährdeten Gebieten liegen und gleichzeitig ein Mindestmaß an Versorgung gewährleisten. Das können z.B. die Wohnungen von Verwandten & Bekannten oder Einkaufszentren sein, die nicht in Überflutungsflächen liegen. <link>Die Starkregengefahren- und hinweiskarte</link> sowie <link>Hochwassergefahrenkarten und -risikokarten</link> können Ihnen bei der Identifizierung solcher Orte helfen.",
+				"entry3": "Nutzen Sie das <link>länderübergreifende Hochwasser</link> Portal, um während einer akuten Gefahrenlage informiert zu bleiben.",
+				"entry4": "Sie können zusätzlich das <link>Naturgefahrenportal nutzen</link>, um sich über Ihre Gefahrenlage zu informieren.",
+				"entry5": "Identifizieren Sie ggf. auch Orte, an denen Sie Ihren PKW im Falle eines Hochwassers sicher parken können.",
+				"entry6": "Nutzen Sie den <link>bundesweiten jährlichen Warntag</link> im September um zu überprüfen, ob Sie eine Warnung erreichen kann.",
+				"entry7": "Informieren Sie sich darüber, wie <link>die Berliner Bevölkerung in Gefahrenlagen informiert und gewarnt</link> wird.",
+				"entry8": "Installieren Sie eine kostenfreie Warnapp (<link>NINA</link>, <link>WarnWetter-App</link>).",
+				"entry9": "Informieren Sie sich über die Bedeutung von Unwetter-Warnstufen des <link>DWD</link>.",
+				"entry10": "Informieren Sie sich über <link>Sirenenalarm</link>.",
+				"entry11": "Informieren Sie sich über die <link>Katastrophenschutz-Leuchttürme</link> ihres Bezirkes.",
+				"entry12": "Erstellen Sie einen <link>Notfallplan</link> und sprechen Sie diesen mit Ihrer Familie bzw. Ihren Mitbewohnern ab.",
+				"entry13": "Packen Sie einen <link>Notfallrucksack</link> und legen diesen bereit.",
+				"entry14": "Schaffen Sie sich ein <link>batteriebetriebenes Radio oder Kurbelradio</link> an, damit Sie auch im Falle eines Stromausfalles informiert bleiben können."
 			},
 			"list2Intro": "<strong>Versicherungen:</strong>",
 			"list2Paragraph": "Eine Maßnahme, die zwar keine Schäden reduziert, jedoch das Risiko für Hochwasserschäden teilweise auf ein Versicherungsunternehmen transferiert.",

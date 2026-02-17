@@ -2,6 +2,8 @@
 
 import { After, Before, Serious } from "@/components/Handlungsempfehlungen";
 import Emergency from "@/components/Handlungsempfehlungen/Emergency";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	Image,
 	Tabs,
@@ -11,8 +13,6 @@ import {
 } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 type TocMap = Record<string, string>;
 
@@ -63,7 +63,7 @@ export default function Recommendations() {
 			</ul>
 			<Image
 				// className="-mx-5 hidden w-screen max-w-none lg:-mx-0 lg:block lg:w-auto"
-				className="hidden w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:block lg:w-full lg:translate-x-0"
+				className="hidden w-[calc(100%+2.5rem)] -translate-x-5 lg:block lg:w-full lg:translate-x-0"
 				src="/Handlungsempfehlungen-desktop.jpg"
 				alt={t("recommendations.introImage.alt")}
 				caption={t("recommendations.introImage.caption")}
@@ -72,25 +72,17 @@ export default function Recommendations() {
 			/>
 			<Image
 				// className="-mx-5 w-screen max-w-none lg:-mx-0 lg:hidden lg:w-auto"
-				className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:hidden lg:w-full lg:translate-x-0"
+				className="w-[calc(100%+2.5rem)] -translate-x-5 lg:hidden lg:w-full lg:translate-x-0"
 				src="/Handlungsempfehlungen-mobile.jpg"
 				alt={t("recommendations.introImage.alt")}
 				caption={t("recommendations.introImage.caption")}
 				copyright={t("recommendations.introImage.copyright")}
 				withZoomBox
 			/>
+
 			<p className="">
 				{t.rich("recommendations.intro2", {
 					link1: (chunks) => (
-						<Link
-							href="/hintergrund-informationen#anker4"
-							rel="noopener noreferrer"
-							className="text-text-link underline"
-						>
-							{chunks}
-						</Link>
-					),
-					link2: (chunks) => (
 						<Link
 							href="/#hochwasser-check"
 							rel="noopener noreferrer"
@@ -99,8 +91,12 @@ export default function Recommendations() {
 							{chunks}
 						</Link>
 					),
+					strong: (chunks) => <strong>{chunks}</strong>,
 				})}
 			</p>
+
+			<p className="italic">{t("recommendations.note", {})}</p>
+
 			<Tabs defaultValue="before" className="mt-12">
 				<TabsList>
 					<TabsTrigger value="before" tabColor="#9BCFAF">

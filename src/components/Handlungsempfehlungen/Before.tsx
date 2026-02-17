@@ -1,11 +1,11 @@
-import React, { ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { Image } from "berlin-ui-library";
 import { cn } from "@/lib/utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Image } from "berlin-ui-library";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import Link from "next/link";
+import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
@@ -38,12 +38,6 @@ const Before: React.FC = () => {
 		}
 
 		if (key === "entry1") {
-			if (text.includes("länderübergreifende")) {
-				return {
-					target: "_blank",
-					link: "https://www.hochwasserzentralen.de/",
-				};
-			}
 			return {
 				target: "_self",
 				link: "/#hochwasser-check",
@@ -63,13 +57,31 @@ const Before: React.FC = () => {
 				link: "https://www.gdv.de/gdv/statistik/datenservice-zum-naturgefahrenreport/sachversicherung-elementar",
 			};
 		}
+		if (key === "entry3") {
+			return {
+				target: "_blank",
+				link: "https://www.hochwasserzentralen.de/",
+			};
+		}
 		if (key === "entry4") {
 			return {
 				target: "_blank",
-				link: "#",
+				link: "https://www.naturgefahrenportal.de/de",
 			};
 		}
-		if (key === "entry5") {
+		if (key === "entry6") {
+			return {
+				target: "_blank",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/warnung-und-information-der-bevoelkerung/artikel.1588862.php",
+			};
+		}
+		if (key === "entry7") {
+			return {
+				target: "_blank",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/warnung-und-information-der-bevoelkerung/warnung-und-information-der-bevoelkerung-in-gefahrenlagen-1273411.php#berlin",
+			};
+		}
+		if (key === "entry8") {
 			return {
 				target: "_blank",
 				link: text.includes("NINA")
@@ -77,40 +89,40 @@ const Before: React.FC = () => {
 					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
 			};
 		}
-		if (key === "entry6") {
+		if (key === "entry9") {
 			return {
 				target: "_blank",
 				link: "https://www.dwd.de/DE/wetter/warnungen_aktuell/kriterien/warnstufen.html",
 			};
 		}
-		if (key === "entry7") {
+		if (key === "entry10") {
 			return {
 				target: "_blank",
 				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/sirenen/artikel.1578804.php#headline_1_39",
 			};
 		}
-		if (key === "entry8") {
+		if (key === "entry11") {
 			return {
 				target: "_blank",
 				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/anlaufstellen-fuer-die-bevoelkerung/",
 			};
 		}
-		if (key === "entry9") {
+		if (key === "entry12") {
 			return {
 				target: "_blank",
-				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/ratgeber-notfallvosorge-checkliste.pdf?__blob=publicationFile",
+				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
-		if (key === "entry10") {
+		if (key === "entry13") {
 			return {
 				target: "_blank",
-				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/ratgeber-notfallvosorge-checkliste.pdf?__blob=publicationFile",
+				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
-		if (key === "entry11") {
+		if (key === "entry14") {
 			return {
 				target: "_blank",
-				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/ratgeber-notfallvosorge-checkliste.pdf?__blob=publicationFile",
+				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
 		return {
@@ -201,7 +213,7 @@ const Before: React.FC = () => {
 								<li key={key} className="flex items-start gap-2">
 									<FontAwesomeIcon
 										icon={faCheck}
-										className={`flex-shrink-0 text-[18px]`}
+										className={`shrink-0 text-[18px]`}
 									/>
 									<span>
 										{t.rich(`${listKey}.${key}`, {

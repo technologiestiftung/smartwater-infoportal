@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import useStore from "@/store/defaultStore";
+import { ScenarioList } from "@/types/map";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	Accordion,
+	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	AccordionContent,
 	Button,
-	Pill,
 	FilterPillGroup,
 	List,
 	ListItem,
+	Pill,
 } from "berlin-ui-library";
-import { useRouter, useSearchParams } from "next/navigation";
-import TextBlock from "./TextBlock";
-import RiskBlock from "./RiskBlock";
-import useStore from "@/store/defaultStore";
-import Map from "./Map/Map";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./Report/components/ReportPDF";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
-import ScenarioMap from "./ScenarioMap/Map";
-import { ScenarioList } from "@/types/map";
+import Map from "./Map/Map";
+import ReportPDF from "./Report/components/ReportPDF";
 import ResultBlock from "./ResultBlock";
+import RiskBlock from "./RiskBlock";
+import ScenarioMap from "./ScenarioMap/Map";
+import TextBlock from "./TextBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -145,7 +145,7 @@ const Results: React.FC = () => {
 			</section>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
-					<h3 className="">{t("hazardDisplay.title")}</h3>
+					{/* <h3 className="">{t("hazardDisplay.title")}</h3> */}
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
@@ -219,9 +219,11 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
-				<h3 className="mt-2">{t("map.title")}</h3>
-				<p className="">{t("map.description")}</p>
-				<Map />
+				<div className="mt-6">
+					<Map />
+				</div>
+				{/* <h3 className="mt-2">{t("map.title")}</h3> */}
+				{/* <p className="">{t("map.description")}</p> */}
 				<div
 					id="scenario-maps"
 					className={
@@ -310,12 +312,12 @@ const Results: React.FC = () => {
 							className="w-full gap-6"
 							reverseDesktopColumns={true}
 							slotA={
-								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+								<div className="flex w-full flex-col gap-6 bg-panel-heavy p-6">
 									<h3 className="">
 										{t("buildingRiskAssessment.disclaimerTitle")}
 									</h3>
 									<p className="">{t("buildingRiskAssessment.description1")}</p>
-									<p className="">{t("buildingRiskAssessment.description2")}</p>
+									{/* <p className="">{t("buildingRiskAssessment.description2")}</p> */}
 								</div>
 							}
 							slotB={<RiskBlock />}
