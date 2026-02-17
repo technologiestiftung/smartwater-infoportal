@@ -204,20 +204,9 @@ export const translateHazardTags = (
 	return "/Grey.png";
 };
 
-export const translateWMSValue = (
-	value: string | number | null | undefined,
-	helper: string = "bis zu ",
-	unit: string = "cm",
-): string => {
-	if (!value) {
-		return "Keine Daten";
-	}
-	return `${helper}${value}${unit}`;
-};
-
 export const getScreenshotForScenario = async (
 	scenario: string,
-	locationData?: LocationData,
+	locationData?: LocationData | null,
 	hazardEntities?: HazardEntity[] | null,
 	floodRiskResult?: FloodRiskResult | null,
 	floodRiskAnswers?: FloodRiskAnswers | null,

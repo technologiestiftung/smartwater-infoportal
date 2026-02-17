@@ -11,7 +11,6 @@ import {
 	getToday,
 	translateHazardTags,
 	getScreenshotForScenario,
-	translateWMSValue,
 } from "../utils";
 import pdfData from "@/components/Report/pdf.json";
 import { drawPDF } from "../pdf";
@@ -19,8 +18,6 @@ import { PDFKeys, PDFProps } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
-import { getWMSForBuilding } from "@/server/actions/getHazardData";
-import { BuildingWMS } from "@/lib/types";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -34,7 +31,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const {
 		currentUserAddress,
 		getHazardEntities,
-		locationData,
 		floodRiskAnswers,
 		floodRiskResult,
 	} = useStore();
@@ -159,110 +155,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const makePDF = async () => {
-		console.log("makePDF 🚀🚀🚀");
-		if (!locationData?.found || !locationData.building) {
-			return setError(
-				"Es wurden leider keine Gebäudedaten gefunden. Also kann das PDF nicht erstellt werden.",
-			);
-		}
-
-		if (error) {
-			setError(null);
-		}
-
-		let buildingWMSData: BuildingWMS | null = null;
-
-		try {
-			buildingWMSData = await getWMSForBuilding(locationData);
-			if (!buildingWMSData) {
-				return setError(
-					"No building WMS data found, cannot proceed with PDF image fetch",
-				);
-			}
-		} catch (wmsError) {
-			return setError("Error fetching WMS data: " + wmsError);
-		}
-
 		setDone((prev) => [...prev, "wms"]);
 
-		console.log("buildingWMSData :>> ", buildingWMSData);
-
-		const {
-			hasHeavyRainHazardMap,
-			rareHeavyRainMax,
-			rareHeavyRainAverage,
-			uncommonHeavyRainMax,
-			uncommonHeavyRainAverage,
-			extremeHeavyRainMax,
-			extremeHeavyRainAverage,
-			frequentFloodMax,
-			frequentFloodAverage,
-			averageFloodMax,
-			averageFloodAverage,
-			rareFloodMax,
-			rareFloodAverage,
-			errors,
-			isInExtremeRainHazardMap,
-		} = buildingWMSData;
-
-		const errorRareHeavyRain = errors?.includes("rareHeavyRain") || false;
-		const errorUncommonHeavyRain =
-			errors?.includes("uncommonHeavyRain") || false;
-		const errorExtremeHeavyRain = errors?.includes("extremeHeavyRain") || false;
-		const errorFrequentFlood = errors?.includes("frequentFlood") || false;
-		const errorAverageFlood = errors?.includes("averageFlood") || false;
-		const errorRareFlood = errors?.includes("rareFlood") || false;
-		const errorFloodZone = errors?.includes("floodZoneIndex") || false;
-
-		const scenarios: string[] = [
-			/* "SR",
-			"HW", */
-			"heavyRainWidget",
-			"fluvialFloodWidget",
-		];
+		const scenarios: string[] = ["heavyRainWidget", "fluvialFloodWidget"];
 
 		if (!skip) {
 			scenarios.push("risk-block");
 		}
-
-		if (
-			!!locationData?.building?.floodZoneIndex &&
-			locationData?.building?.floodZoneIndex > 0
-		) {
-			if (!errorFloodZone) {
-				scenarios.push("FLOOD_ZONE");
-			}
-		}
-		if (!!hasHeavyRainHazardMap) {
-			if (!errorRareHeavyRain) {
-				scenarios.push("SRGK_RARE_HEAVY_RAIN");
-			}
-			if (!errorUncommonHeavyRain) {
-				scenarios.push("SRGK_UNCOMMON_HEAVY_RAIN");
-			}
-		} else if (!hasHeavyRainHazardMap) {
-			if (!errorUncommonHeavyRain) {
-				scenarios.push("SRHK_UNCOMMON_HEAVY_RAIN");
-			}
-		}
-		if (!errorExtremeHeavyRain) {
-			if (isInExtremeRainHazardMap) {
-				scenarios.push("SRGK_EXTREME_HEAVY_RAIN");
-			} else {
-				scenarios.push("SRHK_EXTREME_HEAVY_RAIN");
-			}
-		}
-		if (!!frequentFloodMax && !errorFrequentFlood) {
-			scenarios.push("FREQUENT_FLOOD");
-		}
-		if (!!averageFloodMax && !errorAverageFlood) {
-			scenarios.push("AVERAGE_FREQUENT_FLOOD");
-		}
-		if (!!rareFloodMax && !errorRareFlood) {
-			scenarios.push("RARE_FREQUENT_FLOOD");
-		}
-
-		console.log("scenarios :>> ", scenarios);
 
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
@@ -270,7 +169,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			for (const scenario of scenarios) {
 				const { key, blob } = await getScreenshotForScenario(
 					scenario,
-					locationData,
+					null,
 					hazardEntities,
 					floodRiskResult,
 					floodRiskAnswers,
@@ -283,77 +182,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 
 		setDone((prev) => [...prev, "images"]);
-
-		// Rare Heavy Rain
-		addToPDFKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
-		addToPDFKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
-		addToPDFKeys["{rareHeavyRainAverage}"] = translateWMSValue(
-			rareHeavyRainAverage,
-			"",
-		);
-		addToPDFKeys["{errorRareHeavyRain}"] = errorRareHeavyRain;
-
-		// Uncommon Heavy Rain
-		addToPDFKeys["{hasSrgkUncommonHeavyRainMap}"] =
-			!errorUncommonHeavyRain && !!hasHeavyRainHazardMap;
-		addToPDFKeys["{hasSrhkUncommonHeavyRainMap}"] =
-			!errorUncommonHeavyRain && !hasHeavyRainHazardMap;
-		addToPDFKeys["{uncommonHeavyRainMax}"] =
-			translateWMSValue(uncommonHeavyRainMax);
-		addToPDFKeys["{uncommonHeavyRainAverage}"] = translateWMSValue(
-			uncommonHeavyRainAverage,
-			"",
-		);
-		addToPDFKeys["{errorUncommonHeavyRain}"] = errorUncommonHeavyRain;
-
-		// Extreme Heavy Rain
-		addToPDFKeys["{hasSrgkExtremeHeavyRainMap}"] =
-			!errorExtremeHeavyRain &&
-			hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
-		addToPDFKeys["{hasSrhkExtremeHeavyRainMap}"] =
-			!errorExtremeHeavyRain &&
-			hasHeavyRainHazardMap !== "isInExtremeRainHazardMap";
-		addToPDFKeys["{extremeHeavyRainMax}"] =
-			translateWMSValue(extremeHeavyRainMax);
-		addToPDFKeys["{extremeHeavyRainAverage}"] = translateWMSValue(
-			extremeHeavyRainAverage,
-			"",
-		);
-		addToPDFKeys["{errorExtremeHeavyRain}"] = errorExtremeHeavyRain;
-
-		// Frequent Flood
-		addToPDFKeys["{errorFrequentFlood}"] = errorFrequentFlood;
-		addToPDFKeys["{hasNoFrequentFloodData}"] =
-			!errorFrequentFlood && !frequentFloodMax;
-		addToPDFKeys["{hasFrequentFloodData}"] =
-			!errorFrequentFlood && !!frequentFloodMax;
-		addToPDFKeys["{frequentFloodMax}"] = translateWMSValue(frequentFloodMax);
-		addToPDFKeys["{frequentFloodAverage}"] =
-			translateWMSValue(frequentFloodAverage);
-
-		// Average Flood
-		addToPDFKeys["{errorAverageFlood}"] = errorAverageFlood;
-		addToPDFKeys["{hasNoAverageFloodData}"] =
-			!errorAverageFlood && !averageFloodMax;
-		addToPDFKeys["{hasAverageFloodData}"] =
-			!errorAverageFlood && !!averageFloodMax;
-		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(averageFloodMax);
-		addToPDFKeys["{averageFloodAverage}"] =
-			translateWMSValue(averageFloodAverage);
-
-		// Rare Flood
-		addToPDFKeys["{errorRareFlood}"] = errorRareFlood;
-		addToPDFKeys["{hasNoRareFloodData}"] = !errorRareFlood && !rareFloodMax;
-		addToPDFKeys["{hasRareFloodData}"] = !errorRareFlood && !!rareFloodMax;
-		addToPDFKeys["{rareFloodMax}"] = translateWMSValue(rareFloodMax);
-		addToPDFKeys["{rareFloodAverage}"] = translateWMSValue(rareFloodAverage);
-
-		// Flood Zone
-		addToPDFKeys["{errorFloodZone}"] = errorFloodZone;
-		addToPDFKeys["{hasNoFloodZoneData}"] =
-			!errorFloodZone && !locationData.building.floodZoneIndex;
-		addToPDFKeys["{hasFloodZoneData}"] =
-			!errorFloodZone && !!locationData.building.floodZoneIndex;
 
 		// Draw PDF
 		try {
@@ -369,6 +197,21 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			setError("Error creating PDF: " + catchError);
 		}
 		makePDFInitializedRef.current = false;
+	};
+
+	const openPDF = () => {
+		const url = pdfUrlRef.current;
+		if (!url) {
+			return;
+		}
+		if (isMobile || openPDFInNewTab) {
+			window.open(url, "_blank", "noopener,noreferrer");
+		} else {
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = pdfData.name as string;
+			a.click();
+		}
 	};
 
 	useEffect(() => {
@@ -462,12 +305,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 							<DownloadItem
 								buttonText={t("floodCheck.reportDownload.button")}
 								description={t("floodCheck.reportDownload.description")}
-								downloadUrl="#results"
 								fileType={t("floodCheck.reportDownload.fileInfo", {
 									size: `${pdfSizeKB} MB`,
 								})}
 								date={getToday()}
 								title={t("floodCheck.reportDownload.title")}
+								onClickDownloadItem={openPDF}
 							/>
 						) : (
 							<>

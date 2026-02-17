@@ -66,44 +66,6 @@ export function calculateQuestionScore(
 	};
 }
 
-export function calculateQuestionScoreFromMultiple(
-	questionId: string,
-	value: string | string[] | number,
-): { score: number; addToCounter: number } {
-	// Find question config
-	const questionConfig = riskConfig.questions.find((q) => q.id === questionId);
-	if (!questionConfig) {
-		return { score: 0, addToCounter: 0 };
-	}
-
-	let score = 0;
-	let addToCounter = 0;
-
-	if (Array.isArray(value)) {
-		// Multiple choice - sum all scores
-		value.forEach((option) => {
-			const optionConfig = questionConfig.options.find(
-				(opt) => opt.value === option,
-			);
-			if (optionConfig) {
-				score += optionConfig.score;
-				addToCounter += optionConfig.addToCounter || 0;
-			}
-		});
-	} else {
-		// Single choice
-		const optionConfig = questionConfig.options.find(
-			(opt) => opt.value === value,
-		);
-		if (optionConfig) {
-			score = optionConfig.score;
-			addToCounter = optionConfig.addToCounter || 0;
-		}
-	}
-
-	return { score, addToCounter };
-}
-
 export function prePopulateFromLocationData(
 	locationData: LocationData | null,
 ): FloodRiskAnswers {

@@ -27,32 +27,10 @@ export interface Building {
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;
 	outlineBufferGeometry?: Geometry;
-	numberOfBuildings?: number;
-	numberOfCoordinatesOnBuildings?: number;
-	numberOfCoordinatesOnOutline?: number;
 	transformedX?: number;
 	transformedY?: number;
 	floodZoneIndex?: number | null;
 	errors?: string[];
-}
-
-export interface BuildingWMS {
-	hasHeavyRainHazardMap: string | null;
-	isInExtremeRainHazardMap: boolean | null;
-	rareHeavyRainMax: number | null;
-	uncommonHeavyRainMax: number | null;
-	extremeHeavyRainMax: number | null;
-	rareHeavyRainAverage: number | null;
-	uncommonHeavyRainAverage: number | null;
-	extremeHeavyRainAverage: number | null;
-	frequentFloodMax: number | null;
-	averageFloodMax: number | null;
-	rareFloodMax: number | null;
-	frequentFloodAverage: number | null;
-	averageFloodAverage: number | null;
-	rareFloodAverage: number | null;
-	errors?: string[];
-	pointRequestsCount: number | null;
 }
 
 export type BBox = [number, number, number, number];
