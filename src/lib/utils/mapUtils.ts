@@ -48,7 +48,10 @@ export const containsNumber = (str: string): boolean => {
 };
 
 export function extractGermanZipCode(query: string): string | null {
-	const match = query.match(/\b\d{5}\b/);
+	if (!query) {
+		return null;
+	}
+	const match = query.match(/\b(?!00)\d{5}\b/);
 	return match ? match[0] : null;
 }
 

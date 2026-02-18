@@ -73,6 +73,7 @@ export async function searchAddresses(
 	const germanZIPCode = extractGermanZipCode(query);
 
 	const data = await res.json();
+	// console.log("data :>> ", JSON.stringify(data.features));
 
 	const filteredResults: CurrentUserAddress[] = data.features
 		.filter(
@@ -84,13 +85,17 @@ export async function searchAddresses(
 		.filter((f: any) =>
 			f.context.some((c: any) => c.text_de.toLowerCase().includes("berlin")),
 		)
-		.map((f: any) => ({
-			lat: f.geometry.coordinates[1].toString(),
-			lon: f.geometry.coordinates[0].toString(),
-			name: f.place_name.replace(", Deutschland", ""),
-			hasHousenumber:
-				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),
-		}))
+		.map((f: any) => {
+			const getZIPCode = extractGermanZipCode(f.place_name);
+			return {
+				lat: f.geometry.coordinates[1].toString(),
+				lon: f.geometry.coordinates[0].toString(),
+				name: f.place_name.replace(", Deutschland", ""),
+				hasHousenumber:
+					!!getZIPCode &&
+					(containsNumber(f.address ?? "") || containsNumber(f.text ?? "")),
+			};
+		})
 		.filter((f: any) => {
 			if (!germanZIPCode) return true;
 			if (!isNaN(Number(f.name))) return false;
