@@ -182,7 +182,7 @@ const Serious: React.FC = () => {
 								<li key={key} className="flex items-start gap-2">
 									<FontAwesomeIcon
 										icon={faCheck}
-										className={`flex-shrink-0 text-[18px]`}
+										className={`shrink-0 text-[18px]`}
 									/>
 									<span className="whitespace-pre-line">
 										{t.rich(`${listKey}.${key}`, {

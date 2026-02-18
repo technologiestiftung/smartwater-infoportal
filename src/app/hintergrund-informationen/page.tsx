@@ -1,8 +1,7 @@
 "use client";
 import WrappingTextBlock from "@/components/WrappingTextBlock";
-import { Image } from "berlin-ui-library";
+import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
 import { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
@@ -207,7 +206,7 @@ export default function GeneralInformation() {
 												href="https://www.gdv.de/gdv/themen/klima/128-millionen-euro-starkregen-schaden-in-berlin-52782"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -225,7 +224,7 @@ export default function GeneralInformation() {
 															href="https://www.dwd.de/DE/wetter/thema_des_tages/2025/9/28.html"
 															target="_blank"
 															rel="noopener noreferrer"
-															className="text-text-link underline"
+															variant="extern"
 														>
 															{chunks}
 														</Link>
@@ -320,7 +319,7 @@ export default function GeneralInformation() {
 												href="https://gdi.berlin.de/viewer/main/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -329,7 +328,6 @@ export default function GeneralInformation() {
 											<Link
 												href="#anker4"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
 											>
 												{chunks}
 											</Link>
@@ -425,7 +423,7 @@ export default function GeneralInformation() {
 													href="https://regenwasseragentur.berlin/schwammstadt/"
 													target="_blank"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant="extern"
 												>
 													{chunks}
 												</Link>
@@ -435,7 +433,7 @@ export default function GeneralInformation() {
 													href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
 													target="_blank"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant="extern"
 												>
 													{chunks}
 												</Link>
@@ -444,7 +442,6 @@ export default function GeneralInformation() {
 												<Link
 													href="/#hochwasser-check"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
 												>
 													{chunks}
 												</Link>
@@ -453,7 +450,6 @@ export default function GeneralInformation() {
 												<Link
 													href="/handlungsempfehlungen"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
 												>
 													{chunks}
 												</Link>
@@ -481,7 +477,7 @@ export default function GeneralInformation() {
 												href="https://www.naturgefahrenportal.de/de"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -491,7 +487,7 @@ export default function GeneralInformation() {
 												href="https://www.bmwsb.bund.de/SharedDocs/downloads/DE/publikationen/raumordnung/hochwasserschutzfibel.html"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -501,7 +497,7 @@ export default function GeneralInformation() {
 												href="https://www.hochwasser-pass.info/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -511,7 +507,7 @@ export default function GeneralInformation() {
 												href="https://www.bbk.bund.de/DE/Themen/Risikomanagement/Baulicher-Bevoelkerungsschutz/Schutz-vor-Naturgefahren/Hochwasser/hochwasser_node.html"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -521,7 +517,7 @@ export default function GeneralInformation() {
 												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -538,7 +534,7 @@ export default function GeneralInformation() {
 										href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-text-link underline"
+										variant="extern"
 									>
 										{chunks}
 									</Link>
@@ -548,7 +544,7 @@ export default function GeneralInformation() {
 										href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-text-link underline"
+										variant="extern"
 									>
 										{chunks}
 									</Link>
@@ -558,7 +554,7 @@ export default function GeneralInformation() {
 										href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-text-link underline"
+										variant="extern"
 									>
 										{chunks}
 									</Link>
