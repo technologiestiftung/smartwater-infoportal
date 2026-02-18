@@ -32,7 +32,7 @@ export interface Building {
 	transformedX?: number;
 	transformedY?: number;
 	floodZoneIndex?: number | null;
-	errors?: string[];
+	distance?: number;
 }
 
 export type BBox = [number, number, number, number];

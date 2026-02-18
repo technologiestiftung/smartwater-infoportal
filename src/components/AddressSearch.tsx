@@ -18,13 +18,19 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
 
+const LocationDataNotFound = {
+	found: false,
+	building: null,
+};
+
 export default function AddressSearch() {
 	const t = useTranslations("home");
 	const router = useRouter();
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-	const { currentUserAddress, setCurrentUserAddress } = useStore();
+	const { currentUserAddress, setCurrentUserAddress, setLocationData } =
+		useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -84,6 +90,7 @@ export default function AddressSearch() {
 					break;
 			}
 			setError(msg);
+			setLocationData(LocationDataNotFound);
 			setResults([]);
 			return;
 		}
@@ -100,6 +107,7 @@ export default function AddressSearch() {
 			const value = target.value;
 
 			if (value.length < 3) {
+				setLocationData(LocationDataNotFound);
 				setResults([]);
 				setShowLoading(false);
 				return;
@@ -181,6 +189,12 @@ export default function AddressSearch() {
 																setError("");
 																setValue("addresse", result.name);
 																setCurrentUserAddress(result);
+																if (result.building) {
+																	setLocationData({
+																		found: true,
+																		building: result.building,
+																	});
+																}
 																setResults([]);
 															}}
 															variant="link"

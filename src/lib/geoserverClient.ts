@@ -1,10 +1,8 @@
-/* eslint-disable */
-
 import proj4 from "proj4";
 import { Geometry } from "./types";
 import { bufferedOutlineMultiPolygonFromBuilding } from "./utils/geoServerHelpers";
 
-const notFound = {
+const LocationDataNotFound = {
 	found: false,
 	building: null,
 };
@@ -13,8 +11,6 @@ export class GeoServerClient {
 	private readonly baseUrl?: string;
 	private readonly workspace?: string;
 	private readonly buildingLayer: string;
-
-	private collectErrors: string[] = [];
 
 	constructor() {
 		this.baseUrl = process.env.GEOSERVER_BASE_URL;
@@ -37,11 +33,20 @@ export class GeoServerClient {
 				transformedX,
 				transformedY,
 			);
-			console.log("exactMatch :>> ", exactMatch);
+			console.log("exactMatch found 🔍🔍🔍 :>> ", exactMatch);
 			if (exactMatch) {
+				const outlineBufferGeometry = bufferedOutlineMultiPolygonFromBuilding(
+					exactMatch.geometry,
+				);
 				return {
 					found: true,
-					buildingInformation: exactMatch,
+					building: {
+						...exactMatch,
+						transformedX,
+						transformedY,
+						outlineBufferGeometry,
+						floodZoneIndex: null,
+					},
 				};
 			}
 
@@ -49,65 +54,26 @@ export class GeoServerClient {
 				[transformedX, transformedY],
 				[longitude, latitude],
 			);
-			console.log("bufferResult :>> ", bufferResult);
+			console.log("bufferResult found 🔍🔍🔍 :>> ", bufferResult);
 			if (bufferResult) {
+				const outlineBufferGeometry = bufferedOutlineMultiPolygonFromBuilding(
+					bufferResult.geometry,
+				);
 				return {
 					found: true,
-					buildingInformation: bufferResult,
+					building: {
+						...bufferResult,
+						transformedX,
+						transformedY,
+						outlineBufferGeometry,
+						floodZoneIndex: null,
+					},
 				};
 			}
 
-			return {
-				found: false,
-				buildingInformation: null,
-			};
+			return LocationDataNotFound;
 		} catch {
-			return {
-				found: false,
-				buildingInformation: null,
-			};
-		}
-	}
-
-	async findBuildingAtPoint(longitude: number, latitude: number) {
-		console.log("findBuildingAtPoint called with :>> ", longitude, latitude);
-		try {
-			const [transformedX, transformedY] = proj4("EPSG:4326", "EPSG:25833", [
-				longitude,
-				latitude,
-			]);
-
-			console.log("transformedX :>> ", transformedX);
-			console.log("transformedY :>> ", transformedY);
-
-			const exactMatch = await this.searchExactIntersection(
-				transformedX,
-				transformedY,
-			);
-
-			console.log("exactMatch :>> ", exactMatch);
-
-			if (!exactMatch) {
-				return notFound;
-			}
-
-			const outlineBufferGeometry = bufferedOutlineMultiPolygonFromBuilding(
-				exactMatch.geometry,
-			);
-
-			return {
-				found: true,
-				building: {
-					...exactMatch,
-					transformedX,
-					transformedY,
-					outlineBufferGeometry,
-					floodZoneIndex: null,
-					errors: this.collectErrors,
-				},
-			};
-		} catch {
-			return notFound;
+			return LocationDataNotFound;
 		}
 	}
 
