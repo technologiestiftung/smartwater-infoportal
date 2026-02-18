@@ -1,10 +1,9 @@
-import React, { FC, ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { Image } from "berlin-ui-library";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Image, Link } from "berlin-ui-library";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import React, { FC, ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 interface FullResponsiveImageProps {
@@ -44,12 +43,14 @@ const Serious: React.FC = () => {
 		if (text.includes("NINA")) {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html",
 			};
 		}
 		if (text.includes("WarnWetter")) {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
 			};
 		}
@@ -62,6 +63,7 @@ const Serious: React.FC = () => {
 		if (text.includes("Aquaplaning")) {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/sicherheit/aquaplaning/",
 			};
 		}
@@ -189,7 +191,7 @@ const Serious: React.FC = () => {
 													href={getLink(chunks).link}
 													target={getLink(chunks).target}
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant={getLink(chunks).variant || "default"}
 												>
 													{chunks}
 												</Link>

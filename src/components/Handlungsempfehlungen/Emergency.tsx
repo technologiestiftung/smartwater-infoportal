@@ -1,9 +1,8 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Image } from "berlin-ui-library";
+import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import NextImage from "next/image";
-import Link from "next/link";
 import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
@@ -39,6 +38,7 @@ const Emergency: React.FC = () => {
 		if (key === "entry1") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: text.includes("NINA")
 					? "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
 					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
@@ -141,7 +141,7 @@ const Emergency: React.FC = () => {
 												href={getLink(key, chunks).link}
 												target={getLink(key, chunks).target}
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant={getLink(key, chunks).variant || "default"}
 											>
 												{chunks}
 											</Link>

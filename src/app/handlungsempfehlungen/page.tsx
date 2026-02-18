@@ -6,13 +6,13 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	Image,
+	Link,
 	Tabs,
 	TabsContent,
 	TabsList,
-	TabsTrigger,
+	TabsTrigger
 } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
 
 type TocMap = Record<string, string>;
 
@@ -40,6 +40,7 @@ export default function Recommendations() {
 					),
 					link2: (chunks) => (
 						<Link
+							variant="extern"
 							className="text-text-link underline"
 							href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
 							target="_blank"
@@ -86,7 +87,6 @@ export default function Recommendations() {
 						<Link
 							href="/#hochwasser-check"
 							rel="noopener noreferrer"
-							className="text-text-link underline"
 						>
 							{chunks}
 						</Link>

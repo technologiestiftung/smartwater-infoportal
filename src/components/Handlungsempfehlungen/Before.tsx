@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Image } from "berlin-ui-library";
+import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import NextImage from "next/image";
-import Link from "next/link";
 import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
@@ -54,18 +53,21 @@ const Before: React.FC = () => {
 			}
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.gdv.de/gdv/statistik/datenservice-zum-naturgefahrenreport/sachversicherung-elementar",
 			};
 		}
 		if (key === "entry3") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.hochwasserzentralen.de/",
 			};
 		}
 		if (key === "entry4") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.naturgefahrenportal.de/de",
 			};
 		}
@@ -84,6 +86,7 @@ const Before: React.FC = () => {
 		if (key === "entry8") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: text.includes("NINA")
 					? "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
 					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
@@ -92,6 +95,7 @@ const Before: React.FC = () => {
 		if (key === "entry9") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.dwd.de/DE/wetter/warnungen_aktuell/kriterien/warnstufen.html",
 			};
 		}
@@ -110,18 +114,21 @@ const Before: React.FC = () => {
 		if (key === "entry12") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
 		if (key === "entry13") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
 		if (key === "entry14") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
@@ -231,7 +238,7 @@ const Before: React.FC = () => {
 													href={getLink(key, chunks, listKey).link}
 													target={getLink(key, chunks, listKey).target}
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant={getLink(key, chunks, listKey).variant || "default"}
 												>
 													{chunks}
 												</Link>
@@ -252,7 +259,7 @@ const Before: React.FC = () => {
 												href="https://www.hochwasser-pass.info/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -262,7 +269,7 @@ const Before: React.FC = () => {
 												href="https://www.fib-bund.de/inhalt/themen/hochwasser/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
