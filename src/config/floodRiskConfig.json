@@ -21,7 +21,7 @@
 		{
 			"id": "q0",
 			"type": "radio",
-			"isRequired": true,
+			"isRequired": false,
 			"translationKey": "floodCheck.questions.q0",
 			"options": [
 				{ "value": "rent", "score": 0, "addToCounter": 0 },
