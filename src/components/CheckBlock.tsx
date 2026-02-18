@@ -27,12 +27,12 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 			options: [
 				{
 					label:
-						"Ja, ich möchte den Fragebogen mit sechs Fragen beantworten, um zusätzlich individualisierte Handlungsempfehlungen erhalten.",
+						"Ja, ich möchte den Fragebogen mit sechs Fragen beantworten, um <b>zusätzlich</b> individualisierte Handlungsempfehlungen erhalten.",
 					value: "yes",
 				},
 				{
 					label:
-						"Nein, ich möchte ausschließlich eine Einschätzung der Gefährdungslage auf Basis des vorhandenen Kartenmaterials erhalten.",
+						"Nein, ich möchte <b>ausschließlich</b> eine Einschätzung der Gefährdungslage auf Basis des vorhandenen Kartenmaterials erhalten.",
 					value: "no",
 				},
 			],
