@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { HazardLevel } from "./types";
+import MultiPolygon from "ol/geom/MultiPolygon";
+import { getWidth, getHeight } from "ol/extent";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -58,4 +60,45 @@ export function fixMojibake(text: string): string {
 	} catch {
 		return text;
 	}
+}
+
+export function getSafeFitExtent(
+	geometry: any,
+	opts?: {
+		// how many times bigger the whole geometry is allowed to be vs first polygon
+		ratioThreshold?: number;
+		// absolute size threshold in map units (EPSG:25833 => meters)
+		maxSizeMeters?: number;
+	},
+) {
+	const ratioThreshold = opts?.ratioThreshold ?? 10;
+	const maxSizeMeters = opts?.maxSizeMeters ?? 20_000; // 20km
+
+	if (!geometry) return null;
+
+	// If it's a MultiPolygon, consider falling back to the first polygon
+	if (geometry instanceof MultiPolygon) {
+		const allExtent = geometry.getExtent();
+		const allW = getWidth(allExtent);
+		const allH = getHeight(allExtent);
+
+		const poly = geometry.getPolygon(0);
+		if (!poly) return allExtent;
+
+		const firstExtent = poly.getExtent();
+		const firstW = getWidth(firstExtent);
+		const firstH = getHeight(firstExtent);
+
+		// avoid division by zero
+		const wRatio = firstW > 0 ? allW / firstW : Infinity;
+		const hRatio = firstH > 0 ? allH / firstH : Infinity;
+
+		const tooBigAbs = allW > maxSizeMeters || allH > maxSizeMeters;
+		const tooBigRel = wRatio > ratioThreshold || hRatio > ratioThreshold;
+
+		return tooBigAbs || tooBigRel ? firstExtent : allExtent;
+	}
+
+	// If it's a Polygon (or anything else), just use its extent
+	return geometry.getExtent();
 }

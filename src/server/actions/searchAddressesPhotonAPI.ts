@@ -16,6 +16,7 @@ const sanitizeAddressInput = (input: string, strict = false): string => {
 export async function searchAddressesPhotonAPI(
 	query: string,
 ): Promise<AddressResult> {
+	console.log("searchAddressesPhotonAPI");
 	const baseURL = "https://photon.komoot.io";
 	const bboxString =
 		"13.091992716067702,52.33488609760638,13.742786470433,52.67626223889507";

@@ -49,7 +49,15 @@ export default function AddressSearch() {
 		isRequired: true,
 	};
 
-	const testingAddresses = ["Grunewaldstraße 61", "Grunewaldstraße 62"];
+	const testingAddresses = [
+		"Grunewaldstraße 61",
+		"Grunewaldstraße 62",
+		"Schönhauser Allee 125-128",
+		"Schönhauser Allee 125",
+		"Schönhauser Allee 128",
+		"Birkenstraße 17, 12589 Berlin",
+		"Helmstraße 9, 10827 Berlin",
+	];
 
 	const handleSubmit = () => {
 		return methods.handleSubmit(async () => {
@@ -188,15 +196,20 @@ export default function AddressSearch() {
 																setError("");
 																setValue("addresse", result.name);
 																if (result.building) {
+																	const makeBuilding = {
+																		...result.building,
+																		alkisAddress: fixMojibake(
+																			result.building?.alkisAddress || "",
+																		),
+																		name: result.name,
+																	};
+																	console.log(
+																		"setLocationData ✅✅✅",
+																		makeBuilding,
+																	);
 																	setLocationData({
 																		found: true,
-																		building: {
-																			...result.building,
-																			alkisAddress: fixMojibake(
-																				result.building?.alkisAddress || "",
-																			),
-																			name: result.name,
-																		},
+																		building: makeBuilding,
 																	});
 																}
 																setResults([]);

@@ -77,7 +77,7 @@ export async function searchAddresses(
 	const filteredResults: CurrentUserAddress[] = data.features
 		.filter(
 			(f: any) =>
-				(f.relevance ?? 0) >= 0.7 ||
+				(f.relevance ?? 0) >= 0.6 ||
 				!f.geometry.coordinates[1] ||
 				!f.geometry.coordinates[0],
 		)
@@ -93,6 +93,7 @@ export async function searchAddresses(
 		}))
 		.filter((f: any) => {
 			if (!germanZIPCode) return true;
+			if (!isNaN(Number(f.name))) return false;
 			return f.name.includes(germanZIPCode);
 		});
 
