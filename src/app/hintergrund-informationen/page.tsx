@@ -90,41 +90,26 @@ export default function GeneralInformation() {
 		);
 	};
 
-	const scrollToWithOffset = (id: string, offset = 128) => {
-		const el = document.getElementById(id);
-		if (!el) {
-			return;
-		}
-
-		const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
-
-		window.scrollTo({ top: y, behavior: "smooth" });
-	};
-
 	return (
 		<>
 			<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 				<section className="flex flex-col gap-6">
 					<h1 className="">{t("generalInfo.pageTitle")}</h1>
 					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
-					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+					<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 						{Object.entries(tableOfContentsItems).map(([key, label]) => (
 							<li key={key}>
-								<a
-									href={`#${key}`}
-									className="text-text-link"
-									onClick={(e) => {
-										e.preventDefault();
-										scrollToWithOffset(key);
-									}}
-								>
+								<a href={`#${key}`} className="text-text-link">
 									{label}
 								</a>
 							</li>
 						))}
 					</ul>
 				</section>
-				<div className="divider" id="anker1" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker1"
+				/>
 				<section className="">
 					<WrappingTextBlock
 						imageWidth="50%"
@@ -149,7 +134,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker2" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker2"
+				/>
 				<section className="">
 					<WrappingTextBlock
 						imageWidth="50%"
@@ -278,15 +266,6 @@ export default function GeneralInformation() {
 									<p key={key} className="">
 										{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
 											strong: (chunks) => <strong>{chunks}</strong>,
-											/* link1: (chunks) => (
-												<Link
-													href="#anker3"
-													rel="noopener noreferrer"
-													className="text-text-link underline"
-												>
-													{chunks}
-												</Link>
-											), */
 											link2: (chunks) => (
 												<Link
 													href="/#hochwasser-check"
@@ -313,7 +292,10 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker5" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker5"
+				/>
 				<section className="relative mb-12 w-full lg:mb-0">
 					<WrappingTextBlock
 						imageWidth="50%"
@@ -413,7 +395,10 @@ export default function GeneralInformation() {
 						Hochwasser erstellt wurden.
 					</p>
 				</section>
-				<div className="divider" id="anker6" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker6"
+				/>
 				<section className="">
 					<WrappingTextBlock
 						imageWidth="50%"
@@ -480,11 +465,14 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-				<div className="divider" id="anker7" />
+				<div
+					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
+					id="anker7"
+				/>
 				<section className="">
 					<div className="flex w-full flex-col gap-6">
 						<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
-						<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+						<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 							{Object.entries(furtherInformationItems).map(([key]) => (
 								<li key={key}>
 									{t.rich(`generalInfo.furtherInformation.list.${key}`, {

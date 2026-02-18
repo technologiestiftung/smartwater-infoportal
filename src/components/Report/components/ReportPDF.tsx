@@ -1,5 +1,4 @@
-/* eslint-disable complexity */
-/* eslint-disable consistent-return */
+/* eslint-disable */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -10,22 +9,22 @@ import useMobile from "@/lib/utils/useMobile";
 import {
 	translateHazardLevels,
 	getToday,
-	translateWMSValue,
 	translateHazardTags,
+	getScreenshotForScenario,
+	translateWMSValue,
 } from "../utils";
 import pdfData from "@/components/Report/pdf.json";
-import useScenarioMapsLoading from "@/hooks/useScenarioMapsLoading";
-import { GeoServerClient } from "@/lib/geoserverClient";
-import PDFContent from "./PDFContent";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
-import { captureElementToBlob } from "../pdfImageUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { cn } from "@/lib/utils";
+import { getWMSForBuilding } from "@/server/actions/getHazardData";
+import { BuildingWMS } from "@/lib/types";
 
 interface ReportPDFProps {
 	skip: string | null;
 }
-
-const geoServerClient = new GeoServerClient();
 
 const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
@@ -37,17 +36,38 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		getHazardEntities,
 		locationData,
 		floodRiskAnswers,
+		floodRiskResult,
 	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
 	const [error, setError] = useState<string | null>(null);
+	const [done, setDone] = useState<string[]>([]);
+	const [numberOfPDFImagesToFetch, setNumberOfPDFImagesToFetch] =
+		useState<number>(0);
+	const [numberOfFetchedPDFImages, setNumberOfFetchedPDFImages] =
+		useState<number>(0);
 	const isMobile = useMobile();
 	const openPDFInNewTab = true;
 
-	const allMapsLoaded = useScenarioMapsLoading();
+	const checks = [
+		{
+			id: "wms",
+			text: "Alle Daten errechnet",
+			loading: "Daten werden errechnet...",
+		},
+		{
+			id: "images",
+			loading: "Warten auf Bilder...",
+		},
+		{
+			id: "pdf",
+			text: "PDF erstellt",
+			loading: "PDF wird erstellt...",
+		},
+	];
 
-	const pdfKeys: PDFKeys = {
+	const addToPDFKeys: PDFKeys = {
 		"{date}": getToday(),
 		"{address}": currentUserAddress?.name || "Keine Adresse gefunden",
 		"{hazardLevelHeavyRain}": hazardEntities
@@ -139,57 +159,32 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const makePDF = async () => {
+		console.log("makePDF 🚀🚀🚀");
 		if (!locationData?.found || !locationData.building) {
-			return;
+			return setError(
+				"Es wurden leider keine Gebäudedaten gefunden. Also kann das PDF nicht erstellt werden.",
+			);
 		}
 
 		if (error) {
 			setError(null);
 		}
 
-		const imageIds = [
-			"heavyRainWidget",
-			"fluvialFloodWidget",
-			"map-root-sr",
-			"map-root-hw",
-			"map-root-srgk-rare-heavy-rain",
-			"map-root-srgk-uncommon-heavy-rain",
-			"map-root-srhk-uncommon-heavy-rain",
-			"map-root-srgk-extreme-heavy-rain",
-			"map-root-srhk-extreme-heavy-rain",
-			"map-root-frequent-flood",
-			"map-root-average-frequent-flood",
-			"map-root-rare-frequent-flood",
-			"map-root-flood-zone",
-		];
-
-		if (!skip) {
-			imageIds.push("risk-block");
-		}
+		let buildingWMSData: BuildingWMS | null = null;
 
 		try {
-			for (const elementId of imageIds) {
-				const blob = await captureElementToBlob(elementId);
-				if (!blob) {
-					continue;
-				}
-
-				pdfKeys[`#${elementId}`] = blob;
-
-				await new Promise((r) => requestAnimationFrame(() => r(null)));
+			buildingWMSData = await getWMSForBuilding(locationData);
+			if (!buildingWMSData) {
+				return setError(
+					"No building WMS data found, cannot proceed with PDF image fetch",
+				);
 			}
-		} catch (captureError) {
-			setError("Error capturing map images: " + captureError);
-			return;
+		} catch (wmsError) {
+			return setError("Error fetching WMS data: " + wmsError);
 		}
 
-		// eslint-disable-next-line no-console
-		console.log("pdfKeys :>> ", pdfKeys);
+		setDone((prev) => [...prev, "wms"]);
 
-		const buildingWMSData = await geoServerClient.getBuildingWMS(
-			locationData?.building,
-		);
-		// eslint-disable-next-line no-console
 		console.log("buildingWMSData :>> ", buildingWMSData);
 
 		const {
@@ -207,88 +202,167 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			rareFloodMax,
 			rareFloodAverage,
 			errors,
+			isInExtremeRainHazardMap,
 		} = buildingWMSData;
 
-		// Rare Heavy Rain
 		const errorRareHeavyRain = errors?.includes("rareHeavyRain") || false;
-		pdfKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
-		pdfKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
-		pdfKeys["{rareHeavyRainAverage}"] = translateWMSValue(
+		const errorUncommonHeavyRain =
+			errors?.includes("uncommonHeavyRain") || false;
+		const errorExtremeHeavyRain = errors?.includes("extremeHeavyRain") || false;
+		const errorFrequentFlood = errors?.includes("frequentFlood") || false;
+		const errorAverageFlood = errors?.includes("averageFlood") || false;
+		const errorRareFlood = errors?.includes("rareFlood") || false;
+		const errorFloodZone = errors?.includes("floodZoneIndex") || false;
+
+		const scenarios: string[] = [
+			/* "SR",
+			"HW", */
+			"heavyRainWidget",
+			"fluvialFloodWidget",
+		];
+
+		if (!skip) {
+			scenarios.push("risk-block");
+		}
+
+		if (
+			!!locationData?.building?.floodZoneIndex &&
+			locationData?.building?.floodZoneIndex > 0
+		) {
+			if (!errorFloodZone) {
+				scenarios.push("FLOOD_ZONE");
+			}
+		}
+		if (!!hasHeavyRainHazardMap) {
+			if (!errorRareHeavyRain) {
+				scenarios.push("SRGK_RARE_HEAVY_RAIN");
+			}
+			if (!errorUncommonHeavyRain) {
+				scenarios.push("SRGK_UNCOMMON_HEAVY_RAIN");
+			}
+		} else if (!hasHeavyRainHazardMap) {
+			if (!errorUncommonHeavyRain) {
+				scenarios.push("SRHK_UNCOMMON_HEAVY_RAIN");
+			}
+		}
+		if (!errorExtremeHeavyRain) {
+			if (isInExtremeRainHazardMap) {
+				scenarios.push("SRGK_EXTREME_HEAVY_RAIN");
+			} else {
+				scenarios.push("SRHK_EXTREME_HEAVY_RAIN");
+			}
+		}
+		if (!!frequentFloodMax && !errorFrequentFlood) {
+			scenarios.push("FREQUENT_FLOOD");
+		}
+		if (!!averageFloodMax && !errorAverageFlood) {
+			scenarios.push("AVERAGE_FREQUENT_FLOOD");
+		}
+		if (!!rareFloodMax && !errorRareFlood) {
+			scenarios.push("RARE_FREQUENT_FLOOD");
+		}
+
+		console.log("scenarios :>> ", scenarios);
+
+		setNumberOfPDFImagesToFetch(scenarios.length);
+
+		try {
+			for (const scenario of scenarios) {
+				const { key, blob } = await getScreenshotForScenario(
+					scenario,
+					locationData,
+					hazardEntities,
+					floodRiskResult,
+					floodRiskAnswers,
+				);
+				setNumberOfFetchedPDFImages((prev) => prev + 1);
+				addToPDFKeys[`#${key}`] = blob;
+			}
+		} catch (captureError) {
+			return setError("Error capturing screenshots: " + captureError);
+		}
+
+		setDone((prev) => [...prev, "images"]);
+
+		// Rare Heavy Rain
+		addToPDFKeys["{showRareHeavyRain}"] = !!rareHeavyRainMax;
+		addToPDFKeys["{rareHeavyRainMax}"] = translateWMSValue(rareHeavyRainMax);
+		addToPDFKeys["{rareHeavyRainAverage}"] = translateWMSValue(
 			rareHeavyRainAverage,
 			"",
 		);
-		pdfKeys["{errorRareHeavyRain}"] = errorRareHeavyRain;
+		addToPDFKeys["{errorRareHeavyRain}"] = errorRareHeavyRain;
 
 		// Uncommon Heavy Rain
-		const errorUncommonHeavyRain =
-			errors?.includes("uncommonHeavyRain") || false;
-		pdfKeys["{hasSrgkUncommonHeavyRainMap}"] =
+		addToPDFKeys["{hasSrgkUncommonHeavyRainMap}"] =
 			!errorUncommonHeavyRain && !!hasHeavyRainHazardMap;
-		pdfKeys["{hasSrhkUncommonHeavyRainMap}"] =
+		addToPDFKeys["{hasSrhkUncommonHeavyRainMap}"] =
 			!errorUncommonHeavyRain && !hasHeavyRainHazardMap;
-		pdfKeys["{uncommonHeavyRainMax}"] = translateWMSValue(uncommonHeavyRainMax);
-		pdfKeys["{uncommonHeavyRainAverage}"] = translateWMSValue(
+		addToPDFKeys["{uncommonHeavyRainMax}"] =
+			translateWMSValue(uncommonHeavyRainMax);
+		addToPDFKeys["{uncommonHeavyRainAverage}"] = translateWMSValue(
 			uncommonHeavyRainAverage,
 			"",
 		);
-		pdfKeys["{errorUncommonHeavyRain}"] =
-			errors?.includes("uncommonHeavyRain") || false;
+		addToPDFKeys["{errorUncommonHeavyRain}"] = errorUncommonHeavyRain;
 
 		// Extreme Heavy Rain
-		const errorExtremeHeavyRain = errors?.includes("extremeHeavyRain") || false;
-		pdfKeys["{hasSrgkExtremeHeavyRainMap}"] =
+		addToPDFKeys["{hasSrgkExtremeHeavyRainMap}"] =
 			!errorExtremeHeavyRain &&
 			hasHeavyRainHazardMap === "isInExtremeRainHazardMap";
-		pdfKeys["{hasSrhkExtremeHeavyRainMap}"] =
+		addToPDFKeys["{hasSrhkExtremeHeavyRainMap}"] =
 			!errorExtremeHeavyRain &&
 			hasHeavyRainHazardMap !== "isInExtremeRainHazardMap";
-		pdfKeys["{extremeHeavyRainMax}"] = translateWMSValue(extremeHeavyRainMax);
-		pdfKeys["{extremeHeavyRainAverage}"] = translateWMSValue(
+		addToPDFKeys["{extremeHeavyRainMax}"] =
+			translateWMSValue(extremeHeavyRainMax);
+		addToPDFKeys["{extremeHeavyRainAverage}"] = translateWMSValue(
 			extremeHeavyRainAverage,
 			"",
 		);
-		pdfKeys["{errorExtremeHeavyRain}"] = errorExtremeHeavyRain;
+		addToPDFKeys["{errorExtremeHeavyRain}"] = errorExtremeHeavyRain;
 
 		// Frequent Flood
-		const errorFrequentFlood = errors?.includes("frequentFlood") || false;
-		pdfKeys["{errorFrequentFlood}"] = errorFrequentFlood;
-		pdfKeys["{hasNoFrequentFloodData}"] =
+		addToPDFKeys["{errorFrequentFlood}"] = errorFrequentFlood;
+		addToPDFKeys["{hasNoFrequentFloodData}"] =
 			!errorFrequentFlood && !frequentFloodMax;
-		pdfKeys["{hasFrequentFloodData}"] =
+		addToPDFKeys["{hasFrequentFloodData}"] =
 			!errorFrequentFlood && !!frequentFloodMax;
-		pdfKeys["{frequentFloodMax}"] = translateWMSValue(frequentFloodMax);
-		pdfKeys["{frequentFloodAverage}"] = translateWMSValue(frequentFloodAverage);
+		addToPDFKeys["{frequentFloodMax}"] = translateWMSValue(frequentFloodMax);
+		addToPDFKeys["{frequentFloodAverage}"] =
+			translateWMSValue(frequentFloodAverage);
 
 		// Average Flood
-		const errorAverageFlood = errors?.includes("averageFlood") || false;
-		pdfKeys["{errorAverageFlood}"] = errorAverageFlood;
-		pdfKeys["{hasNoAverageFloodData}"] = !errorAverageFlood && !averageFloodMax;
-		pdfKeys["{hasAverageFloodData}"] = !errorAverageFlood && !!averageFloodMax;
-		pdfKeys["{averageFloodMax}"] = translateWMSValue(averageFloodMax);
-		pdfKeys["{averageFloodAverage}"] = translateWMSValue(averageFloodAverage);
+		addToPDFKeys["{errorAverageFlood}"] = errorAverageFlood;
+		addToPDFKeys["{hasNoAverageFloodData}"] =
+			!errorAverageFlood && !averageFloodMax;
+		addToPDFKeys["{hasAverageFloodData}"] =
+			!errorAverageFlood && !!averageFloodMax;
+		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(averageFloodMax);
+		addToPDFKeys["{averageFloodAverage}"] =
+			translateWMSValue(averageFloodAverage);
 
 		// Rare Flood
-		const errorRareFlood = errors?.includes("rareFlood") || false;
-		pdfKeys["{errorRareFlood}"] = errorRareFlood;
-		pdfKeys["{hasNoRareFloodData}"] = !errorRareFlood && !rareFloodMax;
-		pdfKeys["{hasRareFloodData}"] = !errorRareFlood && !!rareFloodMax;
-		pdfKeys["{rareFloodMax}"] = translateWMSValue(rareFloodMax);
-		pdfKeys["{rareFloodAverage}"] = translateWMSValue(rareFloodAverage);
+		addToPDFKeys["{errorRareFlood}"] = errorRareFlood;
+		addToPDFKeys["{hasNoRareFloodData}"] = !errorRareFlood && !rareFloodMax;
+		addToPDFKeys["{hasRareFloodData}"] = !errorRareFlood && !!rareFloodMax;
+		addToPDFKeys["{rareFloodMax}"] = translateWMSValue(rareFloodMax);
+		addToPDFKeys["{rareFloodAverage}"] = translateWMSValue(rareFloodAverage);
 
 		// Flood Zone
-		const errorFloodZone = errors?.includes("floodZoneIndex") || false;
-		pdfKeys["{errorFloodZone}"] = errorFloodZone;
-		pdfKeys["{hasNoFloodZoneData}"] =
+		addToPDFKeys["{errorFloodZone}"] = errorFloodZone;
+		addToPDFKeys["{hasNoFloodZoneData}"] =
 			!errorFloodZone && !locationData.building.floodZoneIndex;
-		pdfKeys["{hasFloodZoneData}"] =
+		addToPDFKeys["{hasFloodZoneData}"] =
 			!errorFloodZone && !!locationData.building.floodZoneIndex;
 
 		// Draw PDF
 		try {
-			const pdfBlobCreated = await drawPDF(pdfData as PDFProps, pdfKeys);
+			const pdfBlobCreated = await drawPDF(pdfData as PDFProps, addToPDFKeys);
 			if (!pdfBlobCreated?.blob) {
 				throw new Error("Failed to create PDF blob.");
 			}
+			setDone((prev) => [...prev, "pdf"]);
+			await new Promise((r) => setTimeout(r, 1500));
 			setPdfSizeKB(pdfBlobCreated.sizeInMB);
 			setPdfBlob(pdfBlobCreated?.blob);
 		} catch (catchError) {
@@ -298,27 +372,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	useEffect(() => {
-		const getIsMobile =
-			typeof window !== "undefined" && window.innerWidth <= 768;
-		if (makePDFInitializedRef.current || !getIsMobile) {
-			return;
-		}
-		makePDFInitializedRef.current = true;
-		setTimeout(() => {
-			makePDF();
-		}, 10000);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	useEffect(() => {
-		const getIsMobile =
-			typeof window !== "undefined" && window.innerWidth <= 768;
-		if (!allMapsLoaded || makePDFInitializedRef.current || getIsMobile) {
+		if (makePDFInitializedRef.current) {
 			return;
 		}
 		makePDFInitializedRef.current = true;
 		makePDF();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [allMapsLoaded]);
+	}, []);
 
 	useEffect(() => {
 		const wrapper = wrapperRef.current;
@@ -351,7 +410,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		return () => {
 			wrapper.removeEventListener("click", handleClick);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pdfBlob]);
 
 	useEffect(() => {
@@ -382,10 +440,19 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			{error ? (
 				<div className="flex flex-col gap-8 py-8">
 					<p className="text-red-600">
-						Beim Erstellen des PDFs ist ein Fehler aufgetreten: <br />
-						<b>{error}</b>
+						<b>Beim Erstellen des PDFs ist ein Fehler aufgetreten:</b>
+						<br />
+						{String(error)}
 					</p>
-					<Button onClick={() => makePDF()}>Erneut probieren</Button>
+					<Button
+						onClick={() => {
+							setError(null);
+							setDone([]);
+							makePDF();
+						}}
+					>
+						Erneut probieren
+					</Button>
 					<div className="divider" />
 				</div>
 			) : (
@@ -404,7 +471,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 							/>
 						) : (
 							<>
-								<div className="flex min-h-[150px] items-center justify-end">
+								<div className="flex min-h-[150px] items-center justify-end py-8">
 									<div className="flex flex-col gap-2">
 										<Spinner
 											text="HochwasserCheck Report wird erstellt..."
@@ -414,6 +481,34 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 										<p className="ml-10 italic">
 											*Dies kann einen Moment dauern
 										</p>
+										<div className="ml-10 flex flex-col gap-2 pt-2">
+											{checks.map((check) => {
+												const isDone = done.includes(check.id);
+												return (
+													<div
+														className="flex items-center gap-2"
+														key={check.id}
+													>
+														<FontAwesomeIcon
+															icon={faCheck}
+															className={cn(
+																"flex-shrink-0 text-[18px] text-[#22c55e]",
+																!isDone && "invisible",
+															)}
+														/>
+														<span className={cn(isDone && "font-bold")}>
+															{check.id !== "images"
+																? isDone
+																	? check.text
+																	: check.loading
+																: numberOfPDFImagesToFetch === 0
+																	? check.loading
+																	: `${numberOfFetchedPDFImages} von ${numberOfPDFImagesToFetch} Bildern erstellt`}
+														</span>
+													</div>
+												);
+											})}
+										</div>
 									</div>
 								</div>
 								<div className="divider" />
@@ -422,7 +517,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					</div>
 				</>
 			)}
-			<PDFContent />
 		</>
 	);
 };

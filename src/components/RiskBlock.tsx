@@ -1,10 +1,11 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { RiskLevel } from "@/lib/types";
+import { RiskLevel, FloodRiskAnswers, FloodRiskResult } from "@/lib/types";
 import floodRiskConfig from "@/config/floodRiskConfig.json";
 import useStore from "@/store/defaultStore";
 import { cn } from "@/lib/utils";
+import { HazardEntity } from "@/utils/storeUtils";
 
 interface RiskFactor {
 	id: string;
@@ -12,12 +13,25 @@ interface RiskFactor {
 	translationKey: string;
 }
 
-const RiskBlock = () => {
+interface RiskBlockProps {
+	floodRiskResultDown?: FloodRiskResult | null;
+	floodRiskAnswersDown?: FloodRiskAnswers | null;
+	hazardEntitiesDown?: HazardEntity[] | null;
+}
+
+const RiskBlock = ({
+	floodRiskResultDown,
+	floodRiskAnswersDown,
+	hazardEntitiesDown,
+}: RiskBlockProps) => {
 	const t = useTranslations("floodCheck");
-	const floodRiskResult = useStore((state) => state.floodRiskResult);
-	const floodRiskAnswers = useStore((state) => state.floodRiskAnswers);
+	const storeFloodRiskResult = useStore((state) => state.floodRiskResult);
+	const storeFloodRiskAnswers = useStore((state) => state.floodRiskAnswers);
+	const floodRiskResult = floodRiskResultDown ?? storeFloodRiskResult;
+	const floodRiskAnswers = floodRiskAnswersDown ?? storeFloodRiskAnswers;
+
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const hazardEntities = getHazardEntities();
+	const hazardEntities = hazardEntitiesDown ?? getHazardEntities();
 	const isDev = false; //process.env.NODE_ENV === "development";
 	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
 	const testing = isDev && showTestingFeatures.includes("riskWidgetDetails");

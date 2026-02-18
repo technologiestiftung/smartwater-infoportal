@@ -1,4 +1,13 @@
 /* eslint-disable complexity */
+import {
+	FloodRiskAnswers,
+	FloodRiskResult,
+	Geometry,
+	LocationData,
+} from "@/lib/types";
+import { getScenarioDomId } from "@/lib/utils/mapUtils";
+import { Scenario } from "@/types/map";
+import { HazardEntity } from "@/utils/storeUtils";
 import jsPDF from "jspdf";
 
 type TextChunk = {
@@ -204,4 +213,75 @@ export const translateWMSValue = (
 		return "Keine Daten";
 	}
 	return `${helper}${value}${unit}`;
+};
+
+export const getScreenshotForScenario = async (
+	scenario: string,
+	locationData?: LocationData,
+	hazardEntities?: HazardEntity[] | null,
+	floodRiskResult?: FloodRiskResult | null,
+	floodRiskAnswers?: FloodRiskAnswers | null,
+): Promise<{
+	key: string;
+	blob: Blob;
+}> => {
+	let path = "";
+	let key: string = "";
+
+	const body: {
+		url: string;
+		buildingGeometry?: Geometry;
+		outlineBufferGeometry?: Geometry;
+		floodRiskResultDown?: FloodRiskResult | null;
+		floodRiskAnswersDown?: FloodRiskAnswers | null;
+		hazardEntitiesDown?: HazardEntity[] | null;
+	} = { url: "" };
+
+	if (scenario === "risk-block") {
+		key = "risk-block";
+		path = `/riskblock-screenshot`;
+		body.floodRiskResultDown = floodRiskResult;
+		body.floodRiskAnswersDown = floodRiskAnswers;
+		body.hazardEntitiesDown = hazardEntities;
+	} else if (scenario === "heavyRainWidget") {
+		key = "heavyRainWidget";
+		const heavyRain = hazardEntities?.filter(
+			(entity) => entity.name === "heavyRain",
+		)[0];
+		if (heavyRain) {
+			path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
+		}
+	} else if (scenario === "fluvialFloodWidget") {
+		key = "fluvialFloodWidget";
+		const fluvialFlood = hazardEntities?.filter(
+			(entity) => entity.name === "fluvialFlood",
+		)[0];
+		if (fluvialFlood) {
+			path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
+		}
+	} else {
+		key = getScenarioDomId(scenario as Scenario);
+		path = `/scenario-map?scenario=${scenario}`;
+		body.buildingGeometry = locationData?.building?.geometry;
+		body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
+	}
+	body.url = `${window.location.origin}${path}`;
+	console.log("url :>> ", body.url);
+	const res = await fetch("/api/screenshot", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(body),
+	});
+
+	const text = await res.text();
+
+	if (!res.ok) {
+		throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+	}
+
+	const data = JSON.parse(text);
+	const { imageBase64 } = data;
+	const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+	const blob = await fetch(dataUrl).then((r) => r.blob());
+	return { key, blob };
 };

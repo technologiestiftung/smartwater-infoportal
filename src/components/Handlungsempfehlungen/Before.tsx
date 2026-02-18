@@ -207,6 +207,15 @@ const Before: React.FC = () => {
 									})}
 								</p>
 							)}
+							{listKey === "list3" && (
+								<p className="italic">{t("list3ParagraphNote")}</p>
+							)}
+							{listKey === "list4" && (
+								<p className="italic">{t("list4ParagraphNote")}</p>
+							)}
+							{listKey === "list5" && (
+								<p className="italic">{t("list5ParagraphNote")}</p>
+							)}
 						</div>
 						<ul className="list-none space-y-2 lg:ps-12">
 							{Object.keys(list).map((key) => (
@@ -283,7 +292,7 @@ const Before: React.FC = () => {
 									/>
 								</div>
 								<Image
-									className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+									className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
 									src={fullIMG}
 									alt={t(`${listKey}Image.alt`)}
 									caption={t(`${listKey}Image.caption`)}

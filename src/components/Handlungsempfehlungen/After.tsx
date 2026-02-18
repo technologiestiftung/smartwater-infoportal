@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import Link from "next/link";
+import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
@@ -46,6 +46,12 @@ const After: React.FC = () => {
 			return {
 				target: "_blank",
 				link: "https://www.naturgefahrenportal.de/de",
+			};
+		}
+		if (text.includes("Hochwasserschutzfibel")) {
+			return {
+				target: "_blank",
+				link: "https://www.fib-bund.de/inhalt/themen/hochwasser/",
 			};
 		}
 		if (text.includes("Vorsorgemaßnahmen")) {

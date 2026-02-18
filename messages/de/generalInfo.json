@@ -15,23 +15,23 @@
 		},
 		"definition": {
 			"title": "Was ist Hochwasser?",
-			"description": "Hochwasser bedeutet, dass Wasser vorübergehend Gebiete bedeckt, die normalerweise nicht mit Wasser bedeckt sind.\n\nHochwasser können von großen Regenwassermengen ausgelöst werden, die an der Oberfläche abfließen (Oberflächenabfluss), weil sie nicht in den Boden versickern oder von der Kanalisation abgeführt werden können. Dann wird das Hochwasser Überflutung oder pluviales Hochwasser genannt.  Hochwasser können auch durch über ihre Ufer tretende Wasserkörper wie Flüsse oder Seen ausgelöst werden. Dann wird das Hochwasser Überschwemmung oder fluviales Hochwasser genannt.",
+			"description": "Hochwasser beutet, das Wasser vorübergehend Gebiete bedeckt, die normalerweise nicht mit Wasser bedeckt sind.\n\n Es kann durch große Regenmengen entstehen, wenn Wasser an der Oberfläche abfließt. Das passiert, wenn es nicht im Boden versickern oder über private und öffentliche Entwässerungssysteme sowie blau-grüne Infrastrukturelemente zurückgehalten oder abgeleitet werden kann. Diese Form wird als Überflutung oder pluviales Hochwasser bezeichnet. Hochwasser kann auch entstehen, wenn Gewässer wie Flüsse oder Seen über ihre Ufer treten. In diesem Fall spricht man von Überschwemmung oder fluvialem Hochwasser.",
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Überflutungen (pluviales Hochwasser) und Überschwemmungen (fluviales Hochwasser)",
-				"caption": "Abbildung 1: Hochwasser können unterschieden werden in Überflutungen (pluviales Hochwasser, oben) und Überschwemmungen (fluviales Hochwasser, unten)",
+				"caption": "Abbildung 1: Hochwasser können unterschieden werden in Überflutungen (pluviales Hochwasser, oben) und Überschwemmungen (fluviales Hochwasser, unten).",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
 		"hazardVsRisk": {
 			"title": "Hochwassergefahr vs. Hochwasserrisiko",
-			"description": "Wird über Hochwasser gesprochen wird häufig zwischen der Gefahr und dem Risiko unterschieden. Doch was genau ist der Unterschied und warum ist diese Unterscheidung wichtig?",
+			"description": "Wird über Hochwasser gesprochen, wird häufig zwischen der Gefahr und dem Risiko unterschieden. Doch was genau ist der Unterschied und warum ist diese Unterscheidung wichtig?",
 			"hazard": {
 				"title": "Hochwassergefahr: Wo, wie viel und wie häufig Hochwasser?",
 				"description": "Die Gefahr beschreibt eine Situation, die potenziell einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo, wie stark und wie häufig es zum Hochwasser kommen kann, z.B. wie hoch steht das Wasser an einem Ort und welche Fließgeschwindigkeiten sind zu erwarten."
 			},
 			"risk": {
 				"title": "Hochwasserrisiko: Wie schlimm wären die Folgen?",
-				"description": "In erster Linie sind Hochwasser natürliche Wetterphänomene und nicht zwangsläufig zerstörerisch; wenn keine Menschen oder Güter in Überflutungsflächen sind, entsteht kein Schaden und niemand wird verletzt. Der Begriff „Risiko“ berücksichtigt daher neben der Gefahr auch die möglichen Schäden. Beispiel: In einem Auenwald ist die Hochwassergefahr hoch, aber das Risiko gering, da Hochwasser hier regelmäßig auftreten aber keine Schäden verursachen. In Städten kann das Risiko schon durch seltene Hochwasser hoch sein, da dann hohe Schäden zu erwarten sind. Durch die Betrachtung des Hochwasserrisikos kann also entschieden werden, wo es einen Handlungsbedarf gibt und wo nicht.\n\nAber was tun, wenn das Risiko hoch ist? Anpassungsmaßnahmen senken das Hochwasserrisiko! Werden im Keller z.B. Gegenstände höher gelagert, bleibt die Hochwassergefahr gleich, aber der potenzielle Schaden wird verringert, sodass das gesamt Risiko sinkt. Informieren Sie sich <link1>hier</link1> über Anpassungsmaßnahmen."
+				"description": "In erster Linie sind Hochwasser natürliche Wetterphänomene und nicht zwangsläufig zerstörerisch; wenn keine Menschen oder Güter in Überflutungsflächen sind, entsteht kein Schaden und niemand wird verletzt. Der Begriff „Risiko“ berücksichtigt daher neben der Gefahr auch die möglichen Schäden. Beispiel: In einem Auenwald ist die Hochwassergefahr hoch, aber das Risiko gering, da Hochwasser hier regelmäßig auftreten aber keine Schäden verursachen. In Städten kann das Risiko schon durch seltene Hochwasser hoch sein, da dann hohe Schäden zu erwarten sind. Durch die Betrachtung des Hochwasserrisikos kann also entschieden werden, wo es einen Handlungsbedarf gibt und wo nicht.\n\nAber was tun, wenn das Risiko hoch ist? Anpassungsmaßnahmen senken das Hochwasserrisiko. Werden im Keller z.B. Gegenstände höher gelagert, bleibt die Hochwassergefahr gleich, aber der potenzielle Schaden wird verringert, sodass das gesamte Risiko sinkt. Informieren Sie sich über <link1>Anpassungsmaßnahmen</link1>."
 			},
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Schadenspotenzial, Risiko und Gefahr, welche durch Überschwemmungen und Starkregen entstehen können.",
@@ -41,12 +41,12 @@
 		},
 		"floodThroughRain": {
 			"title": "Hochwasser in Berlin? Ja, meistens durch Starkregen",
-			"description": "In Berlin sind die Uferbereiche von Tegeler Fließ, Panke, Erpe, Wuhle, Untere Havel/Untere Spree und Müggelspree durch Hochwasser gefährdet. Daher sind dort Überschwemmungsgebiete definiert, in denen die Möglichkeit zur Bebauung eingeschränkt ist. Generell sind schadensträchtige Flusshochwasser in Berlin aber sehr unwahrscheinlich.\n\nTrotzdem sind viele Bürgerinnen und Bürger in Berlin immer wieder von Hochwassern betroffen. Denn es kommt immer wieder zu Überflutungen nach Starkregenereignissen. Zwischen 2002 und 2017 verursachten Starkregenereignisse knapp 28.000 Schäden mit einem Gesamtwert von 128 Millionen Euro an Wohngebäuden, die den Betroffenen durchschnittlich 5.537 Euro kosteten (<link>Quelle: GDV</link>). 2017 und 2019 wurde Berlin von besonders heftigen Starkregenereignissen getroffen, die Schäden in Millionenhöhe verursachten. Neben diesen großen Ereignissen, wird Berlin fast jedes Jahr von kleineren Starkregenereignissen getroffen, die die Einsatzkräfte regelmäßig fordern und Schäden verursachen. Was verschärft das Hochwasserrisiko in Berlin?",
+			"description": "Flüsse führen in Berlin sehr selten, und wenn, dann lokal sehr begrenzt, zu Überschwemmungen. Überflutungen nach Starkregenereignissen kommen in Berlin aber immer wieder vor.\n\n Zwischen 2002 und 2017 verursachten Starkregenereignisse knapp 28.000 Schäden mit einem Gesamtwert von 128 Millionen Euro an Wohngebäuden, die den Betroffenen durchschnittlich 5.537 Euro kosteten (<link>Quelle: GDV</link>). 2017 und 2019 wurde Berlin von besonders heftigen Starkregenereignissen getroffen, die Schäden in Millionenhöhe verursachten. Neben diesen großen Ereignissen, wird Berlin fast jedes Jahr von kleineren Starkregenereignissen getroffen, die die Einsatzkräfte regelmäßig fordern und Schäden verursachen. Was verschärft das Hochwasserrisiko in Berlin?",
 			"list": {
 				"items": {
-					"item1": "Zunahme versiegelter Flächen: Weil Berlin wächst, werden immer mehr Flächen mit Beton oder Asphalt verbaut. Dadurch kann das Regenwasser nicht gut in die Erde versickern und läuft stattdessen oberflächlich ab. Das überlastet die Kanalisation, die dann nicht das ganze Regenwasser aufnehmen kann.",
-					"item2": "In einer Stadt wie Berlin gibt es viele Menschen und viel Eigentum auf engen Raum. Dadurch führt ein Starkregen häufig zu Schäden.",
-					"item3": "Weil die Atmosphäre weltweit wärmer wird, kommt es auch in Berlin wahrscheinlich häufiger zu Starkregenereignissen, siehe Abbildung 4. Mehr Informationen <link>hier</link>."
+					"item1": "Zunahme versiegelter Flächen: Weil Berlin wächst, werden immer mehr Flächen mit Beton oder Asphalt versiegelt. Dadurch kann das Regenwasser nicht gut in die Erde versickern und läuft stattdessen oberflächlich ab. Das überlastet die Kanalisation, die dann nicht das ganze Regenwasser aufnehmen kann.",
+					"item2": "In einer Stadt wie Berlin gibt es viele Menschen und viel Eigentum auf engem Raum. Dadurch führt ein Starkregen häufig zu Schäden.",
+					"item3": "Weil die Atmosphäre weltweit wärmer wird, kommt es auch in Berlin wahrscheinlich häufiger zu Starkregenereignissen, siehe Abbildung 3. Mehr Informationen <link>hier</link>."
 				}
 			},
 			"image": {
@@ -59,9 +59,9 @@
 			"title": "Wie wird die Hochwassergefahr geschätzt?",
 			"paragraphs": {
 				"paragraph1": "Der erste Schritt, um Handlungsbedarfe zu identifizieren und das Hochwasserrisiko zu senken, ist die Hochwassergefahr zu schätzen. Die Flächen, die bei Hochwasser unter Wasser stehen, und die jeweiligen Wassertiefen und Fließgeschwindigkeiten werden mit Hilfe von Simulationen berechnet. Dabei werden verschiedene Regenereignisse berücksichtigt – mit unterschiedlicher Stärke, Dauer und Verlauf.",
-				"paragraph2": "Um sich angemessen vorzubereiten, ist es wichtig zu wissen, wie häufig ein Hochwasser zu erwarten ist. Daher werden die Szenarien bestimmten Eintrittswahrscheinlichkeit, zum Beispiel 100-jährlich, zugeordnet. In Berlin sind den Eintrittswahrscheinlichkeiten Begriffe wie „mittleres Ereignis“ oder „außergewöhnliches Ereignis“ zugeordnet. Die Ergebnisse werden als Karten dargestellt. Diese Karten werden hier im <link2>HochwasserCheck Berlin</link2> verwendet und befinden sich zur Einsicht im <link3>Umweltatlas</link3>.",
-				"paragraph3": "<strong>Wichtig ist:</strong> Die Eintrittswahrscheinlichkeiten sind statistische Werte. Das heißt, ein „100-jährliches Ereignis“ tritt im Durchschnitt alle 100 Jahre auf, aber jedes Jahr besteht eine Chance, dass so ein Ereignis eintritt. Stellen Sie sich hierzu ein Glücksrad mit 100 Feldern vor. Nur ein Feld steht für eine Flut. Jedes Jahr drehen Sie das Rad – jedes Jahr können Sie das Flut-Feld treffen. Die Eintrittswahrscheinlichkeit ist also jedes Jahr da, aber gering. Bei Hochwasserereignissen kommt hinzu, dass diese Ereignisse nicht völlig unabhängig voneinander sind. Das bedeutet: Je öfter ein Jahr ohne Flut kam, desto höher ist die Wahrscheinlichkeit, dass ein Jahr mit Flut irgendwann kommt.",
-				"paragraph4": "Um sich das Konzept der Eintrittswahrscheinlichkeit von Hochwassern besser vorstellen zu können, vergleicht Abbildung 3 Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse. Die Eintrittswahrscheinlichkeiten der Hochwasser sind in Jährlichkeiten (z. B. 30-jährlich) oder den entsprechenden Begriffen (z. B. häufig) angegeben, wie es im Hochwasserkontext üblich ist. Daneben finden Sie die außerhalb des Hochwasserkontext üblichere Angabe in Prozent [%]."
+				"paragraph2": "Um sich angemessen vorzubereiten, ist es wichtig zu wissen, wie häufig ein Hochwasser zu erwarten ist. Daher werden die Szenarien bestimmten Eintrittswahrscheinlichkeit, zum Beispiel 100-jährliches, zugeordnet. In Berlin sind den Eintrittswahrscheinlichkeiten Begriffe wie „mittleres Ereignis“ oder „außergewöhnliches Ereignis“ zugeordnet. Die Ergebnisse werden als Karten dargestellt. Diese Karten werden hier im <link2>HochwasserCheck Berlin</link2> verwendet und befinden sich zur Einsicht im <link3>Umweltatlas</link3>.",
+				"paragraph3": "<strong>Wichtig ist:</strong> Die Eintrittswahrscheinlichkeiten sind statistische Werte. Das heißt, ein „100-jährliches Ereignis“ tritt im Durchschnitt alle 100 Jahre auf, aber jedes Jahr besteht eine Chance, dass so ein Ereignis eintritt. Stellen Sie sich hierzu ein Glücksrad mit 100 Feldern vor. Nur ein Feld steht für eine Flut. Jedes Jahr drehen Sie das Rad – jedes Jahr können Sie das Flut-Feld treffen. Die Eintrittswahrscheinlichkeit ist also jedes Jahr da, aber gering.",
+				"paragraph4": "Um sich das Konzept der Eintrittswahrscheinlichkeit von Hochwassern besser vorstellen zu können, vergleicht Abbildung 4 Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse. Die Eintrittswahrscheinlichkeiten der Hochwasser sind in Jährlichkeiten (z. B. 30-jährlich) oder den entsprechenden Begriffen (z. B. häufig) angegeben, wie es im Hochwasserkontext üblich ist. Daneben finden Sie die außerhalb des Hochwasserkontext üblichere Angabe in Prozent [%]."
 			},
 			"image": {
 				"alt": "Grafik, die Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse vergleicht.",
@@ -71,7 +71,7 @@
 		},
 		"types": {
 			"title": "Was für Hochwasserkarten gibt es für Berlin?",
-			"description": "Bei Hochwassern ist neben dem Was? (Wasserstand, Fließgeschwindigkeit, Eintrittswahrscheinlichkeit) immer auch das Wo? entscheidend. Verknüpfen wir eine Information mit einem Ort entstehen „Geodaten“. Deren häufigste Darstellung ist die Karte. Berlin stellt der Bürgerschaft eine Vielzahl von Karten im <link1>Geoportal</link1> zur Verfügung.\n\nEine Gruppe von Karten auf dem Geoportal befasst sich mit Hochwassern. Diese wurden erstellt für Starkregen und Flusshochwasser. Für Starkregen gibt es Starkregenhinweis- und Starkregengefahrenkarten. Diese unterscheiden sich hinsichtlich ihrer Datengrundlage, siehe Abbildung 6. Neben den Starkregenkarten gibt es im Geoportal Flusshochwasserkarten.\n\nHinweis- bzw. Gefahrenkarten werden für unterschiedliche Szenarien erstellt, siehe Tabelle 1.  Jedes Szenario beschreibt ein simuliertes Hochwasserereignis mit bestimmten Eigenschaften, z.B. der <link2>Eintrittswahrscheinlichkeit</link2> oder einer bestimmte Regenmenge in einem bestimmten Zeitraum. Regenmengen werden hierbei in „mm“ angegeben, womit die Regenmenge in Litern gemeint ist, die auf einem Quadratmeter Fläche fällt.",
+			"description": "Bei Hochwassern ist neben dem \"Was?\" (Wasserstand, Fließgeschwindigkeit, Eintrittswahrscheinlichkeit) immer auch das \"Wo?\" entscheidend. Verknüpfen wir eine Information mit einem Ort entstehen „Geodaten“. Deren häufigste Darstellung ist die Karte. Berlin stellt den Bürger*innen eine Vielzahl von Karten im <link1>Geoportal</link1> zur Verfügung. Dort sind unter anderem Hinweis- und/oder Gefahrenkarten für Starkregenereignisse und Flusshochwasser unterschiedlichen Ausmaßes zu finden, die auch die Grundlage für den HochwasserCheck bilden. \n\n Hinweis- bzw. Gefahrenkarten werden für unterschiedliche Szenarien erstellt, siehe Tabelle 1. Jedes Szenario beschreibt ein simuliertes Hochwasserereignis mit bestimmten Eigenschaften, z.B. der <link2>Eintrittswahrscheinlichkeit</link2> oder einer bestimmte Regenmenge in einem bestimmten Zeitraum. Regenmengen werden hierbei in „mm“ angegeben, womit die Regenmenge in Litern gemeint ist, die auf einem Quadratmeter Fläche fällt.",
 			"image": {
 				"alt": "Grafik, die die Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten veranschaulicht.",
 				"caption": "Abbildung 5: Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten.",
@@ -80,8 +80,8 @@
 			"table": {
 				"head": {
 					"entry1": "",
-					"entry2": "Benennung der Karte",
-					"entry3": "Verwendetes Szenario:\nWiederkehrintervall",
+					"entry2": "Szenario",
+					"entry3": "Wiederkehrintervall",
 					"entry4": "Verwendetes Szenario:\nSpezifisches Regenereignisse"
 				},
 				"heavyRain": {
@@ -125,8 +125,8 @@
 		"handling": {
 			"title": "Wie können wir in Berlin mit Starkregen und Hochwasser umgehen?",
 			"paragraphs": {
-				"paragraph1": "Die vielen wiederkehrend auftretenden und teils schweren Hochwasser in Deutschland und weltweit zeigen: Hochwasser lässt sich nie ganz verhindern. Die Lösung: Hochwasserrisikomanagement (siehe Abbildung links). Hier geht es darum, mit dem Hochwasser umzugehen, Schäden zu beseitigen und sich auf neue Ereignisse vorzubereiten. Wichtig ist hier der Begriff „Resilienz“. Resilienz bedeutet nicht, dass Hochwasser und Hochwasserschäden vollständig verhindert werden, denn das ist nicht möglich. Stattdessen bedeutet Resilienz, dass die Gesellschaft nach einem Hochwasser nicht nur in den Ausgangszustand zurückkehrt, sondern gestärkt daraus hervorgeht und dadurch besser auf ein zukünftiges Ereignis vorbereitet ist. Hierzu müssen alle zusammenarbeiten.",
-				"paragraph2": "Was tut die Stadt Berlin? Um die Resilienz zu steigern setzt die Stadt Berlin u.a. das Konzept der <link1>Schwammstadt</link1> fortlaufend um und informiert Sie hier auf dem Infoportal über Ihr Risiko und Möglichkeiten der Anpassung.",
+				"paragraph1": "Die vielen wiederkehrenden und teils schweren Hochwasserereignisse in Deutschland und weltweit zeigen: Hochwasser lässt sich kaum ganz verhindern. Daher kommt dem Hochwasserrisikomanagement eine zentrale Bedeutung zu (siehe Abbildung 6). Es zielt darauf ab, mit Hochwasser umzugehen, Schäden zu begrenzen und sich auf zukünftige Ereignisse vorzubereiten. Wichtig ist hier der Begriff „Resilienz“. Resilienz bedeutet nicht, dass Hochwasser und Hochwasserschäden vollständig verhindert werden, denn das ist nicht möglich. Stattdessen bedeutet Resilienz, dass die Gesellschaft nach einem Hochwasser nicht nur in den Ausgangszustand zurückkehrt, sondern gestärkt daraus hervorgeht und dadurch besser auf ein zukünftiges Ereignis vorbereitet ist. Hierzu müssen alle zusammenarbeiten.",
+				"paragraph2": "Was tut die Stadt Berlin? Um die Resilienz zu steigern, setzt die Stadt Berlin u.a. das Konzept der <link1>Wassersensible Stadt</link1> fortlaufend um und informiert Sie hier auf dem Infoportal über Ihr Risiko und Möglichkeiten der Anpassung.",
 				"paragraph3": "Was können die Berlinerinnen und Berliner tun? Auch Sie als Bürgerinnen und Bürger dieser Stadt tragen Verantwortung: Laut <link2>Wasserhaushaltsgesetz §5 (2)</link2> muss sich jede und jeder vor Hochwasserschäden schützen. Es gibt viele Maßnahmen, die unterschiedlich viel kosten und unterschiedlich aufwendig sind. Fangen Sie an: Nutzen Sie den <link3>HochwasserCheck Berlin</link3> um sich über Ihr individuelles Risiko zu informieren, lernen Sie richtiges Verhalten im Ernstfall und lagern Sie z.B. Dinge im Keller höher, um Schäden zu vermeiden. Diese und weitere Hinweise zur Vorsorge finden sie hier in den <link4>Handlungsempfehlungen</link4>."
 			},
 			"image": {
@@ -141,8 +141,8 @@
 				"entry1": "Das <link1>Naturgefahrenportal</link1> des DWD informiert über Gefahren und Risiken durch Starkregen, Flusshochwasser und andere Naturgefahren in ganz Deutschland.",
 				"entry2": "Die <link2>Hochwasserschutzfibel</link2> informiert über Vorsorgemaßnahmen und deren Umsetzung.",
 				"entry3": "Der <link3>Hochwasserpass</link3> ist eine Anlaufstelle für weiterführende Informationen, wenn Sie wissen, dass es für Ihr Haus ein Starkregenrisiko gibt.",
-				"entry4": "Das BBK bietet <link4>Informationsvideos</link4> die über Hochwasser und Anpassungsmaßnahmen informieren.",
-				"entry5": "Im <link5>Leitfaden Starkregen</link5> geht es neben Starkregen und Objektschutz auch um die Zuständigkeiten im Kontext von Starkregenereignissen: Wer ist für was verantwortlich."
+				"entry4": "Das Bundesministerium für Bevölkerungsschutz und Katastrophenhilfe bietet <link4>Informationsvideos</link4>, die über Hochwasser und Anpassungsmaßnahmen informieren.",
+				"entry5": "Im <link5>Leitfaden Starkregen</link5> geht es neben Starkregen und Objektschutz auch um die Zuständigkeiten im Kontext von Starkregenereignissen."
 			},
 			"subTitle": "Sie möchten noch tiefer in das Thema Starkregenrisikomanagement einsteigen?",
 			"description": "Wenn Sie sich über die private Vorsorge hinaus zum Thema Starkregenrisikomanagement in Deutschland informieren möchten, können Sie in den Bericht <link1>Vorsorge gegen Starkregenereignisse und Maßnahmen zur wassersensiblen Stadtentwicklung</link1> schauen. Das Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK) diskutiert die Thematik aus dem Blickwinkel der Katastrophenschützer und Einsatzkräfte in ihrem Bericht <link2>Starkregen – Herausforderungen für den Bevölkerungsschutz</link2>. Wenn Sie mehr zu dem Starkregenereignis 2017 erfahren möchten, schauen Sie in den Bericht <link3>Starkregen in Berlin</link3>."
