@@ -13,14 +13,16 @@ import { Spinner } from "berlin-ui-library";
 
 const MapNavigationControls = () => {
 	const isMobile = useMobile();
-	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
+	const {
+		interactiveMap: { isLayerTreeOpen },
+	} = useStore();
 	const map = useMapStore((s) => s.map);
 	const loading = useMapLoading(map);
 
 	return (
 		<>
 			<div
-				className={`absolute z-[2] flex flex-col ${isMobile ? "right-2 top-2 gap-2" : "right-4 top-4 gap-4"}`}
+				className={`absolute z-[2] flex flex-col ${isMobile ? "top-2 right-2 gap-2" : "top-4 right-4 gap-4"}`}
 			>
 				<div className="relative">
 					<FullScreenControl />
@@ -37,21 +39,21 @@ const MapNavigationControls = () => {
 			{!isMobile && (
 				<>
 					<div
-						className={`z-3 absolute bottom-4 ${isLayerTreeOpen ? "left-4" : "right-[30000px]"}`}
+						className={`absolute bottom-4 z-3 ${isLayerTreeOpen ? "left-4" : "right-[30000px]"}`}
 					>
 						<LayerTree />
 					</div>
-					<div className="z-2 absolute bottom-4 left-4">
+					<div className="absolute bottom-4 left-4 z-2">
 						<LayerTreeControl />
 					</div>
 				</>
 			)}
 			<div
-				className={`absolute flex items-start gap-2 ${isMobile ? "left-2 top-2" : "left-4 top-4"}`}
+				className={`absolute flex items-start gap-2 ${isMobile ? "top-2 left-2" : "top-4 left-4"}`}
 			>
 				{!isMobile && <Legende />}
 				{loading && (
-					<div className="z-2 align-start flex">
+					<div className="align-start z-2 flex">
 						<Spinner
 							text="Karte lädt..."
 							textColor="black"

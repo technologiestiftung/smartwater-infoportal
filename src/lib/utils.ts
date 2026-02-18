@@ -50,3 +50,12 @@ export function mapScaleToHazardLevel(value: number): HazardLevel {
 	}
 	return "low"; // fallback
 }
+
+export function fixMojibake(text: string): string {
+	try {
+		const bytes = Uint8Array.from(text, (c) => c.charCodeAt(0));
+		return new TextDecoder("utf-8").decode(bytes);
+	} catch {
+		return text;
+	}
+}

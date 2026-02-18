@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
+import { fixMojibake } from "@/lib/utils";
 
 const LocationDataNotFound = {
 	found: false,
@@ -29,8 +30,7 @@ export default function AddressSearch() {
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-	const { currentUserAddress, setCurrentUserAddress, setLocationData } =
-		useStore();
+	const { locationData, setLocationData } = useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -56,7 +56,7 @@ export default function AddressSearch() {
 			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
-				if (!currentUserAddress) {
+				if (!locationData?.found) {
 					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
 					router.push("/hochwasser-check");
@@ -94,7 +94,6 @@ export default function AddressSearch() {
 			setResults([]);
 			return;
 		}
-		console.log("result.data :>> ", result.data);
 		setResults(result.data);
 	};
 
@@ -126,12 +125,12 @@ export default function AddressSearch() {
 	};
 
 	useEffect(() => {
-		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.name);
+		if (locationData?.found) {
+			setValue("addresse", locationData.building?.name || "");
 			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultClicked(true);
 		}
-	}, [currentUserAddress, setValue]);
+	}, [locationData, setValue]);
 
 	// eslint-disable-next-line react-hooks/set-state-in-effect
 	useEffect(() => setShowLoading(false), [results]);
@@ -188,11 +187,16 @@ export default function AddressSearch() {
 															onClick={() => {
 																setError("");
 																setValue("addresse", result.name);
-																setCurrentUserAddress(result);
 																if (result.building) {
 																	setLocationData({
 																		found: true,
-																		building: result.building,
+																		building: {
+																			...result.building,
+																			alkisAddress: fixMojibake(
+																				result.building?.alkisAddress || "",
+																			),
+																			name: result.name,
+																		},
 																	});
 																}
 																setResults([]);

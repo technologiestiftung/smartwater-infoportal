@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useStore from "@/store/defaultStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -9,17 +9,14 @@ import { getHeightClass, getWidthClass } from "@/lib/utils/mapUtils";
 import { LegendeItem } from "@/lib/types";
 
 const Legende = () => {
-	const isLegendeOpen = useStore((state) => state.isLegendeOpen);
-	const updateLegendeIsOpen = useStore((state) => state.updateLegendeIsOpen);
-	const updateLayerTreeIsOpen = useStore(
-		(state) => state.updateLayerTreeIsOpen,
-	);
-	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const layers = useMapStore((state) => state.layers);
 	const subjectLayers = layers.filter((l) => l.layerType === "subject");
 	const isMobile = useMobile();
-	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
 	const [reopenLegend, setReopenLegend] = useState<boolean>(false);
+	const {
+		interactiveMap: { fullScreenMap, isLegendeOpen, isLayerTreeOpen },
+		updateInteractiveMap,
+	} = useStore();
 
 	const transformClass = () => {
 		if (isMobile && isLegendeOpen) {
@@ -65,17 +62,17 @@ const Legende = () => {
 		}
 		if (isLayerTreeOpen && isLegendeOpen) {
 			setReopenLegend(true);
-			updateLegendeIsOpen(false);
+			updateInteractiveMap({ isLegendeOpen: false });
 		} else if (!isLayerTreeOpen && reopenLegend) {
 			setReopenLegend(false);
-			updateLegendeIsOpen(true);
+			updateInteractiveMap({ isLegendeOpen: true });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLayerTreeOpen]);
 
 	useEffect(() => {
 		if (isLayerTreeOpen && isLegendeOpen && isMobile) {
-			updateLayerTreeIsOpen(false);
+			updateInteractiveMap({ isLayerTreeOpen: false });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLegendeOpen]);
@@ -98,15 +95,15 @@ const Legende = () => {
 	return (
 		<div
 			id="map-legende"
-			className={`z-10 bg-white ${isMobile ? "duration-600 absolute bottom-0 w-full transition-transform ease-in-out" : getWidthClass(fullScreenMap)} ${transformClass()}`}
+			className={`z-10 bg-white ${isMobile ? "absolute bottom-0 w-full transition-transform duration-600 ease-in-out" : getWidthClass(fullScreenMap)} ${transformClass()}`}
 		>
 			<div
-				className={`border-l-1 border-r-1 border-t-1 flex min-h-[44px] cursor-pointer items-center justify-between border-black pl-4 ${isLegendeOpen ? "border-b-0" : "border-b-1"}`}
-				onClick={() => updateLegendeIsOpen(!isLegendeOpen)}
+				className={`flex min-h-[44px] cursor-pointer items-center justify-between border-t-1 border-r-1 border-l-1 border-black pl-4 ${isLegendeOpen ? "border-b-0" : "border-b-1"}`}
+				onClick={() => updateInteractiveMap({ isLegendeOpen: !isLegendeOpen })}
 			>
-				<p className="select-none font-bold">Legende</p>
+				<p className="font-bold select-none">Legende</p>
 				<div
-					className={`bg-red border-l-1 border-b-1 inline-flex h-[44px] w-[44px] items-center justify-center border-r-0 border-t-0 border-black ${isLegendeOpen ? "border-b-black" : "border-b-[#E40422]"}`}
+					className={`bg-red inline-flex h-[44px] w-[44px] items-center justify-center border-t-0 border-r-0 border-b-1 border-l-1 border-black ${isLegendeOpen ? "border-b-black" : "border-b-[#E40422]"}`}
 				>
 					<FontAwesomeIcon
 						icon={getCorrectIcon()}
@@ -116,7 +113,7 @@ const Legende = () => {
 			</div>
 			{!isMobile && !isLegendeOpen ? null : (
 				<div
-					className={`border-l-1 border-r-1 border-b-1 flex flex-col gap-2 overflow-y-scroll border-t-0 border-black p-2 ${getHeightClass(isMobile, fullScreenMap)}`}
+					className={`flex flex-col gap-2 overflow-y-scroll border-t-0 border-r-1 border-b-1 border-l-1 border-black p-2 ${getHeightClass(isMobile, fullScreenMap)}`}
 				>
 					{legende.map((singleLegende, index) => {
 						const isAdresse = singleLegende.IDneedsToInclude === "adresse";
@@ -142,7 +139,7 @@ const Legende = () => {
 									<div key={index}>
 										{!isAdresse && (
 											<p
-												className="mb-2 select-none whitespace-normal break-words text-[14px] font-bold leading-[16px]"
+												className="mb-2 text-[14px] leading-[16px] font-bold break-words whitespace-normal select-none"
 												title={singleLegende.title}
 											>
 												{singleLegende.title}
@@ -150,7 +147,7 @@ const Legende = () => {
 										)}
 										<div className="inline-flex min-w-[213px] flex-col items-start gap-3 px-6 py-4">
 											{singleLegende.subTitle && (
-												<p className="select-none text-[10px] font-bold leading-[10px] text-black">
+												<p className="text-[10px] leading-[10px] font-bold text-black select-none">
 													{singleLegende.subTitle}
 												</p>
 											)}
@@ -179,7 +176,7 @@ const Legende = () => {
 															className="flex flex-col gap-1.5"
 														>
 															{legendeItem.subTitle && (
-																<p className="select-none text-[10px] leading-[10px] text-black">
+																<p className="text-[10px] leading-[10px] text-black select-none">
 																	{legendeItem.subTitle}
 																</p>
 															)}
@@ -195,7 +192,7 @@ const Legende = () => {
 																					className={`flex h-[21px] w-[36px] ${getBorder()} ${legendeSubItem.background}`}
 																				/>
 																				{legendeSubItem.title && (
-																					<p className="select-none text-[10px] leading-[10px] text-black">
+																					<p className="text-[10px] leading-[10px] text-black select-none">
 																						{legendeSubItem.title}
 																					</p>
 																				)}
@@ -209,7 +206,7 @@ const Legende = () => {
 																		className={`flex h-[21px] w-[36px] ${getBorder()} ${legendeItem.background}`}
 																	/>
 																	{legendeItem.title && (
-																		<p className="select-none text-[10px] leading-[10px] text-black">
+																		<p className="text-[10px] leading-[10px] text-black select-none">
 																			{legendeItem.title}
 																		</p>
 																	)}

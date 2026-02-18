@@ -28,12 +28,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
 	const pdfUrlRef = useRef<string | null>(null);
-	const {
-		currentUserAddress,
-		getHazardEntities,
-		floodRiskAnswers,
-		floodRiskResult,
-	} = useStore();
+	const { locationData, getHazardEntities, floodRiskAnswers, floodRiskResult } =
+		useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
@@ -65,7 +61,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 	const addToPDFKeys: PDFKeys = {
 		"{date}": getToday(),
-		"{address}": currentUserAddress?.name || "Keine Adresse gefunden",
+		"{address}": locationData?.building?.name || "Keine Adresse gefunden",
 		"{hazardLevelHeavyRain}": hazardEntities
 			? translateHazardLevels(hazardEntities[0].hazardLevel)
 			: "Keine Daten",

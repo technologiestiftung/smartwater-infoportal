@@ -9,35 +9,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import useStore from "@/store/defaultStore";
 import CheckBlock from "@/components/CheckBlock";
-import { findAlkisBuilding } from "@/server/actions/findAlkisBuilding";
 
 export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const { currentUserAddress, setLocationData } = useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
-
-	const checkHazard = async (skip?: boolean) => {
-		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
-			return;
-		}
-		try {
-			const longitude = parseFloat(currentUserAddress.lon);
-			const latitude = parseFloat(currentUserAddress.lat);
-			const result = await findAlkisBuilding(longitude, latitude);
-			console.log("setLocationData ✅✅✅", result);
-			setLocationData(result);
-			if (skip) {
-				router.push("/hochwasser-check?skip=true#results");
-			} else {
-				router.push("/hochwasser-check#questionnaire");
-			}
-		} catch (error) {
-			console.error("Error in checkHazard function:", error);
-		}
-	};
+	const { locationData } = useStore();
 
 	useEffect(() => {
 		// eslint-disable-next-line no-extra-boolean-cast
@@ -47,14 +26,11 @@ export default function FloodCheckClient() {
 	}, [hash]);
 
 	useEffect(() => {
-		if (!hash) {
-			const check = useStore.getState().currentUserAddress;
-			if (!check) {
-				router.push("/#hochwasser-check");
-			}
+		if (!locationData?.found) {
+			router.push("/#hochwasser-check");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [hash]);
+	}, [hash, locationData]);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
@@ -115,7 +91,12 @@ export default function FloodCheckClient() {
 						<p className="">{t("floodCheck.start.description")}</p>
 						<CheckBlock
 							onSubmit={(goTo) => {
-								checkHazard(goTo === "no");
+								const skip = goTo === "no";
+								if (skip) {
+									router.push("/hochwasser-check?skip=true#results");
+								} else {
+									router.push("/hochwasser-check#questionnaire");
+								}
 							}}
 						/>
 					</div>

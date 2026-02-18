@@ -1,30 +1,19 @@
 export type HazardLevel = "low" | "moderate" | "high" | "severe";
 export type RiskLevel = "low" | "moderate" | "high" | "dontKnow" | "unknown";
+import type { Geometry } from "geojson";
 
 export interface CurrentUserAddress {
 	lat: string;
 	lon: string;
 	name: string;
 	hasHousenumber: boolean;
-	alkisName?: string;
 	building?: Building | null;
-}
-
-// GeoJSON geometry types
-export interface Geometry {
-	type:
-		| "Point"
-		| "LineString"
-		| "Polygon"
-		| "MultiPoint"
-		| "MultiLineString"
-		| "MultiPolygon";
-	coordinates: number[] | number[][] | number[][][] | number[][][][];
 }
 
 export interface Building {
 	uuid?: string;
-	address?: string;
+	name?: string;
+	alkisAddress?: string;
 	starkregenGefährdung?: number;
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;

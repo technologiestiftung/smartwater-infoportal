@@ -56,26 +56,26 @@ const useLayerData = () => {
 };
 
 const LayerTree = () => {
-	const updateLayerTreeIsOpen = useStore(
-		(state) => state.updateLayerTreeIsOpen,
-	);
-	const fullScreenMap = useStore((state) => state.fullScreenMap);
+	const {
+		interactiveMap: { fullScreenMap },
+		updateInteractiveMap,
+	} = useStore();
 	const isMobile = useMobile();
 	return (
 		<div
 			className={`bg-white ${isMobile ? "w-full" : getWidthClass(fullScreenMap)}`}
 		>
-			<div className="border-l-1 border-r-1 border-t-1 flex min-h-[44px] items-center justify-between border-b-0 border-black pl-4">
-				<p className="select-none font-bold">Kartenlayer</p>
+			<div className="flex min-h-[44px] items-center justify-between border-t-1 border-r-1 border-b-0 border-l-1 border-black pl-4">
+				<p className="font-bold select-none">Kartenlayer</p>
 				<div
-					className="bg-red border-1 inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-r-0 border-t-0 border-black"
-					onClick={() => updateLayerTreeIsOpen(false)}
+					className="bg-red inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-1 border-t-0 border-r-0 border-black"
+					onClick={() => updateInteractiveMap({ isLayerTreeOpen: false })}
 				>
 					<FontAwesomeIcon icon={faXmark} className="text-[18px] text-white" />
 				</div>
 			</div>
 			<div
-				className={`border-l-1 border-r-1 border-t-0 border-black py-2 ${isMobile ? "border-b-0" : "border-b-1"}`}
+				className={`border-t-0 border-r-1 border-l-1 border-black py-2 ${isMobile ? "border-b-0" : "border-b-1"}`}
 			>
 				<LayerTreeContentDraggable />
 			</div>
@@ -85,13 +85,14 @@ const LayerTree = () => {
 
 const LayerTreeContentDraggable = () => {
 	const { subjectLayers } = useLayerData();
-	const errorLayers = useStore((state) => state.errorLayers);
 	const isMobile = useMobile();
-	const fullScreenMap = useStore((state) => state.fullScreenMap);
 	const setLayerOrder = useMapStore((state) => state.setLayerOrder);
 	const map = useMapStore((s) => s.map);
 	const [items, setItems] = useState<string[]>([]);
 	const [disabledLayers, setDisabledLayers] = useState<string[]>([]);
+	const {
+		interactiveMap: { errorLayers, fullScreenMap },
+	} = useStore();
 
 	useEffect(() => {
 		setItems(subjectLayers.map((l) => l.id));
@@ -230,7 +231,9 @@ const LayerItem = memo<{
 	isNotAvailable: boolean;
 }>(({ layer, disabled, isNotAvailable }) => {
 	const setLayerVisibility = useMapStore((state) => state.setLayerVisibility);
-	const activeMapFilter = useStore((state) => state.activeMapFilter);
+	const {
+		interactiveMap: { activeMapFilter },
+	} = useStore();
 
 	const handleVisibilityChange = useCallback(
 		(checked: boolean) => {
@@ -268,26 +271,26 @@ const LayerItem = memo<{
 						/>
 					) : (
 						<div
-							className={`border-1 h-[18px] w-[18px] shrink-0 rounded-full ${disabled ? "border-[#DCDCDC]" : "border-black"}`}
+							className={`h-[18px] w-[18px] shrink-0 rounded-full border-1 ${disabled ? "border-[#DCDCDC]" : "border-black"}`}
 						/>
 					)}
 				</div>
 			)}
 			<div className="flex-1 overflow-hidden">
 				<p
-					className="translate-y-[2px] select-none overflow-hidden truncate whitespace-nowrap text-[14px] font-bold"
+					className="translate-y-[2px] truncate overflow-hidden text-[14px] font-bold whitespace-nowrap select-none"
 					title={serviceNameLang}
 				>
 					{serviceName}
 				</p>
 				{disabled || isNotAvailable ? (
-					<p className="translate-y-[-2px] select-none overflow-hidden truncate whitespace-nowrap text-xs text-[var(--text-error)]">
+					<p className="translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap text-[var(--text-error)] select-none">
 						{isNotAvailable
 							? "Karte konnte nicht geladen werden"
 							: "Karte wird im aktuellen Maßstab nicht angezeigt"}
 					</p>
 				) : (
-					<p className="translate-y-[-2px] select-none overflow-hidden truncate whitespace-nowrap text-xs">
+					<p className="translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap select-none">
 						{mapGroup}
 					</p>
 				)}

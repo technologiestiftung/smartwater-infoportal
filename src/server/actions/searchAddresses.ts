@@ -10,15 +10,6 @@ const berlinBbox: number[] = [
 	13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
 ];
 
-function fixMojibake(text: string): string {
-	try {
-		const bytes = Uint8Array.from(text, (c) => c.charCodeAt(0));
-		return new TextDecoder("utf-8").decode(bytes);
-	} catch {
-		return text;
-	}
-}
-
 const getAlkisResults = async (uniqueFeatures: CurrentUserAddress[]) => {
 	const uniqueFeaturesWithHousenumber = uniqueFeatures.filter(
 		(f) => f.hasHousenumber,
@@ -39,7 +30,6 @@ const getAlkisResults = async (uniqueFeatures: CurrentUserAddress[]) => {
 		if (result.found && result.building) {
 			alkisResults.push({
 				...feature,
-				alkisName: fixMojibake(result.building.address as string),
 				building: result.building,
 			});
 		}

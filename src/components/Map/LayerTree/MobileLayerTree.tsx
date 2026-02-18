@@ -4,7 +4,9 @@ import LayerTree from "../LayerTree/LayerTree";
 import useMobile from "@/lib/utils/useMobile";
 
 const MobileLayerTree = () => {
-	const isLayerTreeOpen = useStore((state) => state.isLayerTreeOpen);
+	const {
+		interactiveMap: { isLayerTreeOpen },
+	} = useStore();
 	const isMobile = useMobile();
 
 	const transformClass = () => {
@@ -20,7 +22,7 @@ const MobileLayerTree = () => {
 	return (
 		<div
 			id="mobile-layer-tree"
-			className={`duration-600 absolute bottom-0 w-full transition-transform ease-in-out ${transformClass()}`} // ${isLayerTreeOpen ? "right-4" : "right-[30000px]"}
+			className={`absolute bottom-0 w-full transition-transform duration-600 ease-in-out ${transformClass()}`} // ${isLayerTreeOpen ? "right-4" : "right-[30000px]"}
 		>
 			<LayerTree />
 		</div>

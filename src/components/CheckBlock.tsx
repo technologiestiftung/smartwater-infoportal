@@ -17,7 +17,7 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 	onSubmit,
 }: CheckBlockProps) => {
 	const t = useTranslations();
-	const { currentUserAddress } = useStore();
+	const { locationData } = useStore();
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 
 	const properties: FormProperty[] = [
@@ -53,13 +53,13 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 					<div className="flex flex-col gap-1.5">
 						<p className="font-bold">{t("floodCheck.start.locationTitle")}</p>
 						<section className="flex items-center gap-2">
-							{currentUserAddress && (
+							{locationData?.found && (
 								<>
 									<FontAwesomeIcon
 										icon={faLocationDot}
 										className="text-[18px] text-black"
 									/>
-									<p className="mt-[3px]">{currentUserAddress.name}</p>
+									<p className="mt-[3px]">{locationData.building?.name}</p>
 								</>
 							)}
 						</section>

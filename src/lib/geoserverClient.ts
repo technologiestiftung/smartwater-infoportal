@@ -1,5 +1,5 @@
 import proj4 from "proj4";
-import { Geometry } from "./types";
+import type { Geometry } from "geojson";
 import { bufferedOutlineMultiPolygonFromBuilding } from "./utils/geoServerHelpers";
 
 const LocationDataNotFound = {
@@ -118,7 +118,7 @@ export class GeoServerClient {
 		const props = building.properties as Record<string, unknown>;
 		return {
 			uuid: props.uuid as string,
-			address: props.ad_com as string,
+			alkisAddress: props.ad_com as string,
 			starkregenGefährdung: (props.GS_SR as number) || 0,
 			hochwasserGefährdung: (props.GS_HW as number) || 0,
 			geometry: building.geometry as Geometry,
