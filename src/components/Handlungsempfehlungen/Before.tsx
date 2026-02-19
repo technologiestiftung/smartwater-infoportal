@@ -249,7 +249,10 @@ const Before: React.FC = () => {
 							))}
 						</ul>
 						{afterList && (
-							<div className="flex flex-col gap-4 lg:flex-row">
+							<div className={cn(
+								"flex flex-col gap-4 lg:flex-row",
+								afterList === "afterList5" && "bg-[#9BCFAF] p-2"
+							)}>
 								<p
 									className={cn("lg:ps-12", afterListImage && "lg:max-w-[50%]")}
 								>
@@ -277,11 +280,12 @@ const Before: React.FC = () => {
 									})}
 								</p>
 								{afterListImage && (
-									<NextImage
+									<Image
 										src={afterListImage}
-										alt={`???`}
-										width={160}
-										height={160}
+										alt={t("afterList5Image.alt")}
+										caption={t("afterList5Image.caption")}
+										copyright={t("afterList5Image.copyright")}
+										className="shrink-0"
 									/>
 								)}
 							</div>
