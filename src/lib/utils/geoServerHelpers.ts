@@ -1,24 +1,17 @@
 /* eslint-disable */
-import { Geometry } from "../types";
+import type { MultiPolygon, Position, Geometry } from "geojson";
 
-type XY = [number, number];
-
-type GeoJSONMultiPolygon = {
-	type: "MultiPolygon";
-	coordinates: XY[][][];
-};
-
-type Ring = XY[];
+type Ring = Position[];
 type PolygonCoords = Ring[];
 type MultiPolygonCoords = PolygonCoords[];
 
-const isXY = (v: any): v is XY =>
+const isPosition = (v: any): v is Position =>
 	Array.isArray(v) &&
 	v.length >= 2 &&
 	typeof v[0] === "number" &&
 	typeof v[1] === "number";
 
-const isRing = (v: any): v is Ring => Array.isArray(v) && v.every(isXY);
+const isRing = (v: any): v is Ring => Array.isArray(v) && v.every(isPosition);
 
 const isPolygonCoords = (v: any): v is PolygonCoords =>
 	Array.isArray(v) && v.length > 0 && v.every(isRing);
@@ -26,7 +19,7 @@ const isPolygonCoords = (v: any): v is PolygonCoords =>
 const isMultiPolygonCoords = (v: any): v is MultiPolygonCoords =>
 	Array.isArray(v) && v.length > 0 && v.every(isPolygonCoords);
 
-function ensureClosed(ring: XY[]): XY[] {
+function ensureClosed(ring: Position[]): Position[] {
 	if (ring.length < 2) return ring;
 	const a = ring[0];
 	const b = ring[ring.length - 1];
@@ -34,13 +27,13 @@ function ensureClosed(ring: XY[]): XY[] {
 	return [...ring, [a[0], a[1]]];
 }
 
-function normalize(x: number, y: number): XY {
+function normalize(x: number, y: number): Position {
 	const len = Math.hypot(x, y);
 	if (!len) return [0, 0];
 	return [x / len, y / len];
 }
 
-const leftNormal = (dx: number, dy: number): XY => normalize(-dy, dx);
+const leftNormal = (dx: number, dy: number): Position => normalize(-dy, dx);
 
 /**
  * Returns a buffered outline as MultiPolygon.
@@ -52,7 +45,7 @@ export function bufferedOutlineMultiPolygonFromBuilding(
 	geom: Geometry,
 	bufferMeters = 2,
 	miterLimit = 1, // higher = pointier corners; lower = more clipped
-): GeoJSONMultiPolygon {
+): MultiPolygon {
 	if (!geom || (geom.type !== "Polygon" && geom.type !== "MultiPolygon")) {
 		return { type: "MultiPolygon", coordinates: [] };
 	}
@@ -66,19 +59,19 @@ export function bufferedOutlineMultiPolygonFromBuilding(
 				? geom.coordinates
 				: [];
 
-	const out: XY[][][] = [];
+	const out: Position[][][] = [];
 
 	for (const poly of polygons) {
 		if (!Array.isArray(poly) || poly.length === 0 || !Array.isArray(poly[0]))
 			continue;
 
-		let ring = poly[0].filter(isXY);
+		let ring = poly[0].filter(isPosition);
 		ring = ensureClosed(ring);
 
 		if (ring.length < 4) continue;
 
 		const n = ring.length - 1;
-		const buffered: XY[] = [];
+		const buffered: Position[] = [];
 
 		for (let i = 0; i < n; i++) {
 			const prev = ring[(i - 1 + n) % n];

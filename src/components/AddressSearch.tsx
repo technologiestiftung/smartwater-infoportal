@@ -17,6 +17,12 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
+import { fixMojibake } from "@/lib/utils";
+
+const LocationDataNotFound = {
+	found: false,
+	building: null,
+};
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -24,7 +30,7 @@ export default function AddressSearch() {
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-	const { currentUserAddress, setCurrentUserAddress } = useStore();
+	const { locationData, setLocationData } = useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -44,11 +50,13 @@ export default function AddressSearch() {
 	};
 
 	const testingAddresses = [
-		"Majakowskiring 9",
-		"Rüsternallee 24",
-		"Forckenbeckstraße 20, 14199 Berlin",
-		"Hainstraße 7, 12439 Berlin",
-		"Havelberger Straße 15, 10559 Berlin",
+		"Grunewaldstraße 61",
+		"Grunewaldstraße 62",
+		"Schönhauser Allee 125-128",
+		"Schönhauser Allee 125",
+		"Schönhauser Allee 128",
+		"Birkenstraße 17, 12589 Berlin",
+		"Helmstraße 9, 10827 Berlin",
 	];
 
 	const handleSubmit = () => {
@@ -56,7 +64,7 @@ export default function AddressSearch() {
 			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
-				if (!currentUserAddress) {
+				if (!locationData?.found) {
 					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
 					router.push("/hochwasser-check");
@@ -90,6 +98,7 @@ export default function AddressSearch() {
 					break;
 			}
 			setError(msg);
+			setLocationData(LocationDataNotFound);
 			setResults([]);
 			return;
 		}
@@ -105,6 +114,7 @@ export default function AddressSearch() {
 			const value = target.value;
 
 			if (value.length < 3) {
+				setLocationData(LocationDataNotFound);
 				setResults([]);
 				setShowLoading(false);
 				return;
@@ -123,12 +133,12 @@ export default function AddressSearch() {
 	};
 
 	useEffect(() => {
-		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.name);
+		if (locationData?.found) {
+			setValue("addresse", locationData.building?.name || "");
 			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultClicked(true);
 		}
-	}, [currentUserAddress, setValue]);
+	}, [locationData, setValue]);
 
 	// eslint-disable-next-line react-hooks/set-state-in-effect
 	useEffect(() => setShowLoading(false), [results]);
@@ -185,7 +195,23 @@ export default function AddressSearch() {
 															onClick={() => {
 																setError("");
 																setValue("addresse", result.name);
-																setCurrentUserAddress(result);
+																if (result.building) {
+																	const makeBuilding = {
+																		...result.building,
+																		alkisAddress: fixMojibake(
+																			result.building?.alkisAddress || "",
+																		),
+																		name: result.name,
+																	};
+																	console.log(
+																		"setLocationData ✅✅✅",
+																		makeBuilding,
+																	);
+																	setLocationData({
+																		found: true,
+																		building: makeBuilding,
+																	});
+																}
 																setResults([]);
 															}}
 															variant="link"

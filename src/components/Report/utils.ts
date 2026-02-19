@@ -1,10 +1,6 @@
 /* eslint-disable complexity */
-import {
-	FloodRiskAnswers,
-	FloodRiskResult,
-	Geometry,
-	LocationData,
-} from "@/lib/types";
+import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
+import type { Geometry } from "geojson";
 import { getScenarioDomId } from "@/lib/utils/mapUtils";
 import { Scenario } from "@/types/map";
 import { HazardEntity } from "@/utils/storeUtils";
@@ -255,7 +251,6 @@ export const getScreenshotForScenario = async (
 		body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
 	}
 	body.url = `${window.location.origin}${path}`;
-	console.log("url :>> ", body.url);
 	const res = await fetch("/api/screenshot", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

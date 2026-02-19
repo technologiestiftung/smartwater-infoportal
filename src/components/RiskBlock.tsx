@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { RiskLevel, FloodRiskAnswers, FloodRiskResult } from "@/lib/types";
@@ -33,8 +32,6 @@ const RiskBlock = ({
 	const getHazardEntities = useStore((state) => state.getHazardEntities);
 	const hazardEntities = hazardEntitiesDown ?? getHazardEntities();
 	const isDev = false; //process.env.NODE_ENV === "development";
-	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
-	const testing = isDev && showTestingFeatures.includes("riskWidgetDetails");
 	const { min, max } = floodRiskConfig.evaluation;
 	const value = floodRiskResult?.evaluation ?? 0;
 	const arrowPosition = ((value - min) / (max - min)) * 100;
@@ -130,7 +127,7 @@ const RiskBlock = ({
 
 	return (
 		<div
-			className={cn("Risk-block border-12 overflow-hidden", getBorder())}
+			className={cn("Risk-block overflow-hidden border-12", getBorder())}
 			id="risk-block"
 		>
 			<div className="flex flex-col gap-2 p-4">
@@ -154,7 +151,7 @@ const RiskBlock = ({
 						)}
 					</p>
 				)}
-				{testing && (
+				{isDev && (
 					<div className="border-1 border-black p-4">
 						<p className="">Berechnungswerte:</p>
 						<p className="">

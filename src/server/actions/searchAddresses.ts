@@ -4,10 +4,39 @@
 import { AddressResult, CurrentUserAddress } from "@/lib/types";
 import { containsNumber, extractGermanZipCode } from "@/lib/utils/mapUtils";
 import { searchAddressesPhotonAPI } from "./searchAddressesPhotonAPI";
+import { findAlkisBuilding } from "./findAlkisBuilding";
 
 const berlinBbox: number[] = [
 	13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
 ];
+
+const getAlkisResults = async (uniqueFeatures: CurrentUserAddress[]) => {
+	const uniqueFeaturesWithHousenumber = uniqueFeatures.filter(
+		(f) => f.hasHousenumber,
+	);
+	const uniqueFeaturesWithoutHousenumber = uniqueFeatures.filter(
+		(f) => !f.hasHousenumber,
+	);
+
+	const alkisResults: CurrentUserAddress[] = [];
+
+	for (const feature of uniqueFeaturesWithHousenumber) {
+		const { lat, lon } = feature;
+		if (!lat || !lon) continue;
+
+		const longitude = parseFloat(lon);
+		const latitude = parseFloat(lat);
+		const result = await findAlkisBuilding(longitude, latitude);
+		if (result.found && result.building) {
+			alkisResults.push({
+				...feature,
+				building: result.building,
+			});
+		}
+	}
+	alkisResults.push(...uniqueFeaturesWithoutHousenumber);
+	return alkisResults;
+};
 
 export async function searchAddresses(
 	query: string,
@@ -44,26 +73,32 @@ export async function searchAddresses(
 	const germanZIPCode = extractGermanZipCode(query);
 
 	const data = await res.json();
+	// console.log("data :>> ", JSON.stringify(data.features));
 
 	const filteredResults: CurrentUserAddress[] = data.features
 		.filter(
 			(f: any) =>
-				(f.relevance ?? 0) >= 0.7 ||
+				(f.relevance ?? 0) >= 0.6 ||
 				!f.geometry.coordinates[1] ||
 				!f.geometry.coordinates[0],
 		)
 		.filter((f: any) =>
 			f.context.some((c: any) => c.text_de.toLowerCase().includes("berlin")),
 		)
-		.map((f: any) => ({
-			lat: f.geometry.coordinates[1].toString(),
-			lon: f.geometry.coordinates[0].toString(),
-			name: f.place_name.replace(", Deutschland", ""),
-			hasHousenumber:
-				containsNumber(f.address ?? "") || containsNumber(f.text ?? ""),
-		}))
+		.map((f: any) => {
+			const getZIPCode = extractGermanZipCode(f.place_name);
+			return {
+				lat: f.geometry.coordinates[1].toString(),
+				lon: f.geometry.coordinates[0].toString(),
+				name: f.place_name.replace(", Deutschland", ""),
+				hasHousenumber:
+					!!getZIPCode &&
+					(containsNumber(f.address ?? "") || containsNumber(f.text ?? "")),
+			};
+		})
 		.filter((f: any) => {
 			if (!germanZIPCode) return true;
+			if (!isNaN(Number(f.name))) return false;
 			return f.name.includes(germanZIPCode);
 		});
 
@@ -86,10 +121,7 @@ export async function searchAddresses(
 					addr.hasHousenumber,
 			);
 			if (findPhotonHit.length > 0) {
-				return {
-					ok: true,
-					data: [...findPhotonHit, ...uniqueFeatures],
-				};
+				uniqueFeatures.unshift(...findPhotonHit);
 			}
 		}
 	}
@@ -98,5 +130,7 @@ export async function searchAddresses(
 		return { ok: false, code: "noResult" };
 	}
 
-	return { ok: true, data: uniqueFeatures };
+	const alkisResults = await getAlkisResults(uniqueFeatures);
+
+	return { ok: true, data: alkisResults };
 }
