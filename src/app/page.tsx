@@ -135,7 +135,8 @@ export default function Home() {
 							<Warning />
 						</div>
 					}
-					slotC={<div className="">{t.rich("floodRadar.description")}</div>}
+					slotC={<div className="flex flex-col gap-6"><p>{t.rich("floodRadar.description")}</p>
+					<p>{t.rich("floodRadar.description1")}</p></div>}
 				/>
 			</section>
 			<div className="divider" />

@@ -55,11 +55,12 @@
 			}
 		},
 		"floodRadar": {
-			"title": "Hochwasser-Radar: Bleiben Sie informiert!",
+			"title": "Bleiben Sie informiert: Nutzen Sie eine WarnApp!",
 			"currentStatus": {
 				"noWarnings": "Derzeit liegen keine Warnungen vor."
 			},
-			"description": "Unser Hochwasser-Radar zeigt Ihnen die aktuellen Warnungen und berücksichtigt dabei die Wetterwarnungen des Deutschen Wetterdienstes, die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird der Infokasten und das Icon rot angezeigt."
+			"description": "Das Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK) stellt mit NINA eine kostenfreie WarnApp zur Verfügung, die Sie benachrichtigt, sollten Warnungen für Ihren Standort vorliegen.",
+			"description1": " Ob aktuell eine Hochwasserwarnung vorliegt, sehen Sie in dem Kasten rechts. Die Anzeige berücksichtigt dabei die Wetterwarnungen des Deutschen Wetterdienstes, die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird der Infokasten und das Icon rot angezeigt."
 		},
 		"backgroundInfo": {
 			"title": "Hintergrundinformation zum Thema Hochwasser",
