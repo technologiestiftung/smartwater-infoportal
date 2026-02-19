@@ -101,11 +101,9 @@
 			"mapDisclaimer": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie die folgenden Links benutzen:",
 			"mapInfo": "Weitere Informationen zu den Karten",
 			"linkGroundwaterPortalTitle": "Das Grundwasser-Auskunftsportal",
-			"linkGroundwaterPortalLinkTitle": "Geologisches Auskunftsportal - Berlin.de",
-			"linkGroundwaterPortalLink": "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/grundwasser/informationen-zum-grundwasser/baugrund-und-grundwasserauskunft/",
+			"linkGroundwaterPortal": "<grundwasserportal>Geologisches Auskunftsportal - Berlin.de</grundwasserportal>",
 			"linkWaterGeologyTitle": "Informationen zum Thema Wasser und Geologie",
-			"linkWaterGeologyLinkTitle": "Wasser und Geologie - Berlin.de",
-			"linkWaterGeologyLink": "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/",
+			"linkWaterGeology": "<wassergeologie>Wasser und Geologie - Berlin.de</wassergeologie>",
 			"otherCauses": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie die folgenden Links benutzen:",
 			"title": "Infos zur Gefährdung"
 		},

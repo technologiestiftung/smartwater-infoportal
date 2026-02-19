@@ -1,3 +1,5 @@
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
 import useStore from "@/store/defaultStore";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +15,6 @@ import {
 	Pill,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ErrorCatcher from "./ErrorCatcher";
@@ -244,36 +245,30 @@ const Results: React.FC = () => {
 								{index === 2 && (
 									<>
 										<div className="mt-4 flex flex-col">
-											<p className="">
-												{t("hazardInfo.linkGroundwaterPortalTitle")}
-											</p>
-											<Link
-												href={t("hazardInfo.linkGroundwaterPortalLink")}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<Button variant="link">
-													<p className="">
-														{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
-													</p>
-												</Button>
-											</Link>
+											<p>{t("hazardInfo.linkGroundwaterPortalTitle")}</p>
+											<div className="[&_a]:inline-block">
+												{t.rich("hazardInfo.linkGroundwaterPortal", {
+													...richText(LINK_MAP),
+													grundwasserportal: (chunks) => (
+														<Button variant="link">
+															<p>{chunks}</p>
+														</Button>
+													),
+												})}
+											</div>
 										</div>
 										<div className="flex flex-col">
-											<p className="">
-												{t("hazardInfo.linkWaterGeologyTitle")}
-											</p>
-											<Link
-												href={t("hazardInfo.linkWaterGeologyLink")}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<Button variant="link">
-													<p className="">
-														{t("hazardInfo.linkWaterGeologyLinkTitle")}
-													</p>
-												</Button>
-											</Link>
+											<p>{t("hazardInfo.linkWaterGeologyTitle")}</p>
+											<div className="[&_a]:inline-block">
+												{t.rich("hazardInfo.linkWaterGeology", {
+													...richText(LINK_MAP),
+													wassergeologie: (chunks) => (
+														<Button variant="link">
+															<p>{chunks}</p>
+														</Button>
+													),
+												})}
+											</div>
 										</div>
 									</>
 								)}

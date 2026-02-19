@@ -1,11 +1,12 @@
 "use client";
 
-import { getWarnings } from "@/server/actions/getWarnings";
-import Link from "next/link";
-import { Button, Image } from "berlin-ui-library";
-import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
+import { getWarnings } from "@/server/actions/getWarnings";
+import { Button, Image } from "berlin-ui-library";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 type WarningProps = {
 	warning: boolean;
@@ -70,15 +71,14 @@ export default function Warning() {
 					})()}
 				</p>
 				{!warning?.error && (
-					<Link
-						href="https://wasserportal.berlin.de/warnungen.php"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<Button variant="linkWithIcon">
-							{t("common.warning.furtherInformation")}
-						</Button>
-					</Link>
+					<div className="[&_a]:inline-block">
+						{t.rich("common.warning.furtherInformation", {
+							...richText(LINK_MAP),
+							wasserportal: (chunks) => (
+								<Button variant="linkWithIcon">{chunks}</Button>
+							),
+						})}
+					</div>
 				)}
 				{warning?.timeStamp && (
 					<p

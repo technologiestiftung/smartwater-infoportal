@@ -76,7 +76,7 @@
 		"warning": {
 			"currentWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
 			"noWarning": "Derzeit liegen keine Warnungen vor.",
-			"furtherInformation": "Weitere Informationen",
+			"furtherInformation": "<wasserportal>Weitere Informationen</wasserportal>",
 			"timeStamp": "Letzte Aktualisierung: {timeStamp}",
 			"error": "Beim Abrufen der Warnungen ist ein Fehler aufgetreten."
 		}
