@@ -6,6 +6,9 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
 import useStore from "@/store/defaultStore";
+import { ScenarioList } from "@/types/map";
+import ScenarioMap from "@/components/ScenarioMap/Map";
+import { screenshotScenarioWithMapfish } from "@/components/Report/mapfish/screenshotScenarioWithMapfish";
 
 export default function Home() {
 	const t = useTranslations("home");
@@ -22,6 +25,29 @@ export default function Home() {
 			</section>
 			{isDev && (
 				<div className="flex flex-col gap-4">
+					<div
+						className="absolute right-[30000px]" /* absolute right-[30000px] */
+					>
+						{ScenarioList.map((scenario) => (
+							<div key={scenario}>
+								<span>{scenario}</span>
+								<ScenarioMap scenario={scenario} />
+							</div>
+						))}
+					</div>
+					<Button
+						onClick={async() => {
+							console.log("Test Mapfish Screenshot");
+							try {
+								const resScreenshot = await screenshotScenarioWithMapfish("FLOOD_ZONE")
+								console.log("Mapfish screenshot response:", resScreenshot);
+							} catch (error) {
+								console.error("Error during Mapfish screenshot:", error);
+							}
+						}}
+					>
+						Test Mapfish
+					</Button>
 					<Button
 						onClick={() => {
 							resetAll();
