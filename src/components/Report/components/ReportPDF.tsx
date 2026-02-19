@@ -18,6 +18,7 @@ import { PDFKeys, PDFProps } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
+import { ScenarioList } from "@/types/map";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -153,7 +154,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const makePDF = async () => {
 		setDone((prev) => [...prev, "wms"]);
 
-		const scenarios: string[] = ["heavyRainWidget", "fluvialFloodWidget"];
+		const scenarios: string[] = [
+			"heavyRainWidget",
+			"fluvialFloodWidget",
+			...ScenarioList
+		];
 
 		if (!skip) {
 			scenarios.push("risk-block");
@@ -165,7 +170,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			for (const scenario of scenarios) {
 				const { key, blob } = await getScreenshotForScenario(
 					scenario,
-					null,
+					locationData,
 					hazardEntities,
 					floodRiskResult,
 					floodRiskAnswers,
