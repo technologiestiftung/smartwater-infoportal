@@ -131,7 +131,7 @@ const Emergency: React.FC = () => {
 							<li key={key} className="flex items-start gap-2">
 								<FontAwesomeIcon
 									icon={faCheck}
-									className={`flex-shrink-0 text-[18px]`}
+									className={`shrink-0 text-[18px]`}
 								/>
 								<span className="whitespace-pre-line">
 									{t.rich(`${listKey}.${key}`, {
@@ -164,7 +164,7 @@ const Emergency: React.FC = () => {
 								/>
 							</div>
 							<Image
-								className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+								className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
 								src={fullIMG}
 								alt={t(`${listKey}Image.alt`)}
 								caption={t(`${listKey}Image.caption`)}

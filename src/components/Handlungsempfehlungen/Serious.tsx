@@ -129,7 +129,7 @@ const Serious: React.FC = () => {
 					/>
 				</div>
 				<Image
-					className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+					className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
 					src={mobileSrc}
 					alt={t(`${listKey}Image.alt`)}
 					caption={t(`${listKey}Image.caption`)}
