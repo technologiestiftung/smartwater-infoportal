@@ -1,6 +1,8 @@
 "use client";
 import WrappingTextBlock from "@/components/WrappingTextBlock";
-import { Image, Link } from "berlin-ui-library";
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
+import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
@@ -9,10 +11,7 @@ type TocMap = Record<string, string>;
 const TableCell = ({ text, title }: { text: ReactNode; title?: boolean }) => {
 	if (title) {
 		return (
-			<td
-				rowSpan={3}
-				className="w-0 border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold whitespace-pre-line lg:p-[1em_0.65em]"
-			>
+			<td rowSpan={3} className="w-0 border border-[#dddddd] bg-[#f5f5f5] p-1 align-top font-bold whitespace-pre-line lg:p-[1em_0.65em]">
 				{text}
 			</td>
 		);
@@ -26,43 +25,23 @@ const TableCell = ({ text, title }: { text: ReactNode; title?: boolean }) => {
 
 export default function GeneralInformation() {
 	const t = useTranslations();
-
 	const content = useMessages() as {
 		generalInfo: {
-			tableOfContents: {
-				items: TocMap;
-			};
-			floodThroughRain: {
-				list: {
-					items: TocMap;
-				};
-			};
-			assessment: {
-				paragraphs: TocMap;
-			};
+			tableOfContents: { items: TocMap };
+			floodThroughRain: { list: { items: TocMap } };
+			assessment: { paragraphs: TocMap };
 			types: {
 				table: {
 					head: TocMap;
-					heavyRain: {
-						row1: TocMap;
-						row2: TocMap;
-						row3: TocMap;
-					};
-					flood: {
-						row1: TocMap;
-						row2: TocMap;
-						row3: TocMap;
-					};
+					heavyRain: { row1: TocMap; row2: TocMap; row3: TocMap };
+					flood: { row1: TocMap; row2: TocMap; row3: TocMap };
 				};
 			};
-			handling: {
-				paragraphs: TocMap;
-			};
-			furtherInformation: {
-				list: TocMap;
-			};
+			handling: { paragraphs: TocMap };
+			furtherInformation: { list: TocMap };
 		};
 	};
+
 	const tableOfContentsItems = content.generalInfo.tableOfContents.items;
 	const floodThroughRainItems = content.generalInfo.floodThroughRain.list.items;
 	const assessmentItems = content.generalInfo.assessment.paragraphs;
@@ -78,9 +57,7 @@ export default function GeneralInformation() {
 
 	const TableHead = ({ text }: { text?: string }) => {
 		if (!text) {
-			return (
-				<th className="w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em]"></th>
-			);
+			return <th className="w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em]"></th>;
 		}
 		return (
 			<th className="border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em]">
@@ -93,23 +70,18 @@ export default function GeneralInformation() {
 		<>
 			<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 				<section className="flex flex-col gap-6">
-					<h1 className="">{t("generalInfo.pageTitle")}</h1>
-					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
+					<h1>{t("generalInfo.pageTitle")}</h1>
+					<h2>{t("generalInfo.tableOfContents.title")}</h2>
 					<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 						{Object.entries(tableOfContentsItems).map(([key, label]) => (
 							<li key={key}>
-								<a href={`#${key}`} className="text-text-link">
-									{label}
-								</a>
+								<a href={`#${key}`} className="text-text-link">{label}</a>
 							</li>
 						))}
 					</ul>
 				</section>
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker1"
-				/>
-				<section className="">
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker1" />
+				<section>
 					<WrappingTextBlock
 						imageWidth="50%"
 						imageSide="left"
@@ -125,19 +97,14 @@ export default function GeneralInformation() {
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
-								<h2 className="">{t("generalInfo.definition.title")}</h2>
-								<p className="whitespace-pre-line">
-									{t("generalInfo.definition.description")}
-								</p>
+								<h2>{t("generalInfo.definition.title")}</h2>
+								<p className="whitespace-pre-line">{t("generalInfo.definition.description")}</p>
 							</div>
 						}
 					/>
 				</section>
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker2"
-				/>
-				<section className="">
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker2" />
+				<section>
 					<WrappingTextBlock
 						imageWidth="50%"
 						imageSide="right"
@@ -153,36 +120,20 @@ export default function GeneralInformation() {
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
-								<h2 className="">{t("generalInfo.hazardVsRisk.title")}</h2>
-								<p className="">{t("generalInfo.hazardVsRisk.description")}</p>
-								<h3 className="">
-									{t("generalInfo.hazardVsRisk.hazard.title")}
-								</h3>
-								<p className="">
-									{t("generalInfo.hazardVsRisk.hazard.description")}
-								</p>
-								<h3 className="">{t("generalInfo.hazardVsRisk.risk.title")}</h3>
+								<h2>{t("generalInfo.hazardVsRisk.title")}</h2>
+								<p>{t("generalInfo.hazardVsRisk.description")}</p>
+								<h3>{t("generalInfo.hazardVsRisk.hazard.title")}</h3>
+								<p>{t("generalInfo.hazardVsRisk.hazard.description")}</p>
+								<h3>{t("generalInfo.hazardVsRisk.risk.title")}</h3>
 								<p className="whitespace-pre-line">
-									{t.rich("generalInfo.hazardVsRisk.risk.description", {
-										link1: (chunks) => (
-											<Link
-												href="/handlungsempfehlungen"
-												className="text-text-link underline"
-											>
-												{chunks}
-											</Link>
-										),
-									})}
+									{t.rich("generalInfo.hazardVsRisk.risk.description", richText(LINK_MAP))}
 								</p>
 							</div>
 						}
 					/>
 				</section>
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker3"
-				/>
-				<section className="">
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker3" />
+				<section>
 					<WrappingTextBlock
 						imageWidth="50%"
 						imageSide="left"
@@ -198,39 +149,14 @@ export default function GeneralInformation() {
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
-								<h2 className="">{t("generalInfo.floodThroughRain.title")}</h2>
+								<h2>{t("generalInfo.floodThroughRain.title")}</h2>
 								<p className="whitespace-pre-line">
-									{t.rich("generalInfo.floodThroughRain.description", {
-										link: (chunks) => (
-											<Link
-												href="https://www.gdv.de/gdv/themen/klima/128-millionen-euro-starkregen-schaden-in-berlin-52782"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-									})}
+									{t.rich("generalInfo.floodThroughRain.description", richText(LINK_MAP))}
 								</p>
 								<ul className="list-decimal ps-6">
 									{Object.keys(floodThroughRainItems).map((key) => (
 										<li key={key} className="whitespace-pre-line">
-											{t.rich(
-												`generalInfo.floodThroughRain.list.items.${key}`,
-												{
-													link: (chunks) => (
-														<Link
-															href="https://www.dwd.de/DE/wetter/thema_des_tages/2025/9/28.html"
-															target="_blank"
-															rel="noopener noreferrer"
-															variant="extern"
-														>
-															{chunks}
-														</Link>
-													),
-												},
-											)}
+											{t.rich(`generalInfo.floodThroughRain.list.items.${key}`, richText(LINK_MAP))}
 										</li>
 									))}
 								</ul>
@@ -238,12 +164,7 @@ export default function GeneralInformation() {
 						}
 					/>
 				</section>
-
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker4"
-				/>
-
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker4" />
 				<section>
 					<WrappingTextBlock
 						imageWidth="50%"
@@ -260,41 +181,17 @@ export default function GeneralInformation() {
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
-								<h2 className="">{t("generalInfo.assessment.title")}</h2>
+								<h2>{t("generalInfo.assessment.title")}</h2>
 								{Object.entries(assessmentItems).map(([key]) => (
-									<p key={key} className="">
-										{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
-											strong: (chunks) => <strong>{chunks}</strong>,
-											link2: (chunks) => (
-												<Link
-													href="/#hochwasser-check"
-													rel="noopener noreferrer"
-													className="text-text-link underline"
-												>
-													{chunks}
-												</Link>
-											),
-											link3: (chunks) => (
-												<Link
-													href="https://www.berlin.de/umweltatlas/wasser/starkregen/fortlaufend-aktualisiert/zusammenfassung/"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-text-link underline"
-												>
-													{chunks}
-												</Link>
-											),
-										})}
+									<p key={key}>
+										{t.rich(`generalInfo.assessment.paragraphs.${key}`, richText(LINK_MAP))}
 									</p>
 								))}
 							</div>
 						}
 					/>
 				</section>
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker5"
-				/>
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker5" />
 				<section className="relative mb-12 w-full lg:mb-0">
 					<WrappingTextBlock
 						imageWidth="50%"
@@ -311,28 +208,9 @@ export default function GeneralInformation() {
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
-								<h2 className="">{t("generalInfo.types.title")}</h2>
+								<h2>{t("generalInfo.types.title")}</h2>
 								<p className="whitespace-pre-line">
-									{t.rich("generalInfo.types.description", {
-										link1: (chunks) => (
-											<Link
-												href="https://gdi.berlin.de/viewer/main/"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-										link2: (chunks) => (
-											<Link
-												href="#anker4"
-												rel="noopener noreferrer"
-											>
-												{chunks}
-											</Link>
-										),
-									})}
+									{t.rich("generalInfo.types.description", richText(LINK_MAP))}
 								</p>
 							</div>
 						}
@@ -348,10 +226,7 @@ export default function GeneralInformation() {
 							</thead>
 							<tbody>
 								<tr>
-									<TableCell
-										title
-										text={t("generalInfo.types.table.heavyRain.title")}
-									/>
+									<TableCell title text={t("generalInfo.types.table.heavyRain.title")} />
 									{Object.entries(heavyRainRow1Entries).map(([key, label]) => (
 										<TableCell key={key} text={label} />
 									))}
@@ -367,10 +242,7 @@ export default function GeneralInformation() {
 									))}
 								</tr>
 								<tr>
-									<TableCell
-										title
-										text={t("generalInfo.types.table.flood.title")}
-									/>
+									<TableCell title text={t("generalInfo.types.table.flood.title")} />
 									{Object.entries(floodRow1Entries).map(([key, label]) => (
 										<TableCell key={key} text={label} />
 									))}
@@ -389,15 +261,11 @@ export default function GeneralInformation() {
 						</table>
 					</div>
 					<p className="mt-1 px-4 text-sm leading-tight font-normal break-words text-black lg:px-0">
-						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
-						Hochwasser erstellt wurden.
+						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema Hochwasser erstellt wurden.
 					</p>
 				</section>
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker6"
-				/>
-				<section className="">
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker6" />
+				<section>
 					<WrappingTextBlock
 						imageWidth="50%"
 						imageSide="right"
@@ -413,153 +281,30 @@ export default function GeneralInformation() {
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
-								{" "}
-								<h2 className="">{t("generalInfo.handling.title")}</h2>
+								<h2>{t("generalInfo.handling.title")}</h2>
 								{Object.entries(handlingItems).map(([key]) => (
-									<p key={key} className="">
-										{t.rich(`generalInfo.handling.paragraphs.${key}`, {
-											link1: (chunks) => (
-												<Link
-													href="https://regenwasseragentur.berlin/schwammstadt/"
-													target="_blank"
-													rel="noopener noreferrer"
-													variant="extern"
-												>
-													{chunks}
-												</Link>
-											),
-											link2: (chunks) => (
-												<Link
-													href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
-													target="_blank"
-													rel="noopener noreferrer"
-													variant="extern"
-												>
-													{chunks}
-												</Link>
-											),
-											link3: (chunks) => (
-												<Link
-													href="/#hochwasser-check"
-													rel="noopener noreferrer"
-												>
-													{chunks}
-												</Link>
-											),
-											link4: (chunks) => (
-												<Link
-													href="/handlungsempfehlungen"
-													rel="noopener noreferrer"
-												>
-													{chunks}
-												</Link>
-											),
-										})}
+									<p key={key}>
+										{t.rich(`generalInfo.handling.paragraphs.${key}`, richText(LINK_MAP))}
 									</p>
 								))}
 							</div>
 						}
 					/>
 				</section>
-				<div
-					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
-					id="anker7"
-				/>
-				<section className="">
+				<div className="divider scroll-mt-[62px] lg:scroll-mt-[85px]" id="anker7" />
+				<section>
 					<div className="flex w-full flex-col gap-6">
-						<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
+						<h2>{t("generalInfo.furtherInformation.title")}</h2>
 						<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 							{Object.entries(furtherInformationItems).map(([key]) => (
 								<li key={key}>
-									{t.rich(`generalInfo.furtherInformation.list.${key}`, {
-										link1: (chunks) => (
-											<Link
-												href="https://www.naturgefahrenportal.de/de"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-										link2: (chunks) => (
-											<Link
-												href="https://www.bmwsb.bund.de/SharedDocs/downloads/DE/publikationen/raumordnung/hochwasserschutzfibel.html"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-										link3: (chunks) => (
-											<Link
-												href="https://www.hochwasser-pass.info/"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-										link4: (chunks) => (
-											<Link
-												href="https://www.bbk.bund.de/DE/Themen/Risikomanagement/Baulicher-Bevoelkerungsschutz/Schutz-vor-Naturgefahren/Hochwasser/hochwasser_node.html"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-										link5: (chunks) => (
-											<Link
-												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-									})}
+									{t.rich(`generalInfo.furtherInformation.list.${key}`, richText(LINK_MAP))}
 								</li>
 							))}
 						</ul>
 						<h3>{t("generalInfo.furtherInformation.subTitle")}</h3>
 						<p className="whitespace-pre-line">
-							{t.rich("generalInfo.furtherInformation.description", {
-								link1: (chunks) => (
-									<Link
-										href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
-										target="_blank"
-										rel="noopener noreferrer"
-										variant="extern"
-									>
-										{chunks}
-									</Link>
-								),
-								link2: (chunks) => (
-									<Link
-										href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
-										target="_blank"
-										rel="noopener noreferrer"
-										variant="extern"
-									>
-										{chunks}
-									</Link>
-								),
-								link3: (chunks) => (
-									<Link
-										href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
-										target="_blank"
-										rel="noopener noreferrer"
-										variant="extern"
-									>
-										{chunks}
-									</Link>
-								),
-							})}
+							{t.rich("generalInfo.furtherInformation.description", richText(LINK_MAP))}
 						</p>
 					</div>
 				</section>

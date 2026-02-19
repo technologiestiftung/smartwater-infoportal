@@ -1,9 +1,11 @@
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Image, Link } from "berlin-ui-library";
+import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import NextImage from "next/image";
-import React, { ReactNode } from "react";
+import React from "react";
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
@@ -26,41 +28,6 @@ const Emergency: React.FC = () => {
 	const list3 = content.recommendations.emergency.list3;
 	const list4 = content.recommendations.emergency.list4;
 	const list5 = content.recommendations.emergency.list5;
-
-	const getLink = (key: string, chunks: ReactNode) => {
-		let text = "";
-		if (typeof chunks === "string") {
-			text = chunks;
-		} else if (Array.isArray(chunks)) {
-			text = chunks.join("");
-		}
-
-		if (key === "entry1") {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: text.includes("NINA")
-					? "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
-					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
-			};
-		}
-		if (key === "entry2") {
-			return {
-				target: "_blank",
-				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/sirenen/artikel.1578804.php#headline_1_39",
-			};
-		}
-		if (key === "entry3") {
-			return {
-				target: "_self",
-				link: "/",
-			};
-		}
-		return {
-			target: "_self",
-			link: "#",
-		};
-	};
 
 	const Lists = [
 		{
@@ -131,21 +98,11 @@ const Emergency: React.FC = () => {
 							<li key={key} className="flex items-start gap-2">
 								<FontAwesomeIcon
 									icon={faCheck}
-									className={`flex-shrink-0 text-[18px]`}
+									className={`shrink-0 text-[18px]`}
 								/>
 								<span className="whitespace-pre-line">
 									{t.rich(`${listKey}.${key}`, {
-										strong: (chunks) => <strong>{chunks}</strong>,
-										link: (chunks) => (
-											<Link
-												href={getLink(key, chunks).link}
-												target={getLink(key, chunks).target}
-												rel="noopener noreferrer"
-												variant={getLink(key, chunks).variant || "default"}
-											>
-												{chunks}
-											</Link>
-										),
+									...richText(LINK_MAP),
 									})}
 								</span>
 							</li>

@@ -1,6 +1,8 @@
 // lib/link-map.ts
 export const LINK_MAP = {
   hochwassercheck: { href: "/#hochwasser-check" },
+  handlungsempfehlungen: { href: "/handlungsempfehlungen" },
+  anker4: { href: "#anker4" },
   starkregen: { href: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/starkregen-und-ueberflutungen/gefahren/", target: "_blank" },
   risikokarten: { href: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/hochwasser/hochwasserrisikomanagementrichtlinie/#risikokarten", target: "_blank" },
   gdv: { href: "https://www.gdv.de/gdv/statistik/datenservice-zum-naturgefahrenreport/sachversicherung-elementar", target: "_blank", variant: "extern" },
