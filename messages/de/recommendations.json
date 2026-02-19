@@ -95,8 +95,8 @@
 			"list1Intro": "<strong>Seien Sie informiert!</strong>",
 			"list1Paragraph": "Hochwasserereignisse sind dynamische Ereignisse, die sich schnell ändern können. Informieren Sie sich kontinuierlich über die aktuelle Situation.",
 			"list1": {
-				"entry1": "Nutzen Sie Warnapps (<link>NINA</link>, <link>WarnWetter-App</link>).",
-				"entry2": "Achten Sie auf <link>Sirenenalarm</link>.",
+				"entry1": "Nutzen Sie Warnapps (<nina>NINA</nina>, <warnwetter>WarnWetter-App</warnwetter>).",
+				"entry2": "Achten Sie auf <sirenen>Sirenenalarm</sirenen>.",
 				"entry4": "Nutzen Sie zudem lokale Sendungen im Radio und ggf. dem Fernsehen um sich zu informieren.",
 				"entry5": "Wenn es eine Warnung über die oben genannten Kanäle gibt: Informieren Sie sich kontinuierlich über das Radio oder die Warn-Apps über Handlungsempfehlungen der Behörden.",
 				"entry6": "Wenn Sie erfahren, dass die Hochwassergefahr an Ihrem Standort akut geworden ist, verzichten Sie auf Notfallmaßnahmen und beachten Sie die Hinweise unter „Richtiges Verhalten im Ernstfall“."
@@ -137,13 +137,13 @@
 			"list1": {
 				"entry1": "Behindern Sie keine Einsatzkräfte bei ihrer Arbeit.",
 				"entry2": "Folgen Sie den Handlungsanweisungen der Einsatzkräfte und Behörden.",
-				"entry3": "Achten Sie auch auf <link>Sirenenalarm</link>. Wenn es einen Sirenenalarm gibt, nutzen Sie Warnapps (<link>NINA</link>, <link>WarnWetter-App</link>) oder ggf. auch das Radio und das Fernsehen, um sich über standortspezifische Evakuierungsanweisungen oder andere Handlungsanweisungen der Einsatzkräfte und Behörden zu informieren.",
+				"entry3": "Achten Sie auch auf <sirenen>Sirenenalarm</sirenen>. Wenn es einen Sirenenalarm gibt, nutzen Sie Warnapps (<nina>NINA</nina>, <warnwetter>WarnWetter-App</warnwetter>) oder ggf. auch das Radio und das Fernsehen, um sich über standortspezifische Evakuierungsanweisungen oder andere Handlungsanweisungen der Einsatzkräfte und Behörden zu informieren.",
 				"entry4": "Wählen Sie den Notruf nur in Notfällen, damit die Leitungen für dringende Fälle frei bleiben."
 			},
 			"list2Intro": "<strong>Seien Sie informiert.</strong>",
 			"list2Paragraph": "Hochwasserereignisse sind dynamische Ereignisse, die sich schnell ändern können. Informieren Sie sich kontinuierlich über die aktuelle Situation.",
 			"list2": {
-				"entry1": "Nutzen Sie Warnapps (<link>NINA</link>, <link>WarnWetter-App</link>) oder ggf. auch das Radio und das Fernsehen, um sich über standortspezifische Evakuierungsanweisungen oder andere Handlungsanweisungen der Einsatzkräfte und Behörden zu informieren.",
+				"entry1": "Nutzen Sie Warnapps (<nina>NINA</nina>, <warnwetter>WarnWetter-App</warnwetter>) oder ggf. auch das Radio und das Fernsehen, um sich über standortspezifische Evakuierungsanweisungen oder andere Handlungsanweisungen der Einsatzkräfte und Behörden zu informieren.",
 				"entry2": "Wählen Sie den Notruf nur in Notfällen, damit die Leitungen für dringende Fälle frei bleiben."
 			},
 			"list3Intro": "<strong>Vermeiden Sie geflutete Bereiche.</strong>",
@@ -202,7 +202,7 @@
 				"entry6": "Jedoch: Bei Wassermengen von wenigen Zentimeter Höhe (1 bis 10 cm) in gut überschaubaren Flächen, bei denen keine Gefahr durch Strom oder Gefahrenstoffe besteht: Beseitigen Sie das Wasser und die Wasserschäden selbst, um Folgeschäden zu minimieren. Vermeiden Sie es in diesen Fällen, die Feuerwehr zu kontaktieren.",
 				"entry7": "Alle Gegenstände, die mit Flutwasser in Kontakt gekommen sind, sollten gereinigt werden.",
 				"entry8": "Lassen Sie elektrische Geräte, Heizöltanks, Fahrzeuge, Hausanschlüsse (z.B. Strom, Gas, Telefon), die geflutet wurden, von Fachpersonal überprüfen.",
-				"entry9": "Nach Unterbrechungen der Trinkwasserversorgung beachten Sie bitte die Hinweise in folgendem <link>Merkblatt vom Deutschen Verein des Gas- und Wasserfaches</link>."
+				"entry9": "Nach Unterbrechungen der Trinkwasserversorgung beachten Sie bitte die Hinweise in folgendem <dvgwtrinkwasser>Merkblatt vom Deutschen Verein des Gas- und Wasserfaches</dvgwtrinkwasser>."
 			},
 			"list4Intro": "<strong>Dokumentieren Sie die Schäden</strong>",
 			"list4": {
@@ -218,7 +218,7 @@
 			},
 			"list6Intro": "<strong>Nach dem Hochwasser ist vor dem nächsten Hochwasser</strong>",
 			"list6": {
-				"entry1": "Um die Schäden beim nächsten Ereignis zu minimieren, informieren Sie sich über Vorsorgemaßnahmen im <link>Hochwasser-Infoportal</link>, im <link>Naturgefahrenportal</link>, oder über <link>die Hochwasserschutzfibel</link> für Überflutungen durch Starkregen."
+				"entry1": "Um die Schäden beim nächsten Ereignis zu minimieren, informieren Sie sich über Vorsorgemaßnahmen im <hochwassercheck>Hochwasser-Infoportal</hochwassercheck>, im <naturgefahrenportal>Naturgefahrenportal</naturgefahrenportal>, oder über <fib>die Hochwasserschutzfibel</fib> für Überflutungen durch Starkregen."
 			}
 		}
 	}

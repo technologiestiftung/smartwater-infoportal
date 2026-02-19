@@ -1,9 +1,10 @@
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import NextImage from "next/image";
-import React, { ReactNode } from "react";
+import React from "react";
 
 
 type TocMap = Record<string, string>;
@@ -29,53 +30,6 @@ const After: React.FC = () => {
 	const list4 = content.recommendations.after.list4;
 	const list5 = content.recommendations.after.list5;
 	const list6 = content.recommendations.after.list6;
-
-	const getLink = (chunks: ReactNode) => {
-		let text = "";
-		if (typeof chunks === "string") {
-			text = chunks;
-		} else if (Array.isArray(chunks)) {
-			text = chunks.join("");
-		}
-		if (text.includes("Merkblatt")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.dvgw.de/medien/dvgw/leistungen/publikationen/Info-wiederinbetriebnahme-trinkwasser-installation-nach-betriebsunterbrechungen.pdf",
-			};
-		}
-		if (text.includes("Naturgefahrenportal")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.naturgefahrenportal.de/de",
-			};
-		}
-		if (text.includes("Hochwasserschutzfibel")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.fib-bund.de/inhalt/themen/hochwasser/",
-			};
-		}
-		if (text.includes("Vorsorgemaßnahmen")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.fib-bund.de/inhalt/themen/hochwasser/",
-			};
-		}
-		if (text.includes("Hochwasser")) {
-			return {
-				target: "_self",
-				link: "/",
-			};
-		}
-		return {
-			target: "_self",
-			link: "#",
-		};
-	};
 
 	const Lists = [
 		{
@@ -144,17 +98,7 @@ const After: React.FC = () => {
 								/>
 								<span className="whitespace-pre-line">
 									{t.rich(`${listKey}.${key}`, {
-										link: (chunks) => (
-											<Link
-												href={getLink(chunks).link}
-												target={getLink(chunks).target}
-												rel="noopener noreferrer"
-												variant={getLink(chunks).variant || "default"}
-											>
-												{chunks}
-											</Link>
-										),
-										strong: (chunks) => <strong>{chunks}</strong>,
+									...richText(LINK_MAP),
 									})}
 								</span>
 							</li>

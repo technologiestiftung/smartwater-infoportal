@@ -1,9 +1,11 @@
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Image, Link } from "berlin-ui-library";
+import { Image } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import NextImage from "next/image";
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 
 type TocMap = Record<string, string>;
 interface FullResponsiveImageProps {
@@ -32,46 +34,6 @@ const Serious: React.FC = () => {
 	const list3 = content.recommendations.serious.list3;
 	const list4 = content.recommendations.serious.list4;
 	const list5 = content.recommendations.serious.list5;
-
-	const getLink = (chunks: ReactNode) => {
-		let text = "";
-		if (typeof chunks === "string") {
-			text = chunks;
-		} else if (Array.isArray(chunks)) {
-			text = chunks.join("");
-		}
-		if (text.includes("NINA")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html",
-			};
-		}
-		if (text.includes("WarnWetter")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
-			};
-		}
-		if (text.includes("Sirenen")) {
-			return {
-				target: "_blank",
-				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/sirenen/artikel.1578804.php#headline_1_39",
-			};
-		}
-		if (text.includes("Aquaplaning")) {
-			return {
-				target: "_blank",
-				variant: "extern",
-				link: "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/sicherheit/aquaplaning/",
-			};
-		}
-		return {
-			target: "_self",
-			link: "#",
-		};
-	};
 
 	const Lists = [
 		{
@@ -129,7 +91,7 @@ const Serious: React.FC = () => {
 					/>
 				</div>
 				<Image
-					className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+					className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
 					src={mobileSrc}
 					alt={t(`${listKey}Image.alt`)}
 					caption={t(`${listKey}Image.caption`)}
@@ -185,18 +147,8 @@ const Serious: React.FC = () => {
 										className={`shrink-0 text-[18px]`}
 									/>
 									<span className="whitespace-pre-line">
-										{t.rich(`${listKey}.${key}`, {
-											link: (chunks) => (
-												<Link
-													href={getLink(chunks).link}
-													target={getLink(chunks).target}
-													rel="noopener noreferrer"
-													variant={getLink(chunks).variant || "default"}
-												>
-													{chunks}
-												</Link>
-											),
-											strong: (chunks) => <strong>{chunks}</strong>,
+									{t.rich(`${listKey}.${key}`, {
+										...richText(LINK_MAP),
 										})}
 									</span>
 								</li>
