@@ -2,11 +2,12 @@
 
 import { After, Before, Serious } from "@/components/Handlungsempfehlungen";
 import Emergency from "@/components/Handlungsempfehlungen/Emergency";
+import { LINK_MAP } from "@/lib/utils/linkMap";
+import { richText } from "@/lib/utils/richText";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	Image,
-	Link,
 	Tabs,
 	TabsContent,
 	TabsList,
@@ -29,26 +30,7 @@ export default function Recommendations() {
 			<h1 className="">{t("recommendations.pageTitle")}</h1>
 			<p className="">
 				{t.rich("recommendations.intro", {
-					link1: (chunks) => (
-						<Link
-							href="/hintergrund-informationen#anker3"
-							rel="noopener noreferrer"
-							className="text-text-link underline"
-						>
-							{chunks}
-						</Link>
-					),
-					link2: (chunks) => (
-						<Link
-							variant="extern"
-							className="text-text-link underline"
-							href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{chunks}
-						</Link>
-					),
+					...richText(LINK_MAP),
 				})}
 			</p>
 			<ul className="list-none space-y-4 lg:ps-12">
@@ -83,15 +65,7 @@ export default function Recommendations() {
 
 			<p className="">
 				{t.rich("recommendations.intro2", {
-					link1: (chunks) => (
-						<Link
-							href="/#hochwasser-check"
-							rel="noopener noreferrer"
-						>
-							{chunks}
-						</Link>
-					),
-					strong: (chunks) => <strong>{chunks}</strong>,
+					...richText(LINK_MAP),
 				})}
 			</p>
 

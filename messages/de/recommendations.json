@@ -1,7 +1,7 @@
 {
 	"recommendations": {
 		"pageTitle": "Handlungsempfehlungen – Wie gehe ich mit Überflutungen und Überschwemmungen um?",
-		"intro": "Berlin war z.B. <link1>2017 und 2019</link1> von schweren Hochwasser betroffen und kann auch in Zukunft erneut betroffen sein. Solche Hochwasserereignisse können erhebliche Personen- und Sachschäden verursachen. Es ist gesetzlich verankert, dass Bürgerinnen und Bürger im Rahmen ihrer Möglichkeiten dafür verantwortlich sind, Maßnahmen zu ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (<link2>WHG §5 Abs.2</link2>). Deswegen gilt:",
+		"intro": "Berlin war z.B. <anker3>2017 und 2019</anker3> von schweren Hochwasser betroffen und kann auch in Zukunft erneut betroffen sein. Solche Hochwasserereignisse können erhebliche Personen- und Sachschäden verursachen. Es ist gesetzlich verankert, dass Bürgerinnen und Bürger im Rahmen ihrer Möglichkeiten dafür verantwortlich sind, Maßnahmen zu ergreifen, um sich vor den Schäden zu schützen und diese zu minimieren (<whg>WHG §5 Abs.2</whg>). Deswegen gilt:",
 		"introList": {
 			"entry1": "Sorgen Sie rechtzeitig vor, um Schäden und Risiken zu minimieren.",
 			"entry2": "Maßnahmen zum Schutz vor Starkregen und Hochwasser müssen nicht teuer sein: Es gibt eine Vielzahl von Maßnahmen, die ein weites Spektrum von Kosten und Wirkweisen abdecken.",
@@ -12,7 +12,7 @@
 			"caption": "Abbildung 1: Einteilung von Anpassungsmaßnahmen gegen Hochwasserschäden ausgehend vom Zeitpunkt ihrer Umsetzung.",
 			"copyright": "Bild: SenMVKU"
 		},
-		"intro2": "Welche Maßnahmen umgesetzt werden sollten, hängt von dem Zeitpunkt der Umsetzung ab: <strong>Vorsorgemaßnahmen</strong> werden vor dem Hochwasser umgesetzt und sind beim Eintritt eines Starkregen oder Hochwassers bereits einsatzbereit. <strong>Notfallmaßnahmen</strong> können noch nach dem Erhalt einer Warnung und kurz vor dem Starkregen bzw. Hochwassers umgesetzt werden. Ist das Hochwasser bereits da, kommt es auf das <strong>richtige Verhalten im Ernstfall</strong> und nach dem Hochwasser auf die <strong>richtige Nachsorge</strong> an. Einen individuelleren Überblick über Vorsorgemaßnahmen erhalten Sie, wenn Sie den <link1>Hochwasser-Check Berlin</link1> für Ihren Wohnraum durchführen und sich diesen als Bericht (PDF) herunterladen.",
+		"intro2": "Welche Maßnahmen umgesetzt werden sollten, hängt von dem Zeitpunkt der Umsetzung ab: <strong>Vorsorgemaßnahmen</strong> werden vor dem Hochwasser umgesetzt und sind beim Eintritt eines Starkregen oder Hochwassers bereits einsatzbereit. <strong>Notfallmaßnahmen</strong> können noch nach dem Erhalt einer Warnung und kurz vor dem Starkregen bzw. Hochwassers umgesetzt werden. Ist das Hochwasser bereits da, kommt es auf das <strong>richtige Verhalten im Ernstfall</strong> und nach dem Hochwasser auf die <strong>richtige Nachsorge</strong> an. Einen individuelleren Überblick über Vorsorgemaßnahmen erhalten Sie, wenn Sie den <hochwassercheck>Hochwasser-Check Berlin</hochwassercheck> für Ihren Wohnraum durchführen und sich diesen als Bericht (PDF) herunterladen.",
 		"note": "Hinweis: Der präsentierte Überblick enthält im Bereich Vorsorgemaßnahmen auch bauliche Maßnahmen, deren Umsetzung eher im Verantwortungsbereich des Eigentümers liegt und welche sich dadurch ggf. nicht vorrangig an Mieterinnen und Mieter richten.",
 		"timeline": {
 			"before": "Vorher",
