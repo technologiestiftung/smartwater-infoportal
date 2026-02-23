@@ -20,6 +20,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
 import { GeoServerClient } from "@/lib/geoserverClient";
 import { Building, BuildingWMS } from "@/lib/types";
+import useMobile from "@/lib/utils/useMobile";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -31,6 +32,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const t = useTranslations();
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
+	const pdfUrlRef = useRef<string | null>(null);
 	const { locationData, getHazardEntities, floodRiskAnswers, floodRiskResult } =
 		useStore();
 	const hazardEntities = getHazardEntities();
@@ -44,6 +46,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [numberOfFetchedPDFImages, setNumberOfFetchedPDFImages] =
 		useState<number>(0);
 	const isDev = process.env.NODE_ENV === "development";
+	const isMobile = useMobile();
 
 	const checks = [
 		{
@@ -423,6 +426,29 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		makePDF();
 	}, []);
 
+	useEffect(() => {
+		// cleanup previous url
+		if (pdfUrlRef.current) {
+			URL.revokeObjectURL(pdfUrlRef.current);
+			pdfUrlRef.current = null;
+		}
+
+		if (!pdfBlob) {
+			return;
+		}
+
+		// create a stable url for this blob
+		pdfUrlRef.current = URL.createObjectURL(pdfBlob);
+
+		// revoke only when blob changes or component unmounts
+		return () => {
+			if (pdfUrlRef.current) {
+				URL.revokeObjectURL(pdfUrlRef.current);
+				pdfUrlRef.current = null;
+			}
+		};
+	}, [pdfBlob]);
+
 	return (
 		<>
 			{error ? (
@@ -460,7 +486,16 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 								})}
 								date={getToday()}
 								title={t("floodCheck.reportDownload.title")}
-								onClickDownloadItem={() => openPdfViewer(isDev)}
+								onClickDownloadItem={() => {
+									if (isMobile) {
+										const url = pdfUrlRef.current;
+										if (!url) {
+											return openPdfViewer(isDev);
+										}
+										return window.open(url, "_blank", "noopener,noreferrer");
+									}
+									openPdfViewer(isDev);
+								}}
 							/>
 						) : (
 							<>
