@@ -1,7 +1,7 @@
 "use client";
+import { Image, Link } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
-import { Image } from "berlin-ui-library";
-import Link from "next/link";
+
 export default function About() {
 	const t = useTranslations();
 	return (
@@ -27,8 +27,8 @@ export default function About() {
 					{t.rich("about.content.paragraph4", {
 						link: (chunks) => (
 							<Link
-								className="text-text-link"
 								href="https://gemeinsamdigital.berlin.de/de/smart-water/"
+								variant="extern"
 							>
 								{chunks}
 							</Link>

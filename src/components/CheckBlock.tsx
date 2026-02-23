@@ -1,15 +1,14 @@
 "use client";
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Form, FormFieldWrapper, FormWrapper } from "berlin-ui-library";
 import { FormProperty } from "berlin-ui-library/dist/elements/FormWrapper/FormFieldWrapper";
-import { Button, Form, FormWrapper, FormFieldWrapper } from "berlin-ui-library";
+import { useTranslations } from "next-intl";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useStore from "../store/defaultStore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 interface CheckBlockProps {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onSubmit: (data: any) => void;
 }
 
@@ -27,11 +26,13 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 			type: "radio",
 			options: [
 				{
-					label: "Ja",
+					label:
+						"Ja, ich möchte den Fragebogen mit sechs Fragen beantworten, um <b>zusätzlich</b> individualisierte Handlungsempfehlungen erhalten.",
 					value: "yes",
 				},
 				{
-					label: "Nein",
+					label:
+						"Nein, ich möchte <b>ausschließlich</b> eine Einschätzung der Gefährdungslage auf Basis des vorhandenen Kartenmaterials erhalten.",
 					value: "no",
 				},
 			],
@@ -67,7 +68,7 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 					<div className="flex w-full flex-col gap-8">
 						<div className="flex flex-col gap-1.5">
 							<p className="font-bold">{t("floodCheck.start.question")}</p>
-							<p className="">{t("floodCheck.start.questionDescription")}</p>
+							{/* <p className="">{t("floodCheck.start.questionDescription")}</p> */}
 							{currentProperty && (
 								<FormFieldWrapper
 									key={currentProperty.id}

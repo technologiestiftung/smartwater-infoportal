@@ -46,7 +46,7 @@ export default function AddressSearch() {
 		type: "text",
 		description: t("addressCheck.description"),
 		placeholder: t("addressCheck.placeholder"),
-		isRequired: true,
+		isRequired: false,
 	};
 
 	const testingAddresses = [

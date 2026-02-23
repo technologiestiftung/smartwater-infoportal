@@ -1,5 +1,5 @@
-import { HazardEntity } from "@/utils/storeUtils";
 import ResultBlock from "@/components/ResultBlock";
+import { HazardEntity } from "@/utils/storeUtils";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +20,7 @@ export default async function WidgetScreenshotPage({
 	}
 
 	return (
-		<div className="w-[400px]">
+		<div className="w-100">
 			<ResultBlock
 				key={name}
 				entity={name}
