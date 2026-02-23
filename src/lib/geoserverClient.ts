@@ -87,8 +87,11 @@ export class GeoServerClient {
 			const geometry = building.geometry;
 			const outlineBufferGeometry =
 				bufferedOutlineMultiPolygonFromBuilding(geometry);
-			const floodZoneIndex = await this.getFloodZoneIndex(
-				outlineBufferGeometry,
+			const floodZoneIndex = await this.getWFSFeatureInfo(
+				transformedX,
+				transformedY,
+				"ua_uesg",
+				"c_ueberschwemmungsgebiete",
 			);
 			return {
 				found: true,
@@ -97,9 +100,7 @@ export class GeoServerClient {
 					transformedX,
 					transformedY,
 					outlineBufferGeometry,
-					floodZoneIndex: this.collectErrors.some((e) => e === "floodZoneIndex")
-						? null
-						: floodZoneIndex,
+					floodZoneIndex: !!floodZoneIndex ? 1 : 0,
 					numberOfBuildings: geometry?.coordinates?.length ?? 0,
 					numberOfCoordinatesOnBuildings: countGeometryPoints(geometry),
 					numberOfCoordinatesOnOutline: countGeometryPoints(
@@ -508,6 +509,53 @@ export class GeoServerClient {
 	addError(errorString: string) {
 		if (!this.collectErrors.some((e) => e === errorString)) {
 			this.collectErrors.push(errorString);
+		}
+	}
+
+	async getWFSFeatureInfo(
+		x25833: number,
+		y25833: number,
+		base: string,
+		layer: string,
+		propertyKey?: string,
+	): Promise<any | null> {
+		const buffer = 0.5;
+		try {
+			const bbox = [
+				x25833 - buffer,
+				y25833 - buffer,
+				x25833 + buffer,
+				y25833 + buffer,
+			].join(",");
+
+			const url = new URL(`https://gdi.berlin.de/services/wfs/${base}`);
+
+			url.searchParams.set("SERVICE", "WFS");
+			url.searchParams.set("VERSION", "2.0.0");
+			url.searchParams.set("REQUEST", "GetFeature");
+			url.searchParams.set("TYPENAMES", layer);
+			url.searchParams.set("OUTPUTFORMAT", "application/json");
+			url.searchParams.set("COUNT", "1");
+			url.searchParams.set("MAXFEATURES", "1");
+			url.searchParams.set("SRSNAME", "EPSG:25833");
+			url.searchParams.set("BBOX", bbox);
+
+			const response = await fetch(url.toString());
+			if (!response.ok) return null;
+
+			const json = await response.json();
+			if (!json?.features?.length) return null;
+
+			const feature = json.features[0];
+
+			if (propertyKey) {
+				return feature.properties?.[propertyKey] ?? null;
+			}
+
+			return feature.properties ?? feature;
+		} catch (err) {
+			console.error("WFS fetch failed:", err);
+			return null;
 		}
 	}
 
