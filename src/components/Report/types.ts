@@ -38,7 +38,6 @@ interface PDFPage {
 }
 
 export interface PDFProps {
-	name: string;
 	pagesPaddingTop?: number;
 	pagesPaddingBottom?: number;
 	pagesPaddingX?: number;

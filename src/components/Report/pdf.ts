@@ -451,7 +451,7 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 
 	// Finalize PDF
 	doc.setProperties({
-		title: pdf.name,
+		title: pdfKeys?.["{name}"] || "Report-HochwasserCheck-Berlin.pdf",
 		author: "Senatsverwaltung für Umwelt, Verkehr und Klimaschutz",
 		creator: "Senatsverwaltung für Umwelt, Verkehr und Klimaschutz",
 		subject: "HochwasserCheck Berlin",

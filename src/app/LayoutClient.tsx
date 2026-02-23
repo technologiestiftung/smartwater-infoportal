@@ -22,6 +22,7 @@ const filterOutSegments = [
 	"scenario-map",
 	"widget-screenshot",
 	"riskblock-screenshot",
+	"pdf-viewer",
 ];
 
 export default function LayoutClient({
@@ -65,7 +66,8 @@ export default function LayoutClient({
 	const isRenderingScreenshot =
 		paths.startsWith("/scenario-map") ||
 		paths.startsWith("/widget-screenshot") ||
-		paths.startsWith("/riskblock-screenshot");
+		paths.startsWith("/riskblock-screenshot") ||
+		paths.startsWith("/pdf-viewer");
 	if (isRenderingScreenshot) {
 		return <>{children}</>;
 	}

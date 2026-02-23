@@ -1,5 +1,4 @@
 {
-	"name": "Report-HochwasserCheck-Berlin.pdf",
 	"pagesPaddingTop": 9,
 	"header": [
 		{
@@ -228,9 +227,6 @@
 					"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"außergewöhnliches Ereignis\" vor. Diese Starkregengefahrenkarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{uncommonHeavyRainMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{uncommonHeavyRainAverage}</b>."
 				},
 				{
-					"pageBreak": true
-				},
-				{
 					"imageSRC": "#map-root-srhk-uncommon-heavy-rain",
 					"hide": "!{hasSrhkUncommonHeavyRainMap}",
 					"width": "fullPage",
@@ -272,9 +268,6 @@
 				{
 					"hide": "!{hasSrgkExtremeHeavyRainMap}",
 					"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"extremes Ereignis\" vor. Diese Starkregengefahrenkarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{extremeHeavyRainMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{extremeHeavyRainAverage}</b>."
-				},
-				{
-					"pageBreak": true
 				},
 				{
 					"imageSRC": "#map-root-srhk-extreme-heavy-rain",

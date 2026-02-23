@@ -156,3 +156,79 @@ export async function getWFSFeatureInfo(
 		return null;
 	}
 }
+
+// Old Calc Approach Jakob
+const heavyRainLevelsMap: Record<string, string> = {
+	"<= 0,1 m (nicht dargestellt)": "10",
+	"0,0 - 0,5 m": "50",
+	"0,00 - 0,5 m": "50",
+	"0 - 0,5 m": "50",
+	"> 0,1 - 0,3 m": "30",
+	"> 0,3 - 0,5 m": "50",
+	"> 0,5 - 1,0 m": "100",
+	"> 0,5 - 1 m": "100",
+	"> 1 - 2 m": "200",
+	"> 1,0 - 2,0 m": "200",
+	"> 2 - 4 m": "400",
+	"> 2,0 - 4,0 m": "400",
+};
+export function countGeometryPoints(geom: Geometry): number {
+	if (!geom) {
+		return 0;
+	}
+
+	let count = 0;
+
+	if (geom.type === "Polygon") {
+		for (const ring of geom.coordinates) {
+			if (!Array.isArray(ring)) continue;
+			for (const coord of ring) {
+				if (
+					Array.isArray(coord) &&
+					coord.length >= 2 &&
+					typeof coord[0] === "number" &&
+					typeof coord[1] === "number"
+				) {
+					count++;
+				}
+			}
+		}
+	}
+
+	if (geom.type === "MultiPolygon") {
+		// MultiPolygon: [ Polygon, Polygon, ... ]
+		for (const polygon of geom.coordinates) {
+			if (!Array.isArray(polygon)) continue;
+			for (const ring of polygon) {
+				if (!Array.isArray(ring)) continue;
+				for (const coord of ring) {
+					if (
+						Array.isArray(coord) &&
+						coord.length >= 2 &&
+						typeof coord[0] === "number" &&
+						typeof coord[1] === "number"
+					) {
+						count++;
+					}
+				}
+			}
+		}
+	}
+
+	return count;
+}
+function isValidNumberString(value: string): boolean {
+	if (value.trim() === "") {
+		return false;
+	}
+	return !Number.isNaN(Number(value));
+}
+export function transformWMSValue(value: string | null): number {
+	if (!value) {
+		return 0;
+	}
+	if (isValidNumberString(value)) {
+		return Number(value);
+	}
+	return Number(heavyRainLevelsMap[value]) || Number(value);
+}

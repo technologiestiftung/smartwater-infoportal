@@ -106,7 +106,7 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 						});
 					}
 				}
-			} else if (scenario === "SRHK_UNCOMMON_HEAVY_RAIN") {
+			} else {
 				{
 					const lon = 13.342964712531607;
 					const lat = 52.525293291622035;
