@@ -464,7 +464,7 @@ export class GeoServerClient {
 					);
 
 					maxPointCounter++;
-					if (maxPointCounter >= 10) {
+					if (maxPointCounter >= 50) {
 						console.warn(
 							"Reached maximum point count for WMS queries. Stopping further queries to avoid excessive load.",
 						);
