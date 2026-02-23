@@ -322,7 +322,7 @@ export class GeoServerClient {
 
 	async getBuildingWMS(building: Building): Promise<BuildingWMS> {
 		try {
-			let maxPointCounter = 0;
+			let maxPointCounter: number = 0;
 			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
 				building;
 
@@ -481,29 +481,21 @@ export class GeoServerClient {
 				rareHeavyRainMax: rareHeavyRain.max,
 				uncommonHeavyRainMax: uncommonHeavyRain.max,
 				extremeHeavyRainMax: extremeHeavyRain.max,
-				rareHeavyRainAverage: Math.round(
-					rareHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
-				),
+				rareHeavyRainAverage: Math.round(rareHeavyRain.sum / maxPointCounter),
 				uncommonHeavyRainAverage: Math.round(
-					uncommonHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
+					uncommonHeavyRain.sum / maxPointCounter,
 				),
 				extremeHeavyRainAverage: Math.round(
-					extremeHeavyRain.sum / building.numberOfCoordinatesOnOutline!,
+					extremeHeavyRain.sum / maxPointCounter,
 				),
 
 				// Flusshochwasser
 				frequentFloodMax: frequentFlood.max,
 				averageFloodMax: averageFlood.max,
 				rareFloodMax: rareFlood.max,
-				frequentFloodAverage: Math.round(
-					frequentFlood.sum / building.numberOfCoordinatesOnOutline!,
-				),
-				averageFloodAverage: Math.round(
-					averageFlood.sum / building.numberOfCoordinatesOnOutline!,
-				),
-				rareFloodAverage: Math.round(
-					rareFlood.sum / building.numberOfCoordinatesOnOutline!,
-				),
+				frequentFloodAverage: Math.round(frequentFlood.sum / maxPointCounter),
+				averageFloodAverage: Math.round(averageFlood.sum / maxPointCounter),
+				rareFloodAverage: Math.round(rareFlood.sum / maxPointCounter),
 
 				// Errors
 				errors: this.collectErrors, //.concat(testingMapErrors),
