@@ -232,3 +232,8 @@ export function transformWMSValue(value: string | null): number {
 	}
 	return Number(heavyRainLevelsMap[value]) || Number(value);
 }
+export function isMultiPolygon(
+	g: Geometry | undefined | null,
+): g is MultiPolygon {
+	return !!g && g.type === "MultiPolygon";
+}

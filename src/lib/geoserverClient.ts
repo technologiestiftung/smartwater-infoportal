@@ -3,6 +3,7 @@ import type { Geometry } from "geojson";
 import {
 	bufferedOutlineMultiPolygonFromBuilding,
 	countGeometryPoints,
+	isMultiPolygon,
 	transformWMSValue,
 } from "./utils/geoServerHelpers";
 import { Building, BuildingWMS } from "./types";
@@ -72,9 +73,20 @@ export class GeoServerClient {
 					return LocationDataNotFound;
 				}
 			}
-			const outlineBufferGeometry = bufferedOutlineMultiPolygonFromBuilding(
-				building.geometry,
-			);
+			if (!isMultiPolygon(building.geometry)) {
+				return {
+					found: false,
+					building: null,
+					errors: [
+						...this.collectErrors,
+						"buildingGeometryMissingOrNotMultiPolygon",
+					],
+				};
+			}
+
+			const geometry = building.geometry;
+			const outlineBufferGeometry =
+				bufferedOutlineMultiPolygonFromBuilding(geometry);
 			const floodZoneIndex = await this.getFloodZoneIndex(
 				outlineBufferGeometry,
 			);
@@ -88,10 +100,8 @@ export class GeoServerClient {
 					floodZoneIndex: this.collectErrors.some((e) => e === "floodZoneIndex")
 						? null
 						: floodZoneIndex,
-					numberOfBuildings: building?.geometry?.coordinates?.length ?? 0,
-					numberOfCoordinatesOnBuildings: countGeometryPoints(
-						building.geometry,
-					),
+					numberOfBuildings: geometry?.coordinates?.length ?? 0,
+					numberOfCoordinatesOnBuildings: countGeometryPoints(geometry),
 					numberOfCoordinatesOnOutline: countGeometryPoints(
 						outlineBufferGeometry,
 					),
