@@ -1,10 +1,6 @@
 /* eslint-disable complexity */
-import {
-	FloodRiskAnswers,
-	FloodRiskResult,
-	Geometry,
-	LocationData,
-} from "@/lib/types";
+import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
+import type { Geometry } from "geojson";
 import { getScenarioDomId } from "@/lib/utils/mapUtils";
 import { Scenario } from "@/types/map";
 import { HazardEntity } from "@/utils/storeUtils";
@@ -204,20 +200,9 @@ export const translateHazardTags = (
 	return "/Grey.png";
 };
 
-export const translateWMSValue = (
-	value: string | number | null | undefined,
-	helper: string = "bis zu ",
-	unit: string = "cm",
-): string => {
-	if (!value) {
-		return "Keine Daten";
-	}
-	return `${helper}${value}${unit}`;
-};
-
 export const getScreenshotForScenario = async (
 	scenario: string,
-	locationData?: LocationData,
+	locationData?: LocationData | null,
 	hazardEntities?: HazardEntity[] | null,
 	floodRiskResult?: FloodRiskResult | null,
 	floodRiskAnswers?: FloodRiskAnswers | null,
@@ -266,7 +251,6 @@ export const getScreenshotForScenario = async (
 		body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
 	}
 	body.url = `${window.location.origin}${path}`;
-	console.log("url :>> ", body.url);
 	const res = await fetch("/api/screenshot", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

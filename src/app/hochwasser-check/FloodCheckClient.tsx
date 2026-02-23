@@ -4,7 +4,6 @@ import CheckBlock from "@/components/CheckBlock";
 import Results from "@/components/Results";
 import RiskAnalysis from "@/components/RiskAnalysis";
 import { useHash } from "@/hooks/useHash";
-import { getHazardData } from "@/server/actions/getHazardData";
 import useStore from "@/store/defaultStore";
 import { Button } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
@@ -16,29 +15,9 @@ export default function FloodCheckClient() {
 	const t = useTranslations();
 	const hash = useHash();
 	const router = useRouter();
-	const { currentUserAddress, setLocationData } = useStore();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
-
-	const checkHazard = async (skip?: boolean) => {
-		if (!currentUserAddress?.lat || !currentUserAddress?.lon) {
-			return;
-		}
-		try {
-			const longitude = parseFloat(currentUserAddress.lon);
-			const latitude = parseFloat(currentUserAddress.lat);
-			const result = await getHazardData(longitude, latitude);
-			console.log("setLocationData ✅✅✅");
-			setLocationData(result);
-			if (skip) {
-				router.push("/hochwasser-check?skip=true#results");
-			} else {
-				router.push("/hochwasser-check#questionnaire");
-			}
-		} catch (error) {
-			console.error("Error in checkHazard function:", error);
-		}
-	};
+	const { locationData } = useStore();
 
 	useEffect(() => {
 		if (!!hash) {
@@ -47,14 +26,11 @@ export default function FloodCheckClient() {
 	}, [hash]);
 
 	useEffect(() => {
-		if (!hash) {
-			const check = useStore.getState().currentUserAddress;
-			if (!check) {
-				router.push("/#hochwasser-check");
-			}
+		if (!locationData?.found) {
+			router.push("/#hochwasser-check");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [hash]);
+	}, [hash, locationData]);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
@@ -128,7 +104,12 @@ export default function FloodCheckClient() {
 
 						<CheckBlock
 							onSubmit={(goTo) => {
-								checkHazard(goTo === "no");
+								const skip = goTo === "no";
+								if (skip) {
+									router.push("/hochwasser-check?skip=true#results");
+								} else {
+									router.push("/hochwasser-check#questionnaire");
+								}
 							}}
 						/>
 					</div>

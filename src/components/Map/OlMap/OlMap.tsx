@@ -15,6 +15,7 @@ import { Stroke, Style } from "ol/style";
 import VectorLayer from "ol/layer/Vector";
 import OLGeoJSON from "ol/format/GeoJSON";
 import ScaleLine from "ol/control/ScaleLine";
+import { getSafeFitExtent } from "@/lib/utils";
 
 if (appConfig?.namedProjections?.length) {
 	appConfig.namedProjections.forEach(([name, def]) => {
@@ -82,7 +83,12 @@ const OlMap: FC<OlMapProps> = ({ children }) => {
 				const features = Array.isArray(feature) ? feature : [feature];
 
 				if (features.length > 0) {
-					const extent = features[0].getGeometry()?.getExtent();
+					// const extent = features[0].getGeometry()?.getExtent();
+					const geom = features[0].getGeometry();
+					const extent = getSafeFitExtent(geom, {
+						ratioThreshold: 10,
+						maxSizeMeters: 20_000,
+					});
 					if (extent) {
 						map.getView().fit(extent, {
 							padding: mapViewConfig.padding,

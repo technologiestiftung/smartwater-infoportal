@@ -1,58 +1,27 @@
 export type HazardLevel = "low" | "moderate" | "high" | "severe";
 export type RiskLevel = "low" | "moderate" | "high" | "dontKnow" | "unknown";
+import type { Geometry } from "geojson";
 
 export interface CurrentUserAddress {
 	lat: string;
 	lon: string;
 	name: string;
 	hasHousenumber: boolean;
-}
-
-// GeoJSON geometry types
-export interface Geometry {
-	type:
-		| "Point"
-		| "LineString"
-		| "Polygon"
-		| "MultiPoint"
-		| "MultiLineString"
-		| "MultiPolygon";
-	coordinates: number[] | number[][] | number[][][] | number[][][][];
+	building?: Building | null;
 }
 
 export interface Building {
 	uuid?: string;
-	address?: string;
+	name?: string;
+	alkisAddress?: string;
 	starkregenGefährdung?: number;
 	hochwasserGefährdung?: number;
 	geometry?: Geometry;
 	outlineBufferGeometry?: Geometry;
-	numberOfBuildings?: number;
-	numberOfCoordinatesOnBuildings?: number;
-	numberOfCoordinatesOnOutline?: number;
 	transformedX?: number;
 	transformedY?: number;
 	floodZoneIndex?: number | null;
-	errors?: string[];
-}
-
-export interface BuildingWMS {
-	hasHeavyRainHazardMap: string | null;
-	isInExtremeRainHazardMap: boolean | null;
-	rareHeavyRainMax: number | null;
-	uncommonHeavyRainMax: number | null;
-	extremeHeavyRainMax: number | null;
-	rareHeavyRainAverage: number | null;
-	uncommonHeavyRainAverage: number | null;
-	extremeHeavyRainAverage: number | null;
-	frequentFloodMax: number | null;
-	averageFloodMax: number | null;
-	rareFloodMax: number | null;
-	frequentFloodAverage: number | null;
-	averageFloodAverage: number | null;
-	rareFloodAverage: number | null;
-	errors?: string[];
-	pointRequestsCount: number | null;
+	distance?: number;
 }
 
 export type BBox = [number, number, number, number];

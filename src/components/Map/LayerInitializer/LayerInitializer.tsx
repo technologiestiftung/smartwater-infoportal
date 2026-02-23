@@ -36,8 +36,10 @@ const LayerInitializer: FC = () => {
 	const config = useMapStore((state) => state.config);
 	const map = useMapStore((state) => state.map);
 	const setLayersInStore = useMapStore((state) => state.setLayers);
-	const errorLayers = useStore((state) => state.errorLayers);
-	const updateErrorLayers = useStore((state) => state.updateErrorLayers);
+	const {
+		interactiveMap: { errorLayers },
+		updateInteractiveMap,
+	} = useStore();
 
 	const [wmtsCapabilities, setWmtsCapabilities] = useState<WMTSCapabilitiesMap>(
 		{},
@@ -173,7 +175,9 @@ const LayerInitializer: FC = () => {
 							"❌ Image load error for WMS layer:",
 							serviceConfig.id,
 						);
-						updateErrorLayers([...errorLayers, serviceConfig.id]);
+						updateInteractiveMap({
+							errorLayers: [...errorLayers, serviceConfig.id],
+						});
 					});
 
 					return {
@@ -192,7 +196,9 @@ const LayerInitializer: FC = () => {
 
 				tileSource.on("tileloaderror", (event) => {
 					console.error("Tile load error for:", serviceConfig.id);
-					updateErrorLayers([...errorLayers, serviceConfig.id]);
+					updateInteractiveMap({
+						errorLayers: [...errorLayers, serviceConfig.id],
+					});
 				});
 
 				return {

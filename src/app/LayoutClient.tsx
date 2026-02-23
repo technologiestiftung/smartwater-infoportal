@@ -75,9 +75,9 @@ export default function LayoutClient({
 				breadcrumbs={breadcrumbs}
 				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
 				showLanguageSelect={false}
-				showSearchButton={false}
 				header={"Senatsverwaltung für"}
 				language="de"
+				doBerlinSearch
 				translations={{
 					de: {
 						accessibility: t("common.accessibility"),
@@ -105,6 +105,9 @@ export default function LayoutClient({
 						"accessibilityMenu.additionalInfo": t(
 							"common.accessibilityMenu.additionalInfo.title",
 						),
+						"search.title": t("common.menu.search.title"),
+						"search.placeholder": t("common.menu.search.placeholder"),
+						"search.berlinSearchInfo": t("common.menu.search.berlinSearchInfo"),
 					},
 				}}
 				menuItems={[

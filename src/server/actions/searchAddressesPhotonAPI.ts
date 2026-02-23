@@ -1,8 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { sanitizeAddressInput } from "@/lib/helpers/sanitizer";
 import { AddressResult, CurrentUserAddress } from "@/lib/types";
+
+const sanitizeAddressInput = (input: string, strict = false): string => {
+	if (!input) {
+		return "";
+	}
+	if (strict) {
+		return input.replace(/[^a-zA-Z0-9\s]/g, "");
+	}
+	return input.replace(/[^a-zA-Z0-9\u00C0-\u017F\s,.'\-/#&()\u00B0+]/g, "");
+};
 
 export async function searchAddressesPhotonAPI(
 	query: string,

@@ -36,16 +36,10 @@ export const useMapStore = create<MapStoreState>((set, get) => ({
 	map: null,
 	layers: [],
 
-	currentFeature: null,
-	isLayerTreeOpen: false,
-
 	// Map
 	setConfig: (config) => set({ config }),
 	populateMap: (map) => set({ map }),
 	removeMap: () => set({ map: null }),
-
-	// LayerTree
-	setIsLayerTreeOpen: (isOpen) => set({ isLayerTreeOpen: isOpen }),
 
 	// Layers    layers: [],
 	setLayers: (layers) => set({ layers }),
@@ -84,11 +78,4 @@ export const useMapStore = create<MapStoreState>((set, get) => ({
 
 		set({ layers: updatedLayers });
 	},
-
-	// Layer Status
-	setLayerStatus: createSetLayerStatus(set, get),
-	getLayerStatus: createGetLayerStatus(get),
-
-	// Features
-	setCurrentFeature: (currentFeature) => set({ currentFeature }),
 }));

@@ -27,7 +27,12 @@ import TextBlock from "./TextBlock";
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
-	const getHazardEntities = useStore((state) => state.getHazardEntities);
+	const {
+		interactiveMap: { activeMapFilter },
+		updateInteractiveMap,
+		getHazardEntities,
+		locationData,
+	} = useStore();
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
@@ -59,13 +64,12 @@ const Results: React.FC = () => {
 		},
 	];
 	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
-	const updateActiveMapFilter = useStore(
-		(state) => state.updateActiveMapFilter,
-	);
-	const activeMapFilter = useStore((state) => state.activeMapFilter);
+
 	const handleFilterToggle = (value: string) => {
-		updateActiveMapFilter(value);
-		setActiveFilter(value);
+		if (value === "heavyRain" || value === "fluvialFlood") {
+			updateInteractiveMap({ activeMapFilter: value });
+			setActiveFilter(value);
+		}
 	};
 	const [activeSubFilter, setActiveSubFilter] = useState<string>(
 		subFilterKeys[0].key,
@@ -82,8 +86,6 @@ const Results: React.FC = () => {
 		// Filter entities based on the single active filter
 		return hazardEntities.filter((entity) => entity.name === activeFilter);
 	};
-
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
 
 	const HazardTranslations = () => {
 		const text = t(
@@ -122,8 +124,12 @@ const Results: React.FC = () => {
 	};
 
 	useEffect(() => {
-		if (activeMapFilter !== activeFilter) {
-			updateActiveMapFilter(activeFilter);
+		if (
+			activeMapFilter !== activeFilter &&
+			!!activeFilter &&
+			(activeFilter === "heavyRain" || activeFilter === "fluvialFlood")
+		) {
+			updateInteractiveMap({ activeMapFilter: activeFilter });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -131,19 +137,18 @@ const Results: React.FC = () => {
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
 			<section className="flex items-center gap-2">
-				{currentUserAddress && (
+				{locationData?.found && (
 					<>
 						<FontAwesomeIcon
 							icon={faLocationDot}
 							className="text-[18px] text-black"
 						/>
-						<p className="mt-[3px]">{currentUserAddress.name}</p>
+						<p className="mt-[3px]">{locationData.building?.name}</p>
 					</>
 				)}
 			</section>
 			<section className="flex flex-col gap-4">
-				<div className="flex flex-col gap-2">
-				</div>
+				<div className="flex flex-col gap-2"></div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
 						<FilterPillGroup
@@ -218,6 +223,8 @@ const Results: React.FC = () => {
 				/>
 				{showMap && (
 					<>
+						<h3 className="mt-2">{t("map.title")}</h3>
+						<p className="">{t("map.description")}</p>
 						<Map />
 					</>
 				)}

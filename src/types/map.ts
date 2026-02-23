@@ -1,5 +1,3 @@
-import Feature from "ol/Feature";
-import { Geometry } from "ol/geom";
 import { Layer } from "ol/layer";
 import Map from "ol/Map";
 
@@ -182,10 +180,6 @@ export interface MapStoreState {
 	populateMap: (map: Map) => void;
 	removeMap: () => void;
 
-	// LayerTree
-	isLayerTreeOpen: boolean;
-	setIsLayerTreeOpen: (isOpen: boolean) => void;
-
 	// Layers
 	layers: ManagedLayer[];
 	setLayers: (layers: ManagedLayer[]) => void;
@@ -197,12 +191,4 @@ export interface MapStoreState {
 	) => void;
 	setLayerVisibility: (layerId: string, visible: boolean) => void;
 	setLayerOrder: (orderedIds: string[]) => void;
-
-	// Status
-	setLayerStatus: (id: string, status: LayerStatus) => void;
-	getLayerStatus: (id: string) => LayerStatus | undefined;
-
-	// Feature
-	currentFeature: Feature<Geometry> | null;
-	setCurrentFeature: (feature: Feature) => void;
 }

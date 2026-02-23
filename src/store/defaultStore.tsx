@@ -1,11 +1,6 @@
 // store/defaultStore.tsx
 import { create } from "zustand";
-import {
-	CurrentUserAddress,
-	FloodRiskAnswers,
-	FloodRiskResult,
-	LocationData,
-} from "@/lib/types";
+import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
 import { devtools, persist } from "zustand/middleware";
 import {
 	prePopulateFromLocationData,
@@ -14,39 +9,22 @@ import {
 } from "@/utils/floodRiskCalculator";
 import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
 
-type TestingFeatureNames =
-	| "resetAllButtonOnHomepage"
-	| "addressSearchDetails"
-	| "locationButton"
-	| "mapsOnResultPage"
-	| "evaluationTesting"
-	| "riskWidgetDetails"
-	| "showWidgetsBelowPDF"
-	| "newPDFButton";
-
 type StoreState = {
 	// Core data
-	currentUserAddress: CurrentUserAddress | null;
 	locationData: LocationData | null;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
-	activeMapFilter: "heavyRain" | "fluvialFlood";
-	fullScreenMap: boolean;
-	isLayerTreeOpen: boolean;
-	isLegendeOpen: boolean;
-	errorLayers: string[];
-	showTestingFeatures: TestingFeatureNames[];
+	interactiveMap: {
+		activeMapFilter: "heavyRain" | "fluvialFlood";
+		fullScreenMap: boolean;
+		isLayerTreeOpen: boolean;
+		isLegendeOpen: boolean;
+		errorLayers: string[];
+	};
 
 	// Actions
-	setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) => void;
-	resetCurrentUserAddress: () => void;
 	setLocationData: (data: LocationData) => void;
 	resetLocationData: () => void;
-	updateActiveMapFilter: (filter: string) => void;
-	updateFullScreenMap: (fullScreen: boolean) => void;
-	updateLayerTreeIsOpen: (open: boolean) => void;
-	updateLegendeIsOpen: (open: boolean) => void;
-	updateErrorLayers: (layers: string[]) => void;
 	updateFloodRiskAnswer: (
 		questionId: string,
 		answer: string | string[] | number,
@@ -54,37 +32,27 @@ type StoreState = {
 	removeFloodRiskAnswer: (questionId: string) => void;
 	calculateAndSetResult: () => void;
 	resetAll: () => void;
+	updateInteractiveMap: (data: Partial<StoreState["interactiveMap"]>) => void;
 
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
 };
-
-const currentFeatures: TestingFeatureNames[] = [
-	"evaluationTesting",
-	"riskWidgetDetails",
-	"resetAllButtonOnHomepage",
-	"mapsOnResultPage",
-];
 
 const useStore = create<StoreState>()(
 	devtools(
 		persist(
 			(set, get) => ({
 				// Initial state
-				currentUserAddress: null,
 				locationData: null,
 				floodRiskAnswers: {},
 				floodRiskResult: null,
-				activeMapFilter: "heavyRain",
-				fullScreenMap: false,
-				isLayerTreeOpen: false,
-				isLegendeOpen: true,
-				errorLayers: [],
-				showTestingFeatures: currentFeatures,
-
-				setCurrentUserAddress: (currentUserAddress: CurrentUserAddress) =>
-					set({ currentUserAddress: currentUserAddress }),
-				resetCurrentUserAddress: () => set({ currentUserAddress: null }),
+				interactiveMap: {
+					activeMapFilter: "heavyRain",
+					fullScreenMap: false,
+					isLayerTreeOpen: false,
+					isLegendeOpen: true,
+					errorLayers: [],
+				},
 
 				setLocationData: (data) =>
 					set((state) => ({
@@ -96,18 +64,13 @@ const useStore = create<StoreState>()(
 					})),
 				resetLocationData: () => set({ locationData: null }),
 
-				updateActiveMapFilter: (filter) =>
-					set({ activeMapFilter: filter as "heavyRain" | "fluvialFlood" }),
-
-				updateFullScreenMap: (fullScreen: boolean) =>
-					set({ fullScreenMap: fullScreen }),
-
-				updateLayerTreeIsOpen: (open: boolean) =>
-					set({ isLayerTreeOpen: open }),
-
-				updateErrorLayers: (layers: string[]) => set({ errorLayers: layers }),
-
-				updateLegendeIsOpen: (open: boolean) => set({ isLegendeOpen: open }),
+				updateInteractiveMap: (data) =>
+					set((state) => ({
+						interactiveMap: {
+							...state.interactiveMap,
+							...data,
+						},
+					})),
 
 				updateFloodRiskAnswer: (
 					questionId: string,
@@ -143,12 +106,16 @@ const useStore = create<StoreState>()(
 
 				resetAll: () =>
 					set({
-						currentUserAddress: null,
 						locationData: null,
 						floodRiskAnswers: {},
 						floodRiskResult: null,
-						errorLayers: [],
-						showTestingFeatures: currentFeatures,
+						interactiveMap: {
+							activeMapFilter: "heavyRain",
+							fullScreenMap: false,
+							isLayerTreeOpen: false,
+							isLegendeOpen: true,
+							errorLayers: [],
+						},
 					}),
 
 				// Selectors
