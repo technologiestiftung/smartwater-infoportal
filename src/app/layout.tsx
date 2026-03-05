@@ -1,12 +1,12 @@
-import "./globals.css";
-import type { Metadata } from "next";
+import { MatomoAnalytics } from "@/components/MatomoAnalytics";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import React from "react";
-import type { Viewport } from "next";
-import LayoutClient from "./LayoutClient";
+import React, { Suspense } from "react";
 import "../lib/fontawesome";
-import "@fortawesome/fontawesome-svg-core/styles.css";
+import "./globals.css";
+import LayoutClient from "./LayoutClient";
 
 export const metadata: Metadata = {
 	title: "HochwasserCheck Berlin",
@@ -29,6 +29,9 @@ export default async function RootLayout({
 	return (
 		<html lang={locale}>
 			<body className={`antialiased`}>
+				<Suspense fallback={null}>
+					<MatomoAnalytics />
+				</Suspense>
 				<NextIntlClientProvider>
 					<LayoutClient>{children}</LayoutClient>
 				</NextIntlClientProvider>
