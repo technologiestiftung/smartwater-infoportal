@@ -75,7 +75,9 @@ export default function AddressSearch() {
 						"start",
 						"HochwasserCheck Berlin starten",
 					]);
-					router.push("/hochwasser-check");
+					setTimeout(() => {
+						router.push("/hochwasser-check");
+					}, 150);
 				}
 			} else {
 				setError(t("addressCheck.errorNoAddress"));
