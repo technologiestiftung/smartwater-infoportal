@@ -14,6 +14,9 @@ export default function MatomoAnalytics() {
 	useEffect(() => {
 		if (!MATOMO_URL || !MATOMO_SITE_ID) return;
 
+		(window as any)._paq = (window as any)._paq || [];
+		(window as any)._paq.push(["disableCookies"]);
+
 		trackAppRouter({
 			url: MATOMO_URL,
 			siteId: MATOMO_SITE_ID,
