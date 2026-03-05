@@ -204,16 +204,14 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		// Track report download event
 		push(["trackEvent", "report", "download", "Report herunterladen"]);
 
-		setTimeout(() => {
-			if (isMobile || openPDFInNewTab) {
-				window.open(url, "_blank", "noopener,noreferrer");
-			} else {
-				const a = document.createElement("a");
-				a.href = url;
-				a.download = pdfData.name as string;
-				a.click();
-			}
-		}, 150);
+		if (isMobile || openPDFInNewTab) {
+			window.open(url, "_blank", "noopener,noreferrer");
+		} else {
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = pdfData.name as string;
+			a.click();
+		}
 	};
 
 	useEffect(() => {
