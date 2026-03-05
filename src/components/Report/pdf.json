@@ -1040,23 +1040,23 @@
 					"marginBottom": 3
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind wasserempfindliche Gegenstände im Keller gelagert?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind Gefahrenstoffe wie Farben und Lacke so gelagert, dass sie bei einem Hochwasser nicht auslaufen können?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind Heizölanalgen gesichert?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Befinden sich Abflüsse unterhalb der Rückstauebene?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Können elektrische Anlagen u.U. geflutet werden?",
 					"marginBottom": 11
 				},
@@ -1193,27 +1193,27 @@
 					"marginBottom": 3
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Überprüfen Sie vor Ort die Gefährdung Ihres Wohnhaus: Nutzen Sie den HochwasserCheck Berlin um zu identifizieren, wo an Ihrem Haus Hochwasser anstehen könnte. Überprüfen Sie, ob es von dort in das Gebäude gelangen kann.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Wenn eine Gefährdung vorliegt: Überprüfen Sie Ihren Versicherungsschutz.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Tauschen Sie sich mit Ihrem Umfeld aus: Sprechen Sie über Ihre eigenen Gefährdungen und Ihren Umgang damit und kommen Sie ins Gespräch mit Nachbarn, Bekannten, Familie und Freunden.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Besuchen Sie Informationsveranstaltungen zum Thema Hochwasser, z.B. in der <a href=\"https://www.kompetenz-wasser.de/de\">Wasserwerkstatt des KWB</a> oder der <a href=\"https://regenwasseragentur.berlin/\">Regenwasseragentur</a> um sich weiter zu informieren und sich zu vernetzten.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "<b>Auch wenn Ihr Wohnhaus nicht betroffen ist:</b> Beachten Sie die Verhaltenshinweise während eines Starkregenereignisses und kurz danach, um sich nicht in Gefahr zu bringen.",
 					"marginBottom": "paragraph"
 				}
