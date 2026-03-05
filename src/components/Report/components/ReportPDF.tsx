@@ -1,23 +1,24 @@
 /* eslint-disable */
 "use client";
 
+import pdfData from "@/components/Report/pdf.json";
+import { cn } from "@/lib/utils";
+import useMobile from "@/lib/utils/useMobile";
+import useStore from "@/store/defaultStore";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { push } from "@socialgouv/matomo-next";
+import { Button, DownloadItem, Spinner } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { FC, useEffect, useRef, useState } from "react";
-import { Button, DownloadItem, Spinner } from "berlin-ui-library";
-import useStore from "@/store/defaultStore";
-import useMobile from "@/lib/utils/useMobile";
-import {
-	translateHazardLevels,
-	getToday,
-	translateHazardTags,
-	getScreenshotForScenario,
-} from "../utils";
-import pdfData from "@/components/Report/pdf.json";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { cn } from "@/lib/utils";
+import {
+	getScreenshotForScenario,
+	getToday,
+	translateHazardLevels,
+	translateHazardTags,
+} from "../utils";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -200,6 +201,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (!url) {
 			return;
 		}
+		// Track report download event
+		push(["trackEvent", "report", "download", "Report herunterladen"]);
+
 		if (isMobile || openPDFInNewTab) {
 			window.open(url, "_blank", "noopener,noreferrer");
 		} else {
@@ -233,6 +237,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				if (!url) {
 					return;
 				}
+				// Track report download event
+				push(["trackEvent", "report", "download", "Report herunterladen"]);
 				if (isMobile || openPDFInNewTab) {
 					window.open(url, "_blank", "noopener,noreferrer");
 				} else {
