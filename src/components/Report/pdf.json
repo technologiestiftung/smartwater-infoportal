@@ -1180,44 +1180,6 @@
 			]
 		},
 		{
-			"title": "Handlungsempfehlungen => Versickerung",
-			"hide": "{skip}",
-			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
-					"marginBottom": 11
-				},
-				{
-					"text": "Versickerung",
-					"fontSize": "h2",
-					"marginBottom": 3
-				},
-				{
-					"isListItem": true,
-					"text": "Was bringt Versickerung?"
-				},
-				{
-					"isListItem": true,
-					"text": "Worauf ist zu achten?"
-				},
-				{
-					"isListItem": true,
-					"text": "Welche Maßnahme(n) könnte man hier mit Bild Vorstellen?"
-				},
-				{
-					"isListItem": true,
-					"text": "Mit aufnehmen: Wartung und Reinigung von Regenwasserabläufen (siehe Bild)",
-					"marginBottom": 11
-				},
-				{
-					"imageSRC": "/testing/rinne.png",
-					"width": "halfPage",
-					"caption": "<b>Abbildung:</b> Dezentrale Rückhaltung von Niederschlagswasser, Abbildung aus der Hochwasserschutzfibel, Seite 25."
-				}
-			]
-		},
-		{
 			"title": "Weiterführende Informationen => Checkliste Hochwasser",
 			"items": [
 				{
