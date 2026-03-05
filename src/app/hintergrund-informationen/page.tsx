@@ -76,14 +76,24 @@ export default function GeneralInformation() {
 	const handlingItems = content.generalInfo.handling.paragraphs;
 	const furtherInformationItems = content.generalInfo.furtherInformation.list;
 
-	const TableHead = ({ text }: { text?: string }) => {
+	const TableHead = ({
+		text,
+		className,
+	}: {
+		text?: string;
+		className?: string;
+	}) => {
 		if (!text) {
 			return (
-				<th className="w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em]"></th>
+				<th
+					className={`w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em] ${className || ""}`}
+				></th>
 			);
 		}
 		return (
-			<th className="border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em]">
+			<th
+				className={`border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em] ${className || ""}`}
+			>
 				{text}
 			</th>
 		);
@@ -325,10 +335,7 @@ export default function GeneralInformation() {
 											</Link>
 										),
 										link2: (chunks) => (
-											<Link
-												href="#anker4"
-												rel="noopener noreferrer"
-											>
+											<Link href="#anker4" rel="noopener noreferrer">
 												{chunks}
 											</Link>
 										),
@@ -341,9 +348,13 @@ export default function GeneralInformation() {
 						<table className="mt-12 w-full table-auto text-left">
 							<thead>
 								<tr>
-									{Object.entries(typesEntries).map(([key, label]) => (
-										<TableHead key={key} text={label} />
-									))}
+									{Object.entries(typesEntries).map(([key, label], index) => {
+										let className = "w-1/3";
+										if (index === 0) className = "w-1/6";
+										return (
+											<TableHead key={key} text={label} className={className} />
+										);
+									})}
 								</tr>
 							</thead>
 							<tbody>
@@ -388,7 +399,7 @@ export default function GeneralInformation() {
 							</tbody>
 						</table>
 					</div>
-					<p className="mt-1 px-4 text-sm leading-tight font-normal break-words text-black lg:px-0">
+					<p className="mt-1 px-4 text-sm leading-tight font-normal wrap-break-word text-black lg:px-0">
 						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
 						Hochwasser erstellt wurden.
 					</p>

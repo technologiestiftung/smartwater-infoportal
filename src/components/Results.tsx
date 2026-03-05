@@ -315,23 +315,19 @@ const Results: React.FC = () => {
 				</>
 			)}
 			<section className="flex w-full flex-col gap-12" id="protection-tips">
-				{!skip && hazardEntities && hazardEntities.length > 0 && (
-					<>
-						<div className="flex flex-col gap-2">
-							<h2 className="">{t("protectionTips.title")}</h2>
-							<p className="">{t("protectionTips.intro1")}</p>
-						</div>
-						<Button
-							className="w-full self-start lg:w-fit"
-							onClick={() => {
-								router.push("/handlungsempfehlungen");
-							}}
-						>
-							{t("protectionTips.recommendationsOverview.button")}
-						</Button>
-						<p className="">{t("protectionTips.intro2")}</p>
-					</>
-				)}
+				<div className="flex flex-col gap-2">
+					<h2 className="">{t("protectionTips.title")}</h2>
+					<p className="">{t("protectionTips.intro1")}</p>
+				</div>
+				<Button
+					className="w-full self-start lg:w-fit"
+					onClick={() => {
+						router.push("/handlungsempfehlungen");
+					}}
+				>
+					{t("protectionTips.recommendationsOverview.button")}
+				</Button>
+				<p className="">{t("protectionTips.intro2")}</p>
 			</section>
 			<section>
 				<div className="divider mt-4" />

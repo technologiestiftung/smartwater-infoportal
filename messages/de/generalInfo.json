@@ -81,43 +81,36 @@
 				"head": {
 					"entry1": "",
 					"entry2": "Szenario",
-					"entry3": "Wiederkehrintervall",
-					"entry4": "Verwendetes Szenario:\nSpezifisches Regenereignisse"
+					"entry3": "Wiederkehrintervall"
 				},
 				"heavyRain": {
 					"title": "Starkregen\ngefahrenkarten",
 					"row1": {
 						"entry1": "Seltenes Ereignis",
-						"entry2": "30-jährliches,\n50-jährliches",
-						"entry3": "---"
+						"entry2": "30-jährliches,\n50-jährliches"
 					},
 					"row2": {
 						"entry1": "Außergewöhnliches Ereignis",
-						"entry2": "100-jährliches",
-						"entry3": "---"
+						"entry2": "100-jährliches"
 					},
 					"row3": {
 						"entry1": "Extremes Ereignis",
-						"entry2": "---",
-						"entry3": "100mm in 60 Minuten\n(Blockregen)"
+						"entry2": "Für das extreme Ereignis wird Blockregen (100mm/60Min.) angenommen, welcher sich keinem Wiederkehrintervall zuordnen lässt."
 					}
 				},
 				"flood": {
 					"title": "Flusshochwasser\ngefahrenkarten ",
 					"row1": {
-						"entry1": "Häufiges Ereignis",
-						"entry2": "5-jährliches\n10-jährliches\n20-jährliches",
-						"entry3": "---"
+						"entry1": "Hochwasser mit hoher Wahrscheinlichkeit",
+						"entry2": "5-jährliches\n10-jährliches\n20-jährliches"
 					},
 					"row2": {
-						"entry1": "Mittleres Ereignis",
-						"entry2": "100-jährliches",
-						"entry3": "---"
+						"entry1": "Hochwasser mit mittlerer Wahrscheinlichkeit",
+						"entry2": "100-jährliches"
 					},
 					"row3": {
-						"entry1": "Seltenes Ereignis",
-						"entry2": "200-jährliches",
-						"entry3": "---"
+						"entry1": "Hochwasser mit niedriger Wahrscheinlichkeit ",
+						"entry2": "200-jährliches"
 					}
 				}
 			}
