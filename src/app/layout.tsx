@@ -1,4 +1,4 @@
-import { MatomoAnalytics } from "@/components/MatomoAnalytics";
+import MatomoAnalytics from "@/components/MatomoAnalytics";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
