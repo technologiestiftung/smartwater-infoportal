@@ -1021,17 +1021,7 @@
 					"imageSRC": "/testing/fenster.png",
 					"width": "halfPage",
 					"marginLeft": "halfPage",
-					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63"
-				}
-			]
-		},
-		{
-			"title": "Handlungsempfehlungen => Lagerung im Keller",
-			"hide": "{skip}",
-			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
+					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63",
 					"marginBottom": 11
 				},
 				{
