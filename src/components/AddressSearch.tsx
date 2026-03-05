@@ -4,7 +4,7 @@ import { CurrentUserAddress } from "@/lib/types";
 import { fixMojibake } from "@/lib/utils";
 import { searchAddresses } from "@/server/actions/searchAddresses";
 import useStore from "@/store/defaultStore";
-import { sendEvent } from "@socialgouv/matomo-next";
+import { push } from "@socialgouv/matomo-next";
 import {
 	Button,
 	Form,
@@ -69,11 +69,12 @@ export default function AddressSearch() {
 					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
 					// Track HochwasserCheck start event
-					sendEvent({
-						category: "hochwasser-check",
-						action: "start",
-						name: "HochwasserCheck Berlin starten",
-					});
+					push([
+						"trackEvent",
+						"hochwasser-check",
+						"start",
+						"HochwasserCheck Berlin starten",
+					]);
 					router.push("/hochwasser-check");
 				}
 			} else {

@@ -7,7 +7,7 @@ import useMobile from "@/lib/utils/useMobile";
 import useStore from "@/store/defaultStore";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { sendEvent } from "@socialgouv/matomo-next";
+import { push } from "@socialgouv/matomo-next";
 import { Button, DownloadItem, Spinner } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { FC, useEffect, useRef, useState } from "react";
@@ -202,11 +202,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			return;
 		}
 		// Track report download event
-		sendEvent({
-			category: "report",
-			action: "download",
-			name: "Report herunterladen",
-		});
+		push(["trackEvent", "report", "download", "Report herunterladen"]);
 		if (isMobile || openPDFInNewTab) {
 			window.open(url, "_blank", "noopener,noreferrer");
 		} else {
@@ -241,11 +237,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					return;
 				}
 				// Track report download event
-				sendEvent({
-					category: "report",
-					action: "download",
-					name: "Report herunterladen",
-				});
+				push(["trackEvent", "report", "download", "Report herunterladen"]);
 				if (isMobile || openPDFInNewTab) {
 					window.open(url, "_blank", "noopener,noreferrer");
 				} else {
