@@ -381,8 +381,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const openPdfViewer = (testing: boolean | undefined) => {
-		push(["trackEvent", "report", "download", "Report herunterladen"]);
-
 		if (testing && isDev) {
 			setError(
 				"Das PDF konnte nicht geöffnet werden. Bitte erlauben Sie Pop-ups für diese Seite und versuchen Sie es erneut.",
@@ -490,6 +488,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 								date={getToday()}
 								title={t("floodCheck.reportDownload.title")}
 								onClickDownloadItem={() => {
+									push([
+										"trackEvent",
+										"report",
+										"download",
+										"Report herunterladen",
+									]);
 									if (isMobile) {
 										const url = pdfUrlRef.current;
 										if (!url) {
