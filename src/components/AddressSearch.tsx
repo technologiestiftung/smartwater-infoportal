@@ -51,13 +51,9 @@ export default function AddressSearch() {
 	};
 
 	const testingAddresses = [
-		"Grunewaldstraße 61",
+		"Majakowskiring 7",
 		"Grunewaldstraße 62",
-		"Schönhauser Allee 125-128",
-		"Schönhauser Allee 125",
-		"Schönhauser Allee 128",
-		"Birkenstraße 17, 12589 Berlin",
-		"Helmstraße 9, 10827 Berlin",
+		"Brandensteinweg 7",
 	];
 
 	const handleSubmit = () => {

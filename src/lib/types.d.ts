@@ -22,6 +22,12 @@ export interface Building {
 	transformedY?: number;
 	floodZoneIndex?: number | null;
 	distance?: number;
+	// Old Calc Approach Jakob
+	errors?: string[];
+	numberOfBuildings?: number;
+	numberOfCoordinatesOnBuildings?: number;
+	numberOfCoordinatesOnOutline?: number;
+	// Old Calc Approach Jakob
 }
 
 export type BBox = [number, number, number, number];
@@ -57,3 +63,22 @@ export interface LegendeItem {
 export type AddressResult =
 	| { ok: true; data: CurrentUserAddress[] }
 	| { ok: false; code: "noResult" | "maptilerError" };
+
+// Old Calc Approach Jakob
+export interface BuildingWMS {
+	hasHeavyRainHazardMap: string | null;
+	rareHeavyRainMax: number | null;
+	uncommonHeavyRainMax: number | null;
+	extremeHeavyRainMax: number | null;
+	rareHeavyRainAverage: number | null;
+	uncommonHeavyRainAverage: number | null;
+	extremeHeavyRainAverage: number | null;
+	frequentFloodMax: number | null;
+	averageFloodMax: number | null;
+	rareFloodMax: number | null;
+	frequentFloodAverage: number | null;
+	averageFloodAverage: number | null;
+	rareFloodAverage: number | null;
+	errors?: string[];
+	isInExtremeRainHazardMap: boolean | null;
+}

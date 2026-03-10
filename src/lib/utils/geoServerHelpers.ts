@@ -110,49 +110,83 @@ export function bufferedOutlineMultiPolygonFromBuilding(
 	return { type: "MultiPolygon", coordinates: out };
 }
 
-export async function getWFSFeatureInfo(
-	x25833: number,
-	y25833: number,
-	base: string,
-	layer: string,
-	propertyKey?: string,
-): Promise<any | null> {
-	const buffer = 0.5;
-	try {
-		const bbox = [
-			x25833 - buffer,
-			y25833 - buffer,
-			x25833 + buffer,
-			y25833 + buffer,
-		].join(",");
-
-		const url = new URL(`https://gdi.berlin.de/services/wfs/${base}`);
-
-		url.searchParams.set("SERVICE", "WFS");
-		url.searchParams.set("VERSION", "2.0.0");
-		url.searchParams.set("REQUEST", "GetFeature");
-		url.searchParams.set("TYPENAMES", layer);
-		url.searchParams.set("OUTPUTFORMAT", "application/json");
-		url.searchParams.set("COUNT", "1");
-		url.searchParams.set("MAXFEATURES", "1");
-		url.searchParams.set("SRSNAME", "EPSG:25833");
-		url.searchParams.set("BBOX", bbox);
-
-		const response = await fetch(url.toString());
-		if (!response.ok) return null;
-
-		const json = await response.json();
-		if (!json?.features?.length) return null;
-
-		const feature = json.features[0];
-
-		if (propertyKey) {
-			return feature.properties?.[propertyKey] ?? null;
-		}
-
-		return feature.properties ?? feature;
-	} catch (err) {
-		console.error("WFS fetch failed:", err);
-		return null;
+// Old Calc Approach Jakob
+const heavyRainLevelsMap: Record<string, string> = {
+	"<= 0,1 m (nicht dargestellt)": "10",
+	"0,0 - 0,5 m": "50",
+	"0,00 - 0,5 m": "50",
+	"0 - 0,5 m": "50",
+	"> 0,1 - 0,3 m": "30",
+	"> 0,3 - 0,5 m": "50",
+	"> 0,5 - 1,0 m": "100",
+	"> 0,5 - 1 m": "100",
+	"> 1 - 2 m": "200",
+	"> 1,0 - 2,0 m": "200",
+	"> 2 - 4 m": "400",
+	"> 2,0 - 4,0 m": "400",
+};
+export function countGeometryPoints(geom: Geometry): number {
+	if (!geom) {
+		return 0;
 	}
+
+	let count = 0;
+
+	if (geom.type === "Polygon") {
+		for (const ring of geom.coordinates) {
+			if (!Array.isArray(ring)) continue;
+			for (const coord of ring) {
+				if (
+					Array.isArray(coord) &&
+					coord.length >= 2 &&
+					typeof coord[0] === "number" &&
+					typeof coord[1] === "number"
+				) {
+					count++;
+				}
+			}
+		}
+	}
+
+	if (geom.type === "MultiPolygon") {
+		// MultiPolygon: [ Polygon, Polygon, ... ]
+		for (const polygon of geom.coordinates) {
+			if (!Array.isArray(polygon)) continue;
+			for (const ring of polygon) {
+				if (!Array.isArray(ring)) continue;
+				for (const coord of ring) {
+					if (
+						Array.isArray(coord) &&
+						coord.length >= 2 &&
+						typeof coord[0] === "number" &&
+						typeof coord[1] === "number"
+					) {
+						count++;
+					}
+				}
+			}
+		}
+	}
+
+	return count;
+}
+function isValidNumberString(value: string): boolean {
+	if (value.trim() === "") {
+		return false;
+	}
+	return !Number.isNaN(Number(value));
+}
+export function transformWMSValue(value: string | null): number {
+	if (!value) {
+		return 0;
+	}
+	if (isValidNumberString(value)) {
+		return Number(value);
+	}
+	return Number(heavyRainLevelsMap[value]) || Number(value);
+}
+export function isMultiPolygon(
+	g: Geometry | undefined | null,
+): g is MultiPolygon {
+	return !!g && g.type === "MultiPolygon";
 }
