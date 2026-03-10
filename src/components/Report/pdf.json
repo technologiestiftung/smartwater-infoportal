@@ -1020,17 +1020,7 @@
 					"imageSRC": "/testing/fenster.png",
 					"width": "halfPage",
 					"marginLeft": "halfPage",
-					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63"
-				}
-			]
-		},
-		{
-			"title": "Handlungsempfehlungen => Lagerung im Keller",
-			"hide": "{skip}",
-			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
+					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63",
 					"marginBottom": 11
 				},
 				{
@@ -1039,23 +1029,23 @@
 					"marginBottom": 3
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind wasserempfindliche Gegenstände im Keller gelagert?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind Gefahrenstoffe wie Farben und Lacke so gelagert, dass sie bei einem Hochwasser nicht auslaufen können?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind Heizölanalgen gesichert?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Befinden sich Abflüsse unterhalb der Rückstauebene?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Können elektrische Anlagen u.U. geflutet werden?",
 					"marginBottom": 11
 				},
@@ -1179,44 +1169,6 @@
 			]
 		},
 		{
-			"title": "Handlungsempfehlungen => Versickerung",
-			"hide": "{skip}",
-			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
-					"marginBottom": 11
-				},
-				{
-					"text": "Versickerung",
-					"fontSize": "h2",
-					"marginBottom": 3
-				},
-				{
-					"isListItem": true,
-					"text": "Was bringt Versickerung?"
-				},
-				{
-					"isListItem": true,
-					"text": "Worauf ist zu achten?"
-				},
-				{
-					"isListItem": true,
-					"text": "Welche Maßnahme(n) könnte man hier mit Bild Vorstellen?"
-				},
-				{
-					"isListItem": true,
-					"text": "Mit aufnehmen: Wartung und Reinigung von Regenwasserabläufen (siehe Bild)",
-					"marginBottom": 11
-				},
-				{
-					"imageSRC": "/testing/rinne.png",
-					"width": "halfPage",
-					"caption": "<b>Abbildung:</b> Dezentrale Rückhaltung von Niederschlagswasser, Abbildung aus der Hochwasserschutzfibel, Seite 25."
-				}
-			]
-		},
-		{
 			"title": "Weiterführende Informationen => Checkliste Hochwasser",
 			"items": [
 				{
@@ -1230,27 +1182,27 @@
 					"marginBottom": 3
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Überprüfen Sie vor Ort die Gefährdung Ihres Wohnhaus: Nutzen Sie den HochwasserCheck Berlin um zu identifizieren, wo an Ihrem Haus Hochwasser anstehen könnte. Überprüfen Sie, ob es von dort in das Gebäude gelangen kann.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Wenn eine Gefährdung vorliegt: Überprüfen Sie Ihren Versicherungsschutz.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Tauschen Sie sich mit Ihrem Umfeld aus: Sprechen Sie über Ihre eigenen Gefährdungen und Ihren Umgang damit und kommen Sie ins Gespräch mit Nachbarn, Bekannten, Familie und Freunden.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Besuchen Sie Informationsveranstaltungen zum Thema Hochwasser, z.B. in der <a href=\"https://www.kompetenz-wasser.de/de\">Wasserwerkstatt des KWB</a> oder der <a href=\"https://regenwasseragentur.berlin/\">Regenwasseragentur</a> um sich weiter zu informieren und sich zu vernetzten.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "<b>Auch wenn Ihr Wohnhaus nicht betroffen ist:</b> Beachten Sie die Verhaltenshinweise während eines Starkregenereignisses und kurz danach, um sich nicht in Gefahr zu bringen.",
 					"marginBottom": "paragraph"
 				}
@@ -1269,7 +1221,7 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "Notruf- und Servicenummern:<br>Entstörungsnummer des BWB:<br>Sie möchten eine Störung melden?<br>Den Entstörungsdienst des BWB erreichen Sie rund um die Uhr unter 0800-292 75 87<br><b>Im Notfall: Berliner Feuerwehr 112</b>",
+					"text": "<b>Notruf- und Servicenummern:</b><br><b>Entstörungsnummer</b> des BWB: Sie möchten eine Störung melden? Den Entstörungsdienst des BWB erreichen Sie rund um die Uhr unter <b>0800-292 75 87</b><br><b>Im Notfall:</b> Berliner Feuerwehr <b>112</b>",
 					"marginLeft": "halfPage",
 					"maxWidth": "halfPage",
 					"nextElementOnSameLine": true
@@ -1293,7 +1245,7 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "<b>Haftungshinweis</b><br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen.<br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt mit.",
+					"text": "<b>Haftungshinweis</b><br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen. Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt.",
 					"fontSize": "small",
 					"lineHeight": "narrow"
 				}

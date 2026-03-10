@@ -1,8 +1,7 @@
 "use client";
-import TextBlock from "@/components/TextBlock";
-import { Image } from "berlin-ui-library";
+import WrappingTextBlock from "@/components/WrappingTextBlock";
+import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
 import { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
@@ -77,14 +76,24 @@ export default function GeneralInformation() {
 	const handlingItems = content.generalInfo.handling.paragraphs;
 	const furtherInformationItems = content.generalInfo.furtherInformation.list;
 
-	const TableHead = ({ text }: { text?: string }) => {
+	const TableHead = ({
+		text,
+		className,
+	}: {
+		text?: string;
+		className?: string;
+	}) => {
 		if (!text) {
 			return (
-				<th className="w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em]"></th>
+				<th
+					className={`w-0 border border-[#dddddd] p-1 text-left align-top font-bold whitespace-nowrap text-black lg:p-[1em_0.65em] ${className || ""}`}
+				></th>
 			);
 		}
 		return (
-			<th className="border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em]">
+			<th
+				className={`border border-[#dddddd] bg-[#f5f5f5] p-1 text-left align-top font-bold whitespace-pre-line text-black lg:p-[1em_0.65em] ${className || ""}`}
+			>
 				{text}
 			</th>
 		);
@@ -96,7 +105,7 @@ export default function GeneralInformation() {
 				<section className="flex flex-col gap-6">
 					<h1 className="">{t("generalInfo.pageTitle")}</h1>
 					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
-					<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+					<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 						{Object.entries(tableOfContentsItems).map(([key, label]) => (
 							<li key={key}>
 								<a href={`#${key}`} className="text-text-link">
@@ -111,27 +120,26 @@ export default function GeneralInformation() {
 					id="anker1"
 				/>
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 2, col2: 3 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex w-full flex-col gap-6">
-								<h2 className="">{t("generalInfo.definition.title")}</h2>
-								<p className="whitespace-pre-line">
-									{t("generalInfo.definition.description")}
-								</p>
-							</div>
-						}
-						slotB={
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="left"
+						image={
 							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
 								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
 								alt={t("generalInfo.definition.image.alt")}
 								caption={t("generalInfo.definition.image.caption")}
 								copyright={t("generalInfo.definition.image.copyright")}
 								withZoomBox
 							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
+								<h2 className="">{t("generalInfo.definition.title")}</h2>
+								<p className="whitespace-pre-line">
+									{t("generalInfo.definition.description")}
+								</p>
+							</div>
 						}
 					/>
 				</section>
@@ -140,11 +148,21 @@ export default function GeneralInformation() {
 					id="anker2"
 				/>
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 3, col2: 2 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="right"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
+								alt={t("generalInfo.hazardVsRisk.image.alt")}
+								caption={t("generalInfo.hazardVsRisk.image.caption")}
+								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.hazardVsRisk.title")}</h2>
 								<p className="">{t("generalInfo.hazardVsRisk.description")}</p>
 								<h3 className="">
@@ -159,7 +177,6 @@ export default function GeneralInformation() {
 										link1: (chunks) => (
 											<Link
 												href="/handlungsempfehlungen"
-												rel="noopener noreferrer"
 												className="text-text-link underline"
 											>
 												{chunks}
@@ -169,16 +186,6 @@ export default function GeneralInformation() {
 								</p>
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
-								alt={t("generalInfo.hazardVsRisk.image.alt")}
-								caption={t("generalInfo.hazardVsRisk.image.caption")}
-								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 				</section>
 				<div
@@ -186,12 +193,21 @@ export default function GeneralInformation() {
 					id="anker3"
 				/>
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 2, col2: 3 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="left"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Enstehung_Starkregenereignis.png"
+								alt={t("generalInfo.floodThroughRain.image.alt")}
+								caption={t("generalInfo.floodThroughRain.image.caption")}
+								copyright={t("generalInfo.floodThroughRain.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.floodThroughRain.title")}</h2>
 								<p className="whitespace-pre-line">
 									{t.rich("generalInfo.floodThroughRain.description", {
@@ -200,7 +216,7 @@ export default function GeneralInformation() {
 												href="https://www.gdv.de/gdv/themen/klima/128-millionen-euro-starkregen-schaden-in-berlin-52782"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -218,7 +234,7 @@ export default function GeneralInformation() {
 															href="https://www.dwd.de/DE/wetter/thema_des_tages/2025/9/28.html"
 															target="_blank"
 															rel="noopener noreferrer"
-															className="text-text-link underline"
+															variant="extern"
 														>
 															{chunks}
 														</Link>
@@ -230,42 +246,35 @@ export default function GeneralInformation() {
 								</ul>
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Enstehung_Starkregenereignis.png"
-								alt={t("generalInfo.floodThroughRain.image.alt")}
-								caption={t("generalInfo.floodThroughRain.image.caption")}
-								copyright={t("generalInfo.floodThroughRain.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 				</section>
+
 				<div
 					className="divider scroll-mt-[62px] lg:scroll-mt-[85px]"
 					id="anker4"
 				/>
-				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 3, col2: 2 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+
+				<section>
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="right"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Wahrscheinlichkeiten.png"
+								alt={t("generalInfo.assessment.image.alt")}
+								caption={t("generalInfo.assessment.image.caption")}
+								copyright={t("generalInfo.assessment.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.assessment.title")}</h2>
 								{Object.entries(assessmentItems).map(([key]) => (
 									<p key={key} className="">
 										{t.rich(`generalInfo.assessment.paragraphs.${key}`, {
 											strong: (chunks) => <strong>{chunks}</strong>,
-											/* link1: (chunks) => (
-												<Link
-													href="#anker3"
-													rel="noopener noreferrer"
-													className="text-text-link underline"
-												>
-													{chunks}
-												</Link>
-											), */
 											link2: (chunks) => (
 												<Link
 													href="/#hochwasser-check"
@@ -290,16 +299,6 @@ export default function GeneralInformation() {
 								))}
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Wahrscheinlichkeiten.png"
-								alt={t("generalInfo.assessment.image.alt")}
-								caption={t("generalInfo.assessment.image.caption")}
-								copyright={t("generalInfo.assessment.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 				</section>
 				<div
@@ -307,12 +306,21 @@ export default function GeneralInformation() {
 					id="anker5"
 				/>
 				<section className="relative mb-12 w-full lg:mb-0">
-					<TextBlock
-						desktopColSpans={{ col1: 2, col2: 3 }}
-						className="w-full gap-6"
-						reverseDesktopColumns={true}
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="left"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
+								alt={t("generalInfo.types.image.alt")}
+								caption={t("generalInfo.types.image.caption")}
+								copyright={t("generalInfo.types.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
 								<h2 className="">{t("generalInfo.types.title")}</h2>
 								<p className="whitespace-pre-line">
 									{t.rich("generalInfo.types.description", {
@@ -321,17 +329,13 @@ export default function GeneralInformation() {
 												href="https://gdi.berlin.de/viewer/main/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
 										),
 										link2: (chunks) => (
-											<Link
-												href="#anker4"
-												rel="noopener noreferrer"
-												className="text-text-link underline"
-											>
+											<Link href="#anker4" rel="noopener noreferrer">
 												{chunks}
 											</Link>
 										),
@@ -339,24 +343,18 @@ export default function GeneralInformation() {
 								</p>
 							</div>
 						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
-								alt={t("generalInfo.types.image.alt")}
-								caption={t("generalInfo.types.image.caption")}
-								copyright={t("generalInfo.types.image.copyright")}
-								withZoomBox
-							/>
-						}
 					/>
 					<div className="max-w-[calc(100vw-2.5rem)] overflow-x-scroll">
 						<table className="mt-12 w-full table-auto text-left">
 							<thead>
 								<tr>
-									{Object.entries(typesEntries).map(([key, label]) => (
-										<TableHead key={key} text={label} />
-									))}
+									{Object.entries(typesEntries).map(([key, label], index) => {
+										let className = "w-1/3";
+										if (index === 0) className = "w-1/6";
+										return (
+											<TableHead key={key} text={label} className={className} />
+										);
+									})}
 								</tr>
 							</thead>
 							<tbody>
@@ -401,7 +399,7 @@ export default function GeneralInformation() {
 							</tbody>
 						</table>
 					</div>
-					<p className="mt-1 px-4 text-sm leading-tight font-normal break-words text-black lg:px-0">
+					<p className="mt-1 px-4 text-sm leading-tight font-normal wrap-break-word text-black lg:px-0">
 						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
 						Hochwasser erstellt wurden.
 					</p>
@@ -411,11 +409,22 @@ export default function GeneralInformation() {
 					id="anker6"
 				/>
 				<section className="">
-					<TextBlock
-						desktopColSpans={{ col1: 3, col2: 2 }}
-						className="w-full gap-6"
-						slotA={
-							<div className="flex w-full flex-col gap-6">
+					<WrappingTextBlock
+						imageWidth="50%"
+						imageSide="right"
+						image={
+							<Image
+								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+								src="/Abbildung5.png"
+								alt={t("generalInfo.handling.image.alt")}
+								caption={t("generalInfo.handling.image.caption")}
+								copyright={t("generalInfo.handling.image.copyright")}
+								withZoomBox
+							/>
+						}
+						text={
+							<div className="[&>*+*]:mt-6">
+								{" "}
 								<h2 className="">{t("generalInfo.handling.title")}</h2>
 								{Object.entries(handlingItems).map(([key]) => (
 									<p key={key} className="">
@@ -425,7 +434,7 @@ export default function GeneralInformation() {
 													href="https://regenwasseragentur.berlin/schwammstadt/"
 													target="_blank"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant="extern"
 												>
 													{chunks}
 												</Link>
@@ -435,7 +444,7 @@ export default function GeneralInformation() {
 													href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
 													target="_blank"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant="extern"
 												>
 													{chunks}
 												</Link>
@@ -444,7 +453,6 @@ export default function GeneralInformation() {
 												<Link
 													href="/#hochwasser-check"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
 												>
 													{chunks}
 												</Link>
@@ -453,7 +461,6 @@ export default function GeneralInformation() {
 												<Link
 													href="/handlungsempfehlungen"
 													rel="noopener noreferrer"
-													className="text-text-link underline"
 												>
 													{chunks}
 												</Link>
@@ -462,16 +469,6 @@ export default function GeneralInformation() {
 									</p>
 								))}
 							</div>
-						}
-						slotB={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-[1.25rem] lg:w-full lg:translate-x-0"
-								src="/Abbildung5.png"
-								alt={t("generalInfo.handling.image.alt")}
-								caption={t("generalInfo.handling.image.caption")}
-								copyright={t("generalInfo.handling.image.copyright")}
-								withZoomBox
-							/>
 						}
 					/>
 				</section>
@@ -482,7 +479,7 @@ export default function GeneralInformation() {
 				<section className="">
 					<div className="flex w-full flex-col gap-6">
 						<h2 className="">{t("generalInfo.furtherInformation.title")}</h2>
-						<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+						<ul className="list-disc ps-6 [&>li::marker]:text-[--primary]">
 							{Object.entries(furtherInformationItems).map(([key]) => (
 								<li key={key}>
 									{t.rich(`generalInfo.furtherInformation.list.${key}`, {
@@ -491,7 +488,7 @@ export default function GeneralInformation() {
 												href="https://www.naturgefahrenportal.de/de"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -501,7 +498,7 @@ export default function GeneralInformation() {
 												href="https://www.bmwsb.bund.de/SharedDocs/downloads/DE/publikationen/raumordnung/hochwasserschutzfibel.html"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -511,7 +508,7 @@ export default function GeneralInformation() {
 												href="https://www.hochwasser-pass.info/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -521,7 +518,7 @@ export default function GeneralInformation() {
 												href="https://www.bbk.bund.de/DE/Themen/Risikomanagement/Baulicher-Bevoelkerungsschutz/Schutz-vor-Naturgefahren/Hochwasser/hochwasser_node.html"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -531,7 +528,7 @@ export default function GeneralInformation() {
 												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -548,7 +545,7 @@ export default function GeneralInformation() {
 										href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-text-link underline"
+										variant="extern"
 									>
 										{chunks}
 									</Link>
@@ -558,7 +555,7 @@ export default function GeneralInformation() {
 										href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-text-link underline"
+										variant="extern"
 									>
 										{chunks}
 									</Link>
@@ -568,7 +565,7 @@ export default function GeneralInformation() {
 										href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-text-link underline"
+										variant="extern"
 									>
 										{chunks}
 									</Link>

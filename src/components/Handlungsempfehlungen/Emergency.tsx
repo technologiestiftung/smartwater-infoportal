@@ -1,10 +1,9 @@
-import React, { ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { Image } from "berlin-ui-library";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Image, Link } from "berlin-ui-library";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
@@ -39,6 +38,7 @@ const Emergency: React.FC = () => {
 		if (key === "entry1") {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: text.includes("NINA")
 					? "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
 					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
@@ -131,7 +131,7 @@ const Emergency: React.FC = () => {
 							<li key={key} className="flex items-start gap-2">
 								<FontAwesomeIcon
 									icon={faCheck}
-									className={`flex-shrink-0 text-[18px]`}
+									className={`shrink-0 text-[18px]`}
 								/>
 								<span className="whitespace-pre-line">
 									{t.rich(`${listKey}.${key}`, {
@@ -141,7 +141,7 @@ const Emergency: React.FC = () => {
 												href={getLink(key, chunks).link}
 												target={getLink(key, chunks).target}
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant={getLink(key, chunks).variant || "default"}
 											>
 												{chunks}
 											</Link>
@@ -164,7 +164,7 @@ const Emergency: React.FC = () => {
 								/>
 							</div>
 							<Image
-								className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+								className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
 								src={fullIMG}
 								alt={t(`${listKey}Image.alt`)}
 								caption={t(`${listKey}Image.caption`)}

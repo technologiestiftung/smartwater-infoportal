@@ -32,7 +32,7 @@
 				},
 				"title": "Individuelles Gebäuderisiko"
 			},
-			"description1": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko errechnet. Das konkrete Risiko Ihres Gebäudes ist von einer Vielzahl baulicher Eigenschaften abhängig, die sich durch den Fragebogen nicht in vollem Umfang bewerten lassen. Bitte beachten Sie, dass die Einstufung des Risikos für Ihr Gebäude auf Basis Ihrer Angaben eine gewisse Unsicherheit birgt und die Auswertung hier lediglich einer Anregung zur Eigenvorsorge dient.",
+			"description1": "Auf Basis Ihrer Antworten haben wir das individuelle Gebäuderisiko abgeleitet. Das konkrete Risiko Ihres Gebäudes ist von einer Vielzahl baulicher Eigenschaften abhängig, die sich durch den Fragebogen nicht in vollem Umfang bewerten lassen. Bitte beachten Sie, dass die Einstufung des Risikos für Ihr Gebäude auf Basis Ihrer Angaben eine gewisse Unsicherheit birgt und die Auswertung hier lediglich einer Anregung zur Eigenvorsorge dient.",
 			"description2": "Die Berechnung basiert auf bestehenden Angeboten des LAWA-Starkregenportals, des Hochwasser Kompetenz Centrums HKC („Quick-Check“) und des Gesamtverbands der Deutschen Versicherungswirtschaft (GDV).",
 			"title": "Auswertung Fragebogen",
 			"disclaimerTitle": "Hinweis & Disclaimer"
@@ -51,7 +51,7 @@
 			"floodZoneIndexError": "Fehler bei der Bestimmung der Überschwemmungsgebietzugehörigkeit"
 		},
 		"hazardDisplay": {
-			"descriptionPlaceholder": "Die vereinfachte Darstellung einer Gefährdung in vier Klassen dient allein der Motivation potenziell Betroffener zur Auseinandersetzung mit der Gefahr und möglicher Anpassungsmaßnahmen. Die Gefährdungsklassen leiten sich von den Fließgeschwindigkeiten und Überflutungstiefen der Starkregenhinweiskarten \"Extremes Ereignis\" sowie \"Seltenes Ereignis\" für Berlin ab. Die Klassifizierung dieser Werte in die vier Klassen erfolgt in Anlehnung an die Methodik des NGP. Für jeden Ort wird die höchste Gefährdung beider Szenarien ausgegeben. Welcher Gefährdungsklasse ein Haus zugeordnet wird, bezieht sich auf die Umgebung des Gebäudes bis zu einem Abstand von zwei Metern. Wieviel Prozent dieser Fläche in welche Gefährdungsklasse fallen entscheidet über die letztendliche Zuordnung. Die Methodik wurde von BUKEA Hamburg übernommen.",
+			"descriptionPlaceholder": "Die vereinfachte Darstellung einer Gefährdung in vier Klassen dient dient der Motivation potenziell Betroffener, sich mit ihrer Gefährdung und möglicher Anpassungsmaßnahmen auseinanderzusetzen. Die Gefährdungsklassen leiten sich aus den Fließgeschwindigkeiten und Überflutungstiefen der Starkregenhinweiskarten \"Extremes Ereignis\" sowie der (Fluss-)Hochwasserkarten ab. Die Klassifizierung dieser Werte in jeweils vier Klassen erfolgt nach der Methodik des Naturgefahrenportal. Welcher Gefährdungsklasse ein Haus zugeordnet wird, bezieht sich auf die Umgebung des Gebäudes bis zu einem Abstand von zwei Metern.",
 			"fluvialFloodTab": "Flusshochwasser",
 			"frequency": {
 				"extreme": "Extrem",
@@ -95,10 +95,10 @@
 			"title": "Schauen Sie sich Ihre Gefährdung unter verschiedenen Ereignishäufigkeiten an:"
 		},
 		"hazardInfo": {
-			"calculation": "Warum und wie wurde die Gefährdung geschätzt?",
+			"calculation": "Warum und wie wurde die Gefährdung berechnet?",
 			"disclaimerTitle": "Disclaimer zur Berechnung",
 			"disclaimerText": "Alle Informationen erfolgen ohne Gewähr für ihre Richtigkeit. In keinem Fall wird für Schäden, die sich aus der Verwendung abgerufener Informationen ergeben, Haftung übernommen. Bitte beachten Sie, dass die Ergebnisse der Karte sowie die Einschätzung der Hochwassergefährdung eine gewisse Unsicherheit bergen. Die Datengrundlage entbindet nicht von der Pflicht für einzelne Projekte, die hydraulischen Standortvoraussetzungen vor Ort zu erkunden und nachzuweisen. Ein Abgleich des Modells ist mit der Situation vor Ort erforderlich.",
-			"mapDisclaimer": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie folgenden Links benutzen:",
+			"mapDisclaimer": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie die folgenden Links benutzen:",
 			"mapInfo": "Weitere Informationen zu den Karten",
 			"linkGroundwaterPortalTitle": "Das Grundwasser-Auskunftsportal",
 			"linkGroundwaterPortalLinkTitle": "Geologisches Auskunftsportal - Berlin.de",
@@ -106,7 +106,7 @@
 			"linkWaterGeologyTitle": "Informationen zum Thema Wasser und Geologie",
 			"linkWaterGeologyLinkTitle": "Wasser und Geologie - Berlin.de",
 			"linkWaterGeologyLink": "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/",
-			"otherCauses": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie folgenden Links benutzen:",
+			"otherCauses": "Neben Flusshochwasser und Starkregen gibt es auch andere Gründe, wie bspw. Grundwasser, die zu Wasserschäden führen können. Falls Ihr Gebäude schon mal von eindringendem Grundwasser betroffen war oder Sie sich weiter zu dem Thema informieren wollen, können Sie die folgenden Links benutzen:",
 			"title": "Infos zur Gefährdung"
 		},
 		"hazardScale": {
@@ -157,11 +157,11 @@
 			"q0": {
 				"options": {
 					"rent": "Ich wohne zur Miete.",
-					"flatOwner": "Ich bin Eigentümer der Wohnung.",
-					"houseOwner": "Ich bin Eigentümer des Hauses."
+					"flatOwner": "Ich bin Eigentümerin/ Eigentümer der Wohnung.",
+					"houseOwner": "Ich bin Eigentümerin/Eigentümer des Hauses."
 				},
 				"text": "Wohnen Sie zur Miete oder gehört Ihnen das Haus oder die Wohnung?",
-				"helperText": "Teileigentümer gelten als Eigentümer, z.B. gemeinsames Eigentum mit Ehepartner, Eigentümergemeinschaft."
+				"helperText": "Hinweis: Teileigentümerinnen und Teileigentümer gelten als Eigentümerinnen und Eigentümer, z.B. gemeinsames Eigentum mit Ehepartner, Eigentümergemeinschaft."
 			},
 			"q1": {
 				"options": {
@@ -170,7 +170,7 @@
 					"no": "Nein",
 					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Besitzt das Gebäude einen Keller oder ein Stockwerk im Tiefparterre?",
+				"text": "Besitzt das Gebäude einen Keller, eine Tiefgarage oder ein Stockwerk im Tiefparterre?",
 				"helperText": ""
 			},
 			"q2": {
@@ -183,11 +183,12 @@
 				"helperText": "Wenn die Nutzung des Kellers sowohl hochwertig als auch geringwertig ist, gilt die gesamte Nutzung des Kellers als hochwertig."
 			},
 			"q3": {
-				"description": "Eine Rückstausicherung ist eine technische Einrichtung, die bei einem Hochwasserereignis den Rückstau von Wasser in die Abwasserleitungen verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert und sorgt dafür, dass das Abwasser nicht zurückfließen kann.",
+				"description1": "Eine Rückstausicherung ist eine technische Einrichtung, die den Rückstau von Abwasser aus dem Kanal in die Abwasserleitungen des Hauses verhindert. Sie wird in der Regel in Kellerräumen oder im Erdgeschoss installiert.",
+				"description2": "Sowohl Rückstauklappen (siehe Abbildung), also auch Abwasserhebeanlagen zählen als Rückstausicherungen.",
 				"image": {
 					"alt": "Rückstauklappen",
 					"caption": "Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau.",
-					"copyright": "© SenMVKU"
+					"copyright": "Bild: SenMVKU"
 				},
 				"options": {
 					"no": "Nein",
@@ -200,18 +201,19 @@
 				"helperText": ""
 			},
 			"q4": {
-				"description": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
+				"description1": "Abläufe sind technische Einrichtungen, die dazu dienen, Regenwasser und Abwasser von einem Grundstück abzuleiten. Sie sind wichtig, um eine Überflutung des Grundstücks zu verhindern und die Abwasserentsorgung sicherzustellen. Der Zustand der Abläufe ist entscheidend für die Funktionsfähigkeit der Entwässerung.",
+				"description2": "Im Herbst werden Abläufe häufig durch Laub blockiert. Achten Sie darauf, Laub auf und ggf. vor dem eigenen Grundstück von den Abläufen zu entfernen.",
 				"image": {
 					"alt": "Abläufe",
 					"caption": "Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann.",
-					"copyright": "© SenMVKU"
+					"copyright": "Bild: SenMVKU"
 				},
 				"options": {
 					"bad": "In schlechtem Zustand, z.B. Regenrinnen verstopft",
-					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe und Gullys regelmäßig gereinigt)",
+					"good": "In gutem Zustand (Abwasserrohre überprüft, Abläufe regelmäßig gereinigt)",
 					"noInformation": "Weiß nicht / Keine Angabe"
 				},
-				"text": "Wie ist der Zustand von Regenwasserabläufen, Abwasserrohren sowie eventuell vorhandenen Gullys auf dem Grundstück?",
+				"text": "Wie ist der Zustand von Regenwasserabläufen und Abwasserrohren auf dem Grundstück?",
 				"title": "Abläufe",
 				"helperText": ""
 			},
@@ -241,9 +243,10 @@
 		"start": {
 			"addressLabel": "Adresse*",
 			"addressPlaceholder": "Bitte geben Sie eine Adresse inklusive Hausnummer ein, die Sie überprüfen möchten.",
-			"description": "Jetzt schauen ob Sie sich Sorgen machen müssen. Der HochwasserCheck Berlin kombiniert die Gefährdungskarten, Leitfäden und unser Fachwissen, um Ihnen gezielt Hilfestellung bei Ihrer Maßnahmenplanung zu geben.",
+			"description": "Ihre Daten bleiben sicher und vertraulich: Bei der Nutzung des HochwasserCheck werden Ihre Eingaben und Daten ausschließlich in Ihrem Browser verarbeitet und gespeichert. Wir garantieren Ihnen, dass keine Daten an Dritte weitergegeben oder auf dem Hochwasserinfoportal oder außerhalb Ihres Browsers gespeichert werden.",
+			"backgroundInfo": "In den <link>Hintergrundinformationen</link> finden sie Informationen zu den Begriffen \"Gefährdung\", \"Risiko\" und vieles Mehr.",
 			"locationTitle": "Es wird die folgende Adresse überprüft:",
-			"question": "Wollen Sie auch das Risiko für Ihr Wohngebäude überprüfen?",
+			"question": "Um zusätzlich eine Risikoanalyse zu erstellen, die die Eigenschaften Ihres Gebäudes berücksichtigt und Ihnen zusätzlich individuelle Handlungsempfehlungen ausgibt, können Sie einen kurzen Fragebogen mit sechs Fragen ausfüllen. Möchten Sie diesen Fragebogen beantworten?",
 			"questionDescription": "Zur Berechnung des Risikos werden Sie durch einen Fragebogen von sechs Fragen zu ihrem Wohngebäude geleitet.",
 			"formButtons": {
 				"toResult": "Zum Ergebnis",

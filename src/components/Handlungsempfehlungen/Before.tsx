@@ -1,11 +1,10 @@
-import React, { ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { Image } from "berlin-ui-library";
 import { cn } from "@/lib/utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Image, Link } from "berlin-ui-library";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
@@ -38,12 +37,6 @@ const Before: React.FC = () => {
 		}
 
 		if (key === "entry1") {
-			if (text.includes("länderübergreifende")) {
-				return {
-					target: "_blank",
-					link: "https://www.hochwasserzentralen.de/",
-				};
-			}
 			return {
 				target: "_self",
 				link: "/#hochwasser-check",
@@ -60,57 +53,83 @@ const Before: React.FC = () => {
 			}
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.gdv.de/gdv/statistik/datenservice-zum-naturgefahrenreport/sachversicherung-elementar",
+			};
+		}
+		if (key === "entry3") {
+			return {
+				target: "_blank",
+				variant: "extern",
+				link: "https://www.hochwasserzentralen.de/",
 			};
 		}
 		if (key === "entry4") {
 			return {
 				target: "_blank",
-				link: "#",
-			};
-		}
-		if (key === "entry5") {
-			return {
-				target: "_blank",
-				link: text.includes("NINA")
-					? "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
-					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
+				variant: "extern",
+				link: "https://www.naturgefahrenportal.de/de",
 			};
 		}
 		if (key === "entry6") {
 			return {
 				target: "_blank",
-				link: "https://www.dwd.de/DE/wetter/warnungen_aktuell/kriterien/warnstufen.html",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/warnung-und-information-der-bevoelkerung/artikel.1588862.php",
 			};
 		}
 		if (key === "entry7") {
 			return {
 				target: "_blank",
-				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/sirenen/artikel.1578804.php#headline_1_39",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/warnung-und-information-der-bevoelkerung/warnung-und-information-der-bevoelkerung-in-gefahrenlagen-1273411.php#berlin",
 			};
 		}
 		if (key === "entry8") {
 			return {
 				target: "_blank",
-				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/anlaufstellen-fuer-die-bevoelkerung/",
+				variant: "extern",
+				link: text.includes("NINA")
+					? "https://www.bbk.bund.de/DE/Warnung-Vorsorge/Warn-App-NINA/warn-app-nina_node.html"
+					: "https://www.dwd.de/DE/service/dwd-apps/dwdapps_node.html",
 			};
 		}
 		if (key === "entry9") {
 			return {
 				target: "_blank",
-				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/ratgeber-notfallvosorge-checkliste.pdf?__blob=publicationFile",
+				variant: "extern",
+				link: "https://www.dwd.de/DE/wetter/warnungen_aktuell/kriterien/warnstufen.html",
 			};
 		}
 		if (key === "entry10") {
 			return {
 				target: "_blank",
-				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/ratgeber-notfallvosorge-checkliste.pdf?__blob=publicationFile",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/sirenen/artikel.1578804.php#headline_1_39",
 			};
 		}
 		if (key === "entry11") {
 			return {
 				target: "_blank",
-				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/ratgeber-notfallvosorge-checkliste.pdf?__blob=publicationFile",
+				link: "https://www.berlin.de/katastrophenschutz/warnung-und-information/anlaufstellen-fuer-die-bevoelkerung/",
+			};
+		}
+		if (key === "entry12") {
+			return {
+				target: "_blank",
+				variant: "extern",
+				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
+			};
+		}
+		if (key === "entry13") {
+			return {
+				target: "_blank",
+				variant: "extern",
+				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
+			};
+		}
+		if (key === "entry14") {
+			return {
+				target: "_blank",
+				variant: "extern",
+				link: "https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/Buergerinformationen/Ratgeber/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf?__blob=publicationFile&v=41",
 			};
 		}
 		return {
@@ -195,13 +214,22 @@ const Before: React.FC = () => {
 									})}
 								</p>
 							)}
+							{listKey === "list3" && (
+								<p className="italic">{t("list3ParagraphNote")}</p>
+							)}
+							{listKey === "list4" && (
+								<p className="italic">{t("list4ParagraphNote")}</p>
+							)}
+							{listKey === "list5" && (
+								<p className="italic">{t("list5ParagraphNote")}</p>
+							)}
 						</div>
 						<ul className="list-none space-y-2 lg:ps-12">
 							{Object.keys(list).map((key) => (
 								<li key={key} className="flex items-start gap-2">
 									<FontAwesomeIcon
 										icon={faCheck}
-										className={`flex-shrink-0 text-[18px]`}
+										className={`shrink-0 text-[18px]`}
 									/>
 									<span>
 										{t.rich(`${listKey}.${key}`, {
@@ -210,7 +238,7 @@ const Before: React.FC = () => {
 													href={getLink(key, chunks, listKey).link}
 													target={getLink(key, chunks, listKey).target}
 													rel="noopener noreferrer"
-													className="text-text-link underline"
+													variant={getLink(key, chunks, listKey).variant || "default"}
 												>
 													{chunks}
 												</Link>
@@ -221,7 +249,10 @@ const Before: React.FC = () => {
 							))}
 						</ul>
 						{afterList && (
-							<div className="flex flex-col gap-4 lg:flex-row">
+							<div className={cn(
+								"flex flex-col gap-4 lg:flex-row",
+								afterList === "afterList5" && "bg-[#ecf8f5] p-6 lg:p-2 w-[calc(100%+3rem)] -translate-x-6 lg:w-auto lg:translate-x-0"
+							)}>
 								<p
 									className={cn("lg:ps-12", afterListImage && "lg:max-w-[50%]")}
 								>
@@ -231,7 +262,7 @@ const Before: React.FC = () => {
 												href="https://www.hochwasser-pass.info/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -241,7 +272,7 @@ const Before: React.FC = () => {
 												href="https://www.fib-bund.de/inhalt/themen/hochwasser/"
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -249,12 +280,24 @@ const Before: React.FC = () => {
 									})}
 								</p>
 								{afterListImage && (
-									<NextImage
-										src={afterListImage}
-										alt={`???`}
-										width={160}
-										height={160}
-									/>
+									<>
+										<div className="hidden lg:flex justify-center">
+											<Image
+												src={afterListImage}
+												alt={t("afterList5Image.alt")}
+												caption={t("afterList5Image.caption")}
+												copyright={t("afterList5Image.copyright")}
+												className="shrink-0 max-w-[50%] object-contain"
+											/>
+										</div>
+										<Image
+											src={afterListImage}
+											alt={t("afterList5Image.alt")}
+											caption={t("afterList5Image.caption")}
+											copyright={t("afterList5Image.copyright")}
+											className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
+										/>
+									</>
 								)}
 							</div>
 						)}
@@ -271,7 +314,7 @@ const Before: React.FC = () => {
 									/>
 								</div>
 								<Image
-									className="w-[calc(100%+3rem)] -translate-x-[1.5rem] lg:hidden"
+									className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
 									src={fullIMG}
 									alt={t(`${listKey}Image.alt`)}
 									caption={t(`${listKey}Image.caption`)}

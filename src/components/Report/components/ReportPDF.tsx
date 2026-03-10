@@ -1,10 +1,16 @@
 /* eslint-disable */
 "use client";
 
+import pdfData from "@/components/Report/pdf.json";
+import { cn } from "@/lib/utils";
+import useMobile from "@/lib/utils/useMobile";
+import useStore from "@/store/defaultStore";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { push } from "@socialgouv/matomo-next";
+import { Button, DownloadItem, Spinner } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { FC, useEffect, useRef, useState } from "react";
-import { Button, DownloadItem, Spinner } from "berlin-ui-library";
-import useStore from "@/store/defaultStore";
 import {
 	translateHazardLevels,
 	getToday,
@@ -12,15 +18,10 @@ import {
 	getScreenshotForScenario,
 	translateWMSValue,
 } from "../utils";
-import pdfData from "@/components/Report/pdf.json";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { cn } from "@/lib/utils";
 import { GeoServerClient } from "@/lib/geoserverClient";
 import { Building, BuildingWMS } from "@/lib/types";
-import useMobile from "@/lib/utils/useMobile";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -380,6 +381,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	};
 
 	const openPdfViewer = (testing: boolean | undefined) => {
+		push(["trackEvent", "report", "download", "Report herunterladen"]);
+
 		if (testing && isDev) {
 			setError(
 				"Das PDF konnte nicht geöffnet werden. Bitte erlauben Sie Pop-ups für diese Seite und versuchen Sie es erneut.",

@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import useStore from "@/store/defaultStore";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	Accordion,
+	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	AccordionContent,
 	Button,
-	Pill,
 	FilterPillGroup,
 	List,
 	ListItem,
+	Pill,
 } from "berlin-ui-library";
-import { useRouter, useSearchParams } from "next/navigation";
-import TextBlock from "./TextBlock";
-import RiskBlock from "./RiskBlock";
-import useStore from "@/store/defaultStore";
-import Map from "./Map/Map";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./Report/components/ReportPDF";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import ErrorCatcher from "./ErrorCatcher";
 import EvaluationTesting from "./EvaluationTesting";
+import Map from "./Map/Map";
+import ReportPDF from "./Report/components/ReportPDF";
 import ResultBlock from "./ResultBlock";
+import RiskBlock from "./RiskBlock";
+import TextBlock from "./TextBlock";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -37,6 +37,7 @@ const Results: React.FC = () => {
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
 	const isDev = process.env.NODE_ENV === "development";
+	const showMap = !isDev;
 
 	// Define filter keys for translation
 	const filterKeys = [
@@ -147,9 +148,7 @@ const Results: React.FC = () => {
 				)}
 			</section>
 			<section className="flex flex-col gap-4">
-				<div className="flex flex-col gap-2">
-					<h3 className="">{t("hazardDisplay.title")}</h3>
-				</div>
+				<div className="flex flex-col gap-2"></div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
 						<FilterPillGroup
@@ -222,9 +221,13 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
-				<h3 className="mt-2">{t("map.title")}</h3>
-				<p className="">{t("map.description")}</p>
-				<Map />
+				{showMap && (
+					<>
+						<h3 className="mt-2">{t("map.title")}</h3>
+						<p className="">{t("map.description")}</p>
+						<Map />
+					</>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -303,7 +306,6 @@ const Results: React.FC = () => {
 										{t("buildingRiskAssessment.disclaimerTitle")}
 									</h3>
 									<p className="">{t("buildingRiskAssessment.description1")}</p>
-									<p className="">{t("buildingRiskAssessment.description2")}</p>
 								</div>
 							}
 							slotB={<RiskBlock />}
@@ -313,23 +315,19 @@ const Results: React.FC = () => {
 				</>
 			)}
 			<section className="flex w-full flex-col gap-12" id="protection-tips">
-				{!skip && hazardEntities && hazardEntities.length > 0 && (
-					<>
-						<div className="flex flex-col gap-2">
-							<h2 className="">{t("protectionTips.title")}</h2>
-							<p className="">{t("protectionTips.intro1")}</p>
-						</div>
-						<Button
-							className="w-full self-start lg:w-fit"
-							onClick={() => {
-								router.push("/handlungsempfehlungen");
-							}}
-						>
-							{t("protectionTips.recommendationsOverview.button")}
-						</Button>
-						<p className="">{t("protectionTips.intro2")}</p>
-					</>
-				)}
+				<div className="flex flex-col gap-2">
+					<h2 className="">{t("protectionTips.title")}</h2>
+					<p className="">{t("protectionTips.intro1")}</p>
+				</div>
+				<Button
+					className="w-full self-start lg:w-fit"
+					onClick={() => {
+						router.push("/handlungsempfehlungen");
+					}}
+				>
+					{t("protectionTips.recommendationsOverview.button")}
+				</Button>
+				<p className="">{t("protectionTips.intro2")}</p>
 			</section>
 			<section>
 				<div className="divider mt-4" />
