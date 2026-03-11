@@ -1,8 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { HazardLevel } from "./types";
+import { FloodRiskAnswers, HazardLevel, RiskLevel } from "./types";
 import MultiPolygon from "ol/geom/MultiPolygon";
 import { getWidth, getHeight } from "ol/extent";
+import { HazardEntity } from "@/utils/storeUtils";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -102,3 +103,45 @@ export function getSafeFitExtent(
 	// If it's a Polygon (or anything else), just use its extent
 	return geometry.getExtent();
 }
+
+export const calculateRiskLevel = (
+	questionId: string,
+	floodRiskAnswers: FloodRiskAnswers | null,
+	hazardEntities: HazardEntity[] | null,
+): RiskLevel => {
+	if (!floodRiskAnswers || !floodRiskAnswers[questionId]) {
+		return "unknown";
+	}
+
+	const answer = floodRiskAnswers[questionId];
+	const score = answer.score || 0;
+	if (questionId === "qA") {
+		const fluvialFloodEntity = hazardEntities?.find(
+			(entity) => entity.name === "fluvialFlood",
+		)?.subHazardLevel;
+		if (fluvialFloodEntity === "yes") {
+			return "high";
+		}
+		return "low";
+	}
+	if (answer?.value === "noInformation") {
+		return "dontKnow";
+	}
+	if (questionId === "qB" && answer?.value === 0) {
+		return "low";
+	}
+	if (questionId === "q2") {
+		if (answer?.value === "highValue") {
+			return "high";
+		} else if (answer?.value === "lowValue") {
+			return "moderate";
+		}
+	}
+	if (score >= 2) {
+		return "low";
+	}
+	if (score >= 0 || (questionId === "q1" && score === -1)) {
+		return "moderate";
+	}
+	return "high";
+};

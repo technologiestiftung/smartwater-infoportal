@@ -584,44 +584,19 @@
 			"hide": "{skip}",
 			"items": [
 				{
-					"imageSRC": "{basementHazardTag}",
+					"imageSRC": "{basementTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Keller als Gefährdung",
+					"text": "{basementName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, da Ihr Haus einen Keller hat und dieser Fenster besitzt. Im Falle eines Starkregens kann Wasser z.B. durch undichte Fenster in den Keller gelangen und zu Schäden führen.",
-					"hide": "!{highBasementHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Gelb, da Ihr Haus zwar einen Keller hat, dieser aber keine Fenster besitzt. Im Falle eines Starkregens kann Wasser daher nicht über Fenster in den Keller gelangen, was das Risiko für Schäden reduziert.",
-					"hide": "!{midBasementHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, weil Sie auch während eines Starkregenereignisses keine Schäden in Kellerräumen befürchten müssen.",
-					"hide": "!{lowBasementHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht/keine Angabe\" angegeben haben.",
-					"hide": "!{dontKnowBasementHazard}",
+					"text": "{basementDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
@@ -635,67 +610,34 @@
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Kellernutzung",
+					"text": "{basementUsageName}",
 					"hide": "{noBasementUsageHazard}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie Ihre Kellerräume höherwertig nutzen. Das erhöht das Risiko für Schäden.",
-					"hide": "!{highBasementUsageHazard}",
+					"text": "{basementUsageDescription}",
+					"hide": "{noBasementUsageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
-					"hide": "!{midBasementUsageHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "{backflowPreventionTag}",
+					"imageSRC": "{backflowProtectionTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Rückstausicherung",
+					"text": "{backflowProtectionName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Ihr Haus bisher keine Rückstausicherung besitzt.",
-					"hide": "!{highBackflowPrevention}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Gelb, weil Ihr Haus zwar eine Rückstausicherung besitzt, Sie aber nicht den Zustand der Rückstausicherung kennen.",
-					"hide": "!{midBackflowPrevention}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, weil Ihr Haus eine Rückstausicherung in gutem Zustand besitzt.",
-					"hide": "!{lowBackflowPrevention}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
-					"hide": "!{dontKnowBackflowPrevention}",
+					"text": "{backflowProtectionDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
@@ -709,23 +651,15 @@
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Grundstücksentwässerung",
+					"text": "{propertyDrainageName}",
 					"hide": "{noPropertyDrainageHazard}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
-					"hide": "!{highPropertyDrainageHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
-					"hide": "!{lowPropertyDrainageHazard}",
+					"text": "{propertyDrainageDescription}",
+					"hide": "{noPropertyDrainageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
@@ -739,51 +673,34 @@
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Vergangene Schadensereignisse",
+					"text": "{pastDamagesName}",
 					"hide": "{noPastDamages}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
-					"hide": "!{highPastDamages}",
+					"text": "{pastDamagesDescription}",
+					"hide": "{noPastDamages}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
-					"hide": "!{lowPastDamages}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "{floodZoneTag}",
+					"imageSRC": "{floodplainTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Überschwemmungsgebiete",
+					"text": "{floodplainName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil sich Ihr Haus in einem ausgeschriebenen Überschwemmungsgebiet befindet.",
-					"hide": "!{highFloodZone}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 3,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, weil Ihr Wohnhaus nicht in einem ausgewiesenen Überschwemmungsgebiet liegt.",
-					"hide": "!{lowFloodZone}",
+					"text": "{floodplainDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 3,
@@ -797,72 +714,38 @@
 					"marginLeft": 6
 				},
 				{
-					"imageSRC": "{fluvialFloodTag}",
+					"imageSRC": "{riverFloodHazardLevelTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Flusshochwasser",
+					"text": "{riverFloodHazardLevelName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Flusshochwasser besteht.",
-					"hide": "!{highFluvialFlood}",
+					"text": "{riverFloodHazardLevelDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 3,
 					"marginLeft": 6
 				},
 				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Gelb, weil eine mittlere Gefährdung durch Flusshochwasser besteht.",
-					"hide": "!{midFluvialFlood}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Grün, weil an Ihrem Haus keine Gefährdung durch Flusshochwasser besteht.",
-					"hide": "!{lowFluvialFlood}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "{heavyRainTag}",
+					"imageSRC": "{heavyRainHazardLevelTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Starkregen",
+					"text": "{heavyRainHazardLevelName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Starkregen besteht.",
-					"hide": "!{highHeavyRain}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 3,
-					"marginLeft": 6
-				},
-				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine mittlere Gefährdung durch Starkregen besteht.",
-					"hide": "!{midHeavyRain}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 3,
-					"marginLeft": 6
-				},
-				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine geringe Gefährdung durch Starkregen besteht. Jedoch kann eine Gefährdung durch Starkregen nicht ausgeschlossen werden.",
-					"hide": "!{lowHeavyRain}",
+					"text": "{heavyRainHazardLevelDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 3,
