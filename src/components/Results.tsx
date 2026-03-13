@@ -17,12 +17,12 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ErrorCatcher from "./ErrorCatcher";
-import EvaluationTesting from "./EvaluationTesting";
 import Map from "./Map/Map";
 import ReportPDF from "./Report/components/ReportPDF";
 import ResultBlock from "./ResultBlock";
 import RiskBlock from "./RiskBlock";
 import TextBlock from "./TextBlock";
+import RiskFactors from "./RiskFactors";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
@@ -32,6 +32,7 @@ const Results: React.FC = () => {
 		updateInteractiveMap,
 		getHazardEntities,
 		locationData,
+		floodRiskAnswers,
 	} = useStore();
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
@@ -245,8 +246,18 @@ const Results: React.FC = () => {
 							}
 							slotB={<RiskBlock />}
 						/>
-						{isDev && <EvaluationTesting />}
+						<div className="mt-4 flex flex-col gap-8">
+							<p className="">
+								{t("buildingRiskAssessment.buildingRisk.riskFactorsTitle")}
+							</p>
+							<RiskFactors
+								hazardEntities={hazardEntities}
+								floodRiskAnswers={floodRiskAnswers}
+								isNotRiskBlock
+							/>
+						</div>
 					</section>
+					<div className="divider" />
 				</>
 			)}
 			<section className="flex w-full flex-col gap-12" id="protection-tips">

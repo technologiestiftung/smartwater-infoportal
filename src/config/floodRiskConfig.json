@@ -138,42 +138,42 @@
 		{
 			"id": "basement",
 			"questionId": "q1",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basement"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basement.title"
 		},
 		{
 			"id": "basementUsage",
 			"questionId": "q2",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basementUsage"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.basementUsage.title"
 		},
 		{
 			"id": "backflowProtection",
 			"questionId": "q3",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.backflowProtection"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.backflowProtection.title"
 		},
 		{
 			"id": "propertyDrainage",
 			"questionId": "q4",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.propertyDrainage"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.propertyDrainage.title"
 		},
 		{
 			"id": "pastDamages",
 			"questionId": "q5",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.pastDamages.title"
 		},
 		{
 			"id": "floodplain",
 			"questionId": "qA",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.floodplain"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.floodplain.title"
 		},
 		{
 			"id": "riverFloodHazardLevel",
 			"questionId": "qB",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.riverFloodHazardLevel"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.riverFloodHazardLevel.title"
 		},
 		{
 			"id": "heavyRainHazardLevel",
 			"questionId": "qC",
-			"translationKey": "buildingRiskAssessment.buildingRisk.factors.heavyRainHazardLevel"
+			"translationKey": "buildingRiskAssessment.buildingRisk.factors.heavyRainHazardLevel.title"
 		}
 	]
 }

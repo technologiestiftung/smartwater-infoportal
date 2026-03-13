@@ -114,7 +114,7 @@ export const getToday = (reverse = false): string => {
 	const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
 	const year = today.getFullYear();
 	if (reverse) {
-		return `${year}.${month}.${day}`;
+		return `${year}-${month}-${day}`;
 	}
 	return `${day}.${month}.${year}`;
 };

@@ -64,6 +64,13 @@ export type AddressResult =
 	| { ok: true; data: CurrentUserAddress[] }
 	| { ok: false; code: "noResult" | "maptilerError" };
 
+export interface RiskFactor {
+	id: string;
+	riskLevel: RiskLevel;
+	translationKey: string;
+	hasInfo: boolean;
+}
+
 // Old Calc Approach Jakob
 export interface BuildingWMS {
 	hasHeavyRainHazardMap: string | null;

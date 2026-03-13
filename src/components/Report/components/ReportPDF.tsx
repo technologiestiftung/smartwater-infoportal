@@ -2,7 +2,7 @@
 "use client";
 
 import pdfData from "@/components/Report/pdf.json";
-import { cn } from "@/lib/utils";
+import { calculateRiskLevel, cn } from "@/lib/utils";
 import useMobile from "@/lib/utils/useMobile";
 import useStore from "@/store/defaultStore";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +21,8 @@ import {
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
 import { GeoServerClient } from "@/lib/geoserverClient";
-import { Building, BuildingWMS } from "@/lib/types";
+import { Building, BuildingWMS, RiskFactor } from "@/lib/types";
+import floodRiskConfig from "@/config/floodRiskConfig.json";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -30,7 +31,7 @@ interface ReportPDFProps {
 const geoServerClient = new GeoServerClient();
 
 const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
-	const t = useTranslations();
+	const t = useTranslations("floodCheck");
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
 	const pdfUrlRef = useRef<string | null>(null);
@@ -81,86 +82,63 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			!!skip ||
 			(typeof floodRiskAnswers?.q0?.value === "string" &&
 				floodRiskAnswers?.q0?.value?.includes("Owner")),
-		"{basementHazardTag}": translateHazardTags(
-			floodRiskAnswers?.q1?.value as string,
-			"q1",
-		),
-		"{highBasementHazard}": floodRiskAnswers?.q1?.value === "yesWithWindow",
-		"{midBasementHazard}": floodRiskAnswers?.q1?.value === "yesWithoutWindow",
-		"{lowBasementHazard}": floodRiskAnswers?.q1?.value === "no",
-		"{dontKnowBasementHazard}": floodRiskAnswers?.q1?.value === "noInformation",
-		"{basementUsageTag}": translateHazardTags(
-			floodRiskAnswers?.q2?.value as string,
-			"q2",
-		),
-		"{noBasementUsageHazard}": !floodRiskAnswers?.q2,
-		"{highBasementUsageHazard}": floodRiskAnswers?.q2?.value === "highValue",
-		"{midBasementUsageHazard}": floodRiskAnswers?.q2?.value === "lowValue",
-		"{backflowPreventionTag}": translateHazardTags(
-			floodRiskAnswers?.q3?.value as string,
-			"q3",
-		),
-		"{highBackflowPrevention}":
-			floodRiskAnswers?.q3?.value === "no" ||
-			floodRiskAnswers?.q3?.value === "noInformation",
-		"{midBackflowPrevention}": floodRiskAnswers?.q3?.value === "yesUnknown",
-		"{lowBackflowPrevention}": floodRiskAnswers?.q3?.value === "yesGood",
-		"{dontKnowBackflowPrevention}": floodRiskAnswers?.q3?.value === "dontKnow",
-		"{propertyDrainageTag}": translateHazardTags(
-			floodRiskAnswers?.q4?.value as string,
-			"q4",
-		),
-		"{noPropertyDrainageHazard}":
-			floodRiskAnswers?.q4?.value === "noInformation",
-		"{highPropertyDrainageHazard}": floodRiskAnswers?.q4?.value === "bad",
-		"{lowPropertyDrainageHazard}": floodRiskAnswers?.q4?.value === "good",
-		"{pastDamagesTag}": translateHazardTags(
-			floodRiskAnswers?.q5?.value as string,
-			"q5",
-		),
-		"{noPastDamages}": floodRiskAnswers?.q5?.value === "noInformation",
-		"{highPastDamages}": floodRiskAnswers?.q5?.value === "yes",
-		"{lowPastDamages}": floodRiskAnswers?.q5?.value === "no",
-		"{floodZoneTag}": translateHazardTags(
-			floodRiskAnswers?.qA?.value as string,
-			"qA",
-		),
-		"{highFloodZone}": floodRiskAnswers?.qA?.value === "yes",
-		"{lowFloodZone}": floodRiskAnswers?.qA?.value === "no",
-		"{fluvialFloodTag}": translateHazardTags(
-			floodRiskAnswers?.qB?.value as string,
-			"qB",
-		),
-		"{highFluvialFlood}":
-			typeof floodRiskAnswers?.qB?.value === "number" &&
-			floodRiskAnswers?.qB?.value > 1,
-		"{midFluvialFlood}":
-			typeof floodRiskAnswers?.qB?.value === "number" &&
-			floodRiskAnswers?.qB?.value === 1,
-		"{lowFluvialFlood}":
-			typeof floodRiskAnswers?.qB?.value === "number" &&
-			floodRiskAnswers?.qB?.value === 0,
-		"{heavyRainTag}": translateHazardTags(
-			floodRiskAnswers?.qC?.value as string,
-			"qC",
-		),
-		"{highHeavyRain}":
-			typeof floodRiskAnswers?.qC?.value === "number" &&
-			floodRiskAnswers?.qC?.value > 1,
-		"{midHeavyRain}":
-			typeof floodRiskAnswers?.qC?.value === "number" &&
-			floodRiskAnswers?.qC?.value === 1,
-		"{lowHeavyRain}":
-			typeof floodRiskAnswers?.qC?.value === "number" &&
-			floodRiskAnswers?.qC?.value === 0,
-		"{basementWithWindows}": floodRiskAnswers?.q1?.value === "yesWithWindow",
-		"{basementWithoutWindows}":
-			floodRiskAnswers?.q1?.value === "yesWithoutWindow",
 	};
 
 	const addWMSDataToPDFKeys = async (
 		building: Building,
 	): Promise<BuildingWMS> => {
+		const isThereABasement = !floodRiskAnswers["q1"]?.value
+			.toString()
+			.startsWith("no");
+
+		const defaultRiskFactors: RiskFactor[] = floodRiskConfig.riskFactors
+			.map((factor) => ({
+				id: factor.id,
+				riskLevel: calculateRiskLevel(
+					factor.questionId,
+					floodRiskAnswers,
+					hazardEntities,
+				),
+				translationKey: factor.translationKey,
+				hasInfo: factor.id === "floodplain",
+			}))
+			.filter((factor) => {
+				if (!floodRiskAnswers) return false;
+				if (factor.id === "basementUsage" && !isThereABasement) {
+					return false;
+				}
+				return true;
+			});
+
+		addToPDFKeys["{noBasementUsageHazard}"] = !floodRiskAnswers?.q2;
+		addToPDFKeys["{noPropertyDrainageHazard}"] =
+			floodRiskAnswers?.q4?.value === "noInformation";
+		addToPDFKeys["{noPastDamages}"] =
+			floodRiskAnswers?.q5?.value === "noInformation";
+
+		for (const [index, factor] of defaultRiskFactors.entries()) {
+			const factorName = t(factor.translationKey);
+			const factorDescription = t(
+				factor.translationKey.replace("title", factor.riskLevel),
+			);
+			let questionID = `q${index + 1}`;
+			if (isThereABasement) {
+				if (index === 5) questionID = "qA";
+				if (index === 6) questionID = "qB";
+				if (index === 7) questionID = "qC";
+			} else {
+				if (index === 4) questionID = "qA";
+				if (index === 5) questionID = "qB";
+				if (index === 6) questionID = "qC";
+			}
+			addToPDFKeys[`{${factor.id}Tag}`] = translateHazardTags(
+				floodRiskAnswers?.[questionID]?.value as string,
+				questionID,
+			);
+			addToPDFKeys[`{${factor.id}Name}`] = factorName;
+			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
+		}
+
 		const buildingWMSData = await geoServerClient.getBuildingWMS(building);
 
 		const {
@@ -480,13 +458,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 					<div ref={wrapperRef}>
 						{pdfBlob ? (
 							<DownloadItem
-								buttonText={t("floodCheck.reportDownload.button")}
-								description={t("floodCheck.reportDownload.description")}
-								fileType={t("floodCheck.reportDownload.fileInfo", {
+								buttonText={t("reportDownload.button")}
+								description={t("reportDownload.description")}
+								fileType={t("reportDownload.fileInfo", {
 									size: `${pdfSizeKB} MB`,
 								})}
 								date={getToday()}
-								title={t("floodCheck.reportDownload.title")}
+								title={t("reportDownload.title")}
 								onClickDownloadItem={() => {
 									push([
 										"trackEvent",
