@@ -44,11 +44,6 @@ const Results: React.FC = () => {
 		{ key: "heavyRain", translationKey: "hazardDisplay.heavyRainTab" },
 		{ key: "fluvialFlood", translationKey: "hazardDisplay.fluvialFloodTab" },
 	];
-	const subFilterKeys = [
-		{ key: "rare", translationKey: "hazardDisplay.frequency.rare" },
-		{ key: "uncommon", translationKey: "hazardDisplay.frequency.uncommon" },
-		{ key: "extreme", translationKey: "hazardDisplay.frequency.extreme" },
-	];
 	const accordion = [
 		{
 			title: t("hazardInfo.calculation"),
@@ -71,12 +66,6 @@ const Results: React.FC = () => {
 			setActiveFilter(value);
 		}
 	};
-	const [activeSubFilter, setActiveSubFilter] = useState<string>(
-		subFilterKeys[0].key,
-	);
-	const handleSubFilterToggle = (value: string) => {
-		setActiveSubFilter(value);
-	};
 	// Filter hazard entities based on active filter
 	const getFilteredHazardEntities = () => {
 		if (!hazardEntities) {
@@ -85,42 +74,6 @@ const Results: React.FC = () => {
 
 		// Filter entities based on the single active filter
 		return hazardEntities.filter((entity) => entity.name === activeFilter);
-	};
-
-	const HazardTranslations = () => {
-		const text = t(
-			`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
-		);
-		const waterLevel = t(
-			`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
-		);
-		const flowVelocity = t(
-			`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
-		);
-
-		const shouldRender =
-			text &&
-			waterLevel &&
-			flowVelocity &&
-			text !== `hazardDisplay.frequencyDescription.${activeSubFilter}.text` &&
-			waterLevel !==
-				`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel` &&
-			flowVelocity !==
-				`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`;
-
-		if (!shouldRender) {
-			return null;
-		}
-
-		return (
-			<div className="bg-panel-heavy p-6">
-				<p className="mb-4">{text}</p>
-				<List variant="unordered">
-					<ListItem>{waterLevel}</ListItem>
-					<ListItem>{flowVelocity}</ListItem>
-				</List>
-			</div>
-		);
 	};
 
 	useEffect(() => {
@@ -171,32 +124,14 @@ const Results: React.FC = () => {
 							))}
 						</FilterPillGroup>
 					</div>
-					<div className="flex w-full">
-						<FilterPillGroup
-							activeValues={[activeSubFilter]}
-							onValueToggle={handleSubFilterToggle}
-						>
-							{subFilterKeys.map((subFilter) => (
-								<Pill
-									variant="filter"
-									value={subFilter.key}
-									key={subFilter.key}
-									className="capitalize"
-								>
-									{t(subFilter.translationKey)}
-								</Pill>
-							))}
-						</FilterPillGroup>
-					</div>
 				</div>
 
 				<TextBlock
 					desktopColSpans={{ col1: 1, col2: 1 }}
 					className="w-full gap-6"
 					reverseDesktopColumns={true}
-					slotA={<HazardTranslations />}
 					slotB={
-						<div>
+						<div className="max-w-[400px]">
 							{(() => {
 								const filteredEntities = getFilteredHazardEntities();
 
