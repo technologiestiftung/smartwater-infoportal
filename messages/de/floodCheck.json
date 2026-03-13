@@ -47,7 +47,7 @@
 						"title": "Grundstücksentwässerung",
 						"high": "Ihre Ampel steht auf Rot, da Regenwasserabläufe, Abwasserrohre oder Gullys auf Ihrem Grundstück in einem schlechten Zustand sind.",
 						"low": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
-						"dontKnow": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, in welchem Zustand sich Regenwasserabläufe, Abwasserrohre oder Gullys auf Ihrem Grundstück befinden oder hierzu keine Angaben gemacht haben."
+						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben."
 					},
 					"pastDamages": {
 						"title": "Vergangene Schadensereignisse",

@@ -59,9 +59,7 @@ const RiskFactors = ({
 		.filter((factor) => {
 			if (
 				!floodRiskAnswers ||
-				(factor.riskLevel === "dontKnow" &&
-					factor.id !== "backflowProtection" &&
-					factor.id !== "propertyDrainage")
+				(factor.riskLevel === "dontKnow" && factor.id !== "backflowProtection")
 			)
 				return false;
 			const isThereABasement = !floodRiskAnswers["q1"]?.value
