@@ -894,13 +894,13 @@
 					"marginBottom": 11
 				},
 				{
-					"imageSRC": "/testing/waschmaschine.png",
+					"imageSRC": "/report/WaschmaschieneHoch.jpg",
 					"width": "halfPage",
 					"caption": "<b>Abbildung:</b> Waschmaschine und Trockner auf einem Podest, aus der Hochwasserschutzfibel, Seite 67",
 					"nextElementOnSameLine": true
 				},
 				{
-					"imageSRC": "/testing/fenster.png",
+					"imageSRC": "/report/FensterWasserdicht.jpg",
 					"width": "halfPage",
 					"marginLeft": "halfPage",
 					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63",
@@ -931,18 +931,6 @@
 					"isChecklistItem": true,
 					"text": "Können elektrische Anlagen u.U. geflutet werden?",
 					"marginBottom": 11
-				},
-				{
-					"imageSRC": "/testing/oel.png",
-					"width": "halfPage",
-					"caption": "<b>Abbildung:</b> Verschmutzung durch Öl, Abbildung aus der Hochwasserschutzfibel, Seite 70.",
-					"nextElementOnSameLine": true
-				},
-				{
-					"imageSRC": "/testing/regal.png",
-					"width": "halfPage",
-					"marginLeft": "halfPage",
-					"caption": "<b>Abbildung:</b> Abbildung von uns, ausgeschnitten, Lagerung von Gefahrenstoffen."
 				}
 			]
 		},
@@ -974,13 +962,13 @@
 					"marginBottom": 11
 				},
 				{
-					"imageSRC": "/testing/klo.png",
+					"imageSRC": "/report/ToiletteHaverie.jpg",
 					"width": 0.4,
 					"caption": "<b>Abbildung:</b> Überlaufende Toilette, Abbildung aus der Hochwasserschutzfibel, Seite 35.",
 					"nextElementOnSameLine": true
 				},
 				{
-					"imageSRC": "/testing/rueck.png",
+					"imageSRC": "/report/rueckstausicherung.png",
 					"width": 0.6,
 					"marginLeft": 0.4,
 					"caption": "<b>Abbildung:</b> Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau."
@@ -1045,7 +1033,7 @@
 					"maxWidth": "halfPage"
 				},
 				{
-					"imageSRC": "/testing/regen.png",
+					"imageSRC": "/report/Wasserablauf.png",
 					"width": "halfPage",
 					"caption": "<b>Abbildung:</b> Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann."
 				}
