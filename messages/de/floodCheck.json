@@ -204,7 +204,7 @@
 					"houseOwner": "Ich bin Eigentümerin/Eigentümer des Hauses."
 				},
 				"text": "Wohnen Sie zur Miete oder gehört Ihnen das Haus oder die Wohnung?",
-				"helperText": "Hinweis: Teileigentümerinnen und Teileigentümer gelten als Eigentümerinnen und Eigentümer, z.B. gemeinsames Eigentum mit Ehepartner, Eigentümergemeinschaft."
+				"helperText": "Teileigentümerinnen und Teileigentümer gelten als Eigentümerinnen und Eigentümer, z.B. gemeinsames Eigentum mit Ehepartner, Eigentümergemeinschaft."
 			},
 			"q1": {
 				"options": {
