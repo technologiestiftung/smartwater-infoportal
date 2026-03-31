@@ -1,10 +1,12 @@
+import type { Geometry } from "geojson";
+
 /**
  * MapFish scale denominator from extent + print map size.
  *
  * widthMm / heightMm = actual map frame size on paper in millimeters
  * paddingFactor = extra margin around the geometry, e.g. 1.1 = 10% padding
  */
-export function getMapfishCenterAndScale(geometry: GeoJSON.Geometry): {
+export function getMapfishCenterAndScale(geometry: Geometry): {
 	center: [number, number];
 	scale: number;
 } {
