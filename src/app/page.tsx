@@ -6,6 +6,7 @@ import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
+import Screenshot from "@/components/Report/components/Screenshot";
 
 export default function Home() {
 	const t = useTranslations("home");
@@ -21,18 +22,21 @@ export default function Home() {
 				</div>
 			</section>
 			{isDev && (
-				<div className="flex flex-col gap-4">
-					<Button
-						onClick={() => {
-							resetAll();
-							setTimeout(() => {
-								window.location.reload();
-							}, 500);
-						}}
-					>
-						Alles zurücksetzen
-					</Button>
-				</div>
+				<>
+					<Screenshot />
+					<div className="flex flex-col gap-4">
+						<Button
+							onClick={() => {
+								resetAll();
+								setTimeout(() => {
+									window.location.reload();
+								}, 500);
+							}}
+						>
+							Alles zurücksetzen
+						</Button>
+					</div>
+				</>
 			)}
 			<section className="w-full">
 				<TextBlock
@@ -135,8 +139,12 @@ export default function Home() {
 							<Warning />
 						</div>
 					}
-					slotC={<div className="flex flex-col gap-6"><p>{t.rich("floodRadar.description")}</p>
-					<p>{t.rich("floodRadar.description1")}</p></div>}
+					slotC={
+						<div className="flex flex-col gap-6">
+							<p>{t.rich("floodRadar.description")}</p>
+							<p>{t.rich("floodRadar.description1")}</p>
+						</div>
+					}
 				/>
 			</section>
 			<div className="divider" />
