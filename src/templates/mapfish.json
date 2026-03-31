@@ -1,0 +1,220 @@
+{
+	"layout": "report",
+	"attributes": {
+		"title": "Basemap: Bundesamt für Kartographie und Geodäsie (BKG)",
+		"map": {
+			"dpi": 90,
+			"projection": "EPSG:25833",
+			"center": [392000, 5826000],
+			"scale": 2000,
+			"layers": [
+				{
+					"type": "geojson",
+					"geoJson": {
+						"type": "FeatureCollection",
+						"features": [
+							{
+								"type": "Feature",
+								"properties": {},
+								"geometry": {
+									"type": "MultiPolygon",
+									"coordinates": [
+										[
+											[
+												[391937.56, 5826168.161],
+												[391949.627, 5826176.46],
+												[391960.389, 5826160.827],
+												[391948.302, 5826152.548],
+												[391937.56, 5826168.161]
+											]
+										]
+									]
+								}
+							}
+						]
+					},
+					"style": {
+						"version": "2",
+						"*": {
+							"symbolizers": [
+								{
+									"type": "polygon",
+									"strokeColor": "#ff0000",
+									"strokeWidth": 6,
+									"strokeOpacity": 1,
+									"fillColor": "#ffffff",
+									"fillOpacity": 0
+								}
+							]
+						}
+					},
+					"opacity": 1
+				},
+				{
+					"type": "geojson",
+					"geoJson": {
+						"type": "FeatureCollection",
+						"features": [
+							{
+								"type": "Feature",
+								"properties": {},
+								"geometry": {
+									"type": "MultiPolygon",
+									"coordinates": [
+										[
+											[
+												[391935.5933421238, 5826168.524671278],
+												[391949.99040494015, 5826178.4267071085],
+												[391962.35536128137, 5826160.4617284415],
+												[391947.93646215135, 5826150.581688204],
+												[391935.5933421238, 5826168.524671278]
+											]
+										]
+									]
+								}
+							}
+						]
+					},
+					"style": {
+						"version": "2",
+						"*": {
+							"symbolizers": [
+								{
+									"type": "polygon",
+									"strokeColor": "#0000ff",
+									"strokeWidth": 2,
+									"strokeOpacity": 1,
+									"fillColor": "#ffffff",
+									"fillOpacity": 0
+								}
+							]
+						}
+					},
+					"opacity": 1
+				},
+				{
+					"baseURL": "https://gdi.berlin.de/services/wms/ua_srhk",
+					"type": "WMS",
+					"layers": ["dc_wasserstand_aussergew_kostra"],
+					"imageFormat": "image/png",
+					"version": "1.3.0",
+					"customParams": {
+						"TRANSPARENT": "true"
+					}
+				},
+				{
+					"type": "WMTS",
+					"baseURL": "https://sgx.geodatenzentrum.de/wmts_basemapde/tile/1.0.0/de_basemapde_web_raster_grau/{style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
+					"layer": "de_basemapde_web_raster_grau",
+					"style": "default",
+					"imageFormat": "image/png",
+					"matrixSet": "DE_EPSG_25833_ADV",
+					"requestEncoding": "REST",
+					"opacity": 1,
+					"matrices": [
+						{
+							"identifier": "00",
+							"matrixSize": [1, 1],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 17471320.750897426,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "01",
+							"matrixSize": [2, 2],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 8735660.375448713,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "02",
+							"matrixSize": [4, 4],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 4367830.187724357,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "03",
+							"matrixSize": [8, 8],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 2183915.0938621783,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "04",
+							"matrixSize": [16, 16],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 1091957.5469310891,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "05",
+							"matrixSize": [32, 32],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 545978.7734655463,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "06",
+							"matrixSize": [64, 64],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 272989.38673277246,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "07",
+							"matrixSize": [128, 128],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 136494.69336638605,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "08",
+							"matrixSize": [256, 256],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 68247.3466831932,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "09",
+							"matrixSize": [512, 512],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 34123.673341596535,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "10",
+							"matrixSize": [1024, 1024],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 17061.836670798286,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "11",
+							"matrixSize": [2048, 2048],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 8530.918335399143,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "12",
+							"matrixSize": [4096, 4096],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 4265.4591676995715,
+							"tileSize": [256, 256]
+						},
+						{
+							"identifier": "13",
+							"matrixSize": [8192, 8192],
+							"topLeftCorner": [-464849.38, 6310160.14],
+							"scaleDenominator": 2132.729583849782,
+							"tileSize": [256, 256]
+						}
+					]
+				}
+			]
+		}
+	},
+	"outputFilename": "Ausdruck",
+	"outputFormat": "png"
+}

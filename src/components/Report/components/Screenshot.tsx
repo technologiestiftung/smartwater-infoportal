@@ -1,5 +1,6 @@
 "use client";
 
+import { getMapfishCenterAndScale } from "@/lib/geometry";
 import { useState } from "react";
 
 export default function Screenshot() {
@@ -12,12 +13,29 @@ export default function Screenshot() {
 			setLoading(true);
 			setError(null);
 
+			const testingValue = getMapfishCenterAndScale({
+				type: "MultiPolygon",
+				coordinates: [
+					[
+						[
+							[391937.56, 5826168.161],
+							[391949.627, 5826176.46],
+							[391960.389, 5826160.827],
+							[391948.302, 5826152.548],
+							[391937.56, 5826168.161],
+						],
+					],
+				],
+			});
+
+			console.log("testingValue :>> ", testingValue);
+
 			const res = await fetch("/api/mapfish", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({}),
+				body: JSON.stringify(testingValue),
 			});
 
 			if (!res.ok) {

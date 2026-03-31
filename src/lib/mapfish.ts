@@ -18,13 +18,13 @@ function sleep(ms: number) {
 }
 
 export async function generateMapfishScreenshot(
-	overrides?: Record<string, unknown>,
+	overridesDown?: Record<string, unknown>,
 ) {
 	const mapJsonPath = path.join(
 		process.cwd(),
 		"src",
 		"templates",
-		"mapfishTest2.json",
+		"mapfish.json",
 	);
 
 	if (!fs.existsSync(mapJsonPath)) {
@@ -36,8 +36,21 @@ export async function generateMapfishScreenshot(
 	// optional: shallow merge; for deep changes you can extend this
 	const mapfishConfig = {
 		...template,
-		...overrides,
 	};
+
+	const overrides = overridesDown ?? {};
+
+	// configure center
+	if ("center" in overrides) {
+		mapfishConfig.attributes.map.center = overrides.center;
+	}
+	if ("scale" in overrides) {
+		mapfishConfig.attributes.map.scale = overrides.scale;
+	}
+
+	// add layers
+
+	// add center && padding
 
 	if (!process.env.MAPFISH_PRINT) {
 		throw new Error("MAPFISH_PRINT ist nicht gesetzt");
@@ -48,7 +61,7 @@ export async function generateMapfishScreenshot(
 	}
 
 	console.log("Sende Anfrage an MapFish Print...");
-	console.log("MapFish Config:", JSON.stringify(mapfishConfig, null, 2));
+	// console.log("MapFish Config:", JSON.stringify(mapfishConfig, null, 2));
 
 	const mfpResponse = await fetch(process.env.MAPFISH_PRINT, {
 		method: "POST",
