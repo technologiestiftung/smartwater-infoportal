@@ -1,9 +1,10 @@
-import React, { ReactNode } from "react";
-import { useMessages, useTranslations } from "next-intl";
-import Link from "next/link";
-import NextImage from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "berlin-ui-library";
+import { useMessages, useTranslations } from "next-intl";
+import NextImage from "next/image";
+import React, { ReactNode } from "react";
+
 
 type TocMap = Record<string, string>;
 const lisztIconSize = 44;
@@ -39,18 +40,28 @@ const After: React.FC = () => {
 		if (text.includes("Merkblatt")) {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.dvgw.de/medien/dvgw/leistungen/publikationen/Info-wiederinbetriebnahme-trinkwasser-installation-nach-betriebsunterbrechungen.pdf",
 			};
 		}
 		if (text.includes("Naturgefahrenportal")) {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.naturgefahrenportal.de/de",
+			};
+		}
+		if (text.includes("Hochwasserschutzfibel")) {
+			return {
+				target: "_blank",
+				variant: "extern",
+				link: "https://www.fib-bund.de/inhalt/themen/hochwasser/",
 			};
 		}
 		if (text.includes("Vorsorgemaßnahmen")) {
 			return {
 				target: "_blank",
+				variant: "extern",
 				link: "https://www.fib-bund.de/inhalt/themen/hochwasser/",
 			};
 		}
@@ -129,7 +140,7 @@ const After: React.FC = () => {
 							<li key={key} className="flex items-start gap-2">
 								<FontAwesomeIcon
 									icon={faCheck}
-									className={`flex-shrink-0 text-[18px]`}
+									className={`shrink-0 text-[18px]`}
 								/>
 								<span className="whitespace-pre-line">
 									{t.rich(`${listKey}.${key}`, {
@@ -138,7 +149,7 @@ const After: React.FC = () => {
 												href={getLink(chunks).link}
 												target={getLink(chunks).target}
 												rel="noopener noreferrer"
-												className="text-text-link underline"
+												variant={getLink(chunks).variant || "default"}
 											>
 												{chunks}
 											</Link>

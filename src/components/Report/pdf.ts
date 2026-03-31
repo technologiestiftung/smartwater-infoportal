@@ -2,15 +2,15 @@
 
 import jsPDF from "jspdf";
 import ArialBold from "./assets/arial-bold";
-import ArialNormal from "./assets/arial-normal";
 import ArialItalic from "./assets/arial-italic";
+import ArialNormal from "./assets/arial-normal";
 import { getImage } from "./pdfImageUtils";
-import { WritePDFPageItem, PDFPageItem, PDFProps } from "./types";
+import { PDFPageItem, PDFProps, WritePDFPageItem } from "./types";
 import {
 	parseRichTextToChunks,
-	wrapChunksToLines,
-	pxToPt,
 	ptToMm,
+	pxToPt,
+	wrapChunksToLines,
 } from "./utils";
 
 export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
@@ -273,19 +273,35 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 						text = text.replace(key, value);
 					});
 				}
-				if (item.isListItem) {
-					writeText({
-						...item,
-						text: "• ",
-						nextElementOnSameLine: true,
-						marginLeft: undefined,
-						marginBottom: undefined,
-					});
+				if (item.isListItem || item.isChecklistItem) {
+					if (item.isChecklistItem) {
+						const checkboxSize = 3;
+						const checkboxY = vertical + 2;
+						const checkboxX =
+							pagesPaddingX +
+							(typeof item.marginLeft === "number" ? item.marginLeft : 0);
+
+						doc.setLineWidth(0.3);
+						doc.setDrawColor(0, 0, 0);
+						doc.rect(checkboxX, checkboxY, checkboxSize, checkboxSize);
+					} else {
+						writeText({
+							...item,
+							text: "• ",
+							nextElementOnSameLine: true,
+							marginLeft: undefined,
+							marginBottom: undefined,
+						});
+					}
 				}
 				writeText({
 					...item,
 					text,
-					marginLeft: item.isListItem ? 3 : item.marginLeft,
+					marginLeft: item.isChecklistItem
+						? 5
+						: item.isListItem
+							? 3
+							: item.marginLeft,
 				});
 				return;
 			} else if (item.imageSRC) {
@@ -451,7 +467,7 @@ export const drawPDF = async (pdf: PDFProps, pdfKeys: any) => {
 
 	// Finalize PDF
 	doc.setProperties({
-		title: pdf.name,
+		title: pdfKeys?.["{name}"] || "Report-HochwasserCheck-Berlin.pdf",
 		author: "Senatsverwaltung für Umwelt, Verkehr und Klimaschutz",
 		creator: "Senatsverwaltung für Umwelt, Verkehr und Klimaschutz",
 		subject: "HochwasserCheck Berlin",

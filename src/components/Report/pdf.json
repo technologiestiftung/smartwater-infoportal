@@ -1,5 +1,4 @@
 {
-	"name": "Report-HochwasserCheck-Berlin.pdf",
 	"pagesPaddingTop": 9,
 	"header": [
 		{
@@ -585,44 +584,19 @@
 			"hide": "{skip}",
 			"items": [
 				{
-					"imageSRC": "{basementHazardTag}",
+					"imageSRC": "{basementTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Keller als Gefährdung",
+					"text": "{basementName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, da Ihr Haus einen Keller hat und dieser Fenster besitzt. Im Falle eines Starkregens kann Wasser z.B. durch undichte Fenster in den Keller gelangen und zu Schäden führen.",
-					"hide": "!{highBasementHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Gelb, da Ihr Haus zwar einen Keller hat, dieser aber keine Fenster besitzt. Im Falle eines Starkregens kann Wasser daher nicht über Fenster in den Keller gelangen, was das Risiko für Schäden reduziert.",
-					"hide": "!{midBasementHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, weil Sie auch während eines Starkregenereignisses keine Schäden in Kellerräumen befürchten müssen.",
-					"hide": "!{lowBasementHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht/keine Angabe\" angegeben haben.",
-					"hide": "!{dontKnowBasementHazard}",
+					"text": "{basementDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
@@ -636,67 +610,34 @@
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Kellernutzung",
+					"text": "{basementUsageName}",
 					"hide": "{noBasementUsageHazard}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie Ihre Kellerräume höherwertig nutzen. Das erhöht das Risiko für Schäden.",
-					"hide": "!{highBasementUsageHazard}",
+					"text": "{basementUsageDescription}",
+					"hide": "{noBasementUsageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
-					"hide": "!{midBasementUsageHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "{backflowPreventionTag}",
+					"imageSRC": "{backflowProtectionTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Rückstausicherung",
+					"text": "{backflowProtectionName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Ihr Haus bisher keine Rückstausicherung besitzt.",
-					"hide": "!{highBackflowPrevention}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Gelb, weil Ihr Haus zwar eine Rückstausicherung besitzt, Sie aber nicht den Zustand der Rückstausicherung kennen.",
-					"hide": "!{midBackflowPrevention}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, weil Ihr Haus eine Rückstausicherung in gutem Zustand besitzt.",
-					"hide": "!{lowBackflowPrevention}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
-					"hide": "!{dontKnowBackflowPrevention}",
+					"text": "{backflowProtectionDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
@@ -710,23 +651,15 @@
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Grundstücksentwässerung",
+					"text": "{propertyDrainageName}",
 					"hide": "{noPropertyDrainageHazard}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
-					"hide": "!{highPropertyDrainageHazard}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
-					"hide": "!{lowPropertyDrainageHazard}",
+					"text": "{propertyDrainageDescription}",
+					"hide": "{noPropertyDrainageHazard}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
@@ -740,51 +673,34 @@
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Vergangene Schadensereignisse",
+					"text": "{pastDamagesName}",
 					"hide": "{noPastDamages}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
-					"hide": "!{highPastDamages}",
+					"text": "{pastDamagesDescription}",
+					"hide": "{noPastDamages}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 6,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
-					"hide": "!{lowPastDamages}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "{floodZoneTag}",
+					"imageSRC": "{floodplainTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Überschwemmungsgebiete",
+					"text": "{floodplainName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Ihre Ampel steht auf Rot, weil sich Ihr Haus in einem ausgeschriebenen Überschwemmungsgebiet befindet.",
-					"hide": "!{highFloodZone}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 3,
-					"marginLeft": 6
-				},
-				{
-					"text": "Ihre Ampel steht auf Grün, weil Ihr Wohnhaus nicht in einem ausgewiesenen Überschwemmungsgebiet liegt.",
-					"hide": "!{lowFloodZone}",
+					"text": "{floodplainDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 3,
@@ -798,72 +714,38 @@
 					"marginLeft": 6
 				},
 				{
-					"imageSRC": "{fluvialFloodTag}",
+					"imageSRC": "{riverFloodHazardLevelTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Flusshochwasser",
+					"text": "{riverFloodHazardLevelName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Flusshochwasser besteht.",
-					"hide": "!{highFluvialFlood}",
+					"text": "{riverFloodHazardLevelDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 3,
 					"marginLeft": 6
 				},
 				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Gelb, weil eine mittlere Gefährdung durch Flusshochwasser besteht.",
-					"hide": "!{midFluvialFlood}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Grün, weil an Ihrem Haus keine Gefährdung durch Flusshochwasser besteht.",
-					"hide": "!{lowFluvialFlood}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 6,
-					"marginLeft": 6
-				},
-				{
-					"imageSRC": "{heavyRainTag}",
+					"imageSRC": "{heavyRainHazardLevelTag}",
 					"width": 4,
 					"marginBottom": -1.5,
 					"nextElementOnSameLine": true
 				},
 				{
-					"text": "Starkregen",
+					"text": "{heavyRainHazardLevelName}",
 					"fontWeight": "bold",
 					"marginBottom": 1,
 					"marginLeft": 6
 				},
 				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Starkregen besteht.",
-					"hide": "!{highHeavyRain}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 3,
-					"marginLeft": 6
-				},
-				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine mittlere Gefährdung durch Starkregen besteht.",
-					"hide": "!{midHeavyRain}",
-					"fontSize": "small",
-					"lineHeight": "narrow",
-					"marginBottom": 3,
-					"marginLeft": 6
-				},
-				{
-					"text": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine geringe Gefährdung durch Starkregen besteht. Jedoch kann eine Gefährdung durch Starkregen nicht ausgeschlossen werden.",
-					"hide": "!{lowHeavyRain}",
+					"text": "{heavyRainHazardLevelDescription}",
 					"fontSize": "small",
 					"lineHeight": "narrow",
 					"marginBottom": 3,
@@ -1012,26 +894,16 @@
 					"marginBottom": 11
 				},
 				{
-					"imageSRC": "/testing/waschmaschine.png",
+					"imageSRC": "/report/WaschmaschieneHoch.jpg",
 					"width": "halfPage",
 					"caption": "<b>Abbildung:</b> Waschmaschine und Trockner auf einem Podest, aus der Hochwasserschutzfibel, Seite 67",
 					"nextElementOnSameLine": true
 				},
 				{
-					"imageSRC": "/testing/fenster.png",
+					"imageSRC": "/report/FensterWasserdicht.jpg",
 					"width": "halfPage",
 					"marginLeft": "halfPage",
-					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63"
-				}
-			]
-		},
-		{
-			"title": "Handlungsempfehlungen => Lagerung im Keller",
-			"hide": "{skip}",
-			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
+					"caption": "<b>Abbildung:</b> Abbildung von Wasser- und Druckdichten Fensterm, aus der Hochwasserschutzfibel, Seite 63",
 					"marginBottom": 11
 				},
 				{
@@ -1040,37 +912,25 @@
 					"marginBottom": 3
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind wasserempfindliche Gegenstände im Keller gelagert?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind Gefahrenstoffe wie Farben und Lacke so gelagert, dass sie bei einem Hochwasser nicht auslaufen können?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Sind Heizölanalgen gesichert?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Befinden sich Abflüsse unterhalb der Rückstauebene?"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Können elektrische Anlagen u.U. geflutet werden?",
 					"marginBottom": 11
-				},
-				{
-					"imageSRC": "/testing/oel.png",
-					"width": "halfPage",
-					"caption": "<b>Abbildung:</b> Verschmutzung durch Öl, Abbildung aus der Hochwasserschutzfibel, Seite 70.",
-					"nextElementOnSameLine": true
-				},
-				{
-					"imageSRC": "/testing/regal.png",
-					"width": "halfPage",
-					"marginLeft": "halfPage",
-					"caption": "<b>Abbildung:</b> Abbildung von uns, ausgeschnitten, Lagerung von Gefahrenstoffen."
 				}
 			]
 		},
@@ -1102,13 +962,13 @@
 					"marginBottom": 11
 				},
 				{
-					"imageSRC": "/testing/klo.png",
+					"imageSRC": "/report/ToiletteHaverie.jpg",
 					"width": 0.4,
 					"caption": "<b>Abbildung:</b> Überlaufende Toilette, Abbildung aus der Hochwasserschutzfibel, Seite 35.",
 					"nextElementOnSameLine": true
 				},
 				{
-					"imageSRC": "/testing/rueck.png",
+					"imageSRC": "/report/rueckstausicherung.png",
 					"width": 0.6,
 					"marginLeft": 0.4,
 					"caption": "<b>Abbildung:</b> Wenn es zu einer Überlastung der Kanalisation kommt, kann Wasser vom Kanal in angeschlossene Häuser gedrückt werden. Eine Rückstauklappe verhindert diesen Rückstau."
@@ -1173,47 +1033,9 @@
 					"maxWidth": "halfPage"
 				},
 				{
-					"imageSRC": "/testing/regen.png",
+					"imageSRC": "/report/Wasserablauf.png",
 					"width": "halfPage",
 					"caption": "<b>Abbildung:</b> Links: Abfluss ist durch Laub blockiert, sodass Wasser nicht ablaufen kann; rechts: Abfluss liegt frei, sodass Wasser gut ablaufen kann."
-				}
-			]
-		},
-		{
-			"title": "Handlungsempfehlungen => Versickerung",
-			"hide": "{skip}",
-			"items": [
-				{
-					"text": "Handlungsempfehlungen",
-					"fontSize": "h1",
-					"marginBottom": 11
-				},
-				{
-					"text": "Versickerung",
-					"fontSize": "h2",
-					"marginBottom": 3
-				},
-				{
-					"isListItem": true,
-					"text": "Was bringt Versickerung?"
-				},
-				{
-					"isListItem": true,
-					"text": "Worauf ist zu achten?"
-				},
-				{
-					"isListItem": true,
-					"text": "Welche Maßnahme(n) könnte man hier mit Bild Vorstellen?"
-				},
-				{
-					"isListItem": true,
-					"text": "Mit aufnehmen: Wartung und Reinigung von Regenwasserabläufen (siehe Bild)",
-					"marginBottom": 11
-				},
-				{
-					"imageSRC": "/testing/rinne.png",
-					"width": "halfPage",
-					"caption": "<b>Abbildung:</b> Dezentrale Rückhaltung von Niederschlagswasser, Abbildung aus der Hochwasserschutzfibel, Seite 25."
 				}
 			]
 		},
@@ -1231,27 +1053,27 @@
 					"marginBottom": 3
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Überprüfen Sie vor Ort die Gefährdung Ihres Wohnhaus: Nutzen Sie den HochwasserCheck Berlin um zu identifizieren, wo an Ihrem Haus Hochwasser anstehen könnte. Überprüfen Sie, ob es von dort in das Gebäude gelangen kann.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Wenn eine Gefährdung vorliegt: Überprüfen Sie Ihren Versicherungsschutz.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Tauschen Sie sich mit Ihrem Umfeld aus: Sprechen Sie über Ihre eigenen Gefährdungen und Ihren Umgang damit und kommen Sie ins Gespräch mit Nachbarn, Bekannten, Familie und Freunden.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "Besuchen Sie Informationsveranstaltungen zum Thema Hochwasser, z.B. in der <a href=\"https://www.kompetenz-wasser.de/de\">Wasserwerkstatt des KWB</a> oder der <a href=\"https://regenwasseragentur.berlin/\">Regenwasseragentur</a> um sich weiter zu informieren und sich zu vernetzten.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"isListItem": true,
+					"isChecklistItem": true,
 					"text": "<b>Auch wenn Ihr Wohnhaus nicht betroffen ist:</b> Beachten Sie die Verhaltenshinweise während eines Starkregenereignisses und kurz danach, um sich nicht in Gefahr zu bringen.",
 					"marginBottom": "paragraph"
 				}
@@ -1270,7 +1092,7 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "Notruf- und Servicenummern:<br>Entstörungsnummer des BWB:<br>Sie möchten eine Störung melden?<br>Den Entstörungsdienst des BWB erreichen Sie rund um die Uhr unter 0800-292 75 87<br><b>Im Notfall: Berliner Feuerwehr 112</b>",
+					"text": "<b>Notruf- und Servicenummern:</b><br><b>Entstörungsnummer</b> des BWB: Sie möchten eine Störung melden? Den Entstörungsdienst des BWB erreichen Sie rund um die Uhr unter <b>0800-292 75 87</b><br><b>Im Notfall:</b> Berliner Feuerwehr <b>112</b>",
 					"marginLeft": "halfPage",
 					"maxWidth": "halfPage",
 					"nextElementOnSameLine": true
@@ -1294,7 +1116,7 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "<b>Haftungshinweis</b><br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen.<br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt mit.",
+					"text": "<b>Haftungshinweis</b><br>Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen. Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt.",
 					"fontSize": "small",
 					"lineHeight": "narrow"
 				}

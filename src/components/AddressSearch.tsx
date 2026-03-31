@@ -1,8 +1,10 @@
 "use client";
 
 import { CurrentUserAddress } from "@/lib/types";
+import { fixMojibake } from "@/lib/utils";
 import { searchAddresses } from "@/server/actions/searchAddresses";
 import useStore from "@/store/defaultStore";
+import { push } from "@socialgouv/matomo-next";
 import {
 	Button,
 	Form,
@@ -17,7 +19,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
-import { fixMojibake } from "@/lib/utils";
 
 const LocationDataNotFound = {
 	found: false,
@@ -46,17 +47,13 @@ export default function AddressSearch() {
 		type: "text",
 		description: t("addressCheck.description"),
 		placeholder: t("addressCheck.placeholder"),
-		isRequired: true,
+		isRequired: false,
 	};
 
 	const testingAddresses = [
-		"Grunewaldstraße 61",
+		"Majakowskiring 7",
 		"Grunewaldstraße 62",
-		"Schönhauser Allee 125-128",
-		"Schönhauser Allee 125",
-		"Schönhauser Allee 128",
-		"Birkenstraße 17, 12589 Berlin",
-		"Helmstraße 9, 10827 Berlin",
+		"Brandensteinweg 7",
 	];
 
 	const handleSubmit = () => {
@@ -67,6 +64,13 @@ export default function AddressSearch() {
 				if (!locationData?.found) {
 					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
+					// Track HochwasserCheck start event
+					push([
+						"trackEvent",
+						"hochwasser-check",
+						"start",
+						"HochwasserCheck Berlin starten",
+					]);
 					router.push("/hochwasser-check");
 				}
 			} else {
@@ -173,7 +177,6 @@ export default function AddressSearch() {
 										onClick={() => {
 											handleChange({
 												target: { name: "addresse", value: address },
-												// eslint-disable-next-line @typescript-eslint/no-explicit-any
 											} as any);
 										}}
 									>

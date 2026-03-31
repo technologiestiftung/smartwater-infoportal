@@ -108,11 +108,14 @@ export function wrapChunksToLines(
 	return lines;
 }
 
-export const getToday = (): string => {
+export const getToday = (reverse = false): string => {
 	const today = new Date();
 	const day = String(today.getDate()).padStart(2, "0");
 	const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
 	const year = today.getFullYear();
+	if (reverse) {
+		return `${year}-${month}-${day}`;
+	}
 	return `${day}.${month}.${year}`;
 };
 
@@ -268,4 +271,16 @@ export const getScreenshotForScenario = async (
 	const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
 	const blob = await fetch(dataUrl).then((r) => r.blob());
 	return { key, blob };
+};
+
+// Old Calc Approach Jakob
+export const translateWMSValue = (
+	value: string | number | null | undefined,
+	helper: string = "bis zu ",
+	unit: string = "cm",
+): string => {
+	if (!value) {
+		return "Keine Daten";
+	}
+	return `${helper}${value}${unit}`;
 };

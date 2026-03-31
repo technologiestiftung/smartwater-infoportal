@@ -1,11 +1,11 @@
 "use client";
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
+import useStore from "@/store/defaultStore";
 import { Button, Image } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
-import useStore from "@/store/defaultStore";
 import { ScenarioList } from "@/types/map";
 import ScenarioMap from "@/components/ScenarioMap/Map";
 import { screenshotScenarioWithMapfish } from "@/components/Report/mapfish/screenshotScenarioWithMapfish";
@@ -36,10 +36,11 @@ export default function Home() {
 						))}
 					</div>
 					<Button
-						onClick={async() => {
+						onClick={async () => {
 							console.log("Test Mapfish Screenshot");
 							try {
-								const resScreenshot = await screenshotScenarioWithMapfish("FLOOD_ZONE")
+								const resScreenshot =
+									await screenshotScenarioWithMapfish("FLOOD_ZONE");
 								console.log("Mapfish screenshot response:", resScreenshot);
 							} catch (error) {
 								console.error("Error during Mapfish screenshot:", error);
@@ -88,7 +89,22 @@ export default function Home() {
 			/>
 			<section className="flex flex-col gap-6">
 				<h2 className="">{t("amIAffected.title")}</h2>
-				<p className="">{t("amIAffected.description")}</p>
+				<div>
+					<p className="">
+						{t.rich("amIAffected.description1", {
+							strong: (chunks) => (
+								<strong className="font-bold">{chunks}</strong>
+							),
+						})}
+					</p>
+					<p className="">
+						{t.rich("amIAffected.description2", {
+							strong: (chunks) => (
+								<strong className="font-bold">{chunks}</strong>
+							),
+						})}
+					</p>
+				</div>
 				<p className="">{t("amIAffected.cta")}</p>
 				<AddressSearch />
 			</section>
@@ -146,7 +162,12 @@ export default function Home() {
 							<Warning />
 						</div>
 					}
-					slotC={<div className="">{t.rich("floodRadar.description")}</div>}
+					slotC={
+						<div className="flex flex-col gap-6">
+							<p>{t.rich("floodRadar.description")}</p>
+							<p>{t.rich("floodRadar.description1")}</p>
+						</div>
+					}
 				/>
 			</section>
 			<div className="divider" />
@@ -159,7 +180,6 @@ export default function Home() {
 						<div className="flex w-full flex-col gap-6">
 							<h2 className="">{t("backgroundInfo.title")}</h2>
 							<p className="">{t("backgroundInfo.questions")}</p>
-							<p className="">{t("backgroundInfo.answer")}</p>
 						</div>
 					}
 					slotB={

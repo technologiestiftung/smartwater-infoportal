@@ -3,11 +3,12 @@
 		"pageTitle": "Über das Hochwasser-Infoportal",
 		"whatIsIt": {
 			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
-			"description2": "Unser Hochwasser-Infoportal bietet Ihnen einen individuellen HochwasserCheck Berlin, Handlungsempfehlungen und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
+			"description2": "Unser Hochwasser-Infoportal bietet Handlungsempfehlungen und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
 		},
 		"amIAffected": {
 			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck Berlin",
-			"description": "Der HochwasserCheck Berlin gibt Ihnen, basierend auf verschiedenen Karteninformationen und einem Fragebogen mit 6 Fragen, eine Gefährdungs- und Risikoeinschätzung an Ihrer persönlichen Adresse, sowie individuelle Handlungsempfehlungen zur Minimierung des Risikos. Die Ergebnisse können Sie als Bericht (PDF) herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den HochwasserCheck Berlin!",
+			"description1": "Mit dem <strong>HochwasserCheck Berlin</strong> erhalten Sie eine Gefährdungs- und Risikoeinschätzung für Ihre persönliche Adresse – basierend auf präzisen Karteninformationen und einem einfachen Fragebogen mit nur 6 Fragen. Sie erhalten klare, individuelle Handlungsempfehlungen, die Ihnen helfen, Ihr Risiko effektiv zu minimieren.",
+			"description2": "Ihre Ergebnisse können Sie bequem als PDF-Bericht herunterladen. Geben Sie jetzt Ihre Adresse ein und starten Sie den <strong>HochwasserCheck Berlin</strong> – für mehr Sicherheit in Ihrem Zuhause!",
 			"cta": ""
 		},
 		"addressCheck": {
@@ -31,39 +32,40 @@
 		},
 		"howToProtect": {
 			"title": "Wie kann ich mich und mein Gebäude schützen?",
-			"ownerInfo": "Jede:r Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen. So können Sie als Eigentümer:in Ihre Gebäude z.B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen.",
+			"ownerInfo": "Jede und jeder Einzelne kann mit überschaubaren Mitteln zu einer Vermeidung von Schäden durch Hochwasser beitragen.",
 			"titleImage": {
-				"alt": "Illustration eines Wassertanks auf einem Dach als Sinnbild für das Smart-Water-Umsetzungsprojekt der Digitalstrategie des Landes Berlin.“",
+				"alt": "Eine Grafik zeigt ikonografisch ein Wimmelbild von einer Straße mit Menschen, Autos und Farrädern. Man sieht, dass Straßen bei Starkregen überflutet werden.“",
 				"caption": "Sinnbild für das Smart Water Umsetzungsprojekt der Digitalstrategie des Landes Berlins",
-				"copyright": "© Senatskanzlei Berlin"
+				"copyright": "Bild: Kompetenzzentrum Wasser Berlin"
 			},
-			"tenantInfo": "Auch als Mieter:in können Sie Schäden durch einfache Maßnahmen wie eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
+			"tenantInfo": "Eigentümerinnen und Eigentümer können ihre Gebäude z. B. durch bauliche Maßnahmen wie die Installation von Rückstauklappen schützen. Mieterinnen und Mieter können Schäden z. B. durch eine Notfallplanung oder die Lagerung von Wertgegenständen an höhergelegenen Orten vorbeugen. Für alle gilt: Im Ereignisfall helfen klare Verhaltensregeln, Schlimmeres zu vermeiden.",
 			"recommendations": {
 				"info": "Detaillierte Informationen und weiterführende Tipps finden Sie in unserer Übersicht der Handlungsempfehlungen",
 				"button": "Übersicht Handlungsempfehlungen"
 			},
 			"image_A1": {
 				"alt": "Eine überflutete Garageneinfahrt. Das Wasser ist in die Garage geflossen.",
-				"caption": "Für viele Bereiche Berlins wie bspw.für Tiefgaragen besteht Gefahr bei Hochwasser. Informieren Sie sich über die Handlungsempfehlungen und schütze Sie sich selbst und Ihr Gebäude.",
-				"copyright": "© Berliner Feuerwehr"
+				"caption": "Für viele Bereiche Berlins wie bspw. für Tiefgaragen besteht Gefahr bei Hochwasser. Informieren Sie sich über die Handlungsempfehlungen und schützen Sie sich selbst und Ihr Gebäude.",
+				"copyright": "Bild: Berliner Feuerwehr"
 			},
 			"image_A2": {
 				"alt": "Ein Feuerwehrmann steht auf einer überfluteten Straße.",
 				"caption": "Hochwasser erfordert schnelles Handeln. Hintergrundwissen kann dabei unterstützen.",
-				"copyright": "© Berliner Feuerwehr"
+				"copyright": "Bild: Berliner Feuerwehr"
 			}
 		},
 		"floodRadar": {
-			"title": "Hochwasser-Radar: Bleiben Sie informiert!",
+			"title": "Bleiben Sie informiert: Nutzen Sie eine WarnApp!",
 			"currentStatus": {
 				"noWarnings": "Derzeit liegen keine Warnungen vor."
 			},
-			"description": "Unser Hochwasser-Radar zeigt Ihnen die aktuellen Warnungen und berücksichtigt dabei die Wetterwarnungen des Deutschen Wetterdienstes, die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird der Infokasten und das Icon rot angezeigt."
+			"description": "Das Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK) stellt mit NINA eine kostenfreie WarnApp zur Verfügung, die Sie benachrichtigt, sollten Warnungen für Ihren Standort vorliegen.",
+			"description1": " Ob aktuell eine Hochwasserwarnung vorliegt, sehen Sie in dem Kasten rechts. Die Anzeige berücksichtigt dabei die Wetterwarnungen des Deutschen Wetterdienstes, die Hochwassersituation der Berliner Oberflächengewässer und die Hochwasserwarnungen des Landes Brandenburg. Sollte eine Warnung vorliegen, wird der Infokasten und das Icon rot angezeigt."
 		},
 		"backgroundInfo": {
 			"title": "Hintergrundinformation zum Thema Hochwasser",
-			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko durch Hochwasser entstehen können? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
-			"answer": "Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"questions": "Was ist Hochwasser und wie entsteht es? Und was ist eigentlich der Unterschied zwischen der Gefahr und dem Risiko? Antworten auf diese und weitere Fragen finden Sie in den Hintergrundinformationen.",
+			"answer": "",
 			"button": "Hintergrundinformationen"
 		}
 	}
