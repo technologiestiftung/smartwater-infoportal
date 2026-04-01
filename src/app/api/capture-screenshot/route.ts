@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 		const isProd = process.env.NODE_ENV !== "development";
 
 		const viewportWidth = 1140;
-		const viewportHeight = 9000;
+		const viewportHeight = 700;
 
 		if (isProd) {
 			const puppeteer = (await import("puppeteer-core")).default;
@@ -105,9 +105,29 @@ export async function POST(req: Request) {
 			timeout: 20_000,
 		});
 
+		const totalHeight = await page.evaluate(() => {
+			const body = document.body;
+			const html = document.documentElement;
+
+			return Math.max(
+				body.scrollHeight,
+				body.offsetHeight,
+				html.clientHeight,
+				html.scrollHeight,
+				html.offsetHeight,
+			);
+		});
+
+		await page.setViewport({
+			width: viewportWidth,
+			height: totalHeight,
+		});
+
+		await sleep(100);
+
 		const fullBuffer = (await page.screenshot({
 			type: "png",
-			fullPage: true,
+			fullPage: false,
 		})) as Buffer;
 
 		const meta = await sharp(fullBuffer).metadata();
