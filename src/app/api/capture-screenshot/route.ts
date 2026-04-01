@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 	let browser: any = null;
 
 	try {
+		const body = (await req.json()) as Body;
 		const {
 			url,
 			buildingGeometry,
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
 			floodRiskAnswersDown,
 			hazardEntitiesDown,
 			scenarios,
-		} = (await req.json()) as Body;
+		} = body;
 
 		if (!url) {
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
@@ -84,20 +85,10 @@ export async function POST(req: Request) {
 
 		const page = await browser.newPage();
 
-		await page.evaluateOnNewDocument(
-			(payload: any) => {
-				// @ts-expect-error
-				window.__SCREENSHOT_INPUT__ = payload;
-			},
-			{
-				buildingGeometry,
-				outlineBufferGeometry,
-				floodRiskResultDown,
-				floodRiskAnswersDown,
-				hazardEntitiesDown,
-				scenarios,
-			},
-		);
+		await page.evaluateOnNewDocument((payload: any) => {
+			// @ts-expect-error
+			window.__SCREENSHOT_INPUT__ = payload;
+		}, body);
 
 		await page.goto(url, { waitUntil: "networkidle2" });
 
@@ -122,8 +113,6 @@ export async function POST(req: Request) {
 			width: viewportWidth,
 			height: totalHeight,
 		});
-
-		await sleep(100);
 
 		const fullBuffer = (await page.screenshot({
 			type: "png",
