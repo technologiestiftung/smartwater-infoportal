@@ -15,8 +15,8 @@ import {
 	translateHazardLevels,
 	getToday,
 	translateHazardTags,
-	getScreenshotForScenario,
 	translateWMSValue,
+	getScreenshots,
 } from "../utils";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
@@ -43,10 +43,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [pdfOpenFailed, setPdfOpenFailed] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 	const [done, setDone] = useState<string[]>([]);
-	const [numberOfPDFImagesToFetch, setNumberOfPDFImagesToFetch] =
-		useState<number>(0);
-	const [numberOfFetchedPDFImages, setNumberOfFetchedPDFImages] =
-		useState<number>(0);
 	const isDev = process.env.NODE_ENV === "development";
 	const isMobile = useMobile();
 
@@ -58,7 +54,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		},
 		{
 			id: "images",
-			loading: "Warten auf Bilder...",
+			text: "Alle Bilder erstellt",
+			loading: "Bilder werden erstellt...",
 		},
 		{
 			id: "pdf",
@@ -271,24 +268,20 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 		setDone((prev) => [...prev, "wms"]);
 
-		const scenarios: string[] = [
-			"SR",
-			"HW",
-			"heavyRainWidget",
-			"fluvialFloodWidget",
-		];
+		const widgets = ["heavyRainWidget", "fluvialFloodWidget"];
+
+		const scenarios: string[] = ["SR", "HW"];
 
 		if (!skip) {
-			scenarios.push("risk-block");
+			widgets.push("risk-block");
 		}
 
 		if (
 			!!locationData?.building?.floodZoneIndex &&
-			locationData?.building?.floodZoneIndex > 0
+			locationData?.building?.floodZoneIndex > 0 &&
+			!errorFloodZone
 		) {
-			if (!errorFloodZone) {
-				scenarios.push("FLOOD_ZONE");
-			}
+			scenarios.push("FLOOD_ZONE");
 		}
 		if (!!hasHeavyRainHazardMap) {
 			if (!errorRareHeavyRain) {
@@ -319,25 +312,50 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
 
-		console.log("scenarios :>> ", scenarios);
-
-		setNumberOfPDFImagesToFetch(scenarios.length);
-
 		try {
-			for (const scenario of scenarios) {
-				const { key, blob } = await getScreenshotForScenario(
-					scenario,
-					locationData,
-					hazardEntities,
-					floodRiskResult,
-					floodRiskAnswers,
-				);
-				setNumberOfFetchedPDFImages((prev) => prev + 1);
-				addToPDFKeys[`#${key}`] = blob;
+			const screenshots = await getScreenshots(
+				locationData,
+				floodRiskResult,
+				floodRiskAnswers,
+				hazardEntities,
+				scenarios,
+			);
+			console.log("screenshots :>> ", screenshots);
+			for (const screenshot of screenshots) {
+				addToPDFKeys[`#${screenshot.key}`] = screenshot.blob;
 			}
 		} catch (captureError) {
 			return setError("Error capturing screenshots: " + captureError);
 		}
+
+		/* try {
+			for (const screenshot of screenshots) {
+				addToPDFKeys[`#${screenshot.key}`] = screenshot.blob;
+			}
+		} catch (captureError) {
+			return setError(
+				"Error capturing screenshots: " + captureError,
+			);
+		} */
+
+		/* const entireScenarioScreenshot =
+			await getScreenshotForScenario(locationData);
+
+		
+
+		const getWidgetScreenshot = await getScreenshotForWidgets(
+			hazardEntities,
+			floodRiskResult,
+			floodRiskAnswers,
+		);
+
+		try {
+			for (const [index, widget] of widgetsToFetch.entries()) {
+				addToPDFKeys[`#${widget}`] = getWidgetScreenshot[index];
+			}
+		} catch (captureError) {
+			return setError("Error capturing widget screenshots: " + captureError);
+		} */
 
 		setDone((prev) => [...prev, "images"]);
 
@@ -510,13 +528,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 															)}
 														/>
 														<span className={cn(isDone && "font-bold")}>
-															{check.id !== "images"
-																? isDone
-																	? check.text
-																	: check.loading
-																: numberOfPDFImagesToFetch === 0
-																	? check.loading
-																	: `${numberOfFetchedPDFImages} von ${numberOfPDFImagesToFetch} Bildern erstellt`}
+															{isDone ? check.text : check.loading}
 														</span>
 													</div>
 												);

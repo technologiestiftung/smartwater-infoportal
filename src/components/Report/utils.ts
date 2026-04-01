@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
 import type { Geometry } from "geojson";
-import { getScenarioDomId } from "@/lib/utils/mapUtils";
-import { Scenario } from "@/types/map";
 import { HazardEntity } from "@/utils/storeUtils";
 import jsPDF from "jspdf";
 
@@ -203,19 +201,28 @@ export const translateHazardTags = (
 	return "/Grey.png";
 };
 
-export const getScreenshotForScenario = async (
-	scenario: string,
-	locationData?: LocationData | null,
-	hazardEntities?: HazardEntity[] | null,
-	floodRiskResult?: FloodRiskResult | null,
-	floodRiskAnswers?: FloodRiskAnswers | null,
-): Promise<{
-	key: string;
-	blob: Blob;
-}> => {
-	let path = "";
-	let key: string = "";
+function dataUrlToBlob(dataUrl: string): Blob {
+	const [meta, base64] = dataUrl.split(",");
+	const mime = meta.match(/data:(.*?);base64/)?.[1] ?? "image/jpeg";
 
+	const byteString = atob(base64);
+	const bytes = new Uint8Array(byteString.length);
+
+	for (let i = 0; i < byteString.length; i++) {
+		bytes[i] = byteString.charCodeAt(i);
+	}
+
+	return new Blob([bytes], { type: mime });
+}
+
+export const getScreenshots = async (
+	locationData: LocationData | null,
+	floodRiskResult: FloodRiskResult | null,
+	floodRiskAnswers: FloodRiskAnswers | null,
+	hazardEntities: HazardEntity[] | null,
+	scenarios: string[],
+): Promise<{ key: string; blob: Blob }[]> => {
+	// define body
 	const body: {
 		url: string;
 		buildingGeometry?: Geometry;
@@ -223,54 +230,37 @@ export const getScreenshotForScenario = async (
 		floodRiskResultDown?: FloodRiskResult | null;
 		floodRiskAnswersDown?: FloodRiskAnswers | null;
 		hazardEntitiesDown?: HazardEntity[] | null;
-	} = { url: "" };
+		scenarios?: string[];
+	} = { url: `${window.location.origin}/capture-screenshot` };
 
-	if (scenario === "risk-block") {
-		key = "risk-block";
-		path = `/riskblock-screenshot`;
-		body.floodRiskResultDown = floodRiskResult;
-		body.floodRiskAnswersDown = floodRiskAnswers;
-		body.hazardEntitiesDown = hazardEntities;
-	} else if (scenario === "heavyRainWidget") {
-		key = "heavyRainWidget";
-		const heavyRain = hazardEntities?.filter(
-			(entity) => entity.name === "heavyRain",
-		)[0];
-		if (heavyRain) {
-			path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
-		}
-	} else if (scenario === "fluvialFloodWidget") {
-		key = "fluvialFloodWidget";
-		const fluvialFlood = hazardEntities?.filter(
-			(entity) => entity.name === "fluvialFlood",
-		)[0];
-		if (fluvialFlood) {
-			path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
-		}
-	} else {
-		key = getScenarioDomId(scenario as Scenario);
-		path = `/scenario-map?scenario=${scenario}`;
-		body.buildingGeometry = locationData?.building?.geometry;
-		body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
-	}
-	body.url = `${window.location.origin}${path}`;
-	const res = await fetch("/api/screenshot", {
+	// fill body
+	body.buildingGeometry = locationData?.building?.geometry;
+	body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
+	body.floodRiskResultDown = floodRiskResult;
+	body.floodRiskAnswersDown = floodRiskAnswers;
+	body.hazardEntitiesDown = hazardEntities;
+	body.scenarios = scenarios;
+
+	// request api route
+	const res = await fetch("/api/capture-screenshot", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(body),
 	});
 
+	// handle response
 	const text = await res.text();
 
 	if (!res.ok) {
 		throw new Error(`Screenshot API failed (${res.status}): ${text}`);
 	}
 
+	// return data
 	const data = JSON.parse(text);
-	const { imageBase64 } = data;
-	const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-	const blob = await fetch(dataUrl).then((r) => r.blob());
-	return { key, blob };
+	return data.map((item: { key: string | null; dataUrl: string }) => ({
+		key: item.key,
+		blob: dataUrlToBlob(item.dataUrl),
+	}));
 };
 
 // Old Calc Approach Jakob
