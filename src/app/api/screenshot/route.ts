@@ -22,14 +22,10 @@ export async function POST(req: Request) {
 	let browser: any = null;
 
 	try {
-		const {
-			url,
-			buildingGeometry,
-			outlineBufferGeometry,
-			floodRiskResultDown,
-			floodRiskAnswersDown,
-			hazardEntitiesDown,
-		} = (await req.json()) as Body;
+		const body = (await req.json()) as Body;
+
+		const { url } = body;
+
 		if (!url)
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
 
@@ -76,45 +72,26 @@ export async function POST(req: Request) {
 
 		const page = await browser.newPage();
 
-		if (buildingGeometry && outlineBufferGeometry) {
-			await page.evaluateOnNewDocument(
-				(payload: any) => {
-					// @ts-expect-error
-					window.__SCENARIO_INPUT__ = payload;
-				},
-				{
-					buildingGeometry,
-					outlineBufferGeometry,
-				},
-			);
-		}
+		await page.evaluateOnNewDocument((payload: any) => {
+			// @ts-expect-error
+			window.__SCREENSHOT_INPUT__ = payload;
+		}, body);
 
-		if (floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown) {
-			await page.evaluateOnNewDocument(
-				(payload: any) => {
-					// @ts-expect-error
-					window.__RISKBLOCK_INPUT__ = payload;
-				},
-				{
-					floodRiskResultDown,
-					floodRiskAnswersDown,
-					hazardEntitiesDown,
-				},
-			);
-		}
+		// await page.goto(url, { waitUntil: "networkidle2" });
 
-		await page.goto(url, { waitUntil: "networkidle2" });
+		// await page.goto(url, {
+		// 	waitUntil: "load",
+		// 	timeout: 60000,
+		// });
 
-		if (
-			(buildingGeometry && outlineBufferGeometry) ||
-			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
-		) {
-			await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
-				timeout: 20_000,
-			});
-		} else {
-			await sleep(300);
-		}
+		await page.goto(url, {
+			waitUntil: "domcontentloaded",
+			timeout: 60000,
+		});
+
+		await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
+			timeout: 20_000,
+		});
 
 		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
 

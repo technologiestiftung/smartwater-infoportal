@@ -26,17 +26,12 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 	const map = scenarioMap[scenario] ?? null;
 
 	useEffect(() => {
-		(window as any).__SCREENSHOT_READY__ = false;
-	}, [scenario]);
-	useEffect(() => {
 		if (!map) {
 			return;
 		}
 
 		const markReady = () => {
-			setTimeout(() => {
-				(window as any).__SCREENSHOT_READY__ = true;
-			}, 3000);
+			(window as any).__SCREENSHOT_READY__ = true;
 		};
 
 		map.once("rendercomplete", markReady);

@@ -223,6 +223,7 @@ export const getScreenshotForScenario = async (
 		floodRiskResultDown?: FloodRiskResult | null;
 		floodRiskAnswersDown?: FloodRiskAnswers | null;
 		hazardEntitiesDown?: HazardEntity[] | null;
+		hazardEntity?: HazardEntity | null;
 	} = { url: "" };
 
 	if (scenario === "risk-block") {
@@ -237,7 +238,9 @@ export const getScreenshotForScenario = async (
 			(entity) => entity.name === "heavyRain",
 		)[0];
 		if (heavyRain) {
-			path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
+			path = "/widget-screenshot";
+			body.hazardEntity = heavyRain;
+			// path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
 		}
 	} else if (scenario === "fluvialFloodWidget") {
 		key = "fluvialFloodWidget";
@@ -245,7 +248,9 @@ export const getScreenshotForScenario = async (
 			(entity) => entity.name === "fluvialFlood",
 		)[0];
 		if (fluvialFlood) {
-			path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
+			path = "/widget-screenshot";
+			body.hazardEntity = fluvialFlood;
+			// path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
 		}
 	} else {
 		key = getScenarioDomId(scenario as Scenario);

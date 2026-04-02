@@ -323,6 +323,7 @@ export class GeoServerClient {
 
 	async getBuildingWMS(building: Building): Promise<BuildingWMS> {
 		try {
+			const isDev = process.env.NODE_ENV === "development";
 			let maxPointCounter: number = 0;
 			const { transformedX, transformedY, geometry, outlineBufferGeometry } =
 				building;
@@ -331,7 +332,8 @@ export class GeoServerClient {
 				!geometry ||
 				!outlineBufferGeometry ||
 				!transformedX ||
-				!transformedY
+				!transformedY ||
+				isDev
 			) {
 				return notFoundWMS;
 			}
