@@ -69,13 +69,6 @@ export async function POST(req: Request) {
 			window.__SCREENSHOT_INPUT__ = payload;
 		}, body);
 
-		// await page.goto(url, { waitUntil: "networkidle2" });
-
-		// await page.goto(url, {
-		// 	waitUntil: "load",
-		// 	timeout: 60000,
-		// });
-
 		await page.goto(url, {
 			waitUntil: "domcontentloaded",
 			timeout: 60000,
