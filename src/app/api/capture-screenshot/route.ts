@@ -30,26 +30,35 @@ export async function POST(req: Request) {
 
 	try {
 		const body = (await req.json()) as Body;
-		const {
-			url,
-			buildingGeometry,
-			outlineBufferGeometry,
-			floodRiskResultDown,
-			floodRiskAnswersDown,
-			hazardEntitiesDown,
-			scenarios,
-		} = body;
+		const { url, floodRiskResultDown, scenarios } = body;
 
 		if (!url) {
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
 		}
 
 		const isProd = process.env.NODE_ENV !== "development";
+		const localProd = false;
 
 		const viewportWidth = 1140;
 		const viewportHeight = 700;
 
-		if (isProd) {
+		if (localProd) {
+			const puppeteer = (await import("puppeteer-core")).default;
+
+			const executablePath =
+				process.env.PUPPETEER_EXECUTABLE_PATH ||
+				"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+			browser = await puppeteer.launch({
+				executablePath,
+				headless: true,
+				args: ["--no-sandbox", "--disable-setuid-sandbox"],
+				defaultViewport: {
+					width: viewportWidth,
+					height: viewportHeight,
+				},
+			});
+		} else if (isProd) {
 			const puppeteer = (await import("puppeteer-core")).default;
 			const chromium = (await import("@sparticuz/chromium")).default;
 
@@ -62,6 +71,7 @@ export async function POST(req: Request) {
 					height: viewportHeight,
 				},
 			});
+			console.log("browser launched 🚀🚀🚀");
 		} else {
 			const puppeteer = (await import("puppeteer")).default;
 			browser = await puppeteer.launch({
@@ -83,18 +93,24 @@ export async function POST(req: Request) {
 			} catch {}
 		});
 
+		console.log("after browser");
+
 		const page = await browser.newPage();
+		console.log("new Page created");
 
 		await page.evaluateOnNewDocument((payload: any) => {
 			// @ts-expect-error
 			window.__SCREENSHOT_INPUT__ = payload;
 		}, body);
 
+		console.log("evaluated new doc");
 		await page.goto(url, { waitUntil: "networkidle2" });
 
+		console.log("went to page");
 		await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
 			timeout: 20_000,
 		});
+		console.log("function fired");
 
 		const totalHeight = await page.evaluate(() => {
 			const body = document.body;
@@ -109,18 +125,23 @@ export async function POST(req: Request) {
 			);
 		});
 
+		console.log("got totalHeight");
+
 		await page.setViewport({
 			width: viewportWidth,
 			height: totalHeight,
 		});
+		console.log("viewport set");
 
 		const fullBuffer = (await page.screenshot({
 			type: "png",
 			fullPage: false,
 		})) as Buffer;
+		console.log("screenshot done ✅");
 
 		const meta = await sharp(fullBuffer).metadata();
 
+		console.log("meta data");
 		if (!meta.width || !meta.height) {
 			return NextResponse.json(
 				{ error: "Could not determine screenshot dimensions" },

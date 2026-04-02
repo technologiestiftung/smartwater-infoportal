@@ -16,8 +16,6 @@ export default function WidgetsClient() {
 		const p = window.__SCREENSHOT_INPUT__ ?? null;
 		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setPayload(p);
-		// @ts-expect-error puppeteer readiness flag set dynamically
-		window.__SCREENSHOT_READY__ = Boolean(p);
 	}, []);
 
 	if (!payload) return <div className="p-8">Missing payload</div>;
