@@ -54,6 +54,7 @@ export default function AddressSearch() {
 		"Majakowskiring 7",
 		"Grunewaldstraße 62",
 		"Brandensteinweg 7",
+		"Hainstraße 9",
 	];
 
 	const handleSubmit = () => {

@@ -37,28 +37,11 @@ export async function POST(req: Request) {
 		}
 
 		const isProd = process.env.NODE_ENV !== "development";
-		const localProd = false;
 
 		const viewportWidth = 1140;
 		const viewportHeight = 700;
 
-		if (localProd) {
-			const puppeteer = (await import("puppeteer-core")).default;
-
-			const executablePath =
-				process.env.PUPPETEER_EXECUTABLE_PATH ||
-				"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-
-			browser = await puppeteer.launch({
-				executablePath,
-				headless: true,
-				args: ["--no-sandbox", "--disable-setuid-sandbox"],
-				defaultViewport: {
-					width: viewportWidth,
-					height: viewportHeight,
-				},
-			});
-		} else if (isProd) {
+		if (isProd) {
 			const puppeteer = (await import("puppeteer-core")).default;
 			const chromium = (await import("@sparticuz/chromium")).default;
 
@@ -71,7 +54,6 @@ export async function POST(req: Request) {
 					height: viewportHeight,
 				},
 			});
-			console.log("browser launched 🚀🚀🚀");
 		} else {
 			const puppeteer = (await import("puppeteer")).default;
 			browser = await puppeteer.launch({
@@ -93,66 +75,21 @@ export async function POST(req: Request) {
 			} catch {}
 		});
 
-		console.log("after browser");
-
 		const page = await browser.newPage();
-		console.log("new Page created");
 
 		await page.evaluateOnNewDocument((payload: any) => {
 			// @ts-expect-error
 			window.__SCREENSHOT_INPUT__ = payload;
 		}, body);
 
-		console.log("evaluated new doc");
 		await page.goto(url, { waitUntil: "networkidle2" });
 
-		console.log("went to page");
 		await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
 			timeout: 20_000,
 		});
-		console.log("function fired");
-
-		const totalHeight = await page.evaluate(() => {
-			const body = document.body;
-			const html = document.documentElement;
-
-			return Math.max(
-				body.scrollHeight,
-				body.offsetHeight,
-				html.clientHeight,
-				html.scrollHeight,
-				html.offsetHeight,
-			);
-		});
-
-		console.log("got totalHeight");
-
-		await page.setViewport({
-			width: viewportWidth,
-			height: totalHeight,
-		});
-		console.log("viewport set");
-
-		const fullBuffer = (await page.screenshot({
-			type: "png",
-			fullPage: false,
-		})) as Buffer;
-		console.log("screenshot done ✅");
-
-		const meta = await sharp(fullBuffer).metadata();
-
-		console.log("meta data");
-		if (!meta.width || !meta.height) {
-			return NextResponse.json(
-				{ error: "Could not determine screenshot dimensions" },
-				{ status: 500 },
-			);
-		}
-
-		const fullWidth = meta.width;
-		const fullHeight = meta.height;
 
 		const images: { key: string | null; dataUrl: string }[] = [];
+
 		const sliceHeights = [300, 380, 500];
 
 		const getNumberOfScenarios = scenarios?.length ?? 0;
@@ -161,7 +98,6 @@ export async function POST(req: Request) {
 
 		for (let i = 0; i < counter; i++) {
 			let key: string | null = null;
-			let left = 0;
 			let top = 0;
 			let width = 1140;
 			let height = 700;
@@ -190,47 +126,20 @@ export async function POST(req: Request) {
 				width = 400;
 			}
 
-			// clamp to actual screenshot bounds
-			if (top >= fullHeight || left >= fullWidth) {
-				console.error("Extract start is outside image bounds", {
-					key,
-					left,
-					top,
+			const buffer = (await page.screenshot({
+				type: "jpeg",
+				quality: 100,
+				clip: {
+					x: 0,
+					y: top,
 					width,
 					height,
-					fullWidth,
-					fullHeight,
-				});
-				break;
-			}
-
-			width = Math.min(width, fullWidth - left);
-			height = Math.min(height, fullHeight - top);
-
-			if (width <= 0 || height <= 0) {
-				console.error("Invalid extract size", {
-					key,
-					left,
-					top,
-					width,
-					height,
-					fullWidth,
-					fullHeight,
-				});
-				break;
-			}
-
-			const extractParams = { left, top, width, height };
-			console.log("extractParams :>> ", extractParams);
-
-			const chunkBuffer = await sharp(fullBuffer)
-				.extract(extractParams)
-				.jpeg({ quality: 100 })
-				.toBuffer();
+				},
+			})) as Buffer;
 
 			images.push({
 				key,
-				dataUrl: `data:image/jpeg;base64,${chunkBuffer.toString("base64")}`,
+				dataUrl: `data:image/jpeg;base64,${buffer.toString("base64")}`,
 			});
 		}
 
