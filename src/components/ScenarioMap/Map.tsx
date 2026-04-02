@@ -33,7 +33,7 @@ const ScenarioMap = ({ scenario }: ScenarioMapProps) => {
 		const markReady = () => {
 			setTimeout(() => {
 				(window as any).__SCREENSHOT_READY__ = true;
-			}, 3000);
+			}, 1500);
 		};
 
 		map.once("rendercomplete", markReady);
