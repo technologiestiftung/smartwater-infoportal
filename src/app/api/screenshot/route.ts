@@ -1,18 +1,10 @@
 /* eslint-disable */
 
+import { ScreenshotRequestBody } from "@/types/map";
 import { after, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
-
-type Body = {
-	url: string;
-	buildingGeometry?: any; // GeoJSON geometry
-	outlineBufferGeometry?: any; // GeoJSON geometry
-	floodRiskResultDown?: any;
-	floodRiskAnswersDown?: any;
-	hazardEntitiesDown?: any;
-};
 
 function sleep(ms: number) {
 	return new Promise((r) => setTimeout(r, ms));
@@ -22,9 +14,9 @@ export async function POST(req: Request) {
 	let browser: any = null;
 
 	try {
-		const body = (await req.json()) as Body;
+		const body = (await req.json()) as ScreenshotRequestBody;
 
-		const { url } = body;
+		const { url, hazardEntity } = body;
 
 		if (!url)
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
@@ -38,7 +30,7 @@ export async function POST(req: Request) {
 			height = 700;
 		} else if (url.includes("risk")) {
 			height = 500;
-		} else if (url.includes("heavyRain")) {
+		} else if (hazardEntity && hazardEntity.name === "heavyRain") {
 			height = 300;
 		}
 
