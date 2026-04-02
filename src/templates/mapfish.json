@@ -103,12 +103,12 @@
 					}
 				},
 				{
-					"type": "wms",
-					"baseURL": "https://sgx.geodatenzentrum.de/wms_basemapde",
-					"layers": ["de_basemapde_web_raster_farbe"],
-					"version": "1.3.0",
-					"styles": ["default"],
-					"imageFormat": "image/png"
+					"type": "image",
+					"name": "basemap",
+					"baseURL": "",
+					"extent": [0, 0, 0, 0],
+					"imageFormat": "image/png",
+					"opacity": 1
 				}
 			]
 		}

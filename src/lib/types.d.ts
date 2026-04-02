@@ -89,3 +89,54 @@ export interface BuildingWMS {
 	errors?: string[];
 	isInExtremeRainHazardMap: boolean | null;
 }
+
+export type MapFishJobResponse = {
+	ref?: string;
+	statusURL?: string;
+	downloadURL?: string;
+};
+
+export type MapFishStatusResponse = {
+	done?: boolean;
+	status?: string;
+	error?: string;
+};
+
+export type MapfishImageLayerOverride = {
+	type: "image";
+	baseURL: string;
+	extent: [number, number, number, number];
+	imageFormat?: string;
+	opacity?: number;
+	name?: string;
+};
+
+export type MapfishOverrides = {
+	center?: [number, number];
+	scale?: number;
+	basemapImageLayer?: MapfishImageLayerOverride;
+};
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export type BasemapServiceConfig = {
+	id: string;
+	url: string;
+	vtStyles?: Array<{ url: string; defaultStyle?: boolean }>;
+};
+
+export type ImageLayerOverride = {
+	type: "image";
+	baseURL: string;
+	extent: [number, number, number, number];
+	opacity: number;
+	imageFormat: "image/png";
+	name: string;
+};
+
+export type PrintState = {
+	loading: boolean;
+	imageUrl: string | null;
+	basemapPreviewUrl: string | null;
+	error: string | null;
+};

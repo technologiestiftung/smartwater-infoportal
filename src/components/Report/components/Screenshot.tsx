@@ -3,6 +3,11 @@
 import Config from "@/config/config";
 import services from "@/config/services.json";
 import { getMapfishCenterAndScale } from "@/lib/geometry";
+import {
+	BasemapServiceConfig,
+	ImageLayerOverride,
+	PrintState,
+} from "@/lib/types";
 import { MVTEncoder } from "@geoblocks/print";
 import type { Geometry } from "geojson";
 import { applyStyle } from "ol-mapbox-style";
@@ -14,94 +19,62 @@ import type VectorTileSource from "ol/source/VectorTile";
 import proj4 from "proj4";
 import { useState } from "react";
 
-type BasemapServiceConfig = {
-	id: string;
-	url: string;
-	vtStyles?: Array<{
-		url: string;
-		defaultStyle?: boolean;
-	}>;
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+const PRINT_DPI = 300;
+const PAPER_WIDTH_MM = 297;
+const PAPER_HEIGHT_MM = 210;
+
+const TEST_GEOMETRY: Geometry = {
+	type: "MultiPolygon",
+	coordinates: [
+		[
+			[
+				[391937.56, 5826168.161],
+				[391949.627, 5826176.46],
+				[391960.389, 5826160.827],
+				[391948.302, 5826152.548],
+				[391937.56, 5826168.161],
+			],
+		],
+	],
 };
 
-type ImageLayerOverride = {
-	type: "image";
-	baseURL: string;
-	extent: [number, number, number, number];
-	opacity: number;
-	imageFormat: "image/png";
-	name: string;
-};
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function getBasemapConfig(): BasemapServiceConfig {
+function getBasemapStyleUrl(): string {
 	const basemap = (services as BasemapServiceConfig[]).find(
-		(service) => service.id === "basemap",
+		(s) => s.id === "basemap",
 	);
-
-	if (!basemap) {
-		throw new Error("Basemap Konfiguration nicht gefunden");
-	}
-
-	return basemap;
-}
-
-function getBasemapStyleUrl(basemap: BasemapServiceConfig): string {
 	const styleUrl =
-		basemap.vtStyles?.find((style) => style.defaultStyle)?.url ||
-		basemap.vtStyles?.[0]?.url;
+		basemap?.vtStyles?.find((s) => s.defaultStyle)?.url ??
+		basemap?.vtStyles?.[0]?.url;
 
-	if (!styleUrl) {
-		throw new Error("Basemap-Style nicht gefunden");
-	}
-
+	if (!styleUrl) throw new Error("Basemap-Style nicht gefunden");
 	return styleUrl;
 }
 
-function toAbsoluteStyleUrl(styleUrl: string): string {
-	if (/^https?:\/\//i.test(styleUrl)) {
-		return styleUrl;
-	}
-
-	if (typeof window === "undefined") {
-		return styleUrl;
-	}
-
-	return new URL(styleUrl, window.location.origin).toString();
+function toAbsoluteUrl(url: string): string {
+	return new URL(url, window.location.origin).toString();
 }
 
-function ensurePrintProjectionsRegistered() {
-	if (getProjection("EPSG:25833") && getProjection("EPSG:3857")) {
-		return;
-	}
-
-	for (const [name, def] of Config.namedProjections) {
-		proj4.defs(name, def);
-	}
-
+function ensureProjectionsRegistered() {
+	if (getProjection("EPSG:25833") && getProjection("EPSG:3857")) return;
+	for (const [name, def] of Config.namedProjections) proj4.defs(name, def);
 	register(proj4);
 }
 
-async function loadStyleJson(styleUrl: string) {
-	const styleResponse = await fetch(styleUrl);
-	if (!styleResponse.ok) {
-		throw new Error("Basemap-Style konnte nicht geladen werden");
-	}
+function buildPrintExtents(center25833: [number, number], scale: number) {
+	ensureProjectionsRegistered();
 
-	return (await styleResponse.json()) as {
-		sources?: Record<string, unknown>;
-	};
-}
-
-function computePrintExtents(center25833: [number, number], scale: number) {
-	ensurePrintProjectionsRegistered();
-
-	const mapWidthMeters = scale * (297 / 1000);
-	const mapHeightMeters = scale * (210 / 1000);
+	const halfW = (scale * PAPER_WIDTH_MM) / 1000 / 2;
+	const halfH = (scale * PAPER_HEIGHT_MM) / 1000 / 2;
 
 	const extent25833: [number, number, number, number] = [
-		center25833[0] - mapWidthMeters / 2,
-		center25833[1] - mapHeightMeters / 2,
-		center25833[0] + mapWidthMeters / 2,
-		center25833[1] + mapHeightMeters / 2,
+		center25833[0] - halfW,
+		center25833[1] - halfH,
+		center25833[0] + halfW,
+		center25833[1] + halfH,
 	];
 
 	const extent3857 = transformExtent(
@@ -110,38 +83,75 @@ function computePrintExtents(center25833: [number, number], scale: number) {
 		"EPSG:3857",
 	) as [number, number, number, number];
 
-	return { extent25833, extent3857 };
+	const canvasSize: [number, number] = [
+		Math.round((PAPER_WIDTH_MM / 25.4) * PRINT_DPI),
+		Math.round((PAPER_HEIGHT_MM / 25.4) * PRINT_DPI),
+	];
+
+	return { extent25833, extent3857, canvasSize };
 }
 
-function buildMvtLayer() {
-	return new VectorTileLayer({
-		declutter: true,
+async function waitForSource(source: VectorTileSource): Promise<void> {
+	const state = source.getState();
+	if (state === "ready") return;
+	if (state === "error")
+		throw new Error("VectorTile source ist in Fehlerzustand");
+
+	return new Promise((resolve, reject) => {
+		const timeout = window.setTimeout(
+			() => cleanup(reject, new Error("VectorTile source Timeout")),
+			10000,
+		);
+
+		const key = source.on("change", () => {
+			const s = source.getState();
+			if (s === "ready") cleanup(resolve);
+			else if (s === "error")
+				cleanup(reject, new Error("VectorTile source ist in Fehlerzustand"));
+		});
+
+		function cleanup(cb: (err?: Error) => void, err?: Error) {
+			window.clearTimeout(timeout);
+			unByKey(key);
+			err ? (cb as (e: Error) => void)(err) : (cb as () => void)();
+		}
+
+		// Re-check after attaching to avoid missing transition
+		const s = source.getState();
+		if (s === "ready") cleanup(resolve);
+		else if (s === "error")
+			cleanup(reject, new Error("VectorTile source ist in Fehlerzustand"));
 	});
 }
 
-async function encodeBasemapLayer(
-	layer: VectorTileLayer,
-	extent3857: [number, number, number, number],
-	canvasSize: [number, number],
-) {
+function fixLayerNameForGeoblocks(source: VectorTileSource) {
+	const fmt = (source as unknown as { format_?: { layerName_?: string } })
+		.format_;
+	if (fmt?.layerName_ === "mvt:layer") fmt.layerName_ = "layer";
+}
+
+async function buildBasemapImageLayer(
+	center25833: [number, number],
+	scale: number,
+): Promise<ImageLayerOverride> {
+	const styleUrl = toAbsoluteUrl(getBasemapStyleUrl());
+	const { extent25833, extent3857, canvasSize } = buildPrintExtents(
+		center25833,
+		scale,
+	);
+
+	const layer = new VectorTileLayer({ declutter: true });
+	await applyStyle(layer, styleUrl);
+
+	const source = layer.getSource() as VectorTileSource;
+	if (!source) throw new Error("Basemap-Quelle konnte nicht erzeugt werden");
+
+	await waitForSource(source);
+	fixLayerNameForGeoblocks(source);
+
 	const resolution = (extent3857[2] - extent3857[0]) / canvasSize[0];
-	console.log("encodeBasemapLayer - resolution:", resolution);
-	console.log("encodeBasemapLayer - extent3857:", extent3857);
-	console.log("encodeBasemapLayer - canvasSize:", canvasSize);
-	console.log("encodeBasemapLayer - layer opacity:", layer.getOpacity());
-
-	const source = layer.getSource();
-	console.log("encodeBasemapLayer - source state:", source?.getState());
-	console.log("encodeBasemapLayer - source tileGrid:", source?.getTileGrid());
-
-	const styleFunc = layer.getStyleFunction();
-	console.log("encodeBasemapLayer - styleFunction exists:", !!styleFunc);
-
 	MVTEncoder.useImmediateAPI = false;
-	const encoder = new MVTEncoder();
-
-	console.log("About to call encodeMVTLayer...");
-	const result = await encoder.encodeMVTLayer({
+	const result = await new MVTEncoder().encodeMVTLayer({
 		layer,
 		tileResolution: resolution,
 		styleResolution: resolution,
@@ -150,137 +160,9 @@ async function encodeBasemapLayer(
 		outputFormat: "image/png",
 	});
 
-	console.log("encodeMVTLayer result:", result);
-	console.log(
-		"encodeMVTLayer result length:",
-		Array.isArray(result) ? result.length : "not array",
-	);
-	if (Array.isArray(result) && result.length > 0) {
-		console.log("First result item keys:", Object.keys(result[0]));
-		console.log("First result item baseURL length:", result[0].baseURL?.length);
-	}
-
-	return result;
-}
-
-async function waitForVectorTileSourceReady(source: VectorTileSource) {
-	const state = source.getState();
-	if (state === "ready") {
-		return;
-	}
-	if (state === "error") {
-		throw new Error("VectorTile source ist in Fehlerzustand");
-	}
-
-	await new Promise<void>((resolve, reject) => {
-		const timeout = window.setTimeout(() => {
-			unByKey(listenerKey);
-			reject(new Error("VectorTile source wurde nicht rechtzeitig bereit"));
-		}, 10000);
-
-		const listenerKey = source.on("change", () => {
-			const currentState = source.getState();
-			if (currentState === "ready") {
-				window.clearTimeout(timeout);
-				unByKey(listenerKey);
-				resolve();
-			}
-			if (currentState === "error") {
-				window.clearTimeout(timeout);
-				unByKey(listenerKey);
-				reject(new Error("VectorTile source ist in Fehlerzustand"));
-			}
-		});
-
-		// Re-check after attaching the listener to avoid missing the transition
-		const stateAfterListen = source.getState();
-		if (stateAfterListen === "ready") {
-			window.clearTimeout(timeout);
-			unByKey(listenerKey);
-			resolve();
-		} else if (stateAfterListen === "error") {
-			window.clearTimeout(timeout);
-			unByKey(listenerKey);
-			reject(new Error("VectorTile source ist in Fehlerzustand"));
-		}
-	});
-}
-
-function alignLayerPropertyForGeoblocks(source: VectorTileSource) {
-	const privateFormatSource = source as unknown as {
-		format_?: { layerName_?: string };
-	};
-
-	// ol-mapbox-style uses "mvt:layer", geoblocks parses PBF with default "layer".
-	if (privateFormatSource.format_?.layerName_ === "mvt:layer") {
-		privateFormatSource.format_.layerName_ = "layer";
-	}
-}
-
-function getEncodedBaseUrl(result: Array<{ baseURL?: string }>) {
-	if (!Array.isArray(result) || result.length === 0 || !result[0]?.baseURL) {
+	const baseURL = (result as Array<{ baseURL?: string }>)[0]?.baseURL;
+	if (!baseURL)
 		throw new Error("Basemap Rendering mit MVTEncoder fehlgeschlagen");
-	}
-
-	return result[0].baseURL;
-}
-
-async function buildBasemapImageLayer(
-	center25833: [number, number],
-	scale: number,
-): Promise<ImageLayerOverride> {
-	const basemap = getBasemapConfig();
-	const styleUrl = toAbsoluteStyleUrl(getBasemapStyleUrl(basemap));
-
-	console.log("buildBasemapImageLayer - basemap config:", basemap);
-	console.log("buildBasemapImageLayer - styleUrl:", styleUrl);
-
-	// Keep extent math aligned with getMapfishCenterAndScale assumptions.
-	const { extent25833, extent3857 } = computePrintExtents(center25833, scale);
-	console.log("buildBasemapImageLayer - extent25833:", extent25833);
-	console.log("buildBasemapImageLayer - extent3857:", extent3857);
-
-	const dpi = 300;
-	const canvasWidth = Math.round((297 / 25.4) * dpi);
-	const canvasHeight = Math.round((210 / 25.4) * dpi);
-	const canvasSize: [number, number] = [canvasWidth, canvasHeight];
-	console.log("buildBasemapImageLayer - canvasSize:", canvasSize);
-
-	const layer = buildMvtLayer();
-	console.log("Layer created, about to apply style...");
-
-	const styleJson = await loadStyleJson(styleUrl);
-	console.log(
-		"Style JSON loaded, sources:",
-		Object.keys(styleJson.sources || {}),
-	);
-
-	await applyStyle(layer, styleUrl);
-	console.log("Style applied to layer");
-
-	if (!layer.getSource()) {
-		throw new Error("Basemap-Quelle konnte nicht aus dem Style erzeugt werden");
-	}
-
-	const source = layer.getSource() as VectorTileSource;
-	console.log("VectorTile source state before wait:", source.getState());
-	console.log("VectorTile source URL:", source.getUrls?.());
-	console.log(
-		"VectorTile source tileUrlFunction:",
-		!!source.getTileUrlFunction?.(),
-	);
-
-	await waitForVectorTileSourceReady(source);
-	console.log("VectorTile source state after wait:", source.getState());
-	console.log(
-		"VectorTile source projection:",
-		source.getProjection()?.getCode(),
-	);
-	alignLayerPropertyForGeoblocks(source);
-
-	const result = await encodeBasemapLayer(layer, extent3857, canvasSize);
-	const baseURL = getEncodedBaseUrl(result as Array<{ baseURL?: string }>);
-	console.log("Encoded baseURL created, length:", baseURL.length);
 
 	return {
 		type: "image",
@@ -292,69 +174,56 @@ async function buildBasemapImageLayer(
 	};
 }
 
+// ─── Component ────────────────────────────────────────────────────────────────
+
+const INITIAL_STATE: PrintState = {
+	loading: false,
+	imageUrl: null,
+	basemapPreviewUrl: null,
+	error: null,
+};
+
 export default function Screenshot() {
-	const [loading, setLoading] = useState(false);
-	const [imageUrl, setImageUrl] = useState<string | null>(null);
-	const [basemapPreviewUrl, setBasemapPreviewUrl] = useState<string | null>(
-		null,
-	);
-	const [error, setError] = useState<string | null>(null);
+	const [state, setState] = useState<PrintState>(INITIAL_STATE);
+
+	function patch(partial: Partial<PrintState>) {
+		setState((prev) => ({ ...prev, ...partial }));
+	}
 
 	async function handleGenerate() {
+		patch({ loading: true, error: null, basemapPreviewUrl: null });
+
 		try {
-			setLoading(true);
-			setError(null);
-			setBasemapPreviewUrl(null);
+			const { center, scale } = getMapfishCenterAndScale(TEST_GEOMETRY);
+			const basemapImageLayer = await buildBasemapImageLayer(center, scale);
 
-			const geometry: Geometry = {
-				type: "MultiPolygon",
-				coordinates: [
-					[
-						[
-							[391937.56, 5826168.161],
-							[391949.627, 5826176.46],
-							[391960.389, 5826160.827],
-							[391948.302, 5826152.548],
-							[391937.56, 5826168.161],
-						],
-					],
-				],
-			};
-
-			const testingValue = getMapfishCenterAndScale(geometry);
-			const basemapImageLayer = await buildBasemapImageLayer(
-				testingValue.center,
-				testingValue.scale,
-			);
-			setBasemapPreviewUrl(basemapImageLayer.baseURL);
-			console.log("basemapImageLayer :>> ", basemapImageLayer);
-
-			console.log("testingValue :>> ", testingValue);
+			patch({ basemapPreviewUrl: basemapImageLayer.baseURL });
 
 			const res = await fetch("/api/mapfish", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ ...testingValue, basemapImageLayer }),
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ center, scale, basemapImageLayer }),
 			});
 
 			if (!res.ok) {
 				const data = await res.json().catch(() => null);
 				throw new Error(
-					data?.error || "Screenshot konnte nicht erzeugt werden",
+					data?.error ?? "Screenshot konnte nicht erzeugt werden",
 				);
 			}
 
-			const blob = await res.blob();
-			const url = URL.createObjectURL(blob);
-			setImageUrl(url);
+			const url = URL.createObjectURL(await res.blob());
+			patch({ imageUrl: url });
 		} catch (err) {
-			setError(err instanceof Error ? err.message : "Unbekannter Fehler");
+			patch({
+				error: err instanceof Error ? err.message : "Unbekannter Fehler",
+			});
 		} finally {
-			setLoading(false);
+			patch({ loading: false });
 		}
 	}
+
+	const { loading, imageUrl, basemapPreviewUrl, error } = state;
 
 	return (
 		<div className="border p-6">

@@ -1,32 +1,10 @@
 import fs from "fs";
 import path from "path";
-
-type MapFishJobResponse = {
-	ref?: string;
-	statusURL?: string;
-	downloadURL?: string;
-};
-
-type MapFishStatusResponse = {
-	done?: boolean;
-	status?: string;
-	error?: string;
-};
-
-type MapfishImageLayerOverride = {
-	type: "image";
-	baseURL: string;
-	extent: [number, number, number, number];
-	imageFormat?: string;
-	opacity?: number;
-	name?: string;
-};
-
-type MapfishOverrides = {
-	center?: [number, number];
-	scale?: number;
-	basemapImageLayer?: MapfishImageLayerOverride;
-};
+import {
+	MapFishJobResponse,
+	MapfishOverrides,
+	MapFishStatusResponse,
+} from "./types";
 
 function sleep(ms: number) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -70,21 +48,15 @@ function applyBasemapImageOverride(
 	const layers = mapfishConfig.attributes.map.layers as Array<
 		Record<string, unknown>
 	>;
-	const basemapIndex = layers.findIndex((layer) => {
-		if ((layer.type as string)?.toLowerCase() !== "wms") {
-			return false;
-		}
-		const layerNames = Array.isArray(layer.layers)
-			? (layer.layers as unknown[])
-			: [];
-		return layerNames.includes("de_basemapde_web_raster_farbe");
-	});
+	const basemapIndex = layers.findIndex((layer) => layer.name === "basemap");
 
-	if (basemapIndex >= 0) {
-		layers[basemapIndex] = overrides.basemapImageLayer;
-	} else {
-		layers.push(overrides.basemapImageLayer);
+	if (basemapIndex < 0) {
+		throw new Error(
+			"Basemap-Platzhalter 'basemap' fehlt in src/templates/mapfish.json",
+		);
 	}
+
+	layers[basemapIndex] = overrides.basemapImageLayer;
 
 	console.log(
 		"MapFish basemapImageLayer override:",
