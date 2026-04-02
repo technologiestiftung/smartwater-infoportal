@@ -22,6 +22,7 @@
 		"@fortawesome/fontawesome-svg-core": "^7.0.0",
 		"@fortawesome/free-solid-svg-icons": "^7.0.0",
 		"@fortawesome/react-fontawesome": "^0.2.3",
+		"@geoblocks/print": "^0.7.9",
 		"@radix-ui/react-checkbox": "^1.3.2",
 		"@socialgouv/matomo-next": "^1.11.0",
 		"@sparticuz/chromium": "^143.0.4",
