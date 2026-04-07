@@ -94,33 +94,50 @@ function buildPrintExtents(center25833: [number, number], scale: number) {
 async function waitForSource(source: VectorTileSource): Promise<void> {
 	const state = source.getState();
 	if (state === "ready") return;
-	if (state === "error")
+	if (state === "error") {
 		throw new Error("VectorTile source ist in Fehlerzustand");
+	}
 
-	return new Promise((resolve, reject) => {
-		const timeout = window.setTimeout(
-			() => cleanup(reject, new Error("VectorTile source Timeout")),
-			10000,
-		);
+	return new Promise<void>((resolve, reject) => {
+		let finished = false;
+
+		const timeout = window.setTimeout(() => {
+			cleanupError(new Error("VectorTile source Timeout"));
+		}, 10000);
 
 		const key = source.on("change", () => {
 			const s = source.getState();
-			if (s === "ready") cleanup(resolve);
-			else if (s === "error")
-				cleanup(reject, new Error("VectorTile source ist in Fehlerzustand"));
+			if (s === "ready") {
+				cleanupSuccess();
+			} else if (s === "error") {
+				cleanupError(new Error("VectorTile source ist in Fehlerzustand"));
+			}
 		});
 
-		function cleanup(cb: (err?: Error) => void, err?: Error) {
+		function cleanupBase() {
+			if (finished) return;
+			finished = true;
 			window.clearTimeout(timeout);
 			unByKey(key);
-			err ? (cb as (e: Error) => void)(err) : (cb as () => void)();
+		}
+
+		function cleanupSuccess() {
+			cleanupBase();
+			resolve();
+		}
+
+		function cleanupError(err: Error) {
+			cleanupBase();
+			reject(err);
 		}
 
 		// Re-check after attaching to avoid missing transition
 		const s = source.getState();
-		if (s === "ready") cleanup(resolve);
-		else if (s === "error")
-			cleanup(reject, new Error("VectorTile source ist in Fehlerzustand"));
+		if (s === "ready") {
+			cleanupSuccess();
+		} else if (s === "error") {
+			cleanupError(new Error("VectorTile source ist in Fehlerzustand"));
+		}
 	});
 }
 
