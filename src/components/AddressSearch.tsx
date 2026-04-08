@@ -206,10 +206,6 @@ export default function AddressSearch() {
 																		),
 																		name: result.name,
 																	};
-																	console.log(
-																		"setLocationData ✅✅✅",
-																		makeBuilding,
-																	);
 																	setLocationData({
 																		found: true,
 																		building: makeBuilding,
