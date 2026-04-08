@@ -1,5 +1,8 @@
 import { Layer } from "ol/layer";
 import Map from "ol/Map";
+import type { Geometry } from "geojson";
+import { FloodRiskAnswers, FloodRiskResult } from "@/lib/types";
+import { HazardEntity } from "@/utils/storeUtils";
 
 export type LayerType = "WMS" | "WFS" | "WMTS" | "VectorTile";
 export type LayerStatus = "initial" | "loading" | "loaded" | "error";
@@ -192,3 +195,13 @@ export interface MapStoreState {
 	setLayerVisibility: (layerId: string, visible: boolean) => void;
 	setLayerOrder: (orderedIds: string[]) => void;
 }
+
+export type ScreenshotRequestBody = {
+	url: string;
+	buildingGeometry?: Geometry;
+	outlineBufferGeometry?: Geometry;
+	floodRiskResultDown?: FloodRiskResult | null;
+	floodRiskAnswersDown?: FloodRiskAnswers | null;
+	hazardEntitiesDown?: HazardEntity[] | null;
+	hazardEntity?: HazardEntity | null;
+};

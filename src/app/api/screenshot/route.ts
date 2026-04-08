@@ -1,18 +1,10 @@
 /* eslint-disable */
 
+import { ScreenshotRequestBody } from "@/types/map";
 import { after, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
-
-type Body = {
-	url: string;
-	buildingGeometry?: any; // GeoJSON geometry
-	outlineBufferGeometry?: any; // GeoJSON geometry
-	floodRiskResultDown?: any;
-	floodRiskAnswersDown?: any;
-	hazardEntitiesDown?: any;
-};
 
 function sleep(ms: number) {
 	return new Promise((r) => setTimeout(r, ms));
@@ -22,14 +14,10 @@ export async function POST(req: Request) {
 	let browser: any = null;
 
 	try {
-		const {
-			url,
-			buildingGeometry,
-			outlineBufferGeometry,
-			floodRiskResultDown,
-			floodRiskAnswersDown,
-			hazardEntitiesDown,
-		} = (await req.json()) as Body;
+		const body = (await req.json()) as ScreenshotRequestBody;
+
+		const { url, hazardEntity } = body;
+
 		if (!url)
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
 
@@ -42,7 +30,7 @@ export async function POST(req: Request) {
 			height = 700;
 		} else if (url.includes("risk")) {
 			height = 500;
-		} else if (url.includes("heavyRain")) {
+		} else if (hazardEntity && hazardEntity.name === "heavyRain") {
 			height = 300;
 		}
 
@@ -76,45 +64,19 @@ export async function POST(req: Request) {
 
 		const page = await browser.newPage();
 
-		if (buildingGeometry && outlineBufferGeometry) {
-			await page.evaluateOnNewDocument(
-				(payload: any) => {
-					// @ts-expect-error
-					window.__SCENARIO_INPUT__ = payload;
-				},
-				{
-					buildingGeometry,
-					outlineBufferGeometry,
-				},
-			);
-		}
+		await page.evaluateOnNewDocument((payload: any) => {
+			// @ts-expect-error
+			window.__SCREENSHOT_INPUT__ = payload;
+		}, body);
 
-		if (floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown) {
-			await page.evaluateOnNewDocument(
-				(payload: any) => {
-					// @ts-expect-error
-					window.__RISKBLOCK_INPUT__ = payload;
-				},
-				{
-					floodRiskResultDown,
-					floodRiskAnswersDown,
-					hazardEntitiesDown,
-				},
-			);
-		}
+		await page.goto(url, {
+			waitUntil: "domcontentloaded",
+			timeout: 60000,
+		});
 
-		await page.goto(url, { waitUntil: "networkidle2" });
-
-		if (
-			(buildingGeometry && outlineBufferGeometry) ||
-			(floodRiskResultDown && floodRiskAnswersDown && hazardEntitiesDown)
-		) {
-			await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
-				timeout: 20_000,
-			});
-		} else {
-			await sleep(300);
-		}
+		await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
+			timeout: 20_000,
+		});
 
 		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
 

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import ResultBlock from "@/components/ResultBlock";
 import { useEffect, useState } from "react";
-import RiskBlock from "@/components/RiskBlock";
 
-export default function RiskblockClient() {
+export default function WidgetClient() {
 	const [payload, setPayload] = useState<any>(null);
 
 	useEffect(() => {
@@ -17,19 +17,19 @@ export default function RiskblockClient() {
 		window.__SCREENSHOT_READY__ = Boolean(p);
 	}, []);
 
-	if (
-		!payload?.floodRiskResultDown ||
-		!payload?.floodRiskAnswersDown ||
-		!payload?.hazardEntitiesDown
-	) {
+	if (!payload?.hazardEntity) {
 		return <div className="p-8">Missing payload</div>;
 	}
 
 	return (
-		<RiskBlock
-			floodRiskResultDown={payload.floodRiskResultDown}
-			floodRiskAnswersDown={payload.floodRiskAnswersDown}
-			hazardEntitiesDown={payload.hazardEntitiesDown}
-		/>
+		<div className="w-100">
+			<ResultBlock
+				key={payload.hazardEntity.name}
+				entity={payload.hazardEntity.name}
+				hazardLevel={payload.hazardEntity.hazardLevel}
+				showSubLabel={payload.hazardEntity.showSubLabel || false}
+				subHazardLevel={payload.hazardEntity.subHazardLevel}
+			/>
+		</div>
 	);
 }

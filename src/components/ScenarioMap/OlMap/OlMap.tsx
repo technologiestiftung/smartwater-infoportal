@@ -42,7 +42,7 @@ const OlMap: FC<OlMapProps> = ({ children, scenario }) => {
 		const injected =
 			typeof window !== "undefined"
 				? // @ts-expect-error
-					(window.__SCENARIO_INPUT__ ?? null)
+					(window.__SCREENSHOT_INPUT__ ?? null)
 				: null;
 
 		const buildingGeometry = injected?.buildingGeometry;

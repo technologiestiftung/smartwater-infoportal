@@ -1,8 +1,7 @@
 /* eslint-disable complexity */
 import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
-import type { Geometry } from "geojson";
 import { getScenarioDomId } from "@/lib/utils/mapUtils";
-import { Scenario } from "@/types/map";
+import { Scenario, ScreenshotRequestBody } from "@/types/map";
 import { HazardEntity } from "@/utils/storeUtils";
 import jsPDF from "jspdf";
 
@@ -214,38 +213,22 @@ export const getScreenshotForScenario = async (
 	blob: Blob;
 }> => {
 	let path = "";
-	let key: string = "";
+	let key: string = scenario;
 
-	const body: {
-		url: string;
-		buildingGeometry?: Geometry;
-		outlineBufferGeometry?: Geometry;
-		floodRiskResultDown?: FloodRiskResult | null;
-		floodRiskAnswersDown?: FloodRiskAnswers | null;
-		hazardEntitiesDown?: HazardEntity[] | null;
-	} = { url: "" };
+	const body: ScreenshotRequestBody = { url: "" };
 
 	if (scenario === "risk-block") {
-		key = "risk-block";
 		path = `/riskblock-screenshot`;
 		body.floodRiskResultDown = floodRiskResult;
 		body.floodRiskAnswersDown = floodRiskAnswers;
 		body.hazardEntitiesDown = hazardEntities;
-	} else if (scenario === "heavyRainWidget") {
-		key = "heavyRainWidget";
-		const heavyRain = hazardEntities?.filter(
-			(entity) => entity.name === "heavyRain",
+	} else if (scenario.includes("Widget")) {
+		const findHazardEntity = hazardEntities?.filter(
+			(entity) => entity.name === scenario.replace("Widget", ""),
 		)[0];
-		if (heavyRain) {
-			path = `/widget-screenshot?name=${heavyRain.name}&hazardLevel=${heavyRain.hazardLevel}`;
-		}
-	} else if (scenario === "fluvialFloodWidget") {
-		key = "fluvialFloodWidget";
-		const fluvialFlood = hazardEntities?.filter(
-			(entity) => entity.name === "fluvialFlood",
-		)[0];
-		if (fluvialFlood) {
-			path = `/widget-screenshot?name=${fluvialFlood.name}&hazardLevel=${fluvialFlood.hazardLevel}&showSubLabel=${fluvialFlood.showSubLabel}&subHazardLevel=${fluvialFlood.subHazardLevel}`;
+		if (findHazardEntity) {
+			path = "/widget-screenshot";
+			body.hazardEntity = findHazardEntity;
 		}
 	} else {
 		key = getScenarioDomId(scenario as Scenario);
