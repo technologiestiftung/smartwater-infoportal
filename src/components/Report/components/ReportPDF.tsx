@@ -319,8 +319,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
 
-		console.log("scenarios :>> ", scenarios);
-
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
 		try {
@@ -333,8 +331,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 						floodRiskResult,
 						floodRiskAnswers,
 					);
-
-					console.log("✅✅✅ screenshot has returned from scenario", scenario);
 
 					setNumberOfFetchedPDFImages((prev) => prev + 1);
 
