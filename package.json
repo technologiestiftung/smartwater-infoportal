@@ -54,10 +54,10 @@
 		"@technologiestiftung/prettier-config": "1.0.0",
 		"@types/jest": "^30.0.0",
 		"@types/node": "^24.0.0",
-		"@types/react": "19.2.13",
+		"@types/react": "19.2.14",
 		"@types/react-dom": "19.2.3",
 		"eslint": "^9",
-		"eslint-config-next": "16.1.6",
+		"eslint-config-next": "16.2.1",
 		"eslint-plugin-jest": "^29.0.1",
 		"husky": "^9.1.7",
 		"jest": "^30.0.5",
@@ -70,9 +70,5 @@
 	"optionalDependencies": {
 		"@tailwindcss/oxide-linux-x64-gnu": "^4.1.11",
 		"lightningcss-linux-x64-gnu": "^1.30.1"
-	},
-	"overrides": {
-		"@types/react": "19.2.13",
-		"@types/react-dom": "19.2.3"
 	}
 }
