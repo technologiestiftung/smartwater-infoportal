@@ -73,7 +73,6 @@ export async function searchAddresses(
 	const germanZIPCode = extractGermanZipCode(query);
 
 	const data = await res.json();
-	// console.log("data :>> ", JSON.stringify(data.features));
 
 	const filteredResults: CurrentUserAddress[] = data.features
 		.filter(

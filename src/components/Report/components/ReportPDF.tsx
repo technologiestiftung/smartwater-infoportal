@@ -319,22 +319,28 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
 
-		console.log("scenarios :>> ", scenarios);
-
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
 		try {
-			for (const scenario of scenarios) {
-				const { key, blob } = await getScreenshotForScenario(
-					scenario,
-					locationData,
-					hazardEntities,
-					floodRiskResult,
-					floodRiskAnswers,
-				);
-				setNumberOfFetchedPDFImages((prev) => prev + 1);
+			const results = await Promise.all(
+				scenarios.map(async (scenario) => {
+					const result = await getScreenshotForScenario(
+						scenario,
+						locationData,
+						hazardEntities,
+						floodRiskResult,
+						floodRiskAnswers,
+					);
+
+					setNumberOfFetchedPDFImages((prev) => prev + 1);
+
+					return result;
+				}),
+			);
+
+			results.forEach(({ key, blob }) => {
 				addToPDFKeys[`#${key}`] = blob;
-			}
+			});
 		} catch (captureError) {
 			return setError("Error capturing screenshots: " + captureError);
 		}

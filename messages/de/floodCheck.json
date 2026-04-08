@@ -28,32 +28,37 @@
 						"high": "Ihre Ampel steht auf Rot, da Ihr Haus einen Keller hat und dieser Fenster besitzt. Im Falle eines Starkregens kann Wasser z.B. durch undichte Fenster in den Keller gelangen und zu Schäden führen.",
 						"moderate": "Ihre Ampel steht auf Gelb, da Ihr Haus zwar einen Keller hat, dieser aber keine Fenster besitzt. Im Falle eines Starkregens kann Wasser daher nicht über Fenster in den Keller gelangen, was das Risiko für Schäden reduziert.",
 						"low": "Ihre Ampel steht auf Grün, weil Sie auch während eines Starkregenereignisses keine Schäden in Kellerräumen befürchten müssen.",
-						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben."
+						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben.",
+						"unknown": ""
 					},
 					"basementUsage": {
 						"title": "Kellernutzung",
 						"high": "Ihre Ampel steht auf Rot, weil Sie Ihre Kellerräume höherwertig nutzen. Das erhöht das Risiko für Schäden.",
 						"moderate": "Ihre Ampel steht auf Gelb, weil Sie zwar einen Keller haben, diesen aber geringwertig nutzen. Schäden im Keller können daher nicht ausgeschlossen werden, das Risiko für Schäden ist jedoch durch die Nutzung reduziert.",
-						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben."
+						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben.",
+						"unknown": ""
 					},
 					"backflowProtection": {
 						"title": "Rückstausicherung",
 						"high": "Ihre Ampel steht auf Rot, weil Ihr Haus bisher keine Rückstausicherung besitzt.",
 						"moderate": "Ihre Ampel steht auf Gelb, weil Ihr Haus zwar eine Rückstausicherung besitzt, Sie aber nicht den Zustand der Rückstausicherung kennen.",
 						"low": "Ihre Ampel steht auf Grün, weil Ihr Haus eine Rückstausicherung in gutem Zustand besitzt.",
-						"dontKnow": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben."
+						"dontKnow": "Ihre Ampel steht auf Rot, weil Sie sich nicht sicher sind, ob Ihr Haus eine Rückstausicherung besitzt oder hierzu keine Angaben gemacht haben.",
+						"unknown": ""
 					},
 					"propertyDrainage": {
 						"title": "Grundstücksentwässerung",
 						"high": "Ihre Ampel steht auf Rot, da Regenwasserabläufe, Abwasserrohre oder Gullys auf Ihrem Grundstück in einem schlechten Zustand sind.",
 						"low": "Ihre Ampel steht auf Grün, da sich Ihre Anlagen zur Grundstücksentwässerung in einem guten Zustand befinden.",
-						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben."
+						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben.",
+						"unknown": ""
 					},
 					"pastDamages": {
 						"title": "Vergangene Schadensereignisse",
 						"high": "Ihre Ampel steht auf Rot, weil Sie bereits Schäden durch Hochwasser an Ihrem Haus erleben mussten. Das ist ein Hinweis darauf, dass Ihr Haus in einem Bereich steht, der von Hochwasser gefährdet ist. Es ist zudem ein Hinweis darauf, dass das Haus zu diesem Zeitpunkt nicht ausreichend auf ein Hochwasser vorbereitet war. Solange die Gründe für den Hochwasserschaden nicht behoben wurden, ist es  wahrscheinlich, dass Sie in Zukunft erneut Probleme mit Hochwasser bekommen.",
 						"low": "Ihre Ampel steht auf Grün, weil Sie bisher kein Hochwasser an Ihrem Wohnhaus erleben mussten. Um auszuschließen, dass Sie in Zukunft von Hochwasser betroffen sein werden, sollten Sie die Gesamtgefährdung Ihres Wohnhauses betrachten.",
-						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben."
+						"dontKnow": "Die Frage wird nicht gewertet, weil sie \"Weiß nicht / keine Angabe\" angegeben haben.",
+						"unknown": ""
 					},
 					"floodplain": {
 						"title": "Überschwemmungsgebiet",
