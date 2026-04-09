@@ -74,7 +74,6 @@ Update your `.env` file with the GeoServer configuration:
 GEOSERVER_BASE_URL=http://localhost:8080/geoserver
 GEOSERVER_WORKSPACE=your_workspace_name
 GEOSERVER_BUILDING_LAYER=your_building_layer_name
-GEOSERVER_FLOOD_LAYER=your_flood_layer_name
 ```
 
 ## Usage or Deployment
@@ -146,7 +145,6 @@ The application requires several environment variables to be configured. Copy `.
 GEOSERVER_BASE_URL=http://localhost:8080/geoserver
 GEOSERVER_WORKSPACE=smartwater-infoportal
 GEOSERVER_BUILDING_LAYER=ALKIS_Gebaeude_Gefaehrdung_SR_HW_0624
-GEOSERVER_FLOOD_LAYER=HW_Gefaehrdung_clip_
 ```
 
 ### Environment Variable Descriptions
@@ -154,7 +152,6 @@ GEOSERVER_FLOOD_LAYER=HW_Gefaehrdung_clip_
 - `GEOSERVER_BASE_URL`: Base URL of your GeoServer instance
 - `GEOSERVER_WORKSPACE`: GeoServer workspace containing your layers
 - `GEOSERVER_BUILDING_LAYER`: Layer name for building hazard data
-- `GEOSERVER_FLOOD_LAYER`: Layer name for flood zone data (used for GRAY_INDEX)
 
 ## Tests
 

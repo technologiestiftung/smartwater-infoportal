@@ -1,7 +1,6 @@
 "use client";
 
 import { CurrentUserAddress } from "@/lib/types";
-import { fixMojibake } from "@/lib/utils";
 import { searchAddresses } from "@/server/actions/searchAddresses";
 import useStore from "@/store/defaultStore";
 import { push } from "@socialgouv/matomo-next";
@@ -19,11 +18,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
-
-const LocationDataNotFound = {
-	found: false,
-	building: null,
-};
+import { LocationDataNotFound } from "@/lib/geoserverClient";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -53,7 +48,9 @@ export default function AddressSearch() {
 	const testingAddresses = [
 		"Majakowskiring 7",
 		"Grunewaldstraße 62",
-		"Brandensteinweg 7",
+		"Brandensteinweg 31",
+		"Bismarckstraße 4",
+		"Raschdorffstraße 21, 13409 Berlin",
 	];
 
 	const handleSubmit = () => {
@@ -201,9 +198,6 @@ export default function AddressSearch() {
 																if (result.building) {
 																	const makeBuilding = {
 																		...result.building,
-																		alkisAddress: fixMojibake(
-																			result.building?.alkisAddress || "",
-																		),
 																		name: result.name,
 																	};
 																	setLocationData({

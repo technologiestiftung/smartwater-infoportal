@@ -101,6 +101,14 @@ const Results: React.FC = () => {
 					</>
 				)}
 			</section>
+			{isDev && (
+				<section>
+					<div className="divider mt-4" />
+					<ErrorCatcher name="ReportPDF">
+						<ReportPDF skip={skip} />
+					</ErrorCatcher>
+				</section>
+			)}
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2"></div>
 				<div className="flex flex-col gap-2">
@@ -275,12 +283,14 @@ const Results: React.FC = () => {
 				</Button>
 				<p className="">{t("protectionTips.intro2")}</p>
 			</section>
-			<section>
-				<div className="divider mt-4" />
-				<ErrorCatcher name="ReportPDF">
-					<ReportPDF skip={skip} />
-				</ErrorCatcher>
-			</section>
+			{!isDev && (
+				<section>
+					<div className="divider mt-4" />
+					<ErrorCatcher name="ReportPDF">
+						<ReportPDF skip={skip} />
+					</ErrorCatcher>
+				</section>
+			)}
 		</div>
 	);
 };
