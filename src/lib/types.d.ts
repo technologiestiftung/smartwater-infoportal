@@ -11,23 +11,37 @@ export interface CurrentUserAddress {
 }
 
 export interface Building {
-	uuid?: string;
 	name?: string;
 	alkisAddress?: string;
+	houseNumber?: string;
 	starkregenGefährdung?: number;
 	hochwasserGefährdung?: number;
-	geometry?: Geometry;
-	outlineBufferGeometry?: Geometry;
+	floodZoneIndex?: number;
+	// starkregen
+	srgk_amax?: number;
+	srgk_amean?: number;
+	srgk_smax?: number;
+	srgk_smean?: number;
+	srgk_emax?: number;
+	srgk_emean?: number;
+	srhk_amax?: number;
+	srhk_amean?: number;
+	srhk_emax?: number;
+	srhk_emean?: number;
+	// hochwasser
+	hw_sval_mi?: number;
+	hw_hval_ma?: number;
+	hw_hval_mi?: number;
+	hw_mva_max?: number;
+	hw_mva_min?: number;
+	hw_sval_ma?: number;
+	//coordinates
 	transformedX?: number;
 	transformedY?: number;
-	floodZoneIndex?: number | null;
-	distance?: number;
-	// Old Calc Approach Jakob
-	errors?: string[];
-	numberOfBuildings?: number;
-	numberOfCoordinatesOnBuildings?: number;
-	numberOfCoordinatesOnOutline?: number;
-	// Old Calc Approach Jakob
+	// geometry
+	geometry?: Geometry;
+	outlineBufferGeometry?: Geometry;
+	distance?: number | undefined;
 }
 
 export type BBox = [number, number, number, number];
@@ -69,23 +83,4 @@ export interface RiskFactor {
 	riskLevel: RiskLevel;
 	translationKey: string;
 	hasInfo: boolean;
-}
-
-// Old Calc Approach Jakob
-export interface BuildingWMS {
-	hasHeavyRainHazardMap: string | null;
-	rareHeavyRainMax: number | null;
-	uncommonHeavyRainMax: number | null;
-	extremeHeavyRainMax: number | null;
-	rareHeavyRainAverage: number | null;
-	uncommonHeavyRainAverage: number | null;
-	extremeHeavyRainAverage: number | null;
-	frequentFloodMax: number | null;
-	averageFloodMax: number | null;
-	rareFloodMax: number | null;
-	frequentFloodAverage: number | null;
-	averageFloodAverage: number | null;
-	rareFloodAverage: number | null;
-	errors?: string[];
-	isInExtremeRainHazardMap: boolean | null;
 }

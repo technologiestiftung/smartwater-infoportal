@@ -167,7 +167,7 @@
 		},
 		{
 			"title": "Starkregen => seltenes Ereignis",
-			"hide": "!{showRareHeavyRain}",
+			"hide": "!{hasSrgkRareHeavyRainMap}",
 			"items": [
 				{
 					"text": "Gefährdung durch Starkregen",
@@ -186,19 +186,11 @@
 					"marginBottom": 11
 				},
 				{
-					"hide": "{errorRareHeavyRain}",
 					"text": "Für die geprüfte Adresse liegt eine detaillierte Starkregengefahrenkarte \"seltenes Ereignis\" vor.",
 					"marginBottom": "paragraph"
 				},
 				{
-					"hide": "{errorRareHeavyRain}",
 					"text": "Diese Starkregengefahrenkarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregengefahrenkarte \"seltenes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern, welcher auf der Karte in Form einer blauen Linie markiert ist, um das Objekt Wasserstände von <b>{rareHeavyRainMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{rareHeavyRainAverage}</b>."
-				},
-				{
-					"hide": "!{errorRareHeavyRain}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zur Starkregengefahrenkarte \"seltenes Ereignis\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden."
 				}
 			]
 		},
@@ -236,12 +228,6 @@
 				{
 					"hide": "!{hasSrhkUncommonHeavyRainMap}",
 					"text": "Für die geprüfte Adresse liegt eine Starkregenhinweiskarte \"außergewöhnliches Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregenhinweiskarte \"außergewöhnliches Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{uncommonHeavyRainMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{uncommonHeavyRainAverage}</b>."
-				},
-				{
-					"hide": "!{errorUncommonHeavyRain}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zur Starkregenkarte \"außergewöhnliches Ereignis\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden."
 				}
 			]
 		},
@@ -279,12 +265,6 @@
 				{
 					"hide": "!{hasSrhkExtremeHeavyRainMap}",
 					"text": "Für die geprüfte Adresse liegt eine Starkregenhinweiskarte \"extremes Ereignis\" vor. Diese Starkregenhinweiskarte wurde auf das zu prüfende Objekt zugeschnitten, siehe Abbildung oben. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Starkregenhinweiskarte \"extremes Ereignis\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{extremeHeavyRainMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{extremeHeavyRainAverage}</b>."
-				},
-				{
-					"hide": "!{errorExtremeHeavyRain}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zur Starkregengefahrenkarte \"extremes Ereignis\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden."
 				}
 			]
 		},
@@ -317,13 +297,6 @@
 					"marginBottom": 6
 				},
 				{
-					"hide": "!{errorFrequentFlood}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zur Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden.",
-					"marginBottom": 6
-				},
-				{
 					"text": "Gefährdung durch \"Mittleres\" Ereignis",
 					"fontSize": "h3",
 					"marginBottom": 3
@@ -336,13 +309,6 @@
 				{
 					"text": "Bei der Prüfung der Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{averageFloodMax}</b> für das untersuchte Szenario zu erwarten sind. Weitere Informationen befinden sich auf den folgenden Seiten zum Flusshochwasser.",
 					"hide": "!{hasAverageFloodData}",
-					"marginBottom": 6
-				},
-				{
-					"hide": "!{errorAverageFlood}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zur Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden.",
 					"marginBottom": 6
 				},
 				{
@@ -361,13 +327,6 @@
 					"marginBottom": 6
 				},
 				{
-					"hide": "!{errorRareFlood}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zur Hochwassergefahrenkarte \"Seltenes Flusshochwasser\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden.",
-					"marginBottom": 6
-				},
-				{
 					"text": "Gefährdung durch Überschwemmungsgebiet",
 					"fontSize": "h3",
 					"marginBottom": 3
@@ -379,12 +338,6 @@
 				{
 					"text": "Für die abgefragte Adresse wurden die Karten der festgesetzten Überschwemmungsgebiete geprüft. Das geprüfte <b>Objekt befindet sich in einem Überschwemmungsgebiet.</b> Weitere Informationen befinden sich auf den folgenden Seiten zum Flusshochwasser.",
 					"hide": "!{hasFloodZoneData}"
-				},
-				{
-					"hide": "!{errorFloodZone}",
-					"color": "#E60421",
-					"fontWeight": "bold",
-					"text": "Bei Abrufen der Daten zurm \"Überschwemmungsgebiet\" ist ein Fehler aufgetreten. Daher konnte keine detaillierte Aussage zur Gefährdung an dem geprüften Objekt getroffen werden."
 				}
 			]
 		},
@@ -413,7 +366,7 @@
 					"marginBottom": "paragraph"
 				},
 				{
-					"text": "Die Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{frequentFloodMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{frequentFloodAverage}</b>."
+					"text": "Die Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung der Hochwassergefahrenkarte \"Häufiges Flusshochwasser\" zeigt sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{frequentFloodMax}</b> auftreten können. Im Minimum befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{frequentFloodMinimum}</b>."
 				}
 			]
 		},
@@ -442,7 +395,7 @@
 					"marginBottom": "paragraph"
 				},
 				{
-					"text": "Die Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{averageFloodMax}</b> auftreten können. Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{averageFloodAverage}</b>."
+					"text": "Die Hochwassergefahrenkarte \"Mittleres Flusshochwasser\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{averageFloodMax}</b> auftreten können. Im Minimum befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{averageFloodMinimum}</b>."
 				}
 			]
 		},
@@ -471,7 +424,7 @@
 					"marginBottom": "paragraph"
 				},
 				{
-					"text": "Die Hochwassergefahrenkarte \"Seltenes Ereignis\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{rareFloodMax}</b> auftreten können.  Im Durchschnitt befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{rareFloodAverage}</b>."
+					"text": "Die Hochwassergefahrenkarte \"Seltenes Ereignis\" wurde auf das zu prüfende Objekt zugeschnitten. Das zu prüfende Objekt ist rot umrandet. Bei der Prüfung zeigte sich, dass in einem Bereich von zwei Metern um das Objekt Wasserstände von <b>{rareFloodMax}</b> auftreten können.  Im Minimum befinden sich um das Objekt entlang der blauen Linie Wasserstände von <b>{rareFloodMinimum}</b>."
 				}
 			]
 		},
