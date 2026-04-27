@@ -70,7 +70,7 @@ export async function POST(req: Request) {
 		}, body);
 
 		await page.goto(url, {
-			waitUntil: "domcontentloaded",
+			waitUntil: "networkidle0",
 			timeout: 60000,
 		});
 

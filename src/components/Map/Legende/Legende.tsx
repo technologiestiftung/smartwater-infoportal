@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import { useEffect, useState } from "react";
 import useStore from "@/store/defaultStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
