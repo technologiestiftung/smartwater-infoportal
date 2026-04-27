@@ -36,7 +36,12 @@
 			"about": "Über das Projekt",
 			"generalInfo": "Hintergrundinformationen",
 			"floodCheck": "Hochwassergefahr-Check",
-			"recommendations": "Handlungsempfehlungen"
+			"recommendations": "Handlungsempfehlungen",
+			"search": {
+				"title": "Suche",
+				"placeholder": "Suchbegriff",
+				"berlinSearchInfo": "Die Suche wird auf berlin.de durchgeführt."
+			}
 		},
 		"accessibilityMenu": {
 			"title": "Barrierefreiheit",

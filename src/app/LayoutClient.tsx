@@ -19,6 +19,12 @@ const filterOutSegments = [
 	".well-known",
 	"appspecific",
 	"com.chrome.devtools.json",
+	"scenario-map",
+	"widget-screenshot",
+	"riskblock-screenshot",
+	"screenshot",
+	"pdf-viewer",
+	"api",
 ];
 
 export default function LayoutClient({
@@ -59,15 +65,23 @@ export default function LayoutClient({
 		},
 	];
 	const breadcrumbs = [...rootBreadcrumb, ...pathNames];
+	const isRenderingScreenshot =
+		paths.startsWith("/scenario-map") ||
+		paths.startsWith("/widget-screenshot") ||
+		paths.startsWith("/riskblock-screenshot") ||
+		paths.startsWith("/pdf-viewer");
+	if (isRenderingScreenshot) {
+		return <>{children}</>;
+	}
 	return (
 		<div className="flex min-h-screen flex-col">
 			<Header
 				breadcrumbs={breadcrumbs}
 				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
 				showLanguageSelect={false}
-				showSearchButton={false}
 				header={"Senatsverwaltung für"}
 				language="de"
+				doBerlinSearch
 				translations={{
 					de: {
 						accessibility: t("common.accessibility"),
@@ -95,6 +109,9 @@ export default function LayoutClient({
 						"accessibilityMenu.additionalInfo": t(
 							"common.accessibilityMenu.additionalInfo.title",
 						),
+						"search.title": t("common.menu.search.title"),
+						"search.placeholder": t("common.menu.search.placeholder"),
+						"search.berlinSearchInfo": t("common.menu.search.berlinSearchInfo"),
 					},
 				}}
 				menuItems={[

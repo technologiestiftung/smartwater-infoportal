@@ -1,4 +1,8 @@
 /* eslint-disable complexity */
+import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
+import { getScenarioDomId } from "@/lib/utils/mapUtils";
+import { Scenario, ScreenshotRequestBody } from "@/types/map";
+import { HazardEntity } from "@/utils/storeUtils";
 import jsPDF from "jspdf";
 
 type TextChunk = {
@@ -103,11 +107,14 @@ export function wrapChunksToLines(
 	return lines;
 }
 
-export const getToday = (): string => {
+export const getToday = (reverse = false): string => {
 	const today = new Date();
 	const day = String(today.getDate()).padStart(2, "0");
 	const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
 	const year = today.getFullYear();
+	if (reverse) {
+		return `${year}-${month}-${day}`;
+	}
 	return `${day}.${month}.${year}`;
 };
 
@@ -195,6 +202,61 @@ export const translateHazardTags = (
 	return "/Grey.png";
 };
 
+export const getScreenshotForScenario = async (
+	scenario: string,
+	locationData?: LocationData | null,
+	hazardEntities?: HazardEntity[] | null,
+	floodRiskResult?: FloodRiskResult | null,
+	floodRiskAnswers?: FloodRiskAnswers | null,
+): Promise<{
+	key: string;
+	blob: Blob;
+}> => {
+	let path = "";
+	let key: string = scenario;
+
+	const body: ScreenshotRequestBody = { url: "" };
+
+	if (scenario === "risk-block") {
+		path = `/riskblock-screenshot`;
+		body.floodRiskResultDown = floodRiskResult;
+		body.floodRiskAnswersDown = floodRiskAnswers;
+		body.hazardEntitiesDown = hazardEntities;
+	} else if (scenario.includes("Widget")) {
+		const findHazardEntity = hazardEntities?.filter(
+			(entity) => entity.name === scenario.replace("Widget", ""),
+		)[0];
+		if (findHazardEntity) {
+			path = "/widget-screenshot";
+			body.hazardEntity = findHazardEntity;
+		}
+	} else {
+		key = getScenarioDomId(scenario as Scenario);
+		path = `/scenario-map?scenario=${scenario}`;
+		body.buildingGeometry = locationData?.building?.geometry;
+		body.outlineBufferGeometry = locationData?.building?.outlineBufferGeometry;
+	}
+	body.url = `${window.location.origin}${path}`;
+	const res = await fetch("/api/screenshot", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(body),
+	});
+
+	const text = await res.text();
+
+	if (!res.ok) {
+		throw new Error(`Screenshot API failed (${res.status}): ${text}`);
+	}
+
+	const data = JSON.parse(text);
+	const { imageBase64 } = data;
+	const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
+	const blob = await fetch(dataUrl).then((r) => r.blob());
+	return { key, blob };
+};
+
+// Old Calc Approach Jakob
 export const translateWMSValue = (
 	value: string | number | null | undefined,
 	helper: string = "bis zu ",

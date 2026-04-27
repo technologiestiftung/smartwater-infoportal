@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const MOBILE_BREAKPOINT = 768;
 
 const useMobile = () => {
-	const [isMobile, setIsMobile] = useState<boolean>(false);
+	const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
 	useEffect(() => {
 		// Handler that sets isMobile based on window width

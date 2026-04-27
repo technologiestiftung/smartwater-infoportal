@@ -9,6 +9,7 @@ export interface PDFPageItem {
 	textDecoration?: "underline";
 	backgroundColor?: string;
 	isListItem?: boolean;
+	isChecklistItem?: boolean;
 	// Image Item
 	imageSRC?: string;
 	width?: "halfPage" | "fullPage" | string | number;
@@ -38,7 +39,6 @@ interface PDFPage {
 }
 
 export interface PDFProps {
-	name: string;
 	pagesPaddingTop?: number;
 	pagesPaddingBottom?: number;
 	pagesPaddingX?: number;

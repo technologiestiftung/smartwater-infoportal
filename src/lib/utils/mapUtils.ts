@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Scenario } from "@/types/map";
 
 export function getEpsgFromCrs(crs: string) {
 	const epsgMatch = crs.match(/EPSG[:/](\d+)/i);
@@ -19,7 +20,10 @@ export const getScale = (map: any) => {
 	return (resolution * metersPerUnit) / 0.00028;
 };
 
-export const getHeightClass = (isMobile: boolean, fullScreenMap: boolean) => {
+export const getHeightClass = (
+	isMobile: boolean | null,
+	fullScreenMap: boolean,
+) => {
 	if (!isMobile && !fullScreenMap) {
 		return "max-h-[calc((65vh-60px-46px-46px)/2)]";
 	}
@@ -36,13 +40,6 @@ export const getWidthClass = (fullScreenMap: boolean) => {
 	return "w-[370px]";
 };
 
-export const checkNumber = (value: unknown): boolean => {
-	if (typeof value !== "string") {
-		return false;
-	}
-	return value.trim() !== "" && !isNaN(Number(value));
-};
-
 export const containsNumber = (str: string): boolean => {
 	if (!str) {
 		return false;
@@ -51,6 +48,12 @@ export const containsNumber = (str: string): boolean => {
 };
 
 export function extractGermanZipCode(query: string): string | null {
-	const match = query.match(/\b\d{5}\b/);
+	if (!query) {
+		return null;
+	}
+	const match = query.match(/\b(?!00)\d{5}\b/);
 	return match ? match[0] : null;
 }
+
+export const getScenarioDomId = (scenario: Scenario) =>
+	`map-root-${scenario.toLowerCase().replace(/_/g, "-")}`;

@@ -1,50 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import useStore from "@/store/defaultStore";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	Accordion,
+	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	AccordionContent,
 	Button,
-	Pill,
 	FilterPillGroup,
 	List,
 	ListItem,
+	Pill,
 } from "berlin-ui-library";
-import { useRouter, useSearchParams } from "next/navigation";
-import TextBlock from "./TextBlock";
-import RiskBlock from "./RiskBlock";
-import useStore from "@/store/defaultStore";
-import Map from "./Map/Map";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import ReportPDF from "./Report/components/ReportPDF";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import ErrorCatcher from "./ErrorCatcher";
-import EvaluationTesting from "./EvaluationTesting";
-import ScenarioMap from "./ScenarioMap/Map";
-import { ScenarioList } from "@/types/map";
+import Map from "./Map/Map";
+import ReportPDF from "./Report/components/ReportPDF";
 import ResultBlock from "./ResultBlock";
+import RiskBlock from "./RiskBlock";
+import TextBlock from "./TextBlock";
+import RiskFactors from "./RiskFactors";
 
 const Results: React.FC = () => {
 	const t = useTranslations("floodCheck");
 	const router = useRouter();
-	const getHazardEntities = useStore((state) => state.getHazardEntities);
-	const showTestingFeatures = useStore((state) => state.showTestingFeatures);
+	const {
+		interactiveMap: { activeMapFilter },
+		updateInteractiveMap,
+		getHazardEntities,
+		locationData,
+		floodRiskAnswers,
+	} = useStore();
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = false; //process.env.NODE_ENV === "development";
+	const isDev = process.env.NODE_ENV === "development";
+	const showMap = !isDev;
 
 	// Define filter keys for translation
 	const filterKeys = [
 		{ key: "heavyRain", translationKey: "hazardDisplay.heavyRainTab" },
 		{ key: "fluvialFlood", translationKey: "hazardDisplay.fluvialFloodTab" },
-	];
-	const subFilterKeys = [
-		{ key: "rare", translationKey: "hazardDisplay.frequency.rare" },
-		{ key: "uncommon", translationKey: "hazardDisplay.frequency.uncommon" },
-		{ key: "extreme", translationKey: "hazardDisplay.frequency.extreme" },
 	];
 	const accordion = [
 		{
@@ -61,19 +60,12 @@ const Results: React.FC = () => {
 		},
 	];
 	const [activeFilter, setActiveFilter] = useState<string>(filterKeys[0].key);
-	const updateActiveMapFilter = useStore(
-		(state) => state.updateActiveMapFilter,
-	);
-	const activeMapFilter = useStore((state) => state.activeMapFilter);
+
 	const handleFilterToggle = (value: string) => {
-		updateActiveMapFilter(value);
-		setActiveFilter(value);
-	};
-	const [activeSubFilter, setActiveSubFilter] = useState<string>(
-		subFilterKeys[0].key,
-	);
-	const handleSubFilterToggle = (value: string) => {
-		setActiveSubFilter(value);
+		if (value === "heavyRain" || value === "fluvialFlood") {
+			updateInteractiveMap({ activeMapFilter: value });
+			setActiveFilter(value);
+		}
 	};
 	// Filter hazard entities based on active filter
 	const getFilteredHazardEntities = () => {
@@ -85,47 +77,13 @@ const Results: React.FC = () => {
 		return hazardEntities.filter((entity) => entity.name === activeFilter);
 	};
 
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-
-	const HazardTranslations = () => {
-		const text = t(
-			`hazardDisplay.frequencyDescription.${activeSubFilter}.text`,
-		);
-		const waterLevel = t(
-			`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel`,
-		);
-		const flowVelocity = t(
-			`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`,
-		);
-
-		const shouldRender =
-			text &&
-			waterLevel &&
-			flowVelocity &&
-			text !== `hazardDisplay.frequencyDescription.${activeSubFilter}.text` &&
-			waterLevel !==
-				`hazardDisplay.frequencyDescription.${activeSubFilter}.waterLevel` &&
-			flowVelocity !==
-				`hazardDisplay.frequencyDescription.${activeSubFilter}.flowVelocity`;
-
-		if (!shouldRender) {
-			return null;
-		}
-
-		return (
-			<div className="bg-panel-heavy p-6">
-				<p className="mb-4">{text}</p>
-				<List variant="unordered">
-					<ListItem>{waterLevel}</ListItem>
-					<ListItem>{flowVelocity}</ListItem>
-				</List>
-			</div>
-		);
-	};
-
 	useEffect(() => {
-		if (activeMapFilter !== activeFilter) {
-			updateActiveMapFilter(activeFilter);
+		if (
+			activeMapFilter !== activeFilter &&
+			!!activeFilter &&
+			(activeFilter === "heavyRain" || activeFilter === "fluvialFlood")
+		) {
+			updateInteractiveMap({ activeMapFilter: activeFilter });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -133,20 +91,26 @@ const Results: React.FC = () => {
 	return (
 		<div className="flex w-full flex-col gap-12 pt-4">
 			<section className="flex items-center gap-2">
-				{currentUserAddress && (
+				{locationData?.found && (
 					<>
 						<FontAwesomeIcon
 							icon={faLocationDot}
 							className="text-[18px] text-black"
 						/>
-						<p className="mt-[3px]">{currentUserAddress.name}</p>
+						<p className="mt-[3px]">{locationData.building?.name}</p>
 					</>
 				)}
 			</section>
+			{isDev && (
+				<section>
+					<div className="divider mt-4" />
+					<ErrorCatcher name="ReportPDF">
+						<ReportPDF skip={skip} />
+					</ErrorCatcher>
+				</section>
+			)}
 			<section className="flex flex-col gap-4">
-				<div className="flex flex-col gap-2">
-					<h3 className="">{t("hazardDisplay.title")}</h3>
-				</div>
+				<div className="flex flex-col gap-2"></div>
 				<div className="flex flex-col gap-2">
 					<div className="flex">
 						<FilterPillGroup
@@ -169,32 +133,14 @@ const Results: React.FC = () => {
 							))}
 						</FilterPillGroup>
 					</div>
-					<div className="flex w-full">
-						<FilterPillGroup
-							activeValues={[activeSubFilter]}
-							onValueToggle={handleSubFilterToggle}
-						>
-							{subFilterKeys.map((subFilter) => (
-								<Pill
-									variant="filter"
-									value={subFilter.key}
-									key={subFilter.key}
-									className="capitalize"
-								>
-									{t(subFilter.translationKey)}
-								</Pill>
-							))}
-						</FilterPillGroup>
-					</div>
 				</div>
 
 				<TextBlock
 					desktopColSpans={{ col1: 1, col2: 1 }}
 					className="w-full gap-6"
 					reverseDesktopColumns={true}
-					slotA={<HazardTranslations />}
 					slotB={
-						<div>
+						<div className="max-w-[400px]">
 							{(() => {
 								const filteredEntities = getFilteredHazardEntities();
 
@@ -219,24 +165,13 @@ const Results: React.FC = () => {
 						</div>
 					}
 				/>
-				<h3 className="mt-2">{t("map.title")}</h3>
-				<p className="">{t("map.description")}</p>
-				<Map />
-				<div
-					id="scenario-maps"
-					className={
-						isDev && showTestingFeatures.includes("mapsOnResultPage")
-							? ""
-							: "absolute -left-[9999px]"
-					}
-				>
-					{ScenarioList.map((scenario) => (
-						<div key={scenario}>
-							<p>{scenario}</p>
-							<ScenarioMap scenario={scenario} />
-						</div>
-					))}
-				</div>
+				{showMap && (
+					<>
+						<h3 className="mt-2">{t("map.title")}</h3>
+						<p className="">{t("map.description")}</p>
+						<Map />
+					</>
+				)}
 			</section>
 			<section className="flex flex-col gap-4">
 				<h2 className="">{t("hazardInfo.title")}</h2>
@@ -310,45 +245,52 @@ const Results: React.FC = () => {
 							className="w-full gap-6"
 							reverseDesktopColumns={true}
 							slotA={
-								<div className="bg-panel-heavy flex w-full flex-col gap-6 p-6">
+								<div className="flex w-full flex-col gap-6 bg-panel-heavy p-6">
 									<h3 className="">
 										{t("buildingRiskAssessment.disclaimerTitle")}
 									</h3>
 									<p className="">{t("buildingRiskAssessment.description1")}</p>
-									<p className="">{t("buildingRiskAssessment.description2")}</p>
 								</div>
 							}
 							slotB={<RiskBlock />}
 						/>
-						{isDev && <EvaluationTesting />}
+						<div className="mt-4 flex flex-col gap-8">
+							<p className="">
+								{t("buildingRiskAssessment.buildingRisk.riskFactorsTitle")}
+							</p>
+							<RiskFactors
+								hazardEntities={hazardEntities}
+								floodRiskAnswers={floodRiskAnswers}
+								isNotRiskBlock
+							/>
+						</div>
 					</section>
+					<div className="divider" />
 				</>
 			)}
 			<section className="flex w-full flex-col gap-12" id="protection-tips">
-				{!skip && hazardEntities && hazardEntities.length > 0 && (
-					<>
-						<div className="flex flex-col gap-2">
-							<h2 className="">{t("protectionTips.title")}</h2>
-							<p className="">{t("protectionTips.intro1")}</p>
-						</div>
-						<Button
-							className="w-full self-start lg:w-fit"
-							onClick={() => {
-								router.push("/handlungsempfehlungen");
-							}}
-						>
-							{t("protectionTips.recommendationsOverview.button")}
-						</Button>
-						<p className="">{t("protectionTips.intro2")}</p>
-					</>
-				)}
+				<div className="flex flex-col gap-2">
+					<h2 className="">{t("protectionTips.title")}</h2>
+					<p className="">{t("protectionTips.intro1")}</p>
+				</div>
+				<Button
+					className="w-full self-start lg:w-fit"
+					onClick={() => {
+						router.push("/handlungsempfehlungen");
+					}}
+				>
+					{t("protectionTips.recommendationsOverview.button")}
+				</Button>
+				<p className="">{t("protectionTips.intro2")}</p>
 			</section>
-			<section>
-				<div className="divider mt-4" />
-				<ErrorCatcher name="ReportPDF">
-					<ReportPDF skip={skip} />
-				</ErrorCatcher>
-			</section>
+			{!isDev && (
+				<section>
+					<div className="divider mt-4" />
+					<ErrorCatcher name="ReportPDF">
+						<ReportPDF skip={skip} />
+					</ErrorCatcher>
+				</section>
+			)}
 		</div>
 	);
 };

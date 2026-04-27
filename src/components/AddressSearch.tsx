@@ -3,6 +3,7 @@
 import { CurrentUserAddress } from "@/lib/types";
 import { searchAddresses } from "@/server/actions/searchAddresses";
 import useStore from "@/store/defaultStore";
+import { push } from "@socialgouv/matomo-next";
 import {
 	Button,
 	Form,
@@ -17,21 +18,15 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
+import { LocationDataNotFound } from "@/lib/geoserverClient";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
 	const router = useRouter();
-
-	const setCurrentUserAddress = useStore(
-		(state) => state.setCurrentUserAddress,
-	);
-
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
 	const isDev = process.env.NODE_ENV === "development";
-
-	const currentUserAddress = useStore((state) => state.currentUserAddress);
-
+	const { locationData, setLocationData } = useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
@@ -47,17 +42,32 @@ export default function AddressSearch() {
 		type: "text",
 		description: t("addressCheck.description"),
 		placeholder: t("addressCheck.placeholder"),
-		isRequired: true,
+		isRequired: false,
 	};
 
+	const testingAddresses = [
+		"Majakowskiring 7",
+		"Grunewaldstraße 62",
+		"Brandensteinweg 31",
+		"Bismarckstraße 4",
+		"Raschdorffstraße 21, 13409 Berlin",
+	];
+
 	const handleSubmit = () => {
-		return methods.handleSubmit(() => {
+		return methods.handleSubmit(async () => {
 			setShowSubmitLoading(true);
 			const addresse = getValues("addresse");
 			if (addresse) {
-				if (!currentUserAddress) {
+				if (!locationData?.found) {
 					setError(t("addressCheck.errorNoResultSelected"));
 				} else {
+					// Track HochwasserCheck start event
+					push([
+						"trackEvent",
+						"hochwasser-check",
+						"start",
+						"HochwasserCheck Berlin starten",
+					]);
 					router.push("/hochwasser-check");
 				}
 			} else {
@@ -89,6 +99,7 @@ export default function AddressSearch() {
 					break;
 			}
 			setError(msg);
+			setLocationData(LocationDataNotFound);
 			setResults([]);
 			return;
 		}
@@ -104,6 +115,7 @@ export default function AddressSearch() {
 			const value = target.value;
 
 			if (value.length < 3) {
+				setLocationData(LocationDataNotFound);
 				setResults([]);
 				setShowLoading(false);
 				return;
@@ -122,12 +134,12 @@ export default function AddressSearch() {
 	};
 
 	useEffect(() => {
-		if (currentUserAddress) {
-			setValue("addresse", currentUserAddress.name);
+		if (locationData?.found) {
+			setValue("addresse", locationData.building?.name || "");
 			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultClicked(true);
 		}
-	}, [currentUserAddress, setValue]);
+	}, [locationData, setValue]);
 
 	// eslint-disable-next-line react-hooks/set-state-in-effect
 	useEffect(() => setShowLoading(false), [results]);
@@ -155,32 +167,23 @@ export default function AddressSearch() {
 						/>
 						{isDev && (
 							<div className="flex flex-col gap-2">
-								<div
-									className="bg-black/20 p-6"
-									onClick={() => {
-										handleChange({
-											target: { name: "addresse", value: "Majakowskiring 9" },
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										} as any);
-									}}
-								>
-									<p>Majakowskiring 9</p>
-								</div>
-								<div
-									className="bg-black/20 p-6"
-									onClick={() => {
-										handleChange({
-											target: { name: "addresse", value: "Rüsternallee 24" },
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										} as any);
-									}}
-								>
-									<p>Rüsternallee 24</p>
-								</div>
+								{testingAddresses.map((address) => (
+									<div
+										key={address}
+										className="cursor-pointer bg-black/20 p-2"
+										onClick={() => {
+											handleChange({
+												target: { name: "addresse", value: address },
+											} as any);
+										}}
+									>
+										<p>{address}</p>
+									</div>
+								))}
 							</div>
 						)}
 						{results.length > 0 && !showLoading && (
-							<div className="flex flex-col gap-2 px-4 pb-4 pt-8">
+							<div className="flex flex-col gap-2 px-4 pt-8 pb-4">
 								<strong>{t("addressCheck.result")}</strong>
 								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
 									<>
@@ -192,7 +195,16 @@ export default function AddressSearch() {
 															onClick={() => {
 																setError("");
 																setValue("addresse", result.name);
-																setCurrentUserAddress(result);
+																if (result.building) {
+																	const makeBuilding = {
+																		...result.building,
+																		name: result.name,
+																	};
+																	setLocationData({
+																		found: true,
+																		building: makeBuilding,
+																	});
+																}
 																setResults([]);
 															}}
 															variant="link"
@@ -213,7 +225,7 @@ export default function AddressSearch() {
 						)}
 					</div>
 					{error && (
-						<div className="max-w-[50%]">
+						<div className="lg:max-w-[50%]">
 							<Label className="text-destructive text-primary">{error}</Label>
 						</div>
 					)}

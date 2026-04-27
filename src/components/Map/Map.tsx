@@ -14,7 +14,9 @@ const LazyOlMap = dynamic(() => import("./OlMap/OlMap"), {
 });
 
 const Map = () => {
-	const fullScreenMap = useStore((state) => state.fullScreenMap);
+	const {
+		interactiveMap: { fullScreenMap },
+	} = useStore();
 	const isMobile = useMobile();
 	const getMapRootClasses = () => {
 		if (fullScreenMap) {
