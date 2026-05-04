@@ -17,7 +17,7 @@ export default function Home() {
 		<div className="flex w-full flex-col gap-12 px-5 max-lg:pb-8 lg:px-0">
 			<section className="flex flex-col gap-6">
 				<Opener
-					src="/title.png"
+					src="/title.webp"
 					title={t("pageTitle")}
 					description={t("pageDescription")}
 					copyright={t("howToProtect.titleImage.copyright")}
