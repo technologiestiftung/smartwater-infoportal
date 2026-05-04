@@ -70,7 +70,7 @@ async function openPdf(page: Page) {
 		page.waitForEvent("download"),
 		page.locator("#pdf-ready button").first().click(),
 	]);
-	const path = "tests/e2e/downloads/report.pdf";
+	const path = `tests/e2e/downloads/report-${Date.now()}.pdf`;
 
 	await download.saveAs(path);
 	expect(download.suggestedFilename()).toMatch(/\.pdf$/);

@@ -10,4 +10,14 @@ export const reportCases = [
 			q5: "no",
 		},
 	},
+	{
+		query: "Eschenallee 24a",
+		answers: {
+			q0: "houseOwner",
+			q1: "no",
+			q3: "yesUnknown",
+			q4: "good",
+			q5: "no",
+		},
+	},
 ];
