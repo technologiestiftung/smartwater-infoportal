@@ -1,8 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { FloodRiskAnswers, HazardLevel, RiskLevel } from "./types";
-import MultiPolygon from "ol/geom/MultiPolygon";
-import { getWidth, getHeight } from "ol/extent";
 import { HazardEntity } from "@/utils/storeUtils";
 
 export function cn(...inputs: ClassValue[]) {
@@ -63,34 +61,35 @@ export function fixMojibake(text: string): string {
 	}
 }
 
+type Extent = [number, number, number, number];
+
+const getExtentWidth = (extent: Extent) => extent[2] - extent[0];
+const getExtentHeight = (extent: Extent) => extent[3] - extent[1];
+
 export function getSafeFitExtent(
 	geometry: any,
 	opts?: {
-		// how many times bigger the whole geometry is allowed to be vs first polygon
 		ratioThreshold?: number;
-		// absolute size threshold in map units (EPSG:25833 => meters)
 		maxSizeMeters?: number;
 	},
 ) {
 	const ratioThreshold = opts?.ratioThreshold ?? 10;
-	const maxSizeMeters = opts?.maxSizeMeters ?? 20_000; // 20km
+	const maxSizeMeters = opts?.maxSizeMeters ?? 20_000;
 
 	if (!geometry) return null;
 
-	// If it's a MultiPolygon, consider falling back to the first polygon
-	if (geometry instanceof MultiPolygon) {
-		const allExtent = geometry.getExtent();
-		const allW = getWidth(allExtent);
-		const allH = getHeight(allExtent);
+	if (geometry?.getType?.() === "MultiPolygon") {
+		const allExtent = geometry.getExtent() as Extent;
+		const allW = getExtentWidth(allExtent);
+		const allH = getExtentHeight(allExtent);
 
 		const poly = geometry.getPolygon(0);
 		if (!poly) return allExtent;
 
-		const firstExtent = poly.getExtent();
-		const firstW = getWidth(firstExtent);
-		const firstH = getHeight(firstExtent);
+		const firstExtent = poly.getExtent() as Extent;
+		const firstW = getExtentWidth(firstExtent);
+		const firstH = getExtentHeight(firstExtent);
 
-		// avoid division by zero
 		const wRatio = firstW > 0 ? allW / firstW : Infinity;
 		const hRatio = firstH > 0 ? allH / firstH : Infinity;
 
@@ -100,7 +99,6 @@ export function getSafeFitExtent(
 		return tooBigAbs || tooBigRel ? firstExtent : allExtent;
 	}
 
-	// If it's a Polygon (or anything else), just use its extent
 	return geometry.getExtent();
 }
 

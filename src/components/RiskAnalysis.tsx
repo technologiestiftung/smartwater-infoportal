@@ -189,6 +189,7 @@ const RiskAnalysis = () => {
 									onClick={handleNext}
 									type="button"
 									loading={showLoading}
+									id="next-question-button"
 								>
 									{currentStep === properties.length - 1
 										? t("floodCheck.navigation.submit")

@@ -53,6 +53,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [numberOfFetchedPDFImages, setNumberOfFetchedPDFImages] =
 		useState<number>(0);
 	const isDev = process.env.NODE_ENV === "development";
+	const isLocalhost =
+		typeof window !== "undefined" && window.location.hostname === "localhost";
 	const isMobile = useMobile();
 
 	const checks = [
@@ -375,6 +377,22 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		window.setTimeout(() => window.clearInterval(interval), 3000);
 	};
 
+	const downloadPDF = () => {
+		if (!pdfBlob) return;
+
+		const url = pdfUrlRef.current;
+		if (!url) {
+			setError(
+				"Das PDF konnte nicht heruntergeladen werden. Bitte versuchen Sie es erneut.",
+			);
+			return;
+		}
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "Report-HochwasserCheck-Berlin.pdf";
+		a.click();
+	};
+
 	useEffect(() => {
 		if (makePDFInitializedRef.current) {
 			return;
@@ -435,31 +453,40 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				<>
 					<div ref={wrapperRef}>
 						{pdfBlob ? (
-							<DownloadItem
-								buttonText={t("reportDownload.button")}
-								description={t("reportDownload.description")}
-								fileType={t("reportDownload.fileInfo", {
-									size: `${pdfSizeKB} MB`,
-								})}
-								date={getToday()}
-								title={t("reportDownload.title")}
-								onClickDownloadItem={() => {
-									push([
-										"trackEvent",
-										"report",
-										"download",
-										"Report herunterladen",
-									]);
-									if (isMobile) {
-										const url = pdfUrlRef.current;
-										if (!url) {
-											return openPdfViewer(isDev);
+							<>
+								<DownloadItem
+									buttonText={t("reportDownload.button")}
+									description={t("reportDownload.description")}
+									fileType={t("reportDownload.fileInfo", {
+										size: `${pdfSizeKB} MB`,
+									})}
+									date={getToday()}
+									title={t("reportDownload.title")}
+									onClickDownloadItem={() => {
+										push([
+											"trackEvent",
+											"report",
+											"download",
+											"Report herunterladen",
+										]);
+										if (isMobile) {
+											const url = pdfUrlRef.current;
+											if (!url) {
+												return openPdfViewer(isDev);
+											}
+											return window.open(url, "_blank", "noopener,noreferrer");
 										}
-										return window.open(url, "_blank", "noopener,noreferrer");
-									}
-									openPdfViewer(isDev);
-								}}
-							/>
+										openPdfViewer(isDev);
+									}}
+								/>
+								{isLocalhost && (
+									<div id="pdf-ready">
+										<Button variant="download" onClick={downloadPDF}>
+											Report herunterladen
+										</Button>
+									</div>
+								)}
+							</>
 						) : (
 							<>
 								<div className="flex min-h-[150px] items-center justify-end py-8">

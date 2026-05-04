@@ -11,9 +11,6 @@
 		"install-lib": "npm install github:technologiestiftung/berlin-ui-library",
 		"prepare": "husky",
 		"reset": "rm -rf node_modules .next package-lock.json && npm install && npm run dev",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:one": "jest searchAddresses",
 		"m:staging": "git fetch origin staging && git merge origin/staging"
 	},
 	"dependencies": {
@@ -49,6 +46,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "^20.1.0",
 		"@commitlint/config-conventional": "^20.0.0",
+		"@playwright/test": "^1.59.1",
 		"@technologiestiftung/prettier-config": "1.0.0",
 		"@types/jest": "^30.0.0",
 		"@types/node": "^24.0.0",
