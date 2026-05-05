@@ -44,22 +44,6 @@ export default function LayoutClient({
 		.filter(Boolean); // Filter out any empty segments
 	const rootBreadcrumb = [
 		{
-			href: "https://www.berlin.de/sen/uvk/",
-			label: t("common.breadcrumb.root"),
-		},
-		{
-			href: "https://www.berlin.de/sen/uvk/umwelt/",
-			label: t("common.breadcrumb.environment"),
-		},
-		{
-			href: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/",
-			label: t("common.breadcrumb.waterGeology"),
-		},
-		{
-			href: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/starkregen-und-ueberflutungen/",
-			label: t("common.breadcrumb.rainFlood"),
-		},
-		{
 			href: "/",
 			label: t("common.breadcrumb.infoportal"),
 		},
@@ -77,9 +61,9 @@ export default function LayoutClient({
 		<div className="flex min-h-screen flex-col">
 			<Header
 				breadcrumbs={breadcrumbs}
-				caption="Mobilität, Verkehr, Klimaschutz und Umwelt"
+				caption={t("home.headerSubTitle")}
 				showLanguageSelect={false}
-				header={"Senatsverwaltung für"}
+				header={t("home.headerTitle")}
 				language="de"
 				doBerlinSearch
 				translations={{
@@ -116,10 +100,6 @@ export default function LayoutClient({
 				}}
 				menuItems={[
 					{
-						href: "/",
-						label: t("common.menu.home"),
-					},
-					{
 						href: "/about",
 						label: t("common.menu.about"),
 					},
@@ -138,8 +118,8 @@ export default function LayoutClient({
 				]}
 				onOpenMenu={() => {}}
 			/>
-			<div className="flex flex-grow justify-center">
-				<main className="mx-auto flex flex-grow flex-col py-5 lg:max-w-[61.25rem]">
+			<div className="flex flex-grow justify-center overflow-x-hidden">
+				<main className="mx-auto flex flex-grow flex-col lg:max-w-[61.25rem]">
 					{children}
 				</main>
 			</div>
