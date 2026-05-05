@@ -16,7 +16,7 @@ export const reportCases = [
 			q0: "flatOwner",
 			q1: "yesWithoutWindow",
 			q2: "lowValue",
-			q3: "yesGood",
+			q3: "noInformation",
 			q4: "good",
 			q5: "no",
 		},

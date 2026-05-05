@@ -12,6 +12,10 @@ interface ResultBlockProps {
 }
 
 const hazardColorMap: Record<HazardLevel, { border: string; bg: string }> = {
+	none: {
+		border: "border-panel-colored",
+		bg: "bg-panel-colored",
+	},
 	low: {
 		border: "border-hazard-low",
 		bg: "bg-hazard-low",
@@ -52,11 +56,16 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 			},
 		);
 	};
+
 	return (
 		<div
-			className={`Result-block ${hazardColorMap[hazardLevel]?.border} border-12`}
+			className={cn(
+				"Result-block",
+				hazardLevel !== "none" ? "border-12" : "border-hatch p-[12px]",
+				hazardLevel !== "none" && hazardColorMap[hazardLevel]?.border,
+			)}
 		>
-			<div className="flex flex-col gap-2 p-4">
+			<div className="flex flex-col gap-2 bg-white p-4">
 				<div className="flex items-center gap-2">
 					<Image
 						className="w-6"
@@ -69,32 +78,44 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 				</div>
 				<p className="">{t(`${entity}.${hazardLevel}`)}</p>
 				<div className="my-4 grid grid-cols-4 gap-0">
-					{Object.keys(hazardColorMap).map((level) => (
-						<div key={level} className="flex w-full flex-col items-center">
-							<div className="flex h-10 w-full items-center justify-center text-center">
-								{hazardLevel === level && (
-									<Image
-										src="/arrow_down.svg"
-										alt={t(
-											"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
-											{
-												level: t(`hazardScale.${level}`),
-											},
-										)}
-										width={24}
-										height={24}
-									/>
-								)}
-							</div>
-							<div
-								className={`h-3 w-full ${hazardColorMap[level as HazardLevel].bg}`}
-								aria-label={getHazardAriaLabel(level, hazardLevel === level)}
-							></div>
-							<div aria-hidden className="p-2 text-center">
-								{t(`hazardScale.${level}`)}
-							</div>
-						</div>
-					))}
+					{hazardLevel !== "none" && (
+						<>
+							{Object.keys(hazardColorMap)
+								.filter((level) => level !== "none")
+								.map((level) => (
+									<div
+										key={level}
+										className="flex w-full flex-col items-center"
+									>
+										<div className="flex h-10 w-full items-center justify-center text-center">
+											{hazardLevel === level && (
+												<Image
+													src="/arrow_down.svg"
+													alt={t(
+														"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
+														{
+															level: t(`hazardScale.${level}`),
+														},
+													)}
+													width={24}
+													height={24}
+												/>
+											)}
+										</div>
+										<div
+											className={`h-3 w-full ${hazardColorMap[level as HazardLevel].bg}`}
+											aria-label={getHazardAriaLabel(
+												level,
+												hazardLevel === level,
+											)}
+										></div>
+										<div aria-hidden className="p-2 text-center">
+											{t(`hazardScale.${level}`)}
+										</div>
+									</div>
+								))}
+						</>
+					)}
 				</div>
 				{showSubLabel && (
 					<div className="flex flex-col gap-2">

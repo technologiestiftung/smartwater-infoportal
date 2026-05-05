@@ -90,7 +90,7 @@
 
 @layer components {
 	.divider {
-		@apply border-1 border-border w-full border border-b;
+		@apply w-full border border-1 border-b border-border;
 	}
 	h1 {
 		font-size: 1.688rem;
@@ -140,21 +140,40 @@
 
 	@media screen and (max-width: 767px) {
 		.Map-root .ol-scale-line {
-			@apply duration-600 transform ease-in-out;
+			@apply transform duration-600 ease-in-out;
 		}
 	}
-	/* @media screen and (min-width: 768px) {
-		.Map-root .ol-scale-line {
-			bottom: 16px !important;
-			left: auto !important;
-			right: 16px !important;
-		}
-	} */
-	/* #scenario-maps .ol-scale-line { */
 	.ol-scale-line {
 		bottom: 16px !important;
 		left: auto !important;
 		right: 16px !important;
+	}
+	.border-hatch {
+		position: relative;
+		background-color: var(--panel-colored);
+	}
+	.border-hatch::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		padding: 12px; /* border thickness */
+		background-image: linear-gradient(
+			135deg,
+			rgba(160, 160, 160, 0.5) 5.88%,
+			transparent 5.88%,
+			transparent 50%,
+			rgba(160, 160, 160, 0.5) 50%,
+			rgba(160, 160, 160, 0.5) 55.88%,
+			transparent 55.88%,
+			transparent 100%
+		);
+		background-size: 17px 17px;
+		/* 🔥 This makes it only show as a border */
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
 	}
 }
 

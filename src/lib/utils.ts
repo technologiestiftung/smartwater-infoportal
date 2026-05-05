@@ -38,18 +38,21 @@ export function formatGermanTimestamp(timestamp: number): string {
  */
 export function mapScaleToHazardLevel(value: number): HazardLevel {
 	if (value === 0) {
-		return "low";
+		return "none";
 	}
 	if (value === 1) {
-		return "moderate";
+		return "low";
 	}
 	if (value === 2) {
+		return "moderate";
+	}
+	if (value === 3) {
 		return "high";
 	}
-	if (value >= 3) {
+	if (value >= 4) {
 		return "severe";
 	}
-	return "low"; // fallback
+	return "low";
 }
 
 export function fixMojibake(text: string): string {

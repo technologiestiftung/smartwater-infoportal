@@ -140,7 +140,7 @@ const Results: React.FC = () => {
 					className="w-full gap-6"
 					reverseDesktopColumns={true}
 					slotB={
-						<div className="max-w-[400px]">
+						<div className="max-w-[50%]">
 							{(() => {
 								const filteredEntities = getFilteredHazardEntities();
 
