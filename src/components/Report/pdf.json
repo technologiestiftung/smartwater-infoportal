@@ -834,7 +834,7 @@
 		},
 		{
 			"title": "Handlungsempfehlungen => Keller als Gefährdung",
-			"hide": "{skip}",
+			"hide": "!{isThereABasement}",
 			"items": [
 				{
 					"text": "Handlungsempfehlungen",
@@ -889,7 +889,7 @@
 		},
 		{
 			"title": "Handlungsempfehlungen => Rückstausicherungen",
-			"hide": "{skip}",
+			"hide": "{backflowProtectionIsGood}",
 			"items": [
 				{
 					"text": "Handlungsempfehlungen",

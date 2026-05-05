@@ -11,7 +11,8 @@
 		"install-lib": "npm install github:technologiestiftung/berlin-ui-library",
 		"prepare": "husky",
 		"reset": "rm -rf node_modules .next package-lock.json && npm install && npm run dev",
-		"m:staging": "git fetch origin staging && git merge origin/staging"
+		"m:staging": "git fetch origin staging && git merge origin/staging",
+		"playwright-ui": "npx playwright test --ui"
 	},
 	"dependencies": {
 		"@dnd-kit/core": "^6.3.1",

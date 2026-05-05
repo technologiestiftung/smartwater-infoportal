@@ -89,6 +89,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			!!skip ||
 			(typeof floodRiskAnswers?.q0?.value === "string" &&
 				floodRiskAnswers?.q0?.value?.includes("Owner")),
+		"{basementWithWindows}": floodRiskAnswers?.q1?.value === "yesWithWindow",
+		"{basementWithoutWindows}":
+			floodRiskAnswers?.q1?.value === "yesWithoutWindow",
+		"{backflowProtectionIsGood}": floodRiskAnswers?.q3?.value === "yesGood",
 	};
 
 	const addWMSDataToPDFKeys = (building: Building): BuildingWMS => {
@@ -142,6 +146,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			);
 			addToPDFKeys[`{${factor.id}Name}`] = factorName;
 			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
+			addToPDFKeys[`{isThereABasement}`] = isThereABasement;
 		}
 
 		const buildingWMSData: BuildingWMS = {
