@@ -210,7 +210,7 @@
 		},
 		"data_protection_officer": {
 			"title": "2. Name und Anschrift des DSB (Datenschutzbeauftragten)",
-			"description": "Der/die Datenschutzbeauftragte des Verantwortlichen ist:",
+			"description1": "Der/die Datenschutzbeauftragte des Verantwortlichen ist:",
 			"sub_title": "Datenschutzbeauftragter",
 			"mail_title": "E-Mail:",
 			"mail1": "<link>datenschutz@senmvku.berlin.de</link>",
@@ -221,6 +221,79 @@
 			"description2": "Die Datenschutzbeauftragte für die nachgeordneten Einrichtungen ist erreichbar unter:",
 			"sub_title2": "Datenschutzbeauftragte für nachgeordnete Einrichtungen",
 			"mail2": "<link>datenschutz-NE@senmvku.berlin.de</link>"
+		},
+		"central_services": {
+			"title": "3. Zentrale Dienste des Webportals",
+			"sub_title1": "4. Browserdaten",
+			"description1": "Der technische Betreiber von berlin.de, die BerlinOnline GmbH stellt die Webseite bereit und erhebt dabei Browserdaten (sogenannte Logfiles).",
+			"name1": "BerlinOnline GmbH",
+			"address1": "Stefan-Heym-Platz 1",
+			"plz1": "10367 Berlin",
+			"sub_title2": "5. Beschreibung und Umfang der Datenverarbeitung",
+			"description2": "Bei jedem Zugriff von Nutzenden auf eine Seite aus dem Angebot des Webportals und bei jedem Abruf einer Datei werden Daten über diesen Vorgang erhoben.",
+			"list_title1": "Diese Daten sind:",
+			"list1": {
+				"entry1": "Browser-Typ und -Version",
+				"entry2": "Verwendetes Betriebssystem",
+				"entry3": "Webseite, von der aus Sie uns besuchen (Referrer-URL)",
+				"entry4": "Webseite, die Sie besuchen",
+				"entry5": "Datum und Uhrzeit Ihres Zugriffs",
+				"entry6": "Ihre Internetprotokolldaten (IP-Adresse)",
+				"entry7": "übertragene Datenmenge",
+				"entry8": "Zugriffsstatus (Dateien übertragen, Datei nicht gefunden etc.)"
+			},
+			"sub_title3": "6. Rechtsgrundlage für die Datenverarbeitung",
+			"description3": "Rechtsgrundlage für die Verarbeitung der Daten ist das berechtigte Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse besteht in der sicheren Bereitstellung der durch die Nutzenden angefragten Webseite. Im Übrigen stellen die nachfolgend genannten Zwecke zugleich unsere berechtigten Interessen dar.",
+			"sub_title4": "7. Zweck der Datenverarbeitung",
+			"description4": "Die Daten werden aus technischen Gründen, zur Aufrechterhaltung und Verbesserung der Funktionalität sowie Betriebssicherheit des Webportals verarbeitet.",
+			"sub_title5": "8. Dauer der Speicherung",
+			"description5": "Die Daten werden nach 14 Tagen gelöscht.",
+			"sub_title6": "9. Cookies",
+			"description6_1": "Auf der Webseite können temporäre Cookies eingesetzt werden. Hierbei handelt es sich um kleine Textdateien, die vom Webserver an Ihren Computer gesendet werden, um bestimmte Angaben zu speichern.",
+			"description6_2": "Temporäre Cookies werden nur für die jeweilige Sitzung eingesetzt. Diese Cookies werden nach dem Beenden der Sitzung, d.h. nach dem Verlassen der Webseite oder mit dem Schließen des Browserfensters wieder gelöscht.",
+			"description6_3": "Rechtsgrundlage ist das berechtigte Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO.",
+			"description6_4": "Die Darstellung der Internetseite ist auch ohne die Speicherung von Cookies möglich. Sie können das Speichern von Cookies in den Einstellungen Ihres Browsers deaktivieren oder diesen so einstellen, dass er Sie über die beabsichtigte Speicherung durch eine Internetseite informiert. In diesem Fall entscheiden Sie über die Annahme des Cookies. Für den vollen Funktionsumfang der Webseite ist es allerdings aus technischen Gründen erforderlich, die temporären Cookies vollständig zuzulassen.",
+			"sub_title7": "10. Externe Dienste",
+			"description7": "Die Bereitstellung der Anwendung läuft über den Dienst Netlify.  Für die Kartenansicht wird der Kartendienst von basemap.de verwendet. Des Weiteren nutzen wir Matomo für die statistische Auswertung unseres Webauftrittes. Für die Addresssuche wird Photon (<link>https://photon.komoot.io/</link>) und Maptiler (<link>https://www.maptiler.com/</link>) verwendet. Für die Geolokalisierung wird das Navigator Interface des Browsers verwendet. Alle Eingaben (Adresse, Antworten des Fragebogens) des Users werden durch die Library zustand (<link>https://zustand-demo.pmnd.rs/</link>) im lokalen Speicher des Browser auf unbestimmte Zeit gespeichert."
 		}
+	},
+	"barrierefreiheit": {
+		"pageTitle": "Erklärung zur Barrierefreiheit",
+		"sub_title1": "Öffentliche Stelle / Geltungsbereich",
+		"description1": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+		"description2": "Wir bemühen uns, unseren Webauftritt barrierefrei zu gestalten. Die Erklärung zur digitalen Barrierefreiheit wird im Gesetz über die barrierefreie Informations- und Kommunikationstechnik Berlin (BIKTG Bln) verlangt. Die technischen Anforderungen zur Barrierefreiheit ergeben sich aus der aktuellen Barrierefreie-Informationstechnik-Verordnung (BITV).",
+		"description3": "Diese Erklärung zur digitalen Barrierefreiheit gilt für das Angebot Webauftritt <link>https://www.berlin.de/sen/uvk/</link>.",
+		"sub_title2": "Wann wurde die Erklärung zur Barrierefreiheit erstellt bzw. aktualisiert?",
+		"description2_1": "Diese Erklärung wurde am 04.12.2025 erstellt bzw. überarbeitet.",
+		"description2_2": "Die Überprüfung der digitalen Barrierefreiheit wurde durchgeführt von der oben aufgeführten öffentlichen Stelle durch eine Selbstbewertung.",
+		"sub_title3": "Wie barrierefrei ist das Angebot?",
+		"description3_1": "Dieser Webauftritt / Diese Anwendung ist nur teilweise barrierefrei. Es werden nur teilweise die Anforderungen der aktuellen BITV erfüllt.",
+		"sub_title4": "Welche Bereiche sind nicht barrierefrei?",
+		"description4_1": "Die nachstehend aufgeführten Bereiche sind aus folgenden Gründen nicht barrierefrei:",
+		"description4_2": "Unvereinbarkeit mit aktueller BITV",
+		"description4_3": "Teilbereiche, die nicht barrierefrei sind:",
+		"list_title1": "Barriere: Dokumente",
+		"list1": {
+			"entry1": "Beschreibung: PDF-Dokumente, die heruntergeladen werden können sind bereits barrierearm, allerdings nicht barrierefrei",
+			"entry2": "Maßnahmen: Behebung aller Barrieren",
+			"entry3": "Zeitplan: Behebung bis Ende 2026"
+		},
+		"sub_title5": "Kein Anwendungsfall",
+		"description5_1": "Diese Inhalte fallen nicht in den Anwendungsbereich des Barrierefreien IKT Gesetzes Berlin. Ausnahmen, die nicht barrierefrei sein müssen:",
+		"list_title2": "Barriere: Karten",
+		"list2": {
+			"entry1": "Beschreibung: Digitale Kartendarstellungen sind nicht barrierefrei.",
+			"entry2": "Rechtsgrundlage: BIKTG Bln § 4 Abs. 4d"
+		},
+		"sub_title6": "Wen können Sie bei Anmerkungen oder Fragen zur digitalen Barrierefreiheit (Feedbackoption) kontaktieren?",
+		"description6_1": "Sie möchten Informationen zur Umsetzung der Barrierefreiheit oder bestehende Barrieren melden? Sie können etwas auf unserer Website oder der mobilen Anwendung nicht ausreichend wahrnehmen, bedienen oder verstehen? Sie benötigen Informationen in einer barrierefreien Form? Dann informieren Sie uns bitte.",
+		"description6_2": "Kontakt zur Ansprechperson der öffentlichen Stelle:",
+		"description6_3": "Name: Öffentlichkeitsarbeit",
+		"description6_4": "E-Mail: <link>oeffentlichkeitsarbeit@senmvku.berlin.de</link>",
+		"description6_5": "Telefon: (030) 9025-1802",
+		"sub_title7": "Kontakt zur Landesbeauftragten für digitale Barrierefreiheit",
+		"description7_1": "Die folgenden Angaben werden in der digitalen Barrierefreiheitserklärung immer ausgegeben: Wenn Ihre Kontaktaufnahme mit der öffentlichen Stelle nicht erfolgreich war, Sie innerhalb von 4 Wochen keine Antwort erhalten haben, oder die Antwort unzureichend war, können Sie sich an die Landesbeauftragte für digitale Barrierefreiheit wenden und ein Durchsetzungsverfahren anstreben. Bitte kontaktieren Sie immer zuerst die betroffene öffentliche Stelle!",
+		"description7_2": "<link>Link zum Kontaktformular</link>",
+		"description7_3": "<link>Weitere Informationen zur Landesbeauftragten für digitale Barrierefreiheit</link>"
 	}
 }
