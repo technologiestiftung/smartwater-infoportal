@@ -87,6 +87,7 @@ const CheckBlock: React.FC<CheckBlockProps> = ({
 								type="button"
 								disabled={!question}
 								loading={showLoading}
+								id="questionnaire-submit-button"
 							>
 								{question === "yes" ? (
 									<> {t("floodCheck.start.formButtons.toQuestionnaire")}</>

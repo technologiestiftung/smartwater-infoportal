@@ -185,7 +185,10 @@ export default function AddressSearch() {
 						{results.length > 0 && !showLoading && (
 							<div className="flex flex-col gap-2 px-4 pt-8 pb-4">
 								<strong>{t("addressCheck.result")}</strong>
-								<ul className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]">
+								<ul
+									id="results-list"
+									className="list-disc ps-6 [&>li::marker]:text-[var(--primary)]"
+								>
 									<>
 										{results.map((result, index) => {
 											return (
@@ -200,6 +203,24 @@ export default function AddressSearch() {
 																		...result.building,
 																		name: result.name,
 																	};
+																	console.log(
+																		"makeBuilding :>> ",
+																		JSON.stringify(
+																			Object.fromEntries(
+																				Object.entries(makeBuilding).filter(
+																					([key]) =>
+																						!key
+																							.toLowerCase()
+																							.includes("geometry") &&
+																						!key
+																							.toLowerCase()
+																							.includes("transformed"),
+																				),
+																			),
+																			null,
+																			2,
+																		),
+																	);
 																	setLocationData({
 																		found: true,
 																		building: makeBuilding,

@@ -109,16 +109,13 @@ export class GeoServerClient {
 	) {
 		const props = building.properties as Record<string, unknown>;
 		const filterOutKeys = [
-			"UUID",
-			"H_P_NR",
-			"OBJECT_ID",
-			"TARGET_FID",
+			"ID",
+			"Feld",
 			"Shape_Leng",
 			"Shape_Area",
-			"NAMLAG",
-			"gs_sr",
-			"gs_hw",
 			"flzone",
+			"gs_hw",
+			"gs_sr",
 		];
 		return {
 			...Object.fromEntries(
