@@ -55,6 +55,12 @@ export const reportCases = [
 		skip: "true",
 	},
 	{
+		query:
+			"Address with high flood risk but skipped questionnaire (Spandauer Burgwall 40)",
+		address: "Spandauer Burgwall 40",
+		skip: "true",
+	},
+	{
 		query: "Address in Starkregen-Gefahrenkarte (Arminiusstraße 2-4)",
 		address: "Arminiusstraße 2-4",
 		skip: "true",
