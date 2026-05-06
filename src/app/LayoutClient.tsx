@@ -117,6 +117,21 @@ export default function LayoutClient({
 					},
 				]}
 				onOpenMenu={() => {}}
+				accessibilityItems={[
+					{
+						question: "Wie barrierefrei ist diese Webseite?",
+						label: "Erklärung zur Barrierefreiheit",
+						href: "/barrierefreiheit",
+					},
+					{
+						question:
+							"Wo gibt es zusätzliche Informationen zur Barrierefreiheit im Land Berlin?",
+						label:
+							"Barrierefreie Informations- und Kommunikationstechnik (IKT)",
+						href: "https://www.berlin.de/lb/digitale-barrierefreiheit/",
+						external: true,
+					},
+				]}
 			/>
 			<div className="flex flex-grow justify-center overflow-x-hidden">
 				<main className="mx-auto flex flex-grow flex-col lg:max-w-[61.25rem]">
@@ -133,15 +148,15 @@ export default function LayoutClient({
 								label: t("common.footer.about"),
 							},
 							{
-								href: "https://www.berlin.de/sen/uvk/ueber-uns/impressum/",
+								href: "/impressum",
 								label: t("common.footer.imprint"),
 							},
 							{
-								href: "https://www.berlin.de/sen/uvk/datenschutzerklaerung.844084.php",
+								href: "/datenschutz",
 								label: t("common.footer.privacy"),
 							},
 							{
-								href: "https://www.berlin.de/sen/uvk/barrierefreiheitserklaerung.904478.php",
+								href: "/barrierefreiheit",
 								label: t("common.footer.accessibility"),
 							},
 						],

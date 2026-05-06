@@ -76,7 +76,10 @@
 			"hintergrund-informationen": "Hintergrundinformationen",
 			"handlungsempfehlungen": "Handlungsempfehlungen",
 			"accessibility-statement": "Erklärung zur Barrierefreiheit",
-			"_not-found": "Seite nicht gefunden"
+			"_not-found": "Seite nicht gefunden",
+			"impressum": "Impressum",
+			"datenschutz": "Datenschutzerklärung",
+			"barrierefreiheit": "Barrierefreiheit"
 		},
 		"warning": {
 			"currentWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
