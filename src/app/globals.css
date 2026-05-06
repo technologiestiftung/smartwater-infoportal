@@ -148,11 +148,11 @@
 		left: auto !important;
 		right: 16px !important;
 	}
-	.border-hatch {
+	.hatched-border {
 		position: relative;
 		background-color: var(--panel-colored);
 	}
-	.border-hatch::before {
+	.hatched-border::before {
 		content: "";
 		position: absolute;
 		inset: 0;

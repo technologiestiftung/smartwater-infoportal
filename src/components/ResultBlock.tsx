@@ -61,7 +61,7 @@ const ResultBlock: React.FC<ResultBlockProps> = ({
 		<div
 			className={cn(
 				"Result-block",
-				hazardLevel !== "none" ? "border-12" : "border-hatch p-[12px]",
+				hazardLevel !== "none" ? "border-12" : "hatched-border p-[12px]",
 				hazardLevel !== "none" && hazardColorMap[hazardLevel]?.border,
 			)}
 		>
