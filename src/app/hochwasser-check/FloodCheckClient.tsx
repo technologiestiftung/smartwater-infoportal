@@ -36,13 +36,6 @@ export default function FloodCheckClient() {
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 			{hash === "questionnaire" ? (
 				<>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => router.push("/hochwasser-check")}
-						variant="back-link"
-					>
-						{t("floodCheck.navigation.back")}
-					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>

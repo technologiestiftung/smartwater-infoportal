@@ -2,7 +2,6 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import NextImage from "next/image";
 import React, { FC, ReactNode } from "react";
 
 type TocMap = Record<string, string>;
@@ -12,7 +11,6 @@ interface FullResponsiveImageProps {
 	fullIMGMobile?: string;
 	listKey?: string;
 }
-const lisztIconSize = 44;
 
 const Serious: React.FC = () => {
 	const t = useTranslations("recommendations.serious");
@@ -76,31 +74,26 @@ const Serious: React.FC = () => {
 	const Lists = [
 		{
 			listKey: "list1",
-			img: "/HandlungsempfehlungIcons/Icon_Achtung.png",
 			list: list1,
 		},
 		{
 			listKey: "list2",
-			img: "/HandlungsempfehlungIcons/Icon_Warn.png",
 			list: list2,
 			hasParagraph: true,
 		},
 		{
 			listKey: "list3",
-			img: "/HandlungsempfehlungIcons/Icon_Ueberflutungsflaechen.png",
 			list: list3,
 			fullIMG: "/Verkehr_ueberflutung.png",
 		},
 		{
 			listKey: "list4",
-			img: "/HandlungsempfehlungIcons/Icon_AutoUeberflutungsflaechen.png",
 			list: list4,
 			fullIMGDesktop: "/Unterfuehrung_Tiefgarage_Auto-desktop.jpg",
 			fullIMGMobile: "/Unterfuehrung_Tiefgarage_Auto-mobile.jpg",
 		},
 		{
 			listKey: "list5",
-			img: "/HandlungsempfehlungIcons/icon_EmgerncyPackage.png",
 			list: list5,
 		},
 	];
@@ -150,7 +143,6 @@ const Serious: React.FC = () => {
 			{Lists.map(
 				({
 					listKey,
-					img,
 					hasParagraph,
 					list,
 					fullIMG,
@@ -160,12 +152,6 @@ const Serious: React.FC = () => {
 					<div className="flex flex-col gap-6" key={listKey}>
 						<div className="space-y-2">
 							<div className="flex items-center gap-4">
-								<NextImage
-									src={img}
-									alt={`Icon for ${listKey}`}
-									width={lisztIconSize}
-									height={lisztIconSize}
-								/>
 								<h3 className="font-normal">
 									{t.rich(`${listKey}Intro`, {
 										strong: (chunks) => <strong>{chunks}</strong>,

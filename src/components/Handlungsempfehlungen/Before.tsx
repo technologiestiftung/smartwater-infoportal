@@ -3,11 +3,9 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import NextImage from "next/image";
 import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
-const lisztIconSize = 44;
 
 const Before: React.FC = () => {
 	const t = useTranslations("recommendations.beforeEvent");
@@ -141,37 +139,31 @@ const Before: React.FC = () => {
 	const Lists = [
 		{
 			listKey: "list1",
-			img: "/HandlungsempfehlungIcons/icon_verhaltensvorsorge.png",
 			list: list1,
 			hasParagraph: true,
 		},
 		{
 			listKey: "list2",
-			img: "/HandlungsempfehlungIcons/icon_versicherung.png",
 			list: list2,
 			fullIMG: "/BeforeList2IMG.jpg",
 			hasParagraph: true,
 		},
 		{
 			listKey: "list3",
-			img: "/HandlungsempfehlungIcons/icon_Trockenvorsorge.png",
 			list: list3,
 			afterList: "afterList3",
 			hasParagraph: true,
 		},
 		{
 			listKey: "list4",
-			img: "/HandlungsempfehlungIcons/icon_Nassvorsorge.png",
 			list: list4,
 			hasParagraph: true,
 		},
 		{
 			listKey: "list5",
-			img: "/HandlungsempfehlungIcons/icon_Ausweichen.png",
 			list: list5,
 			hasParagraph: true,
 			afterList: "afterList5",
-			afterListImage: "/Hochwasserschutzfibel_Bild.png",
 		},
 	];
 
@@ -182,150 +174,117 @@ const Before: React.FC = () => {
 					strong: (chunks) => <strong>{chunks}</strong>,
 				})}
 			</h2>
-			{Lists.map(
-				({
-					listKey,
-					img,
-					hasParagraph,
-					list,
-					fullIMG,
-					afterList,
-					afterListImage,
-				}) => (
-					<div className="flex flex-col gap-6" key={listKey}>
-						<div className="space-y-2">
-							<div className="flex items-center gap-4">
-								<NextImage
-									src={img}
-									alt={`Icon for ${listKey}`}
-									width={lisztIconSize}
-									height={lisztIconSize}
-								/>
-								<h3 className="font-normal">
-									{t.rich(`${listKey}Intro`, {
-										strong: (chunks) => <strong>{chunks}</strong>,
-									})}
-								</h3>
-							</div>
-							{hasParagraph && (
-								<p>
-									{t.rich(`${listKey}Paragraph`, {
-										strong: (chunks) => <strong>{chunks}</strong>,
-									})}
-								</p>
-							)}
-							{listKey === "list3" && (
-								<p className="italic">{t("list3ParagraphNote")}</p>
-							)}
-							{listKey === "list4" && (
-								<p className="italic">{t("list4ParagraphNote")}</p>
-							)}
-							{listKey === "list5" && (
-								<p className="italic">{t("list5ParagraphNote")}</p>
-							)}
+			{Lists.map(({ listKey, hasParagraph, list, fullIMG, afterList }) => (
+				<div className="flex flex-col gap-6" key={listKey}>
+					<div className="space-y-2">
+						<div className="flex items-center gap-4">
+							<h3 className="font-normal">
+								{t.rich(`${listKey}Intro`, {
+									strong: (chunks) => <strong>{chunks}</strong>,
+								})}
+							</h3>
 						</div>
-						<ul className="list-none space-y-2 lg:ps-12">
-							{Object.keys(list).map((key) => (
-								<li key={key} className="flex items-start gap-2">
-									<FontAwesomeIcon
-										icon={faCheck}
-										className={`shrink-0 text-[18px]`}
-									/>
-									<span>
-										{t.rich(`${listKey}.${key}`, {
-											link: (chunks) => (
-												<Link
-													href={getLink(key, chunks, listKey).link}
-													target={getLink(key, chunks, listKey).target}
-													rel="noopener noreferrer"
-													variant={getLink(key, chunks, listKey).variant || "default"}
-												>
-													{chunks}
-												</Link>
-											),
-										})}
-									</span>
-								</li>
-							))}
-						</ul>
-						{afterList && (
-							<div className={cn(
-								"flex flex-col gap-4 lg:flex-row",
-								afterList === "afterList5" && "bg-[#ecf8f5] p-6 lg:p-2 w-[calc(100%+3rem)] -translate-x-6 lg:w-auto lg:translate-x-0"
-							)}>
-								<p
-									className={cn("lg:ps-12", afterListImage && "lg:max-w-[50%]")}
-								>
-									{t.rich(afterList, {
-										link1: (chunks) => (
+						{hasParagraph && (
+							<p>
+								{t.rich(`${listKey}Paragraph`, {
+									strong: (chunks) => <strong>{chunks}</strong>,
+								})}
+							</p>
+						)}
+						{listKey === "list3" && (
+							<p className="italic">{t("list3ParagraphNote")}</p>
+						)}
+						{listKey === "list4" && (
+							<p className="italic">{t("list4ParagraphNote")}</p>
+						)}
+						{listKey === "list5" && (
+							<p className="italic">{t("list5ParagraphNote")}</p>
+						)}
+					</div>
+					<ul className="list-none space-y-2 lg:ps-12">
+						{Object.keys(list).map((key) => (
+							<li key={key} className="flex items-start gap-2">
+								<FontAwesomeIcon
+									icon={faCheck}
+									className={`shrink-0 text-[18px]`}
+								/>
+								<span>
+									{t.rich(`${listKey}.${key}`, {
+										link: (chunks) => (
 											<Link
-												href="https://www.hochwasser-pass.info/"
-												target="_blank"
+												href={getLink(key, chunks, listKey).link}
+												target={getLink(key, chunks, listKey).target}
 												rel="noopener noreferrer"
-												variant="extern"
-											>
-												{chunks}
-											</Link>
-										),
-										link2: (chunks) => (
-											<Link
-												href="https://www.fib-bund.de/inhalt/themen/hochwasser/"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="extern"
+												variant={
+													getLink(key, chunks, listKey).variant || "default"
+												}
 											>
 												{chunks}
 											</Link>
 										),
 									})}
-								</p>
-								{afterListImage && (
-									<>
-										<div className="hidden lg:flex justify-center">
-											<Image
-												src={afterListImage}
-												alt={t("afterList5Image.alt")}
-												caption={t("afterList5Image.caption")}
-												copyright={t("afterList5Image.copyright")}
-												className="shrink-0 max-w-[50%] object-contain"
-											/>
-										</div>
-										<Image
-											src={afterListImage}
-											alt={t("afterList5Image.alt")}
-											caption={t("afterList5Image.caption")}
-											copyright={t("afterList5Image.copyright")}
-											className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
-										/>
-									</>
-								)}
-							</div>
-						)}
-						{fullIMG && (
-							<>
-								<div className="flex justify-center">
-									<Image
-										className="hidden w-[75%] lg:block"
-										src={fullIMG}
-										alt={t(`${listKey}Image.alt`)}
-										caption={t(`${listKey}Image.caption`)}
-										copyright={t(`${listKey}Image.copyright`)}
-										withZoomBox
-									/>
-								</div>
+								</span>
+							</li>
+						))}
+					</ul>
+					{afterList && (
+						<div
+							className={cn(
+								"flex flex-col gap-4 lg:flex-row",
+								afterList === "afterList5" &&
+									"w-[calc(100%+3rem)] -translate-x-6 bg-[#ecf8f5] p-6 lg:w-auto lg:translate-x-0",
+							)}
+						>
+							<p>
+								{t.rich(afterList, {
+									link1: (chunks) => (
+										<Link
+											href="https://www.hochwasser-pass.info/"
+											target="_blank"
+											rel="noopener noreferrer"
+											variant="extern"
+										>
+											{chunks}
+										</Link>
+									),
+									link2: (chunks) => (
+										<Link
+											href="https://www.fib-bund.de/inhalt/themen/hochwasser/"
+											target="_blank"
+											rel="noopener noreferrer"
+											variant="extern"
+										>
+											{chunks}
+										</Link>
+									),
+								})}
+							</p>
+						</div>
+					)}
+					{fullIMG && (
+						<>
+							<div className="flex justify-center">
 								<Image
-									className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
+									className="hidden w-[75%] lg:block"
 									src={fullIMG}
 									alt={t(`${listKey}Image.alt`)}
 									caption={t(`${listKey}Image.caption`)}
 									copyright={t(`${listKey}Image.copyright`)}
 									withZoomBox
 								/>
-							</>
-						)}
-					</div>
-				),
-			)}
+							</div>
+							<Image
+								className="w-[calc(100%+3rem)] -translate-x-6 lg:hidden"
+								src={fullIMG}
+								alt={t(`${listKey}Image.alt`)}
+								caption={t(`${listKey}Image.caption`)}
+								copyright={t(`${listKey}Image.copyright`)}
+								withZoomBox
+							/>
+						</>
+					)}
+				</div>
+			))}
 		</section>
 	);
 };

@@ -3,8 +3,9 @@
 "use client";
 
 import { Button } from "berlin-ui-library";
-import Image from "next/image";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 interface LocationButtonProps {
 	coordinatesChanged?: (lat: number, lon: number) => void;
@@ -101,13 +102,11 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 						requestLocation();
 					}}
 				>
-					<Image
-						src="/userLocation.svg"
-						alt={"Benutzerstandort Icon"}
-						width={24}
-						height={24}
+					<FontAwesomeIcon
+						icon={faMapMarkerAlt}
+						className={`flex-shrink-0 text-[18px] text-black`}
 					/>
-					<p>Aktuellen Standort benutzen</p>
+					<p className="text-black">Aktuellen Standort benutzen</p>
 				</Button>
 				{status === "loading" && <p>Frage Standort ab…</p>}
 				{status === "denied" && (

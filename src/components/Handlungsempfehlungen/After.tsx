@@ -2,12 +2,9 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import NextImage from "next/image";
 import React, { ReactNode } from "react";
 
-
 type TocMap = Record<string, string>;
-const lisztIconSize = 44;
 
 const After: React.FC = () => {
 	const t = useTranslations("recommendations.after");
@@ -80,32 +77,26 @@ const After: React.FC = () => {
 	const Lists = [
 		{
 			listKey: "list1",
-			img: "/HandlungsempfehlungIcons/Icon_Achtung.png",
 			list: list1,
 		},
 		{
 			listKey: "list2",
-			img: "/HandlungsempfehlungIcons/icon_HelpingOthers.png",
 			list: list2,
 		},
 		{
 			listKey: "list3",
-			img: "/HandlungsempfehlungIcons/Icon_Haus.png",
 			list: list3,
 		},
 		{
 			listKey: "list4",
-			img: "/HandlungsempfehlungIcons/Icon_Kamera.png",
 			list: list4,
 		},
 		{
 			listKey: "list5",
-			img: "/HandlungsempfehlungIcons/Icon_Auto2.png",
 			list: list5,
 		},
 		{
 			listKey: "list6",
-			img: "/HandlungsempfehlungIcons/Icon_gruenesHaus.png",
 			list: list6,
 		},
 	];
@@ -117,15 +108,9 @@ const After: React.FC = () => {
 					strong: (chunks) => <strong>{chunks}</strong>,
 				})}
 			</h2>
-			{Lists.map(({ listKey, img, list }) => (
+			{Lists.map(({ listKey, list }) => (
 				<div className="flex flex-col gap-6" key={listKey}>
 					<div className="flex items-center gap-4">
-						<NextImage
-							src={img}
-							alt={`Icon for ${listKey}`}
-							width={lisztIconSize}
-							height={lisztIconSize}
-						/>
 						<h3 className="font-normal">
 							{t.rich(`${listKey}Intro`, {
 								strong: (chunks) => <strong>{chunks}</strong>,
