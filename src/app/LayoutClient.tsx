@@ -148,15 +148,15 @@ export default function LayoutClient({
 								label: t("common.footer.about"),
 							},
 							{
-								href: "https://www.berlin.de/sen/uvk/ueber-uns/impressum/",
+								href: "/impressum",
 								label: t("common.footer.imprint"),
 							},
 							{
-								href: "https://www.berlin.de/sen/uvk/datenschutzerklaerung.844084.php",
+								href: "/datenschutz",
 								label: t("common.footer.privacy"),
 							},
 							{
-								href: "https://www.berlin.de/sen/uvk/barrierefreiheitserklaerung.904478.php",
+								href: "/barrierefreiheit",
 								label: t("common.footer.accessibility"),
 							},
 						],
