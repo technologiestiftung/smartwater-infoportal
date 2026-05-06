@@ -42,13 +42,6 @@ export default function FloodCheckClient() {
 						</div>
 						<RiskAnalysis />
 					</div>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => router.push("/hochwasser-check")}
-						variant="back-link"
-					>
-						{t("floodCheck.navigation.back")}
-					</Button>
 				</>
 			) : hash === "results" ? (
 				<>
@@ -77,6 +70,15 @@ export default function FloodCheckClient() {
 				</>
 			) : (
 				<>
+					<Button
+						className="w-full justify-end self-start lg:w-fit"
+						onClick={() => {
+							router.push("/");
+						}}
+						variant="back-link"
+					>
+						{t("common.backToStart")}
+					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<h1 className="">{t("floodCheck.pageTitle")}</h1>
 						<p className="">{t("floodCheck.start.description")}</p>
@@ -104,15 +106,6 @@ export default function FloodCheckClient() {
 							}}
 						/>
 					</div>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => {
-							router.push("/");
-						}}
-						variant="back-link"
-					>
-						{t("common.backToStart")}
-					</Button>
 				</>
 			)}
 		</div>
