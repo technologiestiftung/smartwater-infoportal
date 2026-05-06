@@ -140,5 +140,87 @@
 			"subTitle": "Sie möchten noch tiefer in das Thema Starkregenrisikomanagement einsteigen?",
 			"description": "Wenn Sie sich über die private Vorsorge hinaus zum Thema Starkregenrisikomanagement in Deutschland informieren möchten, können Sie in den Bericht <link1>Vorsorge gegen Starkregenereignisse und Maßnahmen zur wassersensiblen Stadtentwicklung</link1> schauen. Das Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK) diskutiert die Thematik aus dem Blickwinkel der Katastrophenschützer und Einsatzkräfte in ihrem Bericht <link2>Starkregen – Herausforderungen für den Bevölkerungsschutz</link2>. Wenn Sie mehr zu dem Starkregenereignis 2017 erfahren möchten, schauen Sie in den Bericht <link3>Starkregen in Berlin</link3>."
 		}
+	},
+	"impressum": {
+		"pageTitle": "Impressum",
+		"publisher": {
+			"title": "Herausgeberin",
+			"name": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"address": "Am Köllnischen Park 3",
+			"plz": "10179 Berlin"
+		},
+		"authorized": {
+			"title": "Vertretungsberechtigt ",
+			"position": "Senatorin für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"name": "Ute Bonde"
+		},
+		"content_responsible": {
+			"title": "Publizistisch inhaltlich verantwortlich ",
+			"name": "Kai Lehmann",
+			"position": "Leiter der Öffentlichkeitsarbeit",
+			"tel": "Tel.: (030) 9025-1802",
+			"mail": "E-Mail: <link>kai.lehmann@senmvku.berlin.de</link>"
+		},
+		"tax_id": {
+			"title": "Umsatzsteuer-Identifikationsnummer",
+			"number": "USt-IdNr.: DE309341576"
+		},
+		"online_info": "Das Online-Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt ist Teil des Stadtinformationssystems Berlin: <link>www.berlin.de</link>.",
+		"technical_operations": {
+			"title": "Technischer Betrieb",
+			"name": "Technologiestiftung Berlin",
+			"address": "Grunewaldstraße 61-62",
+			"plz": "10825 Berlin",
+			"tel": "Tel.: +49 30 209 69 99-0",
+			"mail": "E-Mail: <link>info@technologiestiftung-berlin</link>"
+		},
+		"privacy_policy": {
+			"title": "Datenschutz",
+			"description": "Bitte beachten Sie die <link1>Datenschutzerklärung</link1> und Datenschutzinformationen im Bereich <link2>Social Media</link2>."
+		},
+		"disclaimer": {
+			"title": "Haftungshinweis",
+			"paragraph1": "Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen.",
+			"paragraph2": "Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt mit. Werden solche Rechtsverletzungen bekannt, werden die externen Links unverzüglich entfernt."
+		},
+		"copyright": {
+			"title": "Urheberrecht",
+			"paragraph1": "Das Layout der Seiten der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, die verwendeten Grafiken, Fotos, Bewegtbilder, Texte sowie die Sammlung der Beiträge sind urheberrechtlich geschützt. Die Nutzung der Inhalte ist nur im Rahmen der gesetzlichen Bestimmungen zulässig. Bei der Angabe der Bildrechte steht die Abkürzung SenMVKU für die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt sowie SenUMVK für die ehemalige Senatsverwaltung für Umwelt, Mobilität, Verbraucher- und Klimaschutz bzw. SenUVK für die ehemalige Senatsverwaltung für Umwelt, Verkehr und Klimaschutz.",
+			"paragraph2": "Für die über das Geoportal Berlin verfügbaren Geodaten gelten weitreichende – offene – Nutzungsbestimmungen. Diese finden Sie unter den “Informationen” bei den jeweiligen Geodaten."
+		},
+		"contact": {
+			"title": "Bei Fragen und Rückmeldungen zum Thema Starkregen und Hochwasser",
+			"sub1": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"description1": "Sie haben Fragen oder Anregungen zu Inhalten auf dieser Seite? Dann kontaktieren Sie uns gerne:",
+			"tel": "Tel.: 030-90252021",
+			"mail": "E-Mail.: <link>hochwasser@SenMVKU.berlin.de</link>",
+			"sub2": "Berliner Regenwasseragentur",
+			"description2": "Sie haben Fragen zur dezentralen Regenwasserbewirtschaftung oder möchten sich dazu beraten lassen, wie Sie Ihr Grundstück vor starkregenbedingten Überflutungen schützen können? Dann schreiben Sie uns: <link>regenwasseragentur.berlin/kontakt/</link>"
+		}
+	},
+	"datenschutz": {
+		"pageTitle": "Datenschutzerklärung der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+		"responsible": {
+			"title": "1. Verantwortliche/r",
+			"description": "Verantwortliche/r im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze der Mitgliedsstaaten sowie sonstiger datenschutzrechtlicher Bestimmungen ist:",
+			"name": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"address_title": "Anschrift:",
+			"address": "Am Köllnischen Park 3",
+			"plz": "10179 Berlin"
+		},
+		"data_protection_officer": {
+			"title": "2. Name und Anschrift des DSB (Datenschutzbeauftragten)",
+			"description": "Der/die Datenschutzbeauftragte des Verantwortlichen ist:",
+			"sub_title": "Datenschutzbeauftragter",
+			"mail_title": "E-Mail:",
+			"mail1": "<link>datenschutz@senmvku.berlin.de</link>",
+			"address_title": "Anschrift:",
+			"position": "c/o Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"address": "Am Köllnischen Park 3",
+			"plz": "10179 Berlin",
+			"description2": "Die Datenschutzbeauftragte für die nachgeordneten Einrichtungen ist erreichbar unter:",
+			"sub_title2": "Datenschutzbeauftragte für nachgeordnete Einrichtungen",
+			"mail2": "<link>datenschutz-NE@senmvku.berlin.de</link>"
+		}
 	}
 }
