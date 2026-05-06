@@ -99,16 +99,16 @@ export default function Recommendations() {
 
 			<Tabs defaultValue="before" className="mt-12">
 				<TabsList>
-					<TabsTrigger value="before" tabColor="#9BCFAF">
+					<TabsTrigger value="before">
 						{t("recommendations.timeline.before")}
 					</TabsTrigger>
-					<TabsTrigger value="emergency" tabColor="#FFE70E">
+					<TabsTrigger value="emergency">
 						{t("recommendations.timeline.emergency")}
 					</TabsTrigger>
-					<TabsTrigger value="serious" tabColor="#F5B4CB">
+					<TabsTrigger value="serious">
 						{t("recommendations.timeline.serious")}
 					</TabsTrigger>
-					<TabsTrigger value="after" tabColor="#AAC9E7">
+					<TabsTrigger value="after">
 						{t("recommendations.timeline.after")}
 					</TabsTrigger>
 				</TabsList>
