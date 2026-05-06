@@ -1,6 +1,8 @@
 export const reportCases = [
 	{
-		query: "Grunewaldstraße 61-62",
+		query:
+			"HouseOwner with Windows, low value, no information about basement, good backflowProtection condition, no flood experience",
+		address: "Grunewaldstraße 61-62",
 		answers: {
 			q0: "houseOwner",
 			q1: "yesWithWindow",
@@ -11,7 +13,9 @@ export const reportCases = [
 		},
 	},
 	{
-		query: "Grunewaldstraße 64",
+		query:
+			"FlatOwner with Windows, low value, no information about basement, good backflowProtection condition, no flood experience",
+		address: "Grunewaldstraße 61-62",
 		answers: {
 			q0: "flatOwner",
 			q1: "yesWithoutWindow",
@@ -22,7 +26,9 @@ export const reportCases = [
 		},
 	},
 	{
-		query: "Grunewaldstraße 67",
+		query:
+			"Rent with no Windows, low value, no information about basement, good backflowProtection condition, no flood experience",
+		address: "Grunewaldstraße 61-62",
 		answers: {
 			q0: "rent",
 			q1: "no",
@@ -32,7 +38,30 @@ export const reportCases = [
 		},
 	},
 	{
-		query: "Grunewaldstraße 69",
+		query: "Skipped Questionnaire",
+		address: "Grunewaldstraße 61-62",
+		skip: "true",
+	},
+	{
+		query:
+			"Address with high flood risk but skipped questionnaire (Majakowskiring 7)",
+		address: "Majakowskiring 7",
+		skip: "true",
+	},
+	{
+		query:
+			"Address with high flood risk but skipped questionnaire (Brandensteinweg 31)",
+		address: "Brandensteinweg 31",
+		skip: "true",
+	},
+	{
+		query: "Address in Starkregen-Gefahrenkarte (Arminiusstraße 2-4)",
+		address: "Arminiusstraße 2-4",
+		skip: "true",
+	},
+	{
+		query: "Address in Starkregen-Gefahrenkarte (Lübener Weg 24C)",
+		address: "Lübener Weg 24C",
 		skip: "true",
 	},
 ];

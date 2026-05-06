@@ -4,12 +4,12 @@ import { reportCases } from "./report.cases";
 const BASE_URL = "http://localhost:3000";
 const DEFAULT_TIMEOUT = 20_000;
 
-async function searchAddress(page: Page, query: string) {
+async function searchAddress(page: Page, address: string) {
 	await page.goto(BASE_URL);
 
 	const input = page.locator('input[type="text"]');
 	await expect(input).toBeVisible();
-	await input.fill(query);
+	await input.fill(address);
 
 	const resultsList = page.locator("ul#results-list");
 	await expect(resultsList).toBeVisible({ timeout: DEFAULT_TIMEOUT });
@@ -83,7 +83,7 @@ async function openPdf(page: Page) {
 test.describe("Create report", () => {
 	for (const c of reportCases) {
 		test(`creates report for "${c.query}"`, async ({ page }) => {
-			await searchAddress(page, c.query);
+			await searchAddress(page, c.address);
 			await startQuestionnaire(page, !!c.skip);
 			if (!c.skip) {
 				await answerQuestionnaire(page, c.answers);
