@@ -148,11 +148,11 @@
 		left: auto !important;
 		right: 16px !important;
 	}
-	.hatched-border {
+	.funky-chicken {
 		position: relative;
 		background-color: var(--panel-colored);
 	}
-	.hatched-border::before {
+	.funky-chicken::before {
 		content: "";
 		position: absolute;
 		inset: 0;
