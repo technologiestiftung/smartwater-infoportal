@@ -117,6 +117,21 @@ export default function LayoutClient({
 					},
 				]}
 				onOpenMenu={() => {}}
+				accessibilityItems={[
+					{
+						question: "Wie barrierefrei ist diese Webseite?",
+						label: "Erklärung zur Barrierefreiheit",
+						href: "/barrierefreiheit",
+					},
+					{
+						question:
+							"Wo gibt es zusätzliche Informationen zur Barrierefreiheit im Land Berlin?",
+						label:
+							"Barrierefreie Informations- und Kommunikationstechnik (IKT)",
+						href: "https://www.berlin.de/lb/digitale-barrierefreiheit/",
+						external: true,
+					},
+				]}
 			/>
 			<div className="flex flex-grow justify-center overflow-x-hidden">
 				<main className="mx-auto flex flex-grow flex-col lg:max-w-[61.25rem]">
