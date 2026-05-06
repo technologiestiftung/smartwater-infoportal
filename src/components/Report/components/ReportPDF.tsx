@@ -218,6 +218,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{frequentFloodMinimum}"] = translateWMSValue(
 			building.hw_hval_mi,
 		);
+		buildingWMSData.frequentFloodMax = building.hw_hval_ma ?? null;
 
 		// Average Flood
 		addToPDFKeys["{hasNoAverageFloodData}"] =
@@ -227,6 +228,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{averageFloodMinimum}"] = translateWMSValue(
 			building.hw_mva_min,
 		);
+		buildingWMSData.averageFloodMax = building.hw_mva_max ?? null;
 
 		// Rare Flood
 		addToPDFKeys["{hasNoRareFloodData}"] =
@@ -234,6 +236,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{hasRareFloodData}"] = !!building.hw_sval_ma;
 		addToPDFKeys["{rareFloodMax}"] = translateWMSValue(building.hw_sval_ma);
 		addToPDFKeys["{rareFloodMinimum}"] = translateWMSValue(building.hw_sval_mi);
+		buildingWMSData.rareFloodMax = building.hw_sval_ma ?? null;
 
 		// Flood Zone
 		addToPDFKeys["{hasNoFloodZoneData}"] = !building.floodZoneIndex;
@@ -257,6 +260,14 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			averageFloodMax,
 			rareFloodMax,
 		} = addWMSDataToPDFKeys(building);
+
+		console.log("addWMSDataToPDFKeys", {
+			hasHeavyRainHazardMap,
+			hasExtremeRainHazardMap,
+			frequentFloodMax,
+			averageFloodMax,
+			rareFloodMax,
+		});
 
 		setDone((prev) => [...prev, "wms"]);
 
@@ -297,6 +308,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (!!rareFloodMax) {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
+
+		console.log("scenarios :>> ", scenarios);
 
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
