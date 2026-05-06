@@ -217,7 +217,7 @@ const RiskAnalysis = () => {
 							/>
 						}
 						slotB={
-							<div className="flex w-full flex-col gap-6 bg-panel-heavy p-6">
+							<div className="flex w-full flex-col gap-6 p-6">
 								<h3 className="">
 									{t(`${currentQuestion.translationKey}.title`)}
 								</h3>

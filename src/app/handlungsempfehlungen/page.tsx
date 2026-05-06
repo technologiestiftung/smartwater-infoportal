@@ -10,7 +10,7 @@ import {
 	Tabs,
 	TabsContent,
 	TabsList,
-	TabsTrigger
+	TabsTrigger,
 } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 
@@ -84,10 +84,7 @@ export default function Recommendations() {
 			<p className="">
 				{t.rich("recommendations.intro2", {
 					link1: (chunks) => (
-						<Link
-							href="/#hochwasser-check"
-							rel="noopener noreferrer"
-						>
+						<Link href="/#hochwasser-check" rel="noopener noreferrer">
 							{chunks}
 						</Link>
 					),

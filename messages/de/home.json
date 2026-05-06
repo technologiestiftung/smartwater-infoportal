@@ -1,10 +1,9 @@
 {
 	"home": {
-		"pageTitle": "Über das Hochwasser-Infoportal",
-		"whatIsIt": {
-			"description1": "Krass, ist das nass! Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
-			"description2": "Unser Hochwasser-Infoportal bietet Handlungsempfehlungen und weiterführende Informationen zum Thema Starkregen und Flusshochwasser."
-		},
+		"headerTitle": "Hochwasser-Infoportal",
+		"headerSubTitle": "“Krass, ist das nass!”",
+		"pageTitle": "Hochwasser-Infoportal",
+		"pageDescription": "Auch in Berlin kommt es regelmäßig zu Hochwasser, das Straßen oder Keller überflutet und dadurch Gebäude, Infrastrukturen oder im Extremfall Personen schädigen kann.",
 		"amIAffected": {
 			"title": "Bin ich betroffen? Machen Sie den HochwasserCheck Berlin",
 			"description1": "Mit dem <strong>HochwasserCheck Berlin</strong> erhalten Sie eine Gefährdungs- und Risikoeinschätzung für Ihre persönliche Adresse – basierend auf präzisen Karteninformationen und einem einfachen Fragebogen mit nur 6 Fragen. Sie erhalten klare, individuelle Handlungsempfehlungen, die Ihnen helfen, Ihr Risiko effektiv zu minimieren.",

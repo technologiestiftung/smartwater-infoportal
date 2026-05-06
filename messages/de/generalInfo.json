@@ -140,5 +140,161 @@
 			"subTitle": "Sie möchten noch tiefer in das Thema Starkregenrisikomanagement einsteigen?",
 			"description": "Wenn Sie sich über die private Vorsorge hinaus zum Thema Starkregenrisikomanagement in Deutschland informieren möchten, können Sie in den Bericht <link1>Vorsorge gegen Starkregenereignisse und Maßnahmen zur wassersensiblen Stadtentwicklung</link1> schauen. Das Bundesamt für Bevölkerungsschutz und Katastrophenhilfe (BBK) diskutiert die Thematik aus dem Blickwinkel der Katastrophenschützer und Einsatzkräfte in ihrem Bericht <link2>Starkregen – Herausforderungen für den Bevölkerungsschutz</link2>. Wenn Sie mehr zu dem Starkregenereignis 2017 erfahren möchten, schauen Sie in den Bericht <link3>Starkregen in Berlin</link3>."
 		}
+	},
+	"impressum": {
+		"pageTitle": "Impressum",
+		"publisher": {
+			"title": "Herausgeberin",
+			"name": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"address": "Am Köllnischen Park 3",
+			"plz": "10179 Berlin"
+		},
+		"authorized": {
+			"title": "Vertretungsberechtigt ",
+			"position": "Senatorin für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"name": "Ute Bonde"
+		},
+		"content_responsible": {
+			"title": "Publizistisch inhaltlich verantwortlich ",
+			"name": "Kai Lehmann",
+			"position": "Leiter der Öffentlichkeitsarbeit",
+			"tel": "Tel.: (030) 9025-1802",
+			"mail": "E-Mail: <link>kai.lehmann@senmvku.berlin.de</link>"
+		},
+		"tax_id": {
+			"title": "Umsatzsteuer-Identifikationsnummer",
+			"number": "USt-IdNr.: DE309341576"
+		},
+		"online_info": "Das Online-Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt ist Teil des Stadtinformationssystems Berlin: <link>www.berlin.de</link>.",
+		"technical_operations": {
+			"title": "Technischer Betrieb",
+			"name": "Technologiestiftung Berlin",
+			"address": "Grunewaldstraße 61-62",
+			"plz": "10825 Berlin",
+			"tel": "Tel.: +49 30 209 69 99-0",
+			"mail": "E-Mail: <link>info@ts.berlin</link>"
+		},
+		"privacy_policy": {
+			"title": "Datenschutz",
+			"description": "Bitte beachten Sie die <link1>Datenschutzerklärung</link1> und Datenschutzinformationen im Bereich <link2>Social Media</link2>."
+		},
+		"disclaimer": {
+			"title": "Haftungshinweis",
+			"paragraph1": "Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte sind mit größter Sorgfalt recherchiert. Dennoch kann die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keine Gewähr für die Aktualität, Korrektheit oder Vollständigkeit der bereitgestellten Informationen übernehmen. Alle Angaben erfolgen ohne Gewähr. Aus der Nutzung dieser Informationen abgeleitete Haftungsansprüche gegen die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, das Land Berlin oder den Betreiber von “berlin.de” sind ausgeschlossen.",
+			"paragraph2": "Die im Angebot der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt veröffentlichten Inhalte enthalten neben eigenen Inhalten auch externe Links. Auf diese Inhalte hat die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt keinen Einfluss und übernimmt keine Gewähr für die Richtigkeit, Die externen Links wurden zum Zeitpunkt der Linksetzung auf Rechtsverstöße überprüft und waren im Zeitpunkt der Linksetzung frei von rechtswidrigen Inhalten. Eine ständige inhaltliche Überprüfung der externen Links ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht möglich. Bei direkten oder indirekten Verlinkungen auf die Webseiten Dritter, die außerhalb des Verantwortungsbereichs der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt liegen, würde eine Haftungsverpflichtung nur bestehen, wenn die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt von den Inhalten Kenntnis erlangen und es ihr technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Sollten Sie der Ansicht sein, dass die verlinkten externen Seiten gegen geltendes Recht verstoßen oder sonst unangemessene Inhalte haben, so teilen Sie dies bitte der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt mit. Werden solche Rechtsverletzungen bekannt, werden die externen Links unverzüglich entfernt."
+		},
+		"copyright": {
+			"title": "Urheberrecht",
+			"paragraph1": "Das Layout der Seiten der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, die verwendeten Grafiken, Fotos, Bewegtbilder, Texte sowie die Sammlung der Beiträge sind urheberrechtlich geschützt. Die Nutzung der Inhalte ist nur im Rahmen der gesetzlichen Bestimmungen zulässig. Bei der Angabe der Bildrechte steht die Abkürzung SenMVKU für die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt.",
+			"paragraph2": "Für die über das Geoportal Berlin verfügbaren Geodaten gelten weitreichende – offene – Nutzungsbestimmungen. Diese finden Sie unter den “Informationen” bei den jeweiligen Geodaten."
+		},
+		"contact": {
+			"title": "Bei Fragen und Rückmeldungen zum Thema Starkregen und Hochwasser",
+			"sub1": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"description1": "Sie haben Fragen oder Anregungen zu Inhalten auf dieser Seite? Dann kontaktieren Sie uns gerne:",
+			"tel": "Tel.: (030) 9025-2021",
+			"mail": "E-Mail.: <link>hochwasser@SenMVKU.berlin.de</link>",
+			"sub2": "Berliner Regenwasseragentur",
+			"description2": "Sie haben Fragen zur dezentralen Regenwasserbewirtschaftung oder möchten sich dazu beraten lassen, wie Sie Ihr Grundstück vor starkregenbedingten Überflutungen schützen können? Dann schreiben Sie uns:",
+			"mail2": "<link>Kontakt zur Berliner Regenwasseragentur</link>"
+		}
+	},
+	"datenschutz": {
+		"pageTitle": "Datenschutzerklärung der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+		"responsible": {
+			"title": "1. Verantwortliche/r",
+			"description": "Verantwortliche/r im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze der Mitgliedsstaaten sowie sonstiger datenschutzrechtlicher Bestimmungen ist:",
+			"name": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"address_title": "Anschrift:",
+			"address": "Am Köllnischen Park 3",
+			"plz": "10179 Berlin"
+		},
+		"data_protection_officer": {
+			"title": "2. Name und Anschrift des DSB (Datenschutzbeauftragten)",
+			"description1": "Der/die Datenschutzbeauftragte des Verantwortlichen ist:",
+			"sub_title": "Datenschutzbeauftragter",
+			"mail_title": "E-Mail:",
+			"mail1": "<link>datenschutz@senmvku.berlin.de</link>",
+			"address_title": "Anschrift:",
+			"position": "c/o Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+			"address": "Am Köllnischen Park 3",
+			"plz": "10179 Berlin",
+			"description2": "Die Datenschutzbeauftragte für die nachgeordneten Einrichtungen ist erreichbar unter:",
+			"sub_title2": "Datenschutzbeauftragte für nachgeordnete Einrichtungen",
+			"mail2": "<link>datenschutz-NE@senmvku.berlin.de</link>"
+		},
+		"central_services": {
+			"title": "3. Zentrale Dienste des Webportals",
+			"sub_title1": "4. Browserdaten",
+			"description1": "Der technische Betreiber von berlin.de, die BerlinOnline GmbH stellt die Webseite bereit und erhebt dabei Browserdaten (sogenannte Logfiles).",
+			"name1": "BerlinOnline GmbH",
+			"address1": "Stefan-Heym-Platz 1",
+			"plz1": "10367 Berlin",
+			"sub_title2": "5. Beschreibung und Umfang der Datenverarbeitung",
+			"description2": "Bei jedem Zugriff von Nutzenden auf eine Seite aus dem Angebot des Webportals und bei jedem Abruf einer Datei werden Daten über diesen Vorgang erhoben.",
+			"list_title1": "Diese Daten sind:",
+			"list1": {
+				"entry1": "Browser-Typ und -Version",
+				"entry2": "Verwendetes Betriebssystem",
+				"entry3": "Webseite, von der aus Sie uns besuchen (Referrer-URL)",
+				"entry4": "Webseite, die Sie besuchen",
+				"entry5": "Datum und Uhrzeit Ihres Zugriffs",
+				"entry6": "Ihre Internetprotokolldaten (IP-Adresse)",
+				"entry7": "übertragene Datenmenge",
+				"entry8": "Zugriffsstatus (Dateien übertragen, Datei nicht gefunden etc.)"
+			},
+			"sub_title3": "6. Rechtsgrundlage für die Datenverarbeitung",
+			"description3": "Rechtsgrundlage für die Verarbeitung der Daten ist das berechtigte Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse besteht in der sicheren Bereitstellung der durch die Nutzenden angefragten Webseite. Im Übrigen stellen die nachfolgend genannten Zwecke zugleich unsere berechtigten Interessen dar.",
+			"sub_title4": "7. Zweck der Datenverarbeitung",
+			"description4": "Die Daten werden aus technischen Gründen, zur Aufrechterhaltung und Verbesserung der Funktionalität sowie Betriebssicherheit des Webportals verarbeitet.",
+			"sub_title5": "8. Dauer der Speicherung",
+			"description5": "Die Daten werden nach 14 Tagen gelöscht.",
+			"sub_title6": "9. Cookies",
+			"description6_1": "Auf der Webseite können temporäre Cookies eingesetzt werden. Hierbei handelt es sich um kleine Textdateien, die vom Webserver an Ihren Computer gesendet werden, um bestimmte Angaben zu speichern.",
+			"description6_2": "Temporäre Cookies werden nur für die jeweilige Sitzung eingesetzt. Diese Cookies werden nach dem Beenden der Sitzung, d.h. nach dem Verlassen der Webseite oder mit dem Schließen des Browserfensters wieder gelöscht.",
+			"description6_3": "Rechtsgrundlage ist das berechtigte Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO.",
+			"description6_4": "Die Darstellung der Internetseite ist auch ohne die Speicherung von Cookies möglich. Sie können das Speichern von Cookies in den Einstellungen Ihres Browsers deaktivieren oder diesen so einstellen, dass er Sie über die beabsichtigte Speicherung durch eine Internetseite informiert. In diesem Fall entscheiden Sie über die Annahme des Cookies. Für den vollen Funktionsumfang der Webseite ist es allerdings aus technischen Gründen erforderlich, die temporären Cookies vollständig zuzulassen.",
+			"sub_title7": "10. Externe Dienste",
+			"description7": "Die Bereitstellung der Anwendung läuft über den Dienst Netlify.  Für die Kartenansicht wird der Kartendienst von basemap.de verwendet. Des Weiteren nutzen wir Matomo für die statistische Auswertung unseres Webauftrittes. Für die Addresssuche wird Photon (<link>https://photon.komoot.io/</link>) und Maptiler (<link>https://www.maptiler.com/</link>) verwendet. Für die Geolokalisierung wird das Navigator Interface des Browsers verwendet. Alle Eingaben (Adresse, Antworten des Fragebogens) des Users werden durch die Library zustand (<link>https://zustand-demo.pmnd.rs/</link>) im lokalen Speicher des Browser auf unbestimmte Zeit gespeichert."
+		}
+	},
+	"barrierefreiheit": {
+		"pageTitle": "Erklärung zur Barrierefreiheit",
+		"sub_title1": "Öffentliche Stelle / Geltungsbereich",
+		"description1": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
+		"description2": "Wir bemühen uns, unseren Webauftritt barrierefrei zu gestalten. Die Erklärung zur digitalen Barrierefreiheit wird im Gesetz über die barrierefreie Informations- und Kommunikationstechnik Berlin (BIKTG Bln) verlangt. Die technischen Anforderungen zur Barrierefreiheit ergeben sich aus der aktuellen Barrierefreie-Informationstechnik-Verordnung (BITV).",
+		"description3": "Diese Erklärung zur digitalen Barrierefreiheit gilt für das Angebot Webauftritt <link>https://www.berlin.de/sen/uvk/</link>.",
+		"sub_title2": "Wann wurde die Erklärung zur Barrierefreiheit erstellt bzw. aktualisiert?",
+		"description2_1": "Diese Erklärung wurde am 04.12.2025 erstellt bzw. überarbeitet.",
+		"description2_2": "Die Überprüfung der digitalen Barrierefreiheit wurde durchgeführt von der oben aufgeführten öffentlichen Stelle durch eine Selbstbewertung.",
+		"sub_title3": "Wie barrierefrei ist das Angebot?",
+		"description3_1": "Dieser Webauftritt / Diese Anwendung ist nur teilweise barrierefrei. Es werden nur teilweise die Anforderungen der aktuellen BITV erfüllt.",
+		"sub_title4": "Welche Bereiche sind nicht barrierefrei?",
+		"description4_1": "Die nachstehend aufgeführten Bereiche sind aus folgenden Gründen nicht barrierefrei:",
+		"description4_2": "Unvereinbarkeit mit aktueller BITV",
+		"description4_3": "Teilbereiche, die nicht barrierefrei sind:",
+		"list_title1": "Barriere: Dokumente",
+		"list1": {
+			"entry1": "Beschreibung: PDF-Dokumente, die heruntergeladen werden können sind bereits barrierearm, allerdings nicht barrierefrei",
+			"entry2": "Maßnahmen: Behebung aller Barrieren",
+			"entry3": "Zeitplan: Behebung bis Ende 2026"
+		},
+		"sub_title5": "Kein Anwendungsfall",
+		"description5_1": "Diese Inhalte fallen nicht in den Anwendungsbereich des Barrierefreien IKT Gesetzes Berlin. Ausnahmen, die nicht barrierefrei sein müssen:",
+		"list_title2": "Barriere: Karten",
+		"list2": {
+			"entry1": "Beschreibung: Digitale Kartendarstellungen sind nicht barrierefrei.",
+			"entry2": "Rechtsgrundlage: BIKTG Bln § 4 Abs. 4d"
+		},
+		"sub_title6": "Wen können Sie bei Anmerkungen oder Fragen zur digitalen Barrierefreiheit (Feedbackoption) kontaktieren?",
+		"description6_1": "Sie möchten Informationen zur Umsetzung der Barrierefreiheit oder bestehende Barrieren melden? Sie können etwas auf unserer Website oder der mobilen Anwendung nicht ausreichend wahrnehmen, bedienen oder verstehen? Sie benötigen Informationen in einer barrierefreien Form? Dann informieren Sie uns bitte.",
+		"description6_2": "Kontakt zur Ansprechperson der öffentlichen Stelle:",
+		"description6_3": "Name: Öffentlichkeitsarbeit",
+		"description6_4": "E-Mail: <link>oeffentlichkeitsarbeit@senmvku.berlin.de</link>",
+		"description6_5": "Telefon: (030) 9025-1802",
+		"sub_title7": "Kontakt zur Landesbeauftragten für digitale Barrierefreiheit",
+		"description7_1": "Die folgenden Angaben werden in der digitalen Barrierefreiheitserklärung immer ausgegeben: Wenn Ihre Kontaktaufnahme mit der öffentlichen Stelle nicht erfolgreich war, Sie innerhalb von 4 Wochen keine Antwort erhalten haben, oder die Antwort unzureichend war, können Sie sich an die Landesbeauftragte für digitale Barrierefreiheit wenden und ein Durchsetzungsverfahren anstreben. Bitte kontaktieren Sie immer zuerst die betroffene öffentliche Stelle!",
+		"description7_2": "<link>Link zum Kontaktformular</link>",
+		"description7_3": "<link>Weitere Informationen zur Landesbeauftragten für digitale Barrierefreiheit</link>"
 	}
 }
