@@ -25,7 +25,7 @@ export default function AddressSearch() {
 	const router = useRouter();
 	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const [showSubmitLoading, setShowSubmitLoading] = useState<boolean>(false);
-	const isDev = process.env.NODE_ENV === "development";
+	const isDev = false; // process.env.NODE_ENV === "development";
 	const { locationData, setLocationData } = useStore();
 	const [results, setResults] = useState<CurrentUserAddress[]>([]);
 	const [resultClicked, setResultClicked] = useState<boolean>(false);
