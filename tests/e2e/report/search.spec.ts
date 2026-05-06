@@ -23,11 +23,15 @@ async function searchAddress(page: Page, query: string) {
 	await submitButton.click();
 }
 
-async function startQuestionnaire(page: Page) {
+async function startQuestionnaire(page: Page, skip: boolean) {
 	const radioGroup = page.locator("div[role='radiogroup']");
 	await expect(radioGroup).toBeVisible({ timeout: DEFAULT_TIMEOUT });
 
-	await radioGroup.locator("label").first().click();
+	if (skip) {
+		await radioGroup.locator("label").last().click();
+	} else {
+		await radioGroup.locator("label").first().click();
+	}
 
 	const submitQuestionnaireButton = page.locator(
 		"#questionnaire-submit-button",
@@ -80,8 +84,10 @@ test.describe("Create report", () => {
 	for (const c of reportCases) {
 		test(`creates report for "${c.query}"`, async ({ page }) => {
 			await searchAddress(page, c.query);
-			await startQuestionnaire(page);
-			await answerQuestionnaire(page, c.answers);
+			await startQuestionnaire(page, !!c.skip);
+			if (!c.skip) {
+				await answerQuestionnaire(page, c.answers);
+			}
 			await downloadPdf(page);
 			await openPdf(page);
 		});

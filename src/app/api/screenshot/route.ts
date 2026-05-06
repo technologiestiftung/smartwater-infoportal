@@ -32,6 +32,12 @@ export async function POST(req: Request) {
 			height = 500;
 		} else if (hazardEntity && hazardEntity.name === "heavyRain") {
 			height = 300;
+		} else if (
+			hazardEntity &&
+			hazardEntity.name === "fluvialFlood" &&
+			hazardEntity.hazardLevel === "none"
+		) {
+			height = 265;
 		}
 
 		if (isProd) {

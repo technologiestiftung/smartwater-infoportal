@@ -31,4 +31,8 @@ export const reportCases = [
 			q5: "no",
 		},
 	},
+	{
+		query: "Grunewaldstraße 69",
+		skip: "true",
+	},
 ];
