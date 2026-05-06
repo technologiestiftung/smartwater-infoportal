@@ -27,13 +27,26 @@ export const reportCases = [
 	},
 	{
 		query:
+			"Rent with no Windows, no Info on value, no information about basement, good backflowProtection condition, no flood experience",
+		address: "Grunewaldstraße 61-62",
+		answers: {
+			q0: "rent",
+			q1: "yesWithoutWindow",
+			q2: "noInformation",
+			q3: "yesUnknown",
+			q4: "bad",
+			q5: "no",
+		},
+	},
+	{
+		query:
 			"Rent with no Windows, low value, no information about basement, good backflowProtection condition, no flood experience",
 		address: "Grunewaldstraße 61-62",
 		answers: {
 			q0: "rent",
 			q1: "no",
 			q3: "yesUnknown",
-			q4: "good",
+			q4: "bad",
 			q5: "no",
 		},
 	},
