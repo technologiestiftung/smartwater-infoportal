@@ -84,7 +84,7 @@ export default function Impressum() {
 						{t.rich("privacy_policy.description", {
 							link1: (chunks) => (
 								<Link
-									href="https://www.berlin.de/sen/uvk/datenschutzerklaerung.844084.php"
+									href="/datenschutz"
 									rel="noopener noreferrer"
 									className="text-text-link underline"
 								>
@@ -134,11 +134,13 @@ export default function Impressum() {
 						})}
 					</p>
 					<h3 className="mt-4 mb-2">{t("contact.sub2")}</h3>
+					<p className="">{t("contact.description2")}</p>
+					<br />
 					<p className="">
-						{t.rich("contact.description2", {
+						{t.rich("contact.mail2", {
 							link: (chunks) => (
 								<Link
-									href={`https://${chunks}`}
+									href="https://regenwasseragentur.berlin/kontakt/"
 									rel="noopener noreferrer"
 									className="text-text-link underline"
 								>

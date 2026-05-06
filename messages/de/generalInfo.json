@@ -185,17 +185,18 @@
 		},
 		"copyright": {
 			"title": "Urheberrecht",
-			"paragraph1": "Das Layout der Seiten der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, die verwendeten Grafiken, Fotos, Bewegtbilder, Texte sowie die Sammlung der Beiträge sind urheberrechtlich geschützt. Die Nutzung der Inhalte ist nur im Rahmen der gesetzlichen Bestimmungen zulässig. Bei der Angabe der Bildrechte steht die Abkürzung SenMVKU für die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt sowie SenUMVK für die ehemalige Senatsverwaltung für Umwelt, Mobilität, Verbraucher- und Klimaschutz bzw. SenUVK für die ehemalige Senatsverwaltung für Umwelt, Verkehr und Klimaschutz.",
+			"paragraph1": "Das Layout der Seiten der Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt, die verwendeten Grafiken, Fotos, Bewegtbilder, Texte sowie die Sammlung der Beiträge sind urheberrechtlich geschützt. Die Nutzung der Inhalte ist nur im Rahmen der gesetzlichen Bestimmungen zulässig. Bei der Angabe der Bildrechte steht die Abkürzung SenMVKU für die Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt.",
 			"paragraph2": "Für die über das Geoportal Berlin verfügbaren Geodaten gelten weitreichende – offene – Nutzungsbestimmungen. Diese finden Sie unter den “Informationen” bei den jeweiligen Geodaten."
 		},
 		"contact": {
 			"title": "Bei Fragen und Rückmeldungen zum Thema Starkregen und Hochwasser",
 			"sub1": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
 			"description1": "Sie haben Fragen oder Anregungen zu Inhalten auf dieser Seite? Dann kontaktieren Sie uns gerne:",
-			"tel": "Tel.: 030-90252021",
+			"tel": "Tel.: (030) 9025-2021",
 			"mail": "E-Mail.: <link>hochwasser@SenMVKU.berlin.de</link>",
 			"sub2": "Berliner Regenwasseragentur",
-			"description2": "Sie haben Fragen zur dezentralen Regenwasserbewirtschaftung oder möchten sich dazu beraten lassen, wie Sie Ihr Grundstück vor starkregenbedingten Überflutungen schützen können? Dann schreiben Sie uns: <link>regenwasseragentur.berlin/kontakt/</link>"
+			"description2": "Sie haben Fragen zur dezentralen Regenwasserbewirtschaftung oder möchten sich dazu beraten lassen, wie Sie Ihr Grundstück vor starkregenbedingten Überflutungen schützen können? Dann schreiben Sie uns:",
+			"mail2": "<link>Kontakt zur Berliner Regenwasseragentur</link>"
 		}
 	},
 	"datenschutz": {
