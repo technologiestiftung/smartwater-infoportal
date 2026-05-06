@@ -1,6 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { Link } from "berlin-ui-library";
+import { Button, Link } from "berlin-ui-library";
 
 export default function Impressum() {
 	const t = useTranslations("impressum");
@@ -143,8 +143,9 @@ export default function Impressum() {
 									href="https://regenwasseragentur.berlin/kontakt/"
 									rel="noopener noreferrer"
 									className="text-text-link underline"
+									target="_blank"
 								>
-									{chunks}
+									<Button variant="linkWithIcon">{chunks}</Button>
 								</Link>
 							),
 						})}
