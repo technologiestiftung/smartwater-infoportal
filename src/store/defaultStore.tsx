@@ -1,7 +1,7 @@
 // store/defaultStore.tsx
 import { create } from "zustand";
 import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
-import { devtools, persist } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import {
 	prePopulateFromLocationData,
 	calculateFloodRiskScore,
@@ -126,6 +126,7 @@ const useStore = create<StoreState>()(
 			}),
 			{
 				name: "flood-risk-store",
+				storage: createJSONStorage(() => sessionStorage),
 			},
 		),
 		{
