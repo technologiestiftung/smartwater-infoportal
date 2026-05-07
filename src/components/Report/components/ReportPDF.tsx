@@ -2,7 +2,7 @@
 "use client";
 
 import pdfData from "@/components/Report/pdf.json";
-import { calculateRiskLevel, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import useMobile from "@/lib/utils/useMobile";
 import useStore from "@/store/defaultStore";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -14,14 +14,13 @@ import { FC, useEffect, useRef, useState } from "react";
 import {
 	translateHazardLevels,
 	getToday,
-	translateHazardTags,
 	getScreenshotForScenario,
 	translateWMSValue,
+	populatePDFKeysWithFloodRiskAnswers,
 } from "../utils";
 import { drawPDF } from "../pdf";
 import { PDFKeys, PDFProps } from "../types";
-import { Building, RiskFactor } from "@/lib/types";
-import floodRiskConfig from "@/config/floodRiskConfig.json";
+import { Building } from "@/lib/types";
 
 interface ReportPDFProps {
 	skip: string | null;
@@ -85,70 +84,15 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			? translateHazardLevels(hazardEntities[1].hazardLevel)
 			: "Keine Daten",
 		"{skip}": !!skip,
-		"{isOwner}":
-			!!skip ||
-			(typeof floodRiskAnswers?.q0?.value === "string" &&
-				floodRiskAnswers?.q0?.value?.includes("Owner")),
-		"{basementWithWindows}": floodRiskAnswers?.q1?.value === "yesWithWindow",
-		"{basementWithoutWindows}":
-			floodRiskAnswers?.q1?.value === "yesWithoutWindow",
-		"{backflowProtectionIsGood}":
-			!!skip || floodRiskAnswers?.q3?.value === "yesGood",
+		...populatePDFKeysWithFloodRiskAnswers(
+			floodRiskAnswers,
+			!!skip,
+			hazardEntities ?? [],
+			t,
+		),
 	};
 
 	const addWMSDataToPDFKeys = (building: Building): BuildingWMS => {
-		const isThereABasement =
-			!skip && !floodRiskAnswers["q1"]?.value.toString().startsWith("no");
-
-		const defaultRiskFactors: RiskFactor[] = floodRiskConfig.riskFactors
-			.map((factor) => ({
-				id: factor.id,
-				riskLevel: calculateRiskLevel(
-					factor.questionId,
-					floodRiskAnswers,
-					hazardEntities,
-				),
-				translationKey: factor.translationKey,
-				hasInfo: factor.id === "floodplain",
-			}))
-			.filter((factor) => {
-				if (!floodRiskAnswers) return false;
-				if (factor.id === "basementUsage" && !isThereABasement) {
-					return false;
-				}
-				return true;
-			});
-
-		addToPDFKeys["{noBasementUsageHazard}"] = !floodRiskAnswers?.q2;
-		addToPDFKeys["{noPropertyDrainageHazard}"] =
-			floodRiskAnswers?.q4?.value === "noInformation";
-		addToPDFKeys["{noPastDamages}"] =
-			floodRiskAnswers?.q5?.value === "noInformation";
-
-		for (const [index, factor] of defaultRiskFactors.entries()) {
-			const factorName = t(factor.translationKey);
-			const factorDescription = t(
-				factor.translationKey.replace("title", factor.riskLevel),
-			);
-			let questionID = `q${index + 1}`;
-			if (isThereABasement) {
-				if (index === 5) questionID = "qA";
-				if (index === 6) questionID = "qB";
-				if (index === 7) questionID = "qC";
-			} else {
-				if (index === 4) questionID = "qA";
-				if (index === 5) questionID = "qB";
-				if (index === 6) questionID = "qC";
-			}
-			addToPDFKeys[`{${factor.id}Tag}`] = translateHazardTags(
-				floodRiskAnswers?.[questionID]?.value as string,
-				questionID,
-			);
-			addToPDFKeys[`{${factor.id}Name}`] = factorName;
-			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
-			addToPDFKeys[`{isThereABasement}`] = isThereABasement;
-		}
-
 		const buildingWMSData: BuildingWMS = {
 			hasHeavyRainHazardMap: false,
 			hasExtremeRainHazardMap: false,
@@ -261,14 +205,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			rareFloodMax,
 		} = addWMSDataToPDFKeys(building);
 
-		console.log("addWMSDataToPDFKeys", {
-			hasHeavyRainHazardMap,
-			hasExtremeRainHazardMap,
-			frequentFloodMax,
-			averageFloodMax,
-			rareFloodMax,
-		});
-
 		setDone((prev) => [...prev, "wms"]);
 
 		const scenarios: string[] = [
@@ -308,8 +244,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (!!rareFloodMax) {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
-
-		console.log("scenarios :>> ", scenarios);
 
 		setNumberOfPDFImagesToFetch(scenarios.length);
 

@@ -1,9 +1,17 @@
 /* eslint-disable complexity */
-import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
+import {
+	FloodRiskAnswers,
+	FloodRiskResult,
+	LocationData,
+	RiskFactor,
+} from "@/lib/types";
 import { getScenarioDomId } from "@/lib/utils/mapUtils";
 import { Scenario, ScreenshotRequestBody } from "@/types/map";
 import { HazardEntity } from "@/utils/storeUtils";
 import jsPDF from "jspdf";
+import { PDFKeys } from "./types";
+import floodRiskConfig from "@/config/floodRiskConfig.json";
+import { calculateRiskLevel } from "@/lib/utils";
 
 type TextChunk = {
 	text: string;
@@ -148,7 +156,7 @@ export const translateHazardLevels = (level: string): string => {
 	return level;
 };
 
-export const translateHazardTags = (
+const translateHazardTags = (
 	value: string | number,
 	questionID: string,
 ): string => {
@@ -193,16 +201,23 @@ export const translateHazardTags = (
 	}
 	if (questionID === "qB" || questionID === "qC") {
 		if (typeof value === "number") {
-			if (value > 1) {
-				return "/Red.png";
-			} else if (value === 1) {
-				return "/Orange.png";
-			} else if (value === 0) {
+			/* if (+answer.value <= 1) return "low";
+		if (+answer.value <= 2) return "moderate";
+		if (+answer.value >= 3) return "high"; */
+			if (value <= 1) {
 				if (questionID === "qB") {
 					return "/Green.png";
 				}
 				return "/Orange.png";
+			} else if (value <= 2) {
+				return "/Orange.png";
 			}
+			return "/Red.png";
+			/* if (value > 1) {
+				return "/Red.png";
+			} else if (value === 1) {
+				return "/Orange.png";
+			} else  */
 		}
 	}
 	return "/Grey.png";
@@ -262,7 +277,6 @@ export const getScreenshotForScenario = async (
 	return { key, blob };
 };
 
-// Old Calc Approach Jakob
 export const translateWMSValue = (
 	value: string | number | null | undefined,
 	helper: string = "bis zu ",
@@ -272,4 +286,85 @@ export const translateWMSValue = (
 		return "Keine Daten";
 	}
 	return `${helper}${Math.round(+value)}${unit}`;
+};
+
+export const getDefaultRiskFactors = (
+	floodRiskAnswers: FloodRiskAnswers,
+	hazardEntities: HazardEntity[],
+	t: (key: string) => string = (key) => key,
+): RiskFactor[] => {
+	return floodRiskConfig.riskFactors
+		.map((factor) => {
+			const riskLevel = calculateRiskLevel(
+				factor.questionId,
+				floodRiskAnswers,
+				hazardEntities,
+			);
+			return {
+				id: factor.id,
+				riskLevel,
+				translationKey: factor.translationKey,
+				hasInfo: factor.id === "floodplain",
+				name: t(factor.translationKey),
+				description: t(factor.translationKey.replace("title", riskLevel)),
+				tag: translateHazardTags(
+					floodRiskAnswers?.[factor.questionId]?.value as string,
+					factor.questionId,
+				),
+			};
+		})
+		.filter((factor) => {
+			if (
+				!floodRiskAnswers ||
+				(factor.riskLevel === "dontKnow" && factor.id !== "backflowProtection")
+			)
+				return false;
+			const isThereABasement = !floodRiskAnswers["q1"]?.value
+				.toString()
+				.startsWith("no");
+			if (factor.id === "basementUsage" && !isThereABasement) {
+				return false;
+			}
+			return true;
+		});
+};
+
+export const populatePDFKeysWithFloodRiskAnswers = (
+	floodRiskAnswers: FloodRiskAnswers,
+	skip: boolean,
+	hazardEntities: HazardEntity[],
+	t: (key: string) => string = (key) => key,
+): PDFKeys => {
+	const isThereABasement = !floodRiskAnswers["q1"]?.value
+		.toString()
+		.startsWith("no");
+
+	const pdfKeys: PDFKeys = {
+		"{isOwner}":
+			typeof floodRiskAnswers?.q0?.value === "string" &&
+			floodRiskAnswers?.q0?.value?.includes("Owner"),
+		"{basementWithWindows}": floodRiskAnswers?.q1?.value === "yesWithWindow",
+		"{basementWithoutWindows}":
+			floodRiskAnswers?.q1?.value === "yesWithoutWindow",
+		"{backflowProtectionIsGood}":
+			!!skip || floodRiskAnswers?.q3?.value === "yesGood",
+		"{noBasementUsageHazard}": !floodRiskAnswers?.q2,
+		"{noPropertyDrainageHazard}":
+			floodRiskAnswers?.q4?.value === "noInformation",
+		"{noPastDamages}": floodRiskAnswers?.q5?.value === "noInformation",
+		"{isThereABasement}": isThereABasement,
+	};
+
+	const defaultRiskFactors = getDefaultRiskFactors(
+		floodRiskAnswers,
+		hazardEntities ?? [],
+		t,
+	);
+
+	for (const factor of defaultRiskFactors) {
+		pdfKeys[`{${factor.id}Tag}`] = factor.tag;
+		pdfKeys[`{${factor.id}Name}`] = factor.name;
+		pdfKeys[`{${factor.id}Description}`] = factor.description;
+	}
+	return pdfKeys;
 };

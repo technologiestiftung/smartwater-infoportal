@@ -83,4 +83,7 @@ export interface RiskFactor {
 	riskLevel: RiskLevel;
 	translationKey: string;
 	hasInfo: boolean;
+	name: string;
+	description: string;
+	tag: string;
 }
