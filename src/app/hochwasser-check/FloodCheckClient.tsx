@@ -17,7 +17,7 @@ export default function FloodCheckClient() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
-	const { locationData } = useStore();
+	const { hasHydrated, locationData } = useStore();
 
 	useEffect(() => {
 		if (!!hash) {
@@ -26,23 +26,16 @@ export default function FloodCheckClient() {
 	}, [hash]);
 
 	useEffect(() => {
+		if (!hasHydrated) return;
 		if (!locationData?.found) {
 			router.push("/#hochwasser-check");
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [hash, locationData]);
+	}, [hasHydrated, locationData, router]);
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
 			{hash === "questionnaire" ? (
 				<>
-					<Button
-						className="w-full justify-end self-start lg:w-fit"
-						onClick={() => router.push("/hochwasser-check")}
-						variant="back-link"
-					>
-						{t("floodCheck.navigation.back")}
-					</Button>
 					<div className="flex w-full flex-col gap-4">
 						<div className="flex items-center space-x-2">
 							<h1 className="">{t("floodCheck.pageTitle")}</h1>

@@ -130,6 +130,9 @@ export const translateHazardLevels = (level: string): string => {
 	if (!level) {
 		return "";
 	}
+	if (level === "none") {
+		return "Keine";
+	}
 	if (level === "low") {
 		return "Gering";
 	}
@@ -166,6 +169,9 @@ export const translateHazardTags = (
 	}
 	if (questionID === "q3") {
 		if (typeof value === "string" && value.startsWith("no")) {
+			if (value === "noInformation") {
+				return "/Red-Q.png";
+			}
 			return "/Red.png";
 		} else if (value === "yesUnknown") {
 			return "/Orange.png";
@@ -265,5 +271,5 @@ export const translateWMSValue = (
 	if (!value) {
 		return "Keine Daten";
 	}
-	return `${helper}${value}${unit}`;
+	return `${helper}${Math.round(+value)}${unit}`;
 };

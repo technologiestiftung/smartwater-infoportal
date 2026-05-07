@@ -490,13 +490,13 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "Für Mieter:innen",
+					"text": "Für Mieterinnen und Mieter",
 					"hide": "{isOwner}",
 					"fontSize": "h2",
 					"marginBottom": 3
 				},
 				{
-					"text": "Für Eigentümer:innen",
+					"text": "Für Eigentümerinnen und Eigentümer",
 					"hide": "!{isOwner}",
 					"fontSize": "h2",
 					"marginBottom": 3
@@ -512,7 +512,7 @@
 					"marginBottom": "paragraph"
 				},
 				{
-					"text": "In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben. Dabei sind bauliche Maßnahmen häufig kaum von Mieter:innen umzusetzen. Trotzdem werden Ihnen hiernach auch solche Maßnahmen präsentiert, sodass Sie über Optionen und Möglichkeiten der Anpassung informiert sind, die eventuell für Ihr Wohnhaus relevant sein können.",
+					"text": "In diesem Kapitel werden wir Ihnen einige Maßnahmen im Detail vorstellen, basierend auf den Angaben, die Sie in dem Fragebogen gemacht haben. Dabei sind bauliche Maßnahmen häufig kaum von Mieterinnen und Mietern umzusetzen. Trotzdem werden Ihnen hiernach auch solche Maßnahmen präsentiert, sodass Sie über Optionen und Möglichkeiten der Anpassung informiert sind, die eventuell für Ihr Wohnhaus relevant sein können.",
 					"hide": "!{isOwner}",
 					"marginBottom": 11
 				},
@@ -834,7 +834,7 @@
 		},
 		{
 			"title": "Handlungsempfehlungen => Keller als Gefährdung",
-			"hide": "{skip}",
+			"hide": "!{isThereABasement}",
 			"items": [
 				{
 					"text": "Handlungsempfehlungen",
@@ -889,7 +889,7 @@
 		},
 		{
 			"title": "Handlungsempfehlungen => Rückstausicherungen",
-			"hide": "{skip}",
+			"hide": "{backflowProtectionIsGood}",
 			"items": [
 				{
 					"text": "Handlungsempfehlungen",
@@ -974,7 +974,7 @@
 					"marginBottom": "paragraph"
 				},
 				{
-					"text": "Eigentümer:innen können ebenfalls an der <a href=\"https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/\">Schwammstadt</a> mitwirken - vor allem in ihrem eigenen Interesse. Dezentrale Regenwasserbewirtschaftung auf dem eigenen Grundstück kann Überflutungen an Ihrem Eigentum verringern oder gar verhindern! Die Regenwasserargentur Berlin informiert sie umfänglich über die vielen Möglichkeiten der dezentralen Regenwasserbewirtschaftung.",
+					"text": "Eigentümerinnen und Eigentümer können ebenfalls an der <a href=\"https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/\">Schwammstadt</a> mitwirken - vor allem in ihrem eigenen Interesse. Dezentrale Regenwasserbewirtschaftung auf dem eigenen Grundstück kann Überflutungen an Ihrem Eigentum verringern oder gar verhindern! Die Regenwasserargentur Berlin informiert sie umfänglich über die vielen Möglichkeiten der dezentralen Regenwasserbewirtschaftung.",
 					"marginBottom": 11
 				},
 				{

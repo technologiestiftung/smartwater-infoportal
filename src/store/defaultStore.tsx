@@ -1,17 +1,18 @@
 // store/defaultStore.tsx
 import { create } from "zustand";
 import { FloodRiskAnswers, FloodRiskResult, LocationData } from "@/lib/types";
-import { devtools, persist } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import {
 	prePopulateFromLocationData,
 	calculateFloodRiskScore,
 	calculateQuestionScore,
 } from "@/utils/floodRiskCalculator";
 import { getHazardEntities, HazardEntity } from "@/utils/storeUtils";
+import { LocationDataNotFound } from "@/lib/geoserverClient";
 
 type StoreState = {
 	// Core data
-	locationData: LocationData | null;
+	locationData: LocationData;
 	floodRiskAnswers: FloodRiskAnswers;
 	floodRiskResult: FloodRiskResult | null;
 	interactiveMap: {
@@ -21,6 +22,10 @@ type StoreState = {
 		isLegendeOpen: boolean;
 		errorLayers: string[];
 	};
+
+	// state hydration
+	hasHydrated: boolean;
+	setHasHydrated: (state: boolean) => void;
 
 	// Actions
 	setLocationData: (data: LocationData) => void;
@@ -43,7 +48,7 @@ const useStore = create<StoreState>()(
 		persist(
 			(set, get) => ({
 				// Initial state
-				locationData: null,
+				locationData: LocationDataNotFound,
 				floodRiskAnswers: {},
 				floodRiskResult: null,
 				interactiveMap: {
@@ -54,6 +59,10 @@ const useStore = create<StoreState>()(
 					errorLayers: [],
 				},
 
+				// state hydration
+				hasHydrated: false,
+				setHasHydrated: (state) => set({ hasHydrated: state }),
+
 				setLocationData: (data) =>
 					set((state) => ({
 						locationData: data,
@@ -62,7 +71,7 @@ const useStore = create<StoreState>()(
 							...prePopulateFromLocationData(data),
 						},
 					})),
-				resetLocationData: () => set({ locationData: null }),
+				resetLocationData: () => set({ locationData: LocationDataNotFound }),
 
 				updateInteractiveMap: (data) =>
 					set((state) => ({
@@ -106,7 +115,7 @@ const useStore = create<StoreState>()(
 
 				resetAll: () =>
 					set({
-						locationData: null,
+						locationData: LocationDataNotFound,
 						floodRiskAnswers: {},
 						floodRiskResult: null,
 						interactiveMap: {
@@ -126,6 +135,10 @@ const useStore = create<StoreState>()(
 			}),
 			{
 				name: "flood-risk-store",
+				storage: createJSONStorage(() => sessionStorage),
+				onRehydrateStorage: () => (state) => {
+					state?.setHasHydrated(true);
+				},
 			},
 		),
 		{

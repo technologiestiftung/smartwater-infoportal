@@ -53,6 +53,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const [numberOfFetchedPDFImages, setNumberOfFetchedPDFImages] =
 		useState<number>(0);
 	const isDev = process.env.NODE_ENV === "development";
+	const isLocalhost =
+		typeof window !== "undefined" && window.location.hostname === "localhost";
 	const isMobile = useMobile();
 
 	const checks = [
@@ -87,12 +89,16 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			!!skip ||
 			(typeof floodRiskAnswers?.q0?.value === "string" &&
 				floodRiskAnswers?.q0?.value?.includes("Owner")),
+		"{basementWithWindows}": floodRiskAnswers?.q1?.value === "yesWithWindow",
+		"{basementWithoutWindows}":
+			floodRiskAnswers?.q1?.value === "yesWithoutWindow",
+		"{backflowProtectionIsGood}":
+			!!skip || floodRiskAnswers?.q3?.value === "yesGood",
 	};
 
 	const addWMSDataToPDFKeys = (building: Building): BuildingWMS => {
-		const isThereABasement = !floodRiskAnswers["q1"]?.value
-			.toString()
-			.startsWith("no");
+		const isThereABasement =
+			!skip && !floodRiskAnswers["q1"]?.value.toString().startsWith("no");
 
 		const defaultRiskFactors: RiskFactor[] = floodRiskConfig.riskFactors
 			.map((factor) => ({
@@ -140,6 +146,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			);
 			addToPDFKeys[`{${factor.id}Name}`] = factorName;
 			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
+			addToPDFKeys[`{isThereABasement}`] = isThereABasement;
 		}
 
 		const buildingWMSData: BuildingWMS = {
@@ -211,6 +218,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{frequentFloodMinimum}"] = translateWMSValue(
 			building.hw_hval_mi,
 		);
+		buildingWMSData.frequentFloodMax = building.hw_hval_ma ?? null;
 
 		// Average Flood
 		addToPDFKeys["{hasNoAverageFloodData}"] =
@@ -220,6 +228,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{averageFloodMinimum}"] = translateWMSValue(
 			building.hw_mva_min,
 		);
+		buildingWMSData.averageFloodMax = building.hw_mva_max ?? null;
 
 		// Rare Flood
 		addToPDFKeys["{hasNoRareFloodData}"] =
@@ -227,6 +236,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{hasRareFloodData}"] = !!building.hw_sval_ma;
 		addToPDFKeys["{rareFloodMax}"] = translateWMSValue(building.hw_sval_ma);
 		addToPDFKeys["{rareFloodMinimum}"] = translateWMSValue(building.hw_sval_mi);
+		buildingWMSData.rareFloodMax = building.hw_sval_ma ?? null;
 
 		// Flood Zone
 		addToPDFKeys["{hasNoFloodZoneData}"] = !building.floodZoneIndex;
@@ -250,6 +260,14 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			averageFloodMax,
 			rareFloodMax,
 		} = addWMSDataToPDFKeys(building);
+
+		console.log("addWMSDataToPDFKeys", {
+			hasHeavyRainHazardMap,
+			hasExtremeRainHazardMap,
+			frequentFloodMax,
+			averageFloodMax,
+			rareFloodMax,
+		});
 
 		setDone((prev) => [...prev, "wms"]);
 
@@ -290,6 +308,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (!!rareFloodMax) {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
+
+		console.log("scenarios :>> ", scenarios);
 
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
@@ -375,6 +395,22 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		window.setTimeout(() => window.clearInterval(interval), 3000);
 	};
 
+	const downloadPDF = () => {
+		if (!pdfBlob) return;
+
+		const url = pdfUrlRef.current;
+		if (!url) {
+			setError(
+				"Das PDF konnte nicht heruntergeladen werden. Bitte versuchen Sie es erneut.",
+			);
+			return;
+		}
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "Report-HochwasserCheck-Berlin.pdf";
+		a.click();
+	};
+
 	useEffect(() => {
 		if (makePDFInitializedRef.current) {
 			return;
@@ -435,31 +471,40 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				<>
 					<div ref={wrapperRef}>
 						{pdfBlob ? (
-							<DownloadItem
-								buttonText={t("reportDownload.button")}
-								description={t("reportDownload.description")}
-								fileType={t("reportDownload.fileInfo", {
-									size: `${pdfSizeKB} MB`,
-								})}
-								date={getToday()}
-								title={t("reportDownload.title")}
-								onClickDownloadItem={() => {
-									push([
-										"trackEvent",
-										"report",
-										"download",
-										"Report herunterladen",
-									]);
-									if (isMobile) {
-										const url = pdfUrlRef.current;
-										if (!url) {
-											return openPdfViewer(isDev);
+							<>
+								<DownloadItem
+									buttonText={t("reportDownload.button")}
+									description={t("reportDownload.description")}
+									fileType={t("reportDownload.fileInfo", {
+										size: `${pdfSizeKB} MB`,
+									})}
+									date={getToday()}
+									title={t("reportDownload.title")}
+									onClickDownloadItem={() => {
+										push([
+											"trackEvent",
+											"report",
+											"download",
+											"Report herunterladen",
+										]);
+										if (isMobile) {
+											const url = pdfUrlRef.current;
+											if (!url) {
+												return openPdfViewer(isDev);
+											}
+											return window.open(url, "_blank", "noopener,noreferrer");
 										}
-										return window.open(url, "_blank", "noopener,noreferrer");
-									}
-									openPdfViewer(isDev);
-								}}
-							/>
+										openPdfViewer(isDev);
+									}}
+								/>
+								{isLocalhost && (
+									<div id="pdf-ready">
+										<Button variant="download" onClick={downloadPDF}>
+											Report herunterladen
+										</Button>
+									</div>
+								)}
+							</>
 						) : (
 							<>
 								<div className="flex min-h-[150px] items-center justify-end py-8">

@@ -21,7 +21,7 @@
 		{
 			"id": "q0",
 			"type": "radio",
-			"isRequired": false,
+			"isRequired": true,
 			"translationKey": "floodCheck.questions.q0",
 			"options": [
 				{ "value": "rent", "score": 0, "addToCounter": 0 },
@@ -32,7 +32,7 @@
 		{
 			"id": "q1",
 			"type": "radio",
-			"isRequired": false,
+			"isRequired": true,
 			"translationKey": "floodCheck.questions.q1",
 			"options": [
 				{ "value": "yesWithWindow", "score": -2, "addToCounter": 1 },
@@ -54,7 +54,7 @@
 		{
 			"id": "q2",
 			"type": "radio",
-			"isRequired": false,
+			"isRequired": true,
 			"translationKey": "floodCheck.questions.q2",
 			"options": [
 				{ "value": "highValue", "score": -2, "addToCounter": 1 },
@@ -65,7 +65,7 @@
 		{
 			"id": "q3",
 			"type": "radio",
-			"isRequired": false,
+			"isRequired": true,
 			"translationKey": "floodCheck.questions.q3",
 			"options": [
 				{ "value": "no", "score": -2, "addToCounter": 1 },
@@ -79,7 +79,7 @@
 		{
 			"id": "q4",
 			"type": "radio",
-			"isRequired": false,
+			"isRequired": true,
 			"translationKey": "floodCheck.questions.q4",
 			"options": [
 				{ "value": "bad", "score": -2, "addToCounter": 1 },
@@ -92,7 +92,7 @@
 		{
 			"id": "q5",
 			"type": "radio",
-			"isRequired": false,
+			"isRequired": true,
 			"translationKey": "floodCheck.questions.q5",
 			"options": [
 				{ "value": "yes", "score": -2, "addToCounter": 1 },

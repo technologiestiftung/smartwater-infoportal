@@ -2,11 +2,9 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
-import NextImage from "next/image";
 import React, { ReactNode } from "react";
 
 type TocMap = Record<string, string>;
-const lisztIconSize = 44;
 
 const Emergency: React.FC = () => {
 	const t = useTranslations("recommendations.emergency");
@@ -65,29 +63,24 @@ const Emergency: React.FC = () => {
 	const Lists = [
 		{
 			listKey: "list1",
-			img: "/HandlungsempfehlungIcons/Icon_Warn.png",
 			list: list1,
 			hasParagraph: true,
 		},
 		{
 			listKey: "list2",
-			img: "/HandlungsempfehlungIcons/icon_EmgerncyPackage.png",
 			list: list2,
 		},
 		{
 			listKey: "list3",
-			img: "/HandlungsempfehlungIcons/icon_HelpingOthers.png",
 			list: list3,
 		},
 		{
 			listKey: "list4",
-			img: "/HandlungsempfehlungIcons/Icon_Auto.png",
 			list: list4,
 			fullIMG: "/Verkehr-Autoumpacken.png",
 		},
 		{
 			listKey: "list5",
-			img: "/HandlungsempfehlungIcons/icon_Nassvorsorge.png",
 			list: list5,
 		},
 	];
@@ -98,23 +91,17 @@ const Emergency: React.FC = () => {
 					strong: (chunks) => <strong>{chunks}</strong>,
 				})}
 			</h2>
-			<div className="bg-message-error p-6">
+			<div className="bg-message-default p-6">
 				<p className="whitespace-pre-line">
 					{t.rich("warning1", {
 						strong: (chunks) => <strong>{chunks}</strong>,
 					})}
 				</p>
 			</div>
-			{Lists.map(({ listKey, img, hasParagraph, list, fullIMG }) => (
+			{Lists.map(({ listKey, hasParagraph, list, fullIMG }) => (
 				<div className="flex flex-col gap-6" key={listKey}>
 					<div className="space-y-2">
 						<div className="flex items-center gap-4">
-							<NextImage
-								src={img}
-								alt={`Icon for ${listKey}`}
-								width={lisztIconSize}
-								height={lisztIconSize}
-							/>
 							<h3 className="font-normal">
 								{t.rich(`${listKey}Intro`, {
 									strong: (chunks) => <strong>{chunks}</strong>,
@@ -175,7 +162,7 @@ const Emergency: React.FC = () => {
 					)}
 				</div>
 			))}
-			<div className="bg-message-error p-6">
+			<div className="bg-message-default p-6">
 				<p className="whitespace-pre-line">
 					{t.rich("warning2", {
 						strong: (chunks) => <strong>{chunks}</strong>,

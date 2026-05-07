@@ -87,12 +87,7 @@
 				"entry4": "Bei Neubau: Haus erhöht bauen und Treppenstufen vor den Eingängen anbringen. (Abbildung 2, Maßnahme 0)",
 				"entry5": "Bei Neubau: Einfahrten so anlegen, dass sie zur Straße hin abfallen. (Abbildung 2, Maßnahme D)"
 			},
-			"afterList5": "Alle Vorsorgemaßnahmen, ihre Wirkweise und Implementierungsmöglichkeiten, finden Sie detailliert in der <link2>Hochwasserschutzfibel</link2> des Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen.",
-			"afterList5Image": {
-				"alt": "Bild zur Hochwasserschutzfibel",
-				"caption": "Abbildung 3: Hochwasserschutzfibel",
-				"copyright": "Bild: Hochwasserschutzfibel (Stand: 02/2022, Nachdruck 2024)"
-			}
+			"afterList5": "Alle Vorsorgemaßnahmen, ihre Wirkweise und Implementierungsmöglichkeiten, finden Sie detailliert in der <link2>Hochwasserschutzfibel</link2> des Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen."
 		},
 		"emergency": {
 			"intro": "<strong>Notfallmaßnahmen im oder am Haus</strong> sind Anpassungsmaßnahmen, die <strong>kurz vor</strong> dem Eintritt eines Hochwassers umgesetzt werden können.",

@@ -2,7 +2,7 @@
 import TextBlock from "@/components/TextBlock";
 import Warning from "@/components/Warning";
 import useStore from "@/store/defaultStore";
-import { Button, Image } from "berlin-ui-library";
+import { Button, Image, Opener } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import AddressSearch from "../components/AddressSearch";
@@ -14,53 +14,19 @@ export default function Home() {
 	const isDev = process.env.NODE_ENV === "development";
 
 	return (
-		<div className="flex w-full flex-col gap-12 px-5 py-8 lg:px-0">
-			<section>
-				<div className="flex flex-col gap-6">
-					<h1 className="">{t("pageTitle")}</h1>
-				</div>
-			</section>
-			{isDev && (
-				<div className="flex flex-col gap-4">
-					<Button
-						onClick={() => {
-							resetAll();
-							setTimeout(() => {
-								window.location.reload();
-							}, 500);
-						}}
-					>
-						Alles zurücksetzen
-					</Button>
-				</div>
-			)}
-			<section className="w-full">
-				<TextBlock
-					desktopColSpans={{ col1: 2, col2: 3 }}
-					className="w-full gap-6"
-					reverseDesktopColumns={true}
-					slotA={
-						<div className="flex flex-col gap-6">
-							<p className="">{t("whatIsIt.description1")}</p>
-							<p className="">{t("whatIsIt.description2")}</p>
-						</div>
-					}
-					slotB={
-						<Image
-							className="-mx-5 w-screen max-w-none lg:-mx-0 lg:w-auto"
-							src="/title.png"
-							alt={t("howToProtect.titleImage.alt")}
-							caption={t("howToProtect.titleImage.caption")}
-							copyright={t("howToProtect.titleImage.copyright")}
-						/>
-					}
-				/>
-			</section>
-			<div
-				className="divider scroll-mt-[62px] px-5 lg:scroll-mt-[85px]"
-				id="hochwasser-check"
-			/>
+		<div className="flex w-full flex-col gap-12 px-5 max-lg:pb-8 lg:px-0">
 			<section className="flex flex-col gap-6">
+				<Opener
+					src="/title.webp"
+					title={t("pageTitle")}
+					description={t("pageDescription")}
+					copyright={t("howToProtect.titleImage.copyright")}
+					className="-translate-x-5 lg:-translate-x-[calc((100vw-61.25rem)/2)]"
+				/>
+				<div
+					className="scroll-mt-[62px] px-5 lg:scroll-mt-[85px]"
+					id="hochwasser-check"
+				/>
 				<h2 className="">{t("amIAffected.title")}</h2>
 				<div>
 					<p className="">
@@ -81,6 +47,20 @@ export default function Home() {
 				<p className="">{t("amIAffected.cta")}</p>
 				<AddressSearch />
 			</section>
+			{isDev && (
+				<div className="flex flex-col gap-4">
+					<Button
+						onClick={() => {
+							resetAll();
+							setTimeout(() => {
+								window.location.reload();
+							}, 500);
+						}}
+					>
+						Alles zurücksetzen
+					</Button>
+				</div>
+			)}
 			<div className="divider px-5" />
 			<section className="w-full">
 				<TextBlock
@@ -135,8 +115,12 @@ export default function Home() {
 							<Warning />
 						</div>
 					}
-					slotC={<div className="flex flex-col gap-6"><p>{t.rich("floodRadar.description")}</p>
-					<p>{t.rich("floodRadar.description1")}</p></div>}
+					slotC={
+						<div className="flex flex-col gap-6">
+							<p>{t.rich("floodRadar.description")}</p>
+							<p>{t.rich("floodRadar.description1")}</p>
+						</div>
+					}
 				/>
 			</section>
 			<div className="divider" />

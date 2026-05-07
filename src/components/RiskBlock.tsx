@@ -29,7 +29,7 @@ const RiskBlock = ({
 	const isDev = false; //process.env.NODE_ENV === "development";
 	const { min, max } = floodRiskConfig.evaluation;
 	const value = floodRiskResult?.evaluation ?? 0;
-	const arrowPosition = ((value - min) / (max - min)) * 100;
+	const arrowPosition = (1 - (value - min) / (max - min)) * 100;
 
 	const getBorder = () => {
 		if (floodRiskResult?.riskLevel === "high") {
@@ -108,7 +108,7 @@ const RiskBlock = ({
 						</div>
 					</div>
 					<Image
-						className="w-full max-w-none"
+						className="w-full max-w-none rotate-180"
 						src="/Farbskala.jpg"
 						alt="Farbskala"
 						width={24}
