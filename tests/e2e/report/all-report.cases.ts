@@ -1,6 +1,6 @@
 import { HazardEntity } from "@/utils/storeUtils";
 
-const address = "Grunewaldstraße 61-62";
+const address = "Lenbachstraße 20, 10245 Berlin";
 
 const options = {
 	q0: ["rent", "Owner"],
