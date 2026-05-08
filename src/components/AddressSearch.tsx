@@ -203,24 +203,6 @@ export default function AddressSearch() {
 																		...result.building,
 																		name: result.name,
 																	};
-																	console.log(
-																		"makeBuilding :>> ",
-																		JSON.stringify(
-																			Object.fromEntries(
-																				Object.entries(makeBuilding).filter(
-																					([key]) =>
-																						!key
-																							.toLowerCase()
-																							.includes("geometry") &&
-																						!key
-																							.toLowerCase()
-																							.includes("transformed"),
-																				),
-																			),
-																			null,
-																			2,
-																		),
-																	);
 																	setLocationData({
 																		found: true,
 																		building: makeBuilding,

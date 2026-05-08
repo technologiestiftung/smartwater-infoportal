@@ -261,14 +261,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			rareFloodMax,
 		} = addWMSDataToPDFKeys(building);
 
-		console.log("addWMSDataToPDFKeys", {
-			hasHeavyRainHazardMap,
-			hasExtremeRainHazardMap,
-			frequentFloodMax,
-			averageFloodMax,
-			rareFloodMax,
-		});
-
 		setDone((prev) => [...prev, "wms"]);
 
 		const scenarios: string[] = [
@@ -308,8 +300,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		if (!!rareFloodMax) {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
-
-		console.log("scenarios :>> ", scenarios);
 
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
