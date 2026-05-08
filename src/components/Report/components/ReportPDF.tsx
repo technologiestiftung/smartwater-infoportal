@@ -126,27 +126,52 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		addToPDFKeys["{noPastDamages}"] =
 			floodRiskAnswers?.q5?.value === "noInformation";
 
+		const filteredFloodRiskAnswers = Object.fromEntries(
+			Object.entries(floodRiskAnswers || {}).filter(([key]) => {
+				if (key === "q2" && !isThereABasement) {
+					return false;
+				}
+				return true;
+			}),
+		);
+
+		const questionIdByIndexWithBasement: Record<number, string> = {
+			0: "q1",
+			1: "q2",
+			2: "q3",
+			3: "q4",
+			4: "q5",
+			5: "qA",
+			6: "qB",
+			7: "qC",
+		};
+
+		const questionIdByIndexWithoutBasement: Record<number, string> = {
+			0: "q1",
+			1: "q3",
+			2: "q4",
+			3: "q5",
+			4: "qA",
+			5: "qB",
+			6: "qC",
+		};
+
+		const getQuestionId = (index: number) => {
+			return isThereABasement
+				? questionIdByIndexWithBasement[index]
+				: questionIdByIndexWithoutBasement[index];
+		};
+
 		for (const [index, factor] of defaultRiskFactors.entries()) {
-			const factorName = t(factor.translationKey);
-			const factorDescription = t(
-				factor.translationKey.replace("title", factor.riskLevel),
-			);
-			let questionID = `q${index + 1}`;
-			if (isThereABasement) {
-				if (index === 5) questionID = "qA";
-				if (index === 6) questionID = "qB";
-				if (index === 7) questionID = "qC";
-			} else {
-				if (index === 4) questionID = "qA";
-				if (index === 5) questionID = "qB";
-				if (index === 6) questionID = "qC";
-			}
+			const questionID = getQuestionId(index);
 			addToPDFKeys[`{${factor.id}Tag}`] = translateHazardTags(
-				floodRiskAnswers?.[questionID]?.value as string,
+				filteredFloodRiskAnswers?.[questionID]?.value as string,
 				questionID,
 			);
-			addToPDFKeys[`{${factor.id}Name}`] = factorName;
-			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
+			addToPDFKeys[`{${factor.id}Name}`] = t(factor.translationKey);
+			addToPDFKeys[`{${factor.id}Description}`] = t(
+				factor.translationKey.replace("title", factor.riskLevel),
+			);
 		}
 
 		addToPDFKeys[`{isThereABasement}`] = isThereABasement;

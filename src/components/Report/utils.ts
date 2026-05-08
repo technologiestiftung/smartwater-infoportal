@@ -168,16 +168,14 @@ export const translateHazardTags = (
 		return "/Red.png";
 	}
 	if (questionID === "q3") {
-		if (typeof value === "string" && value.startsWith("no")) {
-			if (value === "noInformation") {
-				return "/Red-Q.png";
-			}
-			return "/Red.png";
+		if (value === "noInformation") {
+			return "/Red-Q.png";
 		} else if (value === "yesUnknown") {
 			return "/Orange.png";
 		} else if (value === "yesGood") {
 			return "/Green.png";
 		}
+		return "/Red.png";
 	}
 	if (questionID === "q4") {
 		if (value === "bad") {
