@@ -94,7 +94,7 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 		<div className="mt-2">
 			<div className="space-y-4">
 				<Button
-					className="flex cursor-pointer items-center gap-2"
+					className="flex cursor-pointer items-center gap-2 decoration-black"
 					variant="link"
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					onClick={(e: any) => {
