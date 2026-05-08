@@ -119,7 +119,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				return true;
 			});
 
-		addToPDFKeys["{noBasementUsageHazard}"] = !floodRiskAnswers?.q2;
+		addToPDFKeys["{noBasementUsageHazard}"] =
+			!floodRiskAnswers?.q2 || floodRiskAnswers?.q2?.value === "noInformation";
 		addToPDFKeys["{noPropertyDrainageHazard}"] =
 			floodRiskAnswers?.q4?.value === "noInformation";
 		addToPDFKeys["{noPastDamages}"] =
@@ -146,8 +147,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			);
 			addToPDFKeys[`{${factor.id}Name}`] = factorName;
 			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
-			addToPDFKeys[`{isThereABasement}`] = isThereABasement;
 		}
+
+		addToPDFKeys[`{isThereABasement}`] = isThereABasement;
 
 		const buildingWMSData: BuildingWMS = {
 			hasHeavyRainHazardMap: false,
