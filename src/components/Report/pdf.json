@@ -707,7 +707,7 @@
 			]
 		},
 		{
-			"title": "Handlungsempfehlungen => Keller mit Fenstern",
+			"title": "Handlungsempfehlungen => Keller mit Fenster",
 			"hide": "!{basementWithWindows}",
 			"items": [
 				{
@@ -716,7 +716,7 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "Keller als Gefährdung - Mit Fenstern",
+					"text": "Keller als Gefährdung - Mit Fenster",
 					"fontSize": "h2",
 					"marginBottom": 3
 				},
@@ -775,7 +775,7 @@
 					"marginBottom": 11
 				},
 				{
-					"text": "Keller als Gefährdung - Ohne Fenstern",
+					"text": "Keller als Gefährdung - Ohne Fenster",
 					"fontSize": "h2",
 					"marginBottom": 3
 				},
