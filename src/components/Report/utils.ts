@@ -193,16 +193,15 @@ export const translateHazardTags = (
 	}
 	if (questionID === "qB" || questionID === "qC") {
 		if (typeof value === "number") {
-			if (value > 1) {
-				return "/Red.png";
-			} else if (value === 1) {
-				return "/Orange.png";
-			} else if (value === 0) {
+			if (value <= 1) {
 				if (questionID === "qB") {
 					return "/Green.png";
 				}
 				return "/Orange.png";
+			} else if (value <= 2) {
+				return "/Orange.png";
 			}
+			return "/Red.png";
 		}
 	}
 	return "/Grey.png";

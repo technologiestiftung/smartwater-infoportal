@@ -118,7 +118,8 @@
 				{ "value": 0, "score": 1, "addToCounter": 1 },
 				{ "value": 1, "score": -1, "addToCounter": 1 },
 				{ "value": 2, "score": -2, "addToCounter": 1 },
-				{ "value": 3, "score": -2, "addToCounter": 1 }
+				{ "value": 3, "score": -2, "addToCounter": 1 },
+				{ "value": 4, "score": -2, "addToCounter": 1 }
 			]
 		},
 		{
@@ -129,7 +130,8 @@
 				{ "value": 0, "score": 1, "addToCounter": 1 },
 				{ "value": 1, "score": -1, "addToCounter": 1 },
 				{ "value": 2, "score": -2, "addToCounter": 1 },
-				{ "value": 3, "score": -2, "addToCounter": 1 }
+				{ "value": 3, "score": -2, "addToCounter": 1 },
+				{ "value": 4, "score": -2, "addToCounter": 1 }
 			]
 		}
 	],

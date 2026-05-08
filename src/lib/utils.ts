@@ -128,8 +128,10 @@ export const calculateRiskLevel = (
 	if (answer?.value === "noInformation") {
 		return "dontKnow";
 	}
-	if (questionId === "qB" && answer?.value === 0) {
-		return "low";
+	if (questionId === "qB" || questionId === "qC") {
+		if (+answer.value <= 1) return "low";
+		if (+answer.value <= 2) return "moderate";
+		if (+answer.value >= 3) return "high";
 	}
 	if (questionId === "q2") {
 		if (answer?.value === "highValue") {
