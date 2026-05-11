@@ -137,8 +137,8 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 				)}
 				{status === "not-available" && (
 					<p className="text-red-600">
-						Die automatische Standorterkennung ist in Ihrem Browser nicht
-						verfügbar.
+						Die automatische Standorterkennung ist mit diesem Browser leider
+						nicht möglich.
 					</p>
 				)}
 				{status === "outside-bbox" && (
