@@ -1,7 +1,3 @@
-import {
-	createGetLayerStatus,
-	createSetLayerStatus,
-} from "@/lib/store/mapActions";
 import { MapStoreState } from "@/types/map";
 import { create } from "zustand";
 
