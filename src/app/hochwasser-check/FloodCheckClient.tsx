@@ -17,7 +17,7 @@ export default function FloodCheckClient() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const getCheckFromURL = searchParams.get("skip") === "true";
-	const { hasHydrated, locationData } = useStore();
+	const { hasHydrated, locationData, cancelScreenshots } = useStore();
 
 	useEffect(() => {
 		if (!!hash) {
@@ -47,13 +47,14 @@ export default function FloodCheckClient() {
 				<>
 					<Button
 						className="w-full justify-end self-start lg:w-fit"
-						onClick={() =>
+						onClick={() => {
+							if (cancelScreenshots) cancelScreenshots();
 							router.push(
 								getCheckFromURL
 									? "/hochwasser-check"
 									: "/hochwasser-check#questionnaire",
-							)
-						}
+							);
+						}}
 						variant="back-link"
 					>
 						{getCheckFromURL

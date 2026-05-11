@@ -8,8 +8,6 @@ import {
 	AccordionTrigger,
 	Button,
 	FilterPillGroup,
-	List,
-	ListItem,
 	Pill,
 } from "berlin-ui-library";
 import { useTranslations } from "next-intl";
@@ -37,7 +35,7 @@ const Results: React.FC = () => {
 	const searchParams = useSearchParams();
 	const skip = searchParams.get("skip");
 	const hazardEntities = getHazardEntities();
-	const isDev = process.env.NODE_ENV === "development";
+	const isDev = false; //process.env.NODE_ENV === "development";
 	const showMap = !isDev;
 
 	// Define filter keys for translation
