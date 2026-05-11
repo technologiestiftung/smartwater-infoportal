@@ -268,5 +268,8 @@ export const translateWMSValue = (
 	if (!value) {
 		return "Keine Daten";
 	}
+	if (+value >= 100) {
+		return `mehr als 100${unit}`;
+	}
 	return `${helper}${Math.round(+value)}${unit}`;
 };
