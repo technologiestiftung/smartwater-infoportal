@@ -12,11 +12,10 @@ interface LocationButtonProps {
 }
 const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 	const [status, setStatus] = useState<
-		"idle" | "loading" | "granted" | "denied" | "outside-bbox"
+		"idle" | "loading" | "granted" | "denied" | "outside-bbox" | "not-available"
 	>("idle");
 	const [lat, setLat] = useState<number | null>(null);
 	const [long, setLong] = useState<number | null>(null);
-	const isDev = false; // process.env.NODE_ENV === "development";
 
 	const bbox: [number, number, number, number] = [
 		13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507,
@@ -40,7 +39,7 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 
 		// Check if the browser supports geolocation
 		if (!("geolocation" in navigator)) {
-			setStatus("denied");
+			setStatus("not-available");
 			return;
 		}
 
@@ -132,7 +131,14 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 				{status === "loading" && <p>Frage Standort ab…</p>}
 				{status === "denied" && (
 					<p className="text-red-600">
-						Standort abgelehnt. Bitte Browser-Einstellungen prüfen.
+						Sie haben die automatische Standorterkennung abgelehnt. Bitte passen
+						Sie Ihre Browser-Einstellungen an.
+					</p>
+				)}
+				{status === "not-available" && (
+					<p className="text-red-600">
+						Die automatische Standorterkennung ist in Ihrem Browser nicht
+						verfügbar.
 					</p>
 				)}
 				{status === "outside-bbox" && (
@@ -140,57 +146,6 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 						Ihre Adresse liegt außerhalb von Berlin. Bitte geben Sie eine
 						Berliner Adresse ein, um den HochwasserCheck Berlin zu starten.
 					</p>
-				)}
-				{isDev && (
-					<>
-						<hr className="my-6" />
-						<div className="space-y-4">
-							<div className="flex">
-								<div>
-									<label className="mb-1 block font-medium">Latitude</label>
-									<input
-										type="number"
-										step="any"
-										placeholder="Latitude"
-										value={lat !== null ? lat : ""}
-										onChange={(e) =>
-											setLat(
-												e.target.value === "" ? null : Number(e.target.value),
-											)
-										}
-										className="mr-2 rounded border p-2"
-									/>
-								</div>
-								<div>
-									<label className="mb-1 block font-medium">Longitude</label>
-									<input
-										type="number"
-										step="any"
-										placeholder="Longitude"
-										value={long !== null ? long : ""}
-										onChange={(e) =>
-											setLong(
-												e.target.value === "" ? null : Number(e.target.value),
-											)
-										}
-										className="rounded border p-2"
-									/>
-								</div>
-							</div>
-							<Button
-								variant="link"
-								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								onClick={(e: any) => {
-									e.preventDefault();
-									setLat(null);
-									setLong(null);
-									setStatus("idle");
-								}}
-							>
-								Koordinaten Löschen
-							</Button>
-						</div>
-					</>
 				)}
 			</div>
 		</div>
