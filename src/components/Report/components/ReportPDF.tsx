@@ -40,8 +40,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
 	const pdfUrlRef = useRef<string | null>(null);
-	const { locationData, getHazardEntities, floodRiskAnswers, floodRiskResult } =
-		useStore();
+	const {
+		locationData,
+		getHazardEntities,
+		floodRiskAnswers,
+		floodRiskResult,
+		setCancelScreenshots,
+	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
@@ -56,6 +61,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const isLocalhost =
 		typeof window !== "undefined" && window.location.hostname === "localhost";
 	const isMobile = useMobile();
+
+	const screenshotAbortControllerRef = useRef<AbortController | null>(null);
 
 	const checks = [
 		{
@@ -330,6 +337,9 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 		setNumberOfPDFImagesToFetch(scenarios.length);
 
+		const controller = new AbortController();
+		screenshotAbortControllerRef.current = controller;
+
 		try {
 			const results = await Promise.all(
 				scenarios.map(async (scenario) => {
@@ -339,6 +349,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 						hazardEntities,
 						floodRiskResult,
 						floodRiskAnswers,
+						controller.signal,
 					);
 
 					setNumberOfFetchedPDFImages((prev) => prev + 1);
@@ -351,7 +362,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				addToPDFKeys[`#${key}`] = blob;
 			});
 		} catch (captureError) {
+			if (controller.signal.aborted) {
+				return setError("Screenshot capture cancelled.");
+			}
+
 			return setError("Error capturing screenshots: " + captureError);
+		} finally {
+			screenshotAbortControllerRef.current = null;
 		}
 
 		setDone((prev) => [...prev, "images"]);
@@ -427,6 +444,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		a.download = "Report-HochwasserCheck-Berlin.pdf";
 		a.click();
 	};
+
+	useEffect(() => {
+		setCancelScreenshots(() => {
+			screenshotAbortControllerRef.current?.abort();
+		});
+	}, [setCancelScreenshots]);
 
 	useEffect(() => {
 		if (makePDFInitializedRef.current) {
