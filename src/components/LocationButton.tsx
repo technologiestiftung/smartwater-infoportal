@@ -81,8 +81,12 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 			});
 
 			permission.onchange = () => {
-				if (permission.state !== "prompt") {
-					window.location.reload();
+				if (permission.state === "granted") {
+					// requestLocation();
+					setStatus("idle");
+				}
+				if (permission.state === "denied") {
+					setStatus("denied");
 				}
 			};
 		} catch {
