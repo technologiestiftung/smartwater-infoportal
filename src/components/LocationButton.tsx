@@ -76,6 +76,27 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 		);
 	}
 
+	async function watchLocationPermission() {
+		try {
+			const permission = await navigator.permissions.query({
+				name: "geolocation",
+			});
+
+			permission.onchange = () => {
+				console.log("Permission changed:", permission.state);
+
+				// Reload page
+				window.location.reload();
+			};
+		} catch {
+			// Safari does not support navigator.permissions
+		}
+	}
+
+	useEffect(() => {
+		watchLocationPermission();
+	}, []);
+
 	useEffect(() => {
 		if (lat !== null && long !== null) {
 			const inside = isPointInBBox(long as number, lat as number);
