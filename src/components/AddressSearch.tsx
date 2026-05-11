@@ -19,6 +19,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
 import { LocationDataNotFound } from "@/lib/geoserverClient";
+import { cn } from "@/lib/utils";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -133,6 +134,22 @@ export default function AddressSearch() {
 		}
 	};
 
+	const handleResultClick = (result: CurrentUserAddress) => {
+		setError("");
+		setValue("addresse", result.name);
+		if (result.building) {
+			const makeBuilding = {
+				...result.building,
+				name: result.name,
+			};
+			setLocationData({
+				found: true,
+				building: makeBuilding,
+			});
+		}
+		setResults([]);
+	};
+
 	useEffect(() => {
 		if (locationData?.found) {
 			setValue("addresse", locationData.building?.name || "");
@@ -191,34 +208,23 @@ export default function AddressSearch() {
 								>
 									<>
 										{results.map((result, index) => {
+											const { hasHousenumber } = result;
 											return (
-												<li key={index}>
-													{result.hasHousenumber ? (
-														<Button
-															onClick={() => {
-																setError("");
-																setValue("addresse", result.name);
-																if (result.building) {
-																	const makeBuilding = {
-																		...result.building,
-																		name: result.name,
-																	};
-																	setLocationData({
-																		found: true,
-																		building: makeBuilding,
-																	});
-																}
-																setResults([]);
-															}}
-															variant="link"
-														>
-															{result.name}
-														</Button>
-													) : (
-														<div className="flex min-h-[43px] items-center">
-															<p>{result.name}</p>
-														</div>
-													)}
+												<li key={index} className="my-3">
+													<p
+														className={cn(
+															hasHousenumber &&
+																"cursor-pointer text-text-link hover:underline",
+															"select-none",
+														)}
+														onClick={
+															hasHousenumber
+																? () => handleResultClick(result)
+																: undefined
+														}
+													>
+														{result.name}
+													</p>
 												</li>
 											);
 										})}
