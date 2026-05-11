@@ -92,19 +92,21 @@ const RiskBlock = ({
 							className="absolute inset-0 flex"
 							style={{ transform: `translateX(${arrowPosition}%)` }}
 						>
-							<Image
-								src="/arrow_down.svg"
-								alt={t(
-									"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
-									{
-										level: t(
-											`buildingRiskAssessment.buildingRisk.riskLevels.${floodRiskResult?.riskLevel}`,
-										),
-									},
-								)}
-								width={24}
-								height={24}
-							/>
+							{floodRiskResult?.riskLevel && (
+								<Image
+									src="/arrow_down.svg"
+									alt={t(
+										"buildingRiskAssessment.buildingRisk.ariaLabels.currentHazardLevel",
+										{
+											level: t(
+												`buildingRiskAssessment.buildingRisk.riskLevels.${floodRiskResult?.riskLevel}`,
+											),
+										},
+									)}
+									width={24}
+									height={24}
+								/>
+							)}
 						</div>
 					</div>
 					<Image

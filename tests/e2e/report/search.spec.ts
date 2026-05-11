@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { reportCases } from "./report.cases";
+import { reportCases } from "./all-report.cases";
 
 const BASE_URL = "http://localhost:3000";
 const DEFAULT_TIMEOUT = 20_000;
@@ -14,7 +14,7 @@ async function searchAddress(page: Page, address: string) {
 	const resultsList = page.locator("ul#results-list");
 	await expect(resultsList).toBeVisible({ timeout: DEFAULT_TIMEOUT });
 
-	const firstResultButton = resultsList.locator("button").first();
+	const firstResultButton = resultsList.locator("p").first();
 	await expect(firstResultButton).toBeVisible();
 	await firstResultButton.click();
 
@@ -42,14 +42,16 @@ async function startQuestionnaire(page: Page, skip: boolean) {
 
 async function answerQuestionnaire(
 	page: Page,
-	answers: Record<string, string | number>,
+	answers: Record<string, { value: string | number }>,
 ) {
 	await expect(page.locator("div[role='radiogroup']")).toBeVisible({
 		timeout: DEFAULT_TIMEOUT,
 	});
 
-	for (const answerValue of Object.values(answers)) {
-		const radio = page.locator(`button[role="radio"][value="${answerValue}"]`);
+	for (const answer of Object.values(answers)) {
+		const radio = page.locator(
+			`button[role="radio"][value="${answer.value === "Owner" ? "flatOwner" : answer.value}"]`,
+		);
 		await expect(radio).toBeVisible({ timeout: DEFAULT_TIMEOUT });
 		await radio.click();
 
@@ -61,12 +63,12 @@ async function answerQuestionnaire(
 
 async function downloadPdf(page: Page) {
 	const container = page.locator("#pdf-ready");
-	await expect(container).toBeVisible({ timeout: 360_000 });
+	await expect(container).toBeVisible({ timeout: 100_000 });
 
 	await container.locator("button").first().click();
 }
 
-async function openPdf(page: Page) {
+async function openPdf(page: Page, query: string) {
 	const readyBtn = page.locator("#pdf-ready button").first();
 	await readyBtn.isVisible();
 	await readyBtn.click();
@@ -74,22 +76,30 @@ async function openPdf(page: Page) {
 		page.waitForEvent("download"),
 		page.locator("#pdf-ready button").first().click(),
 	]);
-	const path = `tests/e2e/downloads/report-${Date.now()}.pdf`;
+	const path = `tests/e2e/downloads/${query}-${Date.now()}.pdf`;
 
 	await download.saveAs(path);
 	expect(download.suggestedFilename()).toMatch(/\.pdf$/);
 }
 
+const downloadThePDF = true;
+
 test.describe("Create report", () => {
 	for (const c of reportCases) {
 		test(`creates report for "${c.query}"`, async ({ page }) => {
+			test.setTimeout(720_000);
 			await searchAddress(page, c.address);
 			await startQuestionnaire(page, !!c.skip);
 			if (!c.skip) {
 				await answerQuestionnaire(page, c.answers);
 			}
-			await downloadPdf(page);
-			await openPdf(page);
+			if (downloadThePDF) {
+				await downloadPdf(page);
+				await openPdf(page, c.query);
+			} else {
+				const container = page.locator("#report-pdf-wrapper");
+				await expect(container).toBeVisible();
+			}
 		});
 	}
 });

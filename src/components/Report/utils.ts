@@ -168,16 +168,14 @@ export const translateHazardTags = (
 		return "/Red.png";
 	}
 	if (questionID === "q3") {
-		if (typeof value === "string" && value.startsWith("no")) {
-			if (value === "noInformation") {
-				return "/Red-Q.png";
-			}
-			return "/Red.png";
+		if (value === "noInformation") {
+			return "/Red-Q.png";
 		} else if (value === "yesUnknown") {
 			return "/Orange.png";
 		} else if (value === "yesGood") {
 			return "/Green.png";
 		}
+		return "/Red.png";
 	}
 	if (questionID === "q4") {
 		if (value === "bad") {
@@ -193,16 +191,15 @@ export const translateHazardTags = (
 	}
 	if (questionID === "qB" || questionID === "qC") {
 		if (typeof value === "number") {
-			if (value > 1) {
-				return "/Red.png";
-			} else if (value === 1) {
-				return "/Orange.png";
-			} else if (value === 0) {
+			if (value <= 1) {
 				if (questionID === "qB") {
 					return "/Green.png";
 				}
 				return "/Orange.png";
+			} else if (value <= 2) {
+				return "/Orange.png";
 			}
+			return "/Red.png";
 		}
 	}
 	return "/Grey.png";
@@ -214,6 +211,7 @@ export const getScreenshotForScenario = async (
 	hazardEntities?: HazardEntity[] | null,
 	floodRiskResult?: FloodRiskResult | null,
 	floodRiskAnswers?: FloodRiskAnswers | null,
+	signal?: AbortSignal,
 ): Promise<{
 	key: string;
 	blob: Blob;
@@ -247,6 +245,7 @@ export const getScreenshotForScenario = async (
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(body),
+		signal,
 	});
 
 	const text = await res.text();
@@ -262,7 +261,6 @@ export const getScreenshotForScenario = async (
 	return { key, blob };
 };
 
-// Old Calc Approach Jakob
 export const translateWMSValue = (
 	value: string | number | null | undefined,
 	helper: string = "bis zu ",
@@ -271,5 +269,5 @@ export const translateWMSValue = (
 	if (!value) {
 		return "Keine Daten";
 	}
-	return `${helper}${Math.round(+value)}${unit}`;
+	return `${helper}${Math.round(+value)} ${unit}`;
 };

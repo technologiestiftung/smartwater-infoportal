@@ -40,8 +40,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 	const makePDFInitializedRef = useRef<boolean>(false);
 	const pdfUrlRef = useRef<string | null>(null);
-	const { locationData, getHazardEntities, floodRiskAnswers, floodRiskResult } =
-		useStore();
+	const {
+		locationData,
+		getHazardEntities,
+		floodRiskAnswers,
+		floodRiskResult,
+		setCancelScreenshots,
+	} = useStore();
 	const hazardEntities = getHazardEntities();
 	const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
 	const [pdfSizeKB, setPdfSizeKB] = useState<number | null>(null);
@@ -56,6 +61,8 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 	const isLocalhost =
 		typeof window !== "undefined" && window.location.hostname === "localhost";
 	const isMobile = useMobile();
+
+	const screenshotAbortControllerRef = useRef<AbortController | null>(null);
 
 	const checks = [
 		{
@@ -119,35 +126,62 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				return true;
 			});
 
-		addToPDFKeys["{noBasementUsageHazard}"] = !floodRiskAnswers?.q2;
+		addToPDFKeys["{noBasementUsageHazard}"] =
+			!floodRiskAnswers?.q2 || floodRiskAnswers?.q2?.value === "noInformation";
 		addToPDFKeys["{noPropertyDrainageHazard}"] =
 			floodRiskAnswers?.q4?.value === "noInformation";
 		addToPDFKeys["{noPastDamages}"] =
 			floodRiskAnswers?.q5?.value === "noInformation";
 
+		const filteredFloodRiskAnswers = Object.fromEntries(
+			Object.entries(floodRiskAnswers || {}).filter(([key]) => {
+				if (key === "q2" && !isThereABasement) {
+					return false;
+				}
+				return true;
+			}),
+		);
+
+		const questionIdByIndexWithBasement: Record<number, string> = {
+			0: "q1",
+			1: "q2",
+			2: "q3",
+			3: "q4",
+			4: "q5",
+			5: "qA",
+			6: "qB",
+			7: "qC",
+		};
+
+		const questionIdByIndexWithoutBasement: Record<number, string> = {
+			0: "q1",
+			1: "q3",
+			2: "q4",
+			3: "q5",
+			4: "qA",
+			5: "qB",
+			6: "qC",
+		};
+
+		const getQuestionId = (index: number) => {
+			return isThereABasement
+				? questionIdByIndexWithBasement[index]
+				: questionIdByIndexWithoutBasement[index];
+		};
+
 		for (const [index, factor] of defaultRiskFactors.entries()) {
-			const factorName = t(factor.translationKey);
-			const factorDescription = t(
-				factor.translationKey.replace("title", factor.riskLevel),
-			);
-			let questionID = `q${index + 1}`;
-			if (isThereABasement) {
-				if (index === 5) questionID = "qA";
-				if (index === 6) questionID = "qB";
-				if (index === 7) questionID = "qC";
-			} else {
-				if (index === 4) questionID = "qA";
-				if (index === 5) questionID = "qB";
-				if (index === 6) questionID = "qC";
-			}
+			const questionID = getQuestionId(index);
 			addToPDFKeys[`{${factor.id}Tag}`] = translateHazardTags(
-				floodRiskAnswers?.[questionID]?.value as string,
+				filteredFloodRiskAnswers?.[questionID]?.value as string,
 				questionID,
 			);
-			addToPDFKeys[`{${factor.id}Name}`] = factorName;
-			addToPDFKeys[`{${factor.id}Description}`] = factorDescription;
-			addToPDFKeys[`{isThereABasement}`] = isThereABasement;
+			addToPDFKeys[`{${factor.id}Name}`] = t(factor.translationKey);
+			addToPDFKeys[`{${factor.id}Description}`] = t(
+				factor.translationKey.replace("title", factor.riskLevel),
+			);
 		}
+
+		addToPDFKeys[`{isThereABasement}`] = isThereABasement;
 
 		const buildingWMSData: BuildingWMS = {
 			hasHeavyRainHazardMap: false,
@@ -222,13 +256,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 		// Average Flood
 		addToPDFKeys["{hasNoAverageFloodData}"] =
-			!building.hw_mva_max || !building.hw_mva_min;
-		addToPDFKeys["{hasAverageFloodData}"] = !!building.hw_mva_max;
-		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(building.hw_mva_max);
+			!building.hw_mval_ma || !building.hw_mval_mi;
+		addToPDFKeys["{hasAverageFloodData}"] = !!building.hw_mval_ma;
+		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(building.hw_mval_ma);
 		addToPDFKeys["{averageFloodMinimum}"] = translateWMSValue(
-			building.hw_mva_min,
+			building.hw_mval_mi,
 		);
-		buildingWMSData.averageFloodMax = building.hw_mva_max ?? null;
+		buildingWMSData.averageFloodMax = building.hw_mval_ma ?? null;
 
 		// Rare Flood
 		addToPDFKeys["{hasNoRareFloodData}"] =
@@ -260,14 +294,6 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			averageFloodMax,
 			rareFloodMax,
 		} = addWMSDataToPDFKeys(building);
-
-		console.log("addWMSDataToPDFKeys", {
-			hasHeavyRainHazardMap,
-			hasExtremeRainHazardMap,
-			frequentFloodMax,
-			averageFloodMax,
-			rareFloodMax,
-		});
 
 		setDone((prev) => [...prev, "wms"]);
 
@@ -309,9 +335,10 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 			scenarios.push("RARE_FREQUENT_FLOOD");
 		}
 
-		console.log("scenarios :>> ", scenarios);
-
 		setNumberOfPDFImagesToFetch(scenarios.length);
+
+		const controller = new AbortController();
+		screenshotAbortControllerRef.current = controller;
 
 		try {
 			const results = await Promise.all(
@@ -322,6 +349,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 						hazardEntities,
 						floodRiskResult,
 						floodRiskAnswers,
+						controller.signal,
 					);
 
 					setNumberOfFetchedPDFImages((prev) => prev + 1);
@@ -334,7 +362,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 				addToPDFKeys[`#${key}`] = blob;
 			});
 		} catch (captureError) {
+			if (controller.signal.aborted) {
+				return setError("Screenshot capture cancelled.");
+			}
+
 			return setError("Error capturing screenshots: " + captureError);
+		} finally {
+			screenshotAbortControllerRef.current = null;
 		}
 
 		setDone((prev) => [...prev, "images"]);
@@ -410,6 +444,12 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		a.download = "Report-HochwasserCheck-Berlin.pdf";
 		a.click();
 	};
+
+	useEffect(() => {
+		setCancelScreenshots(() => {
+			screenshotAbortControllerRef.current?.abort();
+		});
+	}, [setCancelScreenshots]);
 
 	useEffect(() => {
 		if (makePDFInitializedRef.current) {

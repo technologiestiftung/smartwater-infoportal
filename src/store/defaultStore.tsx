@@ -41,6 +41,10 @@ type StoreState = {
 
 	// Selectors
 	getHazardEntities: () => HazardEntity[] | null;
+
+	// abort Controller for screenshot requests
+	cancelScreenshots?: () => void;
+	setCancelScreenshots: (fn: () => void) => void;
 };
 
 const useStore = create<StoreState>()(
@@ -132,6 +136,10 @@ const useStore = create<StoreState>()(
 					const state = get();
 					return getHazardEntities(state.locationData);
 				},
+
+				// abort Controller for screenshot requests
+				cancelScreenshots: undefined,
+				setCancelScreenshots: (fn) => set({ cancelScreenshots: fn }),
 			}),
 			{
 				name: "flood-risk-store",
