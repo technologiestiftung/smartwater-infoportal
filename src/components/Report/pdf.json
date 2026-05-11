@@ -721,7 +721,7 @@
 					"marginBottom": 3
 				},
 				{
-					"text": "Diese Information wird Ihnen angezeigt, da Sie im Fragebogen angegeben haben, dass Ihr Gebäude einen Keller mit Fenstern hat. Ein Keller stellt im Falle eines Hochwassers eine besondere Gefährdung da. Überprüfen Sie auf den Starkregen- bzw. Hochwasserkarten in dieses Berichtes, wo ggf. Wasser an Ihrem Gebäude ansteht und ob das Wasser an diesen Stellen in Ihr Gebäude gelangen kann. Sollte das der Fall sein, prüfen Sie, ob Sie das Gelände so umgestalten können, dass Wasser vom Gebäude wegfließt, z.B. durch das Anlegen von Abflussrinnen.",
+					"text": "Diese Information wird Ihnen angezeigt, da Sie im Fragebogen angegeben haben, dass Ihr Gebäude einen Keller mit Fenster hat. Ein Keller stellt im Falle eines Hochwassers eine besondere Gefährdung da. Überprüfen Sie auf den Starkregen- bzw. Hochwasserkarten in dieses Berichtes, wo ggf. Wasser an Ihrem Gebäude ansteht und ob das Wasser an diesen Stellen in Ihr Gebäude gelangen kann. Sollte das der Fall sein, prüfen Sie, ob Sie das Gelände so umgestalten können, dass Wasser vom Gebäude wegfließt, z.B. durch das Anlegen von Abflussrinnen.",
 					"marginBottom": "paragraph"
 				},
 				{
@@ -729,7 +729,7 @@
 				},
 				{
 					"isListItem": true,
-					"text": "Es gibt eine Reihe von baulichen Maßnahmen, die Keller vor dem eindringen von Hochwasser schützen können. Hierzu zählen z.B. der Einbau von Wasser- und Druckfesten Fenstern und Türen oder das Abdichten der Kellerwände. Kellerfenster sowie Zugänge sollten zudem überdacht sein."
+					"text": "Es gibt eine Reihe von baulichen Maßnahmen, die Keller vor dem eindringen von Hochwasser schützen können. Hierzu zählen z.B. der Einbau von Wasser- und Druckfesten Fenster und Türen oder das Abdichten der Kellerwände. Kellerfenster sowie Zugänge sollten zudem überdacht sein."
 				},
 				{
 					"isListItem": true,
@@ -780,7 +780,7 @@
 					"marginBottom": 3
 				},
 				{
-					"text": "Diese Information wird Ihnen angezeigt, da Sie im Fragebogen angegeben haben, dass Ihr Gebäude einen Keller ohne Fenstern hat. Ein Keller stellt im Falle einer Überflutung am Haus eine besondere Gefährdung da. Sie haben angegeben, das der Keller des geprüften Gebäudes keine Fenster hat. Das reduziert die Wahrscheinlichkeit, dass Wasser in den Keller eindringen kann. Überprüfen Sie auf den Starkregen- bzw. Hochwasserkarten in dieses Berichtes, wo ggf. Wasser an Ihrem Gebäude ansteht und ob das Wasser an diesen Stellen in Ihr Gebäude gelangen kann. Sollte das der Fall sein, prüfen Sie, ob Sie das Gelände so umgestalten können, dass Wasser vom Gebäude wegfließt, z.B. durch das Anlegen von Abflussrinnen.",
+					"text": "Diese Information wird Ihnen angezeigt, da Sie im Fragebogen angegeben haben, dass Ihr Gebäude einen Keller ohne Fenster hat. Ein Keller stellt im Falle einer Überflutung am Haus eine besondere Gefährdung da. Sie haben angegeben, das der Keller des geprüften Gebäudes keine Fenster hat. Das reduziert die Wahrscheinlichkeit, dass Wasser in den Keller eindringen kann. Überprüfen Sie auf den Starkregen- bzw. Hochwasserkarten in dieses Berichtes, wo ggf. Wasser an Ihrem Gebäude ansteht und ob das Wasser an diesen Stellen in Ihr Gebäude gelangen kann. Sollte das der Fall sein, prüfen Sie, ob Sie das Gelände so umgestalten können, dass Wasser vom Gebäude wegfließt, z.B. durch das Anlegen von Abflussrinnen.",
 					"marginBottom": "paragraph"
 				},
 				{
