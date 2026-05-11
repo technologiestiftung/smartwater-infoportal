@@ -48,7 +48,7 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 			const permission = await navigator.permissions.query({
 				name: "geolocation",
 			});
-
+			console.log("permission.state :>> ", permission.state);
 			if (permission.state === "denied") {
 				setStatus("denied");
 				return;
