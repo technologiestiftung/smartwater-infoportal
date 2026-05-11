@@ -15,7 +15,6 @@ export default function RiskblockClient() {
 		setPayload(p);
 		setTimeout(() => {
 			const height = containerRef.current?.getBoundingClientRect().height ?? 0;
-			console.log("height RiskBlock :>> ", height);
 			// @ts-expect-error puppeteer injects this global at runtime
 			window.__SCREENSHOT_READY__ = {
 				ready: Boolean(p),

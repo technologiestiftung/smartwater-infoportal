@@ -13,15 +13,14 @@ export default function WidgetClient() {
 		const p = window.__SCREENSHOT_INPUT__ ?? null;
 		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setPayload(p);
-		requestAnimationFrame(() => {
+		setTimeout(() => {
 			const height = containerRef.current?.getBoundingClientRect().height ?? 0;
-			console.log("height ResultBlock :>> ", height);
 			// @ts-expect-error puppeteer injects this global at runtime
 			window.__SCREENSHOT_READY__ = {
 				ready: Boolean(p),
 				height,
 			};
-		});
+		}, 1500);
 	}, []);
 
 	if (!payload?.hazardEntity) {

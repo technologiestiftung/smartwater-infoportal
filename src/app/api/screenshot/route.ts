@@ -78,9 +78,14 @@ export async function POST(req: Request) {
 			{ timeout: 20_000 },
 		);
 
-		const screenshotHeight = await page.evaluate(
+		const rawScreenshotHeight = await page.evaluate(
 			// @ts-expect-error puppeteer injects this global at runtime
 			() => window.__SCREENSHOT_READY__?.height ?? 1000,
+		);
+
+		const screenshotHeight = Math.max(
+			1,
+			Math.ceil(Number(rawScreenshotHeight)),
 		);
 
 		const screenshotOptions: any = {
