@@ -32,8 +32,8 @@ export interface Building {
 	hw_sval_mi?: number;
 	hw_hval_ma?: number;
 	hw_hval_mi?: number;
-	hw_mval_max?: number;
-	hw_mval_min?: number;
+	hw_mval_ma?: number;
+	hw_mval_mi?: number;
 	hw_sval_ma?: number;
 	//coordinates
 	transformedX?: number;

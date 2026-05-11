@@ -269,5 +269,5 @@ export const translateWMSValue = (
 	if (!value) {
 		return "Keine Daten";
 	}
-	return `${helper}${Math.round(+value)}${unit}`;
+	return `${helper}${Math.round(+value)} ${unit}`;
 };
