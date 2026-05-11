@@ -113,9 +113,8 @@ export const calculateRiskLevel = (
 	if (!floodRiskAnswers || !floodRiskAnswers[questionId]) {
 		return "unknown";
 	}
-
 	const answer = floodRiskAnswers[questionId];
-	const score = answer.score || 0;
+	const { value } = answer;
 	if (questionId === "qA") {
 		const fluvialFloodEntity = hazardEntities?.find(
 			(entity) => entity.name === "fluvialFlood",
@@ -125,24 +124,41 @@ export const calculateRiskLevel = (
 		}
 		return "low";
 	}
-	if (answer?.value === "noInformation") {
-		return "dontKnow";
+	if (questionId === "qB" || questionId === "qC") {
+		if (+value <= 1) return "low";
+		if (+value <= 2) return "moderate";
+		if (+value >= 3) return "high";
 	}
-	if (questionId === "qB" && answer?.value === 0) {
-		return "low";
+	if (questionId === "q1") {
+		// q1 => basement
+		if (value === "yesWithWindow") return "high";
+		if (value === "yesWithoutWindow") return "moderate";
+		if (value === "no") return "low";
 	}
 	if (questionId === "q2") {
-		if (answer?.value === "highValue") {
+		// q2 => basementUsage
+		if (value === "highValue") {
 			return "high";
-		} else if (answer?.value === "lowValue") {
+		} else if (value === "lowValue") {
 			return "moderate";
 		}
 	}
-	if (score >= 2) {
-		return "low";
+	if (questionId === "q3") {
+		// q3 => backflowProtection
+		if (value === "no") return "high";
+		if (value === "yesUnknown") return "moderate";
+		if (value === "yesGood") return "low";
 	}
-	if (score >= 0 || (questionId === "q1" && score === -1)) {
-		return "moderate";
+	if (questionId === "q4") {
+		// q4 => propertyDrainage
+		if (value === "bad") return "high";
+		if (value === "good") return "low";
 	}
-	return "high";
+	if (questionId === "q5") {
+		// q5 => propertyDrainage
+		if (value === "yes") return "high";
+		if (value === "no") return "low";
+	}
+
+	return "dontKnow";
 };
