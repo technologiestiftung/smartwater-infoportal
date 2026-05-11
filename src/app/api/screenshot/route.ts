@@ -16,28 +16,20 @@ export async function POST(req: Request) {
 	try {
 		const body = (await req.json()) as ScreenshotRequestBody;
 
-		const { url, hazardEntity } = body;
+		const { url } = body;
 
 		if (!url)
 			return NextResponse.json({ error: "Missing url" }, { status: 400 });
 
 		const isProd = process.env.NODE_ENV === "development" ? false : true;
 
+		const isScenario = url.includes("scenario");
+
 		let width = 400;
-		let height = 380;
-		if (url.includes("scenario")) {
+		let height = 800;
+		if (isScenario) {
 			width = 1140;
 			height = 700;
-		} else if (url.includes("risk")) {
-			height = 500;
-		} else if (hazardEntity && hazardEntity.name === "heavyRain") {
-			height = 300;
-		} else if (
-			hazardEntity &&
-			hazardEntity.name === "fluvialFlood" &&
-			hazardEntity.hazardLevel === "none"
-		) {
-			height = 265;
 		}
 
 		if (isProd) {
@@ -80,11 +72,32 @@ export async function POST(req: Request) {
 			timeout: 60000,
 		});
 
-		await page.waitForFunction("window.__SCREENSHOT_READY__ === true", {
-			timeout: 20_000,
-		});
+		await page.waitForFunction(
+			// @ts-expect-error puppeteer injects this global at runtime
+			() => window.__SCREENSHOT_READY__?.ready === true,
+			{ timeout: 20_000 },
+		);
 
-		const buffer = await page.screenshot({ type: "jpeg", quality: 100 });
+		const screenshotHeight = await page.evaluate(
+			// @ts-expect-error puppeteer injects this global at runtime
+			() => window.__SCREENSHOT_READY__?.height ?? 1000,
+		);
+
+		const screenshotOptions: any = {
+			type: "jpeg",
+			quality: 100,
+		};
+
+		if (!isScenario) {
+			screenshotOptions.clip = {
+				x: 0,
+				y: 0,
+				width: 400,
+				height: Math.ceil(screenshotHeight),
+			};
+		}
+
+		const buffer = await page.screenshot(screenshotOptions);
 
 		return NextResponse.json({
 			imageBase64: Buffer.from(buffer).toString("base64"),
