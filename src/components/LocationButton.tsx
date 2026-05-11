@@ -48,7 +48,6 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 			const permission = await navigator.permissions.query({
 				name: "geolocation",
 			});
-			console.log("permission.state :>> ", permission.state);
 			if (permission.state === "denied") {
 				setStatus("denied");
 				return;
@@ -82,10 +81,9 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 			});
 
 			permission.onchange = () => {
-				console.log("Permission changed:", permission.state);
-
-				// Reload page
-				window.location.reload();
+				if (permission.state !== "prompt") {
+					window.location.reload();
+				}
 			};
 		} catch {
 			// Safari does not support navigator.permissions
