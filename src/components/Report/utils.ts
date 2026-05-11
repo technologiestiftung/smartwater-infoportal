@@ -211,6 +211,7 @@ export const getScreenshotForScenario = async (
 	hazardEntities?: HazardEntity[] | null,
 	floodRiskResult?: FloodRiskResult | null,
 	floodRiskAnswers?: FloodRiskAnswers | null,
+	signal?: AbortSignal,
 ): Promise<{
 	key: string;
 	blob: Blob;
@@ -244,6 +245,7 @@ export const getScreenshotForScenario = async (
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(body),
+		signal,
 	});
 
 	const text = await res.text();
@@ -259,7 +261,6 @@ export const getScreenshotForScenario = async (
 	return { key, blob };
 };
 
-// Old Calc Approach Jakob
 export const translateWMSValue = (
 	value: string | number | null | undefined,
 	helper: string = "bis zu ",
