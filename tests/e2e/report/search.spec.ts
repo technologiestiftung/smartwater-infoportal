@@ -14,7 +14,7 @@ async function searchAddress(page: Page, address: string) {
 	const resultsList = page.locator("ul#results-list");
 	await expect(resultsList).toBeVisible({ timeout: DEFAULT_TIMEOUT });
 
-	const firstResultButton = resultsList.locator("button").first();
+	const firstResultButton = resultsList.locator("p").first();
 	await expect(firstResultButton).toBeVisible();
 	await firstResultButton.click();
 

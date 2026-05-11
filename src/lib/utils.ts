@@ -155,7 +155,7 @@ export const calculateRiskLevel = (
 		if (value === "good") return "low";
 	}
 	if (questionId === "q5") {
-		// q5 => propertyDrainage
+		// q5 => pastDamages
 		if (value === "yes") return "high";
 		if (value === "no") return "low";
 	}

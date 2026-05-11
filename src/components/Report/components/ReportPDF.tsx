@@ -256,13 +256,13 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 
 		// Average Flood
 		addToPDFKeys["{hasNoAverageFloodData}"] =
-			!building.hw_mva_max || !building.hw_mva_min;
-		addToPDFKeys["{hasAverageFloodData}"] = !!building.hw_mva_max;
-		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(building.hw_mva_max);
+			!building.hw_mval_max || !building.hw_mval_min;
+		addToPDFKeys["{hasAverageFloodData}"] = !!building.hw_mval_max;
+		addToPDFKeys["{averageFloodMax}"] = translateWMSValue(building.hw_mval_max);
 		addToPDFKeys["{averageFloodMinimum}"] = translateWMSValue(
-			building.hw_mva_min,
+			building.hw_mval_min,
 		);
-		buildingWMSData.averageFloodMax = building.hw_mva_max ?? null;
+		buildingWMSData.averageFloodMax = building.hw_mval_max ?? null;
 
 		// Rare Flood
 		addToPDFKeys["{hasNoRareFloodData}"] =
