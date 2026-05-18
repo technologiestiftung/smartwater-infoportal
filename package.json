@@ -29,7 +29,7 @@
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
 		"dotenv": "^17.2.1",
 		"jspdf": "^4.1.0",
-		"lucide-react": "^0.577.0",
+		"lucide-react": "^1.0.0",
 		"next": "16.2.3",
 		"next-intl": "^4.1.0",
 		"ol": "^10.6.1",
