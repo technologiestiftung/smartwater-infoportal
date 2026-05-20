@@ -1,11 +1,13 @@
 "use client";
 import { useMessages, useTranslations } from "next-intl";
 import { Link } from "berlin-ui-library";
+import { useState } from "react";
 
 type TocMap = Record<string, string>;
 
 export default function Datenschutz() {
 	const t = useTranslations("datenschutz");
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const content = useMessages() as {
 		datenschutz: {
@@ -16,6 +18,18 @@ export default function Datenschutz() {
 	};
 
 	const list1 = content.datenschutz.central_services.list1;
+
+	function mappOptOut() {
+		window.wts = window.wts || [];
+
+		if (typeof window.wts.get === "function") {
+			window.wts.get("setCookie")("webtrekkOptOut", 1, 10 * 12 * 30 * 24 * 60);
+			setShowSuccessMessage(true);
+			setTimeout(() => {
+				setShowSuccessMessage(false);
+			}, 5000);
+		}
+	}
 
 	return (
 		<div className="flex w-full flex-col justify-start gap-6 px-5 pt-8 pb-16 lg:px-0">
@@ -57,33 +71,38 @@ export default function Datenschutz() {
 					<p className="">{t("data_protection_officer.address")}</p>
 					<p className="">{t("data_protection_officer.plz")}</p>
 					<br />
-					<p className="">{t("data_protection_officer.description2")}</p>
-					<h3 className="mt-4 mb-2">
-						{t("data_protection_officer.sub_title2")}
-					</h3>
-					<p className="font-bold">{t("data_protection_officer.mail_title")}</p>
+				</div>
+				<div>
+					<h2 className="mb-2">{t("central_services.title")}</h2>
+					<h3 className="mt-4 mb-2">{t("central_services.sub_title0")}</h3>
+					<p className="">{t("central_services.description0")}</p>
+					<br />
+					<p className="">{t("central_services.name0")}</p>
+					<p className="">{t("central_services.name02")}</p>
+					<p className="">{t("central_services.address0")}</p>
+					<p className="">{t("central_services.plz0")}</p>
+					<br />
+					<p className="">{t("central_services.description02")}</p>
+					<br />
 					<p className="">
-						{t.rich("data_protection_officer.mail2", {
+						{t.rich("central_services.link0", {
 							link: (chunks) => (
 								<Link
-									href={`mailto:${chunks}`}
+									onClick={mappOptOut}
 									rel="noopener noreferrer"
-									className="text-text-link underline"
+									className="cursor-pointer text-text-link underline"
 								>
 									{chunks}
 								</Link>
 							),
 						})}
 					</p>
-					<p className="font-bold">
-						{t("data_protection_officer.address_title")}
-					</p>
-					<p className="">{t("data_protection_officer.position")}</p>
-					<p className="">{t("data_protection_officer.address")}</p>
-					<p className="">{t("data_protection_officer.plz")}</p>
-				</div>
-				<div>
-					<h2 className="mb-2">{t("central_services.title")}</h2>
+					{showSuccessMessage && (
+						<p className="mt-2 font-bold text-[#16a34a]">
+							{t("central_services.success0")}
+						</p>
+					)}
+					<br />
 					<h3 className="mt-4 mb-2">{t("central_services.sub_title1")}</h3>
 					<p className="">{t("central_services.description1")}</p>
 					<br />
