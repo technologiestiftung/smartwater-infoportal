@@ -7,6 +7,7 @@ import React, { Suspense } from "react";
 import "../lib/fontawesome";
 import "./globals.css";
 import LayoutClient from "./LayoutClient";
+import Script from "next/script";
 
 export const metadata: Metadata = {
 	title: "HochwasserCheck Berlin",
@@ -28,6 +29,12 @@ export default async function RootLayout({
 
 	return (
 		<html lang={locale}>
+			<head>
+				<Script
+					src="https://www.berlin.de/i9f/v4/js/bo-info.js"
+					strategy="beforeInteractive"
+				/>
+			</head>
 			<body className={`antialiased`}>
 				<Suspense fallback={null}>
 					<MatomoAnalytics />

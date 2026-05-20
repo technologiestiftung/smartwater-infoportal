@@ -84,3 +84,9 @@ export interface RiskFactor {
 	translationKey: string;
 	hasInfo: boolean;
 }
+
+declare global {
+	interface Window {
+		wts?: any;
+	}
+}

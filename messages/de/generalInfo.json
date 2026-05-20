@@ -218,13 +218,19 @@
 			"address_title": "Anschrift:",
 			"position": "c/o Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
 			"address": "Am Köllnischen Park 3",
-			"plz": "10179 Berlin",
-			"description2": "Die Datenschutzbeauftragte für die nachgeordneten Einrichtungen ist erreichbar unter:",
-			"sub_title2": "Datenschutzbeauftragte für nachgeordnete Einrichtungen",
-			"mail2": "<link>datenschutz-NE@senmvku.berlin.de</link>"
+			"plz": "10179 Berlin"
 		},
 		"central_services": {
 			"title": "3. Zentrale Dienste des Webportals",
+			"sub_title0": "3.3 Mapp Intelligence",
+			"description0": "Auf den Seiten des Webportals wird der Webanalysedienst „Mapp Intelligence“ (ehemals „Webtrekk Analytics“) der Webtrekk GmbH eingesetzt.",
+			"name0": "Mapp Digital",
+			"name02": "c/o Webtrekk GmbH",
+			"address0": "Schönhauser Allee 148",
+			"plz0": "10435 Berlin",
+			"description02": "Wir weisen darauf hin, dass die Webtrekk GmbH als Betreiber des Dienstes zum Firmenverbund der Mapp Digital US mit Sitz in den USA gehört und US-Recht angewendet werden kann. Der Ausschluss von Datenübertragungen (durch geeignete technische und organisatorische Maßnahmen) ist uns zugesichert worden.",
+			"link0": "Wenn Sie von der Analyse ausgeschlossen werden möchten, dann klicken Sie bitte den nachfolgenden Link an: <link>Opt-Out von Map Intelligence</link>",
+			"success0": "Die Zählung wurde für dieses Gerät deaktiviert.",
 			"sub_title1": "4. Browserdaten",
 			"description1": "Der technische Betreiber von berlin.de, die BerlinOnline GmbH stellt die Webseite bereit und erhebt dabei Browserdaten (sogenannte Logfiles).",
 			"name1": "BerlinOnline GmbH",
