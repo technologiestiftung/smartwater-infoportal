@@ -169,20 +169,15 @@ const Before: React.FC = () => {
 
 	return (
 		<section className="mb-12 flex flex-col gap-12">
-			<h2 className="font-normal">
-				{t.rich("intro", {
-					strong: (chunks) => <strong>{chunks}</strong>,
-				})}
-			</h2>
+			<div className="space-y-1">
+				<h2>{t.rich("intro")}</h2>
+				<p>{t.rich("introDescription")}</p>
+			</div>
 			{Lists.map(({ listKey, hasParagraph, list, fullIMG, afterList }) => (
 				<div className="flex flex-col gap-6" key={listKey}>
 					<div className="space-y-2">
 						<div className="flex items-center gap-4">
-							<h3 className="font-normal">
-								{t.rich(`${listKey}Intro`, {
-									strong: (chunks) => <strong>{chunks}</strong>,
-								})}
-							</h3>
+							<h3>{t.rich(`${listKey}Intro`)}</h3>
 						</div>
 						{hasParagraph && (
 							<p>
