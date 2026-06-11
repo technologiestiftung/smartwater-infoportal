@@ -47,6 +47,7 @@ export default function AddressSearch() {
 	};
 
 	const testingAddresses = [
+		"Nordbahnstraße 17a, 13359 Berlin",
 		"Majakowskiring 7",
 		"Grunewaldstraße 62",
 		"Brandensteinweg 31",
