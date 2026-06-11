@@ -154,9 +154,9 @@ type ScenarioMap<T> = Partial<Record<Scenario, T>>;
 export const SUBJECT_LAYER_BY_SCENARIO: Record<Scenario, string[]> = {
 	SR: ["sw_infoportal:sr_gefaehrdung_clip_"],
 	HW: ["sw_infoportal:hw_gefaehrdung_clip_"],
-	SRGK_RARE_HEAVY_RAIN: ["ua_srgk:ca_wasserstand_selten"],
+	SRGK_RARE_HEAVY_RAIN: ["ua_srgk:bb_wasserstand_selten"],
 	SRGK_UNCOMMON_HEAVY_RAIN: ["ua_srgk:cb_wasserstand_aussergewoehnlich"],
-	SRGK_EXTREME_HEAVY_RAIN: ["ua_srgk:cc_wassersand_extrem"],
+	SRGK_EXTREME_HEAVY_RAIN: ["ua_srgk:db_wassersand_extrem"],
 	SRHK_UNCOMMON_HEAVY_RAIN: ["ua_srhk:dc_wasserstand_aussergew_kostra"],
 	SRHK_EXTREME_HEAVY_RAIN: ["ua_srhk:ec_wasserstand_extrem_max100mm"],
 	FREQUENT_FLOOD: ["ua_hochwassergefahrenkarten:a_hwgk_hoch"],

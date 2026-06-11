@@ -117,9 +117,18 @@ export class GeoServerClient {
 			"gs_hw",
 			"gs_sr",
 		];
+		const metersToRoundedCentimeters = (meters: number): number =>
+			Math.round(meters * 100);
 		return {
 			...Object.fromEntries(
-				Object.entries(props).filter(([key]) => !filterOutKeys.includes(key)),
+				Object.entries(props)
+					.filter(([key]) => !filterOutKeys.includes(key))
+					.map(([key, value]) => [
+						key,
+						key.startsWith("srgk_") && typeof value === "number"
+							? metersToRoundedCentimeters(value)
+							: value,
+					]),
 			),
 			alkisAddress: fixMojibake(props.NAMLAG as string),
 			houseNumber: props.H_P_NR as string,

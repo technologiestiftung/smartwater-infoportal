@@ -460,7 +460,7 @@
 		"layerAttribution": "F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Zero - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/zero-2-0 abrufbar."
 	},
 	{
-		"id": "ua_srgk:cc_wassersand_extrem",
+		"id": "ua_srgk:db_wassersand_extrem",
 		"name": "Wasserstand (extremes Ereignis, nicht f\u00fcr alle Gebiete verf\u00fcgbar)",
 		"name_lang": "Wasserstand (extremes Ereignis, nicht f\u00fcr alle Gebiete verf\u00fcgbar) (Starkregengefahrenkarte)",
 		"map_group": "Starkregengefahrenkarten",
@@ -468,7 +468,7 @@
 		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
 		"typ": "WMS",
 		"gfiAttributes": "showAll",
-		"layers": "cc_wassersand_extrem",
+		"layers": "db_wassersand_extrem",
 		"legend": true,
 		"datasets": [
 			{
@@ -518,7 +518,7 @@
 		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
 	},
 	{
-		"id": "ua_srgk:ca_wasserstand_selten",
+		"id": "ua_srgk:bb_wasserstand_selten",
 		"name": "Wasserstand (seltenes Ereignis)",
 		"name_lang": "Wasserstand (seltenes Ereignis) (Starkregengefahrenkarte)",
 		"map_group": "Starkregengefahrenkarten",
@@ -526,7 +526,7 @@
 		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
 		"typ": "WMS",
 		"gfiAttributes": "showAll",
-		"layers": "ca_wasserstand_selten",
+		"layers": "bb_wasserstand_selten",
 		"legend": true,
 		"datasets": [
 			{
@@ -537,93 +537,6 @@
 			}
 		],
 		"maxScale": "10000.0",
-		"format": "image/png",
-		"version": "1.3.0",
-		"featureCount": "5",
-		"gfiTheme": "default",
-		"transparent": true,
-		"singleTile": true,
-		"infoFormat": "application/json",
-		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
-	},
-	{
-		"id": "ua_srgk:bc_fliessgeschwindigkeit_extrem",
-		"name": "Flie\u00dfgeschwindigkeit (extremes Ereignis, nur f\u00fcr das Modellgebiet Obersee)",
-		"name_lang": "Flie\u00dfgeschwindigkeit (extremes Ereignis, nur f\u00fcr das Modellgebiet Obersee) (Starkregengefahrenkarte)",
-		"map_group": "Starkregengefahrenkarten",
-		"crs": "EPSG:25833",
-		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
-		"typ": "WMS",
-		"gfiAttributes": "showAll",
-		"layers": "bc_fliessgeschwindigkeit_extrem",
-		"legend": true,
-		"datasets": [
-			{
-				"md_name": "Starkregengefahrenkarte",
-				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
-				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
-				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
-			}
-		],
-		"maxScale": "2500.0",
-		"format": "image/png",
-		"version": "1.3.0",
-		"featureCount": "5",
-		"gfiTheme": "default",
-		"transparent": true,
-		"singleTile": true,
-		"infoFormat": "application/json",
-		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
-	},
-	{
-		"id": "ua_srgk:bb_fliessgeschwindigkeit_aussergewoehnlich",
-		"name": "Flie\u00dfgeschwindigkeit (au\u00dfergew\u00f6hnliches Ereignis)",
-		"name_lang": "Flie\u00dfgeschwindigkeit (au\u00dfergew\u00f6hnliches Ereignis) (Starkregengefahrenkarte)",
-		"map_group": "Starkregengefahrenkarten",
-		"crs": "EPSG:25833",
-		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
-		"typ": "WMS",
-		"gfiAttributes": "showAll",
-		"layers": "bb_fliessgeschwindigkeit_aussergewoehnlich",
-		"legend": true,
-		"datasets": [
-			{
-				"md_name": "Starkregengefahrenkarte",
-				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
-				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
-				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
-			}
-		],
-		"maxScale": "2500.0",
-		"format": "image/png",
-		"version": "1.3.0",
-		"featureCount": "5",
-		"gfiTheme": "default",
-		"transparent": true,
-		"singleTile": true,
-		"infoFormat": "application/json",
-		"layerAttribution": "Gebiet Obersee: F\u00fcr die Nutzung der Daten ist die Datenlizenz Deutschland - Namensnennung - Version 2.0 anzuwenden. Die Lizenz ist \u00fcber https://www.govdata.de/dl-de/by-2-0 abrufbar. Der Quellenvermerk gem\u00e4\u00df (2) der Lizenz lautet \"Umweltatlas Berlin / Starkregengefahrenkarte, Gebiet Obersee\". Gebiete Moabit, Flughafensee: Der Datenbestand wird unter der Lizenz CC-BY-4.0-Namensnennung International Public License ver\u00f6ffentlicht (vgl. https://creativecommons.org/licenses/by/4.0/legalcode.de). Der Quellenvermerk gem\u00e4\u00df Abschnitt 3a der Lizenz lautet \"Berliner Wasserbetriebe / Starkregengefahrenkarte, Gebiete Moabit, Flughafensee \"."
-	},
-	{
-		"id": "ua_srgk:ba_fliessgeschwindigkeit_selten",
-		"name": "Flie\u00dfgeschwindigkeit (seltenes Ereignis)",
-		"name_lang": "Flie\u00dfgeschwindigkeit (seltenes Ereignis) (Starkregengefahrenkarte)",
-		"map_group": "Starkregengefahrenkarten",
-		"crs": "EPSG:25833",
-		"url": "https://gdi.berlin.de/services/wms/ua_srgk",
-		"typ": "WMS",
-		"gfiAttributes": "showAll",
-		"layers": "ba_fliessgeschwindigkeit_selten",
-		"legend": "https://gdi.berlin.de/services/wms/ua_srgk?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=ba_fliessgeschwindigkeit_selten",
-		"datasets": [
-			{
-				"md_name": "Starkregengefahrenkarte",
-				"md_id": "41028a9c-0d6e-4a7d-9bfd-0ddf9df834de",
-				"rs_id": "https://registry.gdi-de.org/id/de.be.csw/9910c89f-a798-3fcc-a3ee-573a99df91a2",
-				"csw_url": "https://gdi.berlin.de/geonetwork/srv/ger/csw"
-			}
-		],
-		"maxScale": "2500.0",
 		"format": "image/png",
 		"version": "1.3.0",
 		"featureCount": "5",
