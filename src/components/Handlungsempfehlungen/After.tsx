@@ -103,17 +103,15 @@ const After: React.FC = () => {
 
 	return (
 		<section className="mb-12 flex flex-col gap-12">
-			<h2 className="font-normal">
-				{t.rich("intro", {
-					strong: (chunks) => <strong>{chunks}</strong>,
-				})}
-			</h2>
+			<div className="space-y-1">
+				<h2>{t.rich("intro")}</h2>
+				<p>{t.rich("introDescription")}</p>
+			</div>
 			{Lists.map(({ listKey, list }) => (
 				<div className="flex flex-col gap-6" key={listKey}>
 					<div className="flex items-center gap-4">
-						<h3 className="font-normal">
+						<h3>
 							{t.rich(`${listKey}Intro`, {
-								strong: (chunks) => <strong>{chunks}</strong>,
 								underline: (chunks) => (
 									<span className="underline">{chunks}</span>
 								),
