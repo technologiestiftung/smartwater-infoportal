@@ -68,7 +68,7 @@ export async function POST(req: Request) {
 		}, body);
 
 		await page.goto(url, {
-			waitUntil: "networkidle0",
+			waitUntil: "networkidle2",
 			timeout: 60000,
 		});
 
