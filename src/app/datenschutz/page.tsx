@@ -103,14 +103,14 @@ export default function Datenschutz() {
 						</p>
 					)}
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title1")}</h3>
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title1")}</h2>
 					<p className="">{t("central_services.description1")}</p>
 					<br />
 					<p className="">{t("central_services.name1")}</p>
 					<p className="">{t("central_services.address1")}</p>
 					<p className="">{t("central_services.plz1")}</p>
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title2")}</h3>
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title2")}</h2>
 					<p className="">{t("central_services.description2")}</p>
 					<br />
 					<p className="mb-2 font-bold">{t("central_services.list_title1")}</p>
@@ -124,16 +124,16 @@ export default function Datenschutz() {
 						))}
 					</ul>
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title3")}</h3>
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title3")}</h2>
 					<p className="">{t("central_services.description3")}</p>
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title4")}</h3>
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title4")}</h2>
 					<p className="">{t("central_services.description4")}</p>
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title5")}</h3>
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title5")}</h2>
 					<p className="">{t("central_services.description5")}</p>
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title6")}</h3>
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title6")}</h2>
 					<p className="">{t("central_services.description6_1")}</p>
 					<br />
 					<p className="">{t("central_services.description6_2")}</p>
@@ -142,12 +142,38 @@ export default function Datenschutz() {
 					<br />
 					<p className="">{t("central_services.description6_4")}</p>
 					<br />
-					<h3 className="mt-4 mb-2">{t("central_services.sub_title7")}</h3>
-					<p className="">
-						{t.rich("central_services.description7", {
-							link: (chunks) => (
+					<h2 className="mt-4 mb-2">{t("central_services.sub_title7")}</h2>
+					<p>{t("central_services.description7_1")}</p>
+					<p>{t("central_services.description7_2")}</p>
+					<p>{t("central_services.description7_3")}</p>
+					<p>
+						{t.rich("central_services.description7_4", {
+							linkPhoton: (chunks) => (
 								<Link
-									href={chunks}
+									href="https://photon.komoot.io/"
+									rel="noopener noreferrer"
+									className="text-text-link underline"
+								>
+									{chunks}
+								</Link>
+							),
+							linkMaptiler: (chunks) => (
+								<Link
+									href="https://www.maptiler.com/"
+									rel="noopener noreferrer"
+									className="text-text-link underline"
+								>
+									{chunks}
+								</Link>
+							),
+						})}
+					</p>
+					<p>{t("central_services.description7_5")}</p>
+					<p>
+						{t.rich("central_services.description7_6", {
+							linkZustand: (chunks) => (
+								<Link
+									href="https://zustand-demo.pmnd.rs/"
 									rel="noopener noreferrer"
 									className="text-text-link underline"
 								>
