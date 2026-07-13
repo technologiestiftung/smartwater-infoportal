@@ -19,6 +19,7 @@
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Überflutungen (pluviales Hochwasser) und Überschwemmungen (fluviales Hochwasser)",
 				"caption": "Abbildung 1: Hochwasser können unterschieden werden in Überflutungen (pluviales Hochwasser, oben) und Überschwemmungen (fluviales Hochwasser, unten).",
+				"textAlternative": "Textalternative zu Abbildung 1: Pluviales Hochwasser entsteht, wenn große Regenmengen nicht versickern oder abgeleitet werden können und Wasser an der Oberfläche abfließt. Fluviales Hochwasser entsteht, wenn Gewässer wie Flüsse oder Seen über ihre Ufer treten.",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
@@ -36,6 +37,7 @@
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Schadenspotenzial, Risiko und Gefahr, welche durch Überschwemmungen und Starkregen entstehen können.",
 				"caption": "Abbildung 2: Hochwasserrisiko beschreibt, welche Schäden durch eine bestimmte Hochwassergefahr entstehen könnten.",
+				"textAlternative": "Textalternative zu Abbildung 2: Hochwassergefahr beschreibt, wo, wie stark und wie häufig Hochwasser auftreten kann. Hochwasserrisiko entsteht erst durch das Zusammenspiel aus Gefahr und möglichen Schäden an Menschen, Gebäuden oder Infrastruktur.",
 				"copyright": "Bild: Kompetenzzentrum Wasser Berlin"
 			}
 		},
@@ -52,6 +54,7 @@
 			"image": {
 				"alt": "Grafik, die zeigt, wie ein Starkregenereignis entsteht und wie ein durch Starkregen ausgelöstes Hochwasser in der Stadt aussieht.",
 				"caption": "Abbildung 3: oben: Wie entsteht ein Starkregenereignis; unten: Wie gestaltet sich ein durch Starkregen ausgelöstes Hochwasser in der Stadt.",
+				"textAlternative": "Textalternative zu Abbildung 3: Warme Luft kann viel Feuchtigkeit aufnehmen. Steigt diese Luft auf, kühlt sie ab und es können starke Niederschläge entstehen. In der Stadt kann Starkregen zu oberflächlichem Abfluss, überlasteter Kanalisation und Überflutungen von Straßen, Kellern oder Tiefgaragen führen.",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
@@ -66,6 +69,7 @@
 			"image": {
 				"alt": "Grafik, die Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse vergleicht.",
 				"caption": "Abbildung 4: Vergleich von Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse.",
+				"textAlternative": "Textalternative zu Abbildung 4: Die Abbildung vergleicht statistische Eintrittswahrscheinlichkeiten. Ein 100-jährliches Hochwasser bedeutet nicht, dass es nur alle 100 Jahre auftreten kann, sondern dass jedes Jahr eine entsprechende Eintrittswahrscheinlichkeit besteht.",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
@@ -75,6 +79,7 @@
 			"image": {
 				"alt": "Grafik, die die Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten veranschaulicht.",
 				"caption": "Abbildung 5: Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten.",
+				"textAlternative": "Textalternative zu Abbildung 5: Starkregenhinweiskarten und Starkregengefahrenkarten beruhen auf simulierten Regenereignissen. Sie zeigen je nach Szenario, wo sich Wasser sammeln kann und welche Gefährdung durch Starkregen möglich ist.",
 				"copyright": "Bild: SenMVKU"
 			},
 			"table": {
@@ -125,6 +130,7 @@
 			"image": {
 				"alt": "Grafik, die den Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser darstellt.",
 				"caption": "Abbildung 6: Darstellung des Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser.",
+				"textAlternative": "Textalternative zu Abbildung 6: Hochwasserrisikomanagement ist ein Kreislauf aus Vorsorge, Vorbereitung, Bewältigung des Ereignisses, Wiederherstellung und Lernen für zukünftige Ereignisse. Ziel ist, Schäden zu begrenzen und die Resilienz zu erhöhen.",
 				"copyright": "Bild: SenMVKU"
 			}
 		},

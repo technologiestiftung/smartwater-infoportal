@@ -124,14 +124,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="left"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
-								alt={t("generalInfo.definition.image.alt")}
-								caption={t("generalInfo.definition.image.caption")}
-								copyright={t("generalInfo.definition.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
+									alt={t("generalInfo.definition.image.alt")}
+									caption={t("generalInfo.definition.image.caption")}
+									copyright={t("generalInfo.definition.image.copyright")}
+									withZoomBox
+								/>
+								<p>{t("generalInfo.definition.image.textAlternative")}</p>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -152,14 +155,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="right"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
-								alt={t("generalInfo.hazardVsRisk.image.alt")}
-								caption={t("generalInfo.hazardVsRisk.image.caption")}
-								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
+									alt={t("generalInfo.hazardVsRisk.image.alt")}
+									caption={t("generalInfo.hazardVsRisk.image.caption")}
+									copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+									withZoomBox
+								/>
+								<p>{t("generalInfo.hazardVsRisk.image.textAlternative")}</p>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -197,14 +203,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="left"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Enstehung_Starkregenereignis.png"
-								alt={t("generalInfo.floodThroughRain.image.alt")}
-								caption={t("generalInfo.floodThroughRain.image.caption")}
-								copyright={t("generalInfo.floodThroughRain.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Enstehung_Starkregenereignis.png"
+									alt={t("generalInfo.floodThroughRain.image.alt")}
+									caption={t("generalInfo.floodThroughRain.image.caption")}
+									copyright={t("generalInfo.floodThroughRain.image.copyright")}
+									withZoomBox
+								/>
+								<p>{t("generalInfo.floodThroughRain.image.textAlternative")}</p>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -257,14 +266,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="right"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Wahrscheinlichkeiten.png"
-								alt={t("generalInfo.assessment.image.alt")}
-								caption={t("generalInfo.assessment.image.caption")}
-								copyright={t("generalInfo.assessment.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Wahrscheinlichkeiten.png"
+									alt={t("generalInfo.assessment.image.alt")}
+									caption={t("generalInfo.assessment.image.caption")}
+									copyright={t("generalInfo.assessment.image.copyright")}
+									withZoomBox
+								/>
+								<p>{t("generalInfo.assessment.image.textAlternative")}</p>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -308,14 +320,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="left"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
-								alt={t("generalInfo.types.image.alt")}
-								caption={t("generalInfo.types.image.caption")}
-								copyright={t("generalInfo.types.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
+									alt={t("generalInfo.types.image.alt")}
+									caption={t("generalInfo.types.image.caption")}
+									copyright={t("generalInfo.types.image.copyright")}
+									withZoomBox
+								/>
+								<p>{t("generalInfo.types.image.textAlternative")}</p>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -410,14 +425,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="right"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Abbildung5.png"
-								alt={t("generalInfo.handling.image.alt")}
-								caption={t("generalInfo.handling.image.caption")}
-								copyright={t("generalInfo.handling.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Abbildung5.png"
+									alt={t("generalInfo.handling.image.alt")}
+									caption={t("generalInfo.handling.image.caption")}
+									copyright={t("generalInfo.handling.image.copyright")}
+									withZoomBox
+								/>
+								<p>{t("generalInfo.handling.image.textAlternative")}</p>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">

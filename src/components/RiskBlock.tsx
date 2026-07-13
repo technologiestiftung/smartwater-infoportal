@@ -52,7 +52,7 @@ const RiskBlock = ({
 					<Image
 						className="w-6"
 						src="/risk_icon.svg"
-						alt="Risk Icon"
+						alt=""
 						width={24}
 						height={24}
 					/>
@@ -112,7 +112,7 @@ const RiskBlock = ({
 					<Image
 						className="w-full max-w-none rotate-180"
 						src="/Farbskala.jpg"
-						alt="Farbskala"
+						alt={t("buildingRiskAssessment.buildingRisk.ariaLabels.riskScale")}
 						width={24}
 						height={24}
 					/>

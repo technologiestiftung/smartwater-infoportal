@@ -57,7 +57,7 @@ export default function Warning() {
 				getBackground(),
 			)}
 		>
-			<Image className="w-16" src={iconSrc} alt="Warning Icon" />
+			<Image className="w-16" src={iconSrc} alt="" />
 			<div>
 				<p>
 					{(() => {
