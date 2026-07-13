@@ -104,7 +104,19 @@ export default function Datenschutz() {
 					)}
 					<br />
 					<h2 className="mt-4 mb-2">{t("central_services.sub_title1")}</h2>
-					<p className="">{t("central_services.description1")}</p>
+					<p className="">
+						{t.rich("central_services.description1", {
+							link: (chunks) => (
+								<Link
+									href="https://hochwasser.berlin.de"
+									rel="noopener noreferrer"
+									className="text-text-link underline"
+								>
+									{chunks}
+								</Link>
+							),
+						})}
+					</p>
 					<br />
 					<p className="">{t("central_services.name1")}</p>
 					<p className="">{t("central_services.address1")}</p>
