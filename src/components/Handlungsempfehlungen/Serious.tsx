@@ -175,7 +175,6 @@ const Serious: React.FC = () => {
 													href={getLink(chunks).link}
 													target={getLink(chunks).target}
 													rel="noopener noreferrer"
-													variant={getLink(chunks).variant || "default"}
 												>
 													{chunks}
 												</Link>

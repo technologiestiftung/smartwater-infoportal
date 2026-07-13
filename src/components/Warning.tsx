@@ -2,7 +2,7 @@
 
 import { getWarnings } from "@/server/actions/getWarnings";
 import Link from "next/link";
-import { Button, Image } from "berlin-ui-library";
+import { Image } from "berlin-ui-library";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -74,10 +74,9 @@ export default function Warning() {
 						href="https://wasserportal.berlin.de/warnungen.php"
 						target="_blank"
 						rel="noopener noreferrer"
+						className="inline-flex text-left text-text-link hover:underline"
 					>
-						<Button variant="linkWithIcon">
-							{t("common.warning.furtherInformation")}
-						</Button>
+						{t("common.warning.furtherInformation")}
 					</Link>
 				)}
 				{warning?.timeStamp && (

@@ -45,3 +45,5 @@ maps/
 test-results/*
 
 tests/e2e/downloads/*
+
+.omx/

@@ -59,6 +59,12 @@ export default function LayoutClient({
 	}
 	return (
 		<div className="flex min-h-screen flex-col">
+			<a
+				className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:border-2 focus:border-black focus:bg-white focus:px-4 focus:py-3 focus:font-bold focus:text-text-link focus:outline-2 focus:outline-offset-2 focus:outline-black"
+				href="#main-content"
+			>
+				Zum Inhalt springen
+			</a>
 			<Header
 				breadcrumbs={breadcrumbs}
 				caption={t("home.headerSubTitle")}
@@ -134,7 +140,11 @@ export default function LayoutClient({
 				]}
 			/>
 			<div className="flex flex-grow justify-center overflow-x-hidden">
-				<main className="mx-auto flex flex-grow flex-col lg:max-w-[61.25rem]">
+				<main
+					id="main-content"
+					tabIndex={-1}
+					className="mx-auto flex flex-grow flex-col focus:outline-none lg:max-w-[61.25rem]"
+				>
 					{children}
 				</main>
 			</div>

@@ -87,13 +87,13 @@ export default function Datenschutz() {
 					<p className="">
 						{t.rich("central_services.link0", {
 							link: (chunks) => (
-								<Link
+								<button
+									type="button"
 									onClick={mappOptOut}
-									rel="noopener noreferrer"
-									className="cursor-pointer text-text-link underline"
+									className="inline-block cursor-pointer bg-transparent p-0 text-text-link underline"
 								>
 									{chunks}
-								</Link>
+								</button>
 							),
 						})}
 					</p>

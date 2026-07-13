@@ -206,16 +206,13 @@ const Before: React.FC = () => {
 								<span>
 									{t.rich(`${listKey}.${key}`, {
 										link: (chunks) => (
-											<Link
-												href={getLink(key, chunks, listKey).link}
-												target={getLink(key, chunks, listKey).target}
-												rel="noopener noreferrer"
-												variant={
-													getLink(key, chunks, listKey).variant || "default"
-												}
-											>
-												{chunks}
-											</Link>
+												<Link
+													href={getLink(key, chunks, listKey).link}
+													target={getLink(key, chunks, listKey).target}
+													rel="noopener noreferrer"
+												>
+													{chunks}
+												</Link>
 										),
 									})}
 								</span>
@@ -237,7 +234,6 @@ const Before: React.FC = () => {
 											href="https://www.hochwasser-pass.info/"
 											target="_blank"
 											rel="noopener noreferrer"
-											variant="extern"
 										>
 											{chunks}
 										</Link>
@@ -247,7 +243,6 @@ const Before: React.FC = () => {
 											href="https://www.fib-bund.de/inhalt/themen/hochwasser/"
 											target="_blank"
 											rel="noopener noreferrer"
-											variant="extern"
 										>
 											{chunks}
 										</Link>
