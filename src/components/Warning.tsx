@@ -57,7 +57,7 @@ export default function Warning() {
 				getBackground(),
 			)}
 		>
-			<Image className="w-16" src={iconSrc} alt="" />
+			<Image className="w-16" src={iconSrc} alt="" aria-hidden="true" />
 			<div>
 				<p>
 					{(() => {

@@ -200,12 +200,9 @@ const Results: React.FC = () => {
 												href={t("hazardInfo.linkGroundwaterPortalLink")}
 												target="_blank"
 												rel="noopener noreferrer"
+												className="text-text-link hover:underline"
 											>
-												<Button variant="link">
-													<p className="">
-														{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
-													</p>
-												</Button>
+												{t("hazardInfo.linkGroundwaterPortalLinkTitle")}
 											</Link>
 										</div>
 										<div className="flex flex-col">
@@ -216,12 +213,9 @@ const Results: React.FC = () => {
 												href={t("hazardInfo.linkWaterGeologyLink")}
 												target="_blank"
 												rel="noopener noreferrer"
+												className="text-text-link hover:underline"
 											>
-												<Button variant="link">
-													<p className="">
-														{t("hazardInfo.linkWaterGeologyLinkTitle")}
-													</p>
-												</Button>
+												{t("hazardInfo.linkWaterGeologyLinkTitle")}
 											</Link>
 										</div>
 									</>

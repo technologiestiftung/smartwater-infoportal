@@ -155,10 +155,10 @@ export default function Datenschutz() {
 					<p className="">{t("central_services.description6_4")}</p>
 					<br />
 					<h2 className="mt-4 mb-2">{t("central_services.sub_title7")}</h2>
-					<p>{t("central_services.description7_1")}</p>
-					<p>{t("central_services.description7_2")}</p>
-					<p>{t("central_services.description7_3")}</p>
-					<p>
+					<p className="mb-2">{t("central_services.description7_1")}</p>
+					<p className="mb-2">{t("central_services.description7_2")}</p>
+					<p className="mb-2">{t("central_services.description7_3")}</p>
+					<p className="mb-2">
 						{t.rich("central_services.description7_4", {
 							linkPhoton: (chunks) => (
 								<Link
@@ -180,8 +180,8 @@ export default function Datenschutz() {
 							),
 						})}
 					</p>
-					<p>{t("central_services.description7_5")}</p>
-					<p>
+					<p className="mb-2">{t("central_services.description7_5")}</p>
+					<p className="mb-2">
 						{t.rich("central_services.description7_6", {
 							linkZustand: (chunks) => (
 								<Link

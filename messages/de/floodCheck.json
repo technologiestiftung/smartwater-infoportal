@@ -7,7 +7,7 @@
 					"currentStatus": "Aktuell",
 					"hazardLevelIndicator": "{level}: {status}",
 					"notApplicableStatus": "Nicht zutreffend",
-					"riskScale": "Risikoskala von links nach rechts: Rot für hohes Risiko, Gelb für mittleres Risiko und Grün für geringes Risiko.",
+					"riskScale": "Risikoskala von links nach rechts: Grün für geringes Risiko, Gelb für mittleres Risiko und Rot für hohes Risiko.",
 					"riskIndicator": "{factor}: {riskLevel}"
 				},
 				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",

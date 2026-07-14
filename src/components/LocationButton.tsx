@@ -127,8 +127,9 @@ const LocationButton: FC<LocationButtonProps> = ({ coordinatesChanged }) => {
 					<FontAwesomeIcon
 						icon={faMapMarkerAlt}
 						className={`flex-shrink-0 text-[18px] text-black`}
+						aria-hidden="true"
 					/>
-					<p className="text-black">Aktuellen Standort benutzen</p>
+					<span className="text-black">Aktuellen Standort benutzen</span>
 				</Button>
 				{status === "loading" && <p>Frage Standort ab…</p>}
 				{status === "denied" && (

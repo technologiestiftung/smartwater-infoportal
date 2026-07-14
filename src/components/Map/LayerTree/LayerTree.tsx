@@ -275,7 +275,7 @@ const LayerItem = memo<{
 			aria-label={`${serviceName}: ${layer.visibility ? "ausblenden" : "anzeigen"}`}
 		>
 			{!isNotAvailable && (
-				<div className="inline-flex h-[22px] w-[22px] items-center justify-center">
+				<span className="inline-flex h-[22px] w-[22px] items-center justify-center">
 					{layer.visibility ? (
 						<FontAwesomeIcon
 							icon={faCircleCheck}
@@ -283,31 +283,32 @@ const LayerItem = memo<{
 							aria-hidden="true"
 						/>
 					) : (
-						<div
+						<span
 							className={`h-[18px] w-[18px] shrink-0 rounded-full border-1 ${disabled ? "border-[#DCDCDC]" : "border-black"}`}
+							aria-hidden="true"
 						/>
 					)}
-				</div>
+				</span>
 			)}
-			<div className="flex-1 overflow-hidden">
-				<p
-					className="translate-y-[2px] truncate overflow-hidden text-[14px] font-bold whitespace-nowrap select-none"
+			<span className="flex-1 overflow-hidden">
+				<span
+					className="block translate-y-[2px] truncate overflow-hidden text-[14px] font-bold whitespace-nowrap select-none"
 					title={serviceNameLang}
 				>
 					{serviceName}
-				</p>
+				</span>
 				{disabled || isNotAvailable ? (
-					<p className="translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap text-[var(--text-error)] select-none">
+					<span className="block translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap text-[var(--text-error)] select-none">
 						{isNotAvailable
 							? "Karte konnte nicht geladen werden"
 							: "Karte wird im aktuellen Maßstab nicht angezeigt"}
-					</p>
+					</span>
 				) : (
-					<p className="translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap select-none">
+					<span className="block translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap select-none">
 						{mapGroup}
-					</p>
+					</span>
 				)}
-			</div>
+			</span>
 		</button>
 	);
 });

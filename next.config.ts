@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const berlinInfoScriptOrigin = "https://www.berlin.de";
+const mapDataOrigins = [
+	"https://sgx.geodatenzentrum.de",
+	"https://gdi.berlin.de",
+	"https://geoserver.ionos-main.ds-apps.tsb-berlin.de",
+].join(" ");
 const matomoOrigin = process.env.NEXT_PUBLIC_MATOMO_URL
 	? new URL(process.env.NEXT_PUBLIC_MATOMO_URL).origin
 	: undefined;
@@ -13,11 +18,11 @@ const contentSecurityPolicy = [
 	"object-src 'none'",
 	"frame-ancestors 'self'",
 	"form-action 'self'",
-	`img-src 'self' data: blob: ${berlinInfoScriptOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`img-src 'self' data: blob: ${berlinInfoScriptOrigin} ${mapDataOrigins}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
 	`font-src 'self' data: ${berlinInfoScriptOrigin}`,
 	`style-src 'self' 'unsafe-inline' ${berlinInfoScriptOrigin}`,
 	`script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${berlinInfoScriptOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
-	`connect-src 'self'${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`connect-src 'self' ${mapDataOrigins}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
 	"upgrade-insecure-requests",
 ].join("; ");
 
