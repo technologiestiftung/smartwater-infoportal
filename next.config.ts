@@ -5,6 +5,7 @@ const berlinInfoScriptOrigin = "https://www.berlin.de";
 const matomoOrigin = process.env.NEXT_PUBLIC_MATOMO_URL
 	? new URL(process.env.NEXT_PUBLIC_MATOMO_URL).origin
 	: undefined;
+const isDevelopment = process.env.NODE_ENV === "development";
 
 const contentSecurityPolicy = [
 	"default-src 'self'",
@@ -12,10 +13,10 @@ const contentSecurityPolicy = [
 	"object-src 'none'",
 	"frame-ancestors 'self'",
 	"form-action 'self'",
-	`img-src 'self' data: blob:${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
-	"font-src 'self' data:",
-	"style-src 'self' 'unsafe-inline'",
-	`script-src 'self' 'unsafe-inline' ${berlinInfoScriptOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`img-src 'self' data: blob: ${berlinInfoScriptOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`font-src 'self' data: ${berlinInfoScriptOrigin}`,
+	`style-src 'self' 'unsafe-inline' ${berlinInfoScriptOrigin}`,
+	`script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${berlinInfoScriptOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
 	`connect-src 'self'${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
 	"upgrade-insecure-requests",
 ].join("; ");
