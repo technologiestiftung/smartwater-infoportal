@@ -99,22 +99,27 @@ const Legende = () => {
 			id="map-legende"
 			className={`z-10 bg-white ${isMobile ? "absolute bottom-0 w-full transition-transform duration-600 ease-in-out" : getWidthClass(fullScreenMap)} ${transformClass()}`}
 		>
-			<div
-				className={`flex min-h-[44px] cursor-pointer items-center justify-between border-t-1 border-r-1 border-l-1 border-black pl-4 ${isLegendeOpen ? "border-b-0" : "border-b-1"}`}
+			<button
+				type="button"
+				className={`flex min-h-[44px] w-full cursor-pointer items-center justify-between border-t-1 border-r-1 border-l-1 border-black bg-white pl-4 text-left ${isLegendeOpen ? "border-b-0" : "border-b-1"}`}
 				onClick={() => updateInteractiveMap({ isLegendeOpen: !isLegendeOpen })}
+				aria-expanded={isLegendeOpen}
+				aria-controls="map-legende-content"
 			>
-				<p className="font-bold select-none">Legende</p>
+				<span className="font-bold select-none">Legende</span>
 				<div
 					className={`bg-red inline-flex h-[44px] w-[44px] items-center justify-center border-t-0 border-r-0 border-b-1 border-l-1 border-black ${isLegendeOpen ? "border-b-black" : "border-b-[#E40422]"}`}
+					aria-hidden="true"
 				>
 					<FontAwesomeIcon
 						icon={getCorrectIcon()}
 						className="text-[18px] text-white"
 					/>
 				</div>
-			</div>
+			</button>
 			{!isMobile && !isLegendeOpen ? null : (
 				<div
+					id="map-legende-content"
 					className={`flex flex-col gap-2 overflow-y-scroll border-t-0 border-r-1 border-b-1 border-l-1 border-black p-2 ${getHeightClass(isMobile, fullScreenMap)}`}
 				>
 					{legende.map((singleLegende, index) => {

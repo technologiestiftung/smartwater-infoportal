@@ -49,6 +49,7 @@ export default function LayoutClient({
 		},
 	];
 	const breadcrumbs = [...rootBreadcrumb, ...pathNames];
+	const showBreadcrumbs = paths !== "/";
 	const isRenderingScreenshot =
 		paths.startsWith("/scenario-map") ||
 		paths.startsWith("/widget-screenshot") ||
@@ -67,6 +68,7 @@ export default function LayoutClient({
 			</a>
 			<Header
 				breadcrumbs={breadcrumbs}
+				showBreadcrumbs={showBreadcrumbs}
 				caption={t("home.headerSubTitle")}
 				showLanguageSelect={false}
 				header={t("home.headerTitle")}

@@ -1,5 +1,7 @@
 "use client";
 import WrappingTextBlock from "@/components/WrappingTextBlock";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import { ReactNode } from "react";
@@ -101,7 +103,10 @@ export default function GeneralInformation() {
 
 	return (
 		<>
-			<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
+			<div
+				id="top"
+				className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0"
+			>
 				<section className="flex flex-col gap-6">
 					<h1 className="">{t("generalInfo.pageTitle")}</h1>
 					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
@@ -131,6 +136,7 @@ export default function GeneralInformation() {
 									alt={t("generalInfo.definition.image.alt")}
 									caption={t("generalInfo.definition.image.caption")}
 									copyright={t("generalInfo.definition.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
 								<p>{t("generalInfo.definition.image.textAlternative")}</p>
@@ -162,6 +168,7 @@ export default function GeneralInformation() {
 									alt={t("generalInfo.hazardVsRisk.image.alt")}
 									caption={t("generalInfo.hazardVsRisk.image.caption")}
 									copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
 								<p>{t("generalInfo.hazardVsRisk.image.textAlternative")}</p>
@@ -210,6 +217,7 @@ export default function GeneralInformation() {
 									alt={t("generalInfo.floodThroughRain.image.alt")}
 									caption={t("generalInfo.floodThroughRain.image.caption")}
 									copyright={t("generalInfo.floodThroughRain.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
 								<p>{t("generalInfo.floodThroughRain.image.textAlternative")}</p>
@@ -273,6 +281,7 @@ export default function GeneralInformation() {
 									alt={t("generalInfo.assessment.image.alt")}
 									caption={t("generalInfo.assessment.image.caption")}
 									copyright={t("generalInfo.assessment.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
 								<p>{t("generalInfo.assessment.image.textAlternative")}</p>
@@ -327,6 +336,7 @@ export default function GeneralInformation() {
 									alt={t("generalInfo.types.image.alt")}
 									caption={t("generalInfo.types.image.caption")}
 									copyright={t("generalInfo.types.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
 								<p>{t("generalInfo.types.image.textAlternative")}</p>
@@ -432,6 +442,7 @@ export default function GeneralInformation() {
 									alt={t("generalInfo.handling.image.alt")}
 									caption={t("generalInfo.handling.image.caption")}
 									copyright={t("generalInfo.handling.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
 								<p>{t("generalInfo.handling.image.textAlternative")}</p>
@@ -577,6 +588,20 @@ export default function GeneralInformation() {
 								),
 							})}
 						</p>
+						<div className="modul-linkup mt-6 border-b-4 border-black pb-2 text-right">
+							<a
+								className="inline-flex items-center gap-2 text-text-link no-underline hover:underline focus:underline"
+								href="#top"
+							>
+								{t("common.toPageTop")}
+								<span
+									className="inline-flex size-5 items-center justify-center rounded-full bg-red text-white"
+									aria-hidden="true"
+								>
+									<FontAwesomeIcon icon={faArrowUp} className="text-xs" />
+								</span>
+							</a>
+						</div>
 					</div>
 				</section>
 			</div>
