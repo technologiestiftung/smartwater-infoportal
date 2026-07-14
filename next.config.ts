@@ -7,6 +7,7 @@ const mapDataOrigins = [
 	"https://gdi.berlin.de",
 	"https://geoserver.ionos-main.ds-apps.tsb-berlin.de",
 ].join(" ");
+const mappOrigin = "https://w7.berlin.de";
 const matomoOrigin = process.env.NEXT_PUBLIC_MATOMO_URL
 	? new URL(process.env.NEXT_PUBLIC_MATOMO_URL).origin
 	: undefined;
@@ -17,12 +18,13 @@ const contentSecurityPolicy = [
 	"base-uri 'self'",
 	"object-src 'none'",
 	"frame-ancestors 'self'",
+	"frame-src 'self' blob:",
 	"form-action 'self'",
-	`img-src 'self' data: blob: ${berlinInfoScriptOrigin} ${mapDataOrigins}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`img-src 'self' data: blob: ${berlinInfoScriptOrigin} ${mappOrigin} ${mapDataOrigins}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
 	`font-src 'self' data: ${berlinInfoScriptOrigin}`,
 	`style-src 'self' 'unsafe-inline' ${berlinInfoScriptOrigin}`,
-	`script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${berlinInfoScriptOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
-	`connect-src 'self' ${mapDataOrigins}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} ${berlinInfoScriptOrigin} ${mappOrigin}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
+	`connect-src 'self' ${mappOrigin} ${mapDataOrigins}${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
 	"upgrade-insecure-requests",
 ].join("; ");
 

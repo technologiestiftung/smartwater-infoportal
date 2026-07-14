@@ -390,14 +390,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 		}
 	};
 
-	const openPdfViewer = (testing: boolean | undefined) => {
-		if (testing && isDev) {
-			setError(
-				"Das PDF konnte nicht geöffnet werden. Bitte erlauben Sie Pop-ups für diese Seite und versuchen Sie es erneut.",
-			);
-			setPdfOpenFailed(true);
-			return;
-		}
+	const openPdfViewer = () => {
 		const viewer = window.open("/pdf-viewer", "_blank");
 		if (!viewer) {
 			setError(
@@ -496,7 +489,7 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 							setError(null);
 							if (pdfOpenFailed) {
 								setPdfOpenFailed(false);
-								openPdfViewer(false);
+								openPdfViewer();
 							} else {
 								setDone([]);
 								makePDF();
@@ -530,11 +523,11 @@ const ReportPDF: FC<ReportPDFProps> = ({ skip }) => {
 										if (isMobile) {
 											const url = pdfUrlRef.current;
 											if (!url) {
-												return openPdfViewer(isDev);
+												return openPdfViewer();
 											}
 											return window.open(url, "_blank", "noopener,noreferrer");
 										}
-										openPdfViewer(isDev);
+										openPdfViewer();
 									}}
 								/>
 								{isLocalhost && (
