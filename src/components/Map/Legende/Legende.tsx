@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import useStore from "@/store/defaultStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faArrowDown, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useMapStore } from "@/lib/store/mapStore";
 import legende from "./legende.json";
 import useMobile from "@/lib/utils/useMobile";
@@ -53,9 +53,9 @@ const Legende = () => {
 
 	const getCorrectIcon = () => {
 		if (isMobile) {
-			return isLegendeOpen ? faArrowDown : faArrowUp;
+			return isLegendeOpen ? faChevronDown : faChevronUp;
 		}
-		return isLegendeOpen ? faArrowUp : faArrowDown;
+		return isLegendeOpen ? faChevronUp : faChevronDown;
 	};
 
 	useEffect(() => {
