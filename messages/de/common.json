@@ -45,6 +45,12 @@
 		},
 		"accessibilityMenu": {
 			"title": "Barrierefreiheit",
+			"easyLanguage": {
+				"title": "Deutsch in leichter Sprache"
+			},
+			"signLanguage": {
+				"title": "DGS"
+			},
 			"barrierefreiheit": {
 				"question": "Wie barrierefrei ist diese Webseite?",
 				"title": "Erklärung zur Barrierefreiheit"

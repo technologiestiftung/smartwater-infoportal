@@ -332,7 +332,7 @@ export default function GeneralInformation() {
 							<>
 								<Image
 									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-									src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
+									src="/StarkregenkartenInput.webp"
 									alt={t("generalInfo.types.image.alt")}
 									caption={t("generalInfo.types.image.caption")}
 									copyright={t("generalInfo.types.image.copyright")}

@@ -80,9 +80,7 @@ export default function LayoutClient({
 						search: t("common.search"),
 						menu: t("common.menu.button"),
 						"menu.title": t("common.menu.title"),
-						"accessibilityMenu.title": t(
-							"common.accessibilityMenu.barrierefreiheit.title",
-						),
+						"accessibilityMenu.title": t("common.accessibilityMenu.title"),
 						"accessibilityMenu.barrierefreiheit.question": t(
 							"common.accessibilityMenu.barrierefreiheit.question",
 						),
@@ -127,15 +125,44 @@ export default function LayoutClient({
 				onOpenMenu={() => {}}
 				accessibilityItems={[
 					{
-						question: "Wie barrierefrei ist diese Webseite?",
-						label: "Erklärung zur Barrierefreiheit",
+						question: (
+							<span className="flex flex-col gap-6 font-normal">
+								<a
+									className="inline-flex items-center gap-2 text-text-link hover:underline"
+									href="https://www.berlin.de/sen/uvk/ueber-uns/leichte-sprache/"
+								>
+									<img
+										alt=""
+										aria-hidden="true"
+										className="h-6 w-6 min-w-6 object-contain"
+										src="/icon-leichte-sprache.svg"
+									/>
+									{t("common.accessibilityMenu.easyLanguage.title")}
+								</a>
+								<a
+									className="inline-flex items-center gap-2 text-text-link hover:underline"
+									href="https://www.berlin.de/sen/uvk/ueber-uns/gebaerdensprache/"
+								>
+									<img
+										alt=""
+										aria-hidden="true"
+										className="h-6 w-6 min-w-6 object-contain"
+										src="/icon-dgs.svg"
+									/>
+									{t("common.accessibilityMenu.signLanguage.title")}
+								</a>
+							</span>
+						),
+						label: null,
+					},
+					{
+						question: t("common.accessibilityMenu.barrierefreiheit.question"),
+						label: t("common.accessibilityMenu.barrierefreiheit.title"),
 						href: "/barrierefreiheit",
 					},
 					{
-						question:
-							"Wo gibt es zusätzliche Informationen zur Barrierefreiheit im Land Berlin?",
-						label:
-							"Barrierefreie Informations- und Kommunikationstechnik (IKT)",
+						question: t("common.accessibilityMenu.additionalInfo.question"),
+						label: t("common.accessibilityMenu.additionalInfo.title"),
 						href: "https://www.berlin.de/lb/digitale-barrierefreiheit/",
 						external: true,
 					},
