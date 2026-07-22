@@ -139,7 +139,6 @@ export default function GeneralInformation() {
 									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
-								<p>{t("generalInfo.definition.image.textAlternative")}</p>
 							</>
 						}
 						text={
@@ -171,7 +170,6 @@ export default function GeneralInformation() {
 									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
-								<p>{t("generalInfo.hazardVsRisk.image.textAlternative")}</p>
 							</>
 						}
 						text={
@@ -220,7 +218,6 @@ export default function GeneralInformation() {
 									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
-								<p>{t("generalInfo.floodThroughRain.image.textAlternative")}</p>
 							</>
 						}
 						text={
@@ -239,7 +236,7 @@ export default function GeneralInformation() {
 										),
 									})}
 								</p>
-								<ul className="list-decimal ps-6">
+								<ul className="list-decimal ps-6 space-y-2">
 									{Object.keys(floodThroughRainItems).map((key) => (
 										<li key={key} className="whitespace-pre-line">
 											{t.rich(
@@ -254,6 +251,7 @@ export default function GeneralInformation() {
 															{chunks}
 														</Link>
 													),
+													strong: (chunks) => <strong>{chunks}</strong>,
 												},
 											)}
 										</li>
@@ -284,7 +282,6 @@ export default function GeneralInformation() {
 									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
-								<p>{t("generalInfo.assessment.image.textAlternative")}</p>
 							</>
 						}
 						text={
@@ -339,7 +336,6 @@ export default function GeneralInformation() {
 									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
-								<p>{t("generalInfo.types.image.textAlternative")}</p>
 							</>
 						}
 						text={
@@ -422,8 +418,7 @@ export default function GeneralInformation() {
 						</table>
 					</div>
 					<p className="mt-1 px-4 text-sm leading-tight font-normal wrap-break-word text-black lg:px-0">
-						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
-						Hochwasser erstellt wurden.
+						{t("generalInfo.types.table.caption")}
 					</p>
 				</section>
 				<div
@@ -445,7 +440,6 @@ export default function GeneralInformation() {
 									imgClassName="aspect-[4/3] object-contain"
 									withZoomBox
 								/>
-								<p>{t("generalInfo.handling.image.textAlternative")}</p>
 							</>
 						}
 						text={
