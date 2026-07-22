@@ -1,5 +1,7 @@
 "use client";
 import WrappingTextBlock from "@/components/WrappingTextBlock";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Image, Link } from "berlin-ui-library";
 import { useMessages, useTranslations } from "next-intl";
 import { ReactNode } from "react";
@@ -101,7 +103,10 @@ export default function GeneralInformation() {
 
 	return (
 		<>
-			<div className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0">
+			<div
+				id="top"
+				className="flex w-full flex-col justify-start gap-6 px-5 py-8 lg:px-0"
+			>
 				<section className="flex flex-col gap-6">
 					<h1 className="">{t("generalInfo.pageTitle")}</h1>
 					<h2 className="">{t("generalInfo.tableOfContents.title")}</h2>
@@ -124,14 +129,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="left"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
-								alt={t("generalInfo.definition.image.alt")}
-								caption={t("generalInfo.definition.image.caption")}
-								copyright={t("generalInfo.definition.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-06.png"
+									alt={t("generalInfo.definition.image.alt")}
+									caption={t("generalInfo.definition.image.caption")}
+									copyright={t("generalInfo.definition.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
+									withZoomBox
+								/>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -152,14 +160,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="right"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
-								alt={t("generalInfo.hazardVsRisk.image.alt")}
-								caption={t("generalInfo.hazardVsRisk.image.caption")}
-								copyright={t("generalInfo.hazardVsRisk.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/24_SENMVKU_Starkregen_Pluvial-Fluvial-07.png"
+									alt={t("generalInfo.hazardVsRisk.image.alt")}
+									caption={t("generalInfo.hazardVsRisk.image.caption")}
+									copyright={t("generalInfo.hazardVsRisk.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
+									withZoomBox
+								/>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -197,14 +208,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="left"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Enstehung_Starkregenereignis.png"
-								alt={t("generalInfo.floodThroughRain.image.alt")}
-								caption={t("generalInfo.floodThroughRain.image.caption")}
-								copyright={t("generalInfo.floodThroughRain.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Enstehung_Starkregenereignis.png"
+									alt={t("generalInfo.floodThroughRain.image.alt")}
+									caption={t("generalInfo.floodThroughRain.image.caption")}
+									copyright={t("generalInfo.floodThroughRain.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
+									withZoomBox
+								/>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -216,14 +230,13 @@ export default function GeneralInformation() {
 												href="https://www.gdv.de/gdv/themen/klima/128-millionen-euro-starkregen-schaden-in-berlin-52782"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
 										),
 									})}
 								</p>
-								<ul className="list-decimal ps-6">
+								<ul className="list-decimal ps-6 space-y-2">
 									{Object.keys(floodThroughRainItems).map((key) => (
 										<li key={key} className="whitespace-pre-line">
 											{t.rich(
@@ -234,11 +247,11 @@ export default function GeneralInformation() {
 															href="https://www.dwd.de/DE/wetter/thema_des_tages/2025/9/28.html"
 															target="_blank"
 															rel="noopener noreferrer"
-															variant="extern"
 														>
 															{chunks}
 														</Link>
 													),
+													strong: (chunks) => <strong>{chunks}</strong>,
 												},
 											)}
 										</li>
@@ -259,14 +272,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="right"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Wahrscheinlichkeiten.png"
-								alt={t("generalInfo.assessment.image.alt")}
-								caption={t("generalInfo.assessment.image.caption")}
-								copyright={t("generalInfo.assessment.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Wahrscheinlichkeiten.png"
+									alt={t("generalInfo.assessment.image.alt")}
+									caption={t("generalInfo.assessment.image.caption")}
+									copyright={t("generalInfo.assessment.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
+									withZoomBox
+								/>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -310,14 +326,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="left"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Starkregenhinweiskarte-Starkregengefahrenkarte.jpg"
-								alt={t("generalInfo.types.image.alt")}
-								caption={t("generalInfo.types.image.caption")}
-								copyright={t("generalInfo.types.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/StarkregenkartenInput.webp"
+									alt={t("generalInfo.types.image.alt")}
+									caption={t("generalInfo.types.image.caption")}
+									copyright={t("generalInfo.types.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
+									withZoomBox
+								/>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -329,7 +348,6 @@ export default function GeneralInformation() {
 												href="https://gdi.berlin.de/viewer/main/"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -400,8 +418,7 @@ export default function GeneralInformation() {
 						</table>
 					</div>
 					<p className="mt-1 px-4 text-sm leading-tight font-normal wrap-break-word text-black lg:px-0">
-						Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema
-						Hochwasser erstellt wurden.
+						{t("generalInfo.types.table.caption")}
 					</p>
 				</section>
 				<div
@@ -413,14 +430,17 @@ export default function GeneralInformation() {
 						imageWidth="50%"
 						imageSide="right"
 						image={
-							<Image
-								className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
-								src="/Abbildung5.png"
-								alt={t("generalInfo.handling.image.alt")}
-								caption={t("generalInfo.handling.image.caption")}
-								copyright={t("generalInfo.handling.image.copyright")}
-								withZoomBox
-							/>
+							<>
+								<Image
+									className="w-[calc(100%+2.5rem)] -translate-x-5 lg:w-full lg:translate-x-0"
+									src="/Abbildung5.png"
+									alt={t("generalInfo.handling.image.alt")}
+									caption={t("generalInfo.handling.image.caption")}
+									copyright={t("generalInfo.handling.image.copyright")}
+									imgClassName="aspect-[4/3] object-contain"
+									withZoomBox
+								/>
+							</>
 						}
 						text={
 							<div className="[&>*+*]:mt-6">
@@ -434,7 +454,6 @@ export default function GeneralInformation() {
 													href="https://regenwasseragentur.berlin/schwammstadt/"
 													target="_blank"
 													rel="noopener noreferrer"
-													variant="extern"
 												>
 													{chunks}
 												</Link>
@@ -444,7 +463,6 @@ export default function GeneralInformation() {
 													href="https://www.gesetze-im-internet.de/whg_2009/__5.html"
 													target="_blank"
 													rel="noopener noreferrer"
-													variant="extern"
 												>
 													{chunks}
 												</Link>
@@ -488,7 +506,6 @@ export default function GeneralInformation() {
 												href="https://www.naturgefahrenportal.de/de"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -498,7 +515,6 @@ export default function GeneralInformation() {
 												href="https://www.bmwsb.bund.de/SharedDocs/downloads/DE/publikationen/raumordnung/hochwasserschutzfibel.html"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -508,7 +524,6 @@ export default function GeneralInformation() {
 												href="https://www.hochwasser-pass.info/"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -518,7 +533,6 @@ export default function GeneralInformation() {
 												href="https://www.bbk.bund.de/DE/Themen/Risikomanagement/Baulicher-Bevoelkerungsschutz/Schutz-vor-Naturgefahren/Hochwasser/hochwasser_node.html"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -528,7 +542,6 @@ export default function GeneralInformation() {
 												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
 												target="_blank"
 												rel="noopener noreferrer"
-												variant="extern"
 											>
 												{chunks}
 											</Link>
@@ -545,7 +558,6 @@ export default function GeneralInformation() {
 										href="https://www.umweltbundesamt.de/publikationen/vorsorge-gegen-starkregenereignisse-massnahmen-zur"
 										target="_blank"
 										rel="noopener noreferrer"
-										variant="extern"
 									>
 										{chunks}
 									</Link>
@@ -555,7 +567,6 @@ export default function GeneralInformation() {
 										href="https://www.bbk.bund.de/SharedDocs/Downloads/DE/Mediathek/Publikationen/PiB/PiB-23-starkregen.pdf?__blob=publicationFile&v=8"
 										target="_blank"
 										rel="noopener noreferrer"
-										variant="extern"
 									>
 										{chunks}
 									</Link>
@@ -565,13 +576,26 @@ export default function GeneralInformation() {
 										href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/50056/file/NRC_TaskForce.pdf"
 										target="_blank"
 										rel="noopener noreferrer"
-										variant="extern"
 									>
 										{chunks}
 									</Link>
 								),
 							})}
 						</p>
+						<div className="modul-linkup mt-6 border-b-4 border-black pb-2 text-right">
+							<a
+								className="inline-flex items-center gap-2 text-text-link no-underline hover:underline focus:underline"
+								href="#top"
+							>
+								{t("common.toPageTop")}
+								<span
+									className="inline-flex size-5 items-center justify-center rounded-full bg-red text-white"
+									aria-hidden="true"
+								>
+									<FontAwesomeIcon icon={faArrowUp} className="text-xs" />
+								</span>
+							</a>
+						</div>
 					</div>
 				</section>
 			</div>

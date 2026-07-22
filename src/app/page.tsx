@@ -18,6 +18,7 @@ export default function Home() {
 			<section className="flex flex-col gap-6">
 				<Opener
 					src="/title.webp"
+					alt={t("howToProtect.titleImage.alt")}
 					title={t("pageTitle")}
 					description={t("pageDescription")}
 					copyright={t("howToProtect.titleImage.copyright")}

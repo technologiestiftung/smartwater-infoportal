@@ -67,12 +67,18 @@ const LayerTree = () => {
 		>
 			<div className="flex min-h-[44px] items-center justify-between border-t-1 border-r-1 border-b-0 border-l-1 border-black pl-4">
 				<p className="font-bold select-none">Kartenlayer</p>
-				<div
+				<button
+					type="button"
 					className="bg-red inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border-1 border-t-0 border-r-0 border-black"
 					onClick={() => updateInteractiveMap({ isLayerTreeOpen: false })}
+					aria-label="Kartenlayer schließen"
 				>
-					<FontAwesomeIcon icon={faXmark} className="text-[18px] text-white" />
-				</div>
+					<FontAwesomeIcon
+						icon={faXmark}
+						className="text-[18px] text-white"
+						aria-hidden="true"
+					/>
+				</button>
 			</div>
 			<div
 				className={`border-t-0 border-r-1 border-l-1 border-black py-2 ${isMobile ? "border-b-0" : "border-b-1"}`}
@@ -209,10 +215,12 @@ const SortableLayerItem = ({
 					{...listeners}
 					className="flex cursor-grab items-center"
 					title="Reihenfolge ändern"
+					aria-label={`${layer.config.service.name}: Reihenfolge ändern`}
 				>
 					<FontAwesomeIcon
 						icon={faBars}
 						className="text-[18px] text-[#D2D2D2]"
+						aria-hidden="true"
 					/>
 				</div>
 			)}
@@ -255,47 +263,53 @@ const LayerItem = memo<{
 	}, [activeMapFilter]);
 
 	return (
-		<div
+		<button
+			type="button"
 			className={`flex min-w-0 items-center gap-4 border-black px-2 py-1 ${disabled || isNotAvailable ? "cursor-not-allowed" : "cursor-pointer"}`}
 			onClick={() => {
-				if (disabled) return;
+				if (disabled || isNotAvailable) return;
 				handleVisibilityChange(!layer.visibility);
 			}}
+			disabled={disabled || isNotAvailable}
+			aria-pressed={layer.visibility}
+			aria-label={`${serviceName}: ${layer.visibility ? "ausblenden" : "anzeigen"}`}
 		>
 			{!isNotAvailable && (
-				<div className="inline-flex h-[22px] w-[22px] items-center justify-center">
+				<span className="inline-flex h-[22px] w-[22px] items-center justify-center">
 					{layer.visibility ? (
 						<FontAwesomeIcon
 							icon={faCircleCheck}
 							className={`text-[18px] ${disabled ? "text-[#DCDCDC]" : "text-red"}`}
+							aria-hidden="true"
 						/>
 					) : (
-						<div
+						<span
 							className={`h-[18px] w-[18px] shrink-0 rounded-full border-1 ${disabled ? "border-[#DCDCDC]" : "border-black"}`}
+							aria-hidden="true"
 						/>
 					)}
-				</div>
+				</span>
 			)}
-			<div className="flex-1 overflow-hidden">
-				<p
-					className="translate-y-[2px] truncate overflow-hidden text-[14px] font-bold whitespace-nowrap select-none"
+			<span className="flex-1 overflow-hidden">
+				<span
+					className="block translate-y-[2px] truncate overflow-hidden text-[14px] font-bold whitespace-nowrap select-none"
 					title={serviceNameLang}
 				>
 					{serviceName}
-				</p>
+				</span>
 				{disabled || isNotAvailable ? (
-					<p className="translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap text-[var(--text-error)] select-none">
+					<span className="block translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap text-[var(--text-error)] select-none">
 						{isNotAvailable
 							? "Karte konnte nicht geladen werden"
 							: "Karte wird im aktuellen Maßstab nicht angezeigt"}
-					</p>
+					</span>
 				) : (
-					<p className="translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap select-none">
+					<span className="block translate-y-[-2px] truncate overflow-hidden text-xs whitespace-nowrap select-none">
 						{mapGroup}
-					</p>
+					</span>
 				)}
-			</div>
-		</div>
+			</span>
+		</button>
 	);
 });
 

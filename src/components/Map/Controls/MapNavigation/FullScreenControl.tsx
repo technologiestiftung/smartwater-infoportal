@@ -9,15 +9,19 @@ const FullScreenControl = () => {
 	} = useStore();
 
 	return (
-		<div
+		<button
+			type="button"
 			className="inline-flex h-[44px] w-[44px] cursor-pointer items-center justify-center border border-black bg-white"
 			onClick={() => updateInteractiveMap({ fullScreenMap: !fullScreenMap })}
+			aria-label={
+				fullScreenMap ? "Kartenansicht verkleinern" : "Kartenansicht vergrößern"
+			}
 		>
 			<FontAwesomeIcon
 				icon={fullScreenMap ? faMinimize : faMaximize}
 				className="text-[18px] text-black"
 			/>
-		</div>
+		</button>
 	);
 };
 

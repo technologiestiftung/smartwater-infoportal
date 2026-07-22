@@ -15,10 +15,10 @@
 		},
 		"definition": {
 			"title": "Was ist Hochwasser?",
-			"description": "Hochwasser beutet, das Wasser vorübergehend Gebiete bedeckt, die normalerweise nicht mit Wasser bedeckt sind.\n\n Es kann durch große Regenmengen entstehen, wenn Wasser an der Oberfläche abfließt. Das passiert, wenn es nicht im Boden versickern oder über private und öffentliche Entwässerungssysteme sowie blau-grüne Infrastrukturelemente zurückgehalten oder abgeleitet werden kann. Diese Form wird als Überflutung oder pluviales Hochwasser bezeichnet. Hochwasser kann auch entstehen, wenn Gewässer wie Flüsse oder Seen über ihre Ufer treten. In diesem Fall spricht man von Überschwemmung oder fluvialem Hochwasser.",
+			"description": "Hochwasser bedeutet, dass Wasser vorübergehend Gebiete bedeckt, die normalerweise nicht mit Wasser bedeckt sind. Dabei unterscheidet man zwei Formen: \n\n Hochwasser kann durch große Regenmengen entstehen: Wenn das Wasser weder im Boden versickern noch über Entwässerungssysteme und blau-grüne Infrastruktur zurückgehalten oder abgeleitet werden kann, fließt es oberflächlich ab oder sammelt sich an. Diese Form wird als Überflutung oder pluviales Hochwasser bezeichnet.  \n\n  Hochwasser kann aber auch entstehen, wenn Gewässer wie Flüsse oder Seen über die Ufer treten. In diesem Fall spricht man von Überschwemmung oder fluvialem Hochwasser.",
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Überflutungen (pluviales Hochwasser) und Überschwemmungen (fluviales Hochwasser)",
-				"caption": "Abbildung 1: Hochwasser können unterschieden werden in Überflutungen (pluviales Hochwasser, oben) und Überschwemmungen (fluviales Hochwasser, unten).",
+				"caption": "Abbildung 1: Hochwasser lässt sich unterscheiden in Überflutung durch Starkregen (pluviales Hochwasser, oben) und Überschwemmung durch über die Ufer tretende Gewässer (fluviales Hochwasser, unten).",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
@@ -27,31 +27,31 @@
 			"description": "Wird über Hochwasser gesprochen, wird häufig zwischen der Gefahr und dem Risiko unterschieden. Doch was genau ist der Unterschied und warum ist diese Unterscheidung wichtig?",
 			"hazard": {
 				"title": "Hochwassergefahr: Wo, wie viel und wie häufig Hochwasser?",
-				"description": "Die Gefahr beschreibt eine Situation, die potenziell einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo, wie stark und wie häufig es zum Hochwasser kommen kann, z.B. wie hoch steht das Wasser an einem Ort und welche Fließgeschwindigkeiten sind zu erwarten."
+				"description": "Die Gefahr beschreibt eine Situation, die potenziell einen Schaden verursachen könnte. Hochwassergefahr beschreibt, wo, wie stark und wie häufig es zu Hochwasser kommen kann, z.B. wie hoch das Wasser an einem Ort steht und welche Fließgeschwindigkeiten zu erwarten sind."
 			},
 			"risk": {
 				"title": "Hochwasserrisiko: Wie schlimm wären die Folgen?",
-				"description": "In erster Linie sind Hochwasser natürliche Wetterphänomene und nicht zwangsläufig zerstörerisch; wenn keine Menschen oder Güter in Überflutungsflächen sind, entsteht kein Schaden und niemand wird verletzt. Der Begriff „Risiko“ berücksichtigt daher neben der Gefahr auch die möglichen Schäden. Beispiel: In einem Auenwald ist die Hochwassergefahr hoch, aber das Risiko gering, da Hochwasser hier regelmäßig auftreten aber keine Schäden verursachen. In Städten kann das Risiko schon durch seltene Hochwasser hoch sein, da dann hohe Schäden zu erwarten sind. Durch die Betrachtung des Hochwasserrisikos kann also entschieden werden, wo es einen Handlungsbedarf gibt und wo nicht.\n\nAber was tun, wenn das Risiko hoch ist? Anpassungsmaßnahmen senken das Hochwasserrisiko. Werden im Keller z.B. Gegenstände höher gelagert, bleibt die Hochwassergefahr gleich, aber der potenzielle Schaden wird verringert, sodass das gesamte Risiko sinkt. Informieren Sie sich über <link1>Anpassungsmaßnahmen</link1>."
+				"description": "In erster Linie sind Hochwasser natürliche Wetterphänomene und nicht zwangsläufig zerstörerisch; wenn keine Menschen oder Güter in Überflutungsflächen sind, entsteht kein Schaden und niemand wird verletzt. Der Begriff „Risiko“ berücksichtigt daher neben der Gefahr auch das Schadenspotential – also welche Schäden an Menschen, Gebäuden und Gütern möglich wären. Beispiel: In einem Auenwald ist die Hochwassergefahr hoch, aber das Risiko gering, da Hochwasser hier regelmäßig auftreten, aber keine Schäden verursachen. In Städten kann das Risiko schon durch seltene Hochwasser hoch sein, da das Schadenspotential dort groß ist. Durch die Betrachtung des Hochwasserrisikos kann also entschieden werden, wo es einen Handlungsbedarf gibt und wo nicht. \n\n Aber was tun, wenn das Risiko hoch ist? Anpassungsmaßnahmen senken das Hochwasserrisiko. Werden im Keller z.B. Gegenstände höher gelagert, bleibt die Hochwassergefahr gleich, aber das Schadenspotential wird verringert, sodass das gesamte Risiko sinkt. Informieren Sie sich über <link1>Anpassungsmaßnahmen</link1>."
 			},
 			"image": {
 				"alt": "Eine Grafik zeigt den Unterschied zwischen Schadenspotenzial, Risiko und Gefahr, welche durch Überschwemmungen und Starkregen entstehen können.",
-				"caption": "Abbildung 2: Hochwasserrisiko beschreibt, welche Schäden durch eine bestimmte Hochwassergefahr entstehen könnten.",
+				"caption": "Abbildung 2: Das Hochwasserrisiko ergibt sich aus dem Zusammenwirken von Schadenspotenzial (links), Risiko (Mitte) und Hochwassergefahr (rechts).",
 				"copyright": "Bild: Kompetenzzentrum Wasser Berlin"
 			}
 		},
 		"floodThroughRain": {
 			"title": "Hochwasser in Berlin? Ja, meistens durch Starkregen",
-			"description": "Flüsse führen in Berlin sehr selten, und wenn, dann lokal sehr begrenzt, zu Überschwemmungen. Überflutungen nach Starkregenereignissen kommen in Berlin aber immer wieder vor.\n\n Zwischen 2002 und 2017 verursachten Starkregenereignisse knapp 28.000 Schäden mit einem Gesamtwert von 128 Millionen Euro an Wohngebäuden, die den Betroffenen durchschnittlich 5.537 Euro kosteten (<link>Quelle: GDV</link>). 2017 und 2019 wurde Berlin von besonders heftigen Starkregenereignissen getroffen, die Schäden in Millionenhöhe verursachten. Neben diesen großen Ereignissen, wird Berlin fast jedes Jahr von kleineren Starkregenereignissen getroffen, die die Einsatzkräfte regelmäßig fordern und Schäden verursachen. Was verschärft das Hochwasserrisiko in Berlin?",
+			"description": "Flüsse führen in Berlin nur sehr selten – und wenn, dann lokal sehr begrenzt – zu Überschwemmungen. Überflutungen nach Starkregen kommen dagegen immer wieder vor. \n\n Zwischen 2002 und 2017 verursachten Starkregenereignisse knapp 28.000 Schäden an Wohngebäuden mit einem Gesamtwert von 128 Millionen Euro; im Durchschnitt kostete ein Schaden die Betroffenen 5.537 Euro (Quelle: GDV). 2017 und 2019 wurde Berlin von besonders heftigen Starkregenereignissen getroffen, die Schäden in Millionenhöhe verursachten. Daneben treffen fast jedes Jahr kleinere Starkregenereignisse die Stadt, die die Einsatzkräfte regelmäßig fordern und ebenfalls Schäden verursachen. Was verschärft das Hochwasserrisiko in Berlin?",
 			"list": {
 				"items": {
-					"item1": "Zunahme versiegelter Flächen: Weil Berlin wächst, werden immer mehr Flächen mit Beton oder Asphalt versiegelt. Dadurch kann das Regenwasser nicht gut in die Erde versickern und läuft stattdessen oberflächlich ab. Das überlastet die Kanalisation, die dann nicht das ganze Regenwasser aufnehmen kann.",
-					"item2": "In einer Stadt wie Berlin gibt es viele Menschen und viel Eigentum auf engem Raum. Dadurch führt ein Starkregen häufig zu Schäden.",
-					"item3": "Weil die Atmosphäre weltweit wärmer wird, kommt es auch in Berlin wahrscheinlich häufiger zu Starkregenereignissen, siehe Abbildung 3. Mehr Informationen <link>hier</link>."
+					"item1": "<strong>Zunahme versiegelter Flächen:</strong> Weil Berlin wächst, werden immer mehr Flächen mit Beton oder Asphalt versiegelt. Regenwasser kann dort nicht versickern und fließt stattdessen oberflächlich ab. Das überlastet die Kanalisation, die dann nicht das gesamte Regenwasser aufnehmen kann.",
+					"item2": "<strong>Hohes Schadenspotential:</strong> In einer Stadt wie Berlin leben viele Menschen mit viel Eigentum auf engem Raum. Dadurch führt Starkregen häufig zu Schäden.",
+					"item3": "<strong>Klimawandel:</strong> Weil die Atmosphäre weltweit wärmer wird, kommt es auch in Berlin wahrscheinlich häufiger zu Starkregen (siehe Abbildung 3). Mehr Informationen beim <link>Deutschen Wetterdienst</link>."
 				}
 			},
 			"image": {
 				"alt": "Grafik, die zeigt, wie ein Starkregenereignis entsteht und wie ein durch Starkregen ausgelöstes Hochwasser in der Stadt aussieht.",
-				"caption": "Abbildung 3: oben: Wie entsteht ein Starkregenereignis; unten: Wie gestaltet sich ein durch Starkregen ausgelöstes Hochwasser in der Stadt.",
+				"caption": "Abbildung 3: oben: Einfluss des Klimawandels auf die Entstehung von Starkregen und Dürreperioden; unten: Auswirkungen eines Starkregenereignisses in der Stadt – von Versickerung und Oberflächenabfluss bis zum Überstau der Kanalisation.",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
@@ -65,19 +65,20 @@
 			},
 			"image": {
 				"alt": "Grafik, die Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse vergleicht.",
-				"caption": "Abbildung 4: Vergleich von Eintrittswahrscheinlichkeiten unterschiedlicher Ereignisse.",
+				"caption": "Abbildung 4: Die Abbildung vergleicht statistische Eintrittswahrscheinlichkeiten. Ein 100-jährliches Hochwasser bedeutet nicht, dass es nur alle 100 Jahre auftreten kann, sondern dass jedes Jahr eine entsprechende Eintrittswahrscheinlichkeit besteht.",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
 		"types": {
 			"title": "Was für Hochwasserkarten gibt es für Berlin?",
-			"description": "Bei Hochwassern ist neben dem \"Was?\" (Wasserstand, Fließgeschwindigkeit, Eintrittswahrscheinlichkeit) immer auch das \"Wo?\" entscheidend. Verknüpfen wir eine Information mit einem Ort entstehen „Geodaten“. Deren häufigste Darstellung ist die Karte. Berlin stellt den Bürger*innen eine Vielzahl von Karten im <link1>Geoportal</link1> zur Verfügung. Dort sind unter anderem Hinweis- und/oder Gefahrenkarten für Starkregenereignisse und Flusshochwasser unterschiedlichen Ausmaßes zu finden, die auch die Grundlage für den HochwasserCheck bilden. \n\n Hinweis- bzw. Gefahrenkarten werden für unterschiedliche Szenarien erstellt, siehe Tabelle 1. Jedes Szenario beschreibt ein simuliertes Hochwasserereignis mit bestimmten Eigenschaften, z.B. der <link2>Eintrittswahrscheinlichkeit</link2> oder einer bestimmte Regenmenge in einem bestimmten Zeitraum. Regenmengen werden hierbei in „mm“ angegeben, womit die Regenmenge in Litern gemeint ist, die auf einem Quadratmeter Fläche fällt.",
+			"description": "Bei Hochwasser ist neben dem \"Was?\" (Wasserstand, Fließgeschwindigkeit, Eintrittswahrscheinlichkeit) immer auch das \"Wo?\" entscheidend. Verknüpfen wir eine Information mit einem Ort, entstehen „Geodaten“. Deren häufigste Darstellungsform ist die Karte. Berlin stellt den Bürger*innen eine Vielzahl von Karten im <link1>Geoportal</link1> zur Verfügung. Dort sind unter anderem Hinweis- und Gefahrenkarten für Starkregenereignisse und Flusshochwasser unterschiedlichen Ausmaßes zu finden, die auch die Grundlage für den HochwasserCheck bilden. In diese Karten fließt eine Vielzahl von Datengrundlagen ein – von topografischen Karten über Kanalnetzmodelle bis hin zu Feuerwehreinsatzdaten vergangener Starkregenereignisse (siehe Abbildung 5). \n\n Hinweis- bzw. Gefahrenkarten werden für unterschiedliche Szenarien erstellt, siehe Tabelle 1. Jedes Szenario beschreibt ein simuliertes Hochwasserereignis mit bestimmten Eigenschaften, z.B. der <link2>Eintrittswahrscheinlichkeit</link2> oder einer bestimmten Regenmenge in einem bestimmten Zeitraum. Regenmengen werden dabei in „mm“ angegeben; gemeint ist die Anzahl der Liter, die auf einen Quadratmeter Fläche fallen.",
 			"image": {
 				"alt": "Grafik, die die Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten veranschaulicht.",
-				"caption": "Abbildung 5: Datengrundlage der Starkregenhinweiskarten und Starkregengefahrenkarten.",
+				"caption": "Abbildung 5: Datengrundlagen der Starkregenhinweiskarte (links) und der Starkregengefahrenkarte (rechts); die Feuerwehreinsatzdaten fließen in beide Karten ein.",
 				"copyright": "Bild: SenMVKU"
 			},
 			"table": {
+				"caption": "Tabelle 1: Überblick über die Karten im Geoportal, die zum Thema Hochwasser erstellt wurden.",
 				"head": {
 					"entry1": "",
 					"entry2": "Szenario",
@@ -124,7 +125,7 @@
 			},
 			"image": {
 				"alt": "Grafik, die den Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser darstellt.",
-				"caption": "Abbildung 6: Darstellung des Hochwasserrisikomanagementzyklus für Starkregen induzierte Hochwasser.",
+				"caption": "Abbildung 6: Hochwasserrisikomanagementzyklus mit den Phasen Vorsorge, Bewältigung und Nachsorge am Beispiel Starkregen",
 				"copyright": "Bild: SenMVKU"
 			}
 		},
@@ -232,10 +233,10 @@
 			"link0": "Wenn Sie von der Analyse ausgeschlossen werden möchten, dann klicken Sie bitte den nachfolgenden Link an: <link>Opt-Out von Map Intelligence</link>",
 			"success0": "Die Zählung wurde für dieses Gerät deaktiviert.",
 			"sub_title1": "4. Browserdaten",
-			"description1": "Der technische Betreiber von berlin.de, die BerlinOnline GmbH stellt die Webseite bereit und erhebt dabei Browserdaten (sogenannte Logfiles).",
-			"name1": "BerlinOnline GmbH",
-			"address1": "Stefan-Heym-Platz 1",
-			"plz1": "10367 Berlin",
+			"description1": "Der technische Betreiber von <link>https://hochwasser.berlin.de</link>, die Technologiestiftung Berlin, stellt die Webseite bereit und erhebt dabei Browserdaten (sogenannte Logfiles).",
+			"name1": "Technologiestiftung Berlin",
+			"address1": "Grunewaldstraße 61–62",
+			"plz1": "10825 Berlin",
 			"sub_title2": "5. Beschreibung und Umfang der Datenverarbeitung",
 			"description2": "Bei jedem Zugriff von Nutzenden auf eine Seite aus dem Angebot des Webportals und bei jedem Abruf einer Datei werden Daten über diesen Vorgang erhoben.",
 			"list_title1": "Diese Daten sind:",
@@ -261,7 +262,12 @@
 			"description6_3": "Rechtsgrundlage ist das berechtigte Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO.",
 			"description6_4": "Die Darstellung der Internetseite ist auch ohne die Speicherung von Cookies möglich. Sie können das Speichern von Cookies in den Einstellungen Ihres Browsers deaktivieren oder diesen so einstellen, dass er Sie über die beabsichtigte Speicherung durch eine Internetseite informiert. In diesem Fall entscheiden Sie über die Annahme des Cookies. Für den vollen Funktionsumfang der Webseite ist es allerdings aus technischen Gründen erforderlich, die temporären Cookies vollständig zuzulassen.",
 			"sub_title7": "10. Externe Dienste",
-			"description7": "Die Bereitstellung der Anwendung läuft über den Dienst Netlify.  Für die Kartenansicht wird der Kartendienst von basemap.de verwendet. Des Weiteren nutzen wir Matomo für die statistische Auswertung unseres Webauftrittes. Für die Addresssuche wird Photon (<link>https://photon.komoot.io/</link>) und Maptiler (<link>https://www.maptiler.com/</link>) verwendet. Für die Geolokalisierung wird das Navigator Interface des Browsers verwendet. Alle Eingaben (Adresse, Antworten des Fragebogens) des Users werden durch die Library zustand (<link>https://zustand-demo.pmnd.rs/</link>) im lokalen Speicher des Browser auf unbestimmte Zeit gespeichert."
+			"description7_1": "Die Bereitstellung der Anwendung läuft über den Dienst Netlify. Dabei werden technisch notwendige Daten (u. a. IP-Adresse, Zeitpunkt des Zugriffs, Browsertyp) zur Bereitstellung und Sicherheit der Anwendung verarbeitet.",
+			"description7_2": "Für die Kartenansicht werden Kartenkacheln von basemap.de (sgx.geodatenzentrum.de) sowie Geodaten vom Geoserver der Technologiestiftung Berlin (geoserver.ionos-main.ds-apps.tsb-berlin.de) geladen. Ebenso werden Design-Ressourcen von berlin.de sowie CSS und Schriftarten über cdn.jsdelivr.net geladen. Dabei wird jeweils die IP-Adresse übermittelt, da dies für die Auslieferung technisch erforderlich ist; eine darüber hinausgehende Speicherung durch uns erfolgt nicht (Art. 6 Abs. 1 lit. f DSGVO).",
+			"description7_3": "Für die statistische Auswertung unseres Webauftrittes nutzen wir Matomo (stats.ts.berlin) sowie Mapp Intelligence (w7.berlin.de). Dabei werden pseudonymisierte Nutzungsdaten (gekürzte IP-Adresse, aufgerufene Seiten, Zeitpunkt, Browserinformationen) zur Reichweitenmessung verarbeitet.",
+			"description7_4": "Für die Adresssuche wird Photon (<linkPhoton>https://photon.komoot.io/</linkPhoton>) und Maptiler (<linkMaptiler>https://www.maptiler.com/</linkMaptiler>) verwendet. Dabei werden die eingegebene Adresse und die IP-Adresse zur Ermittlung der Suchergebnisse übermittelt, ohne dass wir diese speichern (Art. 6 Abs. 1 lit. f DSGVO).",
+			"description7_5": "Für die Geolokalisierung wird das Navigator Interface des Browsers verwendet; der Standort wird nur nach Zustimmung im Browser abgefragt und ausschließlich lokal verarbeitet (Art. 6 Abs. 1 lit. a DSGVO).",
+			"description7_6": "Alle Eingaben (Adresse, Antworten des Fragebogens) des Users werden durch die Library zustand (<linkZustand>https://zustand-demo.pmnd.rs/</linkZustand>) im lokalen Speicher des Browsers auf unbestimmte Zeit gespeichert, bis der User sie löscht. Die Daten verbleiben auf dem Endgerät und dienen dem Erhalt des Bearbeitungsstands (§ 25 Abs. 2 Nr. 2 TDDDG)."
 		}
 	},
 	"barrierefreiheit": {
@@ -269,7 +275,7 @@
 		"sub_title1": "Öffentliche Stelle / Geltungsbereich",
 		"description1": "Senatsverwaltung für Mobilität, Verkehr, Klimaschutz und Umwelt",
 		"description2": "Wir bemühen uns, unseren Webauftritt barrierefrei zu gestalten. Die Erklärung zur digitalen Barrierefreiheit wird im Gesetz über die barrierefreie Informations- und Kommunikationstechnik Berlin (BIKTG Bln) verlangt. Die technischen Anforderungen zur Barrierefreiheit ergeben sich aus der aktuellen Barrierefreie-Informationstechnik-Verordnung (BITV).",
-		"description3": "Diese Erklärung zur digitalen Barrierefreiheit gilt für das Angebot Webauftritt <link>https://www.berlin.de/sen/uvk/</link>.",
+		"description3": "Diese Erklärung zur digitalen Barrierefreiheit gilt für das Angebot Webauftritt <link>https://hochwasser.berlin.de</link>.",
 		"sub_title2": "Wann wurde die Erklärung zur Barrierefreiheit erstellt bzw. aktualisiert?",
 		"description2_1": "Diese Erklärung wurde am 04.12.2025 erstellt bzw. überarbeitet.",
 		"description2_2": "Die Überprüfung der digitalen Barrierefreiheit wurde durchgeführt von der oben aufgeführten öffentlichen Stelle durch eine Selbstbewertung.",

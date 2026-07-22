@@ -17,7 +17,7 @@ export default function BerlinFooter() {
 	}
 
 	return (
-		<div className="mx-auto flex w-full flex-grow flex-col py-5">
+		<div className="mx-auto w-full">
 			<div dangerouslySetInnerHTML={{ __html: html }} />
 		</div>
 	);

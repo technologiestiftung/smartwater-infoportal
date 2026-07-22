@@ -212,20 +212,18 @@ export default function AddressSearch() {
 											const { hasHousenumber } = result;
 											return (
 												<li key={index} className="my-3">
-													<p
+													<button
+														type="button"
 														className={cn(
 															hasHousenumber &&
 																"cursor-pointer text-text-link hover:underline",
-															"select-none",
+															"select-none text-left disabled:cursor-not-allowed disabled:text-text-lightest",
 														)}
-														onClick={
-															hasHousenumber
-																? () => handleResultClick(result)
-																: undefined
-														}
+														onClick={() => handleResultClick(result)}
+														disabled={!hasHousenumber}
 													>
 														{result.name}
-													</p>
+													</button>
 												</li>
 											);
 										})}
