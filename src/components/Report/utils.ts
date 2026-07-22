@@ -256,8 +256,12 @@ export const getScreenshotForScenario = async (
 
 	const data = JSON.parse(text);
 	const { imageBase64 } = data;
-	const dataUrl = `data:image/jpeg;base64,${imageBase64}`;
-	const blob = await fetch(dataUrl).then((r) => r.blob());
+	const byteCharacters = atob(imageBase64);
+	const byteNumbers = new Array(byteCharacters.length);
+	for (let index = 0; index < byteCharacters.length; index += 1) {
+		byteNumbers[index] = byteCharacters.charCodeAt(index);
+	}
+	const blob = new Blob([new Uint8Array(byteNumbers)], { type: "image/jpeg" });
 	return { key, blob };
 };
 

@@ -75,6 +75,7 @@ const ZoomControl = () => {
 				variant="light"
 				className="border-1 w-[44px] p-0"
 				title="Zoom in"
+				aria-label="Karte vergrößern"
 				onClick={handleZoomIn}
 				disabled={!canZoomIn}
 				aria-disabled={!canZoomIn}
@@ -82,12 +83,14 @@ const ZoomControl = () => {
 				<FontAwesomeIcon
 					icon={faPlus}
 					className={`text-[18px] ${canZoomIn ? "text-black" : "text-gray-500"}`}
+					aria-hidden="true"
 				/>
 			</Button>
 			<Button
 				variant="light"
 				className="border-1 -mt-[2px] w-[44px] p-0"
 				title="Zoom out"
+				aria-label="Karte verkleinern"
 				onClick={handleZoomOut}
 				disabled={!canZoomOut}
 				aria-disabled={!canZoomOut}
@@ -95,6 +98,7 @@ const ZoomControl = () => {
 				<FontAwesomeIcon
 					icon={faMinus}
 					className={`text-[18px] ${canZoomOut ? "text-black" : "text-gray-500"}`}
+					aria-hidden="true"
 				/>
 			</Button>
 		</div>

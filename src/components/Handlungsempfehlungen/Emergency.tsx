@@ -126,7 +126,6 @@ const Emergency: React.FC = () => {
 												href={getLink(key, chunks).link}
 												target={getLink(key, chunks).target}
 												rel="noopener noreferrer"
-												variant={getLink(key, chunks).variant || "default"}
 											>
 												{chunks}
 											</Link>

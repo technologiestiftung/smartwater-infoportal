@@ -28,7 +28,6 @@ export default function About() {
 						link: (chunks) => (
 							<Link
 								href="https://gemeinsamdigital.berlin.de/de/smart-water/"
-								variant="extern"
 							>
 								{chunks}
 							</Link>

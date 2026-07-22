@@ -30,6 +30,12 @@ const Map = () => {
 	return (
 		<>
 			<MapInitializer />
+			<a
+				className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:border-2 focus:border-black focus:bg-white focus:px-4 focus:py-3 focus:font-bold focus:text-text-link focus:outline-2 focus:outline-offset-2 focus:outline-black"
+				href="#after-map"
+			>
+				Karte überspringen
+			</a>
 			<div className={`Map-root ${getMapRootClasses()}`}>
 				<LazyOlMap>
 					<LayerInitializer />
@@ -37,6 +43,9 @@ const Map = () => {
 						<MapNavigationControls />
 					</MapControls>
 				</LazyOlMap>
+			</div>
+			<div id="after-map" tabIndex={-1} className="sr-only">
+				Ende der Karte
 			</div>
 		</>
 	);

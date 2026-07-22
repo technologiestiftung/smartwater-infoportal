@@ -7,6 +7,7 @@
 					"currentStatus": "Aktuell",
 					"hazardLevelIndicator": "{level}: {status}",
 					"notApplicableStatus": "Nicht zutreffend",
+					"riskScale": "Risikoskala von links nach rechts: Grün für geringes Risiko, Gelb für mittleres Risiko und Rot für hohes Risiko.",
 					"riskIndicator": "{factor}: {riskLevel}"
 				},
 				"levelHigh": "Ihr Gebäude weist ein hohes Hochwasserrisiko auf.",
@@ -77,14 +78,16 @@
 						"title": "Flusshochwasser",
 						"high": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Flusshochwasser besteht.",
 						"moderate": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Gelb, weil eine mittlere Gefährdung durch Flusshochwasser besteht.",
-						"low": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Grün, weil an Ihrem Haus keine Gefährdung durch Flusshochwasser besteht."
+						"low": "Für Ihren Standort wurde die Gefährdung durch Flusshochwasser überprüft. Ihre Ampel steht auf Grün, weil an Ihrem Haus keine Gefährdung durch Flusshochwasser besteht.",
+						"unknown": "Für Ihren Standort liegen keine ausreichenden Daten zur Gefährdung durch Flusshochwasser vor."
 					},
 					"heavyRainHazardLevel": {
 						"questionID": "qC",
 						"title": "Starkregen",
 						"high": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Rot, weil an Ihrem Haus eine hohe Gefährdung durch Starkregen besteht.",
 						"moderate": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine mittlere Gefährdung durch Starkregen besteht.",
-						"low": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine geringe Gefährdung durch Starkregen besteht. Jedoch kann eine Gefährdung durch Starkregen nicht ausgeschlossen werden."
+						"low": "Für Ihren Standort wurde die Gefährdung durch Starkregen überprüft. Ihre Ampel steht auf Gelb, weil an Ihrem Haus eine geringe Gefährdung durch Starkregen besteht. Jedoch kann eine Gefährdung durch Starkregen nicht ausgeschlossen werden.",
+						"unknown": "Für Ihren Standort liegen keine ausreichenden Daten zur Gefährdung durch Starkregen vor."
 					}
 				}
 			},

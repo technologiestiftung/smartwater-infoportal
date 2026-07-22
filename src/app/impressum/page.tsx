@@ -145,7 +145,7 @@ export default function Impressum() {
 									className="text-text-link underline"
 									target="_blank"
 								>
-									<Button variant="linkWithIcon">{chunks}</Button>
+									{chunks}
 								</Link>
 							),
 						})}

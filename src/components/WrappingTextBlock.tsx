@@ -23,23 +23,20 @@ export const WrappingTextBlock: React.FC<WrappingTextBlockProps> = ({
 	return (
 		<div className={cn("w-full", className)}>
 			<div className="flex flex-col lg:block">
-				{/* Image-Container */}
 				<div
 					className={cn(
 						"order-2 mt-6 w-full lg:mt-0",
 						imageSide === "right"
-							? "lg:float-right lg:mb-2 lg:ml-8"
-							: "lg:float-left lg:mr-8 lg:mb-2",
+							? "lg:float-right lg:mb-6 lg:ml-6"
+							: "lg:float-left lg:mr-6 lg:mb-6",
 						widthClass,
 					)}
 				>
 					{image}
 				</div>
 
-				{/* Text-Container */}
 				<div className="order-1">{text}</div>
 
-				{/* Clearfix for Desktop Float */}
 				<div className="clear-both" />
 			</div>
 		</div>
