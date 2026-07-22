@@ -30,7 +30,7 @@
 		"dotenv": "^17.2.1",
 		"jspdf": "^4.1.0",
 		"lucide-react": "^0.577.0",
-		"next": "16.2.7",
+		"next": "16.2.10",
 		"next-intl": "^4.1.0",
 		"ol": "^10.6.1",
 		"ol-mapbox-style": "^13.0.1",
