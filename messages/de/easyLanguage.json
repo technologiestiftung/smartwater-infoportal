@@ -110,6 +110,11 @@
 				"alt": "Das Feld für Warnungen"
 			},
 			{
+				"type": "img",
+				"src": "/leichte-sprache/warnung-rot.png",
+				"alt": "Das Feld für Warnungen in Rot"
+			},
+			{
 				"type": "strong",
 				"text": "Das Feld für Warnungen – Es verändert seine Farbe, wenn eine Warnung vorliegt."
 			},
