@@ -45,8 +45,6 @@
 		"zustand": "^5.0.7"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^20.1.0",
-		"@commitlint/config-conventional": "^20.0.0",
 		"@playwright/test": "^1.61.1",
 		"@technologiestiftung/prettier-config": "1.0.0",
 		"@types/jest": "^30.0.0",
