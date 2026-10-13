@@ -1,0 +1,241 @@
+{
+	"leichteSprache": {
+		"pageTitle": "Das Hoch·Wasser-Info·Portal in leichter Sprache",
+		"blocks": [
+			{
+				"type": "h2",
+				"text": "So benutzen Sie die Internet·Seite „Hoch·Wasser-Info·Portal“:"
+			},
+			{
+				"type": "p",
+				"text": "Hier erklären wir unsere Start·Seite. Auf der Start·Seite kommen Sie zu den wichtigsten Bereichen des Hoch·Wasser-Info·Portals."
+			},
+			{ "type": "h3", "text": "Die Kopf·Zeile" },
+			{
+				"type": "img",
+				"src": "/leichte-sprache/kopfzeile.png",
+				"alt": "Die Kopf·Zeile"
+			},
+			{
+				"type": "p",
+				"text": "Ganz oben auf der Start·Seite finden Sie die Kopf·Zeile. Die Kopf·Zeile finden Sie auf jeder Internet·Seite von der Senats·Verwaltung."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/logo-berlin.png",
+				"alt": "Das Wort Berlin und ein Bär"
+			},
+			{
+				"type": "p",
+				"text": "Klicken Sie links oben in der Kopf·Zeile auf den Kasten mit dem Wort Berlin und dem Bild von einem Bären. Dann kommen Sie zu der Internet·Seite von Berlin."
+			},
+			{
+				"type": "p",
+				"text": "Ganz rechts in der Kopf·Zeile finden Sie 3 weitere Zeichen."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/zeichen-barrierefreiheit.png",
+				"alt": "Zeichen für Barriere·Freiheit"
+			},
+			{
+				"type": "strong",
+				"text": "Das Zeichen für Barriere·Freiheit – Es ist ein Männchen in einem dunklen Kreis."
+			},
+			{
+				"type": "p",
+				"text": "Hier finden Sie zum Beispiel Texte in Leichter Sprache oder Videos in Gebärden·Sprache. Gebärden·Sprache ist die Sprache von gehör·losen Menschen."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/zeichen-suche.png",
+				"alt": "Zeichen für die Suche"
+			},
+			{
+				"type": "strong",
+				"text": "Das Zeichen für die Suche – Es ist eine Lupe."
+			},
+			{
+				"type": "p",
+				"text": "Klicken Sie hier, wenn Sie auf der Seite nach einem Wort oder nach einer Information suchen wollen."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/zeichen-menue.png",
+				"alt": "Zeichen für das Menü"
+			},
+			{
+				"type": "strong",
+				"text": "Das Zeichen für das Menü – Es sind 3 Striche."
+			},
+			{
+				"type": "p",
+				"text": "Wenn Sie hier klicken, dann klappt das Menü auf und Sie sehen eine Liste mit allen Haupt·Menü·Punkten."
+			},
+			{ "type": "h3", "text": "Unterhalb der Kopf·Zeile" },
+			{
+				"type": "img",
+				"src": "/leichte-sprache/hochwasser-check.png",
+				"alt": "Der Hoch·Wasser·Check Berlin"
+			},
+			{
+				"type": "strong",
+				"text": "Der Hoch·Wasser·Check Berlin – Es ist ein Eingabe·Feld und ein Kasten mit einem roten Pfeil und der Schrift „Hoch·Wasser·Check Berlin starten“."
+			},
+			{
+				"type": "p",
+				"text": "Mit dem Hoch·Wasser·Check Berlin können Sie prüfen, ob Hoch·Wasser bei Ihnen Zuhause eine Gefahr sein kann."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/handlungsempfehlungen.jpg",
+				"alt": "Ein Haus mit Hoch·Wasser"
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/handlungsempfehlungen-button.png",
+				"alt": "Übersicht Handlungs·Empfehlungen"
+			},
+			{
+				"type": "strong",
+				"text": "Die Handlungs·Empfehlungen – Es ist ein Bild von einem Haus mit Hoch·Wasser und einem Kasten mit einem roten Pfeil und der Schrift „Übersicht Handlungs·Empfehlungen“."
+			},
+			{
+				"type": "p",
+				"text": "Hier erfahren Sie, wie Sie sich und Ihr Zuhause vor Hoch·Wasser schützen können."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/warnung.png",
+				"alt": "Das Feld für Warnungen"
+			},
+			{
+				"type": "strong",
+				"text": "Das Feld für Warnungen – Es verändert seine Farbe, wenn eine Warnung vorliegt."
+			},
+			{
+				"type": "p",
+				"text": "Gibt es gerade ein Hoch·Wasser? Oder gibt es gerade Stark·Regen? Dann gibt es dafür eine Warnung."
+			},
+			{
+				"type": "ul",
+				"items": [
+					"Wenn es grün ist mit einem grünen Haken, dann liegt keine Warnung vor.",
+					"Wenn es rot ist mit einem roten Haken, dann liegt eine Warnung vor."
+				]
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/hintergrund.jpg",
+				"alt": "Ein Feuer·Wehr·Mann steht im Hoch·Wasser"
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/hintergrund-button.png",
+				"alt": "Hinter·Grund·Informationen"
+			},
+			{
+				"type": "strong",
+				"text": "Die Hinter·Grund·Informationen – Es ist ein Bild von einem Feuer·Wehr·Mann, der in einem Hoch·Wasser steht, und einem Kasten mit einem roten Pfeil und der Schrift „Hinter·Grund·Informationen“."
+			},
+			{
+				"type": "p",
+				"text": "Hier werden Wörter wie Hoch·Wasser und Stark·Regen erklärt. Klicken Sie auf den roten Pfeil, um zu den Hinter·Grund·Informationen zu kommen."
+			},
+			{
+				"type": "h2",
+				"text": "Die Infos des Hoch·Wasser-Info·Portals in leichter Sprache"
+			},
+			{
+				"type": "p",
+				"text": "Hier fassen wir die wichtigsten Infos des Hoch·Wasser-Info·Portals zusammen."
+			},
+			{ "type": "h3", "text": "Was ist Hoch·Wasser?" },
+			{
+				"type": "p",
+				"text": "Hoch·Wasser heißt, es gibt zu viel Wasser. Das Wasser ist dann auf Flächen, die sonst trocken sind."
+			},
+			{
+				"type": "p",
+				"text": "Hoch·Wasser können gefährlich sein. Zum Beispiel:"
+			},
+			{
+				"type": "ul",
+				"items": [
+					"Sie können im Wasser einen Strom·Schlag bekommen.",
+					"Das Wasser kann Türen blockieren. Dann können Sie in einem Raum eingeschlossen werden.",
+					"Im Wasser sind oft Bakterien und andere gefährliche Sachen. Ein Teil des Wassers kommt nämlich aus der Kanalisation."
+				]
+			},
+			{
+				"type": "strong",
+				"text": "Deshalb gilt: Gehen Sie niemals in das Wasser! Bleiben Sie von Kellern und Tief·Garagen weg!"
+			},
+			{ "type": "h3", "text": "Wann gibt es in Berlin Hoch·Wasser?" },
+			{
+				"type": "p",
+				"text": "Hoch·Wasser gibt es in Berlin meistens, wenn in kurzer Zeit sehr viel Regen fällt. Das nennt man Stark·Regen."
+			},
+			{
+				"type": "h3",
+				"text": "Warum macht Stark·Regen in Berlin Hoch·Wasser?"
+			},
+			{
+				"type": "p",
+				"text": "In Berlin bedecken viele Straßen, Parkplätze und Häuser den Boden. Darum kann der Boden in Berlin nur wenig Regen·Wasser aufnehmen."
+			},
+			{
+				"type": "p",
+				"text": "Das Regen·Wasser fließt dann in die Kanalisation. Die Kanalisation besteht aus Rohren unter der Erde. Sie leitet das Regen·Wasser und Schmutz·Wasser (z.B. Wasser aus Toiletten) ab."
+			},
+			{
+				"type": "p",
+				"text": "Bei sehr viel Regen reicht das nicht aus. Dann bleibt Wasser auf den Straßen und Wasser kommt aus der Kanalisation hoch. Dieses Wasser fließt in tiefer liegende Bereiche."
+			},
+			{
+				"type": "img",
+				"src": "/leichte-sprache/ueberflutung.png",
+				"alt": "Regen·Wasser fließt von der Straße in tiefer liegende Bereiche"
+			},
+			{
+				"type": "p",
+				"text": "Dort kann Hoch·Wasser entstehen. Das nennt man Überflutung."
+			},
+			{ "type": "h3", "text": "Wie können Sie sich vor Hoch·Wasser schützen?" },
+			{
+				"type": "p",
+				"text": "Hoch·Wasser kann Menschen gefährden: Gehen Sie daher nie in das Hoch·Wasser!"
+			},
+			{
+				"type": "p",
+				"text": "Hoch·Wasser kann Sachen kaputt machen. Zum Beispiel kann Wasser in den Keller laufen. Das Wasser ist oft dreckig. Das Wasser macht die Sachen im Keller kaputt. Sie können etwas dagegen tun:"
+			},
+			{
+				"type": "ul",
+				"items": [
+					"Sie können den Hoch·Wasser·Check Berlin machen. Dann wissen Sie: Gibt es bei Ihnen zu Hause Hoch·Wasser?",
+					"Stellen Sie keine Dinge in Ihrem Keller auf den Boden.",
+					"Es gibt Warn-Apps für das Handy. Eine Warn-App ist ein Programm. Die Warn-App schickt Ihnen Nachrichten, wenn ein Hoch·Wasser kommt. Eine Warn-App ist zum Beispiel: KatWarn."
+				]
+			},
+			{ "type": "h3", "text": "Wie funktioniert der Hoch·Wasser·Check?" },
+			{
+				"type": "p",
+				"text": "Beim Hoch·Wasser·Check geben Sie Ihre Adresse ein. Oder Sie benutzen Ihren aktuellen Ort. Klicken Sie dann auf das Feld mit dem Namen: „Hoch·Wasser·Check Berlin starten“."
+			},
+			{ "type": "p", "text": "Dann haben Sie zwei Optionen." },
+			{
+				"type": "p",
+				"text": "Beim Hoch·Wasser·Check beantworten Sie Fragen zu Ihrem Haus. Dann bekommen Sie Informationen. Zum Beispiel:"
+			},
+			{
+				"type": "ul",
+				"items": [
+					"Wie gefährlich ist ein Hoch·Wasser für Ihr Haus?",
+					"Wie können Sie Ihr Haus vor einem Hoch·Wasser schützen?"
+				]
+			},
+			{ "type": "p", "text": "Sie können die Infos als PDF speichern." }
+		]
+	}
+}

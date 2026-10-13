@@ -7,6 +7,7 @@
 			"Bash(git log*)",
 			"Bash(git show*)",
 			"Bash(git branch)",
+			"Bash(git fetch)",
 			"Bash(git branch --list*)",
 			"Bash(git branch -a*)",
 			"Bash(git branch --show-current)",
