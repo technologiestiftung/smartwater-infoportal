@@ -85,7 +85,8 @@
 			"_not-found": "Seite nicht gefunden",
 			"impressum": "Impressum",
 			"datenschutz": "Datenschutzerklärung",
-			"barrierefreiheit": "Barrierefreiheit"
+			"barrierefreiheit": "Barrierefreiheit",
+			"leichte-sprache": "Leichte Sprache"
 		},
 		"warning": {
 			"currentWarning": "Achtung! Es liegt mindestens eine Warnung vor.",
