@@ -129,7 +129,7 @@ export default function LayoutClient({
 							<span className="flex flex-col gap-6 font-normal">
 								<a
 									className="inline-flex items-center gap-2 text-text-link hover:underline"
-									href="https://www.berlin.de/sen/uvk/ueber-uns/leichte-sprache/"
+									href="/leichte-sprache"
 								>
 									<img
 										alt=""

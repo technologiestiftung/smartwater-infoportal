@@ -1,6 +1,8 @@
 "use client";
 
+import { LocationDataNotFound } from "@/lib/geoserverClient";
 import { CurrentUserAddress } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { searchAddresses } from "@/server/actions/searchAddresses";
 import useStore from "@/store/defaultStore";
 import { push } from "@socialgouv/matomo-next";
@@ -18,8 +20,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import LocationButton from "./LocationButton";
-import { LocationDataNotFound } from "@/lib/geoserverClient";
-import { cn } from "@/lib/utils";
 
 export default function AddressSearch() {
 	const t = useTranslations("home");
@@ -190,6 +190,7 @@ export default function AddressSearch() {
 										key={address}
 										className="cursor-pointer bg-black/20 p-2"
 										onClick={() => {
+											setValue("addresse", address);
 											handleChange({
 												target: { name: "addresse", value: address },
 											} as any);
@@ -217,7 +218,7 @@ export default function AddressSearch() {
 														className={cn(
 															hasHousenumber &&
 																"cursor-pointer text-text-link hover:underline",
-															"select-none text-left disabled:cursor-not-allowed disabled:text-text-lightest",
+															"text-left select-none disabled:cursor-not-allowed disabled:text-text-lightest",
 														)}
 														onClick={() => handleResultClick(result)}
 														disabled={!hasHousenumber}
