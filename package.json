@@ -27,7 +27,7 @@
 		"@tailwindcss/postcss": "^4.3.2",
 		"@turf/turf": "^7.3.4",
 		"berlin-ui-library": "github:technologiestiftung/berlin-ui-library",
-		"dotenv": "^17.2.1",
+		"dotenv": "^18.0.0",
 		"jspdf": "^4.1.0",
 		"lucide-react": "^1.0.0",
 		"next": "16.3.7",
