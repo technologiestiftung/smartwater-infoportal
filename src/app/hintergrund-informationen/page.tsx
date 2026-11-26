@@ -236,7 +236,7 @@ export default function GeneralInformation() {
 										),
 									})}
 								</p>
-								<ul className="list-decimal ps-6 space-y-2">
+								<ul className="list-decimal space-y-2 ps-6">
 									{Object.keys(floodThroughRainItems).map((key) => (
 										<li key={key} className="whitespace-pre-line">
 											{t.rich(
@@ -539,7 +539,7 @@ export default function GeneralInformation() {
 										),
 										link5: (chunks) => (
 											<Link
-												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-3-dl.pdf?__blob=publicationFile&v=2"
+												href="https://www.bbsr.bund.de/BBSR/DE/veroeffentlichungen/sonderveroeffentlichungen/2018/leitfaden-starkregen-auflage-4-dl.pdf?__blob=publicationFile&v=2"
 												target="_blank"
 												rel="noopener noreferrer"
 											>
@@ -589,7 +589,7 @@ export default function GeneralInformation() {
 							>
 								{t("common.toPageTop")}
 								<span
-									className="inline-flex size-5 items-center justify-center rounded-full bg-red text-white"
+									className="bg-red inline-flex size-5 items-center justify-center rounded-full text-white"
 									aria-hidden="true"
 								>
 									<FontAwesomeIcon icon={faArrowUp} className="text-xs" />
