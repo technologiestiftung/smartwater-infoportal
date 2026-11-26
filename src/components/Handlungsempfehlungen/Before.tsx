@@ -45,8 +45,8 @@ const Before: React.FC = () => {
 				return {
 					target: "_blank",
 					link: text.includes("risiko")
-						? "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/hochwasser/hochwasserrisikomanagementrichtlinie/#risikokarten"
-						: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/starkregen-und-ueberflutungen/gefahren/",
+						? "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/hochwasser/karten-zu-flusshochwasser/"
+						: "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/hochwasser/karten-zu-starkregengefahren/",
 				};
 			}
 			return {
